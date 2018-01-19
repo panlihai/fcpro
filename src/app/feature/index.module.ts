@@ -7,15 +7,17 @@ import { RouterModule } from '@angular/router';
 import { Routers } from './index.route';
 import { FcbasicModule,FclayoutModule,FcadModule,FcnavModule } from 'fccomponent';
 import { FccoreModule } from 'fccore';
+import { environment } from '../../environments/environment';
 @NgModule({
   imports: [
     FormsModule,
     CommonModule,
     RouterModule.forChild(Routers),
+    FccoreModule.forRoot(environment),
     FcbasicModule,
     FclayoutModule,
     FcadModule,
-    FcnavModule,FccoreModule
+    FcnavModule,
   ],
   exports: [
     SyscomponentComponent  

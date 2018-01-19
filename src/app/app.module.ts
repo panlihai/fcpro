@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FccoreModule } from 'fccore';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
+import { Routers } from './app.route';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -9,7 +11,9 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule, FccoreModule
+    FormsModule,
+    BrowserModule,
+    RouterModule.forChild(Routers),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,5 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  pid: "SYSTEM",
+  projectName: "FC快速开发平台",
+  systemurl: "/server/",
+  apiurl: "/server/api/",
+  logurl: "/server/api/",
+  authurl: "/server/api/",
+  wsurl: "ws://localhost/server/msg",
+  license:''
 };
