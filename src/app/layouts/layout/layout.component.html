@@ -1,0 +1,9 @@
+<fc-navmenu [(ngModel)]="menuSelectObj" [fcOptions]="menuOptions" (fcBlur)="menuBlur($event);" (fcFocus)="menuFocus($event);"
+    (fcSelect)="menuSelect($event);">
+</fc-navmenu> 
+layout页面
+<router-outlet></router-outlet>
+<fc-button fcLabel="按钮title" fcSize="large" routerLink="/fctitleList"></fc-button>
+<fc-button fcLabel="按钮button" fcSize="default" routerLink="/fcbuttonList"></fc-button>
+<fc-button fcLabel="按钮" fcSize="small"></fc-button>
+<fc-title fcTitle="开关组件1" fcheader></fc-title>
