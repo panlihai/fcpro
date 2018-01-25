@@ -6,22 +6,31 @@ import { RouterModule } from '@angular/router';
 import { FccoreModule } from 'fccore';
 import { AppComponent } from './app.component';
 import { AppRouters } from './app.route';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule } from 'fccomponent';
+import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule, FcalertModule, FcbandModule, FcmodalModule, FcprogressModule, FctabModule, FctlbModule } from 'fccomponent';
 import { LayoutComponent } from './layouts/layout/layout.component';
 import { environment } from '../environments/environment';
-import { SharedModule } from './shared.module';
-import { HttpModule } from '@angular/http';
 @NgModule({
   imports: [
-    SharedModule,
+    CommonModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(AppRouters),
     FccoreModule.forRoot(environment),
     FcadModule,
+    FcalertModule,
     FcbasicModule,
+    FcbandModule,
     FclayoutModule,
-    FcnavModule
+    FcmodalModule,
+    FcnavModule,
+    FcprogressModule,
+    FclistModule,
+    FctabModule,  
+    FcnavModule,
+    FctlbModule
   ],
   exports: [
     AppComponent,

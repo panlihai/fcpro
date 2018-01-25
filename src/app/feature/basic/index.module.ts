@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { basicRouters } from './index.route';
-import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule } from 'fccomponent';
+import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FcalertModule, FcbandModule, FcmodalModule, FcprogressModule, FclistModule, FctabModule, FctlbModule } from 'fccomponent';
 import { FccoreModule } from 'fccore';
 import { ButtonComponent } from './button/button.component';
 import { AnyComponent } from './any/any.component';
@@ -37,19 +37,33 @@ import { TitleComponent } from './title/title.component';
 import { UploadComponent } from './upload/upload.component';
 import { TreeComponent } from './tree/tree.component';
 import { BacktopComponent } from './backtop/backtop.component';
-import { SharedModule } from '../../shared.module';
+import { environment } from '../../../environments/environment';
+import {
+  AppService, DaoService, CacheService, CommonService, MenuService, MessageService,
+  SysappbuttonsService, SysappfieldsService, SysappfldgroupService, SysapplinksService, SysdicappdetailService, SysdicappService,
+  SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService,
+  SysinterfaceService, SysmenuService, SysstyleService
+} from 'fccore';
 @NgModule({
   imports: [
-    CommonModule,
-    // SharedModule,
+   
+    // ReactiveFormsModule, CommonModule,
+    // // BrowserModule,
     // FormsModule,
-    // BrowserModule,
+    FccoreModule.forRoot(environment),
     RouterModule.forChild(basicRouters),
-    // FcbasicModule,
-    // FclayoutModule,
-    // FcadModule,
+    FcadModule,
+    FcalertModule,
+    FcbasicModule,
+    FcbandModule,
+    FclayoutModule,
+    FcmodalModule,
     FcnavModule,
-    FccoreModule
+    FcprogressModule,
+    FclistModule,
+    FctabModule,  
+    FcnavModule,
+    FctlbModule
   ],
   exports: [
 
@@ -88,7 +102,9 @@ import { SharedModule } from '../../shared.module';
     UploadComponent
   ],
   providers: [
-
+    AppService, DaoService, CacheService, CommonService, MenuService, MessageService,
+    SysappbuttonsService, SysappfieldsService, SysappfldgroupService, SysapplinksService, SysdicappdetailService, SysdicappService,
+    SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService, SysinterfaceService, SysmenuService, SysstyleService
   ]
 })
 export class BasicModule { }

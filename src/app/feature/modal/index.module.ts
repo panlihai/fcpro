@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { modalRouters } from './index.route';
 import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule } from 'fccomponent';
-import { FccoreModule } from 'fccore';
 import { ModalcardComponent } from './modalcard/modalcard.component';
 import { ModalconfirmComponent } from './modalconfirm/modalconfirm.component';
 import { ModaldangerComponent } from './modaldanger/modaldanger.component';
@@ -13,6 +12,13 @@ import { ModallistComponent } from './modallist/modallist.component';
 import { ModalsuccessComponent } from './modalsuccess/modalsuccess.component';
 import { ModaltreelistComponent } from './modaltreelist/modaltreelist.component';
 import { ModalwarnComponent } from './modalwarn/modalwarn.component';
+import {
+  FccoreModule,AppService, DaoService, CacheService, CommonService, MenuService, MessageService,
+  SysappbuttonsService, SysappfieldsService, SysappfldgroupService, SysapplinksService, SysdicappdetailService, SysdicappService,
+  SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService,
+  SysinterfaceService, SysmenuService, SysstyleService
+} from 'fccore';
+import { environment } from '../../../environments/environment';
 @NgModule({
   imports: [
     FormsModule,
@@ -21,7 +27,7 @@ import { ModalwarnComponent } from './modalwarn/modalwarn.component';
     FcbasicModule,
     FclayoutModule,
     FcadModule,
-    FcnavModule, FccoreModule
+    FcnavModule, FccoreModule.forRoot(environment),
   ],
   exports: [
 
@@ -37,7 +43,9 @@ import { ModalwarnComponent } from './modalwarn/modalwarn.component';
     ModalwarnComponent,
   ],
   providers: [
-
+    AppService, DaoService, CacheService, CommonService, MenuService, MessageService,
+    SysappbuttonsService, SysappfieldsService, SysappfldgroupService, SysapplinksService, SysdicappdetailService, SysdicappService,
+    SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService, SysinterfaceService, SysmenuService, SysstyleService
   ]
 })
 export class ModalModule { }
