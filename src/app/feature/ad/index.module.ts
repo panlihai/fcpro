@@ -9,8 +9,6 @@ import { AdformComponent } from './adform/adform.component';
 import { AddetailComponent } from './addetail/addetail.component';
 @NgModule({
   imports: [
-    FormsModule,
-    CommonModule,
     RouterModule.forChild(adRouters),
     FcbasicModule,
     FclayoutModule,
