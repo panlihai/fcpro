@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
     height: 100%;
     background-color: #373d41;
     position: absolute;
+    overflow:auto;
 }
 
 .sigin {
@@ -150,7 +151,7 @@ import { Router } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
