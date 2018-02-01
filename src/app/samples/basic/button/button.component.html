@@ -51,3 +51,12 @@
         </fc-layoutgroup>
     </fc-layoutcol>
 </fc-layoutpanel>
+
+<fc-layoutpanel>
+    <fc-title fcTitle="属性" fcheader> </fc-title>
+    <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOptions]="fcOptions" fcCondition='{"APPID":"FCBUTTON"}'></fc-listdata>
+</fc-layoutpanel>
+<fc-layoutpanel>
+    <fc-title fcTitle="事件" fcheader> </fc-title>
+    <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOptions]="fcOptions" fcCondition='{"APPID":"FCBUTTON"}'></fc-listdata>
+</fc-layoutpanel>
