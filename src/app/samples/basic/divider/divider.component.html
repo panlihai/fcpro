@@ -1,0 +1,65 @@
+<!-- 分隔 fc-divider -->
+<fc-layoutpanel>
+    <fc-title fcTitle="分隔" fcheader></fc-title>
+    <fc-layoutcol fccontent fcSpans="1,1">
+        <fc-layoutgroup fcTitle="基本" fccontent1>
+            <div fccontent>
+                <fc-divider></fc-divider>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="类型" fccontent2>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="大小" fccontent1>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="带文字" fccontent2>
+            <div fccontent>
+                <fc-divider fcText="这是一个分割线"></fc-divider>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="默认箭头方向" fccontent1>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="点击后走向东" fccontent2>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="点击后走向南" fccontent1>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="点击后走向西" fccontent2>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="点击后走向北" fccontent1>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="更多" fccontent2>
+            <div fccontent>
+                待开发
+            </div>
+        </fc-layoutgroup>
+    </fc-layoutcol>
+</fc-layoutpanel>
+<!-- API -->
+<fc-layoutpanel>
+    <fc-title fcTitle="属性" fcheader> </fc-title>
+    <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOptions]="fcOptions" [fcCondition]="fcCondition"></fc-listdata>
+</fc-layoutpanel>
+<fc-layoutpanel>
+    <fc-title fcTitle="事件" fcheader> </fc-title>
+    <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOptions]="fcOptions" [fcCondition]="fcCondition"></fc-listdata>
+</fc-layoutpanel>

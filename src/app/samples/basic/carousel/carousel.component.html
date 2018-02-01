@@ -1,0 +1,50 @@
+<!-- 轮播图 fc-carousel -->
+<fc-layoutpanel>
+    <fc-title fcTitle="轮播图" fcheader></fc-title>
+    <fc-layoutcol fccontent fcSpans="1,1">
+        <fc-layoutgroup fcTitle="基本" fccontent1>
+            <div fccontent>
+                <fc-carousel [fcContents]="carousel1"></fc-carousel>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="垂直" fccontent2>
+            <div fccontent>
+                <fc-carousel fcVertical="true" [fcContents]="carousel1"></fc-carousel>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="大小" fccontent1>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="渐现" fccontent2>
+            <div fccontent>
+                <fc-carousel [fcContents]="carousel1" fcEffect="fade"></fc-carousel>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="关闭自动切换" fccontent1>
+            <div fccontent>
+                <fc-carousel [fcContents]="carousel1" fcAutoPlay="false"></fc-carousel>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="播放速度" fccontent2>
+            <div fccontent>
+                <fc-carousel [fcContents]="carousel1" fcAutoPlaySpeed="5000"></fc-carousel>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="更多" fccontent1>
+            <div fccontent>
+                待开发
+            </div>
+        </fc-layoutgroup>
+    </fc-layoutcol>
+</fc-layoutpanel>
+<!-- API -->
+<fc-layoutpanel>
+    <fc-title fcTitle="属性" fcheader> </fc-title>
+    <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOptions]="fcOptions" [fcCondition]="fcCondition"></fc-listdata>
+</fc-layoutpanel>
+<fc-layoutpanel>
+    <fc-title fcTitle="事件" fcheader> </fc-title>
+    <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOptions]="fcOptions" [fcCondition]="fcCondition"></fc-listdata>
+</fc-layoutpanel>

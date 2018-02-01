@@ -17,10 +17,9 @@ export const AppRouters: Routes = [
             {
                 path: 'home',
                 component: HomeComponent,
-            },
-            {
-                path: '',//基础组件
-                loadChildren: './samples/basic/index.module#BasicModule'
+            }, {
+                path: '',//高级组件
+                loadChildren: './samples/index.module#SamplesModule'
             }
         ]
     }, {
@@ -29,5 +28,5 @@ export const AppRouters: Routes = [
     }, {
         path: 'signup',//注册
         component: SignupComponent
-    }
+    } 
 ];

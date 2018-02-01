@@ -9,7 +9,6 @@ import {
   FcadModule,
   FcnavModule,
   FcalertModule,
-  // FcbandModule, 
   FcmodalModule,
   FcprogressModule,
   FclistModule,
@@ -35,7 +34,6 @@ import { FastpositionComponent } from './fastposition/fastposition.component';
 import { IconComponent } from './icon/icon.component';
 import { LongComponent } from './long/long.component';
 import { ManyComponent } from './many/many.component';
-import { PanelComponent } from './panel/panel.component';
 import { PopoverComponent } from './popover/popover.component';
 import { RadioComponent } from './radio/radio.component';
 import { RateComponent } from './rate/rate.component';
@@ -64,7 +62,6 @@ import {
     FcadModule,
     FcalertModule,
     FcbasicModule,
-    // FcbandModule,
     FclayoutModule,
     FcmodalModule,
     FcnavModule,
@@ -97,7 +94,6 @@ import {
     IconComponent,
     LongComponent,
     ManyComponent,
-    PanelComponent,
     PopoverComponent,
     RadioComponent,
     RateComponent,
@@ -111,7 +107,8 @@ import {
     UploadComponent
   ],
   providers: [
-    AppService, DaoService, CacheService, CommonService, MenuService, MessageService,
+    AppService,
+     DaoService, CacheService, CommonService, MenuService, MessageService,
     SysappbuttonsService, SysappfieldsService, SysappfldgroupService, SysapplinksService, SysdicappdetailService, SysdicappService,
     SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService, SysinterfaceService, SysmenuService, SysstyleService
   ]
