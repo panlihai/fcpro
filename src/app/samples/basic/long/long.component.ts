@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./long.component.css']
 })
 export class LongComponent implements OnInit {
-
+  longValue: number = 5;
   constructor() { }
 
   ngOnInit() {

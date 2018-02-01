@@ -9,7 +9,6 @@ import {
   FcadModule,
   FcnavModule,
   FcalertModule,
-  // FcbandModule, 
   FcmodalModule,
   FcprogressModule,
   FclistModule,
@@ -64,7 +63,6 @@ import {
     FcadModule,
     FcalertModule,
     FcbasicModule,
-    // FcbandModule,
     FclayoutModule,
     FcmodalModule,
     FcnavModule,
@@ -111,7 +109,8 @@ import {
     UploadComponent
   ],
   providers: [
-    AppService, DaoService, CacheService, CommonService, MenuService, MessageService,
+    AppService,
+     DaoService, CacheService, CommonService, MenuService, MessageService,
     SysappbuttonsService, SysappfieldsService, SysappfldgroupService, SysapplinksService, SysdicappdetailService, SysdicappService,
     SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService, SysinterfaceService, SysmenuService, SysstyleService
   ]

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./datetime.component.css']
 })
 export class DatetimeComponent implements OnInit {
-
+  now = new Date();
   constructor() { }
 
   ngOnInit() {

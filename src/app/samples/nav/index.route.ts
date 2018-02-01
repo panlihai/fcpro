@@ -8,25 +8,25 @@ import { NavstepComponent } from './navstep/navstep.component';
 import { NavtabComponent } from './navtab/navtab.component';
 export const navRouters: Routes = [
     {
-        path: 'fcnavbarList',//导航栏
+        path: 'fcnavbarList/:menuId',//导航栏
         component: NavbarComponent
     }, {
-        path: 'fcnavbreadcrumbList',//路径
+        path: 'fcnavbreadcrumbList/:menuId',//路径
         component: NavbreadcrumbComponent
     }, {
-        path: 'fcnavdropdownList',//下拉
+        path: 'fcnavdropdownList/:menuId',//下拉
         component: NavdropdownComponent
     }, {
-        path: 'fcnavmenuList',//菜单
+        path: 'fcnavmenuList/:menuId',//菜单
         component: NavmenuComponent
     }, {
-        path: 'fcnavsideList',//侧边框
+        path: 'fcnavsideList/:menuId',//侧边框
         component: NavsideComponent
     }, {
-        path: 'fcnavsteplList',//步骤
+        path: 'fcnavsteplList/:menuId',//步骤
         component: NavstepComponent
     }, {
-        path: 'fcnavtabList',//选项卡
+        path: 'fcnavtabList/:menuId',//选项卡
         component: NavtabComponent
     }
 ];

@@ -1,0 +1,44 @@
+<!-- 下拉多选 fc-chosen -->
+<fc-layoutpanel>
+    <fc-title fcTitle="下拉多选" fcheader></fc-title>
+    <fc-layoutcol fccontent fcSpans="1,1">
+        <fc-layoutgroup fcTitle="基本" fccontent1>
+            <div fccontent>
+                <label>{{chosenValue}}</label>
+                <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" [fcOptions]="chosenOptions"></fc-chosen>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="类型" fccontent2>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="大小" fccontent1>
+            <div fccontent>
+                <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" fcSize="default" [fcOptions]="chosenOptions"></fc-chosen>
+                <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" fcSize="large" [fcOptions]="chosenOptions"></fc-chosen>
+                <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" fcSize="small" [fcOptions]="chosenOptions"></fc-chosen>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="禁用" fccontent2>
+            <div fccontent>
+                <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" [fcOptions]="chosenOptionsDisabled"></fc-chosen>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="带搜索框" fccontent1>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="当下拉列表为空时显示的内容" fccontent2>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="更多" fccontent1>
+            <div fccontent>
+                待开发
+            </div>
+        </fc-layoutgroup>
+    </fc-layoutcol>
+</fc-layoutpanel>

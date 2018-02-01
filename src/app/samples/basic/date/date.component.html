@@ -1,0 +1,64 @@
+<!-- 日期 fc-date -->
+<fc-layoutpanel>
+    <fc-title fcTitle="日期" fcheader></fc-title>
+    <fc-layoutcol fccontent fcSpans="1,1">
+        <fc-layoutgroup fcTitle="基本" fccontent1>
+            <div fccontent>
+                <fc-date></fc-date>
+                <fc-date [(ngModel)]="now"></fc-date>
+                <fc-date fcMode='month' style="margin-top: 24px;display:block;"></fc-date>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="类型1" fccontent2>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="大小" fccontent1>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="禁用" fccontent2>
+            <div fccontent>
+                <fc-date [(ngModel)]="now"></fc-date>
+                <fc-date [(ngModel)]="now" fcDisabled="true"></fc-date>
+                <fc-date [(ngModel)]="now" fcMode="month" fcDisabled="true" style="margin-top: 24px;display:block;"></fc-date>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="月份日期格式" fccontent1>
+            <div fccontent>
+                <fc-date [(ngModel)]="now"></fc-date>
+                <fc-date [(ngModel)]="now" fcFormat="YYYY/MM/DD"></fc-date>
+                <fc-date [(ngModel)]="now" fcFormat="YYYY年MM月DD日" style="margin-top: 24px;display:block;"></fc-date>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="月份日期时间格式" fccontent2>
+            <div fccontent>
+                <fc-date [(ngModel)]="now" fcMode="month"></fc-date>
+                <fc-date [(ngModel)]="now" fcMode="month" fcFormat="YYYY/MM"></fc-date>
+                <fc-date [(ngModel)]="now" fcMode="month" fcFormat="YYYY年MM月" style="margin-top: 24px;display:block;"></fc-date>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="某天之前" fccontent1>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="某天之后" fccontent2>
+            <div fccontent>
+                正在开发中
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="输入提示符" fccontent2>
+            <div fccontent>
+                <fc-date fcPlaceHolder="这是输入提示符参数"></fc-date>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="更多" fccontent1>
+            <div fccontent>
+                待开发
+            </div>
+        </fc-layoutgroup>
+    </fc-layoutcol>
+</fc-layoutpanel>
