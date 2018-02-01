@@ -11,7 +11,6 @@ import { FCEVENT } from 'fccomponent/fc';
   `]
 })
 export class LayoutComponent implements OnInit {
-  menuSelectObj: any = {};
   _navbarStatus = "closed";
   _navmenuStatus = "opened";
   //侧边栏配置
