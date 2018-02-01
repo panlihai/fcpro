@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { basicRouters } from './index.route';
@@ -46,11 +45,9 @@ import {
 } from 'fccore';
 @NgModule({
   imports: [
-   
-    // ReactiveFormsModule, CommonModule,
-    // // BrowserModule,
-    // FormsModule,
-    FccoreModule.forRoot(environment),
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forChild(basicRouters),
     FcadModule,
     FcalertModule,
@@ -61,7 +58,7 @@ import {
     FcnavModule,
     FcprogressModule,
     FclistModule,
-    FctabModule,  
+    FctabModule,
     FcnavModule,
     FctlbModule
   ],

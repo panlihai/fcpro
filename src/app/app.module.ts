@@ -1,48 +1,91 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { FccoreModule } from 'fccore';
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { AppRouters } from './app.route';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule, FcalertModule, FcbandModule, FcmodalModule, FcprogressModule, FctabModule, FctlbModule } from 'fccomponent';
-import { LayoutComponent } from './layouts/layout/layout.component';
+import {
+  FccoreModule,
+  AppService,
+  DaoService,
+  CacheService,
+  CommonService,
+  MenuService,
+  MessageService,
+  SysappbuttonsService,
+  SysappfieldsService,
+  SysappfldgroupService,
+  SysapplinksService,
+  SysdicappdetailService,
+  SysdicappService,
+  SysdicdetailService,
+  SysdicService,
+  SysmessageService,
+  SysinterfaceparamService,
+  SysinterfaceService,
+  SysmenuService,
+  SysstyleService
+} from 'fccore';
+import {
+  FcnavModule, 
+  FcbasicModule, 
+  FcadModule, 
+  FcbandModule, 
+  FcmodalModule,
+  FctabModule, 
+  FctlbModule, 
+  FcsearchModule, 
+  FcalertModule, 
+  FclayoutModule, 
+  FclistModule
+} from 'fccomponent';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { environment } from '../environments/environment';
+import { AppRouters } from './app.route';
+import { LayoutComponent } from './layout/layout.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(AppRouters),
-    FccoreModule.forRoot(environment),
-    FcadModule,
-    FcalertModule,
-    FcbasicModule,
-    FcbandModule,
-    FclayoutModule,
-    FcmodalModule,
-    FcnavModule,
-    FcprogressModule,
-    FclistModule,
-    FctabModule,  
-    FcnavModule,
-    FctlbModule
-  ],
-  exports: [
-    AppComponent,
-    LayoutComponent,
-    RouterModule
-  ],
   declarations: [
     AppComponent,
     LayoutComponent
   ],
+  imports: [
+    FormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(AppRouters),
+    FccoreModule.forRoot(environment),
+    FcnavModule,
+    FcbasicModule,
+    FcadModule,
+    FcbandModule,
+    FctabModule,
+    FctlbModule,
+    FcsearchModule,
+    FcalertModule,
+    FclayoutModule,
+    FclistModule,
+    FcmodalModule
+  ],
   providers: [
-
+    AppService,
+    DaoService,
+    CacheService,
+    CommonService,
+    MenuService,
+    MessageService,
+    SysappbuttonsService,
+    SysappfieldsService,
+    SysappfldgroupService,
+    SysapplinksService,
+    SysdicappdetailService,
+    SysdicappService,
+    SysdicdetailService,
+    SysdicService,
+    SysmessageService,
+    SysinterfaceparamService,
+    SysinterfaceService,
+    SysmenuService,
+    SysstyleService
   ],
   bootstrap: [AppComponent]
 })

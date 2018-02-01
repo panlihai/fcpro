@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
-// import { UserService } from 'fccore';
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './layouts/layout/layout.component';
+import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
 export const AppRouters: Routes = [
     {
