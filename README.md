@@ -27,6 +27,15 @@ FC是fastcore的简称
 4.强制模块化.
 5.标准化的组件、具备数据绑定、可扩展性、整洁
 6.采用angular作为前端框架，推荐使用TYPESCRIPT2.2规范编写代码，展现层原子组件采用蚂蚁金服ant design或其扩展产品，把功能组件与业务相结合形成业务组件；所有开发人员通过业务组件化的设计思路开发前端产品；业务组件形成模块，模块独立文件夹，独立项目，独立发布；提供核心模块、工具模块，所有业务模块依赖工具模块，核心模块依赖工具模块及各业务模块，核心模块组合不同业务模块形成不同产品
+##版本请更新至
+<pre>
+    <code>
+    fccomponent version 0.2.6 
+    fccore version 0.3.1
+    please npm install fccomponent@0.2.6 --save
+    please npm install fccore@0.3.1 --save
+    <code>
+</pre>
 ## 开发计划
 -这是平台的开发计划
 <pre>

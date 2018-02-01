@@ -1,50 +1,49 @@
-<!-- 按钮 fc-button -->
+<!-- 大文本 fc-textarea -->
 <fc-layoutpanel>
-    <fc-title fcTitle="按钮" fcheader></fc-title>
+    <fc-title fcTitle="大文本" fcheader></fc-title>
     <fc-layoutcol fccontent fcSpans="1,1">
         <fc-layoutgroup fcTitle="基本" fccontent1>
             <div fccontent>
-                <fc-button fcLabel="按钮" fcSize="large"></fc-button>
-                <fc-button fcLabel="按钮" fcSize="default"></fc-button>
-                <fc-button fcLabel="按钮" fcSize="small"></fc-button>
+                <label>{{content}}</label>
+                <fc-textarea fcPlaceHolder="请输入"></fc-textarea>
+                <fc-textarea [(ngModel)]="content" style="display:block;margin-top:24px;"></fc-textarea>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="按钮类型" fccontent2>
+        <fc-layoutgroup fcTitle="类型" fccontent2>
             <div fccontent>
-                <fc-button fcLabel="primary" fcType="primary"></fc-button>
-                <fc-button fcLabel="default" fcType="default"></fc-button>
-                <fc-button fcLabel="dashed" fcType="dashed"></fc-button>
-                <fc-button fcLabel="danger" fcType="danger"></fc-button>
+                <fc-textarea fcType="password" [(ngModel)]="content"></fc-textarea>
+                <fc-textarea fcType="search" fcPlaceHolder="请输入查询条件" style="display:block;margin-top:24px;"></fc-textarea>
+                <fc-textarea fcType="hidden" style="display:block;margin-top:24px;"></fc-textarea>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="按钮大小" fccontent1>
+        <fc-layoutgroup fcTitle="大小" fccontent1>
             <div fccontent>
-                <fc-button fcLabel="large" fcSize="large"></fc-button>
-                <fc-button fcLabel="default" fcSize="default"></fc-button>
-                <fc-button fcLabel="small" fcSize="small"></fc-button>
+                <fc-textarea [(ngModel)]="content" fcSize="small"></fc-textarea>
+                <fc-textarea [(ngModel)]="content" fcSize="default" style="display:block;margin-top:24px;"></fc-textarea>
+                <fc-textarea [(ngModel)]="content" fcSize="large" style="display:block;margin-top:24px;"></fc-textarea>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="禁用" fccontent2>
             <div fccontent>
-                正在开发中
+                <fc-textarea [(ngModel)]="content" fcDisabled="true"></fc-textarea>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="图标按钮" fccontent2>
+        <fc-layoutgroup fcTitle="控制固定框的行数" fccontent1>
             <div fccontent>
-                正在开发中
+                <fc-textarea [(ngModel)]="content" fcRows="4"></fc-textarea>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="幽灵按钮" fccontent2>
+        <fc-layoutgroup fcTitle="只读" fccontent2>
             <div fccontent>
-                正在开发中
+                <fc-textarea [(ngModel)]="content" fcReadonly="true"></fc-textarea>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="按钮下拉" fccontent1>
+        <fc-layoutgroup fcTitle="在文字框中显示提示讯息" fccontent1>
             <div fccontent>
-                正在开发中
+                <fc-textarea [(ngModel)]="content" fcPlaceHolder="请输入..."></fc-textarea>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="更多" fccontent1>
+        <fc-layoutgroup fcTitle="更多" fccontent2>
             <div fccontent>
                 待开发
             </div>

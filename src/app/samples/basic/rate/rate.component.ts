@@ -8,6 +8,7 @@ import { ComponentService } from '../../services/component.service';
   styleUrls: ['./rate.component.css']
 })
 export class RateComponent extends ComponentParent {
+  rateValue: number = 5;
   constructor(public mainService: ComponentService) {
     super('FCRATE', mainService);
   }

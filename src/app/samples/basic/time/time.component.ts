@@ -8,6 +8,8 @@ import { ComponentService } from '../../services/component.service';
   styleUrls: ['./time.component.css']
 })
 export class TimeComponent extends ComponentParent {
+  now = new Date();
+  nownull = '';
   constructor(public mainService: ComponentService) {
     super('FCTIME', mainService);
   }
