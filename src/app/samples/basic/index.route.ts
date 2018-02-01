@@ -17,7 +17,6 @@ import { FastpositionComponent } from './fastposition/fastposition.component';
 import { IconComponent } from './icon/icon.component';
 import { LongComponent } from './long/long.component';
 import { ManyComponent } from './many/many.component';
-import { PanelComponent } from './panel/panel.component';
 import { PopoverComponent } from './popover/popover.component';
 import { RadioComponent } from './radio/radio.component';
 import { RateComponent } from './rate/rate.component';
@@ -88,9 +87,6 @@ export const basicRouters: Routes = [
     }, {
         path: 'fcmanyList/:menuId',//自定义下拉多选
         component: ManyComponent
-    }, {
-        path: 'fcpanelList/:menuId',//面板
-        component: PanelComponent
     }, {
         path: 'fcpopoverList/:menuId',//气泡
         component: PopoverComponent

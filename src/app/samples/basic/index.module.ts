@@ -34,7 +34,6 @@ import { FastpositionComponent } from './fastposition/fastposition.component';
 import { IconComponent } from './icon/icon.component';
 import { LongComponent } from './long/long.component';
 import { ManyComponent } from './many/many.component';
-import { PanelComponent } from './panel/panel.component';
 import { PopoverComponent } from './popover/popover.component';
 import { RadioComponent } from './radio/radio.component';
 import { RateComponent } from './rate/rate.component';
@@ -95,7 +94,6 @@ import {
     IconComponent,
     LongComponent,
     ManyComponent,
-    PanelComponent,
     PopoverComponent,
     RadioComponent,
     RateComponent,

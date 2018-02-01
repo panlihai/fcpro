@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { ComponentParent } from '../../componentparent';
+import { ComponentService } from '../../services/component.service';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css']
 })
-export class CarouselComponent implements OnInit {
-  //轮播图
+export class CarouselComponent extends ComponentParent {
   carousel1: any[];
-  constructor() {
-    
-   }
-  ngOnInit() {
-    //轮播图
+  constructor(public mainService: ComponentService) {
+    super('FCCAROUSEL', mainService);
     this.carousel1 = [
       {
         label: "1",
@@ -29,5 +27,5 @@ export class CarouselComponent implements OnInit {
       }
     ]
   }
-
 }
+
