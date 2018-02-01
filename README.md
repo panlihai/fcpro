@@ -1634,6 +1634,8 @@ FC是fastcore的简称
     </code>
 </pre>
 ##  代码规范
+<code>
+    <pre>
 -1.命名规范：
    模块命名：英文名称作为文件夹名称；
     Directive命名：英文名称+.directive.ts作为名称；
@@ -1657,3 +1659,5 @@ FC是fastcore的简称
 避免出现function方法，应采用箭头表单式；
 方法之间保留一行空格；
 方法名称后面的大括号保持与方法名称一行内
+  </code>
+</pre>

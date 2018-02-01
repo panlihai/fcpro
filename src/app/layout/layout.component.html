@@ -1,9 +1,16 @@
-<fc-navmenu [(ngModel)]="menuSelectObj" [fcOptions]="menuOptions" (fcBlur)="menuBlur($event);" (fcFocus)="menuFocus($event);"
-    (fcSelect)="menuSelect($event);">
-</fc-navmenu> 
-layout页面
-<router-outlet></router-outlet>
-<fc-button fcLabel="按钮title" fcSize="large" routerLink="/fctitleList"></fc-button>
-<fc-button fcLabel="按钮button" fcSize="default" routerLink="/fcbuttonList"></fc-button>
-<fc-button fcLabel="按钮" fcSize="small"></fc-button>
-<fc-title fcTitle="开关组件1" fcheader></fc-title>
+<fc-layoutrow>
+    <!-- 顶部工具栏 fc-navbar-->
+    <fc-navbar fccontent1 fcTitle="基础服务平台-组件" fcFull="true" (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar>
+    <fc-layoutcol fccontent2 fcSpans="2,9" fcFull="true">
+        <!-- 菜单导航 fc-navmenu-->
+        <fc-navmenu fccontent1 [(ngModel)]="menuSelectObj" [fcOptions]="menuOptions" (fcEvent)="navmenuEvent($event);" fcFull="true">
+        </fc-navmenu>
+        <fc-layoutpanel fccontent2>
+            <div fccontent>
+                <router-outlet></router-outlet>
+            </div>
+        </fc-layoutpanel>
+    </fc-layoutcol>
+</fc-layoutrow>
+<!-- 消息侧边栏 fc-navside-->
+<fc-navside [fcOptions]="navSide" [fcStatus]="_navbarStatus" (fcEvent)="navbarEvent($event)"></fc-navside>
