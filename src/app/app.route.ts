@@ -28,5 +28,5 @@ export const AppRouters: Routes = [
     }, {
         path: 'signup',//注册
         component: SignupComponent
-    } 
+    }
 ];
