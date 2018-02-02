@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuOptions, NAVSIDEOPTIONS, NAVSIDECOLOR, FcnavsideComponent } from 'fccomponent/fcnav';
+import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent } from 'fccomponent/fcnav';
 import { environment } from '../../environments/environment';
 import { FCEVENT } from 'fccomponent/fc';
 @Component({
@@ -14,7 +14,7 @@ export class LayoutComponent implements OnInit {
   _navbarStatus = "closed";
   _navmenuStatus = "opened";
   //侧边栏配置
-  navSide: NAVSIDEOPTIONS = {
+  navSide: NavsideOptions = {
     fcAppid: '',
     fcLabelCode1: '全部消息',
     fcLabelCode2: '未读消息',
