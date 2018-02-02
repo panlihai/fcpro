@@ -29,6 +29,7 @@ import { TitleComponent } from './title/title.component';
 import { TreeComponent } from './tree/tree.component';
 import { UploadComponent } from './upload/upload.component';
 import { BacktopComponent } from './backtop/backtop.component';
+import { TooltipComponent } from './tooltip/tooltip.component';
 export const basicRouters: Routes = [
     {
         path: 'fcbuttonList/:menuId',//按钮
@@ -120,5 +121,8 @@ export const basicRouters: Routes = [
     }, {
         path: 'fcuploadList/:menuId',//上传
         component: UploadComponent
+    }, {
+        path: 'fctooltipList/:menuId',//文字提示
+        component: TooltipComponent
     }
 ];

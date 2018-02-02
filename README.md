@@ -30,10 +30,8 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
-    fccomponent version 0.2.6 
-    fccore version 0.3.1
-    please npm install fccomponent@0.2.6 --save
-    please npm install fccore@0.3.1 --save
+    please npm install fccomponent@0.2.8 --save
+    please npm install fccore@0.3.2 --save
     <code>
 </pre>
 ## 开发计划
