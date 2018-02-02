@@ -17,6 +17,10 @@ import {
 } from 'fccomponent';
 import { FccoreModule } from 'fccore';
 import { MainComponent } from './components/main/main.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
+import { ErrorComponent } from './components/error/error.component';
+import { LockscreenComponent } from './components/lockscreen/lockscreen.component';
+import { ForgotComponent } from './components/forgot/forgot.component';
 @NgModule({
   imports: [
     RouterModule.forChild(Routers),
@@ -36,7 +40,11 @@ import { MainComponent } from './components/main/main.component';
 
   ],
   declarations: [
-    MainComponent
+    MainComponent,
+    NotfoundComponent,
+    ErrorComponent,
+    LockscreenComponent,
+    ForgotComponent    
   ],
   providers: [
   ]

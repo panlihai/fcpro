@@ -5,33 +5,28 @@
         <div class="container-fluid">
           <div class="navbar-header">
             <a class="navbar-brand" href="javascript:;">
-              <img alt="Brand" src="assets/img/logo.png" width="50" />
+              <img alt="Brand" *ngIf="false" src="assets/img/logo.png" width="50" />
+              <i class="anticon anticon-api" style="font-size: 30px;
+              color: #fff;
+              margin-left: 30px;
+              margin-top: 30px;"></i>
+              <span style="color:#ffffff;font-size:30px;">基础服务平台</span>
             </a>
           </div>
-          <ul class="nav navbar-nav" style="background-color: transparent;color:#ffffff;">
-            <li class="active">
-              <a href="javascript:;" class="logo-txt">基础服务平台</a>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a href="javascript:;">首页</a>
-            </li>
-          </ul>
         </div>
       </nav>
     </div>
     <div class="sigin-body">
       <div class="sigin-body-box">
         <div class="sigin-body-txt-box">
-          <h3>FAST CORE</h3>
+          <h3 style="color:#ffffff;font-size:28px;">FAST CORE</h3>
           <p>快速开发平台</p>
           <p>近一年的中后台设计实践，积累了大量的优秀案例。</p>
           <p>总结中后台设计中反复出现的问题，并提供相应的解决方案。</p>
           <p>丰富、灵活、实用的基础组件，为业务产品提供强有力的设计支持。</p>
           <p class="start-button">
-            <a href="#" class="btn btn-primary" role="button">设计规范</a>
-            <a href="#" class="btn btn-default start-button-last" role="button">开发指引</a>
+            <fc-button fcLabel="设计规范" fcType="primary"></fc-button>
+            <fc-button fcLabel="开发指引" fcType="primary" routerLink="/home"></fc-button>
           </p>
         </div>
         <div class="sigin-module">
@@ -44,12 +39,14 @@
           </div>
           <form class="sigin-form">
             <div class="form-group">
-              <input type="text" class="form-control" id="uname" placeholder="请输入用户名">
+              <fc-text id="uname" fcPlaceHodler="请输入用户名"></fc-text>
+              <!--  没有单独的验证组件 -->
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" id="password" placeholder="请输入密码">
+              <fc-text id="password" fcPlaceHodler="请输入密码"></fc-text>
+              <!-- 没有单独的验证组件 -->
             </div>
-            <button type="button" class="btn btn-info btn-block sigin-submit" routerLink="/home">登陆</button>
+            <fc-button fcLabel="登陆" fcType="primary" routerLink="/home" class="sigin-submit"></fc-button>
             <div class="sigin-other">
               <span>
                 <a href="javascript:;" class="sigin-other-link">忘记密码</a>
@@ -80,7 +77,8 @@
         <a href="" class="link-item">高铁设备管理系统</a>
       </p>
       <p class="copyright">
-        © 2007-2018 yt.neusoft.com 版权所有 ICP证：京B2-20080101
+        © 2007-2018
+        <a href="https://github.com/panlihai/fcexample" target="_blank">https://github.com/panlihai/fcexample</a> 版权所有
       </p>
     </div>
   </div>

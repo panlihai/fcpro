@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'signin',
-  templateUrl: './signin.component.html',
-  styles: [`
+    selector: 'signin',
+    templateUrl: './signin.component.html',
+    styles: [`
   .logo-txt {
     background-color: transparent !important;
 }
@@ -82,10 +82,15 @@ import { Router } from '@angular/router';
 }
 
 .sigin-body .sigin-body-box .sigin-form .sigin-submit {
+    width:100%;
+    display:block;
     margin-top: 40px;
     border-radius: 0;
 }
-
+:host :ng-deep .sigin-submit .ant-btn{
+    width:100%;
+    display:block;
+}
 .sigin-body .sigin-body-box .sigin-other {
     width: 100%;
     text-align: right;
@@ -151,9 +156,9 @@ import { Router } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private router: Router) { }
+    constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }
