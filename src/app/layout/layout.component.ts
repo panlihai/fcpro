@@ -11,6 +11,7 @@ import { FCEVENT } from 'fccomponent/fc';
   `]
 })
 export class LayoutComponent implements OnInit {
+  _projectName = environment.projectName;
   _navbarStatus = "closed";
   _navmenuStatus = "opened";
   //侧边栏配置
@@ -168,8 +169,12 @@ export class LayoutComponent implements OnInit {
       case 'toggle':
         this._navbarStatus = event.param;
         break;
+      case 'selectTopMenu':
+        this._menus = event.param.P_CHILDMENUS;
+        break;
     }
   }
+  _menus: any = [];
   /**
    *  菜单事件
    * @param event 
