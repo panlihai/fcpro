@@ -24,16 +24,15 @@ import {
   SysstyleService
 } from 'fccore';
 import {
-  FcnavModule, 
-  FcbasicModule, 
-  FcadModule, 
-  FcbandModule, 
+  FcnavModule,
+  FcbasicModule,
+  FcadModule,
   FcmodalModule,
-  FctabModule, 
-  FctlbModule, 
-  FcsearchModule, 
-  FcalertModule, 
-  FclayoutModule, 
+  FctabModule,
+  FctlbModule,
+  FcsearchModule,
+  FcalertModule,
+  FclayoutModule,
   FclistModule
 } from 'fccomponent';
 import { FormsModule } from '@angular/forms';
@@ -42,11 +41,16 @@ import { environment } from '../environments/environment';
 import { AppRouters } from './app.route';
 import { LayoutComponent } from './layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { HomeComponent } from './home/home.component';
+import { SigninComponent } from './system/components/signin/signin.component';
+import { SignupComponent } from './system/components/signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
+    LayoutComponent,
+    HomeComponent,
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     FormsModule,
@@ -57,7 +61,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FcnavModule,
     FcbasicModule,
     FcadModule,
-    FcbandModule,
     FctabModule,
     FctlbModule,
     FcsearchModule,
