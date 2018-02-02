@@ -183,6 +183,9 @@ export class LayoutComponent implements OnInit {
     switch (event.eventName) {
       case 'toggle':
         this._navmenuStatus = event.param;
+        break;
+        case 'select':
+        break;
     }
   }
   menuBlur() {

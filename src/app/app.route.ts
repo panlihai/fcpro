@@ -2,8 +2,9 @@ import { Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
-import { SigninComponent } from './system/signin/signin.component';
-import { SignupComponent } from './system/signup/signup.component';
+import { SigninComponent } from './system/components/signin/signin.component';
+import { SignupComponent } from './system/components/signup/signup.component';
+import { MainComponent } from './system/components/main/main.component';
 export const AppRouters: Routes = [
     {
         path: '',
@@ -20,6 +21,10 @@ export const AppRouters: Routes = [
             }, {
                 path: '',//高级组件
                 loadChildren: './samples/index.module#SamplesModule'
+            }
+            , {
+                path: '',//高级组件
+                loadChildren: './system/index.module#SystemModule'
             }
         ]
     }, {

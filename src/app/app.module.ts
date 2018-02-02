@@ -42,8 +42,8 @@ import { AppRouters } from './app.route';
 import { LayoutComponent } from './layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
-import { SigninComponent } from './system/signin/signin.component';
-import { SignupComponent } from './system/signup/signup.component';
+import { SigninComponent } from './system/components/signin/signin.component';
+import { SignupComponent } from './system/components/signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
