@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProvidersService } from 'fccore';
 @Component({
-  selector: 'signin',
-  templateUrl: './signin.component.html',
-  styles: [`
+    selector: 'signin',
+    templateUrl: './signin.component.html',
+    styles: [`
   .logo-txt {
     background-color: transparent !important;
 }
@@ -82,10 +83,15 @@ import { Router } from '@angular/router';
 }
 
 .sigin-body .sigin-body-box .sigin-form .sigin-submit {
+    width:100%;
+    display:block;
     margin-top: 40px;
     border-radius: 0;
 }
-
+:host :ng-deep .sigin-submit .ant-btn{
+    width:100%;
+    display:block;
+}
 .sigin-body .sigin-body-box .sigin-other {
     width: 100%;
     text-align: right;
@@ -150,10 +156,27 @@ import { Router } from '@angular/router';
   `]
 })
 export class SigninComponent implements OnInit {
-
-  constructor(private router: Router) { }
-
-  ngOnInit() {
-  }
+    hasError: boolean = false;
+    msg: string = "";
+    userId: string = "";
+    password: string = "";
+    constructor(private router: Router, private providers: ProvidersService) { }
+    ngOnInit() {
+        if(this.providers.userService.getUserInfo()){
+            this.router.navigate(['/home']);
+        }
+    }
+    login() {
+        this.providers.userService.login(this.userId, this.password).subscribe(result => {
+            if (result.CODE === '0') {
+                this.hasError = false;
+                this.providers.userService.storeUserInfo(result);     
+                this.router.navigate(['/home']);           
+            } else {
+                this.hasError = true;
+                this.msg = result.MSG;
+            }
+        });
+    }
 
 }

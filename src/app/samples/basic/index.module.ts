@@ -53,6 +53,7 @@ import {
   SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService,
   SysinterfaceService, SysmenuService, SysstyleService
 } from 'fccore';
+import { TooltipComponent } from './tooltip/tooltip.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -104,7 +105,8 @@ import {
     TimelineComponent,
     TitleComponent,
     TreeComponent,
-    UploadComponent
+    UploadComponent,
+    TooltipComponent
   ],
   providers: [
     AppService,

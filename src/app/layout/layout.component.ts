@@ -99,7 +99,7 @@ export class LayoutComponent implements OnInit {
     this.navSide.fcValues2 = [
       {
         title: "消息1",
-        smark: "这个是描述消息的这个是描述消息的这个是描述消息的这个是描述消息的这个是描述消息的",
+        smark: "这个是未读消息这个是未读消息这个是未读消息这个是未读消息",
         color: 0,
         read: 0
       }, {
@@ -183,6 +183,9 @@ export class LayoutComponent implements OnInit {
     switch (event.eventName) {
       case 'toggle':
         this._navmenuStatus = event.param;
+        break;
+        case 'select':
+        break;
     }
   }
   menuBlur() {

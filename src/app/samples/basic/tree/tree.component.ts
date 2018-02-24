@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
-import { TreeOptions } from 'fccomponent';
+import { TreeOptions, FctreeComponent } from 'fccomponent';
 @Component({
   selector: 'app-tree',
   templateUrl: './tree.component.html',

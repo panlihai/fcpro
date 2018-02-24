@@ -17,10 +17,11 @@ import { NavtabComponent } from './navtab/navtab.component';
     FormsModule,
     CommonModule,
     RouterModule.forChild(navRouters),
+    FccoreModule,
     FcbasicModule,
     FclayoutModule,
     FcadModule,
-    FcnavModule, FccoreModule,
+    FcnavModule, 
     FclistModule
   ],
   exports: [

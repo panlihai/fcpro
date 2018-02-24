@@ -12,14 +12,18 @@
         正在开发中
       </div>
     </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="大小" fccontent1>
+    <fc-layoutgroup fcTitle="打开单选列表弹窗" fccontent1>
       <div fccontent>
-        正在开发中
+        <fc-button [fcType]="'primary'" (click)="modallist1.showModal()" fcLabel="打开单选列表弹窗"></fc-button>
+        <fc-modallist #modallist1 fcTitle="列表弹窗标题" [fcAppid]="'SYSAPP'" [fcType]="'single'" (fcEvent)="modalClose($event)"></fc-modallist>
+        <label>{{selectObj}}</label>
       </div>
     </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="更多" fccontent1>
+    <fc-layoutgroup fcTitle="打开多选列表弹窗" fccontent1>
       <div fccontent>
-        待开发
+        <fc-button [fcType]="'primary'" (click)="modalMullist1.showModal()" fcLabel="打开多选列表弹窗"></fc-button>
+        <fc-modallist #modalMullist1 fcTitle="列表弹窗标题" [fcAppid]="'SYSAPP'" [fcType]="'multiple'" (fcEvent)="modalClose($event)"></fc-modallist>
+        <label>{{selectObj}}</label>
       </div>
     </fc-layoutgroup>
   </fc-layoutcol>

@@ -4,7 +4,8 @@
   <fc-layoutcol fccontent fcSpans="1,1">
     <fc-layoutgroup fcTitle="基本" fccontent1>
       <div fccontent>
-        正在开发中
+        <fc-button fcLabel="打开成功弹窗" fcType="primary" (click)="modalsuccess.showModal()"></fc-button>
+        <fc-modalsuccess #modalsuccess fcTitle="这是一条成功信息" fcContent="一些附加信息一些附加信息一些附加信息"></fc-modalsuccess>
       </div>
     </fc-layoutgroup>
     <fc-layoutgroup fcTitle="类型" fccontent2>

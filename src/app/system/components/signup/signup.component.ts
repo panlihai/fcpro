@@ -24,11 +24,13 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
     position:relative;
   }
   .fc-signup-module {
-    width:100%;
-    position:absolute;
-    top:50%;
-    margin-top:-150px;
-  }
+    width: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -20%;
+    }
   .fc-signup .fc-signup-title {
     width:100%;
     height:48px;

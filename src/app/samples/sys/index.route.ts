@@ -27,7 +27,7 @@ export const sysRouters: Routes = [
         path: 'fcsysforgetList/:menuId',//忘记密码
         component: SysforgetComponent
     }, {
-        path: 'fcsysmessagelList/:menuId',//消息组件
+        path: 'fcsysmessageList/:menuId',//消息组件
         component: SysmessageComponent
     }, {
         path: 'fcsysproductList/:menuId',//软件产品
