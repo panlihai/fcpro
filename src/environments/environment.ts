@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   pid: "SYSTEM",
-  projectName: "FC快速开发平台",
+  projectName: "FC核心平台",
   systemurl: "/server/",
   apiurl: "/server/api/",
   logurl: "/server/api/",
