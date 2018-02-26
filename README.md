@@ -1,5 +1,5 @@
 # Fcexample
-这个项目依赖于[Angular CLI](https://github.com/angular/angular-cli) version 1.6.3脚手架
+这个项目依赖于[Angular CLI](https://github.com/angular/angular-cli) version 1.6.7脚手架
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 ## Code scaffolding
@@ -30,7 +30,7 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
-    please npm install fccomponent@0.2.10 --save
+    please npm install fccomponent@0.2.12 --save
     please npm install fccore@0.3.2 --save
     <code>
 </pre>
