@@ -38,7 +38,7 @@ export class LayoutComponent implements OnInit {
   menus = [];
   allmenus = [];
 
-  constructor(private _router: Router, private _providers: ProvidersService,private sysmessageService: SysmessageService,) {
+  constructor(private _router: Router, private _providers: ProvidersService, private sysmessageService: SysmessageService, ) {
     //订阅消息
     this.msgHandler();
   }
@@ -65,6 +65,7 @@ export class LayoutComponent implements OnInit {
       case 'toggle':
         this._navbarStatus = event.param;
         break;
+      case 'selectDropdown':
       case 'selectMenu':
         this._menus = event.param.P_CHILDMENUS;
         break;

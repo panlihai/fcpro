@@ -30,12 +30,12 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
-    please npm install fccomponent@0.2.14 --save
+    please npm install fccomponent@0.2.15 --save
     please npm install fccore@0.3.6 --save
     <code>
 </pre>
 ## 开发计划
--这是平台的开发计划
+-平台的开发计划
 <pre>
     <code>
        <table border="1">
