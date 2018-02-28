@@ -25,9 +25,17 @@
         "../node_modules/ag-grid/dist/styles/theme-blue.css",
         "../node_modules/ag-grid/dist/styles/theme-fresh.css",
         "../node_modules/ag-grid/dist/styles/theme-dark.css",
-        "../node_modules/ag-grid/dist/styles/theme-bootstrap.css"
+        "../node_modules/ag-grid/dist/styles/theme-bootstrap.css",
+        "assets/plugin/spread/fonts.css",
+        "assets/plugin/spread/styles.css",
+        "assets/plugin/spread/gc.spread.sheets.excel2013white.11.0.0.css",
+        "assets/styles/app.scss"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/plugin/spread/gc.spread.sheets.all.11.0.0.min.js",
+        "assets/plugin/spread/gc.spread.sheets.resources.zh.11.0.0.min.js",
+        "assets/plugin/spread/license.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

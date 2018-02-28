@@ -10,8 +10,8 @@ export const AppRouters: Routes = [
     {
         path: '',
         component: LayoutComponent,
-        canActivate:[UserService],
-        children: [           
+        canActivate: [UserService],
+        children: [
             {
                 path: 'home',
                 component: HomeComponent,
@@ -22,6 +22,12 @@ export const AppRouters: Routes = [
             , {
                 path: 'system',//系统
                 loadChildren: './system/index.module#SystemModule'
+            }, {
+                path: '',//业务组件-模块1
+                loadChildren: './feature/helloproject/hellomodule1/index.module#Hellomodule1Module'
+            }, {
+                path: '',//业务组件-模块2
+                loadChildren: './feature/helloproject/hellomodule2/index.module#Hellomodule2Module'
             }
         ]
     }, {
