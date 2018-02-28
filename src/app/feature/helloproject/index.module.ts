@@ -10,8 +10,8 @@ import {
   FcnavModule
 } from 'fccomponent';
 import { FccoreModule } from 'fccore';
-import { HellofcComponent } from './index';
 import { HellofcService } from './services/hellofc.service';
+import { SpreadService } from './services/spread.service';
 @NgModule({
   imports: [
     RouterModule.forChild(Routers),
@@ -25,10 +25,10 @@ import { HellofcService } from './services/hellofc.service';
 
   ],
   declarations: [
-    HellofcComponent
   ],
   providers: [
-    HellofcService
+    HellofcService,
+    SpreadService
   ]
 })
-export class AdModule { }
+export class HelloModule { }

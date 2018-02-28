@@ -1,0 +1,31 @@
+img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    vertical-align: middle;
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+}
+td input[type=checkbox] {
+    margin: 5px;
+}
+
+td input[type=text] {
+    margin: 5px;
+    width: 100px;
+}
+
+label {
+    font-weight: normal;
+}
+.spreadContainer {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    box-shadow: 0 0 20px gray;
+}
+
+.settingContainer {
+    position: absolute;
+    bottom: 0;
+}
