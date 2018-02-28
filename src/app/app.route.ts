@@ -6,6 +6,7 @@ import { UserService } from 'fccore';
 import { SigninComponent } from './system/components/signin/signin.component';
 import { SignupComponent } from './system/components/signup/signup.component';
 import { MainComponent } from './system/components/main/main.component';
+import { SpreaddemoComponent } from './system/components/spreaddemo/spreaddemo.component';
 export const AppRouters: Routes = [
     {
         path: '',
@@ -33,9 +34,13 @@ export const AppRouters: Routes = [
     }, {
         path: 'signup',//注册
         component: SignupComponent
-    }, {
+    },
+    {
+        path: 'spreaddemoList',//spread demo
+        component: SpreaddemoComponent
+    },{
         path: '**',//登录
-        redirectTo:'signin',
-        pathMatch:'full'
+        redirectTo: 'signin',
+        pathMatch: 'full'
     }
 ];

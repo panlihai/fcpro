@@ -34,7 +34,7 @@ import { ForgotComponent } from './components/forgot/forgot.component';
     FcalertModule,
     FclayoutModule,
     FclistModule,
-    FcmodalModule
+    FcmodalModule   
   ],
   exports: [
 

@@ -241,6 +241,19 @@ FC是fastcore的简称
     <td></td>
     <td></td>
   </tr>
+  <tr>
+    <td>7</td>
+    <td>spreadjs</td>
+    <td>1</td>
+    <td>spreadjs集成</td>
+    <td>是</td>
+    <td>是</td>
+    <td>0.5</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
 </table>
 </code>  
 </pre>

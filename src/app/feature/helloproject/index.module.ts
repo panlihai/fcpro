@@ -25,6 +25,7 @@ import { SpreadService } from './services/spread.service';
 
   ],
   declarations: [
+    
   ],
   providers: [
     HellofcService,

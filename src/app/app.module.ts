@@ -45,14 +45,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './system/components/signin/signin.component';
 import { SignupComponent } from './system/components/signup/signup.component';
+import { SpreaddemoComponent } from './system/components/spreaddemo/spreaddemo.component';
+import { SpreadSheetsModule } from '../assets/plugin/spread/gc.spread.sheets.angular.11.0.0';
+import { SpreaddemoService } from './system/services/spreaddemo.service';
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-    HomeComponent,
-    SigninComponent,
-    SignupComponent
-  ],
   imports: [
     FormsModule,
     BrowserModule,
@@ -68,7 +64,16 @@ import { SignupComponent } from './system/components/signup/signup.component';
     FcalertModule,
     FclayoutModule,
     FclistModule,
-    FcmodalModule
+    FcmodalModule,
+    SpreadSheetsModule
+  ],
+  declarations: [
+    AppComponent,
+    LayoutComponent,
+    HomeComponent,
+    SigninComponent,
+    SignupComponent,
+    SpreaddemoComponent
   ],
   providers: [
     AppService,
@@ -90,7 +95,8 @@ import { SignupComponent } from './system/components/signup/signup.component';
     SysinterfaceparamService,
     SysinterfaceService,
     SysmenuService,
-    SysstyleService
+    SysstyleService,
+    SpreaddemoService
   ],
   bootstrap: [AppComponent]
 })

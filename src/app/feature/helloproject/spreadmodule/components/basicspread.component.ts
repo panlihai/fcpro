@@ -15,19 +15,8 @@ import { SpreadService } from '../../services/spread.service';
   `]
 })
 export class BasicspreadComponent extends ParentComponent {
-  // spreadBackColor = 'aliceblue';
-  // sheetName = '资产负债月报表';
-  // hostStyle = {
-  //   top: '0px',
-  //   bottom: '10px'
-  // };
   spread: any;
   constructor(public mainService: SpreadService, public router: Router) {
     super(mainService, router);
   }
-  // workbookInit(args) {
-  //   this.spread = args.spread;
-  //   this.spread.options.newTabVisible = false;
-  //   this.spread.clearSheets();
-  // }
 }
