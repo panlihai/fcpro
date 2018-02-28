@@ -35,7 +35,7 @@ import { MainService } from './services/main.service';
     FcalertModule,
     FclayoutModule,
     FclistModule,
-    FcmodalModule
+    FcmodalModule   
   ],
   exports: [
 

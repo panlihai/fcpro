@@ -46,14 +46,10 @@ import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './system/components/signin/signin.component';
 import { SignupComponent } from './system/components/signup/signup.component';
 import { LayoutService } from './system/services/layout.service';
+import { SpreaddemoComponent } from './system/components/spreaddemo/spreaddemo.component';
+import { SpreadSheetsModule } from '../assets/plugin/spread/gc.spread.sheets.angular.11.0.0';
+import { SpreaddemoService } from './system/services/spreaddemo.service';
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-    HomeComponent,
-    SigninComponent,
-    SignupComponent
-  ],
   imports: [
     FormsModule,
     BrowserModule,
@@ -69,7 +65,16 @@ import { LayoutService } from './system/services/layout.service';
     FcalertModule,
     FclayoutModule,
     FclistModule,
-    FcmodalModule
+    FcmodalModule,
+    SpreadSheetsModule
+  ],
+  declarations: [
+    AppComponent,
+    LayoutComponent,
+    HomeComponent,
+    SigninComponent,
+    SignupComponent,
+    SpreaddemoComponent
   ],
   providers: [
     AppService,
@@ -92,7 +97,8 @@ import { LayoutService } from './system/services/layout.service';
     SysinterfaceService,
     SysmenuService,
     SysstyleService,
-    LayoutService
+    LayoutService,
+    SpreaddemoService
   ],
   bootstrap: [AppComponent]
 })
