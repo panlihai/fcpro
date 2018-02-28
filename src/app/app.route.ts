@@ -37,14 +37,8 @@ export const AppRouters: Routes = [
         path: 'signup',//注册
         component: SignupComponent
     }, {
-<<<<<<< HEAD
-        path: '',//登录
-        redirectTo: 'signin',
-        pathMatch: 'full'
-=======
         path: '**',//登录
         redirectTo:'signin',
         pathMatch:'full'
->>>>>>> 3b71f3c39c3cac379c93ca70d8c5dd9cceb59e46
     }
 ];
