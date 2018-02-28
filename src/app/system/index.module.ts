@@ -21,6 +21,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
 import { LockscreenComponent } from './components/lockscreen/lockscreen.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
+import { MainService } from './services/main.service';
 @NgModule({
   imports: [
     RouterModule.forChild(Routers),
@@ -47,6 +48,7 @@ import { ForgotComponent } from './components/forgot/forgot.component';
     ForgotComponent    
   ],
   providers: [
+    MainService
   ]
 })
 export class SystemModule { }

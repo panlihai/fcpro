@@ -45,6 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './system/components/signin/signin.component';
 import { SignupComponent } from './system/components/signup/signup.component';
+import { LayoutService } from './system/services/layout.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +91,8 @@ import { SignupComponent } from './system/components/signup/signup.component';
     SysinterfaceparamService,
     SysinterfaceService,
     SysmenuService,
-    SysstyleService
+    SysstyleService,
+    LayoutService
   ],
   bootstrap: [AppComponent]
 })

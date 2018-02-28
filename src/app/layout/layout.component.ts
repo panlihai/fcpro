@@ -4,6 +4,7 @@ import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent } from 'f
 import { environment } from '../../environments/environment';
 import { FCEVENT } from 'fccomponent/fc';
 import { ProvidersService, SysmessageService } from 'fccore';
+import { LayoutService } from '../system/services/layout.service';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -19,17 +20,9 @@ export class LayoutComponent implements OnInit {
   //菜单栏状态
   _navmenuStatus = "opened";
   //侧边栏配置
-  navSide: NavsideOptions = {
-    fcAppid: '',
-    fcLabelCode1: '全部消息',
-    fcLabelCode2: '未读消息',
-    fcTitleCode: 'TITLE',
-    fcSmarkCode: 'CONTENT',
-    fcColorCode: 'TYPE',
-    fcReadCode: 'ISREAD'
-  };
+  _navSideOption: NavsideOptions;
   //按钮配置
-  menuOptions: MenuOptions = {
+  _menuOptions: MenuOptions = {
     //所在产品优先级最高，当有产品时其它条件忽略
     fcPid: environment.pid
   };
@@ -37,22 +30,24 @@ export class LayoutComponent implements OnInit {
   user: any;
   menus = [];
   allmenus = [];
-
-  constructor(private _router: Router, private _providers: ProvidersService, private sysmessageService: SysmessageService, ) {
+  _menus: any = [];
+  constructor(private _router: Router,
+    private _providers: ProvidersService,
+    private sysmessageService: SysmessageService,
+    private mainService: LayoutService
+  ) {
     //订阅消息
     this.msgHandler();
+    //初始化消息配置
+    this._navSideOption = this.mainService.initNavSideOptions();
   }
   ngOnInit() {
-    //获取消息内容
-    this.user = this._providers.userService.getUserInfo();
-    this.sysmessageService.findWithQuery({ NOTIFICATIONUSERID: this.user.USERCODE, PAGESIZE: 1000, ORDER: "TS desc" }).subscribe(result => {
-      if (result.CODE === '0' && result.DATA.length !== 0) {
-        this.navSide.fcValues2 = result.DATA;
+    this.mainService.getMessage().subscribe(res => {
+      if (res[0].CODE === '0') {
+        this._navSideOption.fcValues1 = res[0].DATA;
       }
-    });
-    this.sysmessageService.findWithQuery({ NOTIFICATIONUSERID: this.user.USERCODE, PAGESIZE: 1000, ISREAD: 'N', ORDER: "TS desc" }).subscribe(result => {
-      if (result.CODE === '0' && result.DATA.length !== 0) {
-        this.navSide.fcValues1 = result.DATA;
+      if (res[1].CODE === '0') {
+        this._navSideOption.fcValues2 = res[1].DATA;
       }
     });
   }
@@ -77,7 +72,6 @@ export class LayoutComponent implements OnInit {
         break;
     }
   }
-  _menus: any = [];
   /**
    *  菜单事件
    * @param event 
@@ -88,6 +82,8 @@ export class LayoutComponent implements OnInit {
         this._navmenuStatus = event.param;
         break;
       case 'select':
+        //导航并存储列表
+        this.mainService.navStoreMenu(this._router, event.param);
         break;
     }
   }
@@ -99,8 +95,8 @@ export class LayoutComponent implements OnInit {
     //远程消息接收
     this._providers.daoService.connectionWs(this._providers.userService.getUserInfo().USERCODE).subscribe(data => {
       if (data.length !== 0) {
-        this.navSide.fcValues1.unshift(JSON.parse(data));
-        this.navSide.fcValues1.unshift(JSON.parse(data));
+        this._navSideOption.fcValues1.unshift(JSON.parse(data));
+        this._navSideOption.fcValues1.unshift(JSON.parse(data));
       }
     });
   }
