@@ -16,10 +16,11 @@ export const AppRouters: Routes = [
                 path: 'home',
                 component: HomeComponent,
             }, {
-                path: '',//例子组件
+                path: 'sample',//高级组件
                 loadChildren: './samples/index.module#SamplesModule'
-            }, {
-                path: '',//平台组件
+            }
+            , {
+                path: 'system',//系统
                 loadChildren: './system/index.module#SystemModule'
             }, {
                 path: '',//业务组件-模块1
@@ -36,8 +37,14 @@ export const AppRouters: Routes = [
         path: 'signup',//注册
         component: SignupComponent
     }, {
+<<<<<<< HEAD
         path: '',//登录
         redirectTo: 'signin',
         pathMatch: 'full'
+=======
+        path: '**',//登录
+        redirectTo:'signin',
+        pathMatch:'full'
+>>>>>>> 3b71f3c39c3cac379c93ca70d8c5dd9cceb59e46
     }
 ];
