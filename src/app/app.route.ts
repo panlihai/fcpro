@@ -23,11 +23,8 @@ export const AppRouters: Routes = [
                 path: 'system',//系统
                 loadChildren: './system/index.module#SystemModule'
             }, {
-                path: '',//业务组件-模块1
-                loadChildren: './feature/helloproject/hellomodule1/index.module#Hellomodule1Module'
-            }, {
-                path: '',//业务组件-模块2
-                loadChildren: './feature/helloproject/hellomodule2/index.module#Hellomodule2Module'
+                path: 'helloproject',//业务组件
+                loadChildren: './feature/helloproject/index.module#HelloModule'
             }
         ]
     }, {

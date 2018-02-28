@@ -1,4 +1,7 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { ParentComponent } from 'fccomponent';
+import { SpreadService } from '../feature/helloproject/services/spread.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -8,13 +11,7 @@ import { Component, OnInit, AfterContentInit } from '@angular/core';
     `
   ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   constructor() {
-
-  }
-  ngOnInit(): void {
-
-  }
-  ngAfterContentInit() {
   }
 }

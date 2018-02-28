@@ -10,8 +10,8 @@ import {
   FcnavModule
 } from 'fccomponent';
 import { FccoreModule } from 'fccore';
-import { HellofcService } from './services/hellofc.service';
-import { SpreadService } from './services/spread.service';
+import { SpreadSheetsModule } from '../../../../assets/plugin/spread/gc.spread.sheets.angular.11.0.0';
+import { BasicspreadComponent } from './components/basicspread.component';
 @NgModule({
   imports: [
     RouterModule.forChild(Routers),
@@ -19,16 +19,17 @@ import { SpreadService } from './services/spread.service';
     FcbasicModule,
     FclayoutModule,
     FcadModule,
-    FcnavModule
-    ],
+    FcnavModule,
+    SpreadSheetsModule
+  ],
   exports: [
 
   ],
   declarations: [
+    BasicspreadComponent,
   ],
   providers: [
-    HellofcService,
-    SpreadService
+    
   ]
 })
-export class HelloModule { }
+export class SpreadModule { }

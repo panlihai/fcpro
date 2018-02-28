@@ -6,5 +6,8 @@ export const Routers: Routes = [
     }, {
         path: '',//业务组件-模块2
         loadChildren: './hellomodule2/index.module#Hellomodule2Module'
+    }, {
+        path: '',//业务组件-spread模块
+        loadChildren: './spreadmodule/index.module#SpreadModule'
     }
 ];

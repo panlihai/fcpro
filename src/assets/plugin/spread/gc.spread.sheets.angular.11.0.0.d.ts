@@ -1,5 +1,6 @@
 /// <reference path="GC.Spread.Sheets.d.ts" />
-import { OnChanges, SimpleChanges, AfterViewInit, QueryList, EventEmitter, ElementRef, OnDestroy } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { OnChanges, SimpleChanges, AfterViewInit, QueryList, EventEmitter, ElementRef, OnDestroy, NgModule } from '@angular/core';
 export declare class ColumnComponent implements OnChanges {
     private changes;
     private sheet;
@@ -163,5 +164,8 @@ export declare class SpreadSheetsComponent implements OnChanges, AfterViewInit, 
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
 }
+@NgModule({
+    imports:[ BrowserModule ],
+  })
 export declare class SpreadSheetsModule {
 }

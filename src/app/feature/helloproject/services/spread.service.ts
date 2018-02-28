@@ -4,6 +4,6 @@ import { ParentService, ProvidersService } from 'fccore';
 @Injectable()
 export class SpreadService extends ParentService {
   constructor(public providers: ProvidersService) {
-    super(providers, "SYSAPP");
+    super(providers, "SYSCOMPONENT");
   }
 }
