@@ -23,5 +23,9 @@ export const Routers: Routes = [
     }, {
         path: 'notfound',//找不到
         component: NotfoundComponent
+    },{
+        path:'**',
+        redirectTo:'main',
+        pathMatch:'full'
     }
 ];

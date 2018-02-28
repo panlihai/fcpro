@@ -38,9 +38,5 @@ export const AppRouters: Routes = [
     {
         path: 'spreaddemoList',//spread demo
         component: SpreaddemoComponent
-    },{
-        path: '**',//登录
-        redirectTo: 'system.main',
-        pathMatch: 'full'
     }
 ];
