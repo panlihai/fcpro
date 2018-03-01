@@ -6,6 +6,14 @@ import { ForgotComponent } from './components/forgot/forgot.component';
 import { LockscreenComponent } from './components/lockscreen/lockscreen.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { SysdatasourceComponent } from './components/core/sysdatasource.component';
+import { SysappComponent } from './components/core/sysapp.component';
+import { SysdicComponent } from './components/core/sysdic.component';
+import { SysproductComponent } from './components/core/sysproduct.component';
+import { SysroleauthComponent } from './components/core/sysroleauth.component';
+import { SysmessageComponent } from './components/core/sysmessage.component';
+import { SysbackcodeComponent } from './components/core/sysbackcode.component';
+import { SyscomponentComponent } from './components/core/syscomponent.component';
 export const Routers: Routes = [
     {
         path: 'error',//错误
@@ -23,9 +31,43 @@ export const Routers: Routes = [
     }, {
         path: 'notfound',//找不到
         component: NotfoundComponent
-    },{
-        path:'**',
-        redirectTo:'main',
-        pathMatch:'full'
+    },
+    {
+        path: 'sysdatasourceList',//数据源
+        component: SysdatasourceComponent
+    },
+    {
+        path: 'sysappList',//元数据
+        component: SysappComponent
+    },
+    {
+        path: 'sysdicList',//数据字典
+        component: SysdicComponent
+    },
+    {
+        path: 'sysproductList',//软件产品
+        component: SysproductComponent
+    },
+    {
+        path: 'sysroleauthList',//系统参数
+        component: SysroleauthComponent
+    },
+    {
+        path: 'sysmessageList',//消息列表
+        component: SysmessageComponent
+    },
+
+    {
+        path: 'sysbackcodeList',//全局返回码
+        component: SysbackcodeComponent
+    },
+    {
+        path: 'syscomponentList',//平台组件
+        component: SyscomponentComponent
+    },
+    {
+        path: '**',
+        redirectTo: 'main',
+        pathMatch: 'full'
     }
 ];

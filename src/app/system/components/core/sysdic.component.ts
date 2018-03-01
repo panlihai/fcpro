@@ -1,28 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 // import { ParentComponent } from 'fccomponent';
-import { MainService } from '../../services/main.service';
 import { ParentComponent } from '../parent.component';
+import { SysdicService } from 'fccore';
 @Component({
-  selector: 'main',
-  templateUrl: './main.component.html',
+  selector: 'sysdic',
+  template: `
+    <fc-layoutpanel>
+        <fc-tlblist fcheader [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+        <fc-listdata fccontent [fcAppid]="appId" [fcOptions]="fcOptions" (fcEvent)="listdataEvent($evnet)"></fc-listdata>
+    </fc-layoutpanel>
+  `,
   styles: [`
   
   `]
 })
-export class MainComponent extends ParentComponent {
-  constructor(public mainService: MainService,
+export class SysdicComponent extends ParentComponent {
+  constructor(public mainService: SysdicService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
     super(mainService, router, activeRoute);    
   }  
   init(): void {
-   //初始化元数据id
-   this.appId = this.routerParam.APPID,
-   //初始化元数据
-   this.mainApp = this.appService.getAppById(this.appId);
-   this.mainObj = this.appService.initObjDefaultValue(this.mainApp);
-
   }
   addNew(mainObj: any) {
   }

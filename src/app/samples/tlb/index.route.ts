@@ -5,16 +5,16 @@ import { TlblistComponent } from './tlblist/tlblist.component';
 import { TlblistitemComponent } from './tlblistitem/tlblistitem.component';
 export const tlbRouters: Routes = [
     {
-        path: 'fctlbdropdownList/:menuId',//下拉
+        path:'system/fctlbdropdownList',//下拉
         component: TlbdropdownComponent
     }, {
-        path: 'fctlbformList/:menuId',//表单
+        path:'system/fctlbformList',//表单
         component: TlbformComponent
     }, {
-        path: 'fctlblistList/:menuId',//列表
+        path:'system/fctlblistList',//列表
         component: TlblistComponent
     }, {
-        path: 'fctlblistitemList/:menuId',//子列表
+        path:'system/fctlblistitemList',//子列表
         component: TlblistitemComponent
     }
 ];

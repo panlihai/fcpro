@@ -5,16 +5,16 @@ import { SearchboxComponent } from './searchbox/searchbox.component';
 import { SearchfastComponent } from './searchfast/searchfast.component';
 export const searchRouters: Routes = [
     {
-        path: 'fcsearchadvanceList/:menuId',//高级查询
+        path:'system/fcsearchadvanceList',//高级查询
         component: SearchadvanceComponent
     }, {
-        path: 'fcsearchbarList/:menuId',//全文查询
+        path:'system/fcsearchbarList',//全文查询
         component: SearchbarComponent
     }, {
-        path: 'fcsearchboxList/:menuId',//列表查询
+        path:'system/fcsearchboxList',//列表查询
         component: SearchboxComponent
     }, {
-        path: 'fcsearchfastList/:menuId',//快速查询
+        path:'system/fcsearchfastList',//快速查询
         component: SearchfastComponent
     }
 ];

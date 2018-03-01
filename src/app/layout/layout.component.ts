@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent } from 'fccomponent/fcnav';
+import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } from 'fccomponent/fcnav';
 import { environment } from '../../environments/environment';
 import { FCEVENT } from 'fccomponent/fc';
 import { ProvidersService, SysmessageService } from 'fccore';
@@ -31,6 +31,7 @@ export class LayoutComponent implements OnInit {
   menus = [];
   allmenus = [];
   _menus: any = [];
+  _tabs:FcTaboptions[]=[{name:'首页',close:false,content:{MENUID:'HOME',ROUTER:'home',PID:'SYSTEM'}}];
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private sysmessageService: SysmessageService,

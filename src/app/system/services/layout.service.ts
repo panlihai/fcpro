@@ -36,6 +36,6 @@ export class LayoutService {
      * @param menu 
      */
     navStoreMenu(router:Router,menu:any){
-        router.navigate(["/"+menu.PID.toLowerCase()+"/"+menu.ROUTER]);
+        router.navigate(["/"+menu.PID.toLowerCase()+"/"+menu.ROUTER],{queryParams:menu});
     }
 }

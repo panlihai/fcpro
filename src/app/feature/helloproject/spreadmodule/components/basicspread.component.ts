@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent } from 'fccomponent';
 import { SpreadService } from '../../services/spread.service';
 @Component({
@@ -16,7 +16,31 @@ import { SpreadService } from '../../services/spread.service';
 })
 export class BasicspreadComponent extends ParentComponent {
   spread: any;
-  constructor(public mainService: SpreadService, public router: Router) {
-    super(mainService, router);
+  init(): void {
+  }
+  addNew(mainObj: any) {
+  }
+  getDefaultQuery() {
+  }
+  beforeSave(): boolean {
+    return true;
+  }
+  afterSave(): void {
+  }
+  beforeDelete(mainObj: any): boolean {
+    return true;
+  }
+  afterDelete(): void {
+  }
+  beforeEdit(): boolean {
+    return true;
+  }
+  afterEdit(mainObj: any): void {
+  }
+  event(eventName: string, context: any): void {
+  }
+  constructor(public mainService: SpreadService, public router: Router,
+    public activedRoute:ActivatedRoute) {
+    super(mainService, router,activedRoute);
   }
 }

@@ -1,1 +1,4 @@
-renh
+<fc-layoutpanel>
+    <fc-tlblist fcheader [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+    <fc-listdata fccontent [fcAppid]="appId" [fcOptions]="fcOptions" (fcEvent)="listdataEvent($evnet)"></fc-listdata>
+</fc-layoutpanel>
