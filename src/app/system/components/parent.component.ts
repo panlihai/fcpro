@@ -12,6 +12,7 @@ import {
     ObjStatus
 } from "fccore";
 import { FclistdataComponent } from "fccomponent";
+import { FCEVENT } from "fccomponent/fc";
 export abstract class ParentComponent {
     //路由参数
     routerParam: any;
@@ -158,9 +159,9 @@ export abstract class ParentComponent {
      * 列表编辑
      * @param action 
      */
-    public listEdit(context: any): void {
+    public listEdit(context: FCEVENT): void {
         if (this.beforeEdit()) {
-            this.mainObj = context.PARAMS;
+            this.mainObj = context.param.PARAMS;
             this.listEditView();
             this.selectedTab(1);
         }
@@ -329,16 +330,16 @@ export abstract class ParentComponent {
      * 根据工具栏处理事件
      * @param action 事件名称
      */
-    tlblistEvent(context) {
-        switch (context.ACTION) {
+    tlblistEvent(context:FCEVENT) {
+        switch (context.eventName) {
             case 'listAdd':
-                this.listAdd(context.ACTION);
+                this.listAdd(context.eventName);
                 break;           
             case 'listDelete':
-                this.listDelete(context.ACTION);
+                this.listDelete(context.eventName);
                 break;
             case 'listHelp':
-                this.listHelp(context.ACTION);
+                this.listHelp(context.eventName);
                 break;
             case 'listPrev':
                 this.listPrev();
@@ -347,21 +348,21 @@ export abstract class ParentComponent {
                 this.listNext();
                 break;
             case 'import':
-                this.import(context.ACTION);
+                this.import(context.eventName);
                 break;
             case 'export':
-                this.export(context.ACTION);
+                this.export(context.eventName);
                 break;
             default:
-                this.event(context.ACTION, context);
+                this.event(context.eventName, context);
         }
     }
     /**
      * 根据列表处理事件
      * @param action 事件名称
      */
-    listdataEvent(context) {
-        switch (context.ACTION) {           
+    listdataEvent(context:any) {
+        switch (context.eventName) {           
             case 'listEdit':
                 this.listEdit(context);
                 break;
@@ -372,20 +373,20 @@ export abstract class ParentComponent {
                 // this.cardSaveBack(action);
                 break;           
             default:
-                this.event(context.ACTION, context);
+                this.event(context.eventName, context);
         }
     }
     /**
      * 根据列表处理事件
      * @param action 事件名称
      */
-    adformEvent(context) {
-        switch (context.ACTION) {           
+    adformEvent(context:FCEVENT) {
+        switch (context.eventName) {           
             case 'cardSave':
                 if (this.mainObj.ID.length === 0) {
-                    this.cardSave(context.ACTION);
+                    this.cardSave(context.eventName);
                 } else {
-                    this.cardEdit(context.ACTION);
+                    this.cardEdit(context.eventName);
                 }
                 break;
             case 'cardAdd':
@@ -394,19 +395,19 @@ export abstract class ParentComponent {
                 break;
             case 'cardSaveBack':
                 if (this.mainObj.ID.length === 0) {
-                    this.cardSaveBack(context.ACTION);
+                    this.cardSaveBack(context.eventName);
                 } else {
-                    this.cardEditBack(context.ACTION);
+                    this.cardEditBack(context.eventName);
                 }
                 break;
             case 'cardSaveCopy':
                 // this.cardSaveBack(action);
                 break;
             case 'cardBack':
-                this.cardBack(context.ACTION);
+                this.cardBack(context.eventName);
                 break;
             default:
-                this.event(context.ACTION, context);
+                this.event(context.eventName, context);
         }
     }
     /**
