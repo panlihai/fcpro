@@ -41,13 +41,14 @@ import { environment } from '../../../../environments/environment';
         line-height: 24px;
         box-sizing: border-box;
         font-size: 14px;
-        padding: 5px 12px 5px 32px;
+        margin-top:20px;
     }
     .sigin-error-in {
         background: #FEEEEB;
         border: 1px solid #F15532;
         color: #F15533;
         text-align: left;
+        padding:3px 6px;
     }
     .sigin-body .sigin-body-box {
         width: 990px;

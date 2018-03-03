@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'signup',
   templateUrl: './signup.component.html',
@@ -62,6 +63,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 export class SignupComponent implements OnInit {
   //注册验证
   validateForm: FormGroup;
+  _projectName = environment.projectName;
   constructor(private router: Router, private fb: FormBuilder) {
 
   }
