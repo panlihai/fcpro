@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent } from 'fccomponent';
 import { HellofcService } from '../../services/hellofc.service';
 @Component({
@@ -12,7 +12,30 @@ import { HellofcService } from '../../services/hellofc.service';
   `]
 })
 export class Hellofc2Component extends ParentComponent {
-  constructor(public mainService: HellofcService, public router: Router) {
-    super(mainService, router);
+  init(): void {
+  }
+  addNew(mainObj: any) {
+  }
+  getDefaultQuery() {
+  }
+  beforeSave(): boolean {
+    return true;
+  }
+  afterSave(): void {
+  }
+  beforeDelete(mainObj: any): boolean {
+    return true;
+  }
+  afterDelete(): void {
+  }
+  beforeEdit(): boolean {
+    return true;
+  }
+  afterEdit(mainObj: any): void {
+  }
+  event(eventName: string, context: any): void {
+  }
+  constructor(public mainService: HellofcService, public router: Router,public activedRoute:ActivatedRoute) {
+    super(mainService, router,activedRoute);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent } from 'fccomponent/fcnav';
+import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } from 'fccomponent/fcnav';
 import { environment } from '../../environments/environment';
 import { FCEVENT } from 'fccomponent/fc';
 import { ProvidersService, SysmessageService } from 'fccore';
@@ -31,6 +31,7 @@ export class LayoutComponent implements OnInit {
   menus = [];
   allmenus = [];
   _menus: any = [];
+  _tabs: FcTaboptions[];
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private sysmessageService: SysmessageService,
@@ -40,6 +41,7 @@ export class LayoutComponent implements OnInit {
     this.msgHandler();
     //初始化消息配置
     this._navSideOption = this.mainService.initNavSideOptions();
+    this._tabs = this.mainService._tabs;
   }
   ngOnInit() {
     this.mainService.getMessage().subscribe(res => {
@@ -84,9 +86,21 @@ export class LayoutComponent implements OnInit {
       case 'select':
         //导航并存储列表
         this.mainService.navStoreMenu(this._router, event.param);
+
         break;
     }
   }
+  navtabEvent(event: FCEVENT): void {
+    switch (event.eventName) {
+      case 'closed':
+        this.mainService.navRemoveMenu(this._router, event.param);
+        break;
+      case 'selected':
+        this.mainService.navStoreMenu(this._router, event.param);
+        break;
+    }
+  }
+
   /**
    * 消息处理
    * @param message 消息对象

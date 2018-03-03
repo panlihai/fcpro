@@ -4,13 +4,13 @@ import { ProgressbarComponent } from './progressbar/progressbar.component';
 import { ProgresspercentComponent } from './progresspercent/progresspercent.component';
 export const progressRouters: Routes = [
     {
-        path: 'fcprogressbarList/:menuId',//横条
+        path:'system/fcprogressbarList',//横条
         component: ProgressbarComponent
     }, {
-        path: 'fcprogresscircleList/:menuId',//圆圈
+        path:'system/fcprogresscircleList',//圆圈
         component: ProgresscircleComponent
     }, {
-        path: 'fcprogresspercentList/:menuId',//百分比
+        path:'system/fcprogresspercentList',//百分比
         component: ProgresspercentComponent
     }
 ];

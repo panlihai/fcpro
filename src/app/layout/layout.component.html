@@ -6,9 +6,9 @@
         <fc-navmenu fccontent1 [fcOptions]="_menuOptions" [fcMenus]="_menus" (fcEvent)="navmenuEvent($event);" fcFull="true">
         </fc-navmenu>
         <fc-layoutpanel fccontent2>
-            <div fccontent>
-                <router-outlet></router-outlet>
-            </div>
+            <fc-navtab fccontent [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)">                 
+            </fc-navtab>            
+            <router-outlet fccontent></router-outlet>
             <div fcfooter style="text-align: center;
             height:40px;
             line-height:40px;

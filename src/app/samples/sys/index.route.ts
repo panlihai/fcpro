@@ -12,37 +12,37 @@ import { SyssignupComponent } from './syssignup/syssignup.component';
 import { SysuserComponent } from './sysuser/sysuser.component';
 export const sysRouters: Routes = [
     {
-        path: 'fcsysappList/:menuId',//元数据
+        path:'system/fcsysappList',//元数据
         component: SysappComponent
     }, {
-        path: 'fcsysappdicList/:menuId',//参照字典
+        path:'system/fcsysappdicList',//参照字典
         component: SysappdicComponent
     }, {
-        path: 'fcsysauthList/:menuId',//授权
+        path:'system/fcsysauthList',//授权
         component: SysauthComponent
     }, {
-        path: 'fcsysdicList/:menuId',//数据字典
+        path:'system/fcsysdicList',//数据字典
         component: SysdicComponent
     }, {
-        path: 'fcsysforgetList/:menuId',//忘记密码
+        path:'system/fcsysforgetList',//忘记密码
         component: SysforgetComponent
     }, {
-        path: 'fcsysmessageList/:menuId',//消息组件
+        path:'system/fcsysmessageList',//消息组件
         component: SysmessageComponent
     }, {
-        path: 'fcsysproductList/:menuId',//软件产品
+        path:'system/fcsysproductList',//软件产品
         component: SysproductComponent
     }, {
-        path: 'fcsysroleList/:menuId',//角色
+        path:'system/fcsysroleList',//角色
         component: SysroleComponent
     }, {
-        path: 'fcsyssigninList/:menuId',//登录
+        path:'system/fcsyssigninList',//登录
         component: SyssigninComponent
     }, {
-        path: 'fcsyssignupList/:menuId',//注册
+        path:'system/fcsyssignupList',//注册
         component: SyssignupComponent
     }, {
-        path: 'fcsysuserList/:menuId',//用户
+        path:'system/fcsysuserList',//用户
         component: SysuserComponent
     }
 ];

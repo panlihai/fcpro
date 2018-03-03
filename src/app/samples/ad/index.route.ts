@@ -3,10 +3,10 @@ import { AddetailComponent } from './addetail/addetail.component';
 import { AdformComponent } from './adform/adform.component';
 export const adRouters: Routes = [
     {
-        path: 'fcaddetailList/:menuId',//
+        path: 'system/fcaddetailList',//
         component: AddetailComponent
     }, {
-        path: 'fcadformList/:menuId',//
+        path: 'system/fcadformList',//
         component: AdformComponent
     }
 ];

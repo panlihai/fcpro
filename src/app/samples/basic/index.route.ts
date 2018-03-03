@@ -32,97 +32,97 @@ import { BacktopComponent } from './backtop/backtop.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
 export const basicRouters: Routes = [
     {
-        path: 'fcbuttonList/:menuId',//按钮
+        path:'system/fcbuttonList',//按钮
         component: ButtonComponent
     }, {
-        path: 'fcanyList/:menuId',//自定义下拉单选
+        path:'system/fcanyList',//自定义下拉单选
         component: AnyComponent
     }, {
-        path: 'fcbacktopList/:menuId',//回到顶部
+        path:'system/fcbacktopList',//回到顶部
         component: BacktopComponent
     }, {
-        path: 'fcavatarList/:menuId',//头像
+        path:'system/fcavatarList',//头像
         component: AvatarComponent
     }, {
-        path: 'fcbadgeList/:menuId',//徽标
+        path:'system/fcbadgeList',//徽标
         component: BadgeComponent
     }, {
-        path: 'fccalendarList/:menuId',//日历
+        path:'system/fccalendarList',//日历
         component: CalendarComponent
     }, {
-        path: 'fccarouselList/:menuId',//轮播图
+        path:'system/fccarouselList',//轮播图
         component: CarouselComponent
     }, {
-        path: 'fccheckList/:menuId',//多选
+        path:'system/fccheckList',//多选
         component: CheckComponent
     }, {
-        path: 'fcchosenList/:menuId',//多选下拉
+        path:'system/fcchosenList',//多选下拉
         component: ChosenComponent
     }, {
-        path: 'fccomboList/:menuId',//单选下拉
+        path:'system/fccomboList',//单选下拉
         component: ComboComponent
     }, {
-        path: 'fcdateList/:menuId',//日期
+        path:'system/fcdateList',//日期
         component: DateComponent
     }, {
-        path: 'fcdatetimeList/:menuId',//日期时间
+        path:'system/fcdatetimeList',//日期时间
         component: DatetimeComponent
     }, {
-        path: 'fcdividerList/:menuId',//分隔
+        path:'system/fcdividerList',//分隔
         component: DividerComponent
     }, {
-        path: 'fcdoubleList/:menuId',//数值
+        path:'system/fcdoubleList',//数值
         component: DoubleComponent
     }, {
-        path: 'fceditorList/:menuId',//富文本框
+        path:'system/fceditorList',//富文本框
         component: EditorComponent
     }, {
-        path: 'fcfastpositionList/:menuId',//快速定位
+        path:'system/fcfastpositionList',//快速定位
         component: FastpositionComponent
     }, {
-        path: 'fciconList/:menuId',//图标
+        path:'system/fciconList',//图标
         component: IconComponent
     }, {
-        path: 'fclongList/:menuId',//整数
+        path:'system/fclongList',//整数
         component: LongComponent
     }, {
-        path: 'fcmanyList/:menuId',//自定义下拉多选
+        path:'system/fcmanyList',//自定义下拉多选
         component: ManyComponent
     }, {
-        path: 'fcpopoverList/:menuId',//气泡
+        path:'system/fcpopoverList',//气泡
         component: PopoverComponent
     }, {
-        path: 'fcradioList/:menuId',//单选
+        path:'system/fcradioList',//单选
         component: RadioComponent
     }, {
-        path: 'fcrateList/:menuId',//评分
+        path:'system/fcrateList',//评分
         component: RateComponent
     }, {
-        path: 'fcswitchList/:menuId',//开关
+        path:'system/fcswitchList',//开关
         component: SwitchComponent
     }, {
-        path: 'fctextList/:menuId',//文本框
+        path:'system/fctextList',//文本框
         component: TextComponent
     }, {
-        path: 'fctextareaList/:menuId',//大文本框
+        path:'system/fctextareaList',//大文本框
         component: TextareaComponent
     }, {
-        path: 'fctimeList/:menuId',//时间
+        path:'system/fctimeList',//时间
         component: TimeComponent
     }, {
-        path: 'fctimelineList/:menuId',//时间轴
+        path:'system/fctimelineList',//时间轴
         component: TimelineComponent
     }, {
-        path: 'fctitleList/:menuId',//标题
+        path:'system/fctitleList',//标题
         component: TitleComponent
     }, {
-        path: 'fctreeList/:menuId',//树控件
+        path:'system/fctreeList',//树控件
         component: TreeComponent
     }, {
-        path: 'fcuploadList/:menuId',//上传
+        path:'system/fcuploadList',//上传
         component: UploadComponent
     }, {
-        path: 'fctooltipList/:menuId',//文字提示
+        path:'system/fctooltipList',//文字提示
         component: TooltipComponent
     }
 ];

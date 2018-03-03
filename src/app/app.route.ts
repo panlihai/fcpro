@@ -17,7 +17,7 @@ export const AppRouters: Routes = [
                 path: 'home',
                 component: HomeComponent,
             }, {
-                path: 'sample',//高级组件
+                path: '',//高级组件
                 loadChildren: './samples/index.module#SamplesModule'
             }
             , {

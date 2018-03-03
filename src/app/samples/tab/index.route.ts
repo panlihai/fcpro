@@ -3,10 +3,10 @@ import { TabmainComponent } from './tabmain/tabmain.component';
 import { TabsubComponent } from './tabsub/tabsub.component';
 export const tabRouters: Routes = [
     {
-        path: 'fctabmainList/:menuId',//父选项卡
+        path:'system/fctabmainList',//父选项卡
         component: TabmainComponent
     }, {
-        path: 'fctabsubList/:menuId',//子选项卡
+        path:'system/fctabsubList',//子选项卡
         component: TabsubComponent
     }
 ];

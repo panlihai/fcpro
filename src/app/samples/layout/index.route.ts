@@ -6,19 +6,19 @@ import { LayoutportalComponent } from './layoutportal/layoutportal.component';
 import { LayoutrowComponent } from './layoutrow/layoutrow.component';
 export const layoutRouters: Routes = [
     {
-        path: 'fclayoutcolList/:menuId',//纵向
+        path:'system/fclayoutcolList',//纵向
         component: LayoutcolComponent
     }, {
-        path: 'fclayoutgroupList/:menuId',//分组
+        path:'system/fclayoutgroupList',//分组
         component: LayoutgroupComponent
     }, {
-        path: 'fclayoutpanelList/:menuId',//面板
+        path:'system/fclayoutpanelList',//面板
         component: LayoutpanelComponent
     }, {
-        path: 'fclayoutportalList/:menuId',//门户
+        path:'system/fclayoutportalList',//门户
         component: LayoutportalComponent
     }, {
-        path: 'fclayoutrowList/:menuId',//横向
+        path:'system/fclayoutrowList',//横向
         component: LayoutrowComponent
     }
 ]
