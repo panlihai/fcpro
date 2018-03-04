@@ -1,6 +1,6 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
-import { ProvidersService, SysmessageService } from 'fccore';
+import { ProvidersService, SysmessageService, Sysmenu } from 'fccore';
 import { NavsideOptions, FcTaboptions } from 'fccomponent';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ export class LayoutService {
     //点击的所有tab页面。
     _tabs: FcTaboptions[];
     constructor(private providers: ProvidersService, private sysmessageService: SysmessageService) {
-        this._tabs = [{ name: '首页', close: false, content: { MENUID: 'HOME', ROUTER: 'home', PID: 'SYSTEM' } }];
+        this._tabs = [{id:'0',index:0,enabled:true, name: '首页', close: false, content: { MENUID: 'HOME', ROUTER: 'home', PID: 'SYSTEM' } }];
     }
     /**
      * 获取默认的消息对象。
@@ -39,10 +39,13 @@ export class LayoutService {
      * 跳转路由并存储路由
      * @param menu 
      */
-    navStoreMenu(router: Router, menu: any) {
-        let existTabs = this._tabs.filter(element => element.name === menu.MENUNAME);
+    navStoreMenu(router: Router, menu: Sysmenu) {
+        let existTabs = this._tabs.filter(element => element.id === menu.ID);
         if (existTabs.length === 0) {
             this._tabs.push({
+                id:menu.ID,
+                enabled:true,
+                index:this._tabs.length+1,
                 name: menu.MENUNAME,
                 close: true,
                 content: menu
@@ -55,12 +58,12 @@ export class LayoutService {
      * @param router 路由
      * @param menu 关闭的路由菜单
      */
-    navRemoveMenu(router: Router, menu: any) {
+    navRemoveMenu(router: Router, menu: Sysmenu) {
         let index = -1;
         let count = 0;
         this._tabs.forEach(tab => {
             count++;
-            if (tab.name === menu.MENUNAME) {
+            if (tab.id === menu.ID) {
                 index = count;
             }
         });
