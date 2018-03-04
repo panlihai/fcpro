@@ -6,7 +6,7 @@ export class ComponentService extends ParentService {
   constructor(public providers: ProvidersService) {
     super(providers, "SYSCOMPONENT");
   }
-  fcOptions = {
+  fcOption = {
     //皮肤默认为bootstrap风格
     fcClass: 'ag-blue',
     //是否启用查询

@@ -3,7 +3,7 @@
     <fc-navbar fccontent1 [fcTitle]="_projectName" fcFull="true" (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar>
     <fc-layoutcol fccontent2 fcSpans="2,9" fcFull="true">
         <!-- 菜单导航 fc-navmenu-->
-        <fc-navmenu fccontent1 [fcOptions]="_menuOptions" [fcMenus]="_menus" (fcEvent)="navmenuEvent($event);" fcFull="true">
+        <fc-navmenu fccontent1 [fcOption]="_menuOptions" [fcMenus]="_menus" (fcEvent)="navmenuEvent($event);" fcFull="true">
         </fc-navmenu>
         <fc-layoutpanel fccontent2>
             <fc-navtab fccontent [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)">                 
@@ -19,4 +19,4 @@
     </fc-layoutcol>
 </fc-layoutrow>
 <!-- 消息侧边栏 fc-navside-->
-<fc-navside [fcOptions]="_navSideOption" [fcStatus]="_navbarStatus" (fcEvent)="navbarEvent($event)"></fc-navside>
+<fc-navside [fcOption]="_navSideOption" [fcStatus]="_navbarStatus" (fcEvent)="navbarEvent($event)"></fc-navside>

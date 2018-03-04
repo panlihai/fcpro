@@ -8,7 +8,7 @@ import { SysbackcodeService } from '../../services/sysbackcode.service';
   template: `
     <fc-layoutpanel>
         <fc-tlblist fcheader [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-        <fc-listdata fccontent [fcAppid]="appId" [fcOptions]="fcOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+        <fc-listdata fccontent [fcAppid]="appId" [fcOption]="fcOption" (fcEvent)="listdataEvent($event)"></fc-listdata>
     </fc-layoutpanel>
   `,
   styles: [`

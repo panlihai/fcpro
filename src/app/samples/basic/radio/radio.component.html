@@ -6,38 +6,38 @@
             <div fccontent>
                 <label>{{radioValue}}</label>
                 <fc-radio></fc-radio>
-                <fc-radio [(ngModel)]="radioValue" [fcOptions]="radioOptions"></fc-radio>
+                <fc-radio [(ngModel)]="radioValue" [fcOption]="radioOptions"></fc-radio>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="类型" fccontent2>
             <div fccontent>
-                <fc-radio fcType="radio" [(ngModel)]="radioValue" [fcOptions]="radioOptions"></fc-radio>
-                <fc-radio fcType="button" [(ngModel)]="radioValue" [fcOptions]="radioOptions"></fc-radio>
+                <fc-radio fcType="radio" [(ngModel)]="radioValue" [fcOption]="radioOptions"></fc-radio>
+                <fc-radio fcType="button" [(ngModel)]="radioValue" [fcOption]="radioOptions"></fc-radio>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="大小" fccontent1>
             <div fccontent>
                 <fc-radio fcSize="default"></fc-radio>
-                <fc-radio [(ngModel)]="radioValue" fcSize="large" [fcOptions]="radioOptions"></fc-radio>
-                <fc-radio [(ngModel)]="radioValue" fcSize="small" [fcOptions]="radioOptions"></fc-radio>
+                <fc-radio [(ngModel)]="radioValue" fcSize="large" [fcOption]="radioOptions"></fc-radio>
+                <fc-radio [(ngModel)]="radioValue" fcSize="small" [fcOption]="radioOptions"></fc-radio>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="禁用" fccontent2>
             <div fccontent>
-                <fc-radio [(ngModel)]="radioValue" [fcOptions]="radioOptions"></fc-radio>
-                <fc-radio [(ngModel)]="radioValue" fcDisabled="true" [fcOptions]="radioOptionsDisabled"></fc-radio>
+                <fc-radio [(ngModel)]="radioValue" [fcOption]="radioOptions"></fc-radio>
+                <fc-radio [(ngModel)]="radioValue" fcDisabled="true" [fcOption]="radioOptionsDisabled"></fc-radio>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="单独使用" fccontent1>
             <div fccontent>
-                <fc-radio [(ngModel)]="radioValueSingle" [fcOptions]="radioOption"></fc-radio>
+                <fc-radio [(ngModel)]="radioValueSingle" [fcOption]="radioOption"></fc-radio>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="按钮样式" fccontent2>
             <div fccontent>
-                <fc-radio fcType="button" fcSize="small" [(ngModel)]="radioValue" [fcOptions]="radioOptions" style="display:inline-block;margin-right:24px;"></fc-radio>
-                <fc-radio fcType="button" fcSize="default" [(ngModel)]="radioValue" [fcOptions]="radioOptionsDisabled" style="display:inline-block;margin-right:24px;"></fc-radio>
-                <fc-radio fcType="button" fcSize="large" [(ngModel)]="radioValue" [fcOptions]="radioOptionsDisabled" style="display:block;margin-top:24px;"></fc-radio>
+                <fc-radio fcType="button" fcSize="small" [(ngModel)]="radioValue" [fcOption]="radioOptions" style="display:inline-block;margin-right:24px;"></fc-radio>
+                <fc-radio fcType="button" fcSize="default" [(ngModel)]="radioValue" [fcOption]="radioOptionsDisabled" style="display:inline-block;margin-right:24px;"></fc-radio>
+                <fc-radio fcType="button" fcSize="large" [(ngModel)]="radioValue" [fcOption]="radioOptionsDisabled" style="display:block;margin-top:24px;"></fc-radio>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="更多" fccontent1>
@@ -50,9 +50,9 @@
 <!-- API -->
 <fc-layoutpanel>
     <fc-title fcTitle="属性" fcheader> </fc-title>
-    <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOptions]="fcOptions" [fcCondition]="fcCondition"></fc-listdata>
+    <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
 </fc-layoutpanel>
 <fc-layoutpanel>
     <fc-title fcTitle="事件" fcheader> </fc-title>
-    <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOptions]="fcOptions" [fcCondition]="fcCondition"></fc-listdata>
+    <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
 </fc-layoutpanel>

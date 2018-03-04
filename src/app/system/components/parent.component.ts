@@ -14,11 +14,7 @@ import {
 import { FclistdataComponent } from "fccomponent";
 import { FCEVENT } from "fccomponent/fc";
 export abstract class ParentComponent {
-    //路由参数
-    routerParam: any;
-    userInfo;
-    condition;
-    selectedIndex: number = 0;
+    //平台服务
     logService: LogService;
     appService: AppService;
     cacheService: CacheService;
@@ -26,37 +22,29 @@ export abstract class ParentComponent {
     commonService: CommonService;
     productService: ProductService;
     userService: UserService;
+    //路由参数
+    routerParam: any;
+    //用户信息
+    userInfo: any;
+    //条件内容
+    condition: string;
+    //当前选中索引
+    selectedIndex: number = 0;
+    //当前主应用id
     appId: string;
-    resize: boolean = true;
-    hasException: boolean;
+    //当前主对象
     mainObj: any;
+    //当前主应用
     mainApp: any;
-    fldsigRequired: any[];
-    wfActive: boolean;
-    wfMyTaskActive: boolean;
-    wfenabled: boolean;
-    readonlyList: boolean;
-    searchList: any[];
-    multiple: boolean;
-    showmultiple: boolean;
-    pageSize: number;
-    curPage: number;
-    curRec: number;
-    recordCount: number;
-    childRelation: {};
-    outRelation: {};
+    //当前对象状态
     objStatus = ObjStatus.CLEAR;
-    readonlyObject = false;
+    // 选中的所有记录列
     selectedObjects = [];
-    isApplink = false;
-    isLinkReadonly = false;
-    defselect = false;
-    openlist = true;
+    //默认的排序条件
     orderBy: string;
-    //子组件
+    //子列表组件
     @ViewChild(FclistdataComponent) listWnd: FclistdataComponent;
-    @ViewChildren(FclistdataComponent)
-    childWindow: QueryList<FclistdataComponent>;
+    @ViewChildren(FclistdataComponent) childWindow: QueryList<FclistdataComponent>;
     constructor(public mainService: ParentService,
         public router: Router,
         public activetedRoute: ActivatedRoute) {
@@ -73,7 +61,7 @@ export abstract class ParentComponent {
         // 初始化消息服务
         this.messageService = mainService.providers.msgService;
         // 初始化用户服务
-        this.userService = mainService.providers.userService;        
+        this.userService = mainService.providers.userService;
         //初始化用户信息
         this.userInfo = this.userService.getUserInfo();
         //获取路由参数
@@ -86,8 +74,6 @@ export abstract class ParentComponent {
         })
     }
     ngOnInit(): void {
-
-
     }
     /**
      * 子类初始化
@@ -330,11 +316,11 @@ export abstract class ParentComponent {
      * 根据工具栏处理事件
      * @param action 事件名称
      */
-    tlblistEvent(context:FCEVENT) {
+    tlblistEvent(context: FCEVENT) {
         switch (context.eventName) {
             case 'listAdd':
                 this.listAdd(context.eventName);
-                break;           
+                break;
             case 'listDelete':
                 this.listDelete(context.eventName);
                 break;
@@ -353,16 +339,15 @@ export abstract class ParentComponent {
             case 'export':
                 this.export(context.eventName);
                 break;
-            default:
-                this.event(context.eventName, context);
         }
+        this.event(context.eventName, context);
     }
     /**
      * 根据列表处理事件
      * @param action 事件名称
      */
-    listdataEvent(context:any) {
-        switch (context.eventName) {           
+    listdataEvent(context: any) {
+        switch (context.eventName) {
             case 'listEdit':
                 this.listEdit(context);
                 break;
@@ -371,17 +356,25 @@ export abstract class ParentComponent {
                 break;
             case 'listOneView':
                 // this.cardSaveBack(action);
-                break;           
-            default:
-                this.event(context.eventName, context);
+                break;
+            case 'selected':
+                this.selectedObjects = [];
+                this.selectedObjects.push(context.param.data);
+                if (this.selectedObjects.length === 1) {
+                    this.mainObj = this.selectedObjects[0];
+                } else {
+                    this.mainObj = this.selectedObjects[this.selectedObjects.length - 1];
+                }
+                break;
         }
+        this.event(context.eventName, context);
     }
     /**
      * 根据列表处理事件
      * @param action 事件名称
      */
-    adformEvent(context:FCEVENT) {
-        switch (context.eventName) {           
+    adformEvent(context: FCEVENT) {
+        switch (context.eventName) {
             case 'cardSave':
                 if (this.mainObj.ID.length === 0) {
                     this.cardSave(context.eventName);
@@ -406,9 +399,8 @@ export abstract class ParentComponent {
             case 'cardBack':
                 this.cardBack(context.eventName);
                 break;
-            default:
-                this.event(context.eventName, context);
         }
+        this.event(context.eventName, context);
     }
     /**
      * 自定义事件名称
