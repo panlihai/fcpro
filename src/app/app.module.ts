@@ -52,7 +52,6 @@ import { LayoutService } from './system/services/layout.service';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRouters),
-    FccoreModule.forRoot(environment),
     FcnavModule,
     FcbasicModule,
     FcadModule,
