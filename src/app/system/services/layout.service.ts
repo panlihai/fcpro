@@ -1,15 +1,18 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
-import { ProvidersService, SysmessageService, Sysmenu } from 'fccore';
+import { ProvidersService, SysmessageService, Sysmenu, FCCONFIG } from 'fccore';
 import { NavsideOptions, FcTaboptions } from 'fccomponent';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { element } from 'protractor';
 @Injectable()
 export class LayoutService {
     //点击的所有tab页面。
     _tabs: FcTaboptions[];
+    _selectedIndex: number;
     constructor(private providers: ProvidersService, private sysmessageService: SysmessageService) {
-        this._tabs = [{id:'0',index:0,enabled:true, name: '首页', close: false, content: { MENUID: 'HOME', ROUTER: 'home', PID: 'SYSTEM' } }];
+        this._tabs = [{ id: '0', index: 0, enabled: true, name: '首页', close: false, content: { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: FCCONFIG.pid } }];
+        this._selectedIndex = 0;
     }
     /**
      * 获取默认的消息对象。
@@ -43,15 +46,18 @@ export class LayoutService {
         let existTabs = this._tabs.filter(element => element.id === menu.ID);
         if (existTabs.length === 0) {
             this._tabs.push({
-                id:menu.ID,
-                enabled:true,
-                index:this._tabs.length+1,
+                id: menu.ID,
+                enabled: true,
+                index: this._tabs.length - 1,
                 name: menu.MENUNAME,
                 close: true,
                 content: menu
             });
+            this._selectedIndex = this._tabs.length - 1;
+        } else {
+            this._selectedIndex = existTabs[0].index;
         }
-        router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], { queryParams: menu });
+        router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], { queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID } });
     }
     /**
      * 关闭路由并删除路由表
@@ -59,17 +65,11 @@ export class LayoutService {
      * @param menu 关闭的路由菜单
      */
     navRemoveMenu(router: Router, menu: Sysmenu) {
-        let index = -1;
-        let count = 0;
-        this._tabs.forEach(tab => {
-            count++;
-            if (tab.id === menu.ID) {
-                index = count;
-            }
+        let tempIndex = 0;
+        this._tabs.forEach(item => {
+            item.index = tempIndex++;
         });
-        if (index !== -1) {
-            this._tabs.splice(index, 1);
-            this.navStoreMenu(router, this._tabs[index - 1].content);
-        }
+        this._selectedIndex = this._selectedIndex - 1;
+        this.navStoreMenu(router, this._tabs[this._selectedIndex].content);
     }
 }

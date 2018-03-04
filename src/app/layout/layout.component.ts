@@ -9,7 +9,14 @@ import { LayoutService } from '../system/services/layout.service';
   selector: 'layout',
   templateUrl: './layout.component.html',
   styles: [`
-
+  .footer {
+    text-align: center;
+    height:40px;
+    line-height:40px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
   `]
 })
 export class LayoutComponent implements OnInit {
@@ -32,6 +39,7 @@ export class LayoutComponent implements OnInit {
   allmenus = [];
   _menus: any = [];
   _tabs: FcTaboptions[];
+  _navTabSelectedIndex: number=0;
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private sysmessageService: SysmessageService,
@@ -42,6 +50,7 @@ export class LayoutComponent implements OnInit {
     //初始化消息配置
     this._navSideOption = this.mainService.initNavSideOptions();
     this._tabs = this.mainService._tabs;
+    //选中索引
   }
   ngOnInit() {
     this.mainService.getMessage().subscribe(res => {
@@ -52,6 +61,7 @@ export class LayoutComponent implements OnInit {
         this._navSideOption.fcValues2 = res[1].DATA;
       }
     });
+    this._navTabSelectedIndex = this.mainService._selectedIndex;
   }
   /**
    * 导航栏事件
@@ -74,6 +84,7 @@ export class LayoutComponent implements OnInit {
         break;
     }
   }
+
   /**
    *  菜单事件
    * @param event 
@@ -86,7 +97,6 @@ export class LayoutComponent implements OnInit {
       case 'select':
         //导航并存储列表
         this.mainService.navStoreMenu(this._router, event.param);
-
         break;
     }
   }

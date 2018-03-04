@@ -6,15 +6,11 @@
         <fc-navmenu fccontent1 [fcOption]="_menuOptions" [fcMenus]="_menus" (fcEvent)="navmenuEvent($event);" fcFull="true">
         </fc-navmenu>
         <fc-layoutpanel fccontent2>
-            <fc-navtab fccontent [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)">                 
-            </fc-navtab>            
-            <router-outlet fccontent></router-outlet>
-            <div fcfooter style="text-align: center;
-            height:40px;
-            line-height:40px;
-            position: absolute;
-            bottom: 0;
-            width: 100%;">开发者</div>
+            <fc-navtab fccontent [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
+            <div style="padding-left:10px;padding-right:10px;box-sizing:border-box;" fccontent>
+                <router-outlet></router-outlet>
+            </div>
+            <div class="footer" fcfooter>开发者</div>
         </fc-layoutpanel>
     </fc-layoutcol>
 </fc-layoutrow>
