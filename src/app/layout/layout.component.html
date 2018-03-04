@@ -6,7 +6,7 @@
         <fc-navmenu fccontent1 [fcOptions]="_menuOptions" [fcMenus]="_menus" (fcEvent)="navmenuEvent($event);" fcFull="true">
         </fc-navmenu>
         <fc-layoutpanel fccontent2>
-            <fc-navtab fccontent [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)"></fc-navtab>
+            <fc-navtab fccontent [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
             <div style="padding-left:10px;padding-right:10px;box-sizing:border-box;" fccontent>
                 <router-outlet></router-outlet>
             </div>
