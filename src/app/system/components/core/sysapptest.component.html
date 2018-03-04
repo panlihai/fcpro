@@ -1,0 +1,11 @@
+<fc-layoutpanel>
+    <fc-title fcheader [fcTitle]="mainApp.APPNAME"></fc-title>
+    <fc-layoutcol fccontent fcSpans="2,9">
+        <fc-tree fccontent1 [fcOptions]="treeOptions" #tree (fcEvent)="treeEvent($event)"></fc-tree>
+        <fc-layoutpanel fccontent2>
+            <fc-tlblist fcheader [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+            <fc-listdata fccontent [fcAppid]="appId" [fcOptions]="fcOptions" (fcEvent)="listdataEvent($event)" #listdata></fc-listdata>
+            <fc-adform fccontent [fcAppid]="appId" [fcFormConfig]="formConfig" (fcEvent)="adformEvent($event)" ></fc-adform>
+        </fc-layoutpanel>
+    </fc-layoutcol>
+</fc-layoutpanel>

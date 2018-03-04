@@ -14,6 +14,7 @@ import { SysroleauthComponent } from './components/core/sysroleauth.component';
 import { SysmessageComponent } from './components/core/sysmessage.component';
 import { SysbackcodeComponent } from './components/core/sysbackcode.component';
 import { SyscomponentComponent } from './components/core/syscomponent.component';
+import { SysapptestComponent } from './components/core/sysapptest.component';
 export const Routers: Routes = [
     {
         path: 'error',//错误
@@ -64,6 +65,10 @@ export const Routers: Routes = [
     {
         path: 'syscomponentList',//平台组件
         component: SyscomponentComponent
+    },
+    {
+        path: 'sysapptestList',
+        component: SysapptestComponent
     },
     {
         path: '**',

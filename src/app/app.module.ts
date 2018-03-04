@@ -55,7 +55,6 @@ import { SpreaddemoService } from './system/services/spreaddemo.service';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRouters),
-    FccoreModule.forRoot(environment),
     FcnavModule,
     FcbasicModule,
     FcadModule,
