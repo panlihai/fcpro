@@ -9,7 +9,14 @@ import { LayoutService } from '../system/services/layout.service';
   selector: 'layout',
   templateUrl: './layout.component.html',
   styles: [`
-
+  .footer {
+    text-align: center;
+    height:40px;
+    line-height:40px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
   `]
 })
 export class LayoutComponent implements OnInit {
@@ -86,7 +93,6 @@ export class LayoutComponent implements OnInit {
       case 'select':
         //导航并存储列表
         this.mainService.navStoreMenu(this._router, event.param);
-
         break;
     }
   }

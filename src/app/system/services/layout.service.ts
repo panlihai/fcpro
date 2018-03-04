@@ -9,7 +9,7 @@ export class LayoutService {
     //点击的所有tab页面。
     _tabs: FcTaboptions[];
     constructor(private providers: ProvidersService, private sysmessageService: SysmessageService) {
-        this._tabs = [{ name: '首页', close: false, content: { MENUID: 'HOME', ROUTER: 'home', PID: 'SYSTEM' } }];
+        this._tabs = [{ name: '首页', close: false, content: { MENUID: 'HOME', ROUTER: 'home', PID: 'SYSTEM' ,selectdIndex:''} }];
     }
     /**
      * 获取默认的消息对象。
