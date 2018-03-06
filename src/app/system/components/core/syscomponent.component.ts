@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { ParentComponent } from 'fccomponent';
-import { ParentComponent } from '../parent.component';
+import { ParentComponent } from 'fccomponent';
 import { SyscomponentService } from '../../services/syscomponent.service';
 @Component({
   selector: 'syscomponent',
