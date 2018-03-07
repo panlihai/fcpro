@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { ParentComponent } from 'fccomponent';
+import { ParentComponent } from 'fccomponent';
 import { MainService } from '../../services/main.service';
-import { ParentComponent } from '../parent.component';
 @Component({
   selector: 'main',
   templateUrl: './main.component.html',

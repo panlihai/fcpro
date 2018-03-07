@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { ParentComponent } from 'fccomponent';
+import { ParentComponent } from 'fccomponent';
 import { SysdatasourceService } from '../../services/sysdatasource.service';
-import { ParentComponent } from '../parent.component';
 @Component({
   selector: 'sysdatasource',
   template: `
