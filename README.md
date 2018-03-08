@@ -30,7 +30,16 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
-    please npm install fccomponent@0.2.28 --save
+    please npm install fccomponent@0.2.28 --save 
+    (皮肤默认为蓝色,列表组件100%高度，增加对tree是否是末级的支持)
+    please npm install fccore@0.3.11 --save
+    <code>
+</pre>
+<pre>
+    <code>
+    please npm install fccomponent@0.2.27 --save 
+    修复列表查询组件及表单组件无法显示bug
+    增加基础组件的自定义lable及支持自定义fcAppId及fcFieldCode
     please npm install fccore@0.3.11 --save
     <code>
 </pre>
