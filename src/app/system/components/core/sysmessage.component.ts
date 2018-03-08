@@ -5,21 +5,37 @@ import { SysmessageService } from 'fccore';
 @Component({
   selector: 'sysmessage',
   template: `
-    <fc-layoutpanel>
-        <fc-tlblist fcheader [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-        <fc-listdata fccontent [fcAppid]="appId" [fcOption]="fcOption" (fcEvent)="listdataEvent($event)"></fc-listdata>
-    </fc-layoutpanel>
+  <fc-layoutpanel fcFull="true">
+    <fc-layoutrow fcSpan="120" style="height:100%;" fccontent>
+        <fc-tlblist fccontent1 [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+      <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+    </fc-layoutrow>
+</fc-layoutpanel>
   `,
   styles: [`
-  
+  :host ::ng-deep .fc-layoutpanel .fc-content{
+    height:100%;
+  }
+  .list-search {
+    width:100%;
+  }
+  .list-search:after{
+    content:'';
+    display:block;
+    clearfix:both;
+  }
+  .list-search-every{
+    width:24%;
+    float:left;
+  }
   `]
 })
 export class SysmessageComponent extends ParentComponent {
   constructor(public mainService: SysmessageService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
-    super(mainService, router, activeRoute);    
-  }  
+    super(mainService, router, activeRoute);
+  }
   init(): void {
   }
   addNew(mainObj: any) {
@@ -40,7 +56,7 @@ export class SysmessageComponent extends ParentComponent {
     return true;
   }
   afterEdit(mainObj: any): void {
-    
+
   }
   event(eventName: string, context: any): void {
   }

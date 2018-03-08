@@ -17,6 +17,11 @@ import { LayoutService } from '../system/services/layout.service';
     bottom: 0;
     width: 100%;
   }
+  :host ::ng-deep router-outlet + * {
+    height: calc(100% - 40px);
+    width: 100%;
+    display: block;
+  }
   `]
 })
 export class LayoutComponent implements OnInit {
@@ -39,7 +44,7 @@ export class LayoutComponent implements OnInit {
   allmenus = [];
   _menus: any = [];
   _tabs: FcTaboptions[];
-  _navTabSelectedIndex: number=0;
+  _navTabSelectedIndex: number = 0;
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private sysmessageService: SysmessageService,
