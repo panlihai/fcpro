@@ -9,6 +9,13 @@
         <fc-navtab fccontent2 [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
         <!-- 路由入口 -->
         <router-outlet fccontent2 [ngStyle]="{'height':'100%'}"></router-outlet>
+        <fc-layoutpanel fccontent2>
+            <fc-navtab fccontent [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
+            <div style="padding-left:10px;padding-right:10px;box-sizing:border-box;" fccontent>
+                <router-outlet></router-outlet>
+            </div>
+            <div class="footer" fcfooter></div>
+        </fc-layoutpanel>
     </fc-layoutcol>
 </fc-layoutrow>
 <!-- 消息侧边栏 fc-navside-->

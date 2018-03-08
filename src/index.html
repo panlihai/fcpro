@@ -13,76 +13,6 @@
       padding: 0;
     }
 
-    html,
-    body,
-    a,
-    address,
-    article,
-    aside,
-    audio,
-    b,
-    blockquote,
-    body,
-    br,
-    button,
-    canvas,
-    caption,
-    center,
-    col,
-    dd,
-    dir,
-    div,
-    dl,
-    dt,
-    fieldset,
-    figcaption,
-    figure,
-    font,
-    footer,
-    form,
-    frame,
-    frameset,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    head,
-    header,
-    hr,
-    i,
-    iframe,
-    img,
-    input,
-    label,
-    legend,
-    li,
-    nav,
-    ol,
-    option,
-    p,
-    pre,
-    samp,
-    section,
-    select,
-    small,
-    span,
-    strong,
-    table,
-    tbody,
-    td,
-    textarea,
-    tfoot,
-    th,
-    thead,
-    title,
-    tr,
-    ul,
-    video {
-      font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
-    }
-
     ::-webkit-scrollbar-thumb {
       background: #C1C6CA;
       opacity: 0.5;
@@ -115,32 +45,7 @@
       border-radius: 0;
     }
 
-    @-webkit-keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
 
-    @-moz-keyframes spin {
-      0% {
-        -moz-transform: rotate(0deg);
-      }
-      100% {
-        -moz-transform: rotate(360deg);
-      }
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
 
 
     .preloader-wrap {
@@ -159,18 +64,46 @@
       position: relative;
     }
 
-    #preloader {
-      width: 150px;
-      height: 150px;
-      z-index: 1003;
-      margin-top: -75px;
-      margin-left: -75px;
-      position: fixed;
-      top: 50%;
-      left: 50%;
+
+    @-webkit-keyframes spin {
+      0% {
+        transform: rotate(0)
+      }
+      100% {
+        transform: rotate(360deg)
+      }
     }
 
-    #preloader>div {
+    @-moz-keyframes spin {
+      0% {
+        -moz-transform: rotate(0)
+      }
+      100% {
+        -moz-transform: rotate(360deg)
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0)
+      }
+      100% {
+        transform: rotate(360deg)
+      }
+    }
+
+    .spinner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1003;
+      background: #000000;
+      overflow: hidden
+    }
+
+    .spinner div:first-child {
       display: block;
       position: relative;
       left: 50%;
@@ -179,47 +112,35 @@
       height: 150px;
       margin: -75px 0 0 -75px;
       border-radius: 50%;
-      border: 3px solid transparent;
-      border-top-color: #e85656;
+      box-shadow: 0 3px 3px 0 rgba(255, 56, 106, 1);
       transform: translate3d(0, 0, 0);
-      animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite
     }
 
-    #preloader:before {
-      content: "";
+    .spinner div:first-child:after,
+    .spinner div:first-child:before {
+      content: '';
       position: absolute;
+      border-radius: 50%
+    }
+
+    .spinner div:first-child:before {
       top: 5px;
       left: 5px;
       right: 5px;
       bottom: 5px;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      border-top-color: #209e91;
+      box-shadow: 0 3px 3px 0 rgb(255, 228, 32);
       -webkit-animation: spin 3s linear infinite;
-      animation: spin 3s linear infinite;
+      animation: spin 3s linear infinite
     }
 
-    #preloader:after {
-      content: "";
-      position: absolute;
+    .spinner div:first-child:after {
       top: 15px;
       left: 15px;
       right: 15px;
       bottom: 15px;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      border-top-color: #dfb81c;
-      animation: spin 1s linear infinite;
-    }
-
-    input:-webkit-autofill,
-    textarea:-webkit-autofill,
-    select:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0px 1000px white inset !important;
-      background-color: rgb(0, 0, 0) !important;
-      background-image: none !important;
-      color: rgb(0, 0, 0) !important;
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+      box-shadow: 0 3px 3px 0 rgba(61, 175, 255, 1);
+      animation: spin 1.5s linear infinite
     }
   </style>
   <script src="./assets/plugin/spread/gc.spread.sheets.all.11.0.0.min.js"></script>
@@ -250,8 +171,13 @@
   <app-root>
     <div class="preloader-wrap">
       <div class="preloader-in">
-        <div id="preloader">
-          <div></div>
+        <div id="nb-global-spinner" class="spinner">
+          <div class="blob blob-0"></div>
+          <div class="blob blob-1"></div>
+          <div class="blob blob-2"></div>
+          <div class="blob blob-3"></div>
+          <div class="blob blob-4"></div>
+          <div class="blob blob-5"></div>
         </div>
       </div>
     </div>

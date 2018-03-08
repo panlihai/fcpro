@@ -14,7 +14,6 @@ import { LayoutService } from '../system/services/layout.service';
     height:40px;
     line-height:40px;
     position: absolute;
-    bottom: 0;
     width: 100%;
   }
   :host ::ng-deep router-outlet + * {
