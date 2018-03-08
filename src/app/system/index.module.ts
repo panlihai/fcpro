@@ -38,8 +38,6 @@ import { SysroleauthService } from './services/sysroleauth.service';
 import { SysbackcodeService } from './services/sysbackcode.service';
 import { SyscomponentService } from './services/syscomponent.service';
 import { SysparamService } from './services/sysparam.service';
-import { SysapptestService } from './services/sysapptest.service';
-import { SysapptestComponent } from './components/core/sysapptest.component';
 @NgModule({
   imports: [
     RouterModule.forChild(Routers),
@@ -72,8 +70,7 @@ import { SysapptestComponent } from './components/core/sysapptest.component';
     SysparamComponent,
     SysmessageComponent,
     SysbackcodeComponent,
-    SyscomponentComponent,
-    SysapptestComponent
+    SyscomponentComponent
   ],
   providers: [
     MainService,
@@ -84,8 +81,7 @@ import { SysapptestComponent } from './components/core/sysapptest.component';
     SysparamService,
     SysmessageService,
     SysbackcodeService,
-    SyscomponentService,
-    SysapptestService
+    SyscomponentService
   ]
 })
 export class SystemModule { }

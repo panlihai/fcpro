@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { ParentComponent } from 'fccomponent';
-import { ParentComponent } from '../parent.component';
+import { ParentComponent } from 'fccomponent';
 import { SysparamService } from '../../services/sysparam.service';
 @Component({
   selector: 'sysparam',
   template: `
     <fc-layoutpanel>
         <fc-tlblist fcheader [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-        <fc-listdata fccontent [fcAppid]="appId" [fcOptions]="fcOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+        <fc-listdata fccontent [fcAppid]="appId" [fcOption]="fcOption" (fcEvent)="listdataEvent($event)"></fc-listdata>
     </fc-layoutpanel>
   `,
   styles: [`
