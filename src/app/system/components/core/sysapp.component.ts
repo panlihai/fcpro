@@ -22,7 +22,7 @@ import { SysappService } from '../../services/sysapp.service';
   .list-search:after{
     content:'';
     display:block;
-    clearfix:both;
+    clear:both;
   }
   .list-search-every{
     width:24%;

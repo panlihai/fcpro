@@ -6,7 +6,7 @@ import { SysdatasourceService } from '../../services/sysdatasource.service';
   selector: 'sysdatasource',
   template: `
     <fc-layoutpanel fcFull="true">
-      <fc-layoutrow fcSpan="120" style="height:100%;" fccontent>
+      <fc-layoutrow fcSpan="100" style="height:100%;" fccontent>
         <div fccontent1>
           <fc-tlblist  [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
           <div class="list-search">
@@ -17,8 +17,10 @@ import { SysdatasourceService } from '../../services/sysdatasource.service';
             <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
             <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
             <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
-            <fc-button fcLabel="查询" fcType="primary"></fc-button>
-            <fc-button fcLabel="重置" fcType="primary"></fc-button>
+            <div class="list-search-every">
+              <fc-button fcLabel="查询" fcType="primary"></fc-button>
+              <fc-button fcLabel="重置" fcType="primary"></fc-button>
+            </div>
           </div>
         </div>
         <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
@@ -35,11 +37,12 @@ import { SysdatasourceService } from '../../services/sysdatasource.service';
   .list-search:after{
     content:'';
     display:block;
-    clearfix:both;
+    clear:both;
   }
   .list-search-every{
-    width:24%;
+    width:25%;
     float:left;
+    margin-top:5px;
   }
   `]
 })

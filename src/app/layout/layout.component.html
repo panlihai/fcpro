@@ -8,7 +8,9 @@
         <!-- 选项卡导航 -->
         <fc-navtab fccontent2 [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
         <!-- 路由入口 -->
-        <router-outlet [ngStyle]="{'height':'100%'}" fccontent2></router-outlet>
+        <div class="fc-layout" fccontent2>
+            <router-outlet [ngStyle]="{'height':'100%'}"></router-outlet>
+        </div>
     </fc-layoutcol>
 </fc-layoutrow>
 <!-- 消息侧边栏 fc-navside-->
