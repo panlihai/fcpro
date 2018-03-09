@@ -17,7 +17,7 @@ import { LayoutService } from '../system/services/layout.service';
     width: 100%;
   }
   :host ::ng-deep router-outlet + * {
-    height: calc(100% - 40px);
+    height: 100%;
     width: 100%;
     display: block;
   }
