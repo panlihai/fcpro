@@ -9,17 +9,20 @@ import { LayoutService } from '../system/services/layout.service';
   selector: 'layout',
   templateUrl: './layout.component.html',
   styles: [`
-  .footer {
-    text-align: center;
-    height:40px;
-    line-height:40px;
-    position: absolute;
-    width: 100%;
+  :host ::ng-deep .fc-layout{
+    height: calc(100% - 36px);
+    padding:5px;
   }
   :host ::ng-deep router-outlet + * {
-    height: 100%;
     width: 100%;
-    display: block;
+    height: 100%;
+  }
+  .footer {
+    width: 100%;
+    height:40px;
+    line-height:40px;
+    text-align: center;
+    position: absolute;
   }
   `]
 })

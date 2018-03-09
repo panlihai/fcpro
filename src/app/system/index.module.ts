@@ -40,6 +40,9 @@ import { SyscomponentService } from './services/syscomponent.service';
 import { SysparamService } from './services/sysparam.service';
 @NgModule({
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
     RouterModule.forChild(Routers),
     FccoreModule,
     FcnavModule,

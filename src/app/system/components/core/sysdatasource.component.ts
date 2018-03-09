@@ -22,11 +22,12 @@ import { SysdatasourceService } from '../../services/sysdatasource.service';
   .list-search:after{
     content:'';
     display:block;
-    clearfix:both;
+    clear:both;
   }
   .list-search-every{
-    width:24%;
+    width:25%;
     float:left;
+    margin-top:5px;
   }
   `]
 })
