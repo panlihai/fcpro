@@ -30,6 +30,12 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    平台升级至fcexample@1.1.4
+    平台增加对多tab页缓存的支持，修改列表组件高度的设置
+    <code>
+</pre>
+<pre>
+    <code>
     please npm install fccomponent@0.2.29 --save 
     修复组件皮肤，修复列表组件100%高度异常
     please npm install fccore@0.3.11 --save

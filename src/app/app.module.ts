@@ -37,7 +37,7 @@ import {
   FclistModule
 } from 'fccomponent';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { environment } from '../environments/environment';
 import { AppRouters } from './app.route';
 import { LayoutComponent } from './layout/layout.component';
@@ -46,6 +46,7 @@ import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './system/components/signin/signin.component';
 import { SignupComponent } from './system/components/signup/signup.component';
 import { LayoutService } from './system/services/layout.service';
+import { FcRouteReuseStrategy } from './system/services/routereusestrategy.service';
 @NgModule({
   imports: [
     FormsModule,
@@ -91,7 +92,8 @@ import { LayoutService } from './system/services/layout.service';
     SysinterfaceService,
     SysmenuService,
     SysstyleService,
-    LayoutService
+    LayoutService,
+    { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy }
   ],
   bootstrap: [AppComponent]
 })
