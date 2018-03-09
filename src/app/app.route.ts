@@ -27,18 +27,6 @@ export const AppRouters: Routes = [
                 path: 'helloproject',//业务组件
                 loadChildren: './feature/helloproject/index.module#HelloModule'
             }
-            // , {
-            //     path: 'ic',//
-            //     loadChildren: './feature/ic/index.module#IcModule'
-            // }
-            // , {
-            //     path: 'zq',//
-            //     loadChildren: './feature/zq/index.module#ZqModule'
-            // }
-            // , {
-            //     path: 'budget',//
-            //     loadChildren: './feature/budget/index.module#BudgetModule'
-            // }
         ]
     }, {
         path: 'signin',//登录

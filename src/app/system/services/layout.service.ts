@@ -57,7 +57,11 @@ export class LayoutService {
         } else {
             this._selectedIndex = existTabs[0].index;
         }
-        router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], { queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID } });
+        router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER],
+            {
+                queryParams:
+                    { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
+            });
     }
     /**
      * 关闭路由并删除路由表

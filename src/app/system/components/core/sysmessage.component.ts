@@ -5,56 +5,12 @@ import { SysmessageService } from 'fccore';
 @Component({
   selector: 'sysmessage',
   template: `
-  <fc-layoutpanel fcFull="true" [hidden]="!panelShow">
-    <fc-layoutrow fcSpan="100" style="height:100%;" fccontent>
-    <div fccontent1>
-      <fc-tlblist  [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-        <div class="list-search">
-          <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
-          <div class="list-search-every"><fc-text fcLabel="坏账准备"></fc-text></div>
-          <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
-          <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
-          <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
-          <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
-          <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
-          <div class="list-search-every">
-            <fc-button fcLabel="查询" fcType="primary"></fc-button>
-            <fc-button fcLabel="重置" fcType="primary"></fc-button>
-          </div>
-        </div>
-      </div>
-      <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
-    </fc-layoutrow>
-  </fc-layoutpanel>
-  <fc-layoutpanel [hidden]="panelShow">
-  <fc-tlbform  fcheader [fcAppid]="appId" fcLayout="left" (fcEvent)="tlbformEvent($event)"></fc-tlbform>
-  <fc-title fcLabel="计提坏账登记" [fcSubtitle]="_subtitle" fcLayout="center" fcWidth="25%" fcheader></fc-title>
-  <fc-tabmain [fcTabs]="tabmain" [fcSelectedIndex]="tabIndex" fccontent>
-    <form fccontent1>
-      <fc-layoutcol fcSpans="1">
-        <div fccontent1>
-          <form>
-            <fc-layoutcol fcSpans="1,1">
-              <div fccontent1>
-                <fc-text fcLabel="标题" [(fcAppid)]="appId" fcFieldCode='TITLE' [(ngModel)]="mainObj.TITLE" name="TITLE"></fc-text>
-                <fc-radio [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-radio>
-                <fc-combo [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-combo>
-                <fc-check [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-check>
-              </div>
-              <div fccontent2>
-                <fc-text fcLabel="标题" [(fcAppid)]="appId" fcFieldCode='TITLE' [(ngModel)]="mainObj.TITLE" name="TITLE"></fc-text>
-                <fc-radio [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-radio>
-                <fc-combo [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-combo>
-                <fc-check [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-check>
-                </div>
-            </fc-layoutcol>
-          </form>
-        </div>
-      </fc-layoutcol>
-    </form>
-    <div style="height:450px;" fccontent2><fc-listdata  [fcAppid]="appId" [fcOption]="fcOption"></fc-listdata></div>
-  </fc-tabmain>
-  </fc-layoutpanel>
+  <fc-layoutpanel fcFull="true">
+      <fc-layoutrow fcSpan="30" style="height:100%;" fccontent>
+          <fc-tlblist  fccontent1 [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+        <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+      </fc-layoutrow>
+    </fc-layoutpanel>
   `,
   styles: [`
   :host ::ng-deep .fc-layoutpanel .fc-content{
