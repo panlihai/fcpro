@@ -1,18 +1,14 @@
 <fc-layoutrow>
     <!-- 顶部工具栏 fc-navbar-->
-    <fc-navbar fccontent1  fcTheme="blue" [fcTitle]="_projectName" fcFull="true" (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar>
+    <fc-navbar fccontent1 [fcTitle]="_projectName" fcFull="true" (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar>
     <fc-layoutcol fccontent2 fcSpans="2,9" fcFull="true">
         <!-- 菜单导航 fc-navmenu-->
         <fc-navmenu fccontent1 fcTheme="blue" [fcOption]="_menuOptions" [fcMenus]="_menus" (fcEvent)="navmenuEvent($event);" fcFull="true">
         </fc-navmenu>
-        <fc-layoutpanel fccontent2>
-            <fc-navtab fccontent [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
-            <!-- 路由入口 -->
-            <!-- 选项卡导航 -->
-            <div style="padding-left:10px;padding-right:10px;box-sizing:border-box;" fccontent>
-                <router-outlet fccontent2 [ngStyle]="{'height':'100%'}"></router-outlet>
-            </div>
-        </fc-layoutpanel>
+        <!-- 选项卡导航 -->
+        <fc-navtab fccontent2 [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
+        <!-- 路由入口 -->
+        <router-outlet [ngStyle]="{'height':'100%'}" fccontent2></router-outlet>
     </fc-layoutcol>
 </fc-layoutrow>
 <!-- 消息侧边栏 fc-navside-->

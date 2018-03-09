@@ -20,7 +20,7 @@ import { SysdatasourceService } from '../../services/sysdatasource.service';
             <fc-button fcLabel="查询" fcType="primary"></fc-button>
             <fc-button fcLabel="重置" fcType="primary"></fc-button>
           </div>
-          </div>
+        </div>
         <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
       </fc-layoutrow>
     </fc-layoutpanel>
