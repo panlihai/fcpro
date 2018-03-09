@@ -7,7 +7,10 @@ import {
   FcbasicModule,
   FclayoutModule,
   FcadModule,
-  FcnavModule
+  FcnavModule,
+  FctlbModule,
+  FctabModule,
+  FclistModule
 } from 'fccomponent';
 import { FccoreModule } from 'fccore';
 import { Hellofc1Component } from './components/hellofc1.component';
@@ -15,12 +18,18 @@ import { Hellofc2Component } from './components/hellofc2.component';
 import { Hellofc3Component } from './components/hellofc3.component';
 @NgModule({
   imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FccoreModule,
     RouterModule.forChild(Routers),
     FcbasicModule,
     FclayoutModule,
     FcadModule,
     FcnavModule,
-    FccoreModule
+    FctlbModule,
+    FctabModule,
+    FclistModule
   ],
   exports: [
 

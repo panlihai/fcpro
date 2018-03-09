@@ -14,6 +14,9 @@ import { SpreadSheetsModule } from '../../../../assets/plugin/spread/gc.spread.s
 import { BasicspreadComponent } from './components/basicspread.component';
 @NgModule({
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
     RouterModule.forChild(Routers),
     FccoreModule,
     FcbasicModule,
@@ -29,7 +32,7 @@ import { BasicspreadComponent } from './components/basicspread.component';
     BasicspreadComponent,
   ],
   providers: [
-    
+
   ]
 })
 export class SpreadModule { }
