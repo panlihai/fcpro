@@ -1,4 +1,6 @@
-<fc-layoutpanel>
-    <fc-tlblist fcheader [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-    <fc-listdata fccontent [fcAppid]="appId" [fcOption]="fcOption" (fcEvent)="listdataEvent($evnet)"></fc-listdata>
-</fc-layoutpanel>
+<fc-layoutpanel fcFull="true">
+    <fc-layoutrow fcSpan="120" style="height:100%;" fccontent>
+        <fc-tlblist fccontent1 [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+      <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+    </fc-layoutrow>
+  </fc-layoutpanel>

@@ -1,20 +1,18 @@
 <fc-layoutrow>
     <!-- 顶部工具栏 fc-navbar-->
-    <fc-navbar fccontent1 [fcTitle]="_projectName" fcFull="true" (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar>
+    <fc-navbar fccontent1  fcTheme="blue" [fcTitle]="_projectName" fcFull="true" (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar>
     <fc-layoutcol fccontent2 fcSpans="2,9" fcFull="true">
         <!-- 菜单导航 fc-navmenu-->
-        <fc-navmenu fccontent1 [fcOption]="_menuOptions" [fcMenus]="_menus" (fcEvent)="navmenuEvent($event);" fcFull="true">
+        <fc-navmenu fccontent1 fcTheme="blue" [fcOption]="_menuOptions" [fcMenus]="_menus" (fcEvent)="navmenuEvent($event);" fcFull="true">
         </fc-navmenu>
-        <!-- 选项卡导航 -->
-        <fc-navtab fccontent2 [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
-        <!-- 路由入口 -->
-        <router-outlet fccontent2 [ngStyle]="{'height':'100%'}"></router-outlet>
         <fc-layoutpanel fccontent2>
             <fc-navtab fccontent [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
+            <!-- 路由入口 -->
+            <!-- 选项卡导航 -->
             <div style="padding-left:10px;padding-right:10px;box-sizing:border-box;" fccontent>
-                <router-outlet></router-outlet>
+                <router-outlet fccontent2 [ngStyle]="{'height':'100%'}"></router-outlet>
+                <!-- <router-outlet></router-outlet> -->
             </div>
-            <div class="footer" fcfooter></div>
         </fc-layoutpanel>
     </fc-layoutcol>
 </fc-layoutrow>

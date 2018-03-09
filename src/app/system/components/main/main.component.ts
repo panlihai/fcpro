@@ -6,7 +6,21 @@ import { MainService } from '../../services/main.service';
   selector: 'main',
   templateUrl: './main.component.html',
   styles: [`
-  
+  :host ::ng-deep .fc-layoutpanel .fc-content{
+    height:100%;
+  }
+  .list-search {
+    width:100%;
+  }
+  .list-search:after{
+    content:'';
+    display:block;
+    clearfix:both;
+  }
+  .list-search-every{
+    width:24%;
+    float:left;
+  }
   `]
 })
 export class MainComponent extends ParentComponent {
