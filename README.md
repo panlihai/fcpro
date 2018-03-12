@@ -31,6 +31,13 @@ FC是fastcore的简称
 <pre>
     <code>
     平台升级至fcexample@1.1.4
+    please npm install fccomponent@0.2.34 --save 
+    对查询条件的兼容，提供默认的searchObj属性,search()方法
+    <code>
+</pre>
+<pre>
+    <code>
+    平台升级至fcexample@1.1.4
     平台增加对多tab页缓存的支持，修改列表组件高度的设置
     <code>
 </pre>

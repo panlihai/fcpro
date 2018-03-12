@@ -7,19 +7,32 @@
         <fc-adform fccontent [fcId]="'23471a18d4164f02a26d3b5f283d0a41'" fcAppid="SYSAPP" [fcOption]="formConfig"></fc-adform>
       </div>
     </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="类型" fccontent1>
-      <div fccontent>
-        正在开发中
-      </div>
+    <fc-layoutgroup fcTitle="自定义表单" fccontent1>
+      <fc-layoutcol fccontent>
+        <div fccontent1>
+          <fc-switch fcCheckValue="Y" fcLabel="开关label" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]'></fc-switch>
+          <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" fcDefaultValue="a" [fcOption]="anyOptions"></fc-any>
+          <fc-check [(ngModel)]="checkValue" fcLabel="多选框label" [fcDefaultValue]="checkValue" [fcOption]="checkOptions"></fc-check>
+          <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptions"></fc-chosen>
+          <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcDefaultValue]="comboValue" [fcOption]="comboOptions"></fc-combo>
+          <fc-date [(ngModel)]="now" fcLabel="日期label"></fc-date>
+          <fc-datetime [(ngModel)]="now" fcLabel="时间日期label"></fc-datetime>
+          <fc-double [(ngModel)]="inputNumber" fcLabel="数值label"></fc-double>
+        </div>
+        <div fccontent2>
+          <fc-long [(ngModel)]="inputNumber" fcLabel="整数label"></fc-long>
+          <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label" fcDefaultValue="a" fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
+            fcLabelCode='DICDESC'></fc-many>
+          <fc-radio fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" [(ngModel)]="radioValue" fcValueCode='DICVALUE' fcLabelCode='DICDESC'></fc-radio>
+          <fc-text fcPlaceHolder="请输入" fcLabel="文本框label"></fc-text>
+          <fc-textarea fcPlaceHolder="请输入" fcLabel="大文本框label"></fc-textarea>
+        </div>
+      </fc-layoutcol>
+      <fc-tlbform fccontent [fcButtons]="[{BTNNAME:'查询1'},{BTNNAME:'查询2'}]" fcLayout="center"></fc-tlbform>
     </fc-layoutgroup>
     <fc-layoutgroup fcTitle="大小" fccontent1>
       <div fccontent>
         正在开发中
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="更多" fccontent1>
-      <div fccontent>
-        待开发
       </div>
     </fc-layoutgroup>
   </fc-layoutcol>
@@ -27,9 +40,9 @@
 <!-- API -->
 <fc-layoutpanel>
   <fc-title fcTitle="属性" fcheader> </fc-title>
-  <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+  <fc-listdata fccontent style="height:500px;" [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
 </fc-layoutpanel>
 <fc-layoutpanel>
   <fc-title fcTitle="事件" fcheader> </fc-title>
-  <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+  <fc-listdata fccontent style="height:500px;" [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
 </fc-layoutpanel>

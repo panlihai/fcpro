@@ -8,20 +8,24 @@ import {
   FclayoutModule,
   FcadModule,
   FcnavModule,
-  FclistModule
+  FclistModule,
+  FctlbModule
 } from 'fccomponent';
 import { FccoreModule } from 'fccore';
 import { AdformComponent } from './adform/adform.component';
 import { AddetailComponent } from './addetail/addetail.component';
 @NgModule({
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(adRouters),
     FccoreModule,
     FclistModule,
     FcbasicModule,
     FclayoutModule,
     FcadModule,
-    FcnavModule
+    FcnavModule,
+    FctlbModule
   ],
   exports: [
 
