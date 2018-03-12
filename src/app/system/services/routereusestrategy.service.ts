@@ -3,15 +3,22 @@ import { RouteReuseStrategy, DefaultUrlSerializer, ActivatedRouteSnapshot, Detac
 export class FcRouteReuseStrategy implements RouteReuseStrategy {
 
   _cacheRouters: { [key: string]: any } = {};
-
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
+    if (route.routeConfig.path === 'home') {
+      return false;
+    }
     return true;
   }
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
-    this._cacheRouters[route.routeConfig.path] = {
-      snapshot: route,
-      handle: handle
-    };
+    if (route.routeConfig.path !== '') {
+      if (route.routeConfig.path === 'signin') {
+        this._cacheRouters = {};
+      }
+      this._cacheRouters[route.routeConfig.path] = {
+        snapshot: route,
+        handle: handle
+      };
+    }
   }
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
     return !!this._cacheRouters[route.routeConfig.path];
