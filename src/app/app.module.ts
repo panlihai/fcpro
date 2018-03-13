@@ -79,6 +79,8 @@ import { FcRouteReuseStrategy } from './system/services/routereusestrategy.servi
     MenuService,
     MessageService,
     UserService,
+    ProvidersService,
+    LogService,
     SysappbuttonsService,
     SysappfieldsService,
     SysappfldgroupService,
