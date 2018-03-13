@@ -30,6 +30,14 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    please npm install fccomponent@0.2.38 --save 
+    fc-combo fc-any fc-chosen fc-many等支持自定义元数据    
+    please npm install fccore@0.4.0 --save
+    增加对参照字典的支持
+    <code>
+</pre>
+<pre>
+    <code>
     平台升级至fcexample@1.1.4
     please npm install fccomponent@0.2.37 --save 
     修改列表选中没有数据的bug
