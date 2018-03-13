@@ -22,7 +22,9 @@ import {
   SysinterfaceparamService,
   SysinterfaceService,
   SysmenuService,
-  SysstyleService
+  SysstyleService,
+  LogService,
+  ProvidersService
 } from 'fccore';
 import {
   FcnavModule,
