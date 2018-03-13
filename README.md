@@ -30,6 +30,21 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    please npm install fccomponent@0.2.38 --save 
+    fc-combo fc-any fc-chosen fc-many等支持自定义元数据    
+    please npm install fccore@0.4.0 --save
+    增加对参照字典的支持
+    <code>
+</pre>
+<pre>
+    <code>
+    平台升级至fcexample@1.1.4
+    please npm install fccomponent@0.2.37 --save 
+    修改列表选中没有数据的bug
+    <code>
+</pre>
+<pre>
+    <code>
     平台升级至fcexample@1.1.4
     please npm install fccomponent@0.2.34 --save 
     对查询条件的兼容，提供默认的searchObj属性,search()方法
@@ -62,229 +77,6 @@ FC是fastcore的简称
     增加基础组件的自定义lable及支持自定义fcAppId及fcFieldCode
     please npm install fccore@0.3.11 --save
     <code>
-</pre>
-## 开发计划
--平台的开发计划
-<pre>
-    <code>
-       <table border="1">
-  <tr>
-    <th>优先级</th>
-    <th>类型</th>
-    <th>序号</th>
-    <th>开发内容</th>
-    <th>已开发</th>
-    <th>是否完成</th>
-    <th>预计工作量(天/人)</th>
-    <th>实际工作量</th>
-    <th>预计完成时间</th>
-    <th>实际完成时间</th>
-    <th>负责人</th>
-    <th>备注</th>
-  </tr>
-  <tr>
-    <td rowspan="6">1</td>
-    <td rowspan="6">平台组件整合</td>
-    <td>1</td>
-    <td>登录</td>
-    <td>是</td>
-    <td>否</td>
-    <td>0.5</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>注册</td>
-    <td>是</td>
-    <td>否</td>
-    <td>0.5</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>路由复用</td>
-    <td>是</td>
-    <td>否</td>
-    <td>2</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>组件demo</td>
-    <td>是</td>
-    <td>否</td>
-    <td>2</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>5</td>
-    <td>组件API</td>
-    <td>是</td>
-    <td>否</td>
-    <td>2</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>6</td>
-    <td>平台框架整合</td>
-    <td>是</td>
-    <td>否</td>
-    <td>2</td>
-    <td></td>
-    <td>2018年2月2日</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td rowspan="5">1</td>
-    <td rowspan="5">授权认证</td>
-    <td>1</td>
-    <td>菜单授权</td>
-    <td>否</td>
-    <td>否</td>
-    <td>2</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>按钮授权</td>
-    <td>否</td>
-    <td>否</td>
-    <td>2</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>登录授权</td>
-    <td>否</td>
-    <td>否</td>
-    <td>2</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>接口授权</td>
-    <td>否</td>
-    <td>否</td>
-    <td>2</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>5</td>
-    <td>其它资源授权</td>
-    <td>否</td>
-    <td>否</td>
-    <td>2</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>预算升级</td>
-    <td>1</td>
-    <td>全面预算项目升级</td>
-    <td>否</td>
-    <td>否</td>
-    <td>7</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>多数据源</td>
-    <td>1</td>
-    <td>多数据源开发</td>
-    <td>否</td>
-    <td>否</td>
-    <td>5</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>5</td>
-    <td>资源存储解决方案</td>
-    <td>1</td>
-    <td>资源存储解决方案</td>
-    <td>否</td>
-    <td>否</td>
-    <td>3</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>6</td>
-    <td>日志处理</td>
-    <td>1</td>
-    <td>日志处理开发</td>
-    <td>否</td>
-    <td>否</td>
-    <td>4</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>7</td>
-    <td>spreadjs</td>
-    <td>1</td>
-    <td>spreadjs集成</td>
-    <td>是</td>
-    <td>是</td>
-    <td>0.5</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
-</code>  
 </pre>
 ## 开发步骤
 <pre>
