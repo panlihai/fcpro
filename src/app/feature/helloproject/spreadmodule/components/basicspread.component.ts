@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 @Component({
   selector: 'basicspread',
   template: `
-  <fc-title fcTitle="spreadjs demo"></fc-title>
+  <fc-title fcLabel="spreadjs demo"></fc-title>
   <gc-spread-sheets (workbookInitialized)="workbookInit($event)">
   </gc-spread-sheets>
   <button (click)="exportExcel()">导出</button>

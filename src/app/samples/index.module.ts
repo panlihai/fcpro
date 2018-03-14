@@ -12,6 +12,7 @@ import { ComponentService } from './services/component.service';
 
   ],
   declarations: [
+    
   ],
   providers: [
     ComponentService
