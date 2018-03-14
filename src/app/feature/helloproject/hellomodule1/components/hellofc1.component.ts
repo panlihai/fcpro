@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, FcadformOption } from 'fccomponent';
 import { HellofcService } from '../../services/hellofc.service';
 @Component({
-  selector: 'hellofc1',
+  selector: 'app-hellofc1',
   template: `
   <fc-layoutpanel fcFull="true" [hidden]="!panelShow">
   <fc-layoutrow fcSpan="100" style="height:100%;" fccontent>
@@ -84,7 +84,7 @@ export class Hellofc1Component extends ParentComponent {
   formConfig: FcadformOption = { fcTitle: '' };
   tabShow: boolean = true;
   panelShow: boolean = true;
-  tabIndex: number = 1;
+  tabIndex: number = 0;
   tabmain = [
     { name: '计提坏账' },
     { name: '坏账记录' }

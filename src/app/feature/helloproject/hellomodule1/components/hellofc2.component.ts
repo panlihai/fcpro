@@ -5,7 +5,7 @@ import { HellofcService } from '../../services/hellofc.service';
 @Component({
   selector: 'hellofc2',
   template: `
-  <fc-title fcTitle="跳转到hellofc2页面"></fc-title>
+  <fc-title fcLabel="跳转到hellofc2页面"></fc-title>
   `,
   styles: [`
   

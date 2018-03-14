@@ -54,11 +54,13 @@ import {
   SysinterfaceService, SysmenuService, SysstyleService
 } from 'fccore';
 import { TooltipComponent } from './tooltip/tooltip.component';
+import { HttpModule } from '@angular/http';
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpModule,
     RouterModule.forChild(basicRouters),
     FcadModule,
     FcalertModule,
@@ -110,7 +112,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
   ],
   providers: [
     AppService,
-     DaoService, CacheService, CommonService, MenuService, MessageService,
+    DaoService, CacheService, CommonService, MenuService, MessageService,
     SysappbuttonsService, SysappfieldsService, SysappfldgroupService, SysapplinksService, SysdicappdetailService, SysdicappService,
     SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService, SysinterfaceService, SysmenuService, SysstyleService
   ]

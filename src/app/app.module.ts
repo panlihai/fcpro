@@ -22,7 +22,9 @@ import {
   SysinterfaceparamService,
   SysinterfaceService,
   SysmenuService,
-  SysstyleService
+  SysstyleService,
+  LogService,
+  ProvidersService
 } from 'fccore';
 import {
   FcnavModule,
@@ -79,6 +81,8 @@ import { FcRouteReuseStrategy } from './system/services/routereusestrategy.servi
     MenuService,
     MessageService,
     UserService,
+    ProvidersService,
+    LogService,
     SysappbuttonsService,
     SysappfieldsService,
     SysappfldgroupService,

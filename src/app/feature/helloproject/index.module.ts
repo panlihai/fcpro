@@ -12,6 +12,7 @@ import {
 import { FccoreModule } from 'fccore';
 import { HellofcService } from './services/hellofc.service';
 import { SpreadService } from './services/spread.service';
+import { ComponentService } from '../../samples/services/component.service';
 @NgModule({
   imports: [
     RouterModule.forChild(Routers),
@@ -29,7 +30,8 @@ import { SpreadService } from './services/spread.service';
   ],
   providers: [
     HellofcService,
-    SpreadService
+    SpreadService,
+    ComponentService
   ]
 })
 export class HelloModule { }

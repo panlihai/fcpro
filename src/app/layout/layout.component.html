@@ -15,3 +15,5 @@
 </fc-layoutrow>
 <!-- 消息侧边栏 fc-navside-->
 <fc-navside [fcOption]="_navSideOption" [fcStatus]="_navbarStatus" (fcEvent)="navbarEvent($event)"></fc-navside>
+<!-- 让表单样式生效 -->
+<fc-adform [hidden]="false" fcAppid="SYSAPP" [fcOption]="{}"></fc-adform>

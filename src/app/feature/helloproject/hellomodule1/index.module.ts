@@ -21,15 +21,16 @@ import { Hellofc3Component } from './components/hellofc3.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FccoreModule,
     RouterModule.forChild(Routers),
+    FccoreModule,
+    FclistModule,
     FcbasicModule,
     FclayoutModule,
     FcadModule,
     FcnavModule,
     FctlbModule,
-    FctabModule,
-    FclistModule
+    FctlbModule,
+    FctabModule
   ],
   exports: [
 
