@@ -93,7 +93,7 @@ import { FcRouteReuseStrategy } from './system/services/routereusestrategy.servi
     SysmenuService,
     SysstyleService,
     LayoutService,
-    { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy }
+    // { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy }
   ],
   bootstrap: [AppComponent]
 })

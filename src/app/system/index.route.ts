@@ -14,6 +14,7 @@ import { SysroleauthComponent } from './components/core/sysroleauth.component';
 import { SysmessageComponent } from './components/core/sysmessage.component';
 import { SysbackcodeComponent } from './components/core/sysbackcode.component';
 import { SyscomponentComponent } from './components/core/syscomponent.component';
+import { SysroleComponent } from './components/core/sysrole.component';
 export const Routers: Routes = [
     {
         path: 'error',//错误
@@ -51,6 +52,11 @@ export const Routers: Routes = [
     {
         path: 'sysroleauthList',//系统参数
         component: SysroleauthComponent
+    },
+    
+    {
+        path: 'sysroleList',//系统参数
+        component: SysroleComponent
     },
     {
         path: 'sysmessageList',//消息列表
