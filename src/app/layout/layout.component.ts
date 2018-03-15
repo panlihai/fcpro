@@ -33,6 +33,8 @@ export class LayoutComponent implements OnInit {
   _navbarStatus = "closed";
   //菜单栏状态
   _navmenuStatus = "opened";
+  //是否被选中
+  _navmenuSelected: boolean;
   //侧边栏配置
   _navSideOption: NavsideOptions;
   //按钮配置
@@ -57,6 +59,7 @@ export class LayoutComponent implements OnInit {
     //初始化消息配置
     this._navSideOption = this.mainService.initNavSideOptions();
     this._tabs = this.mainService._tabs;
+    this._navmenuSelected=this.mainService._navmenuSelected;
     //选中索引
   }
   ngOnInit() {
