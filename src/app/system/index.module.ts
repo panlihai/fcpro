@@ -38,6 +38,8 @@ import { SysroleauthService } from './services/sysroleauth.service';
 import { SysbackcodeService } from './services/sysbackcode.service';
 import { SyscomponentService } from './services/syscomponent.service';
 import { SysparamService } from './services/sysparam.service';
+import { SysroleService } from './services/sysrole.service';
+import { SysroleComponent } from './components/core/sysrole.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -70,6 +72,7 @@ import { SysparamService } from './services/sysparam.service';
     SysdicComponent,
     SysproductComponent,
     SysroleauthComponent,
+    SysroleComponent,
     SysparamComponent,
     SysmessageComponent,
     SysbackcodeComponent,
@@ -81,6 +84,7 @@ import { SysparamService } from './services/sysparam.service';
     SysappService,
     SysproductService,
     SysroleauthService,
+    SysroleService,
     SysparamService,
     SysmessageService,
     SysbackcodeService,

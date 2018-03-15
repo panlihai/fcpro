@@ -30,6 +30,20 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    please npm install fccomponent@0.4.0 --save 
+    fc-combo fc-any fc-chosen fc-many等组件静态字典无法显示bug
+    增加fc-list组件  fcAppid参数 fcOption="{field:{FIELDCODE:''},data:[],buttons:[]}" 其中field是Sysappfields类型，buttons是Sysappbuttons类型 fcEvent获取事件
+    <code>
+</pre>
+<pre>
+    <code>
+    please npm install fccomponent@0.3.0 --save 
+    fc-combo fc-any fc-chosen fc-many等组件静态字典无法显示bug
+    增加fc-table组件   
+    <code>
+</pre>
+<pre>
+    <code>
     please npm install fccomponent@0.2.38 --save 
     fc-combo fc-any fc-chosen fc-many等支持自定义元数据    
     please npm install fccore@0.4.0 --save

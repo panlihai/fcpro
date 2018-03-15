@@ -107,6 +107,7 @@ export class LayoutComponent implements OnInit {
       case 'select':
         //导航并存储列表
         this.mainService.navStoreMenu(this._router, event.param);
+        this._navTabSelectedIndex = this.mainService._selectedIndex;
         break;
     }
   }
