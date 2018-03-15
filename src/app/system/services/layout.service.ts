@@ -60,11 +60,11 @@ export class LayoutService {
         } else {
             this._selectedIndex = existTabs[0].index;
         }
-        // this._tabs.forEach(item => {
-        //     if (item.id === menu.ID) {
-        //         this._navmenuSelected = true;
-        //     }
-        // });
+        this._tabs.forEach(item => {
+            if (item.name === menu.MENUNAME) {
+                this._navmenuSelected = true;
+            }
+        });
         router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER],
             {
                 queryParams:

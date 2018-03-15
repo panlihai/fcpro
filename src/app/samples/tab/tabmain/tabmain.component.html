@@ -4,7 +4,11 @@
   <fc-layoutcol fccontent fcSpans="1,1">
     <fc-layoutgroup fcTitle="基本" fccontent1>
       <div fccontent>
-        正在开发中
+        <fc-tabmain [fcTabs]="tabmain" [fcSelectedIndex]="tabIndex">
+          <div fccontent1>fccontent1</div>
+          <div fccontent2>fccontent2</div>
+          <div fccontent3>fccontent3</div>
+        </fc-tabmain>
       </div>
     </fc-layoutgroup>
     <fc-layoutgroup fcTitle="类型" fccontent2>

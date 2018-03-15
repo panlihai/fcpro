@@ -59,7 +59,6 @@ export class LayoutComponent implements OnInit {
     //初始化消息配置
     this._navSideOption = this.mainService.initNavSideOptions();
     this._tabs = this.mainService._tabs;
-    this._navmenuSelected=this.mainService._navmenuSelected;
     //选中索引
   }
   ngOnInit() {
@@ -85,6 +84,21 @@ export class LayoutComponent implements OnInit {
       case 'selectDropdown':
       case 'selectMenu':
         this._menus = event.param.P_CHILDMENUS;
+        let menu = this._menus[0];
+        if (menu.HASCHILD === 'Y') {
+          menu.opened = true;
+          let childMenu = menu.P_CHILDMENUS[0];
+          if (childMenu.HASCHILD === 'Y') {
+            childMenu.opened = true;
+            let gChildMenu = childMenu.P_CHILDMENUS[0];
+            gChildMenu[0].select = true;
+          } else {
+            childMenu.select = true;
+          }
+          break;
+        } else {
+          menu.select = true;
+        }
         break;
       case 'logout'://登出
         this._providers.userService.logout().subscribe(result => {
@@ -108,6 +122,8 @@ export class LayoutComponent implements OnInit {
         //导航并存储列表
         this.mainService.navStoreMenu(this._router, event.param);
         this._navTabSelectedIndex = this.mainService._selectedIndex;
+        this._navmenuSelected = this.mainService._navmenuSelected;
+        console.log(this._navmenuSelected);
         break;
     }
   }

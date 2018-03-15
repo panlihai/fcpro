@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { tabRouters } from './index.route';
-import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule } from 'fccomponent';
+import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule, FctabModule } from 'fccomponent';
 import { FccoreModule } from 'fccore';
 import { TabmainComponent } from './tabmain/tabmain.component';
 import { TabsubComponent } from './tabsub/tabsub.component';
@@ -17,7 +17,8 @@ import { TabsubComponent } from './tabsub/tabsub.component';
     FclayoutModule,
     FcadModule,
     FcnavModule, 
-    FclistModule
+    FclistModule,
+    FctabModule
   ],
   exports: [
 

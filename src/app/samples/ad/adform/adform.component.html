@@ -4,7 +4,7 @@
   <fc-layoutcol fccontent fcSpans="1,0">
     <fc-layoutgroup fcTitle="基本" fccontent1>
       <div fccontent>
-        <fc-adform  fccontent [fcId]="'23471a18d4164f02a26d3b5f283d0a41'" fcAppid="SYSAPP" [fcOption]="formConfig"></fc-adform>
+        <fc-adform fccontent [fcId]="'23471a18d4164f02a26d3b5f283d0a41'" fcAppid="SYSAPP" [fcOption]="formConfig"></fc-adform>
       </div>
     </fc-layoutgroup>
     <fc-layoutgroup fcTitle="自定义表单-静态数据" fccontent1>
@@ -15,7 +15,8 @@
             <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" fcDefaultValue="a" [fcOption]="anyOptions" name="12"></fc-any>
             <fc-check [(ngModel)]="checkValue" fcLabel="多选框label" [fcDefaultValue]="checkValue" [fcOption]="checkOptions" name="13"></fc-check>
             <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptions" name="14"></fc-chosen>
-            <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcDefaultValue]="comboValue" [fcOption]="comboOptions" name="15"></fc-combo>
+            <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcDefaultValue]="comboValue" [fcOption]="comboOptions"
+              name="15"></fc-combo>
             <fc-date [(ngModel)]="now" fcLabel="日期label" name="16"></fc-date>
             <fc-datetime [(ngModel)]="now" fcLabel="时间日期label" name="17"></fc-datetime>
             <fc-double [(ngModel)]="inputNumber" fcLabel="数值label" name="18"></fc-double>
