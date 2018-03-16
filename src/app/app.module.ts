@@ -23,7 +23,7 @@ import {
   SysmenuService,
   SysstyleService,
   LogService,
-  ProvidersService
+  ProvidersService,ProductService
 } from 'fccore';
 import {
   FcnavModule,
@@ -86,6 +86,7 @@ import { HttpClientModule } from '@angular/common/http';
     UserService,
     ProvidersService,
     LogService,
+    ProductService,
     SysappbuttonsService,
     SysappfieldsService,
     SysappfldgroupService,
