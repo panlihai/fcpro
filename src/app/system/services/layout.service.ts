@@ -9,7 +9,10 @@ import { element } from 'protractor';
 export class LayoutService {
     //点击的所有tab页面。
     _tabs: FcTaboptions[];
+    //选中索引
     _selectedIndex: number;
+    //是否被选中
+    _navmenuSelected: boolean;
     constructor(private providers: ProvidersService, private sysmessageService: SysmessageService) {
         this._tabs = [{ id: '0', index: 0, enabled: true, name: '首页', close: false, content: { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: FCCONFIG.pid } }];
         this._selectedIndex = 0;
@@ -57,6 +60,11 @@ export class LayoutService {
         } else {
             this._selectedIndex = existTabs[0].index;
         }
+        this._tabs.forEach(item => {
+            if (item.name === menu.MENUNAME) {
+                this._navmenuSelected = true;
+            }
+        });
         router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER],
             {
                 queryParams:

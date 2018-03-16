@@ -30,6 +30,13 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年3月15日
+    please npm install fccomponent@0.4.1 --save 
+    增加对菜单选中和第一级展开的双向数据绑定
+    <code>
+</pre>
+<pre>
+    <code>
     please npm install fccomponent@0.4.0 --save 
     fc-combo fc-any fc-chosen fc-many等组件静态字典无法显示bug
     增加fc-list组件  fcAppid参数 fcOption="{field:{FIELDCODE:''},data:[],buttons:[]}" 其中field是Sysappfields类型，buttons是Sysappbuttons类型 fcEvent获取事件

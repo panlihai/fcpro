@@ -53,13 +53,13 @@ import {
   SysinterfaceService, SysmenuService, SysstyleService
 } from 'fccore';
 import { TooltipComponent } from './tooltip/tooltip.component';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forChild(basicRouters),
     FcadModule,
     FcalertModule,
