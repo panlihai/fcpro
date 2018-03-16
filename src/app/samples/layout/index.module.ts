@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { layoutRouters } from './index.route';
 import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule } from 'fccomponent';
-import { FccoreModule } from 'fccore';
 import { LayoutcolComponent } from './layoutcol/layoutcol.component';
 import { LayoutgroupComponent } from './layoutgroup/layoutgroup.component';
 import { LayoutpanelComponent } from './layoutpanel/layoutpanel.component';
@@ -15,7 +14,6 @@ import { LayoutrowComponent } from './layoutrow/layoutrow.component';
     FormsModule,
     CommonModule,
     RouterModule.forChild(layoutRouters),
-    FccoreModule,
     FcbasicModule,
     FclayoutModule,
     FcadModule,

@@ -15,7 +15,7 @@ import {
     FclistModule,
     FcmodalModule
 } from 'fccomponent';
-import { FccoreModule, SysdicService, SysmessageService } from 'fccore';
+import { SysdicService, SysmessageService } from 'fccore';
 import { MainComponent } from './components/main/main.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -46,7 +46,6 @@ import { SysroleComponent } from './components/core/sysrole.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(Routers),
-    FccoreModule,
     FcnavModule,
     FcbasicModule,
     FcadModule,

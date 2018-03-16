@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { progressRouters } from './index.route';
 import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule, FcprogressModule } from 'fccomponent';
-import { FccoreModule } from 'fccore';
 import { ProgressbarComponent } from './progressbar/progressbar.component';
 import { ProgresscircleComponent } from './progresscircle/progresscircle.component';
 import { ProgresspercentComponent } from './progresspercent/progresspercent.component';
@@ -13,7 +12,6 @@ import { ProgresspercentComponent } from './progresspercent/progresspercent.comp
     FormsModule,
     CommonModule,
     RouterModule.forChild(progressRouters),
-    FccoreModule,
     FcbasicModule,
     FclayoutModule,
     FcadModule,

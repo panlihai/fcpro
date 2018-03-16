@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { tabRouters } from './index.route';
 import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule } from 'fccomponent';
-import { FccoreModule } from 'fccore';
 import { TabmainComponent } from './tabmain/tabmain.component';
 import { TabsubComponent } from './tabsub/tabsub.component';
 @NgModule({
@@ -12,7 +11,6 @@ import { TabsubComponent } from './tabsub/tabsub.component';
     FormsModule,
     CommonModule,
     RouterModule.forChild(tabRouters),
-    FccoreModule,
     FcbasicModule,
     FclayoutModule,
     FcadModule,

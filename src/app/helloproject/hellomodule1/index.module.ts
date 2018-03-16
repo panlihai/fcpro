@@ -12,7 +12,6 @@ import {
   FctabModule,
   FclistModule
 } from 'fccomponent';
-import { FccoreModule } from 'fccore';
 import { Hellofc1Component } from './components/hellofc1.component';
 import { Hellofc2Component } from './components/hellofc2.component';
 import { Hellofc3Component } from './components/hellofc3.component';
@@ -22,7 +21,6 @@ import { Hellofc3Component } from './components/hellofc3.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(Routers),
-    FccoreModule,
     FclistModule,
     FcbasicModule,
     FclayoutModule,

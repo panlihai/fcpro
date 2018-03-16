@@ -15,7 +15,6 @@ import {
   FctabModule,
   FctlbModule
 } from 'fccomponent';
-import { FccoreModule } from 'fccore';
 import { ButtonComponent } from './button/button.component';
 import { AnyComponent } from './any/any.component';
 import { AvatarComponent } from './avatar/avatar.component';

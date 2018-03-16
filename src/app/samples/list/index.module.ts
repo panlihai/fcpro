@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { listRouters } from './index.route';
 import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule } from 'fccomponent';
-import { FccoreModule } from 'fccore';
 import { ListdataComponent } from './listdata/listdata.component';
 import { ListtreeComponent } from './listtree/listtree.component';
 @NgModule({
@@ -12,7 +11,6 @@ import { ListtreeComponent } from './listtree/listtree.component';
     FormsModule,
     CommonModule,
     RouterModule.forChild(listRouters),
-    FccoreModule,
     FcbasicModule,
     FclayoutModule,
     FcadModule,

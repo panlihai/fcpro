@@ -11,7 +11,6 @@ import {
   FclistModule,
   FctlbModule
 } from 'fccomponent';
-import { FccoreModule } from 'fccore';
 import { AdformComponent } from './adform/adform.component';
 import { AddetailComponent } from './addetail/addetail.component';
 @NgModule({
@@ -19,7 +18,6 @@ import { AddetailComponent } from './addetail/addetail.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(adRouters),
-    FccoreModule,
     FclistModule,
     FcbasicModule,
     FclayoutModule,

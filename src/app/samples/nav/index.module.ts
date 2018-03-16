@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { navRouters } from './index.route';
 import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule } from 'fccomponent';
-import { FccoreModule } from 'fccore';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NavbreadcrumbComponent } from './navbreadcrumb/navbreadcrumb.component';
 import { NavdropdownComponent } from './navdropdown/navdropdown.component';
@@ -17,7 +16,6 @@ import { NavtabComponent } from './navtab/navtab.component';
     FormsModule,
     CommonModule,
     RouterModule.forChild(navRouters),
-    FccoreModule,
     FcbasicModule,
     FclayoutModule,
     FcadModule,

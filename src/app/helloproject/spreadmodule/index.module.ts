@@ -9,29 +9,28 @@ import {
   FcadModule,
   FcnavModule
 } from 'fccomponent';
-import { FccoreModule } from 'fccore';
-import { HellofcService } from './services/hellofc.service';
-import { SpreadService } from './services/spread.service';
-import { ComponentService } from '../../samples/services/component.service';
+import { SpreadSheetsModule } from '../../../assets/plugin/spread/gc.spread.sheets.angular.11.0.0';
+import { BasicspreadComponent } from './components/basicspread.component';
 @NgModule({
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
     RouterModule.forChild(Routers),
-    FccoreModule,
     FcbasicModule,
     FclayoutModule,
     FcadModule,
-    FcnavModule
-    ],
+    FcnavModule,
+    SpreadSheetsModule
+  ],
   exports: [
 
   ],
   declarations: [
-    
+    BasicspreadComponent,
   ],
   providers: [
-    HellofcService,
-    SpreadService,
-    ComponentService
+
   ]
 })
-export class HelloModule { }
+export class SpreadModule { }

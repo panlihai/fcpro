@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { sysRouters } from './index.route';
 import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule, FcsysauthComponent } from 'fccomponent';
-import { FccoreModule } from 'fccore';
 import { SysappComponent } from './sysapp/sysapp.component';
 import { SysappdicComponent } from './sysappdic/sysappdic.component';
 import { SysdicComponent } from './sysdic/sysdic.component';
@@ -19,7 +18,6 @@ import { SysuserComponent } from './sysuser/sysuser.component';
     FormsModule,
     CommonModule,
     RouterModule.forChild(sysRouters),
-    FccoreModule,
     FcbasicModule,
     FclayoutModule,
     FcadModule,

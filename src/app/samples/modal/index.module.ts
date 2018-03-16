@@ -13,7 +13,7 @@ import { ModalsuccessComponent } from './modalsuccess/modalsuccess.component';
 import { ModaltreelistComponent } from './modaltreelist/modaltreelist.component';
 import { ModalwarnComponent } from './modalwarn/modalwarn.component';
 import {
-  FccoreModule, AppService, DaoService, CacheService, CommonService, MenuService, MessageService,
+  AppService, DaoService, CacheService, CommonService, MenuService, MessageService,
   SysappbuttonsService, SysappfieldsService, SysappfldgroupService, SysapplinksService, SysdicappdetailService, SysdicappService,
   SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService,
   SysinterfaceService, SysmenuService, SysstyleService
@@ -24,7 +24,6 @@ import { environment } from '../../../environments/environment';
     FormsModule,
     CommonModule,
     RouterModule.forChild(modalRouters),
-    FccoreModule.forRoot(environment),
     FcbasicModule,
     FclayoutModule,
     FcadModule,
