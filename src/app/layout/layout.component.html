@@ -1,12 +1,14 @@
 <fc-layoutrow>
     <!-- 顶部工具栏 fc-navbar-->
-    <fc-navbar fccontent1 [fcTitle]="_projectName" fcFull="true" (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar>
+    <!-- <fc-navbar fccontent1 [fcTitle]="_projectName" fcFull="true" (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar> -->
+    <fc-navbar fccontent1 fcFull="true" (fcEvent)="navbarEvent($event)"></fc-navbar>
     <fc-layoutcol fccontent2 fcSpans="2,9" fcFull="true">
         <!-- 菜单导航 fc-navmenu-->
-        <fc-navmenu fccontent1 fcTheme="blue" [fcOption]="_menuOptions" [fcMenus]="_menus" [fcSelected]="_navmenuSelected" (fcEvent)="navmenuEvent($event);" fcFull="true">
-        </fc-navmenu>
+        <!-- <fc-navmenu fccontent1 fcTheme="blue" [fcOption]="_menuOptions" [fcMenus]="_menus" [fcSelected]="_navmenuSelected" (fcEvent)="navmenuEvent($event);"
+            fcFull="true">
+        </fc-navmenu> -->
         <!-- 选项卡导航 -->
-        <fc-navtab fccontent2 [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
+        <!-- <fc-navtab fccontent2 [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab> -->
         <!-- 路由入口 -->
         <div class="fc-layout" fccontent2>
             <router-outlet [ngStyle]="{'height':'100%'}"></router-outlet>
@@ -14,6 +16,6 @@
     </fc-layoutcol>
 </fc-layoutrow>
 <!-- 消息侧边栏 fc-navside-->
-<fc-navside [fcOption]="_navSideOption" [fcStatus]="_navbarStatus" (fcEvent)="navbarEvent($event)"></fc-navside>
+<!-- <fc-navside [fcOption]="_navSideOption" [fcStatus]="_navbarStatus" (fcEvent)="navbarEvent($event)"></fc-navside> -->
 <!-- 让表单样式生效 -->
 <fc-adform [hidden]="false" fcAppid="SYSAPP" [fcOption]="{}"></fc-adform>

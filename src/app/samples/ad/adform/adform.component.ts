@@ -21,6 +21,7 @@ export class AdformComponent extends ComponentParent {
   comboOptions: any[] = [{ icon: '', label: 'A', value: 'a' }, { icon: '', label: 'B', value: 'b' }, { icon: '', label: 'C', value: 'c' }];
   now = new Date();
   inputNumber: number = 3;
+  content:string="这是文本框内容";
   constructor(public mainService: ComponentService) {
     super('FCADFORM', mainService);
   }
