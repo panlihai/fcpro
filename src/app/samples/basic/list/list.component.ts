@@ -6,7 +6,7 @@ import { ComponentService } from '../../services/component.service';
   selector: 'app-list',
   templateUrl: './list.component.html'
 })
-export class TableComponent extends ComponentParent {
+export class ListComponent extends ComponentParent {
   now = new Date();
   nownull = '';
   constructor(public mainService: ComponentService) {

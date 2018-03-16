@@ -31,6 +31,13 @@ FC是fastcore的简称
 <pre>
     <code>
     2018年3月15日
+    please npm install fccomponent@0.4.3 --save 
+    增加对下拉等数据字典等组件加入fcCondition条件，类型为字符串，此字符串需要转json对象，请注意格式
+    <code>
+</pre>
+<pre>
+    <code>
+    2018年3月15日
     please npm install fccomponent@0.4.1 --save 
     增加对菜单选中和第一级展开的双向数据绑定
     <code>

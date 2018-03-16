@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { sysRouters } from './index.route';
-import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule, FcsysauthComponent } from 'fccomponent';
+import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule } from 'fccomponent';
 import { SysappComponent } from './sysapp/sysapp.component';
 import { SysappdicComponent } from './sysappdic/sysappdic.component';
 import { SysdicComponent } from './sysdic/sysdic.component';
@@ -30,7 +30,6 @@ import { SysuserComponent } from './sysuser/sysuser.component';
   declarations: [
     SysappComponent,
     SysappdicComponent,
-    FcsysauthComponent,
     SysdicComponent,
     SysforgetComponent,
     SysmessageComponent,

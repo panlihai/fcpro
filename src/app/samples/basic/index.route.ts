@@ -30,6 +30,8 @@ import { TreeComponent } from './tree/tree.component';
 import { UploadComponent } from './upload/upload.component';
 import { BacktopComponent } from './backtop/backtop.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
+import { TableComponent } from './table/table.component';
+import { ListComponent } from './list/list.component';
 export const basicRouters: Routes = [
     {
         path:'system/fcbuttonList',//按钮
@@ -86,6 +88,9 @@ export const basicRouters: Routes = [
         path:'system/fclongList',//整数
         component: LongComponent
     }, {
+        path:'system/fclist',//列表
+        component: ListComponent
+    }, {
         path:'system/fcmanyList',//自定义下拉多选
         component: ManyComponent
     }, {
@@ -115,6 +120,9 @@ export const basicRouters: Routes = [
     }, {
         path:'system/fctitleList',//标题
         component: TitleComponent
+    }, {
+        path:'system/fctableList',//表
+        component: TableComponent
     }, {
         path:'system/fctreeList',//树控件
         component: TreeComponent

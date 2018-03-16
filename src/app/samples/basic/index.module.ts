@@ -54,6 +54,8 @@ import {
 } from 'fccore';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ListComponent } from './list/list.component';
+import { TableComponent } from './table/table.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -95,6 +97,7 @@ import { HttpClientModule } from '@angular/common/http';
     FastpositionComponent,
     IconComponent,
     LongComponent,
+    ListComponent,
     ManyComponent,
     PopoverComponent,
     RadioComponent,
@@ -105,6 +108,8 @@ import { HttpClientModule } from '@angular/common/http';
     TimeComponent,
     TimelineComponent,
     TitleComponent,
+    TableComponent,
+    ListComponent,
     TreeComponent,
     UploadComponent,
     TooltipComponent

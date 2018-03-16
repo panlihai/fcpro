@@ -1,9 +1,13 @@
 import { RouteReuseStrategy, DefaultUrlSerializer, ActivatedRouteSnapshot, DetachedRouteHandle } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 export class FcRouteReuseStrategy implements RouteReuseStrategy {
 
   _cacheRouters: { [key: string]: any } = {};
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
+    if(!environment.production){
+      return false;
+    }
     if (route.routeConfig.path === 'home') {
       return false;
     }

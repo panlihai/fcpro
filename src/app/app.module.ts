@@ -48,11 +48,15 @@ import { SigninComponent } from './system/components/signin/signin.component';
 import { SignupComponent } from './system/components/signup/signup.component';
 import { LayoutService } from './system/services/layout.service';
 import { FcRouteReuseStrategy } from './system/services/routereusestrategy.service';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   imports: [
     FormsModule,
     BrowserModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule,    
+    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(AppRouters),
     FcnavModule,
     FcbasicModule,
@@ -96,7 +100,7 @@ import { FcRouteReuseStrategy } from './system/services/routereusestrategy.servi
     SysmenuService,
     SysstyleService,
     LayoutService,
-    // { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy }
+    { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy }
   ],
   bootstrap: [AppComponent]
 })
