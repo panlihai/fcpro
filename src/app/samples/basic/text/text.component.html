@@ -11,17 +11,45 @@
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="类型" fccontent2>
             <div fccontent>
-                <fc-text fcType="text" [(ngModel)]="content"></fc-text>
-                <fc-text fcType="password" [(ngModel)]="content" style="display:block;margin-top:24px;"></fc-text>
-                <fc-text fcType="search" fcPlaceHolder="请输入查询条件" style="display:block;margin-top:24px;"></fc-text>
-                <fc-text fcType="hidden" style="display:block;margin-top:24px;"></fc-text>
+                <div>
+                    文本类型:
+                    <fc-text fcType="text" [(ngModel)]="content"></fc-text>
+                </div>
+                <div style="display:block;margin-top:24px;">
+                    密码类型:
+                    <fc-text fcType="password" [(ngModel)]="content"></fc-text>
+                </div>
+                <div style="display:block;margin-top:24px;">
+                    查询:
+                    <fc-text fcType="search" fcPlaceHolder="请输入查询条件"></fc-text>
+                </div>
+                <div style="display:block;margin-top:24px;">
+                    隐藏:
+                    <fc-text fcType="hidden"></fc-text>
+                </div>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="大小" fccontent1>
             <div fccontent>
-                <fc-text [(ngModel)]="content" fcSize="default"></fc-text>
-                <fc-text [(ngModel)]="content" fcSize="large" style="display:block;margin-top:24px;"></fc-text>
-                <fc-text [(ngModel)]="content" fcSize="small" style="display:block;margin-top:24px;"></fc-text>
+                <div>
+                    默认:
+                    <fc-text [(ngModel)]="content" fcSize="default"></fc-text>
+                </div>
+                <div style="display:block;margin-top:24px;">
+                    大:
+                    <fc-text [(ngModel)]="content" fcSize="large"></fc-text>
+                </div>
+                <div style="display:block;margin-top:24px;">
+                    小:
+                    <fc-text [(ngModel)]="content" fcSize="small"></fc-text>
+                </div>
+
+
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="只读" fccontent2>
+            <div fccontent>
+                <fc-text [(ngModel)]="content" fcReadonly="true"></fc-text>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="禁用" fccontent2>
@@ -32,7 +60,7 @@
         <fc-layoutgroup fcTitle="前置标签" fccontent1>
             <div fccontent>
                 <fc-text [(ngModel)]="addonbefore">
-                    <div fcAddonBefore>https://</div>
+                    <div fcAddonBefore="https://"></div>
                 </fc-text>
             </div>
         </fc-layoutgroup>
@@ -56,19 +84,18 @@
                 </fc-text>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="更多" fccontent1>
-            <div fccontent>
-                待开发
-            </div>
-        </fc-layoutgroup>
     </fc-layoutcol>
     <!-- API -->
     <fc-layoutpanel fccontent>
         <fc-title fcLabel="属性" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        <div style="height:500px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
     </fc-layoutpanel>
     <fc-layoutpanel fccontent>
         <fc-title fcLabel="事件" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        <div style="height:500px;" fccontent>
+            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
     </fc-layoutpanel>
 </fc-layoutpanel>

@@ -1,0 +1,20 @@
+<!-- 自定义查询展开收起 fc-collapse -->
+<fc-layoutpanel>
+    <fc-title fcLabel="自定义查询展开收起" fcheader></fc-title>
+    <fc-layoutcol fccontent fcSpans="1">
+        <fc-layoutgroup fcTitle="基本" fccontent1>
+            <div fccontent>
+
+            </div>
+        </fc-layoutgroup>
+    </fc-layoutcol>
+    <!-- API -->
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="属性" fcheader> </fc-title>
+        <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+    </fc-layoutpanel>
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="事件" fcheader> </fc-title>
+        <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+    </fc-layoutpanel>
+</fc-layoutpanel>

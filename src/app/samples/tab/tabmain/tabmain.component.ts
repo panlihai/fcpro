@@ -10,9 +10,9 @@ import { ComponentService } from '../../services/component.service';
 export class TabmainComponent extends ComponentParent {
   //父选项卡
   tabmain = [
-    { name: '父选项卡1' },
-    { name: '父选项卡2' },
-    { name: '父选项卡3' }
+    { name: '父选项卡1', disabled: false },
+    { name: '父选项卡2', disabled: false },
+    { name: '父选项卡3', disabled: false }
   ]
   constructor(public mainService: ComponentService) {
     super('FCTABMAIN', mainService);

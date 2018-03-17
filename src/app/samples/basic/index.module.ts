@@ -56,6 +56,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ListComponent } from './list/list.component';
 import { TableComponent } from './table/table.component';
+import { CollapseComponent } from './collapse/collapse.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -97,7 +98,6 @@ import { TableComponent } from './table/table.component';
     FastpositionComponent,
     IconComponent,
     LongComponent,
-    ListComponent,
     ManyComponent,
     PopoverComponent,
     RadioComponent,
@@ -112,7 +112,8 @@ import { TableComponent } from './table/table.component';
     ListComponent,
     TreeComponent,
     UploadComponent,
-    TooltipComponent
+    TooltipComponent,
+    CollapseComponent
   ],
   providers: [
     AppService,

@@ -7,14 +7,17 @@
                 <fc-long [(ngModel)]="longValue"></fc-long>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="类型" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
         <fc-layoutgroup fcTitle="大小" fccontent1>
             <div fccontent>
-                正在开发中
+                <div>
+                    <fc-long [(ngModel)]="longValue" fcSize="small"></fc-long>
+                </div>
+                <div style="margin-top:24px;">
+                    <fc-long [(ngModel)]="longValue" fcSize="default"></fc-long>
+                </div>
+                <div style="margin-top:24px;">
+                    <fc-long [(ngModel)]="longValue" fcSize="large"></fc-long>
+                </div>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="禁用" fccontent2>
@@ -37,19 +40,18 @@
                 <fc-long fcStep="5"></fc-long>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="更多" fccontent1>
-            <div fccontent>
-                待开发
-            </div>
-        </fc-layoutgroup>
     </fc-layoutcol>
     <!-- API -->
     <fc-layoutpanel fccontent>
         <fc-title fcLabel="属性" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
     </fc-layoutpanel>
     <fc-layoutpanel fccontent>
         <fc-title fcLabel="事件" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
     </fc-layoutpanel>
 </fc-layoutpanel>

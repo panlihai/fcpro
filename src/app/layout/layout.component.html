@@ -7,7 +7,7 @@
             fcFull="true">
         </fc-navmenu>
         <!-- 选项卡导航 -->
-        <fc-navtab fccontent2 [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"></fc-navtab>
+        <fc-navtab fccontent2 [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex" fcShowPagination="true"></fc-navtab>
         <!-- 路由入口 -->
         <div class="fc-layout" fccontent2>
             <router-outlet [ngStyle]="{'height':'100%'}"></router-outlet>
@@ -17,4 +17,4 @@
 <!-- 消息侧边栏 fc-navside-->
 <fc-navside [fcOption]="_navSideOption" [fcStatus]="_navbarStatus" (fcEvent)="navbarEvent($event)"></fc-navside>
 <!-- 让表单样式生效 -->
-<fc-adform [hidden]="false" fcAppid="SYSAPP" [fcOption]="{}"></fc-adform>
+<fc-adform [hidden]="true" fcAppid="SYSAPP" [fcOption]="{}"></fc-adform>
