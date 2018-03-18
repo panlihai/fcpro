@@ -30,6 +30,15 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年3月18日
+    平台升级至fcexample@1.1.10
+    1、平台多tab页点击，关闭异常；
+    2、废除所有系统共用一个首页，采用各项目独立默认首页，各产品线需要增加home组件； 
+
+    <code>
+</pre>
+<pre>
+    <code>
     2018年3月15日
     please npm install fccomponent@0.4.3 --save 
     增加对下拉等数据字典等组件加入fcCondition条件，类型为字符串，此字符串需要转json对象，请注意格式
