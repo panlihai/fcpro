@@ -9,8 +9,8 @@ import { SysroleService } from '../../services/sysrole.service';
   <fc-layoutpanel fcFull="true">
   <fc-layoutcol fcSpan="2,5" style="height:100%;" fccontent>
     <fc-layoutpanel fccontent1>
-        <fc-title fcLabel="所有角色"></fc-title>
-        <fc-tree fccontent [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" #tree></fc-tree>
+        <fc-title fcheader fcLabel="所有角色"></fc-title>
+        <fc-list fccontent [fcAppid]="appId" [fcOption]="{field:{FIELDCODE:'ROLENAME'}}"></fc-list>
         <fc-tlbform fcfooter [fcAppid]="appId"></fc-tlbform>
     </fc-layoutpanel>
     <fc-layoutpanel fccontent2>

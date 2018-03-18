@@ -43,7 +43,6 @@ import { environment } from '../environments/environment';
 import { AppRouters } from './app.route';
 import { LayoutComponent } from './layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './system/components/signin/signin.component';
 import { SignupComponent } from './system/components/signup/signup.component';
 import { LayoutService } from './system/services/layout.service';
@@ -72,7 +71,6 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     LayoutComponent,
-    HomeComponent,
     SigninComponent,
     SignupComponent
   ],

@@ -59,7 +59,7 @@ export class LayoutComponent implements OnInit {
     //初始化消息配置
     this._navSideOption = this.mainService.initNavSideOptions();
     this._tabs = this.mainService._tabs;
-    //选中索引
+    this._router.navigate(["/"+environment.pid.toLocaleLowerCase()+"/home"]);
   }
   ngOnInit() {
     this.mainService.getMessage().subscribe(res => {

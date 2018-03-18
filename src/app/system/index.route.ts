@@ -15,7 +15,18 @@ import { SysmessageComponent } from './components/core/sysmessage.component';
 import { SysbackcodeComponent } from './components/core/sysbackcode.component';
 import { SyscomponentComponent } from './components/core/syscomponent.component';
 import { SysroleComponent } from './components/core/sysrole.component';
+import { HomeComponent } from './components/home/home.component';
 export const Routers: Routes = [
+    {
+        path: 'home',
+        component: HomeComponent
+    },
+    {
+        path: '',
+        redirectTo:'home',
+        pathMatch:'full'
+        
+    },
     {
         path: 'error',//错误
         component: ErrorComponent

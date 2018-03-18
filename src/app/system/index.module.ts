@@ -40,6 +40,7 @@ import { SyscomponentService } from './services/syscomponent.service';
 import { SysparamService } from './services/sysparam.service';
 import { SysroleService } from './services/sysrole.service';
 import { SysroleComponent } from './components/core/sysrole.component';
+import { HomeComponent } from './components/home/home.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -75,7 +76,8 @@ import { SysroleComponent } from './components/core/sysrole.component';
     SysparamComponent,
     SysmessageComponent,
     SysbackcodeComponent,
-    SyscomponentComponent
+    SyscomponentComponent,
+    HomeComponent,
   ],
   providers: [
     MainService,
