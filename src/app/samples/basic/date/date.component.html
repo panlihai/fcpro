@@ -9,21 +9,22 @@
                 <fc-date fcMode='month' style="margin-top: 24px;display:block;"></fc-date>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="类型1" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
         <fc-layoutgroup fcTitle="大小" fccontent1>
             <div fccontent>
-                正在开发中
+                <div>
+                    <fc-date [(ngModel)]="now" fcSize="small"></fc-date>
+                </div>
+                <div style="margin-top:24px;" style="margin-top:24px;">
+                    <fc-date [(ngModel)]="now" fcSize="default"></fc-date>
+                </div>
+                <div style="margin-top:24px;">
+                    <fc-date [(ngModel)]="now" fcSize="large"></fc-date>
+                </div>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="禁用" fccontent2>
             <div fccontent>
-                <fc-date [(ngModel)]="now"></fc-date>
                 <fc-date [(ngModel)]="now" fcDisabled="true"></fc-date>
-                <fc-date [(ngModel)]="now" fcMode="month" fcDisabled="true" style="margin-top: 24px;display:block;"></fc-date>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="月份日期格式" fccontent1>
@@ -55,19 +56,18 @@
                 <fc-date fcPlaceHolder="这是输入提示符参数"></fc-date>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="更多" fccontent1>
-            <div fccontent>
-                待开发
-            </div>
-        </fc-layoutgroup>
     </fc-layoutcol>
     <!-- API -->
     <fc-layoutpanel fccontent>
         <fc-title fcLabel="属性" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
     </fc-layoutpanel>
     <fc-layoutpanel fccontent>
         <fc-title fcLabel="事件" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
     </fc-layoutpanel>
 </fc-layoutpanel>

@@ -25,19 +25,15 @@
                 <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptionsDisabled"></fc-chosen>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="带搜索框" fccontent1>
+        <fc-layoutgroup fcTitle="下拉多选带搜索" fccontent1>
             <div fccontent>
-                正在开发中
+                默认带搜索，可关闭带搜索:
+                <fc-chosen [(ngModel)]="chosenValue" fcShowSearch="false" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptionsDisabled"></fc-chosen>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="当下拉列表为空时显示的内容" fccontent2>
             <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="更多" fccontent1>
-            <div fccontent>
-                待开发
+                <fc-chosen [(ngModel)]="chosenValue" fcNotFoundContent="当下拉列表为空时显示的内容" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptionsDisabled"></fc-chosen>
             </div>
         </fc-layoutgroup>
     </fc-layoutcol>
