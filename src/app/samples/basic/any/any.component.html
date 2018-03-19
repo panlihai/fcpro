@@ -5,38 +5,38 @@
         <fc-layoutgroup fcTitle="基本" fccontent1>
             <div fccontent>
                 <label>{{anyValue|json}}</label>
-                <fc-any [(ngModel)]="anyValue" fcDefaultValue="a" [fcOption]="anyOptions">
+                <fc-any [(ngModel)]="anyValue" [fcOption]="anyOptions">
                 </fc-any>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="大小" fccontent1>
             <div fccontent>
                 <div>
-                    <fc-any [(ngModel)]="anyValue" fcDefaultValue="a" fcSize="default" [fcOption]="anyOptions"></fc-any>
+                    <fc-any [(ngModel)]="anyValue" fcSize="default" [fcOption]="anyOptions"></fc-any>
                 </div>
                 <div style="margin-top:24px;">
-                    <fc-any [(ngModel)]="anyValue" fcDefaultValue="b" fcSize="large" [fcOption]="anyOptions"></fc-any>
+                    <fc-any [(ngModel)]="anyValue" fcSize="large" [fcOption]="anyOptions"></fc-any>
                 </div>
                 <div style="margin-top:24px;">
-                    <fc-any [(ngModel)]="anyValue" fcDefaultValue="c" fcSize="small" [fcOption]="anyOptions"></fc-any>
+                    <fc-any [(ngModel)]="anyValue" fcSize="small" [fcOption]="anyOptions"></fc-any>
                 </div>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="禁用" fccontent2>
             <div fccontent>
-                <fc-any [(ngModel)]="anyValue" fcDefaultValue="a" [fcOption]="anyOptionsDisabled">
+                <fc-any [(ngModel)]="anyValue" [fcOption]="anyOptionsDisabled">
                 </fc-any>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="带搜索" fccontent2>
             <div fccontent>
-                <fc-any fcShowSearch="true" [(ngModel)]="anyValue" fcDefaultValue="a" [fcOption]="anyOptionsDisabled">
+                <fc-any fcShowSearch="true" [(ngModel)]="anyValue" [fcOption]="anyOptionsDisabled">
                 </fc-any>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="未找到时的文字显示" fccontent2>
             <div fccontent>
-                <fc-any fcNotFoundContent="当下拉列表为空时显示的内容" [(ngModel)]="anyValue" fcDefaultValue="a" [fcOption]="anyOptionsDisabled">
+                <fc-any fcNotFoundContent="当下拉列表为空时显示的内容" [(ngModel)]="anyValue" [fcOption]="anyOptionsDisabled">
                 </fc-any>
             </div>
         </fc-layoutgroup>

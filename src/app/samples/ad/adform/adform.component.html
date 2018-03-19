@@ -12,10 +12,10 @@
         <div fccontent1>
           <form nz-form>
             <fc-switch fcCheckValue="Y" fcLabel="开关label" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="11"></fc-switch>
-            <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" fcDefaultValue="a" [fcOption]="anyOptions" name="12"></fc-any>
-            <fc-check [(ngModel)]="checkValue" fcLabel="多选框label" [fcDefaultValue]="checkValue" [fcOption]="checkOptions" name="13"></fc-check>
-            <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptions" name="14"></fc-chosen>
-            <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcDefaultValue]="comboValue" [fcOption]="comboOptions"
+            <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label"  [fcOption]="anyOptions" name="12"></fc-any>
+            <fc-check [(ngModel)]="checkValue" fcLabel="多选框label"  [fcOption]="checkOptions" name="13"></fc-check>
+            <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label"  [fcOption]="chosenOptions" name="14"></fc-chosen>
+            <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcOption]="comboOptions"
               name="15"></fc-combo>
             <fc-date [(ngModel)]="now" fcLabel="日期label" name="16"></fc-date>
             <fc-datetime [(ngModel)]="now" fcLabel="时间日期label" name="17"></fc-datetime>
@@ -24,7 +24,7 @@
         </div>
         <div fccontent2>
           <fc-long [(ngModel)]="inputNumber" fcLabel="整数label"></fc-long>
-          <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label" fcDefaultValue="a" fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
+          <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label"  fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
             fcLabelCode='DICDESC'></fc-many>
           <fc-radio fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" [(ngModel)]="radioValue" fcValueCode='DICVALUE' fcLabelCode='DICDESC'></fc-radio>
           <fc-text fcPlaceHolder="请输入" fcLabel="文本框label"></fc-text>
@@ -39,10 +39,10 @@
           <div fccontent1>
             <form nz-form>
               <fc-switch fcCheckValue="Y" fcLabel="开关label" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="11"></fc-switch>
-              <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" fcDisabledCode="true" fcDefaultValue="a" [fcOption]="anyOptions" name="12"></fc-any>
-              <fc-check [(ngModel)]="checkValue" fcLabel="多选框label" [fcDefaultValue]="checkValue" [fcOption]="checkOptions" name="13"></fc-check>
-              <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptions" name="14"></fc-chosen>
-              <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcDefaultValue]="comboValue" [fcOption]="comboOptions"
+              <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" fcDisabledCode="true"  [fcOption]="anyOptions" name="12"></fc-any>
+              <fc-check [(ngModel)]="checkValue" fcLabel="多选框label"  [fcOption]="checkOptions" name="13"></fc-check>
+              <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label"  [fcOption]="chosenOptions" name="14"></fc-chosen>
+              <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcOption]="comboOptions"
                 name="15"></fc-combo>
               <fc-date [(ngModel)]="now" fcLabel="日期label" name="16"></fc-date>
               <fc-datetime [(ngModel)]="now" fcLabel="时间日期label" name="17"></fc-datetime>
@@ -51,7 +51,7 @@
           </div>
           <div fccontent2>
             <fc-long [(ngModel)]="inputNumber" fcLabel="整数label"></fc-long>
-            <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label" fcDefaultValue="a" fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
+            <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label"  fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
               fcLabelCode='DICDESC'></fc-many>
             <fc-radio fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" [(ngModel)]="radioValue" fcValueCode='DICVALUE' fcLabelCode='DICDESC'></fc-radio>
             <fc-text fcPlaceHolder="请输入" fcLabel="文本框label" fcReadonly="true"></fc-text>
@@ -66,10 +66,10 @@
           <div fccontent1>
             <form nz-form>
               <fc-switch fcCheckValue="Y" fcLabel="开关label" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="11"></fc-switch>
-              <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" fcDefaultValue="a" [fcOption]="anyOptions" name="12"></fc-any>
-              <fc-check [(ngModel)]="checkValue" fcLabel="多选框label" [fcDefaultValue]="checkValue" [fcOption]="checkOptions" name="13"></fc-check>
-              <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptions" name="14"></fc-chosen>
-              <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcDefaultValue]="comboValue" [fcOption]="comboOptions"
+              <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label"  [fcOption]="anyOptions" name="12"></fc-any>
+              <fc-check [(ngModel)]="checkValue" fcLabel="多选框label"  [fcOption]="checkOptions" name="13"></fc-check>
+              <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label" [fcOption]="chosenOptions" name="14"></fc-chosen>
+              <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true"  [fcOption]="comboOptions"
                 name="15"></fc-combo>
               <fc-date [(ngModel)]="now" fcLabel="日期label" name="16"></fc-date>
               <fc-datetime [(ngModel)]="now" fcLabel="时间日期label" name="17"></fc-datetime>
@@ -78,7 +78,7 @@
           </div>
           <div fccontent2>
             <fc-long [(ngModel)]="inputNumber" fcLabel="整数label"></fc-long>
-            <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label" fcDefaultValue="a" fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
+            <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label"  fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
               fcLabelCode='DICDESC'></fc-many>
             <fc-radio fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" [(ngModel)]="radioValue" fcValueCode='DICVALUE' fcLabelCode='DICDESC'></fc-radio>
             <fc-text fcPlaceHolder="请输入" fcDisabled="true" fcLabel="文本框label" [(ngModel)]="content"></fc-text>

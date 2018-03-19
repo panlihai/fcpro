@@ -26,17 +26,27 @@
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="禁用" fccontent2>
             <div fccontent>
-                正在开发中
+                <fc-button fcLabel="禁用" fcSize="large" fcDisabled="true"></fc-button>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="按钮形状" fccontent2>
+            <div fccontent>
+                <fc-button fcIcon="anticon anticon-download" fcShape="circle"></fc-button>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="图标按钮" fccontent2>
             <div fccontent>
-                正在开发中
+                <fc-button fcLabel="large" fcSize="large" fcIcon="anticon anticon-download" fcIconPositon="left"></fc-button>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="幽灵按钮" fccontent2>
+        <fc-layoutgroup fcTitle="幽灵按钮" fccontent1>
             <div fccontent>
-                正在开发中
+                <div style="background-color:rgb(190, 200, 200);padding: 26px 16px 16px;">
+                    <fc-button fcLabel="幽灵图标" fcType="primary" fcOpacity="true"></fc-button>
+                    <fc-button fcLabel="幽灵图标" fcType="dashed" fcOpacity="true"></fc-button>
+                    <fc-button fcLabel="幽灵图标" fcType="danger" fcOpacity="true"></fc-button>
+                    <fc-button fcLabel="幽灵图标" fcType="default" fcOpacity="true"></fc-button>
+                </div>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="按钮下拉" fccontent1>
@@ -44,19 +54,18 @@
                 正在开发中
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="更多" fccontent1>
-            <div fccontent>
-                待开发
-            </div>
-        </fc-layoutgroup>
     </fc-layoutcol>
     <!-- API -->
     <fc-layoutpanel fccontent>
         <fc-title fcLabel="属性" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
     </fc-layoutpanel>
     <fc-layoutpanel fccontent>
         <fc-title fcLabel="事件" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
     </fc-layoutpanel>
 </fc-layoutpanel>
