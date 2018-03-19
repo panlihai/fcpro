@@ -10,8 +10,8 @@ import { HellofcService } from '../../services/hellofc.service';
   <div fccontent1>
     <fc-tlblist  [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
       <div class="list-search">
-        <div class="list-search-every"><fc-text fcLabel="标题" [(fcAppid)]="appId" fcFieldCode='TITLE' [(ngModel)]="mainObj.TITLE" name="TITLE"></fc-text></div>
-        <div class="list-search-every"><fc-combo [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-combo></div>
+        <div class="list-search-every"><fc-text fcLabel="标题" [fcAppid]="appId" fcFieldCode='TITLE' [(ngModel)]="mainObj.TITLE" name="TITLE"></fc-text></div>
+        <div class="list-search-every"><fc-combo [fcAppid]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-combo></div>
         <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
         <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
         <div class="list-search-every"><fc-text fcLabel="应收金额"></fc-text></div>
@@ -36,16 +36,16 @@ import { HellofcService } from '../../services/hellofc.service';
         <form>
           <fc-layoutcol fcSpans="1,1">
             <div fccontent1>
-              <fc-text fcLabel="标题" [(fcAppid)]="appId" fcFieldCode='TITLE' [(ngModel)]="mainObj.TITLE" name="TITLE"></fc-text>
-              <fc-radio [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-radio>
-              <fc-combo [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-combo>
-              <fc-check [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-check>
+              <fc-text fcLabel="标题" [fcAppid]="appId" fcFieldCode='TITLE' [(ngModel)]="mainObj.TITLE" name="TITLE"></fc-text>
+              <fc-radio [fcAppid]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-radio>
+              <fc-combo [fcAppid]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-combo>
+              <fc-check [fcAppid]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-check>
             </div>
             <div fccontent2>
               <fc-text fcLabel="标题" [(fcAppid)]="appId" fcFieldCode='TITLE' [(ngModel)]="mainObj.TITLE" name="TITLE"></fc-text>
-              <fc-radio [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-radio>
-              <fc-combo [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-combo>
-              <fc-check [(fcAppid)]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-check>
+              <fc-radio [fcAppid]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-radio>
+              <fc-combo [fcAppid]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-combo>
+              <fc-check [fcAppid]="appId" fcFieldCode='ISREAD' [(ngModel)]="mainObj.ISREAD" fcValueCode='DICVALUE' fcLabelCode='DICDESC' name="ISREAD"></fc-check>
               </div>
           </fc-layoutcol>
         </form>
@@ -71,12 +71,10 @@ import { HellofcService } from '../../services/hellofc.service';
   .list-search-every{
     width:25%;
     float:left;
-    margin-top:5px;
   }
   list-search-button {
     width:25%;
     float:left;
-    margin-top:20px;
   }
   `]
 })
@@ -149,7 +147,6 @@ export class Hellofc1Component extends ParentComponent {
   event(eventName: string, context: any): void {
     switch (eventName) {
       case 'selected':
-        console.log("被选中了");
         break;
       case 'rowClick':
         break;
