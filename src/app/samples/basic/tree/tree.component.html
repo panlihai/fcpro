@@ -8,16 +8,6 @@
                 <fc-tree [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" #tree></fc-tree>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="大小" fccontent1>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="禁用" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
         <fc-layoutgroup fcTitle="事件" fccontent2>
             <div fccontent>
                 <fc-tree [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" (fcEvent)="event($event);"></fc-tree>

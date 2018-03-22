@@ -11,4 +11,18 @@ export class UploadComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {
     super('FCUPLOAD', mainService);
   }
+  /**
+  * 上传图片
+  * @param event  
+  */
+  fileEvent(event): any {
+    switch (event.eventName) {
+      case "success":
+        console.log(event.param);
+        break;
+      case "failure":
+        console.log(event.param);
+        break;
+    }
+  }
 }
