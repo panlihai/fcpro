@@ -5,7 +5,7 @@
         <fc-layoutgroup fcTitle="基本" fccontent1>
             <div fccontent>
                 <label>{{chosenValue}}</label>
-                <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptions"></fc-chosen>
+                <fc-chosen [(ngModel)]="chosenValue"  [fcOption]="chosenOptions"></fc-chosen>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="类型" fccontent2>
@@ -15,25 +15,25 @@
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="大小" fccontent1>
             <div fccontent>
-                <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" fcSize="default" [fcOption]="chosenOptions"></fc-chosen>
-                <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" fcSize="large" [fcOption]="chosenOptions"></fc-chosen>
-                <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" fcSize="small" [fcOption]="chosenOptions"></fc-chosen>
+                <fc-chosen [(ngModel)]="chosenValue"  fcSize="default" [fcOption]="chosenOptions"></fc-chosen>
+                <fc-chosen [(ngModel)]="chosenValue"  fcSize="large" [fcOption]="chosenOptions"></fc-chosen>
+                <fc-chosen [(ngModel)]="chosenValue"  fcSize="small" [fcOption]="chosenOptions"></fc-chosen>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="禁用" fccontent2>
             <div fccontent>
-                <fc-chosen [(ngModel)]="chosenValue" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptionsDisabled"></fc-chosen>
+                <fc-chosen [(ngModel)]="chosenValue"  [fcOption]="chosenOptionsDisabled"></fc-chosen>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="下拉多选带搜索" fccontent1>
             <div fccontent>
                 默认带搜索，可关闭带搜索:
-                <fc-chosen [(ngModel)]="chosenValue" fcShowSearch="false" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptionsDisabled"></fc-chosen>
+                <fc-chosen [(ngModel)]="chosenValue" fcShowSearch="false"  [fcOption]="chosenOptionsDisabled"></fc-chosen>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="当下拉列表为空时显示的内容" fccontent2>
             <div fccontent>
-                <fc-chosen [(ngModel)]="chosenValue" fcNotFoundContent="当下拉列表为空时显示的内容" [fcDefaultValue]="chosenValue" [fcOption]="chosenOptionsDisabled"></fc-chosen>
+                <fc-chosen [(ngModel)]="chosenValue" fcNotFoundContent="当下拉列表为空时显示的内容"  [fcOption]="chosenOptionsDisabled"></fc-chosen>
             </div>
         </fc-layoutgroup>
     </fc-layoutcol>

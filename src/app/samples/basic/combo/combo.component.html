@@ -5,7 +5,7 @@
         <fc-layoutgroup fcTitle="基本" fccontent1>
             <div fccontent>
                 <label>{{comboValue}}</label>
-                <fc-combo [(ngModel)]="comboValue" [fcDefaultValue]="comboValue" [fcOption]="comboOptions">
+                <fc-combo [(ngModel)]="comboValue" [fcOption]="comboOptions">
                 </fc-combo>
             </div>
         </fc-layoutgroup>
@@ -17,31 +17,31 @@
         <fc-layoutgroup fcTitle="大小" fccontent1>
             <div fccontent>
                 <div>
-                    <fc-combo [(ngModel)]="comboValue" [fcDefaultValue]="comboValue" fcSize="default" [fcOption]="comboOptions"></fc-combo>
+                    <fc-combo [(ngModel)]="comboValue" fcSize="default" [fcOption]="comboOptions"></fc-combo>
                 </div>
                 <div style="margin-top:24px;">
-                    <fc-combo [(ngModel)]="comboValue" [fcDefaultValue]="comboValue" fcSize="large" [fcOption]="comboOptions"></fc-combo>
+                    <fc-combo [(ngModel)]="comboValue" fcSize="large" [fcOption]="comboOptions"></fc-combo>
                 </div>
                 <div style="margin-top:24px;">
-                    <fc-combo [(ngModel)]="comboValue" [fcDefaultValue]="comboValue" fcSize="small" [fcOption]="comboOptions"></fc-combo>
+                    <fc-combo [(ngModel)]="comboValue" fcSize="small" [fcOption]="comboOptions"></fc-combo>
                 </div>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="禁用" fccontent2>
             <div fccontent>
-                <fc-combo [(ngModel)]="comboValue" [fcDefaultValue]="comboValue" [fcOption]="comboOptionsDisabled">
+                <fc-combo [(ngModel)]="comboValue" [fcOption]="comboOptionsDisabled">
                 </fc-combo>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="下拉单选可搜索" fccontent2>
             <div fccontent>
-                <fc-combo fcShowSearch="true" [(ngModel)]="comboValue" [fcDefaultValue]="comboValue" [fcOption]="comboOptionsDisabled">
+                <fc-combo fcShowSearch="true" [(ngModel)]="comboValue" [fcOption]="comboOptionsDisabled">
                 </fc-combo>
             </div>
         </fc-layoutgroup>
         <fc-layoutgroup fcTitle="未找到时的内容显示" fccontent2>
             <div fccontent>
-                <fc-combo fcNotFoundContent="未找到时的提示内容" [(ngModel)]="comboValue" [fcDefaultValue]="comboValue" [fcOption]="comboOptionsDisabled">
+                <fc-combo fcNotFoundContent="未找到时的提示内容" [(ngModel)]="comboValue" [fcOption]="comboOptionsDisabled">
                 </fc-combo>
             </div>
         </fc-layoutgroup>

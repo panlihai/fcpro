@@ -2,18 +2,36 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent } from 'fccomponent';
 import { SysappService } from '../../services/sysapp.service';
+import { NzModalService } from 'ng-zorro-antd';
+import { FCEVENT } from 'fccomponent/fc';
+import { environment } from '../../../../environments/environment.prod';
 @Component({
   selector: 'sysapp',
   template: `
-  <fc-layoutpanel fcFull="true">
-  <fc-layoutrow fcSpan="30" style="height:100%;" fccontent>
-      <fc-tlblist fccontent1 [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-    <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
-  </fc-layoutrow>
-</fc-layoutpanel>
+  <fc-layoutcol fcSpans="2,9" style="height:100%;">
+    <fc-layoutgroup fccontent1 fcTitle="请选择产品">
+      <fc-list fccontent fcAppid="SYSPRODUCT" [fcOption]="{field:{FIELDCODE:'PNAME'}}" (fcEvent)="listEvent($event)"></fc-list>
+    </fc-layoutgroup>
+    <fc-layoutgroup style="height:100%;" fccontent2 fcTitle="元数据列表">    
+      <fc-tlblist [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+      <fc-layoutrow fcSpan="40" style="height:90%;" fccontent>
+        <fc-searchlist  [fcAppid]="appId" fccontent1 (fcEvent)="searchlistEvent($event)"></fc-searchlist>
+          <fc-listdata  fccontent2 style="height:100%;" [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)" [fcCondition]="condition"></fc-listdata>
+      </fc-layoutrow>
+    </fc-layoutgroup>
+  </fc-layoutcol>  
   `,
   styles: [`
-  :host ::ng-deep .fc-layoutpanel .fc-content{
+ :host ::ng-deep .fc-layoutcol {
+    height:100%;
+  }
+  :host ::ng-deep .fc-layoutgroup{
+    height: calc(100% - 40px);    
+  }
+  :host ::ng-deep .fc-layoutgroup .fc-content {
+    height:100%;
+  }
+  :host ::ng-deep .fc-layoutpanel .fc-content {
     height:100%;
   }
   .list-search {
@@ -33,14 +51,15 @@ import { SysappService } from '../../services/sysapp.service';
 export class SysappComponent extends ParentComponent {
   constructor(public mainService: SysappService,
     public router: Router,
-    public activeRoute: ActivatedRoute) {
+    public activeRoute: ActivatedRoute, private modal: NzModalService) {
     super(mainService, router, activeRoute);
   }
   init(): void {
   }
   addNew(mainObj: any) {
   }
-  getDefaultQuery() {
+  getDefaultQuery(): any {
+    return {};
   }
   beforeSave(): boolean {
     return true;
@@ -60,6 +79,21 @@ export class SysappComponent extends ParentComponent {
   }
   /**
    * 
+   */
+  listEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case "select":
+        if (this.searchObj.WHERE && this.searchObj.WHERE.length !== 0) {
+          this.searchObj.WHERE += " and appid (select appid from sys_menu where pid='" + event.param.PID + "')";
+        }else {
+          this.searchObj.WHERE = " and appid (select appid from sys_menu where pid='" + event.param.PID + "')";
+        }
+        this.search();
+        break;
+    }
+  }
+  /**
+   * 
    * @param eventName 事件名称
    * @param context 按钮内容
    */
@@ -69,5 +103,4 @@ export class SysappComponent extends ParentComponent {
         this.mainService.modifyAppFieldsName();
     }
   }
-
 }

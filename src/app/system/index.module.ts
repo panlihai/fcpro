@@ -56,7 +56,8 @@ import { HomeComponent } from './components/home/home.component';
     FcalertModule,
     FclayoutModule,
     FclistModule,
-    FcmodalModule   
+    FcmodalModule,
+    FcsearchModule   
   ],
   exports: [
 
