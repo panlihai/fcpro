@@ -30,6 +30,17 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年3月19日19:55 
+    平台升级至fcexample@1.1.12
+    1、sample中去掉fcDefaultValue属性
+    请升级fccomponent@0.4.8    
+    1、修复是否为必填写反的问题
+    2、去掉fcDefaultValue属性，使用ngmodel实现双向数据绑定输入性组件；
+    注：fccore下一版本将对提交进行升级；后端代码将下一个版本升级。产品线需要更新maincontroller代码及server.jar代码。
+    <code>
+</pre>
+<pre>
+    <code>
     2018年3月18日18:55 
     平台升级至fcexample@1.1.11
     1、增加对路由复用的支持
