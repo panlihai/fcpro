@@ -30,6 +30,15 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年3月23日19:55 
+    请升级fccomponent@0.4.10    
+    1、fc-text联想输入
+    2、图标组件fc-icon的开发完成
+    
+    <code>
+</pre>
+<pre>
+    <code>
     2018年3月19日19:55 
     平台升级至fcexample@1.1.12
     1、sample中去掉fcDefaultValue属性
