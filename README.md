@@ -30,11 +30,25 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年3月27日19:55 
+    请升级fccomponent@0.4.15    
+    1、fc-tag组件，完成标记组件开发
+    2、fccomponent提示警告异常修复
+    请升级fccore@0.5.2版本
+    1、增加对批量数据提交的支持
+    2、增加对参数的url转码支持
+    3、增加核心对全局提示消息的支持，请使用msgService.message(success,info,error,warn)消息提示
+    请升级后端服务
+    1、增加后端对数据提交的支持
+    2、修复后端响应信息的bug。    
+    <code>
+</pre>
+<pre>
+    <code>
     2018年3月23日19:55 
     请升级fccomponent@0.4.10    
     1、fc-text联想输入
-    2、图标组件fc-icon的开发完成
-    
+    2、图标组件fc-icon的开发完成    
     <code>
 </pre>
 <pre>
