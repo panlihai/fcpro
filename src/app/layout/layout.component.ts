@@ -9,6 +9,14 @@ import { LayoutService } from '../system/services/layout.service';
   selector: 'layout',
   templateUrl: './layout.component.html',
   styles: [`
+  :host ::ng-deep .layoutcol-auto .fc-content1{
+    height: 100%;
+    overflow: auto;
+  }
+  :host ::ng-deep .layoutcol-auto .fc-content2{
+    height: 100%;
+    overflow: auto;
+  }
   :host ::ng-deep .fc-layout{
     height: calc(100% - 36px);
     padding:5px;

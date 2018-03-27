@@ -49,6 +49,7 @@ import { LayoutService } from './system/services/layout.service';
 import { FcRouteReuseStrategy } from './system/services/routereusestrategy.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { NzMessageService } from 'ng-zorro-antd';
 @NgModule({
   imports: [
     FormsModule,
@@ -99,6 +100,7 @@ import { HttpClientModule } from '@angular/common/http';
     SysmenuService,
     SysstyleService,
     LayoutService,
+    NzMessageService,
     { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy }
   ],
   bootstrap: [AppComponent]
