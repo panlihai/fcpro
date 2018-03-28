@@ -7,7 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd';
   template: '<router-outlet></router-outlet>'
 })
 export class AppComponent {
-  constructor(public msgService:v){
+  constructor(){
     
     FccoreModule.forRoot(environment);
     
