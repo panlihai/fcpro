@@ -6,7 +6,40 @@ import { SysroleService } from '../../services/sysrole.service';
 @Component({
   selector: 'sysrole',
   template: `
-  <fc-layoutpanel fcFull="true">
+<fc-layoutpanel fcFull="true">
+  <fc-layoutcol fcSpans="3,10" fccontent>
+    <div fccontent1>
+      <fc-title fcLabel="所有角色" fcHasLine="false"></fc-title>
+      <fc-list fcAppid="SYSAPP" [fcOption]="{field:{FIELDCODE:'APPNAME'}}"></fc-list>
+    </div>
+    <div fccontent2>
+      <fc-tabmain [fcTabs]="roleTab">
+        <div fccontent1>
+          <fc-title fcLabel="管理部" fcHasLine="false"></fc-title>
+          <fc-tag fcTitle="管理员" fcColor="blue" fcIcon="fc-line"></fc-tag>
+          <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addUser()"></fc-button>
+        </div>
+        <div fccontent2>
+          <div class="path">
+            <span class="path-every">元数据</span>
+            <span class="path-every path-every-active">元数据属性</span>
+          </div>
+          <div class="app-check">
+            <fc-check [(ngModel)]="checkValue" [fcOption]="checkAppOptions"></fc-check>
+          </div>
+          <div class="app-check">
+            <fc-check [(ngModel)]="checkappValue" [fcOption]="checkOptions"></fc-check>
+          </div>
+        </div>
+      </fc-tabmain>
+      <div *ngIf="false">
+        <div>下拉树测试：</div>
+        <fc-drowdowntree [items]="items" [(value)]="value" (valueChange)="onValueChange($event)"></fc-drowdowntree>
+      </div>
+    </div>
+  </fc-layoutcol>
+</fc-layoutpanel>  
+<fc-layoutpanel fcFull="true" *ngIf="false">
   <fc-layoutcol fcSpan="2,5" style="height:100%;" fccontent>
     <fc-layoutpanel fccontent1>
         <fc-title fcheader fcLabel="所有角色"></fc-title>
@@ -24,6 +57,25 @@ import { SysroleService } from '../../services/sysrole.service';
   :host ::ng-deep .fc-layoutpanel .fc-content{
     height:100%;
   }
+  .path{
+
+  }
+  .path-every {
+    position:relative;
+    margin-right:10px;
+  }
+  .path-every:after {
+    content:'/';
+    position:absolute;
+    right: -10px;
+    top: -3px;
+  }
+  .path .path-every:last-child:after {
+    content:'';
+  }
+  .path-every-active {
+    color:#108ee9;
+  }
   .list-search{
     width:100%;
   }
@@ -36,14 +88,29 @@ import { SysroleService } from '../../services/sysrole.service';
     width:24%;
     float:left;
   }
+
   `]
 })
 export class SysroleComponent extends ParentComponent {
+  //增加人员
+  addUser() {
+
+  }
+  //用户权限
+  roleTab = [
+    { name: '用户', disabled: false },
+    { name: '权限', disabled: false },
+  ]
+  //元数据选中
+  checkValue: string = '新增';
+  checkappValue: string = '元数据';
+  checkOptions: any[] = [{ icon: '', label: '新增', value: 'a' }, { icon: '', label: '删除', value: 'b' }, { icon: '', label: '发布', value: 'c' }];
+  checkAppOptions: any[] = [{ icon: '', label: '元数据', value: 'a' }];
   constructor(public mainService: SysroleService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
-    super(mainService, router, activeRoute);    
-  }  
+    super(mainService, router, activeRoute);
+  }
   treeOptions: TreeOptions = {
     //元数据id
     fcAppid: this.appId,//元数据id
@@ -74,8 +141,8 @@ export class SysroleComponent extends ParentComponent {
   }
   addNew(mainObj: any) {
   }
-  getDefaultQuery():any {
-      return {};
+  getDefaultQuery(): any {
+    return {};
   }
   beforeSave(): boolean {
     return true;
@@ -91,7 +158,7 @@ export class SysroleComponent extends ParentComponent {
     return true;
   }
   afterEdit(mainObj: any): void {
-    
+
   }
   event(eventName: string, context: any): void {
   }
