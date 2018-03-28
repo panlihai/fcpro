@@ -84,9 +84,9 @@ export class SysappComponent extends ParentComponent {
     switch (event.eventName) {
       case "select":
         if (this.searchObj.WHERE && this.searchObj.WHERE.length !== 0) {
-          this.searchObj.WHERE += " and appid (select appid from sys_menu where pid='" + event.param.PID + "')";
+          this.searchObj.WHERE += " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
         }else {
-          this.searchObj.WHERE = " and appid (select appid from sys_menu where pid='" + event.param.PID + "')";
+          this.searchObj.WHERE = " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
         }
         this.search();
         break;
