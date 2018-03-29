@@ -39,6 +39,7 @@ import { SysroleService } from '../../services/sysrole.service';
     </div>
   </fc-layoutcol>
 </fc-layoutpanel>  
+
 <fc-layoutpanel fcFull="true" *ngIf="false">
   <fc-layoutcol fcSpan="2,5" style="height:100%;" fccontent>
     <fc-layoutpanel fccontent1>
@@ -139,8 +140,9 @@ export class SysroleComponent extends ParentComponent {
   };
   init(): void {
   }
-  addNew(mainObj: any) {
-  }
+  addNew(mainObj: any):boolean {
+    return true;
+}
   getDefaultQuery(): any {
     return {};
   }

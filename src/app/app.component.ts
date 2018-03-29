@@ -8,7 +8,6 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class AppComponent {
   constructor(){
-    
-    
+    FccoreModule.forRoot(environment);
   }
 }

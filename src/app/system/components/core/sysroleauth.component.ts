@@ -34,11 +34,12 @@ export class SysroleauthComponent extends ParentComponent {
   constructor(public mainService: SysroleauthService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
-    super(mainService, router, activeRoute);    
-  }  
+    super(mainService, router, activeRoute);
+  }
   init(): void {
   }
-  addNew(mainObj: any) {
+  addNew(mainObj: any): boolean {
+    return true;
   }
   getDefaultQuery() {
   }
@@ -56,7 +57,7 @@ export class SysroleauthComponent extends ParentComponent {
     return true;
   }
   afterEdit(mainObj: any): void {
-    
+
   }
   event(eventName: string, context: any): void {
   }

@@ -28,8 +28,7 @@ import { ComponentService } from '../samples/services/component.service';
   ],
   providers: [
     HellofcService,
-    SpreadService,
-    ComponentService
+    SpreadService
   ]
 })
 export class HelloModule { }

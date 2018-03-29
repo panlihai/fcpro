@@ -15,13 +15,14 @@ import { environment } from '../../../../environments/environment';
         height: 100%;
         background-color: #373d41;
         position: absolute;
-        overflow:auto;
     }
 
     .sigin {
+        width: 100%;
+        height: 100%;
         background-color: #1F2325;
-        background-image: url(assets/img/login_bg.jpg);
-        background-size: cover;
+        background-image: url(assets/img/newlogin.png);
+        background-size: 100% 100%;
     }
 
     .navbar-brand>img {
@@ -74,19 +75,23 @@ import { environment } from '../../../../environments/environment';
     }
 
     .sigin-body .sigin-body-box .sigin-module {
-        width: 380px;
+        width: 350px;
         padding: 30px 20px 40px;
-        background: #ffffff;
+        background: #0175e1;
         position: absolute;
         right: 0;
+        top:30px;
+        opacity: 0.7;
     }
-
+    .sigin-module h2{
+        color:#fff;
+    }
     .sigin-body .sigin-body-box .sigin-form .form-group {
         margin-bottom: 20px;
     }
 
     .sigin-body .sigin-body-box .sigin-form .sigin-submit {
-        margin-top: 60px;
+        margin-top: 30px;
     }
     .sigin-body .sigin-body-box .sigin-other {
         width: 100%;
@@ -96,13 +101,13 @@ import { environment } from '../../../../environments/environment';
 
     .sigin-body .sigin-body-box .sigin-other .sigin-other-link {
         font-size: 12px;
-        color: #9B9EA0;
+        color: #fff;
         margin-left: 15px;
     }
 
-    .sigin-body .sigin-body-box .sigin-other .sigin-other-link:hover {
-        color: #108ee9;
-    }
+    // .sigin-body .sigin-body-box .sigin-other .sigin-other-link:hover {
+    //     color: #108ee9;
+    // }
 
     .fc-copyright {
         padding: 20px;
@@ -148,6 +153,11 @@ import { environment } from '../../../../environments/environment';
         color: #73777a;
         font-size: 14px;
         margin-top: 10px;
+    }
+    .login-p{
+        color:#fff;
+        text-align:center;
+        letter-spacing:1px;
     }
   `
     ]
