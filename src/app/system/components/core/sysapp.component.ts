@@ -56,7 +56,8 @@ export class SysappComponent extends ParentComponent {
   }
   init(): void {
   }
-  addNew(mainObj: any) {
+  addNew(mainObj: any):boolean {
+    return true;
   }
   getDefaultQuery(): any {
     return {};

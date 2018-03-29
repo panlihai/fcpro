@@ -80,7 +80,8 @@ export class SysmessageComponent extends ParentComponent {
   }
   init(): void {
   }
-  addNew(mainObj: any) {
+  addNew(mainObj: any):boolean {
+    return true;
   }
   getDefaultQuery() {
   }

@@ -14,7 +14,8 @@ import { HellofcService } from '../../services/hellofc.service';
 export class Hellofc3Component extends ParentComponent {
   init(): void {
   }
-  addNew(mainObj: any) {
+  addNew(mainObj: any):boolean {
+    return true;
   }
   getDefaultQuery() {
   }

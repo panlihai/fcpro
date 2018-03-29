@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FccoreModule } from 'fccore';
 import { environment } from '../environments/environment';
 import { NzMessageService } from 'ng-zorro-antd';
 @Component({
@@ -7,9 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd';
   template: '<router-outlet></router-outlet>'
 })
 export class AppComponent {
-  constructor(){
-    
-    FccoreModule.forRoot(environment);
+  constructor(){    
     
   }
 }

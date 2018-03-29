@@ -125,7 +125,8 @@ export class Hellofc1Component extends ParentComponent {
   }
   init(): void {
   }
-  addNew(mainObj: any) {
+  addNew(mainObj: any):boolean {
+    return true;
   }
   getDefaultQuery() {
   }

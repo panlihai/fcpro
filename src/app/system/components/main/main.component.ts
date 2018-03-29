@@ -37,7 +37,8 @@ export class MainComponent extends ParentComponent {
    this.mainObj = this.appService.initObjDefaultValue(this.mainApp);
 
   }
-  addNew(mainObj: any) {
+  addNew(mainObj: any):boolean {
+    return true;
   }
   getDefaultQuery() {
   }
