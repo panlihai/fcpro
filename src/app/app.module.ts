@@ -2,30 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {
-  AppService,
-  DaoService,
-  CacheService,
-  CommonService,
-  MenuService,
-  MessageService,
-  UserService,
-  SysappbuttonsService,
-  SysappfieldsService,
-  SysappfldgroupService,
-  SysapplinksService,
-  SysdicappdetailService,
-  SysdicappService,
-  SysdicdetailService,
-  SysdicService,
-  SysmessageService,
-  SysinterfaceparamService,
-  SysinterfaceService,
-  SysmenuService,
-  SysstyleService,
-  LogService,
-  ProvidersService,ProductService
-} from 'fccore';
-import {
   FcnavModule,
   FcbasicModule,
   FcadModule,
@@ -35,7 +11,8 @@ import {
   FcsearchModule,
   FcalertModule,
   FclayoutModule,
-  FclistModule
+  FclistModule,
+  FcshareModule
 } from 'fccomponent';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
@@ -54,7 +31,7 @@ import { NzMessageService } from 'ng-zorro-antd';
   imports: [
     FormsModule,
     BrowserModule,
-    BrowserAnimationsModule,    
+    BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot(AppRouters),
@@ -76,29 +53,6 @@ import { NzMessageService } from 'ng-zorro-antd';
     SignupComponent
   ],
   providers: [
-    AppService,
-    DaoService,
-    CacheService,
-    CommonService,
-    MenuService,
-    MessageService,
-    UserService,
-    ProvidersService,
-    LogService,
-    ProductService,
-    SysappbuttonsService,
-    SysappfieldsService,
-    SysappfldgroupService,
-    SysapplinksService,
-    SysdicappdetailService,
-    SysdicappService,
-    SysdicdetailService,
-    SysdicService,
-    SysmessageService,
-    SysinterfaceparamService,
-    SysinterfaceService,
-    SysmenuService,
-    SysstyleService,
     LayoutService,
     NzMessageService,
     { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy }
@@ -106,5 +60,4 @@ import { NzMessageService } from 'ng-zorro-antd';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-
 }

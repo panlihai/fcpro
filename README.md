@@ -30,6 +30,13 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年3月30日10:00 
+    请升级fccomponent@0.4.19    
+    本次升级整合fccore.未来升级只想要升级fccomponent项目。fccore的升级跟随fccomponent。   
+    <code>
+</pre>
+<pre>
+    <code>
     2018年3月27日19:55 
     请升级fccomponent@0.4.15    
     1、fc-tag组件，完成标记组件开发

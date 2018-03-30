@@ -39,7 +39,7 @@ export class MainComponent extends ParentComponent {
   }
   addNew(mainObj: any):boolean {
     return true;
-}
+  }
   getDefaultQuery() {
   }
   beforeSave(): boolean {

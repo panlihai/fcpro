@@ -142,9 +142,8 @@ export class SysroleComponent extends ParentComponent {
   }
   addNew(mainObj: any):boolean {
     return true;
-}
-  getDefaultQuery(): any {
-    return {};
+  }
+  getDefaultQuery() {
   }
   beforeSave(): boolean {
     return true;
