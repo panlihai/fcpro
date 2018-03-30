@@ -30,7 +30,12 @@
     "codelyzer": "^4.0.2",
     "core-js": "^2.5.3",
     "dragula": "^3.7.2",
+<<<<<<< HEAD
     "fccomponent": "^0.4.19",
+=======
+    "fccomponent": "^0.4.16",
+    "fccore": "^0.5.2",
+>>>>>>> 508156e883cc606a3b1da8a41e0ca2cf9eadf7a3
     "file-saver": "^1.3.3",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"

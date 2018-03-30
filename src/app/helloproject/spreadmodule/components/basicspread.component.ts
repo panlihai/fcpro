@@ -27,7 +27,11 @@ export class BasicspreadComponent extends ParentComponent {
   }
   init(): void {
   }
+<<<<<<< HEAD
   addNew(mainObj: any):boolean {
+=======
+  addNew(mainObj: any): boolean {
+>>>>>>> 508156e883cc606a3b1da8a41e0ca2cf9eadf7a3
     return true;
   }
   getDefaultQuery() {

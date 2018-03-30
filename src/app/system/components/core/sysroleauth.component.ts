@@ -34,11 +34,15 @@ export class SysroleauthComponent extends ParentComponent {
   constructor(public mainService: SysroleauthService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
-    super(mainService, router, activeRoute);    
-  }  
+    super(mainService, router, activeRoute);
+  }
   init(): void {
   }
+<<<<<<< HEAD
   addNew(mainObj: any):boolean {
+=======
+  addNew(mainObj: any): boolean {
+>>>>>>> 508156e883cc606a3b1da8a41e0ca2cf9eadf7a3
     return true;
   }
   getDefaultQuery() {
@@ -57,7 +61,7 @@ export class SysroleauthComponent extends ParentComponent {
     return true;
   }
   afterEdit(mainObj: any): void {
-    
+
   }
   event(eventName: string, context: any): void {
   }

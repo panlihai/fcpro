@@ -13,8 +13,6 @@ import {
   FclistModule
 } from 'fccomponent';
 import { Hellofc1Component } from './components/hellofc1.component';
-import { Hellofc2Component } from './components/hellofc2.component';
-import { Hellofc3Component } from './components/hellofc3.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -35,9 +33,7 @@ import { Hellofc3Component } from './components/hellofc3.component';
   ],
   declarations: [
     Hellofc1Component,
-    Hellofc2Component,
-    Hellofc3Component
-  ],
+     ],
   providers: [
     
   ]
