@@ -40,11 +40,7 @@ export class SysparamComponent extends ParentComponent {
   }
   addNew(mainObj: any):boolean {
     return true;
-<<<<<<< HEAD
-  }
-=======
 }
->>>>>>> 508156e883cc606a3b1da8a41e0ca2cf9eadf7a3
   getDefaultQuery() {
   }
   beforeSave(): boolean {
