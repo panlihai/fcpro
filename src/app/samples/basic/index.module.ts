@@ -57,6 +57,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListComponent } from './list/list.component';
 import { TableComponent } from './table/table.component';
 import { CollapseComponent } from './collapse/collapse.component';
+import { TagComponent } from './tag/tag.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -113,7 +114,8 @@ import { CollapseComponent } from './collapse/collapse.component';
     TreeComponent,
     UploadComponent,
     TooltipComponent,
-    CollapseComponent
+    CollapseComponent,
+    TagComponent
   ],
   providers: [
     AppService,
