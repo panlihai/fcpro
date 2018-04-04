@@ -3,20 +3,40 @@
   <fc-title fcLabel="表单组件" fcheader></fc-title>
   <fc-layoutcol fccontent fcSpans="1,0">
     <fc-layoutgroup fcTitle="基本" fccontent1>
-      <div fccontent>
-        <fc-adform fccontent [fcId]="'23471a18d4164f02a26d3b5f283d0a41'" fcAppid="SYSAPP" [fcOption]="formConfig"></fc-adform>
-      </div>
+      <fc-adform fccontent [fcId]="'23471a18d4164f02a26d3b5f283d0a41'" fcAppid="SYSAPP" [fcOption]="formConfig"></fc-adform>
     </fc-layoutgroup>
     <fc-layoutgroup fcTitle="自定义表单-静态数据" fccontent1>
+      <fc-layoutcol fccontent>
+        <form nz-form fccontent1>
+          <fc-switch fcCheckValue="Y" fcLabel="开关label" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="11"></fc-switch>
+          <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" [fcOption]="anyOptions" name="12"></fc-any>
+          <fc-check [(ngModel)]="checkValue" fcLabel="多选框label" [fcOption]="checkOptions" name="13"></fc-check>
+          <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label" [fcOption]="chosenOptions" name="14"></fc-chosen>
+          <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcOption]="comboOptions" name="15"></fc-combo>
+          <fc-date [(ngModel)]="now" fcLabel="日期label" name="16"></fc-date>
+          <fc-datetime [(ngModel)]="now" fcLabel="时间日期label" name="17"></fc-datetime>
+          <fc-double [(ngModel)]="inputNumber" fcLabel="数值label" name="18"></fc-double>
+        </form>
+        <div fccontent2>
+          <fc-long [(ngModel)]="inputNumber" fcLabel="整数label"></fc-long>
+          <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label" fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
+            fcLabelCode='DICDESC'></fc-many>
+          <fc-radio fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" [(ngModel)]="radioValue" fcValueCode='DICVALUE' fcLabelCode='DICDESC'></fc-radio>
+          <fc-text fcAppid="SYSAPP" fcFieldCode='APPNAME' fcPlaceHolder="请输入" fcLabel="文本框label"></fc-text>
+          <fc-textarea fcPlaceHolder="请输入" fcLabel="大文本框label"></fc-textarea>
+        </div>
+      </fc-layoutcol>
+      <fc-tlbform fccontent [fcButtons]="[{BTNNAME:'查询'},{BTNNAME:'清空',BTNTYPE:'default'}]" fcLayout="center"></fc-tlbform>
+    </fc-layoutgroup>
+    <fc-layoutgroup fcTitle="只读" fccontent1>
       <fc-layoutcol fccontent>
         <div fccontent1>
           <form nz-form>
             <fc-switch fcCheckValue="Y" fcLabel="开关label" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="11"></fc-switch>
-            <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label"  [fcOption]="anyOptions" name="12"></fc-any>
-            <fc-check [(ngModel)]="checkValue" fcLabel="多选框label"  [fcOption]="checkOptions" name="13"></fc-check>
-            <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label"  [fcOption]="chosenOptions" name="14"></fc-chosen>
-            <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcOption]="comboOptions"
-              name="15"></fc-combo>
+            <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" fcDisabledCode="true" [fcOption]="anyOptions" name="12"></fc-any>
+            <fc-check [(ngModel)]="checkValue" fcLabel="多选框label" [fcOption]="checkOptions" name="13"></fc-check>
+            <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label" [fcOption]="chosenOptions" name="14"></fc-chosen>
+            <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcOption]="comboOptions" name="15"></fc-combo>
             <fc-date [(ngModel)]="now" fcLabel="日期label" name="16"></fc-date>
             <fc-datetime [(ngModel)]="now" fcLabel="时间日期label" name="17"></fc-datetime>
             <fc-double [(ngModel)]="inputNumber" fcLabel="数值label" name="18"></fc-double>
@@ -24,56 +44,13 @@
         </div>
         <div fccontent2>
           <fc-long [(ngModel)]="inputNumber" fcLabel="整数label"></fc-long>
-<<<<<<< HEAD
           <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label" fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
-=======
-          <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label"  fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
->>>>>>> 751b7dd28c2dde7252b06349295f31340417cfe8
             fcLabelCode='DICDESC'></fc-many>
           <fc-radio fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" [(ngModel)]="radioValue" fcValueCode='DICVALUE' fcLabelCode='DICDESC'></fc-radio>
-          <fc-text fcPlaceHolder="请输入" fcLabel="文本框label"></fc-text>
-          <fc-textarea fcPlaceHolder="请输入" fcLabel="大文本框label"></fc-textarea>
+          <fc-text fcPlaceHolder="请输入" fcLabel="文本框label" fcReadonly="true"></fc-text>
+          <fc-textarea fcPlaceHolder="请输入" fcLabel="大文本框label" fcReadonly="true"></fc-textarea>
         </div>
       </fc-layoutcol>
-      <fc-tlbform fccontent [fcButtons]="[{BTNNAME:'查询'},{BTNNAME:'清空',BTNTYPE:'default'}]" fcLayout="center"></fc-tlbform>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="只读" fccontent1>
-      <div fccontent>
-        <fc-layoutcol fccontent>
-          <div fccontent1>
-            <form nz-form>
-              <fc-switch fcCheckValue="Y" fcLabel="开关label" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="11"></fc-switch>
-<<<<<<< HEAD
-              <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" fcDisabledCode="true" [fcOption]="anyOptions" name="12"></fc-any>
-              <fc-check [(ngModel)]="checkValue" fcLabel="多选框label"  [fcOption]="checkOptions" name="13"></fc-check>
-              <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label"  [fcOption]="chosenOptions" name="14"></fc-chosen>
-              <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true"  [fcOption]="comboOptions"
-=======
-              <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" fcDisabledCode="true"  [fcOption]="anyOptions" name="12"></fc-any>
-              <fc-check [(ngModel)]="checkValue" fcLabel="多选框label"  [fcOption]="checkOptions" name="13"></fc-check>
-              <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label"  [fcOption]="chosenOptions" name="14"></fc-chosen>
-              <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcOption]="comboOptions"
->>>>>>> 751b7dd28c2dde7252b06349295f31340417cfe8
-                name="15"></fc-combo>
-              <fc-date [(ngModel)]="now" fcLabel="日期label" name="16"></fc-date>
-              <fc-datetime [(ngModel)]="now" fcLabel="时间日期label" name="17"></fc-datetime>
-              <fc-double [(ngModel)]="inputNumber" fcLabel="数值label" name="18"></fc-double>
-            </form>
-          </div>
-          <div fccontent2>
-            <fc-long [(ngModel)]="inputNumber" fcLabel="整数label"></fc-long>
-<<<<<<< HEAD
-            <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label" fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
-=======
-            <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label"  fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
->>>>>>> 751b7dd28c2dde7252b06349295f31340417cfe8
-              fcLabelCode='DICDESC'></fc-many>
-            <fc-radio fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" [(ngModel)]="radioValue" fcValueCode='DICVALUE' fcLabelCode='DICDESC'></fc-radio>
-            <fc-text fcPlaceHolder="请输入" fcLabel="文本框label" fcReadonly="true"></fc-text>
-            <fc-textarea fcPlaceHolder="请输入" fcLabel="大文本框label" fcReadonly="true"></fc-textarea>
-          </div>
-        </fc-layoutcol>
-      </div>
     </fc-layoutgroup>
     <fc-layoutgroup fcTitle="禁用" fccontent1>
       <div fccontent>
@@ -81,18 +58,10 @@
           <div fccontent1>
             <form nz-form>
               <fc-switch fcCheckValue="Y" fcLabel="开关label" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="11"></fc-switch>
-<<<<<<< HEAD
               <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label" [fcOption]="anyOptions" name="12"></fc-any>
-              <fc-check [(ngModel)]="checkValue" fcLabel="多选框label"  [fcOption]="checkOptions" name="13"></fc-check>
-              <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label"  [fcOption]="chosenOptions" name="14"></fc-chosen>
-              <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcOption]="comboOptions"
-=======
-              <fc-any [(ngModel)]="anyValue" fcLabel="下拉单选对象label"  [fcOption]="anyOptions" name="12"></fc-any>
-              <fc-check [(ngModel)]="checkValue" fcLabel="多选框label"  [fcOption]="checkOptions" name="13"></fc-check>
+              <fc-check [(ngModel)]="checkValue" fcLabel="多选框label" [fcOption]="checkOptions" name="13"></fc-check>
               <fc-chosen [(ngModel)]="chosenValue" fcLabel="下拉多选label" [fcOption]="chosenOptions" name="14"></fc-chosen>
-              <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true"  [fcOption]="comboOptions"
->>>>>>> 751b7dd28c2dde7252b06349295f31340417cfe8
-                name="15"></fc-combo>
+              <fc-combo [(ngModel)]="comboValue" fcLabel="下拉单选label" fcRequired="true" [fcOption]="comboOptions" name="15"></fc-combo>
               <fc-date [(ngModel)]="now" fcLabel="日期label" name="16"></fc-date>
               <fc-datetime [(ngModel)]="now" fcLabel="时间日期label" name="17"></fc-datetime>
               <fc-double [(ngModel)]="inputNumber" fcLabel="数值label" name="18"></fc-double>
@@ -100,11 +69,7 @@
           </div>
           <div fccontent2>
             <fc-long [(ngModel)]="inputNumber" fcLabel="整数label"></fc-long>
-<<<<<<< HEAD
             <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label" fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
-=======
-            <fc-many [(ngModel)]="manyValue" fcLabel="下拉多选对象label"  fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" fcValueCode='DICVALUE'
->>>>>>> 751b7dd28c2dde7252b06349295f31340417cfe8
               fcLabelCode='DICDESC'></fc-many>
             <fc-radio fcAppid="SYSAPP" fcFieldCode="ENABLECACHE" [(ngModel)]="radioValue" fcValueCode='DICVALUE' fcLabelCode='DICDESC'></fc-radio>
             <fc-text fcPlaceHolder="请输入" fcDisabled="true" fcLabel="文本框label" [(ngModel)]="content"></fc-text>

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } from 'fccomponent/fcnav';
 import { environment } from '../../environments/environment';
 import { FCEVENT } from 'fccomponent/fc';
-import { ProvidersService, SysmessageService } from 'fccore';
+import { ProvidersService, MessageService } from 'fccore';
 import { LayoutService } from '../system/services/layout.service';
+import { SysmessageService } from '../system/services/sysmessage.service';
+import { FcmodalconfirmComponent } from 'fccomponent';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -35,6 +37,8 @@ import { LayoutService } from '../system/services/layout.service';
   `]
 })
 export class LayoutComponent implements OnInit {
+  @ViewChild('confirmmodal')
+  confirmmodal: FcmodalconfirmComponent;
   //系统名称
   _projectName = environment.projectName;
   //导航栏状态
@@ -79,6 +83,8 @@ export class LayoutComponent implements OnInit {
       }
     });
     this._navTabSelectedIndex = this.mainService._selectedIndex;
+    //把弹出确认框变量存入到服务里
+    MessageService.confirmModal = this.confirmmodal;
   }
   /**
    * 导航栏事件

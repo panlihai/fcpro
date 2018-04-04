@@ -6,7 +6,7 @@ import { environment } from './environments/environment';
 import { LicenseManager } from "ag-grid-enterprise/main";
 import { FcshareModule } from 'fccomponent';
 LicenseManager.setLicenseKey("ag-Grid_Evaluation_License_Key_Not_for_Production_1Devs27_December_2017__MTUxNDMzMjgwMDAwMA==43985be14558a9fb6deb40beab6c16bd");
-FcshareModule.init(environment);
+FcshareModule.initEnv(environment);
 if (environment.production) {
   enableProdMode();
 }

@@ -158,5 +158,9 @@ export class Hellofc1Component extends ParentComponent {
         this.panelShow = true;
         break;
     }
+    
+  }
+  cardBack(action:string){
+    this.selectedTab(0);
   }
 }
