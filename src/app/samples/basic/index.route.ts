@@ -33,6 +33,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { TableComponent } from './table/table.component';
 import { ListComponent } from './list/list.component';
 import { CollapseComponent } from './collapse/collapse.component';
+import { TagComponent } from './tag/tag.component';
 export const basicRouters: Routes = [
     {
         path: 'system/fcbuttonList',//按钮
@@ -139,5 +140,8 @@ export const basicRouters: Routes = [
     }, {
         path: 'system/fclistList',//表格
         component: ListComponent
+    }, {
+        path: 'system/fctagList',//标签
+        component: TagComponent
     }
 ];
