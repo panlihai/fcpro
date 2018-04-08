@@ -12,7 +12,8 @@ import {
   FcalertModule,
   FclayoutModule,
   FclistModule,
-  FcshareModule
+  FcshareModule,
+  FcchartModule
 } from 'fccomponent';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
@@ -44,7 +45,8 @@ import { NzMessageService } from 'ng-zorro-antd';
     FcalertModule,
     FclayoutModule,
     FclistModule,
-    FcmodalModule
+    FcmodalModule,
+    FcchartModule
   ],
   declarations: [
     AppComponent,

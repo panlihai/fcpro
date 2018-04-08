@@ -33,6 +33,7 @@
         "assets/styles/app.scss"
       ],
       "scripts": [
+        "../node_modules/chart.js/src/chart.js",
         "assets/plugin/spread/gc.spread.sheets.all.11.0.0.min.js",
         "assets/plugin/spread/gc.spread.sheets.resources.zh.11.0.0.min.js",
         "assets/plugin/spread/license.js",

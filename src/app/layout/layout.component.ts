@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment';
 import { FCEVENT } from 'fccomponent/fc';
 import { ProvidersService, MessageService } from 'fccore';
 import { LayoutService } from '../system/services/layout.service';
-import { SysmessageService } from '../system/services/sysmessage.service';
 import { FcmodalconfirmComponent } from 'fccomponent';
 @Component({
   selector: 'layout',
@@ -63,7 +62,6 @@ export class LayoutComponent implements OnInit {
   _navTabSelectedIndex: number = 0;
   constructor(private _router: Router,
     private _providers: ProvidersService,
-    private sysmessageService: SysmessageService,
     private mainService: LayoutService
   ) {
     //订阅消息
