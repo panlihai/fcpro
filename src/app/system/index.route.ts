@@ -16,6 +16,7 @@ import { SysbackcodeComponent } from './components/core/sysbackcode.component';
 import { SyscomponentComponent } from './components/core/syscomponent.component';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
+import { SysappdetailComponent } from './components/core/sysappdetail.component';
 export const Routers: Routes = [
     {
         path: 'home',
@@ -51,6 +52,10 @@ export const Routers: Routes = [
     {
         path: 'sysappList',//元数据
         component: SysappComponent
+    },
+    {
+        path: 'sysappDetail',//元数据详情
+        component: SysappdetailComponent
     },
     {
         path: 'sysdicList',//数据字典

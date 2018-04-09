@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentComponent } from 'fccomponent';
 import { SysappService } from '../../services/sysapp.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { FCEVENT } from 'fccomponent/fc';
 import { environment } from '../../../../environments/environment.prod';
+import { ParentlistComponent } from 'fccomponent';
 @Component({
   selector: 'sysapp',
   template: `
@@ -48,7 +48,7 @@ import { environment } from '../../../../environments/environment.prod';
   }
   `]
 })
-export class SysappComponent extends ParentComponent {
+export class SysappComponent extends ParentlistComponent {
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {
@@ -56,27 +56,7 @@ export class SysappComponent extends ParentComponent {
   }
   init(): void {
   }
-  addNew(mainObj: any):boolean {
-    return true;
-}
-  getDefaultQuery(): any {
-    return {};
-  }
-  beforeSave(): boolean {
-    return true;
-  }
-  afterSave(): void {
-  }
-  beforeDelete(mainObj: any): boolean {
-    return true;
-  }
-  afterDelete(): void {
-  }
-  beforeEdit(): boolean {
-    return true;
-  }
-  afterEdit(mainObj: any): void {
-
+  getDefaultQuery() {
   }
   /**
    * 
@@ -86,7 +66,7 @@ export class SysappComponent extends ParentComponent {
       case "select":
         if (this.searchObj.WHERE && this.searchObj.WHERE.length !== 0) {
           this.searchObj.WHERE += " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
-        }else {
+        } else {
           this.searchObj.WHERE = " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
         }
         this.search();

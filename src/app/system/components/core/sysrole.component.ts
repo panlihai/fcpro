@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentComponent, TreeOptions } from 'fccomponent';
+import { ParentComponent, TreeOptions, ParentlistComponent } from 'fccomponent';
 import { SysroleauthService } from '../../services/sysroleauth.service';
 import { SysroleService } from '../../services/sysrole.service';
 @Component({
@@ -92,7 +92,7 @@ import { SysroleService } from '../../services/sysrole.service';
 
   `]
 })
-export class SysroleComponent extends ParentComponent {
+export class SysroleComponent extends ParentlistComponent {
   //增加人员
   addUser() {
 
@@ -140,26 +140,8 @@ export class SysroleComponent extends ParentComponent {
   };
   init(): void {
   }
-  addNew(mainObj: any):boolean {
-    return true;
-  }
-  getDefaultQuery() {
-  }
-  beforeSave(): boolean {
-    return true;
-  }
-  afterSave(): void {
-  }
-  beforeDelete(mainObj: any): boolean {
-    return true;
-  }
-  afterDelete(): void {
-  }
-  beforeEdit(): boolean {
-    return true;
-  }
-  afterEdit(mainObj: any): void {
 
+  getDefaultQuery() {
   }
   event(eventName: string, context: any): void {
   }
