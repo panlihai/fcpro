@@ -10,17 +10,26 @@ import { FcmodalconfirmComponent } from 'fccomponent';
   selector: 'layout',
   templateUrl: './layout.component.html',
   styles: [`
-  :host ::ng-deep .layoutcol-auto .fc-content1{
+  :host ::ng-deep .content-wrap>div>.fc-content1{
     height: 100%;
     overflow: auto;
   }
-  :host ::ng-deep .layoutcol-auto .fc-content2{
+  :host ::ng-deep .content-wrap>div>.fc-content2{
+    padding: 41px 5px 5px;
     height: 100%;
-    overflow: auto;
+    box-sizing: border-box;
+    background: #ececec;
+    position: relative;
   }
-  :host ::ng-deep .fc-layout{
-    height: calc(100% - 36px);
-    padding:5px;
+  :host ::ng-deep .content-main{
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    background-color: #EEF7FC;
+    border-top: 4px solid #ececec;
   }
   :host ::ng-deep router-outlet + * {
     width: 100%;
@@ -32,6 +41,24 @@ import { FcmodalconfirmComponent } from 'fccomponent';
     line-height:40px;
     text-align: center;
     position: absolute;
+  }
+  .nav-tab{
+    width:calc(100% - 5px);
+    position:absolute;
+    top:5px;
+    left:5px;
+    background-color:#ffffff;
+  }
+  .nav-breadcrub {
+    width:calc(100% - 5px);
+    position:absolute;
+    left:5px;
+    top:35px;
+  }
+  :host ::ng-deep .nav-breadcrub .ant-breadcrumb{
+    background-color:#ffffff;
+    padding-left:10px;
+    box-sizing:border-box;
   }
   `]
 })
