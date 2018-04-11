@@ -18,3 +18,4 @@
 <fc-navside [fcOption]="_navSideOption" [fcStatus]="_navbarStatus" (fcEvent)="navbarEvent($event)"></fc-navside>
 <!-- 让表单样式生效 -->
 <fc-adform [hidden]="true" fcAppid="SYSAPP" [fcOption]="{}"></fc-adform>
+<fc-modalconfirm [fcTitle]="'操作提示'" [fcContent]="'是否确定删除本行数据？'" #confirmmodal></fc-modalconfirm>

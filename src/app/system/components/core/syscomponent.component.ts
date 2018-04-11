@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentComponent } from 'fccomponent';
+import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SyscomponentService } from '../../services/syscomponent.service';
 @Component({
   selector: 'syscomponent',
@@ -30,7 +30,7 @@ import { SyscomponentService } from '../../services/syscomponent.service';
   }
   `]
 })
-export class SyscomponentComponent extends ParentComponent {
+export class SyscomponentComponent extends ParentlistComponent {
   constructor(public mainService: SyscomponentService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
@@ -38,26 +38,7 @@ export class SyscomponentComponent extends ParentComponent {
   }  
   init(): void {
   }
-  addNew(mainObj: any):boolean {
-    return true;
-}
   getDefaultQuery() {
-  }
-  beforeSave(): boolean {
-    return true;
-  }
-  afterSave(): void {
-  }
-  beforeDelete(mainObj: any): boolean {
-    return true;
-  }
-  afterDelete(): void {
-  }
-  beforeEdit(): boolean {
-    return true;
-  }
-  afterEdit(mainObj: any): void {
-    
   }
   event(eventName: string, context: any): void {
   }

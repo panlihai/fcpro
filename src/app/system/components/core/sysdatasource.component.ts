@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentComponent } from 'fccomponent';
+import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SysdatasourceService } from '../../services/sysdatasource.service';
 @Component({
   selector: 'sysdatasource',
@@ -31,7 +31,7 @@ import { SysdatasourceService } from '../../services/sysdatasource.service';
   }
   `]
 })
-export class SysdatasourceComponent extends ParentComponent {
+export class SysdatasourceComponent extends ParentlistComponent {
   constructor(public mainService: SysdatasourceService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
@@ -40,26 +40,7 @@ export class SysdatasourceComponent extends ParentComponent {
   init(): void {
 
   }
-  addNew(mainObj: any):boolean {
-    return true;
-}
   getDefaultQuery() {
-  }
-  beforeSave(): boolean {
-    return true;
-  }
-  afterSave(): void {
-  }
-  beforeDelete(mainObj: any): boolean {
-    return true;
-  }
-  afterDelete(): void {
-  }
-  beforeEdit(): boolean {
-    return true;
-  }
-  afterEdit(mainObj: any): void {
-
   }
   event(eventName: string, context: any): void {
   }

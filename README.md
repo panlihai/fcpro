@@ -30,6 +30,19 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年4月10日02:39 
+    请升级fccomponent@0.4.28，修复组件父类ParentListComponent、ParentEditComponent、ParentDetailComponent；此升级修改了package.json，system模块，angular-cli.json文件； 
+    <code>
+</pre>
+<pre>
+    <code>
+    2018年4月08日10:00 
+    请升级fccomponent@0.4.22，增加组件父类ParentListComponent、ParentEditComponent、ParentDetailComponent;分别指代列表组件父类、表单编辑父类、表单详情父类
+    此次升级完成对图表组件的完善。此升级修改了package.json，system模块，angular-cli.json文件； 
+    <code>
+</pre>
+<pre>
+    <code>
     2018年3月30日10:00 
     请升级fccomponent@0.4.19    
     本次升级整合fccore.未来升级只想要升级fccomponent项目。fccore的升级跟随fccomponent。   

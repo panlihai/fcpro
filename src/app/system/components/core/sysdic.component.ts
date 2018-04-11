@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentComponent } from 'fccomponent';
+import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SysdicService } from 'fccore';
 @Component({
   selector: 'sysdic',
@@ -30,34 +30,15 @@ import { SysdicService } from 'fccore';
   }
   `]
 })
-export class SysdicComponent extends ParentComponent {
+export class SysdicComponent extends ParentlistComponent {
   constructor(public mainService: SysdicService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
-    super(mainService, router, activeRoute);    
-  }  
+    super(mainService, router, activeRoute);
+  }
   init(): void {
   }
-  addNew(mainObj: any):boolean {
-    return true;
-}
   getDefaultQuery() {
-  }
-  beforeSave(): boolean {
-    return true;
-  }
-  afterSave(): void {
-  }
-  beforeDelete(mainObj: any): boolean {
-    return true;
-  }
-  afterDelete(): void {
-  }
-  beforeEdit(): boolean {
-    return true;
-  }
-  afterEdit(mainObj: any): void {
-    
   }
   event(eventName: string, context: any): void {
   }
