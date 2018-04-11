@@ -1,25 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } from 'fccomponent/fcnav';
+import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } from '../feature/fcnav';
 import { environment } from '../../environments/environment';
-import { FCEVENT } from 'fccomponent/fc';
+import { FCEVENT } from '../feature/fc';
 import { ProvidersService, SysmessageService } from 'fccore';
-import { LayoutService } from '../system/services/layout.service';
+import { LayoutService } from '../layout.service';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
   styles: [`
-  :host ::ng-deep .layoutcol-auto .fc-content1{
+  :host ::ng-deep .content-wrap>div>.fc-content1{
     height: 100%;
     overflow: auto;
   }
-  :host ::ng-deep .layoutcol-auto .fc-content2{
+  :host ::ng-deep .content-wrap>div>.fc-content2{
+    padding: 41px 5px 5px;
     height: 100%;
-    overflow: auto;
+    box-sizing: border-box;
+    background: #ececec;
+    position: relative;
   }
-  :host ::ng-deep .fc-layout{
-    height: calc(100% - 36px);
-    padding:5px;
+  :host ::ng-deep .content-main{
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    background-color: #EEF7FC;
+    border-top: 4px solid #ececec;
   }
   :host ::ng-deep router-outlet + * {
     width: 100%;
@@ -31,6 +40,24 @@ import { LayoutService } from '../system/services/layout.service';
     line-height:40px;
     text-align: center;
     position: absolute;
+  }
+  .nav-tab{
+    width:calc(100% - 5px);
+    position:absolute;
+    top:5px;
+    left:5px;
+    background-color:#ffffff;
+  }
+  .nav-breadcrub {
+    width:calc(100% - 5px);
+    position:absolute;
+    left:5px;
+    top:35px;
+  }
+  :host ::ng-deep .nav-breadcrub .ant-breadcrumb{
+    background-color:#ffffff;
+    padding-left:10px;
+    box-sizing:border-box;
   }
   `]
 })
@@ -67,7 +94,7 @@ export class LayoutComponent implements OnInit {
     //初始化消息配置
     this._navSideOption = this.mainService.initNavSideOptions();
     this._tabs = this.mainService._tabs;
-    this._router.navigate(["/"+environment.pid.toLocaleLowerCase()+"/home"]);
+    this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/home"]);
   }
   ngOnInit() {
     this.mainService.getMessage().subscribe(res => {
