@@ -96,7 +96,7 @@ export class LayoutComponent implements OnInit {
     //初始化消息配置
     this._navSideOption = this.mainService.initNavSideOptions();
     this._tabs = this.mainService._tabs;
-    this._router.navigate(["/"+environment.pid.toLocaleLowerCase()+"/home"]);
+    this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/home"]);
   }
   ngOnInit() {
     this.mainService.getMessage().subscribe(res => {
@@ -142,6 +142,7 @@ export class LayoutComponent implements OnInit {
       case 'logout'://登出
         this._providers.userService.logout().subscribe(result => {
           this._providers.userService.clearUserinfo();
+          this._providers.menuService.menus = undefined;
           this._router.navigate(['/signin']);
         })
         break;
