@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentComponent } from 'fccomponent';
+import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SysproductService } from '../../services/sysproduct.service';
 @Component({
   selector: 'sysproduct',
@@ -30,7 +30,7 @@ import { SysproductService } from '../../services/sysproduct.service';
   }
   `]
 })
-export class SysproductComponent extends ParentComponent {
+export class SysproductComponent extends ParentlistComponent {
   constructor(public mainService: SysproductService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
@@ -38,26 +38,7 @@ export class SysproductComponent extends ParentComponent {
   }  
   init(): void {
   }
-  addNew(mainObj: any):boolean {
-    return true;
-}
   getDefaultQuery() {
-  }
-  beforeSave(): boolean {
-    return true;
-  }
-  afterSave(): void {
-  }
-  beforeDelete(mainObj: any): boolean {
-    return true;
-  }
-  afterDelete(): void {
-  }
-  beforeEdit(): boolean {
-    return true;
-  }
-  afterEdit(mainObj: any): void {
-    
   }
   event(eventName: string, context: any): void {
   }

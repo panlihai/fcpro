@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentComponent } from 'fccomponent';
 import { SysappService } from '../../services/sysapp.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { FCEVENT } from 'fccomponent/fc';
 import { environment } from '../../../../environments/environment.prod';
+import { ParentlistComponent } from 'fccomponent';
 @Component({
   selector: 'sysapp',
   template: `
-  <fc-layoutcol fcSpans="2,9" style="height:100%;">
-    <fc-layoutgroup fccontent1 fcTitle="请选择产品">
-      <fc-list fccontent fcAppid="SYSPRODUCT" [fcOption]="{field:{FIELDCODE:'PNAME'}}" (fcEvent)="listEvent($event)"></fc-list>
-    </fc-layoutgroup>
-    <fc-layoutgroup style="height:100%;" fccontent2 fcTitle="元数据列表">    
-      <fc-tlblist [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+  <fc-layoutcol fcSpans="2,9" style="height:100%;" class="layoutcol-full">
+    <fc-layoutpanel fccontent1>
+      <fc-list fccontent fcAppid="SYSPRODUCT" [fcFieldCode]="'PNAME'" (fcEvent)="listEvent($event)"></fc-list>
+    </fc-layoutpanel>
+    <fc-layoutpanel fcFull="true" fccontent2 fcTitle="元数据列表">    
+      <fc-tlblist [fcAppid]="appId" (fcEvent)="tlblistEvent($event)" fcheader></fc-tlblist>
       <fc-layoutrow fcSpan="40" style="height:90%;" fccontent>
         <fc-searchlist  [fcAppid]="appId" fccontent1 (fcEvent)="searchlistEvent($event)"></fc-searchlist>
-          <fc-listdata  fccontent2 style="height:100%;" [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)" [fcCondition]="condition"></fc-listdata>
+        <fc-listdata  fccontent2 style="height:100%;" [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)" [fcCondition]="condition"></fc-listdata>
       </fc-layoutrow>
-    </fc-layoutgroup>
+    </fc-layoutpanel>
   </fc-layoutcol>  
   `,
   styles: [`
@@ -32,6 +32,9 @@ import { environment } from '../../../../environments/environment.prod';
     height:100%;
   }
   :host ::ng-deep .fc-layoutpanel .fc-content {
+    height:100%;
+  }
+  :host ::ng-deep .layoutcol-full>div>.fc-content2{
     height:100%;
   }
   .list-search {
@@ -48,7 +51,7 @@ import { environment } from '../../../../environments/environment.prod';
   }
   `]
 })
-export class SysappComponent extends ParentComponent {
+export class SysappComponent extends ParentlistComponent {
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {
@@ -56,27 +59,7 @@ export class SysappComponent extends ParentComponent {
   }
   init(): void {
   }
-  addNew(mainObj: any):boolean {
-    return true;
-}
-  getDefaultQuery(): any {
-    return {};
-  }
-  beforeSave(): boolean {
-    return true;
-  }
-  afterSave(): void {
-  }
-  beforeDelete(mainObj: any): boolean {
-    return true;
-  }
-  afterDelete(): void {
-  }
-  beforeEdit(): boolean {
-    return true;
-  }
-  afterEdit(mainObj: any): void {
-
+  getDefaultQuery() {
   }
   /**
    * 
@@ -86,7 +69,7 @@ export class SysappComponent extends ParentComponent {
       case "select":
         if (this.searchObj.WHERE && this.searchObj.WHERE.length !== 0) {
           this.searchObj.WHERE += " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
-        }else {
+        } else {
           this.searchObj.WHERE = " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
         }
         this.search();

@@ -30,7 +30,7 @@
         "assets/plugin/spread/styles.css",
         "assets/plugin/spread/gc.spread.sheets.excel2013white.11.0.0.css",
 	      "assets/fonts/iconfont/iconfont.css",
-        "assets/styles/app.scss"
+        "assets/styles/app.css"
       ],
       "scripts": [
         "../node_modules/chart.js/src/chart.js",

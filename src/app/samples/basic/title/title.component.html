@@ -23,7 +23,30 @@
     <fc-layoutcol fccontent fcSpans="1">
         <fc-layoutgroup fcTitle="标题居中" fccontent1>
             <div fccontent>
-                <fc-title fcLabel="债权清收登记" [fcSubtitle]="_subtitle" fcLayout="center" fcWidth="25%"></fc-title>
+                <fc-title fcLabel="债权清收登记" fcLayout="center" fcheader>
+                    <div class="subtitle" fcsubtitle>
+                        <div class="subtitle-item">
+                            <label>单位:</label>
+                            <span>上海</span>
+                        </div>
+                        <div class="subtitle-item">
+                            <label>部门:</label>
+                            <span>财务科</span>
+                        </div>
+                        <div class="subtitle-item">
+                            <label>登记人:</label>
+                            <span>王五</span>
+                        </div>
+                        <div class="subtitle-item">
+                            <label>登记日期:</label>
+                            <span>2017年12月25日</span>
+                        </div>
+                        <div class="subtitle-item">
+                            <label>收款单状态:</label>
+                            <fc-tag fcTitle="未提交" fcColor="blue"></fc-tag>
+                        </div>
+                    </div>
+                </fc-title>
             </div>
         </fc-layoutgroup>
     </fc-layoutcol>

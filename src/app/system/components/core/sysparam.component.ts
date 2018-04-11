@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentComponent } from 'fccomponent';
+import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SysparamService } from '../../services/sysparam.service';
 @Component({
   selector: 'sysparam',
@@ -30,7 +30,7 @@ import { SysparamService } from '../../services/sysparam.service';
   }
   `]
 })
-export class SysparamComponent extends ParentComponent {
+export class SysparamComponent extends ParentlistComponent {
   constructor(public mainService: SysparamService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
@@ -38,26 +38,7 @@ export class SysparamComponent extends ParentComponent {
   }  
   init(): void {
   }
-  addNew(mainObj: any):boolean {
-    return true;
-}
   getDefaultQuery() {
-  }
-  beforeSave(): boolean {
-    return true;
-  }
-  afterSave(): void {
-  }
-  beforeDelete(mainObj: any): boolean {
-    return true;
-  }
-  afterDelete(): void {
-  }
-  beforeEdit(): boolean {
-    return true;
-  }
-  afterEdit(mainObj: any): void {
-    
   }
   event(eventName: string, context: any): void {
   }

@@ -84,4 +84,35 @@ export class LayoutService {
         this._selectedIndex = this._selectedIndex - 1;
         this.navStoreMenu(router, this._tabs[this._selectedIndex].content);
     }
+    /**
+     * 关闭路由并删除路由表
+     * @param router 路由
+     * @param menu 关闭的路由菜单
+     */
+    navToByMenuId(router: Router, menuId: string) {
+        this.navStoreMenu(router, this.findMenuByMenuId(this.providers.menuService.menus, menuId));
+    }
+    /**
+     * 
+     * @param menus 
+     * @param menuId 
+     */
+    findMenuByMenuId(menus: any[], menuId: string): Sysmenu {
+        let menu: Sysmenu;
+        let i = 0;
+        do {
+            let item = menus[i];
+            if (item.ROUTER && item.ROUTER === menuId) {
+                menu = item;
+                break;
+            } else if (item.P_CHILDMENUS && item.P_CHILDMENUS.length !== 0) {
+                menu = this.findMenuByMenuId(item.P_CHILDMENUS, menuId);
+                if (menu) {
+                    break;
+                }
+            }
+            i++;
+        } while (i < menus.length);
+        return menu;
+    }
 }
