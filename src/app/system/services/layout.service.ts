@@ -46,12 +46,13 @@ export class LayoutService {
      * @param menu 
      */
     navStoreMenu(router: Router, menu: Sysmenu) {
+        //判断是否存在路由
         let existTabs = this._tabs.filter(element => element.id === menu.ID);
         if (existTabs.length === 0) {
             this._tabs.push({
                 id: menu.ID,
                 enabled: true,
-                index: this._tabs.length - 1,
+                index: this._tabs.length,
                 name: menu.MENUNAME,
                 close: true,
                 content: menu

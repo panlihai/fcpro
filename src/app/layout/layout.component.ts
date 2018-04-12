@@ -142,6 +142,7 @@ export class LayoutComponent implements OnInit {
       case 'logout'://登出
         this._providers.userService.logout().subscribe(result => {
           this._providers.userService.clearUserinfo();
+          this._providers.menuService.menus = undefined;
           this._router.navigate(['/signin']);
         })
         break;
@@ -166,6 +167,10 @@ export class LayoutComponent implements OnInit {
         break;
     }
   }
+  /**
+   * 多tab页面事件
+   * @param event tab页面事件
+   */
   navtabEvent(event: FCEVENT): void {
     switch (event.eventName) {
       case 'closed':
