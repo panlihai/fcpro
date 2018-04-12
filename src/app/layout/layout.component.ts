@@ -167,6 +167,10 @@ export class LayoutComponent implements OnInit {
         break;
     }
   }
+  /**
+   * 多tab页面事件
+   * @param event tab页面事件
+   */
   navtabEvent(event: FCEVENT): void {
     switch (event.eventName) {
       case 'closed':
