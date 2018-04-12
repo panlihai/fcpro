@@ -30,6 +30,12 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年4月11日14:39 
+    请升级fccomponent@0.4.31，新增FcchartModule图表组件，平台首页 
+    <code>
+</pre>
+<pre>
+    <code>
     2018年4月10日02:39 
     请升级fccomponent@0.4.28，修复组件父类ParentListComponent、ParentEditComponent、ParentDetailComponent；此升级修改了package.json，system模块，angular-cli.json文件； 
     <code>

@@ -6,16 +6,16 @@ import { SysroleService } from '../../services/sysrole.service';
   selector: 'sysrole',
   template: `
 <fc-layoutpanel fcFull="true">
-  <fc-layoutcol fcSpans="2,9" fccontent>
-    <div class="left" fccontent1>
-      <fc-title fcLabel="所有角色" fcHasLine="false"></fc-title>
+  <fc-layoutcol fcSpans="2,9" style="height:100%;" fccontent>
+    <div class="left" style="100%;" fccontent1>
+      <fc-title fcLabel="所有角色" fcHasLine="false" [fcBorder]="'bottom'"></fc-title>
       <fc-list [fcAppid]="'SYSROLE'" [fcFieldCode]="'ROLENAME'" [fcCondition]="listCondition"></fc-list>
-      <fc-icon fcIcon="fc-icon-keep"></fc-icon>
+      <fc-icon class="role-add" [fcIcon]="'fc-icon-keep'" [fcSize]="'large'" [fcColor]="'#108ee9'"></fc-icon>
     </div>
-    <fc-tabmain fccontent2 [fcTabs]="roleTab">
+    <fc-tabmain fccontent2 [fcTabs]="roleTab" class="role-tab">
       <div style="border-top:1px solid #e9e9e9;" fccontent1>
         <fc-title fcLabel="管理部" fcHasLine="false"></fc-title>
-        <fc-tag fcTitle="管理员" fcColor="blue" fcIcon="fc-line"></fc-tag>
+        <fc-tag fcTitle="管理员" fcColor="blue" [fcIcon]="'fc-icon-users'" [fcClose]="true"></fc-tag>
         <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addUser()"></fc-button>
       </div>
       <div style="border-top:1px solid #e9e9e9;" fccontent2>
@@ -58,7 +58,26 @@ import { SysroleService } from '../../services/sysrole.service';
     color:#108ee9;
   }
   .left{
-    border-right:1px solid #e9e9e9;
+    height:100%;
+    border-right:1px solid #8C8C8C;
+    position:relative;
+  }
+  .role-add{
+    position:absolute;
+    right:10px;
+    bottom:20px;
+  }
+  :host ::ng-deep .role-tab .ant-tabs-nav-wrap {
+    text-align: center;
+  }
+  :host ::ng-deep .role-tab .ant-tabs-bar {
+    border-bottom: 1px solid #8C8C8C;
+  }
+  :host ::ng-deep .fc-layoutcol{
+    height:100%;
+  }
+  :host ::ng-deep .fc-content1{
+    height:100%;
   }
   `]
 })
