@@ -61,11 +61,11 @@
                     <fc-layoutcol fcSpans="7,4">
                         <div fccontent1>
                             <fc-title fcLabel="数据统计(万元)" fcHasLine="false"></fc-title>
-                            <fc-chartbar></fc-chartbar>
+                            <fc-chartbar [fcOption]="_barLabels" [fcData]="_barData"></fc-chartbar>
                         </div>
                         <div fccontent2>
                             <div style="margin-top:40px;">
-                                <fc-chartpie></fc-chartpie>
+                                <fc-chartpie [fcOption]="_pieLabels" [fcData]="_pieData"></fc-chartpie>
                             </div>
                         </div>
                     </fc-layoutcol>
