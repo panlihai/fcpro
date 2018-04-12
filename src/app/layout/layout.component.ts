@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } from '../feature/fcnav';
+import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } from 'fccomponent/fcnav';
 import { environment } from '../../environments/environment';
 import { FCEVENT } from 'fccomponent/fc';
 import { ProvidersService, MessageService } from 'fccore';
@@ -12,7 +12,7 @@ import { FcmodalconfirmComponent } from 'fccomponent';
   styles: [`
   :host ::ng-deep .content-wrap>div>.fc-content1{
     height: 100%;
-    overflow: auto;
+    overflow: auto; 
   }
   :host ::ng-deep .content-wrap>div>.fc-content2{
     padding: 41px 5px 5px;
@@ -142,6 +142,7 @@ export class LayoutComponent implements OnInit {
       case 'logout'://登出
         this._providers.userService.logout().subscribe(result => {
           this._providers.userService.clearUserinfo();
+          this._providers.menuService.menus = undefined;
           this._router.navigate(['/signin']);
         })
         break;
@@ -166,6 +167,10 @@ export class LayoutComponent implements OnInit {
         break;
     }
   }
+  /**
+   * 多tab页面事件
+   * @param event tab页面事件
+   */
   navtabEvent(event: FCEVENT): void {
     switch (event.eventName) {
       case 'closed':

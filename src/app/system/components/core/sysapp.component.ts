@@ -10,7 +10,7 @@ import { ParentlistComponent } from 'fccomponent';
   template: `
   <fc-layoutcol fcSpans="2,9" style="height:100%;" class="layoutcol-full">
     <fc-layoutpanel fccontent1>
-      <fc-list fccontent fcAppid="SYSPRODUCT" [fcFieldCode]="'PNAME'" (fcEvent)="listEvent($event)"></fc-list>
+      <fc-list fccontent fcAppid="SYSPRODUCT" [fcFieldCode]="'PNAME'" [fcOption]="mainService.listOptions" (fcEvent)="listEvent($event)"></fc-list>
     </fc-layoutpanel>
     <fc-layoutpanel fcFull="true" fccontent2 fcTitle="元数据列表">    
       <fc-tlblist [fcAppid]="appId" (fcEvent)="tlblistEvent($event)" fcheader></fc-tlblist>
