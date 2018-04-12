@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } 
-from 'fccomponent/fcnav';
+import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } from 'fccomponent/fcnav';
 import { environment } from '../../environments/environment';
 import { FCEVENT } from 'fccomponent/fc';
 import { ProvidersService, MessageService } from 'fccore';
@@ -13,7 +12,7 @@ import { FcmodalconfirmComponent } from 'fccomponent';
   styles: [`
   :host ::ng-deep .content-wrap>div>.fc-content1{
     height: 100%;
-    overflow: auto;
+    overflow: auto; 
   }
   :host ::ng-deep .content-wrap>div>.fc-content2{
     padding: 41px 5px 5px;

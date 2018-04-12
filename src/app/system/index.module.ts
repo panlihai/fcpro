@@ -13,7 +13,8 @@ import {
     FcalertModule,
     FclayoutModule,
     FclistModule,
-    FcmodalModule
+    FcmodalModule,
+    FcchartModule
 } from 'fccomponent';
 import { SysdicService, SysmessageService } from 'fccore';
 import { MainComponent } from './components/main/main.component';
@@ -58,7 +59,8 @@ import { SysappdetailComponent } from './components/core/sysappdetail.component'
     FclayoutModule,
     FclistModule,
     FcmodalModule,
-    FcsearchModule   
+    FcsearchModule,
+    FcchartModule   
   ],
   exports: [
 

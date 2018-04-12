@@ -7,17 +7,18 @@ import { SysroleService } from '../../services/sysrole.service';
   template: `
 <fc-layoutpanel fcFull="true">
   <fc-layoutcol fcSpans="2,9" fccontent>
-    <fc-layoutrow fccontent1>
-      <fc-title fcLabel="所有角色" fcHasLine="false" fccontent1></fc-title>
-      <fc-list fccontent2 fcAppid="SYSROLE" fcFieldCode="ROLENAME" [fcCondition]="listCondition"></fc-list>
-    </fc-layoutrow>
+    <div class="left" fccontent1>
+      <fc-title fcLabel="所有角色" fcHasLine="false"></fc-title>
+      <fc-list [fcAppid]="'SYSROLE'" [fcFieldCode]="'ROLENAME'" [fcCondition]="listCondition"></fc-list>
+      <fc-icon fcIcon="fc-icon-keep"></fc-icon>
+    </div>
     <fc-tabmain fccontent2 [fcTabs]="roleTab">
-      <div fccontent1>
+      <div style="border-top:1px solid #e9e9e9;" fccontent1>
         <fc-title fcLabel="管理部" fcHasLine="false"></fc-title>
         <fc-tag fcTitle="管理员" fcColor="blue" fcIcon="fc-line"></fc-tag>
         <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addUser()"></fc-button>
       </div>
-      <div fccontent2>
+      <div style="border-top:1px solid #e9e9e9;" fccontent2>
         <div class="path">
           <span class="path-every">元数据</span>
           <span class="path-every path-every-active">元数据属性</span>
@@ -56,25 +57,15 @@ import { SysroleService } from '../../services/sysrole.service';
   .path-every-active {
     color:#108ee9;
   }
-  .list-search{
-    width:100%;
+  .left{
+    border-right:1px solid #e9e9e9;
   }
-  .list-search:after{
-    content:'';
-    display:block;
-    clearfix:both;
-  }
-  .list-search-every{
-    width:24%;
-    float:left;
-  }
-
   `]
 })
 export class SysroleComponent extends ParentlistComponent {
   //列表条件
-  listCondition:string;
-   //用户权限
+  listCondition: string;
+  //用户权限
   roleTab = [
     { name: '该角色的用户', disabled: false },
     { name: '该角色的权限', disabled: false },
@@ -84,10 +75,10 @@ export class SysroleComponent extends ParentlistComponent {
   checkappValue: string = '元数据';
   checkOptions: any[] = [{ icon: '', label: '新增', value: 'a' }, { icon: '', label: '删除', value: 'b' }, { icon: '', label: '发布', value: 'c' }];
   checkAppOptions: any[] = [{ icon: '', label: '元数据', value: 'a' }];
-  
+
   constructor(public mainService: SysroleService, public router: Router, public activedRouter: ActivatedRoute) {
     super(mainService, router, activedRouter);
-    this.listCondition = '{"PID":"'+mainService.moduleId+'","ENABLE":"Y"}';
+    this.listCondition = '{"PID":"' + mainService.moduleId + '","ENABLE":"Y"}';
   }
   init(): void {
   }
