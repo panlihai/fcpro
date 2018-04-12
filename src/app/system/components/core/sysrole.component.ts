@@ -105,6 +105,7 @@ export class SysroleComponent extends ParentlistComponent {
   getDefaultQuery() {
   }
   event(eventName: string, context: any): void {
+    
   }
 
 }
