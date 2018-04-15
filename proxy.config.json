@@ -1,5 +1,5 @@
 {
     "/server": {
-        "target": "http://localhost:8089/"
+        "target": "http://pcorp.cn/"
     }
 }
