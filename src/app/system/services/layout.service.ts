@@ -14,6 +14,8 @@ export class LayoutService {
     //是否被选中
     _navmenuSelected: boolean;
     constructor(private providers: ProvidersService, private sysmessageService: SysmessageService) {
+    }
+    init(){
         this._tabs = [{ id: '0', index: 0, enabled: true, name: '首页', close: false, content: { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: FCCONFIG.pid } }];
         this._selectedIndex = 0;
     }

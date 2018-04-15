@@ -91,6 +91,7 @@ export class LayoutComponent implements OnInit {
     private _providers: ProvidersService,
     private mainService: LayoutService
   ) {
+    this.mainService.init();
     //订阅消息
     this.msgHandler();
     //初始化消息配置
