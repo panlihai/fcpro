@@ -163,7 +163,6 @@ export class LayoutComponent implements OnInit {
         this.mainService.navStoreMenu(this._router, event.param);
         this._navTabSelectedIndex = this.mainService._selectedIndex;
         this._navmenuSelected = this.mainService._navmenuSelected;
-        console.log(this._navmenuSelected);
         break;
     }
   }
