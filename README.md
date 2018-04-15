@@ -30,6 +30,12 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年4月15日19:50 
+    请升级fccomponent@0.4.41，请使用npm update fccomponent 升级；增加对listdata的样式调整，增加listdata cellClick事件，增加url的支持。 
+    <code>
+</pre>
+<pre>
+    <code>
     2018年4月11日14:39 
     请升级fccomponent@0.4.31，新增FcchartModule图表组件，平台首页 
     <code>
