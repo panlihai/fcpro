@@ -1,5 +1,8 @@
-# Fcexample
+# Fcpro 
 这个项目依赖于[Angular CLI](https://github.com/angular/angular-cli) version 1.6.7脚手架
+
+# Demo
+http://pcorp.cn 用户名：admin 密码：123456
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 ## Code scaffolding
