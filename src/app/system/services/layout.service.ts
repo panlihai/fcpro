@@ -15,7 +15,7 @@ export class LayoutService {
     _navmenuSelected: boolean;
     constructor(private providers: ProvidersService, private sysmessageService: SysmessageService) {
     }
-    init(){
+    init() {
         this._tabs = [{ id: '0', index: 0, enabled: true, name: '首页', close: false, content: { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: FCCONFIG.pid } }];
         this._selectedIndex = 0;
     }
@@ -48,31 +48,40 @@ export class LayoutService {
      * @param menu 
      */
     navStoreMenu(router: Router, menu: Sysmenu) {
-        //判断是否存在路由
-        let existTabs = this._tabs.filter(element => element.id === menu.ID);
-        if (existTabs.length === 0) {
-            this._tabs.push({
-                id: menu.ID,
-                enabled: true,
-                index: this._tabs.length,
-                name: menu.MENUNAME,
-                close: true,
-                content: menu
-            });
-            this._selectedIndex = this._tabs.length - 1;
-        } else {
-            this._selectedIndex = existTabs[0].index;
-        }
-        this._tabs.forEach(item => {
-            if (item.name === menu.MENUNAME) {
-                this._navmenuSelected = true;
+        if (menu.MENUTYPE !== 'OUTURL') {
+            //判断是否存在路由
+            let existTabs = this._tabs.filter(element => element.id === menu.ID);
+            if (existTabs.length === 0) {
+                this._tabs.push({
+                    id: menu.ID,
+                    enabled: true,
+                    index: this._tabs.length,
+                    name: menu.MENUNAME,
+                    close: true,
+                    content: menu
+                });
+                this._selectedIndex = this._tabs.length - 1;
+            } else {
+                this._selectedIndex = existTabs[0].index;
             }
-        });
-        router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER],
-            {
-                queryParams:
-                    { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
+            this._tabs.forEach(item => {
+                if (item.name === menu.MENUNAME) {
+                    this._navmenuSelected = true;
+                }
             });
+            if (menu.MENUTYPE === 'APP') {
+                router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
+                    queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
+                });
+            } else if (menu.MENUTYPE === 'INURL') {
+                router.navigate(["/" + menu.ROUTER], {
+                    queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
+                });
+            }
+        }else{
+            window.open(menu.ROUTER,'_blank');
+            return;
+        }
     }
     /**
      * 关闭路由并删除路由表
