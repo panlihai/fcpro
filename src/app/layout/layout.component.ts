@@ -91,6 +91,7 @@ export class LayoutComponent implements OnInit {
     private _providers: ProvidersService,
     private mainService: LayoutService
   ) {
+    this.mainService.init();
     //订阅消息
     this.msgHandler();
     //初始化消息配置
@@ -163,7 +164,6 @@ export class LayoutComponent implements OnInit {
         this.mainService.navStoreMenu(this._router, event.param);
         this._navTabSelectedIndex = this.mainService._selectedIndex;
         this._navmenuSelected = this.mainService._navmenuSelected;
-        console.log(this._navmenuSelected);
         break;
     }
   }

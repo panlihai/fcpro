@@ -1,5 +1,8 @@
-# Fcexample
+# Fcpro 
 这个项目依赖于[Angular CLI](https://github.com/angular/angular-cli) version 1.6.7脚手架
+
+# Demo
+http://pcorp.cn 用户名：admin 密码：123456
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 ## Code scaffolding
@@ -28,6 +31,12 @@ FC是fastcore的简称
 5.标准化的组件、具备数据绑定、可扩展性、整洁
 6.采用angular作为前端框架，推荐使用TYPESCRIPT2.2规范编写代码，展现层原子组件采用蚂蚁金服ant design或其扩展产品，把功能组件与业务相结合形成业务组件；所有开发人员通过业务组件化的设计思路开发前端产品；业务组件形成模块，模块独立文件夹，独立项目，独立发布；提供核心模块、工具模块，所有业务模块依赖工具模块，核心模块依赖工具模块及各业务模块，核心模块组合不同业务模块形成不同产品
 ##版本请更新至
+<pre>
+    <code>
+    2018年4月15日19:50 
+    请升级fccomponent@0.4.41，请使用npm update fccomponent 升级；增加对listdata的样式调整，增加listdata cellClick事件，增加url的支持。 
+    <code>
+</pre>
 <pre>
     <code>
     2018年4月11日14:39 
