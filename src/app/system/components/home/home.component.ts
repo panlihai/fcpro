@@ -2,6 +2,7 @@ import { Component, OnInit, AfterContentInit, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, TimelineOptions } from 'fccomponent';
 import { LayoutService } from '../../../system/services/layout.service';
+import { environment } from '../../../../environments/environment.prod';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -273,5 +274,8 @@ export class HomeComponent {
   }
   navTo(url: string) {
     this.mainService.navToByMenuId(this.router, url);
+  }
+  messagebackTo(url: string) {
+    this.router.navigate(['/' + environment.pid.toLocaleLowerCase() + '/sysmessagebackList']);
   }
 }

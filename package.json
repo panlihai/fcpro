@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.config.json --host=0.0.0.0 --port=4200",
+    "start": "ng serve --proxy-config proxy.config.json --host=0.0.0.0 --port=4210",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "fccomponent": "^0.4.36"
+    "fccomponent": "^0.4.38"
   },
   "devDependencies": {
     "@angular/cli": "1.6.7",
