@@ -178,7 +178,7 @@ export class SigninComponent implements OnInit {
         this.providers.userService.login(this.userId, this.password).subscribe(result => {
             if (result.CODE === '0') {
                 this.hasError = false;
-                this.providers.userService.storeUserInfo(result);
+                this.providers.userService.storeUserInfo(result);                
                 this.router.navigate(['/'+environment.pid.toLocaleLowerCase()+'/home']);
             } else {
                 this.hasError = true;

@@ -16,7 +16,10 @@ export class LayoutService {
     constructor(private providers: ProvidersService, private sysmessageService: SysmessageService) {
     }
     init() {
-        this._tabs = [{ id: '0', index: 0, enabled: true, name: '首页', close: false, content: { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: FCCONFIG.pid } }];
+        this._tabs = [{
+            id: '0', index: 0, enabled: true, name: '首页', close: false, content:
+                { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: FCCONFIG.pid, MENUTYPE: 'INURL' }
+        }];
         this._selectedIndex = 0;
     }
     /**
@@ -69,17 +72,11 @@ export class LayoutService {
                     this._navmenuSelected = true;
                 }
             });
-            if (menu.MENUTYPE === 'APP') {
-                router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
-                    queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
-                });
-            } else if (menu.MENUTYPE === 'INURL') {
-                router.navigate(["/" + menu.ROUTER], {
-                    queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
-                });
-            }
-        }else{
-            window.open(menu.ROUTER,'_blank');
+            router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
+                queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
+            });
+        } else {
+            window.open(menu.ROUTER, '_blank');
             return;
         }
     }
