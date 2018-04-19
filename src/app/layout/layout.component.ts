@@ -142,8 +142,10 @@ export class LayoutComponent implements OnInit {
         break;
       case 'logout'://登出
         this._providers.userService.logout().subscribe(result => {
+          //清除用户缓存
           this._providers.userService.clearUserinfo();
-          this._providers.menuService.menus = undefined;
+          // 清除菜单缓存
+          this._providers.menuService.removeMenus();
           this._router.navigate(['/signin']);
         })
         break;

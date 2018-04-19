@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class SysappService extends ParentService {
   constructor(public providers: ProvidersService,
-    public sysappFielsService: SysappfieldsService) {
+    public sysappFieldsService: SysappfieldsService) {
     super(providers, "SYSAPP");
     this.listOptions.fcAutoSave = true;
     this.listOptions.fcEnableEdit = true;
