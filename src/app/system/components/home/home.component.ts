@@ -199,6 +199,30 @@ export class HomeComponent {
   _pieLabels: string[] = ['3个月以内', '3-6个月', '6-12个月', '1-2年', '2-3年', '3-5年', '5年以上']
   //饼状图数据
   _pieData: number[] = [2801928, 953886, 580522, 694377, 161290, 217577, 58543];
+   /**
+   * 柱状图事件
+   * @param event 
+   */
+  chartbarEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case 'hover':
+        break;
+      case 'click':
+        break;
+    }
+  }
+  /**
+   * 饼状图事件
+   * @param event 
+   */
+  chartpieEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case 'hover':
+        break;
+      case 'click':
+        break; 
+    }
+  }
   //选项卡
   _tabmain = [
     { name: '铁路局', disabled: false },
