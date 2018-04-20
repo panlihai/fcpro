@@ -23,7 +23,7 @@ import { HellofcService } from '../../services/hellofc.service';
         </div>
       </div>
     </div>
-    <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+    <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
   </fc-layoutrow>
 </fc-layoutpanel>
 <fc-layoutpanel [hidden]="panelShow">

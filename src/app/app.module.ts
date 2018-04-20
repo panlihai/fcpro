@@ -12,7 +12,6 @@ import {
   FcalertModule,
   FclayoutModule,
   FclistModule,
-  FcshareModule,
   FcchartModule
 } from 'fccomponent';
 import { FormsModule } from '@angular/forms';

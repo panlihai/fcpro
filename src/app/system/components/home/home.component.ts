@@ -2,6 +2,7 @@ import { Component, OnInit, AfterContentInit, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, TimelineOptions } from 'fccomponent';
 import { LayoutService } from '../../../system/services/layout.service';
+import { environment } from '../../../../environments/environment.prod';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -187,6 +188,41 @@ import { LayoutService } from '../../../system/services/layout.service';
   ]
 })
 export class HomeComponent {
+  //柱状图文字
+  _barLabels: string[] = ['1121应收票据', '1122应收账款', '1123其他应收款', '1131应收股利', '1132应收利息', '1221预付账款', '1531长期应收款'];
+  //柱状图数据
+  _barData: any[] = [
+    { data: [24712, 3936068, 1198191, 2250, 0, 250174, 9], label: '年初' },
+    { data: [24823, 4310789, 790632, 23052, 668, 318150, 9], label: '当期' }
+  ];
+  //饼状图文字
+  _pieLabels: string[] = ['3个月以内', '3-6个月', '6-12个月', '1-2年', '2-3年', '3-5年', '5年以上']
+  //饼状图数据
+  _pieData: number[] = [2801928, 953886, 580522, 694377, 161290, 217577, 58543];
+   /**
+   * 柱状图事件
+   * @param event 
+   */
+  chartbarEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case 'hover':
+        break;
+      case 'click':
+        break;
+    }
+  }
+  /**
+   * 饼状图事件
+   * @param event 
+   */
+  chartpieEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case 'hover':
+        break;
+      case 'click':
+        break; 
+    }
+  }
   //选项卡
   _tabmain = [
     { name: '铁路局', disabled: false },
@@ -262,5 +298,8 @@ export class HomeComponent {
   }
   navTo(url: string) {
     this.mainService.navToByMenuId(this.router, url);
+  }
+  messagebackTo(url: string) {
+    this.router.navigate(['/' + environment.pid.toLocaleLowerCase() + '/sysmessagebackList']);
   }
 }

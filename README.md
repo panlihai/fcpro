@@ -33,6 +33,12 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年4月17日19:50 
+    请升级fccomponent@0.5.0，请使用npm i fccomponent@0.5.0 升级,修复layoutService菜单切换异常，请system文件夹，更新main.ts;下一版本将升至0.6.0 升级antdesign0.7版本。
+    <code>
+</pre>
+<pre>
+    <code>
     2018年4月16日19:50 
     请升级fccomponent@0.4.44，请使用npm update fccomponent 升级,如有异常请使用npm i fccomponent@0.4.44；修复文件上传只能上传一个文件，重复上传异常；增加了对菜单内部URL及外部URL的支持。请更新system/service/layoutserver.ts文件 
     <code>

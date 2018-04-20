@@ -43,6 +43,7 @@ import { SysroleService } from './services/sysrole.service';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
 import { SysappdetailComponent } from './components/core/sysappdetail.component';
+import { SysmessagebackComponent } from './components/core/sysmessageback.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -82,7 +83,8 @@ import { SysappdetailComponent } from './components/core/sysappdetail.component'
     SysbackcodeComponent,
     SyscomponentComponent,
     HomeComponent,
-    SysappdetailComponent
+    SysappdetailComponent,
+    SysmessagebackComponent
   ],
   providers: [
     MainService,

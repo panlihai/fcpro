@@ -17,6 +17,7 @@ import { SyscomponentComponent } from './components/core/syscomponent.component'
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
 import { SysappdetailComponent } from './components/core/sysappdetail.component';
+import { SysmessagebackComponent } from './components/core/sysmessageback.component';
 export const Routers: Routes = [
     {
         path: 'home',
@@ -86,6 +87,10 @@ export const Routers: Routes = [
     {
         path: 'syscomponentList',//平台组件
         component: SyscomponentComponent
+    },
+    {
+        path: 'sysmessagebackList',//消息反馈详情
+        component: SysmessagebackComponent
     },
     {
         path: '**',

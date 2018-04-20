@@ -7,6 +7,7 @@
                 <div fccontent1 style="position: absolute;right: 30px;top: 15px;">
                     <span>消息</span>
                     <span>公告</span>
+                    <fc-button fcLabel="消息反馈" fcType="primary" (click)="messagebackTo('sysmessagebackList')"></fc-button>
                 </div>
                 <div fccontent1 class="all">
                     <span class="tielu">
@@ -60,12 +61,12 @@
                 <div fccontent1>
                     <fc-layoutcol fcSpans="7,4">
                         <div fccontent1>
-                            <fc-title fcLabel="数据统计(万元)" fcHasLine="false"></fc-title>
-                            <fc-chartbar></fc-chartbar>
+                            <fc-title fcLabel="数据统计" fcHasLine="false"></fc-title>
+                            <fc-chartbar [fcOption]="_barLabels" [fcData]="_barData" (fcEvent)="chartbarEvent($event)"></fc-chartbar>
                         </div>
                         <div fccontent2>
                             <div style="margin-top:40px;">
-                                <fc-chartpie></fc-chartpie>
+                                <fc-chartpie [fcOption]="_pieLabels" [fcData]="_pieData" (fcEvent)="chartpieEvent($event)"></fc-chartpie>
                             </div>
                         </div>
                     </fc-layoutcol>
@@ -143,9 +144,9 @@
                 <fc-title fcLabel="快速开始/便捷导航" fcHasLine="false" fcheader fcBorder="bottom" style="line-height:2.5em;"></fc-title>
                 <div style="height:100px;" fccontent>
                     <fc-tag fcTitle="单位基本信息" (click)="navTo('ar01ARCompanyList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
-                    <fc-tag fcTitle="债权单位维护"  (click)="navTo('ar01ARCompanyCard')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
-                    <fc-tag fcTitle="债权单位审批"  (click)="navTo('ar01ARCompanyAuditList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
-                    <fc-tag fcTitle="客户信息维护"  (click)="navTo('ar09ARCustomList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
+                    <fc-tag fcTitle="债权单位维护" (click)="navTo('ar01ARCompanyCard')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
+                    <fc-tag fcTitle="债权单位审批" (click)="navTo('ar01ARCompanyAuditList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
+                    <fc-tag fcTitle="客户信息维护" (click)="navTo('ar09ARCustomList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
                     <fc-tag fcTitle="客户变更审批" (click)="navTo('ar09ARCustomAuditList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
                     <fc-tag fcTitle="客户动态查询" (click)="navTo('ar09ARCustomStatsList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
                     <fc-tag fcTitle="客户信息查询" (click)="navTo('ar09ARCustomQueryList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
