@@ -27,6 +27,7 @@ import { FcRouteReuseStrategy } from './system/services/routereusestrategy.servi
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
+import { FccoreModule } from 'fccore';
 @NgModule({
   imports: [
     FormsModule,
@@ -35,6 +36,7 @@ import { NzMessageService } from 'ng-zorro-antd';
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot(AppRouters),
+    FccoreModule,
     FcnavModule,
     FcbasicModule,
     FcadModule,

@@ -12,7 +12,6 @@ import { FcmodalconfirmComponent } from 'fccomponent';
   styles: [`
   :host ::ng-deep .content-wrap>div>.fc-content1{
     height: 100%;
-    overflow: auto; 
   }
   :host ::ng-deep .content-wrap>div>.fc-content2{
     padding: 41px 5px 5px;
@@ -152,6 +151,8 @@ export class LayoutComponent implements OnInit {
     }
   }
 
+  //布局比例
+  _layoutSpans: string = "2,9";
   /**
    *  菜单事件
    * @param event 
@@ -160,6 +161,11 @@ export class LayoutComponent implements OnInit {
     switch (event.eventName) {
       case 'toggle':
         this._navmenuStatus = event.param;
+        if (this._navmenuStatus === "closed") {
+          this._layoutSpans = "3,85";
+        } else if (this._navmenuStatus === "opened") {
+          this._layoutSpans = "2,9";
+        }
         break;
       case 'select':
         //导航并存储列表
