@@ -12,7 +12,8 @@
   },
   "private": true,
   "dependencies": {
-    "fccomponent": "^0.5.6"
+    "fccomponent": "^0.5.23",
+    "xlsx": "^0.12.10"
   },
   "devDependencies": {
     "@angular/cli": "1.6.7",
