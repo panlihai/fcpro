@@ -1,0 +1,38 @@
+<!-- 消息反馈详情 -->
+<fc-layoutpanel class="full" fcFull="true">
+    <fc-layoutcol fcSpans="4,6" fccontent>
+        <fc-tabmain [fcTabs]="_tabLabel" fccontent1>
+            <!-- 未反馈消息 -->
+            <fc-timeline [fcOption]="noFeedBack" fcLabelPosition="left" (fcEvent)="nofeedbackEvent($event)" fccontent1></fc-timeline>
+            <!-- 已反馈消息 -->
+            <fc-timeline [fcOption]="hasFeedBack" fcLabelPosition="left" (fcEvent)="hasfeedbackEvent($event)" fccontent2></fc-timeline>
+        </fc-tabmain> 
+        <fc-layoutpanel fccontent2>
+            <!-- 点击未反馈消息时显示 -->
+            <div style="border-left:10px solid #ECF2FE;" fccontent>
+                <fc-title [fcLabel]="'消息明细'"></fc-title>
+                <div class="messageback-detail">
+                    <p>
+                        其中：移交补贴支出超支 1970年01月01日 08:00
+                    </p>
+                    <p>
+                        单位:总公司期间:2018年度 项目:其中：移交补贴支出 预算:13606万元 实际:123542万元，超支808%,三级预警
+                    </p>
+                </div>
+                <fc-title [fcLabel]="'预计反馈'"></fc-title>
+                <div class="messageback-detail">
+                    <p>
+                        其中：移交补贴支出超支 1970年01月01日 08:00
+                    </p>
+                    <p>
+                        单位:总公司期间:2018年度 项目:其中：移交补贴支出 预算:13606万元 实际:123542万元，超支808%,三级预警
+                    </p>
+                </div>
+                <fc-textarea [(ngModel)]="backResult" [fcCol]="4"></fc-textarea>
+                <fc-button [fcLabel]="'立即反馈'" [fcType]="'primary'" (click)="messageBack()"></fc-button>
+            </div>
+            <!-- 点击已反馈消息时显示 -->
+            <div style="border-left:10px solid #ECF2FE;" fccontent>
+            </div>
+        </fc-layoutpanel>
+    </fc-layoutcol>

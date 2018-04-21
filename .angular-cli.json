@@ -29,15 +29,15 @@
         "assets/plugin/spread/fonts.css",
         "assets/plugin/spread/styles.css",
         "assets/plugin/spread/gc.spread.sheets.excel2013white.11.0.0.css",
-	      "assets/fonts/iconfont/iconfont.css",
+        "assets/fonts/iconfont/iconfont.css",
         "assets/styles/app.css"
       ],
       "scripts": [
-        "../node_modules/chart.js/src/chart.js",
         "assets/plugin/spread/gc.spread.sheets.all.11.0.0.min.js",
         "assets/plugin/spread/gc.spread.sheets.resources.zh.11.0.0.min.js",
+        "assets/plugin/spread/gc.spread.excelio.11.0.0.min.js",
         "assets/plugin/spread/license.js",
-        "assets/plugin/spread/gc.spread.excelio.11.0.0.min.js"
+        "../node_modules/chart.js/dist/Chart.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
