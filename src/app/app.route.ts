@@ -18,10 +18,7 @@ export const AppRouters: Routes = [
             , {
                 path: 'system',//系统
                 loadChildren: './system/index.module#SystemModule'
-            } , {
-                path: 'hellofc',//
-                loadChildren: './helloproject/index.module#HelloModule'
-            }
+            } 
         ]
     }, {
         path: 'signin',//登录

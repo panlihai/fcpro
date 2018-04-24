@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, TimelineOptions } from 'fccomponent';
 import { LayoutService } from '../../../system/services/layout.service';
 import { environment } from '../../../../environments/environment.prod';
+import { FCEVENT } from 'fccomponent/fc';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',

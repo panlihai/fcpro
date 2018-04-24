@@ -50,7 +50,7 @@ export class LayoutService {
      * 跳转路由并存储路由
      * @param menu 
      */
-    navStoreMenu(router: Router, menu: Sysmenu) {
+    navStoreMenu(router: Router, menu: Sysmenu, param?: any) {
         if (menu.MENUTYPE !== 'OUTURL') {
             //判断是否存在路由
             let existTabs = this._tabs.filter(element => element.id === menu.ID);
@@ -72,9 +72,16 @@ export class LayoutService {
                     this._navmenuSelected = true;
                 }
             });
-            router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
-                queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
-            });
+            if (param) {
+                router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
+                    queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
+                });
+            } else {
+                router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
+                    queryParams: param
+                });
+            }
+
         } else {
             window.open(menu.ROUTER, '_blank');
             return;
