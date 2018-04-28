@@ -33,6 +33,19 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年4月25日21:30 
+    请升级fccomponent@0.6.4，请使用npm update fccomponent升级,修复点击菜单url异常，增加异常处理，增加表单验证，增加sql执行器，输入性组件增加fcShowLabel属性，设置是否占位label；fc-text组件增加fcAutoComplete,自动完成开关，默认开。
+    后端升级，支持sql执行器并提供校验
+    <code>
+</pre>
+<pre>
+    <code>
+    2018年4月24日22:30 
+    请升级fccomponent@0.6.0，请使用npm update fccomponent升级,新增了文本框、多选框、单选框、下拉框等组件的表单验证功能，支持最大长度限制，必填校验，自定义校验；新增label的显示规则，只读和禁用，支持输入性组件。
+    <code>
+</pre>
+<pre>
+    <code>
     2018年4月17日19:50 
     请升级fccomponent@0.5.0，请使用npm i fccomponent@0.5.0 升级,修复layoutService菜单切换异常，请system文件夹，更新main.ts;下一版本将升至0.6.0 升级antdesign0.7版本。
     <code>

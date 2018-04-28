@@ -185,7 +185,7 @@ export class LayoutComponent implements OnInit {
         this.mainService.navRemoveMenu(this._router, event.param);
         break;
       case 'selected':
-        this.mainService.navStoreMenu(this._router, event.param);
+        this.mainService.navMenu(this._router, event.param);
         break;
     }
   }
