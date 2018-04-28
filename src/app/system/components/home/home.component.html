@@ -83,58 +83,55 @@
                 </div>
             </fc-tabmain>
         </fc-layoutpanel>
-        <fc-layoutpanel fccontent1>
-            <fc-layoutcol fcSpans="6,4" fccontent>
-                <div fccontent1>
-                    <fc-title fcLabel="待办任务" fcBorder="bottom" style="line-height:2.5em;">
-                        <div fcextra>
-                            <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcText="急需"></fc-badge>
-                            <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcText="特急"></fc-badge>
-                            <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcText="默认"></fc-badge>
-                            <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcText="滞缓"></fc-badge>
-                            <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcText="待做"></fc-badge>
-                        </div>
-                    </fc-title>
-                    <div class="home-list">
-                        <!-- <fc-list [fcOption]="waitWork" [fcIcon]="'fc-icon-wiki'"></fc-list> -->
-                        <div style="margin-top: -10px;" fccontent class="main_contain">
-                            <ul class="contact">
-                                <li>
-                                    <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcToolTip="特急" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
-                                    <span>2018.03.26-项目元数据框架构建；</span>
-                                </li>
-                                <li>
-                                    <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcToolTip="急需" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
-                                    <span>2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发</span>
-                                </li>
-                                <li>
-                                    <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcToolTip="待做" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
-                                    <span>2018.03.26-开始进行元数据方法的呈现方式</span>
-                                </li>
-                                <li>
-                                    <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcToolTip="特急" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
-                                    <span>2018.03.26-项目元数据框架构建</span>
-                                </li>
-                                <li>
-                                    <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" ="默认" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
-                                    <span>2018.03.26-元数据组件开发</span>
-                                </li>
-                                <li>
-                                    <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" ="滞缓" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
-                                    <span>2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发</span>
-                                </li>
-                            </ul>
-                        </div>
+        <fc-layoutcol fcSpans="6,4" fccontent1>
+            <div fccontent1>
+                <fc-title fcLabel="待办任务" fcBorder="bottom" style="line-height:2.5em;">
+                    <div fcextra>
+                        <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcText="急需"></fc-badge>
+                        <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcText="特急"></fc-badge>
+                        <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcText="默认"></fc-badge>
+                        <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcText="滞缓"></fc-badge>
+                        <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcText="待做"></fc-badge>
+                    </div>
+                </fc-title>
+                <div class="home-list">
+                    <div style="margin-top: -10px;" class="main_contain">
+                        <ul class="contact">
+                            <li>
+                                <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcToolTip="特急" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
+                                <span>2018.03.26-项目元数据框架构建；</span>
+                            </li>
+                            <li>
+                                <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcToolTip="急需" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
+                                <span>2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发</span>
+                            </li>
+                            <li>
+                                <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcToolTip="待做" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
+                                <span>2018.03.26-开始进行元数据方法的呈现方式</span>
+                            </li>
+                            <li>
+                                <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcToolTip="特急" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
+                                <span>2018.03.26-项目元数据框架构建</span>
+                            </li>
+                            <li>
+                                <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcToolTip="默认" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
+                                <span>2018.03.26-元数据组件开发</span>
+                            </li>
+                            <li>
+                                <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcToolTip="滞缓" style="margin-left:15px;display:inline-block;margin-top:7px;"></fc-badge>
+                                <span>2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div style="padding-left:10px;" fccontent2>
-                    <fc-title fcLabel="系统版本" fcBorder="bottom" style="line-height:2.5em;"></fc-title>
-                    <div style="width:100%;height:300px;">
-                        <fc-timeline [fcOption]="timeline1" fcLabelPosition="left"></fc-timeline>
-                    </div>
+            </div>
+            <div style="padding-left:10px;" fccontent2>
+                <fc-title fcLabel="系统版本" fcBorder="bottom" style="line-height:2.5em;"></fc-title>
+                <div style="width:100%;height:300px;">
+                    <fc-timeline [fcOption]="timeline1" fcLabelPosition="left"></fc-timeline>
                 </div>
-            </fc-layoutcol>
-        </fc-layoutpanel>
+            </div>
+        </fc-layoutcol>
         <fc-layoutpanel fccontent2>
             <fc-layoutpanel fccontent>
                 <fc-title fcLabel="工作计划" fcheader fcBorder="bottom" style="line-height:2.5em;"></fc-title>
