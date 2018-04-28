@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-progresscircle',
+  selector: 'progresscircle',
   templateUrl: './progresscircle.component.html',
-  styleUrls: ['./progresscircle.component.css']
+  styles: [``]
 })
 export class ProgresscircleComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-searchfast',
+  selector: 'searchfast',
   templateUrl: './searchfast.component.html',
-  styleUrls: ['./searchfast.component.css']
+  styles: [``]
 })
 export class SearchfastComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

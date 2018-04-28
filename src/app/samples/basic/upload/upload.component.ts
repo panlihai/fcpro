@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.css']
+  styles: [``]
 })
 export class UploadComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

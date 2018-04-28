@@ -10,7 +10,7 @@ import { SysroleService } from '../../services/sysrole.service';
     <div class="left" style="100%;" fccontent1>
       <fc-title fcLabel="所有角色" fcHasLine="false" [fcBorder]="'bottom'"></fc-title>
       <fc-list [fcAppid]="'SYSROLE'" [fcFieldCode]="'ROLENAME'" [fcCondition]="listCondition"></fc-list>
-      <fc-icon class="role-add" [fcIcon]="'fc-icon-keep'" [fcSize]="'large'" [fcColor]="'#108ee9'"></fc-icon>
+      <fc-icon class="fc-role-add" [fcIcon]="'fc-icon-keep'" [fcSize]="'large'" [fcColor]="'#108ee9'"></fc-icon>
     </div>
     <fc-tabmain fccontent2 [fcTabs]="roleTab" class="role-tab">
       <div style="border-top:1px solid #e9e9e9;" fccontent1>
@@ -107,5 +107,7 @@ export class SysroleComponent extends ParentlistComponent {
   event(eventName: string, context: any): void {
     
   }
-
+  addUser(){
+    
+  }
 }

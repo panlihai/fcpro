@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-layoutcol',
+  selector: 'layoutcol',
   templateUrl: './layoutcol.component.html',
-  styleUrls: ['./layoutcol.component.css']
+  styles: [``]
 })
 export class LayoutcolComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

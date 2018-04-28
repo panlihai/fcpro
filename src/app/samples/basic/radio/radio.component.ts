@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-radio',
   templateUrl: './radio.component.html',
-  styleUrls: ['./radio.component.css']
+  styles: [``]
 })
 export class RadioComponent extends ComponentParent {
   radioValueSingle: string = 'a';
@@ -13,6 +13,7 @@ export class RadioComponent extends ComponentParent {
   radioValue: string = 'a';
   radioOptions: any[] = [{ icon: '', label: 'A', value: 'a' }, { icon: '', label: 'B', value: 'b' }, { icon: '', label: 'C', value: 'c' }];
   radioOptionsDisabled: any[] = [{ icon: '', label: 'A', value: 'a' }, { icon: '', label: 'B', value: 'b' }, { icon: '', label: 'C', value: 'c', disabled: true }];
+  radioOptionsReadonly: any[] = [{ icon: '', label: 'A', value: 'a' }, { icon: '', label: 'B', value: 'b' }, { icon: '', label: 'C', value: 'c'}];
   constructor(public mainService: ComponentService) {
     super('FCRADIO', mainService);
   }

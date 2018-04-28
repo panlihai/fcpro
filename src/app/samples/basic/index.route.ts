@@ -34,6 +34,11 @@ import { TableComponent } from './table/table.component';
 import { ListComponent } from './list/list.component';
 import { CollapseComponent } from './collapse/collapse.component';
 import { TagComponent } from './tag/tag.component';
+import { LinkComponent } from './link/link.component';
+import { ChatComponent } from './chat/chat.component';
+import { LabelComponent } from './label/label.component';
+import { CascaderComponent } from './cascader/cascader.component';
+import { TreeselectComponent } from './treeselect/treeselect.component';
 export const basicRouters: Routes = [
     {
         path: 'system/fcbuttonList',//按钮
@@ -135,13 +140,33 @@ export const basicRouters: Routes = [
         path: 'system/fctooltipList',//文字提示
         component: TooltipComponent
     }, {
-        path: 'system/fccollapseList',//自定义查询展开收起
+        path: 'system/fccollapseList',//自定义查询展开收起、折叠面板
         component: CollapseComponent
     }, {
-        path: 'system/fclistList',//表格
+        path: 'system/fclistList',//列表
         component: ListComponent
     }, {
         path: 'system/fctagList',//标签
         component: TagComponent
+    },
+    {
+        path: 'system/fclinkList',//link链接
+        component: LinkComponent
+    },
+    {
+        path: 'system/fcchatList',//chat聊天
+        component: ChatComponent
+    },
+    {
+        path: 'system/fclabelList',//label
+        component: LabelComponent
+    },
+    {
+        path: 'system/fccascaderList',//级联选择
+        component: CascaderComponent
+    },
+    {
+        path: 'system/fctreeselectList',//下拉树
+        component: TreeselectComponent
     }
 ];

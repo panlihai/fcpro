@@ -7,21 +7,34 @@
                 <fc-title fcLabel="这是一个标题"></fc-title>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="大小" fccontent1>
+        <fc-layoutgroup fcTitle="大小" fccontent2>
             <div fccontent>
                 <fc-title fcLabel="这是一个标题" fcSize="small"></fc-title>
                 <fc-title fcLabel="这是一个标题" fcSize="default"></fc-title>
                 <fc-title fcLabel="这是一个标题" fcSize="large"></fc-title>
             </div>
         </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="没有左侧竖条" fccontent2>
+        <fc-layoutgroup fcTitle="没有左侧竖条" fccontent1>
             <div fccontent>
                 <fc-title fcLabel="这是一个标题" fcHasLine="false"></fc-title>
+                <div style="margin-top:10px;">是否有左侧竖条：fcHasLine="false"</div>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="是否有下边框" fccontent2>
+            <div fccontent style="width:200px;">
+                <fc-title fcLabel="这是一个标题" fcBorder="false" fcBorder="bottom"></fc-title>
+                <div style="margin-top:10px;">是否有左侧竖条：fcBorder="bottom"</div>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="副标题显示" fccontent1>
+            <div fccontent>
+                <fc-title fcLabel="这是一个标题" fcHasLine="false" fcSubtitle="副标题内容显示"></fc-title>
+                <div style="margin-top:10px;">是否有左侧竖条：fcSubtitle="副标题内容显示"</div>
             </div>
         </fc-layoutgroup>
     </fc-layoutcol>
     <fc-layoutcol fccontent fcSpans="1">
-        <fc-layoutgroup fcTitle="标题居中" fccontent1>
+        <fc-layoutgroup fcTitle="标题居中" fccontent2>
             <div fccontent>
                 <fc-title fcLabel="债权清收登记" fcLayout="center" fcheader>
                     <div class="subtitle" fcsubtitle>
@@ -52,15 +65,15 @@
     </fc-layoutcol>
     <!-- API -->
     <fc-layoutpanel fccontent>
-        <fc-title fcLabel="属性" fcheader> </fc-title>
-        <div style="height:450px;" fccontent>
-            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-        </div>
+            <fc-title fcLabel="属性" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+            </div>
     </fc-layoutpanel>
     <fc-layoutpanel fccontent>
-        <fc-title fcLabel="事件" fcheader> </fc-title>
-        <div style="height:450px;" fccontent>
-            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-        </div>
+            <fc-title fcLabel="事件" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+            </div>
     </fc-layoutpanel>
 </fc-layoutpanel>

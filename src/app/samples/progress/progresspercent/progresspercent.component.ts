@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-progresspercent',
+  selector: 'progresspercent',
   templateUrl: './progresspercent.component.html',
-  styleUrls: ['./progresspercent.component.css']
+  styles: [``]
 })
 export class ProgresspercentComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

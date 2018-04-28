@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-long',
   templateUrl: './long.component.html',
-  styleUrls: ['./long.component.css']
+  styles: [``]
 })
 export class LongComponent extends ComponentParent {
   longValue: number = 5;

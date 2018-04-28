@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-time',
   templateUrl: './time.component.html',
-  styleUrls: ['./time.component.css']
+  styles: [``]
 })
 export class TimeComponent extends ComponentParent {
   now = new Date();

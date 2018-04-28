@@ -1,0 +1,44 @@
+<!-- 表单验证模板 -->
+<fc-layoutpanel>
+    <fc-tlbform fcheader [fcAppid]="appId" (fcEvent)="tlbformEvent($event)"></fc-tlbform>
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="表单验证" fcBorder="bottom" fcheader></fc-title>
+        <fc-layoutcol fcSpans="1,1" fccontent>
+            <div fccontent1>
+                <fc-text [fcLabel]="'文本框'" name="textname"></fc-text>
+                <fc-combo [fcLabel]="'下拉单选'" [(ngModel)]="comboValue" [fcOption]="comboOptions" name="comboname"></fc-combo>
+                <fc-date [fcLabel]="'日期'" name="datename"></fc-date>
+                <fc-double [fcLabel]="'数值'" [(ngModel)]="doubleValue" name="doublename"></fc-double>
+                <fc-text [fcLabel]="'内部前缀'" [(ngModel)]="addonbefore" [fcPrefix]="'fc-icon-revocation'" name="textinner"></fc-text>
+                <fc-text [fcLabel]="'内部后缀'" [(ngModel)]="addonbefore" [fcSuffix]="'fc-icon-revocation'" name="textout"></fc-text>
+                <fc-text [fcLabel]="'后置标签'" [(ngModel)]="addonbefore" [fcAddonAfter]="'fc-icon-line'" name="textoutright"></fc-text>
+                <!--  <fc-text fcLabel="" [fcShowLabel]="false" [fcRequired]="true" [fcAppid]="appId" [(ngModel)]="mainObj.CARDTITLE" name="CARDTITLE"
+                    [fcValid]="mainValid.CARDTITLE"></fc-text> -->
+                <fc-any fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-any>
+                <fc-check fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-check>
+                <!-- <fc-many fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-many> -->
+                <!-- <fc-radio fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-radio> -->
+                <!-- <fc-chosen fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-chosen> -->
+                <!-- <fc-combo fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-combo> -->
+            </div>
+            <div fccontent2>
+                <fc-any [fcLabel]="'自定义下拉单选'" [(ngModel)]="anyValue" [fcOption]="anyOptions" name="anyname"></fc-any>
+                <fc-many [fcLabel]="'自定义下拉多选'" [(ngModel)]="manyValue" [fcOption]="manyOptions" name="manyname"></fc-many>
+                <fc-chosen [fcLabel]="'下拉多选'" [fcLabel]="'下拉多选'" [(ngModel)]="chosenValue" [fcOption]="chosenOptions" name="chosename"></fc-chosen>
+                <fc-datetime [fcLabel]="'日期时间'" name="datetimename"></fc-datetime>
+                <fc-textarea [fcLabel]="'大文本框'" name="textareaname"></fc-textarea>
+                <fc-radio [fcLabel]="'单选'" [(ngModel)]="radioValue" [fcOption]="radioOptions" name="radioname"></fc-radio>
+                <fc-text fcLabel="组件名称" [fcRequired]="true" [fcAppid]="appId" [(ngModel)]="mainObj.APPID" name="APPID" [fcValid]="mainValid.APPID"></fc-text>
+            </div>
+            <div fccontent2 class="checkbutton">
+                <fc-button fcLabel="开始校验" (click)="validator()"></fc-button>
+            </div>
+        </fc-layoutcol>
+    </fc-layoutpanel>
+</fc-layoutpanel>

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
+import { FCEVENT } from 'fccomponent/fc';
 
 @Component({
   selector: 'app-many',
   templateUrl: './many.component.html',
-  styleUrls: ['./many.component.css']
+  styles: [``]
 })
 export class ManyComponent extends ComponentParent {
   manyValue: any[] = [{ "label": "A", "value": "a", "disabled": false }];
@@ -14,5 +15,12 @@ export class ManyComponent extends ComponentParent {
   manynullOptions: any[] = [];
   constructor(public mainService: ComponentService) {
     super('FCMANY', mainService);
+  }
+  manyEvent(event:FCEVENT){
+    switch(event.eventName){
+        case 'clear':
+        this.mainService.messageService.warm("已经清除了内容");
+        break;
+    }
   }
 }

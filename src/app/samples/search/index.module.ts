@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { searchRouters } from './index.route';
-import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule } from 'fccomponent';
+import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule, FcsearchModule } from 'fccomponent';
 import { SearchadvanceComponent } from './searchadvance/searchadvance.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { SearchboxComponent } from './searchbox/searchbox.component';
@@ -17,7 +17,8 @@ import { SearchfastComponent } from './searchfast/searchfast.component';
     FclayoutModule,
     FcadModule,
     FcnavModule, 
-    FclistModule
+    FclistModule,
+    FcsearchModule
   ],
   exports: [
 

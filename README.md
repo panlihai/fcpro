@@ -33,6 +33,12 @@ FC是fastcore的简称
 ##版本请更新至
 <pre>
     <code>
+    2018年4月28日17:08
+    请升级fccomponent@0.6.12，请使用npm update fccomponent升级,根据设计稿完成列表模板、表单模板、表单列表、表单快速定位模板、选项卡表单模板、首页模板、树列表、树表单、树列表表单模板的样式修改，完善sample。
+    <code>
+</pre>
+<pre>
+    <code>
     2018年4月25日21:30 
     请升级fccomponent@0.6.4，请使用npm update fccomponent升级,修复点击菜单url异常，增加异常处理，增加表单验证，增加sql执行器，输入性组件增加fcShowLabel属性，设置是否占位label；fc-text组件增加fcAutoComplete,自动完成开关，默认开。
     后端升级，支持sql执行器并提供校验

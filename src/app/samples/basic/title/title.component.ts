@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
-  styleUrls: ['./title.component.css']
+  styles: [``]
 })
 export class TitleComponent extends ComponentParent {
   //副标题

@@ -14,7 +14,7 @@ import { SysproductService } from '../../services/sysproduct.service';
                     fcLabelCode='DICDESC' name="ENABLE"></fc-combo>
             </div>
             <div class="list-search-every list-search-every2">
-                <fc-text [fcAppid]="appId" fcRequired="false" fcRequired="false" fcFieldCode='PNAME' [(ngModel)]="searchObj.PNAME" name="productname" [fcOption]="{field:{FIELDCODE:'PNAME'}}"></fc-text>
+                <fc-text [fcAppid]="appId" fcRequired="false" fcFieldCode='PNAME' [(ngModel)]="searchObj.PNAME" name="productname" [fcOption]="{field:{FIELDCODE:'PNAME'}}"></fc-text>
             </div>
             <div class="list-search-every list-search-button">
                 <fc-button fcLabel="查询" fcType="primary" (click)="search()"></fc-button>
@@ -22,7 +22,7 @@ import { SysproductService } from '../../services/sysproduct.service';
             </div>
         </form>  
       </fc-layoutpanel>
-      <fc-listdata fccontent2  [fcAppid]="appId" [fcOption]="mainService.listOption" (fcEvent)="listdataEvent($event)"></fc-listdata>
+      <fc-listdata fccontent2  [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
     </fc-layoutrow>
   `,
   styles: [`

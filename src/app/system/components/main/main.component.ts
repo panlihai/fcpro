@@ -27,14 +27,17 @@ export class MainComponent extends ParentlistComponent {
   constructor(public mainService: MainService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
-    super(mainService, router, activeRoute);    
-  }  
-  init(): void {
+    super(mainService, router, activeRoute);
   }
-  
+  init(): void {
+    //初始化元数据id
+    this.appId = this.routerParam.APPID,
+      //初始化元数据
+      this.mainApp = this.appService.getAppById(this.appId);
+  }
   getDefaultQuery() {
   }
   event(eventName: string, context: any): void {
-  }
 
+  }
 }

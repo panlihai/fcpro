@@ -47,5 +47,9 @@ export const Routers: Routes = [
     {
         path: '',//工具栏组件
         loadChildren: './tlb/index.module#TlbModule'
+    },
+    {
+        path: '',//模板
+        loadChildren: './template/index.module#TemplateModule'
     }
 ];

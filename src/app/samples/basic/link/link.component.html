@@ -1,0 +1,48 @@
+<!-- 链接fc-link -->
+<fc-layoutpanel>
+    <fc-title fcLabel="自定义下拉" fcheader></fc-title>
+    <fc-layoutcol fccontent fcSpans="1,1">
+        <fc-layoutgroup fcTitle="基本" fccontent1>
+            <div fccontent>
+                <fc-link [fcLabel]="'点击我试试'"></fc-link>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="是否有横线" fccontent2>
+            <div fccontent>
+                <fc-link [fcLabel]="'点击我试试'" [fcHasline]="true"></fc-link>
+                <div style="margin-top: 10px;width: 69%;">底部是否有横线： [fcHasline]="true"/true有横线，false没有横线，默认为false</div>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="设置字体颜色" fccontent1>
+            <div fccontent>
+                <fc-link [fcLabel]="'点击我试试'" [fcColor]="'red'"></fc-link>
+                <div style="margin-top: 10px;">设置字体颜色[fcColor]="'red'"</div>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="只读" fccontent2>
+            <div fccontent>
+                <fc-link [fcLabel]="'点击我试试'" [fcReadonly]="true"></fc-link>
+                <div style="margin-top: 10px;">只读：[fcReadonly]="true"</div>
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup [fcTitle]="'禁用'" fccontent1>
+            <div fccontent>
+                    <fc-link [fcLabel]="'点击我试试'" [fcDisabled]="true"></fc-link>
+                    <div style="margin-top: 10px;">禁用：[fcDisabled]="true"</div>
+            </div>
+        </fc-layoutgroup>
+    </fc-layoutcol>
+    <!-- API -->
+    <fc-layoutpanel fccontent>
+            <fc-title fcLabel="属性" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+            </div>
+    </fc-layoutpanel>
+    <fc-layoutpanel fccontent>
+            <fc-title fcLabel="事件" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+            </div>
+    </fc-layoutpanel>
+</fc-layoutpanel>

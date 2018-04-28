@@ -13,7 +13,7 @@ import {
   FcprogressModule,
   FclistModule,
   FctabModule,
-  FctlbModule
+  FctlbModule,
 } from 'fccomponent';
 import { ButtonComponent } from './button/button.component';
 import { AnyComponent } from './any/any.component';
@@ -45,7 +45,6 @@ import { TitleComponent } from './title/title.component';
 import { UploadComponent } from './upload/upload.component';
 import { TreeComponent } from './tree/tree.component';
 import { BacktopComponent } from './backtop/backtop.component';
-import { environment } from '../../../environments/environment';
 import {
   AppService, DaoService, CacheService, CommonService, MenuService, MessageService,
   SysappbuttonsService, SysappfieldsService, SysappfldgroupService, SysapplinksService, SysdicappdetailService, SysdicappService,
@@ -58,6 +57,11 @@ import { ListComponent } from './list/list.component';
 import { TableComponent } from './table/table.component';
 import { CollapseComponent } from './collapse/collapse.component';
 import { TagComponent } from './tag/tag.component';
+import { LinkComponent } from './link/link.component';
+import { ChatComponent } from './chat/chat.component';
+import { TreeselectComponent } from './treeselect/treeselect.component';
+import { CascaderComponent } from './cascader/cascader.component';
+import { LabelComponent } from './label/label.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -115,13 +119,33 @@ import { TagComponent } from './tag/tag.component';
     UploadComponent,
     TooltipComponent,
     CollapseComponent,
-    TagComponent
+    TagComponent,
+    LinkComponent,
+    ChatComponent,
+    CascaderComponent,
+    TreeselectComponent,
+    LabelComponent
   ],
   providers: [
     AppService,
-    DaoService, CacheService, CommonService, MenuService, MessageService,
-    SysappbuttonsService, SysappfieldsService, SysappfldgroupService, SysapplinksService, SysdicappdetailService, SysdicappService,
-    SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService, SysinterfaceService, SysmenuService, SysstyleService
+    DaoService,
+    CacheService,
+    CommonService,
+    MenuService,
+    MessageService,
+    SysappbuttonsService,
+    SysappfieldsService,
+    SysappfldgroupService,
+    SysapplinksService,
+    SysdicappdetailService,
+    SysdicappService,
+    SysdicdetailService,
+    SysdicService,
+    SysmessageService,
+    SysinterfaceparamService,
+    SysinterfaceService,
+    SysmenuService,
+    SysstyleService
   ]
 })
 export class BasicModule { }

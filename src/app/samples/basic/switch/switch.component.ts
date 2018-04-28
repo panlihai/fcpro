@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-switch',
   templateUrl: './switch.component.html',
-  styleUrls: ['./switch.component.css']
+  styles: [``]
 })
 export class SwitchComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

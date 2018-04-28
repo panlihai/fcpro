@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-double',
   templateUrl: './double.component.html',
-  styleUrls: ['./double.component.css']
+  styles: [``]
 })
 export class DoubleComponent extends ComponentParent {
   doubleValue: number = 5.5;

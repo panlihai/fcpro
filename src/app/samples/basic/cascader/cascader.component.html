@@ -1,0 +1,54 @@
+<!-- 级联选择 fc-any -->
+<fc-layoutpanel>
+    <fc-title fcLabel="自定义下拉" fcheader></fc-title>
+    <fc-layoutcol fccontent fcSpans="1,1">
+        <fc-layoutgroup fcTitle="基本" fccontent1>
+            <div fccontent>
+                
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="大小" fccontent1>
+            <div fccontent>
+                
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="禁用" fccontent2>
+            <div fccontent>
+              
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="只读" fccontent2>
+            <div fccontent>
+               
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="禁用/自定义下拉不能点击" fccontent2>
+            <div fccontent>
+               
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="带搜索" fccontent2>
+            <div fccontent>
+               
+            </div>
+        </fc-layoutgroup>
+        <fc-layoutgroup fcTitle="未找到时的文字显示" fccontent2>
+            <div fccontent>
+               
+            </div>
+        </fc-layoutgroup>
+    </fc-layoutcol>
+    <!-- API -->
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="属性" fcheader> </fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+    </fc-layoutpanel>
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="事件" fcheader> </fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+    </fc-layoutpanel>
+</fc-layoutpanel>

@@ -5,11 +5,12 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-textarea',
   templateUrl: './textarea.component.html',
-  styleUrls: ['./textarea.component.css']
+  styles: [``]
 })
 export class TextareaComponent extends ComponentParent {
-  content: string = '文本内容';
+  content: string;
   constructor(public mainService: ComponentService) {
     super('FCTEXTAREA', mainService);
+    this.content = '文本内容';
   }
 }

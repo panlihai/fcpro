@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-modalwarn',
+  selector: 'modalwarn',
   templateUrl: './modalwarn.component.html',
-  styleUrls: ['./modalwarn.component.css']
+  styles: [``]
 })
 export class ModalwarnComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

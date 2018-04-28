@@ -6,7 +6,7 @@ import { TimelineOptions } from 'fccomponent';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.css']
+  styles: [``]
 })
 export class TimelineComponent extends ComponentParent {
   //基本时间轴

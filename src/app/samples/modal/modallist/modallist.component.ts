@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 import { FcmodallistComponent } from 'fccomponent/fcmodal';
 @Component({
-  selector: 'app-modallist',
+  selector: 'modallist',
   templateUrl: './modallist.component.html',
-  styleUrls: ['./modallist.component.css']
+  styles: [``]
 })
 export class ModallistComponent extends ComponentParent {
   selectObj: any[];

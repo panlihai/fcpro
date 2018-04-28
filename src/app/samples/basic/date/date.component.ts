@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-date',
   templateUrl: './date.component.html',
-  styleUrls: ['./date.component.css']
+  styles: [``]
 })
 export class DateComponent extends ComponentParent {
   //当前日期

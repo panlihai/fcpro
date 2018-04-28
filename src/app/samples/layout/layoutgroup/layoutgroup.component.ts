@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-layoutgroup',
+  selector: 'layoutgroup',
   templateUrl: './layoutgroup.component.html',
-  styleUrls: ['./layoutgroup.component.css']
+  styles: [``]
 })
 export class LayoutgroupComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

@@ -19,7 +19,7 @@
         <label>{{selectObj}}</label>
       </div>
     </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="打开多选列表弹窗" fccontent1>
+    <fc-layoutgroup fcTitle="打开多选列表弹窗" fccontent2>
       <div fccontent>
         <fc-button [fcType]="'primary'" (click)="modalMullist1.showModal()" fcLabel="打开多选列表弹窗"></fc-button>
         <fc-modallist #modalMullist1 fcTitle="列表弹窗标题" [fcAppid]="'SYSAPP'" [fcType]="'multiple'" (fcEvent)="modalClose($event)"></fc-modallist>
@@ -28,12 +28,16 @@
     </fc-layoutgroup>
   </fc-layoutcol>
 </fc-layoutpanel>
-<!-- API -->
-<fc-layoutpanel>
-  <fc-title fcLabel="属性" fcheader> </fc-title>
-  <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-</fc-layoutpanel>
-<fc-layoutpanel>
-  <fc-title fcLabel="事件" fcheader> </fc-title>
-  <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-</fc-layoutpanel>
+    <!-- API -->
+  <fc-layoutpanel fccontent>
+        <fc-title fcLabel="属性" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+  </fc-layoutpanel>
+  <fc-layoutpanel fccontent>
+        <fc-title fcLabel="事件" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+  </fc-layoutpanel>

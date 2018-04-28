@@ -5,7 +5,11 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-fastposition',
   templateUrl: './fastposition.component.html',
-  styleUrls: ['./fastposition.component.css']
+  styles: [`
+    .blue{
+
+    }
+  `]
 })
 export class FastpositionComponent extends ComponentParent {
   //快速定位
@@ -27,13 +31,16 @@ export class FastpositionComponent extends ComponentParent {
       href: "position4",
       child: [{
         label: '位置4child1',
-        href: 'p4child1'
+        href: 'p4child1',
+        color: "#0b130b;"
       }, {
         label: '位置4child2',
-        href: 'p4child2'
+        href: 'p4child2',
+        color: "#0b130b;"
       }, {
         label: '位置4child3',
-        href: 'p4child3'
+        href: 'p4child3',
+        color: "#0b130b;"
       }]
     }
   ];

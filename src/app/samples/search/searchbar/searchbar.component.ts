@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-searchbar',
+  selector: 'searchbar',
   templateUrl: './searchbar.component.html',
-  styleUrls: ['./searchbar.component.css']
+  styles: [``]
 })
 export class SearchbarComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

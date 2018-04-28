@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-chartline',
+  selector: 'chartline',
   templateUrl: './chartline.component.html',
-  styleUrls: ['./chartline.component.css']
+  styles: [``]
 })
 export class ChartlineComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

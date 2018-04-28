@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-layoutrow',
+  selector: 'layoutrow',
   templateUrl: './layoutrow.component.html',
-  styleUrls: ['./layoutrow.component.css']
+  styles: [``]
 })
 export class LayoutrowComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

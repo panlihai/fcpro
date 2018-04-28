@@ -2,8 +2,9 @@ import { Component, OnInit, AfterContentInit, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, TimelineOptions } from 'fccomponent';
 import { LayoutService } from '../../../system/services/layout.service';
-import { environment } from '../../../../environments/environment.prod';
+import { eventNames } from 'cluster';
 import { FCEVENT } from 'fccomponent/fc';
+
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -179,28 +180,36 @@ import { FCEVENT } from 'fccomponent/fc';
     .talk-inner{
       position:relative;
     }
-    .talk-wrap .talk{
-      display:none;
+    .contact_icon+.talk-inner{
+      opacity: 0;
+      transition: all 0.5s ease-out;
+      -moz-transition: all 0.5s ease-out;
+      -webkit-transition: all 0.5s ease-out; 
+      -o-transition: all 0.5s ease-out;
     }
-    .talk-wrap:hover .talk{
-      display:block;
+    .contact_icon:hover+.talk-inner{
+      opacity: 1;
+      transition: all 0.5s linear;
+      -moz-transition: all 0.5s linear;
+      -webkit-transition: all 0.5s linear; 
+      -o-transition: all 0.5s linear;
     }
     `
   ]
 })
 export class HomeComponent {
   //柱状图文字
-  _barLabels: string[] = ['1121应收票据', '1122应收账款', '1123其他应收款', '1131应收股利', '1132应收利息', '1221预付账款', '1531长期应收款'];
+  _barLabels: string[] = ['哈局', '沈阳局', '北京局', '太原局', '呼和局', '...', '乌鲁木齐'];
   //柱状图数据
   _barData: any[] = [
-    { data: [24712, 3936068, 1198191, 2250, 0, 250174, 9], label: '年初' },
-    { data: [24823, 4310789, 790632, 23052, 668, 318150, 9], label: '当期' }
+    { data: [73370315, 174698475, 87764250, 2250, 0, 250174, 9], label: '计提利息总额' },
+    { data: [24823, 4310789, 790632, 23052, 668, 318150, 9], label: '累计已提折旧总额' }
   ];
   //饼状图文字
-  _pieLabels: string[] = ['3个月以内', '3-6个月', '6-12个月', '1-2年', '2-3年', '3-5年', '5年以上']
+  _pieLabels: string[] = ['铁债', '国开行', '优先股']
   //饼状图数据
-  _pieData: number[] = [2801928, 953886, 580522, 694377, 161290, 217577, 58543];
-   /**
+  _pieData: number[] = [1692215654.69178, 293107561.643836, 933395486.794522];
+  /**
    * 柱状图事件
    * @param event 
    */
@@ -224,6 +233,20 @@ export class HomeComponent {
         break; 
     }
   }
+  /**
+   * 上传图片
+   * @param event 
+   */
+  fileEvent(event): any {
+    switch (event.eventName) {
+      case "success":
+        break;
+      case "failure":
+        break;
+    }
+  }
+
+
   //选项卡
   _tabmain = [
     { name: '铁路局', disabled: false },
@@ -299,8 +322,5 @@ export class HomeComponent {
   }
   navTo(url: string) {
     this.mainService.navToByMenuId(this.router, url);
-  }
-  messagebackTo(url: string) {
-    this.router.navigate(['/' + environment.pid.toLocaleLowerCase() + '/sysmessagebackList']);
   }
 }

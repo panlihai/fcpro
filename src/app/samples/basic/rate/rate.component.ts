@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-rate',
   templateUrl: './rate.component.html',
-  styleUrls: ['./rate.component.css']
+  styles: [``]
 })
 export class RateComponent extends ComponentParent {
   rateValue: number = 5;

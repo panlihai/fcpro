@@ -4,7 +4,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.component.css']
+  styles: [``]
 })
 export class ButtonComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

@@ -1,10 +1,10 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
 import { ProvidersService, SysmessageService, Sysmenu, FCCONFIG } from 'fccore';
-import { NavsideOptions, FcTaboptions } from 'fccomponent';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { element } from 'protractor';
+import { FcTaboptions } from 'fccomponent/fcnav/fcnavtab.component';
 @Injectable()
 export class LayoutService {
     //点击的所有tab页面。
@@ -46,16 +46,34 @@ export class LayoutService {
             this.sysmessageService.findWithQuery({ NOTIFICATIONUSERID: user.USERCODE, PAGESIZE: 1000, ISREAD: 'N', ORDER: "TS desc" })
         ]);
     }
+
     /**
-     * 跳转路由并存储路由
+     * 
+     * @param router 
      * @param menu 
      */
     navStoreMenu(router: Router, menu: Sysmenu) {
         // 开启加载条
-        this.providers.msgService.startAntLoading(); 
+        this.providers.msgService.startAntLoading();
+        this.storeMenu(router, menu);
+        router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
+            queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
+        }).then(() => {
+            this.providers.msgService.endAntLoading();
+        }).catch((error) => {
+            console.error(error);
+            this.providers.msgService.endAntLoading();
+        });;
+    }
+    storeMenu(router: Router, menu: any, param = {}) {
+        if (param) {
+            menu.PARAM = param;
+        }
         //判断是否存在路由
         let existTabs = this._tabs.filter(element => element.id === menu.ID);
         if (existTabs.length === 0) {
+
+
             this._tabs.push({
                 id: menu.ID,
                 enabled: true,
@@ -73,29 +91,29 @@ export class LayoutService {
                 this._navmenuSelected = true;
             }
         });
-        router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
-            queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
-        }).then(() => {
-            this.providers.msgService.endAntLoading();
-        }).catch(() => {
-            this.providers.msgService.endAntLoading();
-        });;
     }
+
     /**
-     * 跳转路由并存储路由
+     * 跳转路由
      * @param menu 
      */
-    navMenu(router: Router, menu: Sysmenu) {
+    navMenu(router: Router, menu: any) {
         // 开启加载条
         this.providers.msgService.startAntLoading();
         router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
-            queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID }
+            queryParams: { ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID, PARAM: menu.param }
         }).then(() => {
             this.providers.msgService.endAntLoading();
-        }).catch(() => {
+        }).catch((error) => {
+            console.error(error);
             this.providers.msgService.endAntLoading();
         });
     }
+
+    /**
+     * 存储路由
+     * @param menu 
+     */
     /**
      * 关闭路由并删除路由表
      * @param router 路由
@@ -107,7 +125,7 @@ export class LayoutService {
             item.index = tempIndex++;
         });
         this._selectedIndex = this._selectedIndex - 1;
-        this.navStoreMenu(router, this._tabs[this._selectedIndex].content);
+        this.storeMenu(router, this._tabs[this._selectedIndex].content);
     }
     /**
      * 关闭路由并删除路由表
@@ -115,7 +133,7 @@ export class LayoutService {
      * @param menu 关闭的路由菜单
      */
     navToByMenuId(router: Router, menuId: string) {
-        this.navStoreMenu(router, this.findMenuByMenuId(this.providers.menuService.menus, menuId));
+        this.storeMenu(router, this.findMenuByMenuId(this.providers.menuService.menus, menuId));
     }
     /**
      * 

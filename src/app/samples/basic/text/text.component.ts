@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-text',
   templateUrl: './text.component.html',
-  styleUrls: ['./text.component.css']
+  styles: [``]
 })
 export class TextComponent extends ComponentParent {
   content: string = '文本内容';

@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } from 'fccomponent/fcnav';
 import { environment } from '../../environments/environment';
-import { FCEVENT } from 'fccomponent/fc';
 import { ProvidersService, MessageService } from 'fccore';
+import { FcmodalconfirmComponent, NavsideOptions, MenuOptions, FcTaboptions } from 'fccomponent';
+import { FCEVENT } from 'fccomponent/fc';
 import { LayoutService } from '../system/services/layout.service';
-import { FcmodalconfirmComponent } from 'fccomponent';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -130,7 +129,7 @@ export class LayoutComponent implements OnInit {
           if (childMenu.HASCHILD === 'Y') {
             childMenu.opened = true;
             let gChildMenu = childMenu.P_CHILDMENUS[0];
-            gChildMenu[0].select = true;
+            gChildMenu.select = true;
           } else {
             childMenu.select = true;
           }
@@ -169,7 +168,7 @@ export class LayoutComponent implements OnInit {
         break;
       case 'select':
         //导航并存储列表
-        this.mainService.navStoreMenu(this._router, event.param);
+        this.mainService.storeMenu(this._router, event.param,{});
         this._navTabSelectedIndex = this.mainService._selectedIndex;
         this._navmenuSelected = this.mainService._navmenuSelected;
         break;

@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-progressbar',
+  selector: 'progressbar',
   templateUrl: './progressbar.component.html',
-  styleUrls: ['./progressbar.component.css']
+  styles: [``]
 })
 export class ProgressbarComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

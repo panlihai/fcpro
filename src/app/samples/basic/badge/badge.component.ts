@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-badge',
   templateUrl: './badge.component.html',
-  styleUrls: ['./badge.component.css']
+  styles: [``]
 })
 export class BadgeComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

@@ -7,7 +7,8 @@
             fcFull="true">
         </fc-navmenu>
         <!-- 选项卡导航 -->
-        <fc-navtab class="nav-tab" fccontent2 [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex" fcShowPagination="true"></fc-navtab>
+        <fc-navtab class="nav-tab" fccontent2 [fcTabs]="_tabs" (fcEvent)="navtabEvent($event)" [fcSelectedIndex]="_navTabSelectedIndex"
+        fcShowPagination="true"></fc-navtab>
         <!-- 路由入口 -->
         <div class="content-main" fccontent2>
             <router-outlet [ngStyle]="{'height':'100%'}"></router-outlet>
@@ -19,3 +20,9 @@
 <!-- 让表单样式生效 -->
 <fc-adform [hidden]="true" fcAppid="SYSAPP" [fcOption]="{}"></fc-adform>
 <fc-modalconfirm [fcTitle]="'操作提示'" [fcContent]="'是否确定删除本行数据？'" #confirmmodal></fc-modalconfirm>
+<!-- 加载条 -->
+<div class="layout-progress-wrap" *ngIf="1!=1">
+    <div class="layout-progress-out">
+        <fc-progresscircle class="layout-progress-inner" fcModel="50" [fcSize]="'large'"></fc-progresscircle>
+    </div>
+</div>

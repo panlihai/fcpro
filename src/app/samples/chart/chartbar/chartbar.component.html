@@ -4,8 +4,28 @@
   <fc-layoutcol fccontent fcSpans="1,1">
     <fc-layoutgroup fcTitle="基本" fccontent1>
       <div fccontent>
-        正在开发中
-      </div>
+          <fc-chartbar [fcOption]="_barLabels" [fcData]="_barData" (fcEvent)="chartbarEvent($event)"></fc-chartbar>
+      </div>     
+    </fc-layoutgroup>
+    <fc-layoutgroup fcTitle="柱状图横轴数据配置" fccontent2>
+      <div fccontent>
+          <fc-chartbar [fcOption]="_barLabels" [fcData]="_barData" (fcEvent)="chartbarEvent($event)"></fc-chartbar>
+          <div style="margin-top:10px;width:89%;">
+              柱状图配置数据：使用时 [fcption]="_barLabels" 、 [fcData]="_barData"、(fcEvent)="chartbarEvent($event)
+              //配置数据_barLabels: string[] = ['哈局', '沈阳局', '北京局', '太原局', '呼和局', '...', '乌鲁木齐']; 
+          </div>
+          <div style="margin-top:10px;width:89%;">
+              横轴配置数据：使用时[fcption]="_barLabels"
+              //配置数据_barLabels: string[] = ['哈局', '沈阳局', '北京局', '太原局', '呼和局', '...', '乌鲁木齐']; 
+          </div>
+          <div style="margin-top:10px;width:89%;">
+              纵轴配置数据：使用时[fcData]="_barData"
+          </div>
+          <div style="margin-top:10px;width:89%;">
+              点击事件滑入事件：(fcEvent)="chartbarEvent($event)
+            ];
+          </div>
+      </div>     
     </fc-layoutgroup>
     <fc-layoutgroup fcTitle="类型" fccontent2>
       <div fccontent>
@@ -23,13 +43,17 @@
       </div>
     </fc-layoutgroup>
   </fc-layoutcol>
-  <!-- API -->
-  <fc-layoutpanel fccontent>
-    <fc-title fcLabel="属性" fcheader> </fc-title>
-    <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-  </fc-layoutpanel>
-  <fc-layoutpanel fccontent>
-    <fc-title fcLabel="事件" fcheader> </fc-title>
-    <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-  </fc-layoutpanel>
+    <!-- API -->
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="属性" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+    </fc-layoutpanel>
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="事件" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+    </fc-layoutpanel>
 </fc-layoutpanel>

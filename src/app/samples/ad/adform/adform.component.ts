@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 import { FcadformOption } from 'fccomponent';
 @Component({
-  selector: 'app-adform',
+  selector: 'adform',
   templateUrl: './adform.component.html',
-  styleUrls: ['./adform.component.css']
+  styles: [``]
 })
 export class AdformComponent extends ComponentParent {
   formConfig: FcadformOption = { fcTitle: "元数据编辑" };

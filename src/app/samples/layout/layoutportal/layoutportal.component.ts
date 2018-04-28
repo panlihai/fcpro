@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-layoutportal',
+  selector: 'layoutportal',
   templateUrl: './layoutportal.component.html',
-  styleUrls: ['./layoutportal.component.css']
+  styles: [``]
 })
 export class LayoutportalComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

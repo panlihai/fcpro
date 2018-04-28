@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styles: [``]
 })
 export class CalendarComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

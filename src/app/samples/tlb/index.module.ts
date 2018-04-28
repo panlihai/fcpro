@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { tlbRouters } from './index.route';
-import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule } from 'fccomponent';
+import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule, FctlbModule } from 'fccomponent';
 import { TlbdropdownComponent } from './tlbdropdown/tlbdropdown.component';
 import { TlbformComponent } from './tlbform/tlbform.component';
 import { TlblistComponent } from './tlblist/tlblist.component';
@@ -17,7 +17,8 @@ import { TlblistitemComponent } from './tlblistitem/tlblistitem.component';
     FclayoutModule,
     FcadModule,
     FcnavModule,
-    FclistModule
+    FclistModule,
+    FctlbModule
   ],
   exports: [
 

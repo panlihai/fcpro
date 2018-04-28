@@ -4,8 +4,9 @@ import { ComponentService } from '../../services/component.service';
 import { ParentComponent } from 'fccomponent/parent.component';
 import { FCEVENT } from 'fccomponent/fc';
 @Component({
-  selector: 'app-listdata',
-  templateUrl: './listdata.component.html'
+  selector: 'listdata',
+  templateUrl: './listdata.component.html',
+  styles: [``]
 })
 export class ListdataComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

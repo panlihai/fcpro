@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css']
+  styles: [``]
 })
 export class EditorComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

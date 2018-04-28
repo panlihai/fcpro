@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-navside',
+  selector: 'navside',
   templateUrl: './navside.component.html',
-  styleUrls: ['./navside.component.css']
+  styles: [``]
 })
 export class NavsideComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

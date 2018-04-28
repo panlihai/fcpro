@@ -6,23 +6,22 @@ import { environment } from '../../../../environments/environment';
     selector: 'signin',
     templateUrl: './signin.component.html',
     styles: [
-    `
+        `
     .logo-txt {
         background-color: transparent !important;
     }
     .sigin-wrap {
         width: 100%;
         height: 100%;
+        position:absolute;
+        overflow:auto;
         background-color: #373d41;
-        position: absolute;
     }
 
     .sigin {
         width: 100%;
         height: 100%;
-        background-color: #1F2325;
-        background-image: url(assets/img/newlogin.png);
-        background-size: 100% 100%;
+        background-color: #1F2325;  
     }
 
     .navbar-brand>img {
@@ -34,6 +33,8 @@ import { environment } from '../../../../environments/environment';
     .sigin-body {
         padding: 74px 0 118px;
         text-align: center;
+        background-image: url(assets/img/login_bg.jpg);
+        background-size: 100% 100%;
     }
 
     .sigin-body .sigin-error {
@@ -171,15 +172,15 @@ export class SigninComponent implements OnInit {
     constructor(private router: Router, private providers: ProvidersService) { }
     ngOnInit() {
         if (this.providers.userService.getUserInfo()) {
-            this.router.navigate(['/'+environment.pid.toLocaleLowerCase()+'/home']);
+            this.router.navigate(['/' + environment.pid.toLocaleLowerCase() + '/home']);
         }
     }
     login() {
         this.providers.userService.login(this.userId, this.password).subscribe(result => {
             if (result.CODE === '0') {
                 this.hasError = false;
-                this.providers.userService.storeUserInfo(result);                
-                this.router.navigate(['/'+environment.pid.toLocaleLowerCase()+'/home']);
+                this.providers.userService.storeUserInfo(result);
+                this.router.navigate(['/' + environment.pid.toLocaleLowerCase() + '/home']);
             } else {
                 this.hasError = true;
                 this.msg = result.MSG;

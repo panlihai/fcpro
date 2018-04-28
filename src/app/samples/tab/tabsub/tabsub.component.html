@@ -1,5 +1,5 @@
 <!-- 按钮 fc-button -->
-<fc-layoutpanel>
+<fc-layoutpanel class="tabsub">
   <fc-title fcLabel="按钮" fcheader></fc-title>
   <fc-layoutcol fccontent fcSpans="1,1">
     <fc-layoutgroup fcTitle="基本" fccontent1>
@@ -12,9 +12,44 @@
       </div>
     </fc-layoutgroup>
     <fc-layoutgroup fcTitle="类型" fccontent2>
-      <div fccontent>
-        正在开发中
-      </div>
+        <div fccontent>
+          <fc-tabsub [fcTabs]="tabsub" [fcType]="card">
+            <div fccontent1>fccontent1</div>
+            <div fccontent2>fccontent2</div>
+            <div fccontent3>fccontent3</div>
+          </fc-tabsub>
+          <div style="margin-top: 20px;">类型：[fcType]="card"/没有横线</div>
+        </div>
+    </fc-layoutgroup>
+    <fc-layoutgroup fcTitle="标题" fccontent2>
+        <div fccontent>
+          <fc-tabsub [fcTabs]="tabsub" [fcSelectedIndex]="tabIndex">
+            <div fccontent1>fccontent1</div>
+            <div fccontent2>fccontent2</div>
+            <div fccontent3>fccontent3</div>
+          </fc-tabsub>
+          <div style="margin-top: 20px;">标题：[fcTabs]="tabsub"/tabsub是配置参数</div>
+        </div>
+      </fc-layoutgroup>
+      <fc-layoutgroup fcTitle="选中索引" fccontent1>
+        <div fccontent>
+          <fc-tabsub [fcTabs]="tabsub" [fcSelectedIndex]="1">
+            <div fccontent1>fccontent1</div>
+            <div fccontent2>fccontent2</div>
+            <div fccontent3>fccontent3</div>
+          </fc-tabsub>
+          <div style="margin-top: 20px;">选中索引：[fcSelectedIndex]="1"/类型为number</div>
+        </div>
+    </fc-layoutgroup>
+    <fc-layoutgroup fcTitle="选项卡定位" fccontent1>
+        <div fccontent>
+          <fc-tabsub [fcTabs]="tabsub" [fcShowPagination]="top">
+            <div fccontent1>fccontent1</div>
+            <div fccontent2>fccontent2</div>
+            <div fccontent3>fccontent3</div>
+          </fc-tabsub>
+          <div style="margin-top: 20px;">选项卡定位：[fcShowPagination]="top"/值有top 、 right 、left 、center</div>
+        </div>
     </fc-layoutgroup>
     <fc-layoutgroup fcTitle="大小" fccontent1>
       <div fccontent>
@@ -28,12 +63,16 @@
     </fc-layoutgroup>
   </fc-layoutcol>
 </fc-layoutpanel>
-<!-- API -->
-<fc-layoutpanel>
-  <fc-title fcLabel="属性" fcheader> </fc-title>
-  <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+    <!-- API -->
+<fc-layoutpanel fccontent>
+        <fc-title fcLabel="属性" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
 </fc-layoutpanel>
-<fc-layoutpanel>
-  <fc-title fcLabel="事件" fcheader> </fc-title>
-  <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+<fc-layoutpanel fccontent>
+        <fc-title fcLabel="事件" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
 </fc-layoutpanel>

@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 import { TreeOptions, FctreeComponent } from 'fccomponent';
+import { FCEVENT } from 'fccomponent/fc';
 @Component({
   selector: 'app-tree',
   templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.css']
+  styles: [``]
 })
 export class TreeComponent extends ComponentParent {
   treeSelectObj: any = {};
@@ -37,5 +38,11 @@ export class TreeComponent extends ComponentParent {
   };
   constructor(public mainService: ComponentService) {
     super('FCTREE', mainService);
+  }
+  treeFlesh(){
+
+  }
+  event(fc:FCEVENT){
+
   }
 }

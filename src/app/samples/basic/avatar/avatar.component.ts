@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-avatar',
   templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.css']
+  styles: [``]
 })
 export class AvatarComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {
