@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "fccomponent": "^0.5.23"    
+    "fccomponent": "^0.6.3"
   },
   "devDependencies": {
     "@angular/cli": "1.6.7",

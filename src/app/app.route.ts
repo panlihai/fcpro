@@ -12,7 +12,7 @@ export const AppRouters: Routes = [
         canActivate: [UserService],
         children: [
             {
-                path: '',//高级组件
+                path: '',//组件
                 loadChildren: './samples/index.module#SamplesModule'
             }
             , {
