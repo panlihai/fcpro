@@ -47,6 +47,7 @@ export class LayoutService {
             this.sysmessageService.findWithQuery({ NOTIFICATIONUSERID: user.USERCODE, PAGESIZE: 1000, ISREAD: 'N', ORDER: "TS desc" })
         ]);
     }
+
     /**
      * 
      * @param router 
@@ -72,6 +73,8 @@ export class LayoutService {
         //判断是否存在路由
         let existTabs = this._tabs.filter(element => element.id === menu.ID);
         if (existTabs.length === 0) {
+
+
             this._tabs.push({
                 id: menu.ID,
                 enabled: true,
@@ -128,6 +131,11 @@ export class LayoutService {
             window.open(menu.MENUURL);
         }
     }
+
+    /**
+     * 存储路由
+     * @param menu 
+     */
     /**
      * 存储路由
      * @param menu 

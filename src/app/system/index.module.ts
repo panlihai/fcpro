@@ -36,6 +36,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysroleauthService } from './services/sysroleuser.service';
+import { LayoutService } from './services/layout.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -77,6 +78,7 @@ import { SysroleauthService } from './services/sysroleuser.service';
     HomeComponent
   ],
   providers: [
+    LayoutService,
     MainService,
     SysdatasourceService,
     SysappService,

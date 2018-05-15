@@ -12,11 +12,11 @@ import {
   FcalertModule,
   FclayoutModule,
   FclistModule,
-  FcchartModule
+  FcchartModule,
+  FcprogressModule
 } from 'fccomponent';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, RouteReuseStrategy } from '@angular/router';
-import { environment } from '../environments/environment';
 import { AppRouters } from './app.route';
 import { LayoutComponent } from './layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,7 +47,8 @@ import { FccoreModule, MessageService } from 'fccore';
     FclayoutModule,
     FclistModule,
     FcmodalModule,
-    FcchartModule
+    FcchartModule,
+    FcprogressModule
   ],
   declarations: [
     AppComponent,
