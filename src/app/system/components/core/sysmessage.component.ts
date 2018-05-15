@@ -32,7 +32,7 @@ import { SysmessageService } from 'fccore';
   `]
 })
 export class SysmessageComponent extends ParentlistComponent {
-   constructor(public mainService: SysmessageService,
+  constructor(public mainService: SysmessageService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
     super(mainService, router, activeRoute);

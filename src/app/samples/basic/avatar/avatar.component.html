@@ -1,62 +1,113 @@
-<!-- 按钮 fc-button -->
+<!-- 头像 fc-avatar -->
 <fc-layoutpanel>
-    <fc-title fcLabel="按钮" fcheader></fc-title>
-    <fc-layoutcol fccontent fcSpans="1,1">
-        <fc-layoutgroup fcTitle="基本" fccontent1>
-            <div fccontent>
-                <fc-avatar fcIcon="user" fcSize="small" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcIcon="user" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcIcon="user" fcSize="large" style="margin-right: 24px;"></fc-avatar>
+    <!-- 快速定位 -->
+    <fc-layoutcol fcSpans="9,1" fccontent>
+        <fc-title fcLabel="头像" fcheader fcSubtitle="用来代表用户或事物，支持图片、图标或字符展示。" fcHasline="false"></fc-title>
+        <fc-title fcLabel="何时使用" fcheader fcSubtitle="代表用户或事物，设置头像" fcHasline="false"></fc-title>
+        <fc-title fcLabel="代码演示" fcheader fcHasline="false"></fc-title>
+        <fc-layoutpanel fccontent1>
+        <!-- 组件内容开始 -->
+        <fc-layoutpanel fccontent>
+            <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>
+            <fc-layoutcol fccontent fcSpans="1,1">
+                <fc-layoutgroup id="basic" fcTitle="基本" fccontent1>
+                    <div fccontent>
+                        <fc-avatar fcIcon="user"></fc-avatar>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="最基本的用法。" 
+                     fcview='<fc-avatar fcIcon="user"></fc-avatar>' 
+                     [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="size" fcTitle="大小" fccontent2>
+                    <div fccontent>
+                        <fc-avatar fcIcon="user" fcSize="small" class="avatar"></fc-avatar>
+                        <fc-avatar fcIcon="user" fcSize="default" class="avatar"></fc-avatar>
+                        <fc-avatar fcIcon="user" fcSize="large" class="avatar"></fc-avatar>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" 
+                    fcRemark="头像有三种大小:大(large)、默认(default)、小(small)。" 
+                    [fcview]="sizeview"[fcstyle]="avatarstyle"
+                     [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="squer" fcTitle="方形" fccontent1>
+                    <div fccontent>
+                        <fc-avatar fcIcon="user" fcShape="square" fcSize="small" class="avatar"></fc-avatar>
+                        <fc-avatar fcText="Neusoft" fcShape="square" class="avatar"></fc-avatar>
+                        <fc-avatar fcIcon="user" fcShape="square" class="avatar" fcSrc="http://img5.imgtn.bdimg.com/it/u=1306068130,3101041517&fm=27&gp=0.jpg" fcSize="large"></fc-avatar>  
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" 
+                    fcRemark="方形按钮支持三种类型图片、Icon 以及字符，其中 Icon 和字符型可以自定义图标颜色及背景色。" 
+                    [fcview]="squerview"[fcstyle]="avatarstyle"
+                    [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="text" fcTitle="字符类型" fccontent2>
+                    <div fccontent>
+                        <fc-avatar fcText="PLH" fcShape="square" fcSize="large" fcColor="blue" fcBgColor="#000000" style="margin-right: 24px;"></fc-avatar>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" 
+                    fcRemark="自定义图标颜色及背景。" 
+                    [fcview]="textview"[fcstyle]="avatarstyle"
+                    [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="icon" fcTitle="徽标头像" fccontent1>
+                    <div fccontent style="margin-top:10px;">
+                        <fc-avatar fcCount="5" fcIcon="user" fcSize="small" class="avatar"></fc-avatar>
+                        <fc-avatar fcCount="5" fcIcon="user" class="avatar"></fc-avatar>
+                        <fc-avatar fcCount="5" fcIcon="user" fcSize="large" class="avatar"></fc-avatar>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" 
+                    fcRemark="带数字徽标的头像" 
+                    [fcview]="iconview"[fcstyle]="avatarstyle"
+                    [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="circle" fcTitle="圆点" fccontent2>
+                    <div fccontent>
+                        <fc-avatar fcIcon="user" fcSize="small" fcMode="DOT" class="avatar"></fc-avatar>
+                        <fc-avatar fcIcon="user" fcHasDot="true" fcMode="DOT" class="avatar"></fc-avatar>
+                        <fc-avatar fcIcon="user" fcSize="large" fcMode="DOT" class="avatar"></fc-avatar>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" 
+                    fcRemark="带圆点徽标的头像" 
+                    [fcview]="circleview"[fcstyle]="avatarstyle"
+                    [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+            </fc-layoutcol>
+        </fc-layoutpanel>
+        <!-- API -->
+        <fc-layoutpanel fccontent>
+            <fc-title id="attributesAPI" fcLabel="属性" fcheader> </fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
             </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="方形" fccontent2>
-            <div fccontent>
-                <fc-avatar fcIcon="user" fcShape="square" fcSize="small" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcIcon="user" fcShape="square" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcIcon="user" fcShape="square" fcSize="large" style="margin-right: 24px;"></fc-avatar>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent>
+            <fc-title id="eventAPI" fcLabel="事件" fcheader> </fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
             </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="头像大小" fccontent1>
-            <div fccontent>
-                <fc-avatar fcIcon="user" fcSize="small" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcIcon="user" fcSize="default" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcIcon="user" fcSize="large" style="margin-right: 24px;"></fc-avatar>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="字符类型" fccontent2>
-            <div fccontent>
-                <label> 自定义图标颜色及背景色 </label>
-                <fc-avatar fcText="PLH" fcShape="square" fcSize="large" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcText="PLH" fcShape="square" fcSize="large" fcColor="blue" fcBgColor="#000000" style="margin-right: 24px;"></fc-avatar>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="带徽标的头像" fccontent2>
-            <div fccontent>
-                <fc-avatar fcCount="5" fcIcon="user" fcSize="small" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcCount="5" fcIcon="user" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcCount="5" fcIcon="user" fcSize="large" style="margin-right: 24px;"></fc-avatar>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="圆点" fccontent2>
-            <div fccontent>
-                <fc-avatar fcIcon="user" fcSize="small" fcMode="DOT" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcIcon="user" fcHasDot="true" fcMode="DOT" style="margin-right: 24px;"></fc-avatar>
-                <fc-avatar fcIcon="user" fcSize="large" fcMode="DOT" style="margin-right: 24px;"></fc-avatar>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="更多" fccontent1>
-            <div fccontent>
-                待开发
-            </div>
-        </fc-layoutgroup>
+        </fc-layoutpanel>
+        <!-- 组件内容结束 -->
+        </fc-layoutpanel>
+        <div class="fastposition-content" fccontent2>
+        <fc-fastposition [fcLinks]="
+            [
+            {href:'basic','label':'基本'},
+            {href:'size','label':'大小'},
+            {href:'squer','label':'方形图标'},
+            {href:'text','label':'字符类型'},
+            {href:'icon','label':'徽标头像'},
+            {href:'circle','label':'圆点图标'},
+            {href:'attributesAPI','label':'属性API'},
+            {href:'eventAPI','label':'事件API'}
+            ]">
+        </fc-fastposition>
+        </div>
     </fc-layoutcol>
-    <!-- API -->
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="属性" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-    </fc-layoutpanel>
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="事件" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-    </fc-layoutpanel>
+    <!-- 快速定位结束 -->
+    
+    
+    
+    
+   
 </fc-layoutpanel>

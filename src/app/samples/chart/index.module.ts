@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { chartRouters } from './index.route';
-import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule } from 'fccomponent';
+import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule, FcchartModule } from 'fccomponent';
 import { ChartbarComponent } from './chartbar/chartbar.component';
 import { ChartlineComponent } from './chartline/chartline.component';
 import { ChartpieComponent } from './chartpie/chartpie.component';
@@ -16,7 +16,8 @@ import { ChartpieComponent } from './chartpie/chartpie.component';
     FclayoutModule,
     FcadModule,
     FcnavModule, 
-    FclistModule
+    FclistModule,
+    FcchartModule
   ],
   exports: [
 

@@ -1,30 +1,69 @@
 <!-- 树控件 fc-tree -->
-<fc-layoutpanel>
-    <fc-title fcLabel="树控件" fcheader></fc-title>
-    <fc-layoutcol fccontent fcSpans="1,1">
-        <fc-layoutgroup fcTitle="基本" fccontent1>
-            <div fccontent>
-                <label (click)="treeFlesh()">选中：{{treeSelectObj|json}}</label>
-                <fc-tree [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" #tree></fc-tree>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="事件" fccontent2>
-            <div fccontent>
-                <fc-tree [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" (fcEvent)="event($event);"></fc-tree>
-            </div>
-        </fc-layoutgroup>
+<fc-layoutpanel class="templatefastposition samples">
+    <!-- 快速定位 -->
+    <fc-layoutcol fcSpans="9,1" fccontent>
+        <fc-title fcLabel="树控件" fcheader fcSubtitle="树控件组件" fcHasline="false"></fc-title>
+        <fc-title fcLabel="何时使用" fcheader fcSubtitle="点击按钮出现点击下拉树" fcHasline="false"></fc-title>
+        <fc-title fcLabel="代码演示" fcheader fcHasline="false"></fc-title>
+        <fc-layoutpanel fccontent1>
+        <!-- 组件内容开始 -->
+            <fc-layoutpanel fccontent>
+                    <fc-title id="basic" fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>
+                    <fc-layoutcol fccontent fcSpans="1,1">
+                        <fc-layoutgroup fcTitle="基本" fccontent1>
+                            <div fccontent>
+                                <fc-tree [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" #tree></fc-tree>
+                                <fc-adcode fcfooter fcTitle="描述" fcRemark="基本的显示。" 
+                                fcview=' <fc-tree [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" #tree></fc-tree>'
+                                [fccode]="basicjs">
+                                </fc-adcode>
+                            </div>
+                        </fc-layoutgroup>
+                    </fc-layoutcol>
+            </fc-layoutpanel>
+            <fc-layoutpanel fccontent>
+                    <fc-title id="treeejs" fcLabel="事件" fcheader fcHasLine="false" fcSize="small"></fc-title>
+                    <fc-layoutcol fccontent fcSpans="1,1">
+                        <fc-layoutgroup fcTitle="事件" fccontent1>
+                            <div fccontent>
+                                <fc-tree [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" (fcEvent)=" treeEvent($event);"></fc-tree>
+                            </div>
+                            <fc-adcode fcfooter fcTitle="描述" fcRemark="基本的显示。" 
+                            fcview='treeeview'
+                            [fccode]="basicjs">
+                            </fc-adcode>
+                        </fc-layoutgroup>
+                    </fc-layoutcol>
+            </fc-layoutpanel>
+            <!-- API -->
+            <fc-layoutpanel fccontent>
+                <fc-title id="attributesAPI" fcLabel="属性" fcheader> </fc-title>
+                <div style="height:450px;" fccontent>
+                    <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+                </div>
+            </fc-layoutpanel>
+            <fc-layoutpanel fccontent>
+                <fc-title id="eventAPI" fcLabel="事件" fcheader> </fc-title>
+                <div style="height:450px;" fccontent>
+                    <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+                </div>
+            </fc-layoutpanel>
+        <!-- 组件内容结束 -->
+        </fc-layoutpanel>
+        <div class="fastposition-content" fccontent2>
+            <fc-fastposition [fcLinks]="
+                [
+                {href:'basic','label':'基本'},
+                {href:'treeejs','label':'树事件'},
+                {href:'attributesAPI','label':'属性API'},
+                {href:'eventAPI','label':'事件API'}
+                ]">
+            </fc-fastposition>
+        </div>
     </fc-layoutcol>
-    <!-- API -->
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="属性" fcheader> </fc-title>
-        <div style="height:450px;" fccontent>
-            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-        </div>
-    </fc-layoutpanel>
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="事件" fcheader> </fc-title>
-        <div style="height:450px;" fccontent>
-            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-        </div>
-    </fc-layoutpanel>
+    <!-- 快速定位结束 -->
+   
+   
+    
+   
 </fc-layoutpanel>

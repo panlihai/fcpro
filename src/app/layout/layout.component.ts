@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuOptions, NavsideOptions, NAVSIDECOLOR, FcnavsideComponent, FcTaboptions } from 'fccomponent/fcnav';
 import { environment } from '../../environments/environment';
-import { FCEVENT } from 'fccomponent/fc';
 import { ProvidersService, MessageService } from 'fccore';
+import { FcmodalconfirmComponent } from 'fccomponent/fcmodal/fcmodalconfirm.component';
+import { FCEVENT } from 'fccomponent/fc';
+import { NavsideOptions } from 'fccomponent/fcnav/fcnavside.component';
+import { MenuOptions } from 'fccomponent/fcnav/fcnavmenu.component';
+import { FcTaboptions } from 'fccomponent/fcnav/fcnavtab.component';
 import { LayoutService } from '../system/services/layout.service';
-import { FcmodalconfirmComponent } from 'fccomponent';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -17,7 +19,7 @@ import { FcmodalconfirmComponent } from 'fccomponent';
     padding: 41px 5px 5px;
     height: 100%;
     box-sizing: border-box;
-    background: #ececec;
+    background: #e7e9eb;
     position: relative;
   }
   :host ::ng-deep .content-main{
@@ -28,7 +30,7 @@ import { FcmodalconfirmComponent } from 'fccomponent';
     overflow-y: auto;
     box-sizing: border-box;
     background-color: #EEF7FC;
-    border-top: 4px solid #ececec;
+    border-top: 5px solid #ececec;
   }
   :host ::ng-deep router-outlet + * {
     width: 100%;
@@ -47,6 +49,7 @@ import { FcmodalconfirmComponent } from 'fccomponent';
     top:5px;
     left:5px;
     background-color:#ffffff;
+    height:42px;
   }
   .nav-breadcrub {
     width:calc(100% - 5px);
@@ -85,7 +88,7 @@ export class LayoutComponent implements OnInit {
   allmenus = [];
   _menus: any = [];
   _tabs: FcTaboptions[];
-  _navTabSelectedIndex: number = 0;
+  _navTabSelectedIndex: string = "0";
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private mainService: LayoutService
@@ -130,7 +133,7 @@ export class LayoutComponent implements OnInit {
           if (childMenu.HASCHILD === 'Y') {
             childMenu.opened = true;
             let gChildMenu = childMenu.P_CHILDMENUS[0];
-            gChildMenu[0].select = true;
+            gChildMenu.select = true;
           } else {
             childMenu.select = true;
           }
@@ -169,7 +172,7 @@ export class LayoutComponent implements OnInit {
         break;
       case 'select':
         //导航并存储列表
-        this.mainService.navStoreMenu(this._router, event.param);
+        this.mainService.storeMenu(this._router, event.param,{});
         this._navTabSelectedIndex = this.mainService._selectedIndex;
         this._navmenuSelected = this.mainService._navmenuSelected;
         break;

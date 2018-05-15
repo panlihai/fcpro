@@ -1,59 +1,41 @@
 <!-- 快速定位 fc-fastposition -->
-<fc-layoutpanel>
-    <fc-title id="position1" fcTitle="快速定位" fcheader></fc-title>
-    <fc-layoutcol fccontent fcSpans="1,1">
-        <fc-layoutgroup fcTitle="基本" fccontent1>
-            <div fccontent>
-                <fc-fastposition [fcLinks]="fastpositionlinks"></fc-fastposition>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="类型" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="大小" fccontent1>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="固定" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="更多" fccontent1>
-            <div fccontent>
-                待开发
-            </div>
-        </fc-layoutgroup>
-    </fc-layoutcol>
-    <!-- API -->
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="属性" id="position2" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-    </fc-layoutpanel>
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="事件" id="position3" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-    </fc-layoutpanel>
-</fc-layoutpanel>
 <!-- 快速定位 -->
-<fc-layoutpanel>
-    <fc-title fcLabel="位置4" id="position4" fcheader></fc-title>
-    <fc-layoutgroup id="p4child1" fcTitle="位置4child1" fccontent>
-        <div fccontent style="height:200px;">
-            位置4child1
+<fc-layoutcol fcSpans="9,1" fccontent>
+        <fc-title fcLabel="快速定位" fccontent1 fcSubtitle="用于跳转到页面指定位置。" fcHasline="false"></fc-title>
+        <fc-title fcLabel="何时使用" fccontent1 fcSubtitle="需要展现当前页面上可供跳转的锚点链接，以及快速在锚点之间跳转。" fcHasline="false"></fc-title>
+        <fc-title fcLabel="代码演示" fccontent1 fcHasline="false"></fc-title>
+        <fc-layoutpanel fccontent1>
+        <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>       
+        <!-- 组件内容开始 -->
+            <fc-layoutcol fccontent fcSpans="1">   
+                <fc-layoutgroup id="id0" fcTitle="第一部分" fccontent1  class="blue">
+                        <div fccontent class="blue"></div>   
+                </fc-layoutgroup>
+                <fc-layoutgroup id="id1" fcTitle="第二部分" fccontent1  class="blue">
+                        <div fccontent class="gre"></div>   
+                </fc-layoutgroup>
+                <fc-layoutgroup id="id2" fcTitle="第三部分" fccontent1  class="blue">
+                        <div fccontent class="black"></div>   
+                </fc-layoutgroup>
+                <fc-layoutgroup id="id3" fcTitle="第四部分" fccontent1  class="blue">
+                        <div fccontent class="pink"></div>   
+                </fc-layoutgroup>
+                <fc-adcode fcfooter fccontent1 fcTitle="描述"
+                 fcRemark="最基本的用法。" 
+                 [fcview]="basicview" [fcstyle]="basicstyle" [fccode]="basicjs">
+                </fc-adcode>
+            </fc-layoutcol>
+        <!-- 组件内容结束 -->
+        </fc-layoutpanel>
+        <div class="fastposition-content" fccontent2>
+        <fc-fastposition [fcLinks]="
+        [
+        {href:'id0','label':'第一部分'},
+        {href:'id1','label':'第二部分'},
+        {href:'id2','label':'第三部分'},
+        {href:'id3','label':'第四部分'}
+        ]">
+        </fc-fastposition>
         </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup id="p4child2" fcTitle="位置4child2" fccontent>
-        <div fccontent style="height:200px;">
-            位置4child2
-        </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup id="p4child3" fcTitle="位置4child3" fccontent>
-        <div fccontent style="height:200px;">
-            位置4child3
-        </div>
-    </fc-layoutgroup>
-</fc-layoutpanel>
+</fc-layoutcol>
+<!-- 快速定位结束 -->

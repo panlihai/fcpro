@@ -1,35 +1,208 @@
 <!-- 数据列表 fc-listdata -->
-<fc-layoutpanel>
-  <fc-title fcLabel="数据列表" fcheader></fc-title>
-  <fc-layoutcol fccontent fcSpans="1,1">
-    <fc-layoutgroup fcTitle="基本" fccontent1>
-      <div style="width:100%;height: 500px;" fccontent>
-        <fc-listdata [fcAppid]="'SYSAPP'" (fcEvent)="event($event);"></fc-listdata>
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="类型" fccontent2>
-      <div fccontent>
-        正在开发中
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="大小" fccontent1>
-      <div fccontent>
-        正在开发中
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="更多" fccontent2>
-      <div fccontent>
-        待开发
-      </div>
-    </fc-layoutgroup>
-  </fc-layoutcol>
-  <!-- API -->
-  <fc-layoutpanel fccontent> 
-    <fc-title fcLabel="属性" fcheader> </fc-title>
-    <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-  </fc-layoutpanel>
-  <fc-layoutpanel fccontent>
-    <fc-title fcLabel="事件" fcheader> </fc-title>
-    <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-  </fc-layoutpanel>
+<fc-layoutpanel class="templatefastposition samples listdata">
+  <!-- 快速定位 -->
+    <fc-layoutcol fcSpans="9,1" fccontent>
+        <fc-title fcLabel="数据列表" fcheader fcSubtitle="数据列表组件" fcHasline="false"></fc-title>
+        <fc-title fcLabel="何时使用" fcheader fcSubtitle="需要一个数据列表可以搜索选中点击" fcHasline="false"></fc-title>
+        <fc-title fcLabel="代码演示" fcheader fcHasline="false"></fc-title>
+        <fc-layoutpanel fccontent1>
+        <!-- 组件内容开始 -->
+        <fc-layoutpanel fccontent>
+            <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>
+            <fc-layoutcol fccontent fcSpans="1,1">
+              <fc-layoutgroup id="basic" fcTitle="基本" fccontent1>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptions"[fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <div fccontent style="margin-top:20px;">
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="最基本的用法"
+                [fcview]="basicview"
+                [fccode]="basicjs">
+                </fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="option" fcTitle="数据配置" fccontent2>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptions" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="数据配置使用元数据配置"
+                [fcview]="basicview"
+                [fccode]="basicjs">
+                </fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="datashow" fcTitle="数据显示" fccontent1>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptionpage" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="每页显示数据条数"
+                [fcview]="basicview"
+                [fccode]="pagejs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="search" fcTitle="启用查询" fccontent2>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptionsearch" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="启用查询"
+                [fcview]="searchview"
+                [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="pagination" fcTitle="启用排序" fccontent1>
+                  <div style="width:100%;height: 250px;" fccontent>
+                    <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOption" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                  </div>
+                  <fc-adcode fcfooter fcTitle="描述" fcRemark="启用排序"
+                  [fcview]="searchview"
+                  [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="filter" fcTitle="启用过滤" fccontent2>
+                  <div style="width:100%;height: 250px;" fccontent>
+                    <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptionsearch" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                  </div>
+                  <fc-adcode fcfooter fcTitle="描述" fcRemark="启用过滤"
+                  [fcview]="basicview"
+                  [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup fcTitle="启用工具栏" fccontent1>
+                  <div style="width:100%;height: 250px;" fccontent>
+                    <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOption" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                  </div>
+                  <fc-adcode fcfooter fcTitle="描述" fcRemark="启用工具栏"
+                  [fcview]="basicview"
+                  [fccode]="tlbjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="title" fcTitle="表头大小" fccontent2>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOption" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="自动设置表头大小"
+                [fcview]="basicview"
+                [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="group" fcTitle="分组" fccontent1>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOption" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="启用分组"
+                [fcview]="searchview"
+                [fccode]="groupjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="status" fcTitle="状态栏" fccontent2>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOption" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="状态栏"
+                [fcview]="basicview"
+                [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="select" fcTitle="区域选中" fccontent1>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOption" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="是否启用区域选中"
+                [fcview]="basicview"
+                [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="rowselect" fcTitle="操作列" fccontent2>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptionrowselect" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="启用操作列"
+                [fcview]="basicview"
+                [fccode]="rowselectjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="check" fcTitle="复选框" fccontent1>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOption" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="选中有复选框"
+                [fcview]="basicview"
+                [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="save" fcTitle="自动保存" fccontent2>
+                <div style="width:100%;height: 250px;" fccontent>
+                  <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptionsave" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="启用自动保存"
+                [fcview]="basicview"
+                [fccode]="savejs"></fc-adcode>
+              </fc-layoutgroup>
+            </fc-layoutcol>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent>
+            <fc-title fcLabel="事件" fcheader fcHasLine="false" fcSize="small"></fc-title>
+            <fc-layoutcol fccontent fcSpans="1,1">
+                <fc-layoutgroup fcTitle="单元格事件" fccontent1>
+                    <div style="width:100%;height: 250px;" fccontent>
+                      <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="单元格事件"
+                    [fcview]="eventview"
+                    [fccode]="eventjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup fcTitle="单击事件" fccontent2>
+                    <div style="width:100%;height: 250px;" fccontent>
+                        <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                      </div>
+                      <fc-adcode fcfooter fcTitle="描述" fcRemark="单击事件"
+                    [fcview]="eventview"
+                    [fccode]="eventjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup fcTitle="选中事件" fccontent1>
+                    <div style="width:100%;height: 250px;" fccontent>
+                        <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                      </div>
+                      <fc-adcode fcfooter fcTitle="描述" fcRemark="选中事件"
+                      [fcview]="eventview"
+                      [fccode]="eventjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup fcTitle="双击事件" fccontent2>
+                    <div style="width:100%;height: 250px;" fccontent>
+                        <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptions" (fcEvent)="listdataEvent($event)" [fcCondition]="listDataCustomCondition"></fc-listdata>
+                      </div>
+                      <fc-adcode fcfooter fcTitle="描述" fcRemark="双击单元格事件"
+                      [fcview]="eventview"
+                      [fccode]="eventjs"></fc-adcode>
+                </fc-layoutgroup>
+            </fc-layoutcol>
+        </fc-layoutpanel>
+          <!-- API -->
+        <fc-layoutpanel fccontent>
+              <fc-title id="attributesAPI" fcLabel="属性" fcheader></fc-title>
+              <div style="height:450px;" fccontent>
+                  <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+              </div>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent>
+              <fc-title id="eventAPI" fcLabel="事件" fcheader></fc-title>
+              <div style="height:450px;" fccontent>
+                  <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+              </div>
+        </fc-layoutpanel>
+        <!-- 组件内容结束 -->
+        </fc-layoutpanel>
+        <div class="fastposition-content" fccontent2>
+        <fc-fastposition [fcLinks]="
+            [
+            {href:'basic','label':'基本'},
+            {href:'option','label':'数据配置'},
+            {href:'datashow','label':'数据显示'},
+            {href:'search','label':'启用查询'},
+            {href:'pagination','label':'启用排序'},
+            {href:'filter','label':'数据过滤'},
+            {href:'tlb','label':'工具栏'},
+            {href:'title','label':'表头大小'},
+            {href:'group','label':'分组'},
+            {href:'status','label':'状态栏'},
+            {href:'slect','label':'区域选中'},
+            {href:'rowselect','label':'操作列'},
+            {href:'check','label':'复选框'},
+            {href:'save','label':'自动保存'},
+            {href:'attributesAPI','label':'属性API'},
+            {href:'eventAPI','label':'事件API'}
+            ]">
+        </fc-fastposition>
+        </div>
+    </fc-layoutcol>
+    <!-- 快速定位结束 -->
 </fc-layoutpanel>

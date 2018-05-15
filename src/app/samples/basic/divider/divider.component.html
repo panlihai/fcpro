@@ -1,65 +1,73 @@
 <!-- 分隔 fc-divider -->
 <fc-layoutpanel>
-    <fc-title fcLabel="分隔" fcheader></fc-title>
-    <fc-layoutcol fccontent fcSpans="1,1">
-        <fc-layoutgroup fcTitle="基本" fccontent1>
-            <div fccontent>
-                <fc-divider></fc-divider>
+    <!-- 快速定位 -->
+<fc-layoutcol fcSpans="9,1" fccontent>
+        <fc-title fcLabel="分隔" fcheader fcSubtitle="分隔组件" fcHasline="false"></fc-title>
+        <fc-title fcLabel="何时使用" fcheader fcSubtitle="内容之间需要有分隔时" fcHasline="false"></fc-title>
+        <fc-title fcLabel="代码演示" fcheader fcHasline="false"></fc-title>
+        <fc-layoutpanel fccontent1>
+        <!-- 组件内容开始 -->
+        <fc-layoutpanel fccontent>
+            <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>
+            <fc-layoutcol fccontent fcSpans="1,1">
+                <fc-layoutgroup id="basic" fcTitle="基本" fccontent1>
+                    <div fccontent>
+                        <fc-divider></fc-divider>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="最基本的用法。" 
+                    fcview='<fc-divider></fc-divider>' [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="text" fcTitle="带文字" fccontent2>
+                    <div fccontent>
+                        <fc-divider fcText="这是一个分割线"></fc-divider>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="最基本的用法。" 
+                    fcview='<fc-divider fcText="这是一个分割线"></fc-divider>' [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="tooltip" fcTitle="提示信息" fccontent1>
+                    <div fccontent style="margin-bottom: 10px;">
+                        <fc-divider fcTooltip="提示信息"></fc-divider>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="最基本的用法。" 
+                    fcview='<fc-divider fcTooltip="提示信息"></fc-divider>' [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+            </fc-layoutcol>
+        </fc-layoutpanel>
+        <!-- API -->
+        <fc-layoutpanel fccontent>
+            <fc-title id="attributesAPI" fcLabel="属性" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
             </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="类型" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="大小" fccontent1>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="带文字" fccontent2>
-            <div fccontent>
-                <fc-divider fcText="这是一个分割线"></fc-divider>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="默认箭头方向" fccontent1>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="点击后走向东" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="点击后走向南" fccontent1>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="点击后走向西" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="点击后走向北" fccontent1>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="更多" fccontent2>
-            <div fccontent>
-                待开发
-            </div>
-        </fc-layoutgroup>
-    </fc-layoutcol>
-    <!-- API -->
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="属性" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-    </fc-layoutpanel>
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="事件" fcheader> </fc-title>
-        <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-    </fc-layoutpanel>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent>
+                <fc-title id="eventAPI" fcLabel="事件" fcheader></fc-title>
+                <div style="height:450px;" fccontent>
+                    <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+                </div>
+        </fc-layoutpanel>
+        <!-- 组件内容结束 -->
+        </fc-layoutpanel>
+        <div class="fastposition-content" fccontent2>
+            <fc-fastposition [fcLinks]="
+            [
+            {href:'basic','label':'基本'},
+            {href:'text','label':'带文字'},
+            {href:'tooltip','label':'提示讯息'},
+            {href:'attributesAPI','label':'属性API'},
+            {href:'eventAPI','label':'事件API'}
+            ]">
+        </fc-fastposition>
+        </div>
+        </fc-layoutcol>
+        <!-- 快速定位结束 -->
+    
+    
+    
+    
+    
+   
 </fc-layoutpanel>

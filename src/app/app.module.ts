@@ -26,7 +26,7 @@ import { LayoutService } from './system/services/layout.service';
 import { FcRouteReuseStrategy } from './system/services/routereusestrategy.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NgZorroAntdModule } from 'ng-zorro-antd';
 import { FccoreModule, MessageService } from 'fccore';
 @NgModule({
   imports: [
@@ -57,7 +57,7 @@ import { FccoreModule, MessageService } from 'fccore';
   ],
   providers: [
     LayoutService,
-    NzMessageService,
+    NzMessageService,    
     { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy }
   ],
   bootstrap: [AppComponent]

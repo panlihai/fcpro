@@ -1,69 +1,72 @@
 <!-- 图标 fc-icon -->
-<fc-layoutpanel>
-    <fc-title fcLabel="图标" fcheader></fc-title>
-    <fc-layoutcol fccontent fcSpans="1,1">
-        <fc-layoutgroup fcTitle="基本" fccontent1>
-            <div fccontent>
-                <fc-icon fcIcon="fc-leave"></fc-icon>
-                <fc-icon fcIcon="fc-withdraw"></fc-icon>
-                <fc-icon fcIcon="fc-everyday"></fc-icon>
+<fc-layoutpanel class="templatefastposition samples">
+    <!-- 快速定位 -->
+<fc-layoutcol fcSpans="9,1" fccontent>
+        <fc-title fcLabel="图标" fccontent1 fcSubtitle="语义化的矢量图形。" fcHasline="false"></fc-title>
+        <fc-title fcLabel="何时使用" fccontent1 fcSubtitle="我们为每个图标赋予了语义化的命名" fcHasline="false"></fc-title>
+        <fc-title fcLabel="代码演示" fccontent1 fcHasline="false"></fc-title>
+        <fc-layoutpanel fccontent1>
+        <!-- 组件内容开始 -->
+        <fc-layoutpanel fccontent>
+                <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>
+                <fc-layoutcol fccontent fcSpans="1">
+                    <fc-layoutgroup fcTitle="图标库" fccontent1>
+                        <div fccontent>
+                                <span *ngFor="let icon of icons" 
+                                        class="fc_icon_layout">
+                                    <fc-icon [fcIcon]="icon.DICVALUE"></fc-icon>
+                                    <span>{{icon.DICDESC}}</span>
+                                </span>
+                        </div>
+                    </fc-layoutgroup>
+                </fc-layoutcol>    
+                <fc-layoutcol fccontent fcSpans="1,1">
+                        <fc-layoutgroup id="basic" fcTitle="基本" fccontent1>
+                            <div fccontent>
+                                <fc-icon fcIcon="fc-icon-notice" fcSize="default" fcToolTip="default"></fc-icon>
+                            </div>
+                            <fc-adcode fcfooter fcTitle="描述" fcRemark="最基本的用法。"
+                            fcview='<fc-icon fcIcon="fc-icon-notice" fcSize="default" fcToolTip="default"></fc-icon>'
+                            [fccode]="basicjs"></fc-adcode>
+                        </fc-layoutgroup>
+                        <fc-layoutgroup id="size" fcTitle="图标大小" fccontent2>
+                            <div fccontent>
+                                    <fc-icon fcIcon="fc-icon-notice" fcSize="large" fcToolTip="small"></fc-icon>
+                                    <fc-icon fcIcon="fc-icon-notice" fcSize="default" fcToolTip="default"></fc-icon>
+                                    <fc-icon fcIcon="fc-icon-notice" fcSize="small" fcToolTip="large"></fc-icon>
+                            </div>
+                            <fc-adcode fcfooter fcTitle="描述" fcRemark="图标有三种大小:大(large)、默认(default)、小(small)。"
+                            [fcview]="sizeview"
+                            [fccode]="basicjs">
+                        </fc-adcode>
+                        </fc-layoutgroup>
+                </fc-layoutcol>   
+        </fc-layoutpanel>            
+        <!-- API -->
+        <fc-layoutpanel fccontent>
+            <fc-title id="attributesAPI" fcLabel="属性" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
             </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="图标大小" fccontent2>
-            <div fccontent>
-                <fc-icon fcIcon="fc-leave" fcSize="small" fcToolTip="small"></fc-icon>
-                <fc-icon fcIcon="fc-module" fcSize="small" fcToolTip="small"></fc-icon>
-                <fc-icon fcIcon="fc-withdraw" fcSize="default" fcToolTip="default"></fc-icon>
-                <fc-icon fcIcon="fc-introductions" fcSize="default" fcToolTip="default"></fc-icon>
-                <fc-icon fcIcon="fc-everyday" fcSize="large" fcToolTip="large"></fc-icon>
-                <fc-icon fcIcon="fc-clear" fcSize="large" fcToolTip="large"></fc-icon>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent>
+            <fc-title id="eventAPI" fcLabel="事件" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
             </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="图标带文字提示" fccontent2>
-            <div fccontent>
-                <fc-icon fcIcon="fc-leave" fcToolTip="删除" fcColor="red"></fc-icon>
-                <fc-icon fcIcon="fc-withdraw" fcToolTip="返回" fcColor="rgb(16, 142, 233)"></fc-icon>
-                <fc-icon fcIcon="fc-everyday" fcToolTip="审核通过"></fc-icon>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="设置图标颜色" fccontent2>
-            <div fccontent>
-                <fc-icon fcIcon="fc-leave" fcColor="red"></fc-icon>
-                <fc-icon fcIcon="fc-withdraw" fcColor="rgb(16, 142, 233)"></fc-icon>
-                <fc-icon fcIcon="fc-everyday" fcColor="yellow"></fc-icon>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="如何使用" fccontent1>
-            <div fccontent>
-                <div>从图标库中把代码粘贴到fcIcon中</div>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="图标命名规范" fccontent2>
-            <div fccontent>
-                fc-图标名 ，命名规则如下:
-                <ul>
-                    <li style="list-style-type: circle;">图标命名需语义化的命名,命名长度尽量短小且易读；</li>
-                    <li style="list-style-type: circle;"> 命名顺序：fc-图标语义化英文</li>
-                </ul>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="图标库" fccontent1>
-            <div fccontent>
-                图标需导入到数据库中
-            </div>
-        </fc-layoutgroup>
-    </fc-layoutcol>
-    <!-- API -->
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="属性" fcheader></fc-title>
-        <div style="height:450px;" fccontent>
-            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </fc-layoutpanel>
+        <!-- 组件内容结束 -->
+        </fc-layoutpanel>
+        <div class="fastposition-content" fccontent2>
+            <fc-fastposition [fcLinks]="
+            [
+            {href:'basic','label':'基本'},
+            {href:'size','label':'大小'},
+            {href:'attributesAPI','label':'属性API'},
+            {href:'eventAPI','label':'事件API'}
+            ]">
+        </fc-fastposition>
         </div>
-    </fc-layoutpanel>
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="事件" fcheader></fc-title>
-        <div style="height:450px;" fccontent>
-            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-        </div>
-    </fc-layoutpanel>
+        </fc-layoutcol>
+        <!-- 快速定位结束 -->   
 </fc-layoutpanel>

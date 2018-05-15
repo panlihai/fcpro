@@ -1,67 +1,126 @@
 <!-- 数值 fc-double -->
-<fc-layoutpanel>
-    <fc-title fcLabel="数值" fcheader></fc-title>
-    <fc-layoutcol fccontent fcSpans="1,1">
-        <fc-layoutgroup fcTitle="基本" fccontent1>
-            <div fccontent>
-                <fc-double [(ngModel)]="doubleValue"></fc-double>
+<fc-layoutpanel class="templatefastposition samples">
+    <!-- 快速定位 -->
+    <fc-layoutcol fcSpans="9,1" fccontent>
+        <fc-title fcLabel="数值" fcheader fcSubtitle="通过鼠标或键盘，输入范围内的数值。" fcHasline="false"></fc-title>
+        <fc-title fcLabel="何时使用" fcheader fcSubtitle="当需要获取标准数值时。" fcHasline="false"></fc-title>
+        <fc-title fcLabel="代码演示" fcheader fcHasline="false"></fc-title>
+        <fc-layoutpanel fccontent1>
+        <!-- 组件内容开始 -->
+        <fc-layoutpanel fccontent>           
+            <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>
+            <fc-layoutcol fccontent fcSpans="1,1">
+                <fc-layoutgroup id="basic" fcTitle="基本" fccontent1>
+                    <div fccontent>
+                        <fc-double [fcLabel]="'基本'" [(ngModel)]="doubleValue"></fc-double>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="基本的显示。" 
+                    fcview='<fc-double [fcLabel]="基本" [(ngModel)]="doubleValue"></fc-double>'
+                    [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="size" fcTitle="大小" fccontent2>
+                    <div fccontent>
+                            <fc-double [fcLabel]="'小'" [(ngModel)]="doubleValue" fcSize="small"></fc-double>
+                            <fc-double [fcLabel]="'默认'" [(ngModel)]="doubleValue" fcSize="default"></fc-double>
+                            <fc-double [fcLabel]="'大'" [(ngModel)]="doubleValue" fcSize="large"></fc-double>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="数值组件有三种大小:大(large)、默认(default)、小(small)。"
+                    [fcview]="sizeview"
+                    [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="readonly" fcTitle="只读" fccontent1>
+                    <div fccontent>
+                        <fc-double [fcLabel]="'只读'" [fcReadonly]="true"></fc-double>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="只能读不能点击" 
+                    fcview='<fc-double [fcLabel]="只读" [fcReadonly]="true"></fc-double>'
+                    [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="disabled" fcTitle="禁用" fccontent2>
+                    <div fccontent>
+                        <fc-double [fcLabel]="'禁用'" fcDisabled="true"></fc-double>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="禁用状态"
+                    fcview='<fc-double [fcLabel]="禁用" fcDisabled="true"></fc-double>'
+                    [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="minvalue" fcTitle="最小值" fccontent1>
+                    <div fccontent>
+                        <fc-double [fcLabel]="'最小值'" fcMinValue="3"></fc-double>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="设置最小值"
+                    fcview='<fc-double [fcLabel]="最小值" fcMinValue="3"></fc-double>'
+                    [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="maxvalue" fcTitle="最大值" fccontent2>
+                    <div fccontent>
+                        <fc-double [fcLabel]="'最大值'" fcMaxValue="10"></fc-double>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="最小值"
+                    fcview='<fc-double [fcLabel]="最大值" fcMaxValue="10"></fc-double>'
+                    [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="step" fcTitle="步数" fccontent1>
+                    <div fccontent>
+                        <fc-double [fcLabel]="'步数'" fcStep="0.1"></fc-double>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="点击按钮每次增加或较少0.1"
+                    fcview='<fc-double [fcLabel]="步数" fcStep="0.1"></fc-double>'
+                    [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="placehoder" fcTitle="输入提示符" fccontent2>
+                    <div fccontent>
+                        <fc-double [fcLabel]="'输入提示符'" fcPlaceHolder="请输入"></fc-double>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="默认提示文字"
+                    fcview='<fc-double [fcLabel]="输入提示符" fcPlaceHolder="请输入"></fc-double>'
+                    [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="noshowlabel" fcTitle="不占位" fccontent1>
+                    <div fccontent>
+                        <fc-double [fcShowLabel]="false" [(ngModel)]="doubleValue"></fc-double>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="不占位时显示的效果"
+                    fcview='<fc-double [fcShowLabel]="false" [(ngModel)]="doubleValue"></fc-double>'
+                    [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+            </fc-layoutcol>
+        </fc-layoutpanel>
+        <!-- API -->
+        <fc-layoutpanel fccontent>
+            <fc-title id="attributesAPI" fcLabel="属性" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
             </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="类型" fccontent2>
-            <div fccontent>
-                正在开发中
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent>
+            <fc-title id="eventAPI" fcLabel="事件" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
             </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="大小" fccontent1>
-            <div fccontent>
-                <div>
-                    <fc-double [(ngModel)]="doubleValue" fcSize="small"></fc-double>
-                </div>
-                <div style="margin-top:24px;">
-                    <fc-double [(ngModel)]="doubleValue" fcSize="default"></fc-double>
-                </div>
-                <div style="margin-top:24px;">
-                    <fc-double [(ngModel)]="doubleValue" fcSize="large"></fc-double>
-                </div>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="禁用" fccontent2>
-            <div fccontent>
-                <fc-double fcDisabled="true"></fc-double>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="最小值" fccontent1>
-            <div fccontent>
-                <fc-double fcMinValue="3"></fc-double>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="最大值" fccontent2>
-            <div fccontent>
-                <fc-double fcMinValue="10"></fc-double>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="步数" fccontent1>
-            <div fccontent>
-                <fc-double fcStep="0.1"></fc-double>
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="输入提示符" fccontent2>
-            <div fccontent>
-                <fc-double fcPlaceHolder="请输入"></fc-double>
-            </div>
-        </fc-layoutgroup>
+        </fc-layoutpanel>
+        <!-- 组件内容结束 -->
+        </fc-layoutpanel>
+        <div class="fastposition-content" fccontent2>
+            <fc-fastposition  [fcLinks]="
+                [
+                {href:'basic','label':'基本'},
+                {href:'size','label':'大小'},
+                {href:'readonly','label':'只读'},
+                {href:'disabled','label':'禁用'},
+                {href:'minvalue','label':'最小值'},
+                {href:'maxvalue','label':'最大值'},
+                {href:'step','label':'步数'},
+                {href:'placehoder','label':'提示符'},
+                {href:'noshowlabel','label':'不占位'},
+                {href:'attributesAPI','label':'属性API'},
+                {href:'eventAPI','label':'事件API'}
+                ]">
+            </fc-fastposition>
+        </div>
     </fc-layoutcol>
-    <!-- API -->
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="属性" fcheader> </fc-title>
-        <div style="height:450px;" fccontent>
-            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-        </div>
-    </fc-layoutpanel>
-    <fc-layoutpanel fccontent>
-        <fc-title fcLabel="事件" fcheader> </fc-title>
-        <div style="height:450px;" fccontent>
-            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-        </div>
-    </fc-layoutpanel>
+    <!-- 快速定位结束 -->     
 </fc-layoutpanel>

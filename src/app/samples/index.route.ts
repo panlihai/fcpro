@@ -47,5 +47,33 @@ export const Routers: Routes = [
     {
         path: '',//工具栏组件
         loadChildren: './tlb/index.module#TlbModule'
+    },
+    {
+        path: '',//模板
+        loadChildren: './template/index.module#TemplateModule'
+    },
+    {
+        path: '',//后端基类
+        loadChildren: './sysclientcls/index.module#SysclientclsModule'
+    },
+    {
+        path: '',//前端基类
+        loadChildren: './sysclientserver/index.module#SysclientserverModule'
+    },
+    {
+        path: '',//前端服务类
+        loadChildren: './sysservercls/index.module#SysserverclsModule'
+    },
+    {
+        path: '',//get start
+        loadChildren: './getstart/index.module#GetstartModule'
+    },
+    {
+        path: '',//updatelog
+        loadChildren: './updatelog/index.module#UpdatelogModule'
+    },
+    {
+        path: '',//document
+        loadChildren: './document/index.module#DocumentModule'
     }
 ];

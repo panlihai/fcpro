@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-navbreadcrumb',
+  selector: 'navbreadcrumb',
   templateUrl: './navbreadcrumb.component.html',
-  styleUrls: ['./navbreadcrumb.component.css']
+  styles: [``]
 })
 export class NavbreadcrumbComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

@@ -1,0 +1,24 @@
+<!-- 列表模板 -->
+<fc-layoutpanel [fcFull]="true" class="templatelist">
+    <fc-layoutrow fcSpan="50" fccontent>
+        <fc-tlblist [fcAppid]="appId" fccontent1></fc-tlblist>
+        <fc-layoutrow fccontent2 fcSpan="50">
+            <form fccontent1 class="list-search" name="searchForm" #searchForm >
+                <div class="list-search-every">
+                    <fc-combo [fcLabel]="'客户名称'" [(ngModel)]="comboValue" [fcOption]="comboOptions" name="comboname"></fc-combo>
+                </div>
+                <div class="list-search-every">
+                    <fc-text fcLabel="客户名称" name="textname"></fc-text>
+                </div>
+                <div class="list-search-every">
+                    <fc-radio [fcLabel]="'合同类别'" [(ngModel)]="radioValue" [fcOption]="radioOptions" name="radioname"></fc-radio>
+                </div>
+                <div class="list-search-every list-search-button">
+                    <fc-button fcLabel="查询" fcType="primary" name="search"></fc-button>
+                    <fc-button fcLabel="清空" fcType="default" name="reset"></fc-button>
+                </div>
+            </form>
+            <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="fcListdataOptions"  [fcCondition]="listDataCustomCondition"></fc-listdata>
+        </fc-layoutrow>
+    </fc-layoutrow>
+</fc-layoutpanel>

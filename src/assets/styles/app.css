@@ -24,7 +24,7 @@
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
     height: 8px;
     position: absolute;
     right: 2px;
@@ -51,7 +51,7 @@
 }
 
 /* 下拉超出部分全显示 */
- 
+
 .ant-select-dropdown-menu-item {
     overflow: visible !important;
 }
@@ -83,7 +83,6 @@ list-search-button {
 }
 
 .subtitle .subtitle-item span {}
-
 .list-search .ant-form-item-required:before {
     display: none;
 }
@@ -185,3 +184,161 @@ video {
     font-family: Verdana, Arial, sans-serif, "Microsoft YaHei", "WenQuanYi Micro Hei", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB";
     font-size: 12px;
 }
+
+/* 快速定位样式*/
+.aligncenter{
+    text-align:center;
+}
+.showhand:hover{
+    cursor: pointer;
+}
+.ant-tooltip-open i{
+    color:#1890ff!important;
+}
+.fastposition-content{
+    position:fixed;
+    top:150px;
+    right:54px;
+}
+/*label字体颜色*/
+.ant-form-item-label label {
+    color: #666666!important;
+}
+.ant-form-item-label label:after {
+    content: ""!important;
+    margin: 0 10px 0 0px!important;
+    top: 0px!important;
+}
+
+/* 文本边框颜色 */
+.ant-input{
+    border-color:#7d7d7d!important;
+}
+.ant-input:hover {
+    border-color:#1890ff!important;
+}
+/* 下拉选择边框颜色 */
+.ant-select-selection{
+    border-color:#7d7d7d!important;
+}
+.ant-select-selection:hover{
+    border-color:#1890ff!important;
+}
+/* 数值边框的颜色 */
+.ant-input-number{
+    border-color:#7d7d7d!important;
+}
+.ant-input-number:hover{
+    border-color:#1890ff!important;
+}
+.ant-switch-checked{
+    background-color: #1089ff!important;
+}
+/* 表单列表页面 */
+  .templateformlists .list-search-every1 {
+    width: 15%;
+  }
+  .templateformlists .list-search-every2 {
+    width: 25%;
+  }
+  .templateformlists .list-search-every4 {
+    width: 25%;
+  }
+  .templateformlists .list-search-every5 {
+    width: 35%;
+    line-height:27px;
+    text-align:right;
+  }
+  /* 左树左边搜索框的宽度 */
+  .treesearch-width{
+    width:80%;
+    display:inline-block;
+    margin-left: 6px;
+    margin-top:6px;
+  }
+/* 表单一列显示 */
+
+:global .form-col-1 .ant-form-item-label {
+    width: 12.5%;
+  }
+  
+  :global .form-col-1 .form-explain {
+    width: 83.33333333%;
+  }
+  /* 左树的模板页面 */
+  :global .ant-btn>i,
+  .ant-btn>span {
+    float: none !important;
+  }
+  
+  :global .tree-style>.ant-row {
+    height: 100%;
+  }
+  :global .tree-style>.ant-row>.fc-content1 {
+    height: 100%;
+    border: 1px solid;
+    overflow: auto;
+  }
+  :global .tree-style>.ant-row>.fc-content2 {
+    height: 100%;
+    overflow: auto;
+    padding-left: 10px;
+  }
+  :global .tree-style>.ant-row>.fc-content1 .fc-layoutrowcell2{
+    overflow: auto;
+  }
+  :global .tree-style .layoutcol-full .fc-content1 {
+    overflow: auto;
+  }
+  :global .tree-style .ant-tree-node .tree-children {
+    overflow: initial;
+  }
+  /* 选项卡内容铺满 */
+  :global .template-tab-full {
+    width: 100%;
+    height: 100%;
+  }
+  :global .template-tab-full>nz-tabset {
+      width: 100%;
+      height: 100%;
+  } 
+  :global .template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content {
+      height: calc(100% - 28px);
+      overflow: auto;
+      box-sizing: border-box;
+    }
+    :global .template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content > .ant-tabs-tabpane{
+      height:100%;
+      padding-top:5px;
+    }
+    :global .template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content > .ant-tabs-tabpane>div{
+      height:100%;
+    }
+    :global .template-heightauto{
+        overflow: auto;
+    }
+  :global .template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content {
+    height: calc(100% - 35px);
+    overflow: auto;
+    padding-top: 5px;
+  }
+  
+  :global .template-tab-full .ant-tabs-content>.ant-tabs-tabpane {
+    height: 100%;
+  }
+  
+  :global .template-tab-full .ant-tabs-content>.ant-tabs-tabpane>div {
+    height: 100%;
+  }
+  
+  :global .template-heightauto {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  :global .left-tree-hassearch>.fc-layoutrow>.fc-layoutrowcell2{
+    overflow: auto!important;
+  }
+  /* 超出部分出现滚动条 */
+  .template-beyoundscroll>.fc-layoutrow>.fc-layoutrowcell2{
+      overflow: auto;
+  }

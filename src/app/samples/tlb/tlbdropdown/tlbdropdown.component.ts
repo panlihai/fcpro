@@ -5,7 +5,9 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-tlbdropdown',
   templateUrl: './tlbdropdown.component.html',
-  styleUrls: ['./tlbdropdown.component.css']
+  styles: [`
+  
+  `]
 })
 export class TlbdropdownComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

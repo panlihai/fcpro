@@ -1,14 +1,13 @@
 import { RouteReuseStrategy, DefaultUrlSerializer, ActivatedRouteSnapshot, DetachedRouteHandle } from '@angular/router';
-import { environment } from '../../../environments/environment';
 
 export class FcRouteReuseStrategy implements RouteReuseStrategy {
 
   _cacheRouters: { [key: string]: any } = {};
-  shouldDetach(route: ActivatedRouteSnapshot): boolean {    
+  shouldDetach(route: ActivatedRouteSnapshot): boolean {
     if (route.routeConfig.path === 'home') {
       return false;
     }
-    return environment.production;
+    return true;
   }
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
     if (route.routeConfig.path !== '') {
@@ -22,9 +21,19 @@ export class FcRouteReuseStrategy implements RouteReuseStrategy {
     }
   }
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
-    return !!this._cacheRouters[route.routeConfig.path];
+    if (route.queryParams['refresh'] === 'Y') {
+      return false;
+    }
+    if (this._cacheRouters.hasOwnProperty(route.routeConfig.path)) {
+      return true;
+    } else {
+      return false;
+    }
   }
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
+    if (route.queryParams['refresh'] === 'Y') {
+      return null;
+    }
     if (route.routeConfig.path.length === 0) {
       return null;
     } else if (this._cacheRouters[route.routeConfig.path] !== undefined) {

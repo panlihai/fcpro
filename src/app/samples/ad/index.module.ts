@@ -13,6 +13,8 @@ import {
 } from 'fccomponent';
 import { AdformComponent } from './adform/adform.component';
 import { AddetailComponent } from './addetail/addetail.component';
+import { AdcarouselComponent } from './adcarousel/adcarousel.component';
+import { AdcodeComponent } from './adcode/adcode.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -30,7 +32,9 @@ import { AddetailComponent } from './addetail/addetail.component';
   ],
   declarations: [
     AdformComponent,
-    AddetailComponent
+    AddetailComponent,
+    AdcarouselComponent,
+    AdcodeComponent
   ],
   providers: [
 

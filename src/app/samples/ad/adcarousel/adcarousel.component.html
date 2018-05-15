@@ -1,0 +1,91 @@
+<!-- 轮播图 fc-carousel -->
+<fc-layoutpanel class="templatefastposition samples">
+    <!-- 快速定位 -->
+<fc-layoutcol fcSpans="9,1" fccontent>
+        <fc-title fcLabel="轮播图" fcheader fcSubtitle="旋转木马，一组轮播的区域" fcHasline="false"></fc-title>
+        <fc-title fcLabel="何时使用" fcheader fcSubtitle="当有一组平级的内容。
+        当内容空间不足时，可以用走马灯的形式进行收纳，进行轮播展现。 
+        常用于一组图片或卡片轮播。" fcHasline="false"></fc-title>
+        <fc-title fcLabel="代码演示" fcheader fcHasline="false"></fc-title>
+        <fc-layoutpanel fccontent1>
+        <!-- 组件内容开始 -->
+        <fc-layoutpanel fccontent>
+            <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>
+            <fc-layoutcol fccontent fcSpans="1,1">
+                <fc-layoutgroup id="basic" fcTitle="基本" fccontent1>
+                    <div fccontent>
+                        <fc-carousel [fcData]="carouselData"></fc-carousel>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="最基本的用法。"
+                        fcview='<fc-carousel [fcData]="carouselData"></fc-carousel>'
+                        [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="vertical" fcTitle="垂直" fccontent2>
+                    <div fccontent>
+                        <fc-carousel  [fcData]="carouselData" [fcOption]="verticalOption"></fc-carousel>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="轮播图垂直显示"
+                        fcview='<fc-carousel  [fcData]="carouselData" [fcOption]="verticalOption"></fc-carousel>'
+                        [fccode]="verticaljs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="autoplay" fcTitle="自动切换" fccontent1>
+                    <div fccontent>
+                        <fc-carousel [fcData]="carouselData"  [fcOption]="autoplayData"></fc-carousel>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="轮播图自动切换"
+                    fcview='<fc-carousel  [fcData]="carouselData" [fcOption]="verticalOption"></fc-carousel>'
+                    [fccode]="autoplayjs">
+                </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="hover" fcTitle="鼠标悬停" fccontent2>
+                    <div fccontent>
+                        <fc-carousel [fcData]="carouselData" [fcOption]="pauseonhoverData"></fc-carousel>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="鼠标滑入轮播图停止播放"
+                    fcview='<fc-carousel [fcData]="carouselData" [fcOption]="pauseonhoverData"></fc-carousel>'
+                    [fccode]="hoverjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="speed" fcTitle="播放速度" fccontent1>
+                    <div fccontent>
+                        <fc-carousel [fcData]="carouselData" [fcOption]="autoplayspeedData"></fc-carousel>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="鼠标滑入轮播图停止播放"
+                    fcview='<fc-carousel [fcData]="carouselData" [fcOption]="autoplayspeedData"></fc-carousel>'
+                    [fccode]="speedjs"></fc-adcode>
+                </fc-layoutgroup>
+            </fc-layoutcol>
+        </fc-layoutpanel>
+        <!-- API -->
+        <fc-layoutpanel fccontent>
+            <fc-title fcLabel="属性" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+            </div>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent>
+            <fc-title fcLabel="事件" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+            </div>
+        </fc-layoutpanel>
+        <!-- 组件内容结束 -->
+        </fc-layoutpanel>
+        <div class="fastposition-content" fccontent2>
+            <fc-fastposition [fcLinks]="
+                [
+                {href:'basic','label':'基本'},
+                {href:'vertical','label':'垂直'},
+                {href:'autoplay','label':'自动切换'},
+                {href:'hover','label':'鼠标悬停'},
+                {href:'speed','label':'播放速度'},
+                {href:'fade','label':'动画'},
+                {href:'attributesAPI','label':'属性API'},
+                {href:'eventAPI','label':'事件API'}
+                ]">
+            </fc-fastposition>
+        </div>
+        </fc-layoutcol>
+        <!-- 快速定位结束 -->   
+</fc-layoutpanel>

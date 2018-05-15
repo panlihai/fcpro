@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-searchadvance',
+  selector: 'searchadvance',
   templateUrl: './searchadvance.component.html',
-  styleUrls: ['./searchadvance.component.css']
+  styles: [``]
 })
 export class SearchadvanceComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

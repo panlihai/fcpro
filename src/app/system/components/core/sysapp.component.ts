@@ -3,14 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SysappService } from '../../services/sysapp.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { FCEVENT } from 'fccomponent/fc';
-import { environment } from '../../../../environments/environment.prod';
 import { ParentlistComponent } from 'fccomponent';
 @Component({
   selector: 'sysapp',
   template: `
   <fc-layoutcol fcSpans="2,9" style="height:100%;" class="layoutcol-full">
     <fc-layoutpanel fccontent1>
-      <fc-list fccontent fcAppid="SYSPRODUCT" [fcFieldCode]="'PNAME'" (fcEvent)="listEvent($event)"></fc-list>
+      <fc-list fccontent fcAppid="SYSPRODUCT" [fcFieldCode]="'PNAME'"  (fcEvent)="listEvent($event)"></fc-list>
     </fc-layoutpanel>
     <fc-layoutpanel fcFull="true" fccontent2 fcTitle="元数据列表">    
       <fc-tlblist [fcAppid]="appId" (fcEvent)="tlblistEvent($event)" fcheader></fc-tlblist>
@@ -20,7 +19,7 @@ import { ParentlistComponent } from 'fccomponent';
       </fc-layoutrow>
     </fc-layoutpanel>
   </fc-layoutcol>  
-  `,
+  `, 
   styles: [`
  :host ::ng-deep .fc-layoutcol {
     height:100%;
@@ -52,14 +51,20 @@ import { ParentlistComponent } from 'fccomponent';
   `]
 })
 export class SysappComponent extends ParentlistComponent {
+ 
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {
     super(mainService, router, activeRoute);
   }
   init(): void {
+     
   }
   getDefaultQuery() {
+    return {
+      ENABLE:'Y',
+      WHERE:' AND 1=1'
+    }
   }
   /**
    * 
@@ -76,6 +81,7 @@ export class SysappComponent extends ParentlistComponent {
         break;
     }
   }
+
   /**
    * 
    * @param eventName 事件名称
@@ -85,6 +91,10 @@ export class SysappComponent extends ParentlistComponent {
     switch (eventName) {
       case 'modifyFields'://修改字段的英文名称为中文名称
         this.mainService.modifyAppFieldsName();
+        break;
+        case 'modify':
+        break;
     }
   }
+
 }

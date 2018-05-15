@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-listtree',
+  selector: 'listtree',
   templateUrl: './listtree.component.html',
-  styleUrls: ['./listtree.component.css']
+  styles: [``]
 })
 export class ListtreeComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

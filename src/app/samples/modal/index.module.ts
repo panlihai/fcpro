@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { modalRouters } from './index.route';
-import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule, FclistModule, FcmodalModule } from 'fccomponent';
+import { FcbasicModule, FclayoutModule, FcadModule, FcnavModule,
+   FclistModule, FcmodalModule } from 'fccomponent';
 import { ModalcardComponent } from './modalcard/modalcard.component';
 import { ModalconfirmComponent } from './modalconfirm/modalconfirm.component';
 import { ModaldangerComponent } from './modaldanger/modaldanger.component';
@@ -18,7 +19,6 @@ import {
   SysdicdetailService, SysdicService, SysmessageService, SysinterfaceparamService,
   SysinterfaceService, SysmenuService, SysstyleService
 } from 'fccore';
-import { environment } from '../../../environments/environment';
 @NgModule({
   imports: [
     FormsModule,

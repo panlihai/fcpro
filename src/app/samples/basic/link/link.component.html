@@ -1,0 +1,90 @@
+<!-- 链接fc-link -->
+<fc-layoutpanel class="templatefastposition samples">
+    <!-- 快速定位 -->
+   <fc-layoutcol fcSpans="9,1" fccontent>
+        <fc-title fcLabel="链接" fcheader fcSubtitle="点击链接进行跳转" fcHasline="false"></fc-title>
+        <fc-title fcLabel="何时使用" fcheader fcSubtitle="需要添加链接" fcHasline="false"></fc-title>
+        <fc-title fcLabel="代码演示" fcheader fcHasline="false"></fc-title>
+        <fc-layoutpanel fccontent1>
+        <!-- 组件内容开始 -->
+        <fc-layoutpanel fccontent>
+            <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>
+            <fc-layoutcol fccontent fcSpans="1,1">
+                <fc-layoutgroup id="basic" fcTitle="基本" fccontent1>
+                    <div fccontent>
+                        <fc-link [fcLabel]="'点击我试试'"></fc-link>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="最基本的用法。"
+                     fcview='<fc-link [fcLabel]="点击我试试"></fc-link>' [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="readonly" fcTitle="只读" fccontent1>
+                    <div fccontent>
+                        <fc-link [fcLabel]="'点击我试试'" [fcReadonly]="true"></fc-link>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="只能读不能点击"
+                     fcview='<fc-link [fcLabel]="点击我试试" [fcReadonly]="true"></fc-link>' [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="disabled" fcTitle="禁用" fccontent1>
+                    <div fccontent>
+                        <fc-link [fcLabel]="'点击我试试'" [fcDisabled]="true"></fc-link>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="只能读不能点击"
+                     fcview='<fc-link [fcLabel]="点击我试试" [fcDisabled]="true"></fc-link>' [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="hasline" fcTitle="有横线" fccontent2>
+                    <div fccontent>
+                        <fc-link [fcLabel]="'点击我试试'" [fcHasline]="true"></fc-link>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="有横线"
+                     fcview='<fc-link [fcLabel]="点击我试试" [fcHasline]="true"></fc-link>' [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="color" fcTitle="字体颜色" fccontent2>
+                    <div fccontent>
+                        <fc-link [fcLabel]="'点击我试试'" [fcColor]="'red'"></fc-link>
+                    </div>
+                    <fc-adcode fcfooter fcTitle="描述" fcRemark="字体颜色"
+                     fcview='<fc-link [fcLabel]="点击我试试" [fcColor]="red"></fc-link>' [fccode]="basicjs">
+                    </fc-adcode>
+                </fc-layoutgroup>
+            </fc-layoutcol>
+        </fc-layoutpanel>
+        
+        <!-- API -->
+        <fc-layoutpanel fccontent>
+                <fc-title fcLabel="属性" fcheader></fc-title>
+                <div style="height:450px;" fccontent>
+                    <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+                </div>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent>
+                <fc-title fcLabel="事件" fcheader></fc-title>
+                <div style="height:450px;" fccontent>
+                    <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+                </div>
+        </fc-layoutpanel>
+        <!-- 组件内容结束 -->
+        </fc-layoutpanel>
+        <div class="fastposition-content" fccontent2>
+            <fc-fastposition [fcLinks]="
+                [
+                {href:'basic','label':'基本'},
+                {href:'size','label':'大小'},
+                {href:'readonly','label':'只读'},
+                {href:'disabled','label':'禁用'},
+                {href:'hasline','label':'有横线'},
+                {href:'color','label':'字体颜色'},
+                {href:'attributesAPI','label':'属性API'},
+                {href:'eventAPI','label':'事件API'}
+                ]">
+            </fc-fastposition>
+        </div>
+    </fc-layoutcol>
+    <!-- 快速定位结束 --> 
+    
+    
+    
+</fc-layoutpanel>

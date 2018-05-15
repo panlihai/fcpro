@@ -1,0 +1,196 @@
+<!-- 树表单模板 -->
+<fc-layoutpanel class="templatetreeforms" [fcFull]="true">
+    <fc-layoutrow fcSpan="50" fccontent>
+        <fc-tlbform [fcAppid]="'SYSAPP'" fccontent1></fc-tlbform>
+        <fc-layoutcol fcSpans="2,7" fccontent2 class="tree-style">
+            <fc-layoutrow fcSpan="35" fccontent1>
+                <fc-any [fcShowLabel]="false" [(ngModel)]="anyValue" [fcOption]="anyOptions" fccontent1 class="treesearch-width"></fc-any>
+                <fc-tree [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" #tree fccontent2></fc-tree>
+            </fc-layoutrow>
+            <fc-layoutcol fcSpans="7,1" fccontent2>
+                <fc-layoutpanel fccontent1>
+                    <form fccontent>
+                        <fc-layoutpanel fccontent id="id0">
+                            <fc-title fcLabel="客户基本信息0" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
+                            <fc-tabmain [fcTabs]="tabmain" fccontent>
+                                <fc-layoutcol fcSpans="1,1" fccontent1>
+                                    <div fccontent1>
+                                        <fc-text [fcLabel]="'文本框'" name="textname"></fc-text>
+                                        <fc-combo [fcLabel]="'下拉单选'" [(ngModel)]="comboValue" [fcOption]="comboOptions" name="comboname"></fc-combo>
+                                        <fc-date [fcLabel]="'日期'" name="datename"></fc-date>
+                                        <fc-double [fcLabel]="'数值'" [(ngModel)]="doubleValue" name="doublename"></fc-double>
+                                        <fc-text [fcLabel]="'后置标签'" [(ngModel)]="addonbefore" [fcAddonAfter]="'fc-icon-unit'" name="textoutright0"></fc-text>
+                                        <fc-text [fcLabel]="'内部前缀'" [(ngModel)]="addonbefore" [fcPrefix]="'fc-icon-revocation'" name="textinner"></fc-text>
+                                        <fc-text [fcLabel]="'内部后缀'" [(ngModel)]="addonbefore" [fcSuffix]="'fc-icon-revocation'" name="textout"></fc-text>
+                                        <fc-textarea [fcLabel]="'大文本框'" name="textareaname" [fcRows]="'2'"></fc-textarea>
+                                    </div>
+                                    <div fccontent2>
+                                        <fc-any [fcLabel]="'自定义下拉单选'" [(ngModel)]="anyValue" [fcOption]="anyOptions" name="anyname"></fc-any>
+                                        <fc-many [fcLabel]="'自定义下拉多选'" [(ngModel)]="manyValue" [fcOption]="manyOptions" name="manyname"></fc-many>
+                                        <fc-chosen [fcLabel]="'下拉多选'" [fcLabel]="'下拉多选'" [(ngModel)]="chosenValue" [fcOption]="chosenOptions" name="chosename"></fc-chosen>
+                                        <fc-datetime [fcLabel]="'日期时间'" name="datetimename"></fc-datetime>
+                                        <fc-text [fcLabel]="'后置标签文本'" [(ngModel)]="addonbefore" [fcAddonAfter]="'万元'" name="textoutright0" fcMode="text"></fc-text>
+                                        <fc-check [fcLabel]="'多选'" [(ngModel)]="checkValue" [fcOption]="checkOptions" name="checkname"></fc-check>
+                                        <fc-radio [fcLabel]="'单选'" [(ngModel)]="radioValue" [fcOption]="radioOptions" name="radioname"></fc-radio>
+                                        <fc-switch [fcLabel]="'开关'" fcCheckValue="Y" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="switchname"></fc-switch>
+                                        <fc-long [fcLabel]="'整数'" [(ngModel)]="longValue" name="longname2" [fcReadonly]="'true'"></fc-long>
+                                    </div>
+                                </fc-layoutcol>
+                                <fc-layoutcol fcSpans="1,0" fccontent1>
+                                    <div fccontent1>
+                                        <fc-textarea [fcLabel]="'大文本框'" name="textareaname1" [fcCol]="'1'" [fcRows]="'2'"></fc-textarea>
+                                    </div>
+                                </fc-layoutcol>>
+                                <fc-layoutcol fcSpans="1,1" fccontent2>
+                                    <div fccontent1>
+                                        <fc-text [fcLabel]="'文本框'" name="textname2" [fcReadonly]="true"></fc-text>
+                                        <fc-combo [fcLabel]="'下拉单选'" [(ngModel)]="comboValue" [fcOption]="comboOptions" [fcReadonly]="true" name="comboname2"></fc-combo>
+                                        <fc-date [fcLabel]="'日期'" name="datename2" [fcReadonly]="true"></fc-date>
+                                        <fc-double [fcLabel]="'数值'" [(ngModel)]="doubleValue" [fcReadonly]="true" name="doublename2"></fc-double>
+                                        <fc-text [fcLabel]="'后置标签'" [(ngModel)]="addonbefore" [fcAddonAfter]="'fc-icon-unit'" name="textoutright1" [fcReadonly]="true"></fc-text>
+                                        <fc-text [fcLabel]="'内部前缀'" [(ngModel)]="addonbefore" [fcPrefix]="'fc-icon-revocation'" name="textinner2" [fcReadonly]="true"></fc-text>
+                                        <fc-text [fcLabel]="'内部后缀'" [(ngModel)]="addonbefore" [fcSuffix]="'fc-icon-revocation'" name="textout2" [fcReadonly]="true"></fc-text>
+                                        <fc-textarea [fcLabel]="'大文本框'" name="textareaname2" [fcReadonly]="'true'" [fcRows]="'2'"></fc-textarea>
+                                    </div>
+                                    <div fccontent2>
+                                        <fc-any [fcLabel]="'自定义下拉单选'" [(ngModel)]="anyValue" [fcOption]="anyOptions" name="anyname2" [fcReadonly]="true"></fc-any>
+                                        <fc-many [fcLabel]="'自定义下拉多选'" [(ngModel)]="manyValue" [fcOption]="manyOptions" name="manyname2" [fcReadonly]="true"></fc-many>
+                                        <fc-chosen [fcLabel]="'下拉多选'" [fcLabel]="'下拉多选'" [(ngModel)]="chosenValue" [fcOption]="chosenOptions" name="chosename2" [fcReadonly]="true"></fc-chosen>
+                                        <fc-datetime [fcLabel]="'日期时间'" name="datetimename2" [fcReadonly]="true"></fc-datetime>
+                                        <fc-text [fcLabel]="'后置标签文本'" [(ngModel)]="addonbefore" [fcAddonAfter]="'万元'" name="textoutright01" fcMode="text" [fcReadonly]="true"></fc-text>
+                                        <fc-check [fcLabel]="'多选'" [(ngModel)]="checkValue" [fcOption]="checkOptions" name="checkname2" [fcReadonly]="true"></fc-check>
+                                        <fc-radio [fcLabel]="'单选'" [(ngModel)]="radioValue" [fcOption]="radioOptions" name="radioname2" [fcReadonly]="true"></fc-radio>
+                                        <fc-switch [fcLabel]="'开关'" fcCheckValue="Y" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="switchname2"
+                                            [fcReadonly]="true"></fc-switch>
+                                        <fc-long [fcLabel]="'整数'" [(ngModel)]="longValue" name="longname2" [fcReadonly]="true"></fc-long>
+                                    </div>
+                                </fc-layoutcol>
+                                <fc-layoutcol fcSpans="1,0" fccontent2>
+                                    <div fccontent1>
+                                        <fc-textarea [fcLabel]="'大文本框'" name="textareaname2" [fcCol]="'1'" [fcRows]="'2'" [fcReadonly]="true"></fc-textarea>
+                                    </div>
+                                </fc-layoutcol>>
+                                <fc-layoutcol fcSpans="1,1" fccontent3>
+                                    <div fccontent1>
+                                        <fc-text [fcLabel]="'文本框'" name="textname2" [fcDisabled]="'true'"></fc-text>
+                                        <fc-combo [fcLabel]="'下拉单选'" [(ngModel)]="comboValue" [fcOption]="comboOptions" [fcDisabled]="'true'" name="comboname2"></fc-combo>
+                                        <fc-date [fcLabel]="'日期'" name="datename2" [fcDisabled]="'true'"></fc-date>
+                                        <fc-double [fcLabel]="'数值'" [(ngModel)]="doubleValue" [fcDisabled]="'true'" name="doublename2"></fc-double>
+                                        <fc-text [fcLabel]="'后置标签'" [(ngModel)]="addonbefore" [fcAddonAfter]="'fc-icon-unit'" name="textoutright2" [fcDisabled]="'true'"></fc-text>
+                                        <fc-text [fcLabel]="'内部前缀'" [(ngModel)]="addonbefore" [fcPrefix]="'fc-icon-revocation'" name="textinner2" [fcDisabled]="'true'"></fc-text>
+                                        <fc-text [fcLabel]="'内部后缀'" [(ngModel)]="addonbefore" [fcSuffix]="'fc-icon-revocation'" name="textout2" [fcDisabled]="'true'"></fc-text>
+                                        <fc-textarea [fcLabel]="'大文本框'" name="textareaname2" [fcDisabled]="'true'" [fcRows]="'2'"></fc-textarea>
+                                    </div>
+                                    <div fccontent2>
+                                        <fc-any [fcLabel]="'自定义下拉单选'" [(ngModel)]="anyValue" [fcOption]="anyOptions" name="anyname2" [fcDisabled]="'true'"></fc-any>
+                                        <fc-many [fcLabel]="'自定义下拉多选'" [(ngModel)]="manyValue" [fcOption]="manyOptions" name="manyname2" [fcDisabled]="'true'"></fc-many>
+                                        <fc-chosen [fcLabel]="'下拉多选'" [fcLabel]="'下拉多选'" [(ngModel)]="chosenValue" [fcOption]="chosenOptions" name="chosename2" [fcDisabled]="'true'"></fc-chosen>
+                                        <fc-datetime [fcLabel]="'日期时间'" name="datetimename2" [fcDisabled]="'true'"></fc-datetime>
+                                        <fc-text [fcLabel]="'后置标签文本'" [(ngModel)]="addonbefore" [fcAddonAfter]="'万元'" name="textoutright02" fcMode="text" [fcDisabled]="'true'"></fc-text>
+                                        <fc-check [fcLabel]="'多选'" [(ngModel)]="checkValue" [fcOption]="checkOptions" name="checkname2" [fcDisabled]="'true'"></fc-check>
+                                        <fc-radio [fcLabel]="'单选'" [(ngModel)]="radioValue" [fcOption]="radioOptions" name="radioname2" [fcDisabled]="'true'"></fc-radio>
+                                        <fc-switch [fcLabel]="'开关'" fcCheckValue="Y" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="switchname2"
+                                            [fcDisabled]="'true'"></fc-switch>
+                                        <fc-long [fcLabel]="'整数'" [(ngModel)]="longValue" name="longname2" [fcDisabled]="'true'"></fc-long>
+                                    </div>
+                                </fc-layoutcol>
+                                <fc-layoutcol fcSpans="1,0" fccontent3>
+                                    <div fccontent1>
+                                        <fc-textarea [fcLabel]="'大文本框'" name="textareaname3" [fcCol]="'1'" [fcRows]="'2'" [fcDisabled]="'true'"></fc-textarea>
+                                    </div>
+                                </fc-layoutcol>>
+                            </fc-tabmain>
+                        </fc-layoutpanel>
+                        <fc-layoutpanel fccontent id="id1">
+                            <fc-title fcLabel="客户基本信息1" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
+                            <fc-layoutcol fcSpans="1,1" fccontent>
+                                <div fccontent1>
+                                    <fc-text [fcLabel]="'文本框'" name="textname"></fc-text>
+                                    <fc-combo [fcLabel]="'下拉单选'" [(ngModel)]="comboValue" [fcOption]="comboOptions" name="comboname"></fc-combo>
+                                    <fc-date [fcLabel]="'日期'" name="datename"></fc-date>
+                                    <fc-double [fcLabel]="'数值'" [(ngModel)]="doubleValue" name="doublename"></fc-double>
+                                    <fc-text [fcLabel]="'后置标签文本'" [(ngModel)]="addonbefore" [fcAddonAfter]="'万元'" name="textoutright03" fcMode="text"></fc-text>
+                                    <fc-text [fcLabel]="'后置标签'" [(ngModel)]="addonbefore" [fcAddonAfter]="'fc-icon-unit'" name="textoutright3"></fc-text>
+                                    <fc-text [fcLabel]="'内部前缀'" [(ngModel)]="addonbefore" [fcPrefix]="'fc-icon-revocation'" name="textinner"></fc-text>
+                                    <fc-text [fcLabel]="'内部后缀'" [(ngModel)]="addonbefore" [fcSuffix]="'fc-icon-revocation'" name="textout"></fc-text>
+                                    <fc-long [fcLabel]="'整数'" [(ngModel)]="longValue" name="longname"></fc-long>
+                                </div>
+                                <div fccontent2>
+                                    <fc-any [fcLabel]="'自定义下拉单选'" [(ngModel)]="anyValue" [fcOption]="anyOptions" name="anyname"></fc-any>
+                                    <fc-many [fcLabel]="'自定义下拉多选'" [(ngModel)]="manyValue" [fcOption]="manyOptions" name="manyname"></fc-many>
+                                    <fc-chosen [fcLabel]="'下拉多选'" [fcLabel]="'下拉多选'" [(ngModel)]="chosenValue" [fcOption]="chosenOptions" name="chosename"></fc-chosen>
+                                    <fc-datetime [fcLabel]="'日期时间'" name="datetimename"></fc-datetime>
+                                    <fc-textarea [fcLabel]="'大文本框'" name="textareaname"></fc-textarea>
+                                    <fc-check [fcLabel]="'多选'" [(ngModel)]="checkValue" [fcOption]="checkOptions" name="checkname"></fc-check>
+                                    <fc-radio [fcLabel]="'单选'" [(ngModel)]="radioValue" [fcOption]="radioOptions" name="radioname"></fc-radio>
+                                    <fc-switch [fcLabel]="'开关'" fcCheckValue="Y" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="switchname"></fc-switch>
+                                </div>
+                            </fc-layoutcol>
+                        </fc-layoutpanel>
+                        <fc-layoutpanel fccontent id="id2">
+                            <fc-title fcLabel="客户基本信息2" fcBorder="bottom" fcheader fcWidth="96%"></fc-title>
+                            <fc-layoutcol fcSpans="1,1" fccontent>
+                                <div fccontent1>
+                                    <fc-text [fcLabel]="'文本框'" name="textname"></fc-text>
+                                    <fc-combo [fcLabel]="'下拉单选'" [(ngModel)]="comboValue" [fcOption]="comboOptions" name="comboname"></fc-combo>
+                                    <fc-date [fcLabel]="'日期'" name="datename"></fc-date>
+                                    <fc-double [fcLabel]="'数值'" [(ngModel)]="doubleValue" name="doublename"></fc-double>
+                                    <fc-text [fcLabel]="'后置标签文本'" [(ngModel)]="addonbefore" [fcAddonAfter]="'万元'" name="textoutright04" fcMode="text"></fc-text>
+                                    <fc-text [fcLabel]="'后置标签'" [(ngModel)]="addonbefore" [fcAddonAfter]="'fc-icon-unit'" name="textoutright4"></fc-text>
+                                    <fc-text [fcLabel]="'内部前缀'" [(ngModel)]="addonbefore" [fcPrefix]="'fc-icon-revocation'" name="textinner"></fc-text>
+                                    <fc-text [fcLabel]="'内部后缀'" [(ngModel)]="addonbefore" [fcSuffix]="'fc-icon-revocation'" name="textout"></fc-text>
+                                    <fc-long [fcLabel]="'整数'" [(ngModel)]="longValue" name="longname"></fc-long>
+                                </div>
+                                <div fccontent2>
+                                    <fc-any [fcLabel]="'自定义下拉单选'" [(ngModel)]="anyValue" [fcOption]="anyOptions" name="anyname"></fc-any>
+                                    <fc-many [fcLabel]="'自定义下拉多选'" [(ngModel)]="manyValue" [fcOption]="manyOptions" name="manyname"></fc-many>
+                                    <fc-chosen [fcLabel]="'下拉多选'" [fcLabel]="'下拉多选'" [(ngModel)]="chosenValue" [fcOption]="chosenOptions" name="chosename"></fc-chosen>
+                                    <fc-datetime [fcLabel]="'日期时间'" name="datetimename"></fc-datetime>
+                                    <fc-textarea [fcLabel]="'大文本框'" name="textareaname" [fcRows]="'2'"></fc-textarea>
+                                    <fc-check [fcLabel]="'多选'" [(ngModel)]="checkValue" [fcOption]="checkOptions" name="checkname"></fc-check>
+                                    <fc-radio [fcLabel]="'单选'" [(ngModel)]="radioValue" [fcOption]="radioOptions" name="radioname"></fc-radio>
+                                    <fc-switch [fcLabel]="'开关'" fcCheckValue="Y" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="switchname"></fc-switch>
+                                </div>
+                            </fc-layoutcol>
+                        </fc-layoutpanel>
+                        <fc-layoutpanel fccontent id="id3">
+                            <fc-title fcLabel="客户基本信息3" fcBorder="bottom" fcheader fcWidth="96%"></fc-title>
+                            <fc-layoutcol fcSpans="1,1" fccontent>
+                                <div fccontent1>
+                                    <fc-text [fcLabel]="'文本框'" name="textname"></fc-text>
+                                    <fc-combo [fcLabel]="'下拉单选'" [(ngModel)]="comboValue" [fcOption]="comboOptions" name="comboname"></fc-combo>
+                                    <fc-date [fcLabel]="'日期'" name="datename"></fc-date>
+                                    <fc-text [fcLabel]="'后置标签文本'" [(ngModel)]="addonbefore" [fcAddonAfter]="'万元'" name="textoutright05" fcMode="text"></fc-text>
+                                    <fc-double [fcLabel]="'数值'" [(ngModel)]="doubleValue" name="doublename"></fc-double>
+                                    <fc-text [fcLabel]="'后置标签'" [(ngModel)]="addonbefore" [fcAddonAfter]="'fc-icon-unit'" name="textoutright5"></fc-text>
+                                    <fc-text [fcLabel]="'内部前缀'" [(ngModel)]="addonbefore" [fcPrefix]="'fc-icon-revocation'" name="textinner"></fc-text>
+                                    <fc-text [fcLabel]="'内部后缀'" [(ngModel)]="addonbefore" [fcSuffix]="'fc-icon-revocation'" name="textout"></fc-text>
+                                    <fc-long [fcLabel]="'整数'" [(ngModel)]="longValue" name="longname"></fc-long>
+                                </div>
+                                <div fccontent2>
+                                    <fc-any [fcLabel]="'自定义下拉单选'" [(ngModel)]="anyValue" [fcOption]="anyOptions" name="anyname"></fc-any>
+                                    <fc-many [fcLabel]="'自定义下拉多选'" [(ngModel)]="manyValue" [fcOption]="manyOptions" name="manyname"></fc-many>
+                                    <fc-chosen [fcLabel]="'下拉多选'" [fcLabel]="'下拉多选'" [(ngModel)]="chosenValue" [fcOption]="chosenOptions" name="chosename"></fc-chosen>
+                                    <fc-datetime [fcLabel]="'日期时间'" name="datetimename"></fc-datetime>
+                                    <fc-textarea [fcLabel]="'大文本框'" name="textareaname" [fcRows]="'2'"></fc-textarea>
+                                    <fc-check [fcLabel]="'多选'" [(ngModel)]="checkValue" [fcOption]="checkOptions" name="checkname"></fc-check>
+                                    <fc-radio [fcLabel]="'单选'" [(ngModel)]="radioValue" [fcOption]="radioOptions" name="radioname"></fc-radio>
+                                    <fc-switch [fcLabel]="'开关'" fcCheckValue="Y" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="switchname"></fc-switch>
+                                </div>
+                            </fc-layoutcol>
+                        </fc-layoutpanel>
+                    </form>
+                </fc-layoutpanel>
+                <div class="fastposition-content" fccontent2>
+                    <div class="aligncenter">
+                        <fc-icon [fcIcon]="'fc-icon-good'" [fcSize]="'large'" fcToolTip="上一条" fcPosition="bottom" fcColor="#ababab" class="showhand"></fc-icon>
+                        <fc-icon [fcIcon]="'fc-icon-gejo'" [fcSize]="'large'" fcToolTip="下一条" fcPosition="bottom" fcColor="#ababab" class="showhand"></fc-icon>
+                    </div>
+                    <div>
+                        <fc-fastposition fccontent [fcLinks]="[{href:'id0','label':'客户注册信息0'},{href:'id1','label':'客户基本信息1'},{href:'id2','label':'客户基本信息2'}]"></fc-fastposition>
+                    </div>
+                </div>
+            </fc-layoutcol>
+        </fc-layoutcol>>
+    </fc-layoutrow>
+</fc-layoutpanel>

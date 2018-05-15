@@ -1,0 +1,78 @@
+<!-- 树表单列表模板 -->
+<fc-layoutpanel class="templatetreeformlists" [fcFull]="true">
+    <fc-layoutrow fcSpan="50" fccontent>
+        <fc-tlbform [fcAppid]="'SYSAPP'" fccontent1></fc-tlbform>
+        <fc-layoutcol fcSpans="2,7" fccontent2 class="tree-style">
+            <fc-layoutrow fcSpan="35" fccontent1>
+                <fc-any [fcShowLabel]="false"[(ngModel)]="anyValue" [fcOption]="anyOptions" fccontent1 class="treesearch-width"></fc-any>
+                <fc-tree [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" #tree fccontent2></fc-tree>
+            </fc-layoutrow>
+            <fc-layoutcol fcSpans="8,1" fccontent2>
+                <fc-layoutpanel fccontent1>
+                    <form fccontent>
+                        <fc-layoutpanel fccontent id="id0">
+                            <fc-title fcLabel="客户基本信息0" fcBorder="bottom" fcheader fcWidth="96%"></fc-title>
+                            <fc-layoutcol fcSpans="1,1" fccontent>
+                                <div fccontent1>
+                                    <fc-text [fcLabel]="'文本框'" name="textname"></fc-text>
+                                    <fc-combo [fcLabel]="'下拉单选'" [(ngModel)]="comboValue" [fcOption]="comboOptions" name="comboname"></fc-combo>
+                                    <fc-date [fcLabel]="'日期'" name="datename"></fc-date>
+                                    <fc-double [fcLabel]="'数值'" [(ngModel)]="doubleValue" name="doublename"></fc-double>
+                                    <fc-text [fcLabel]="'内部前缀'" [(ngModel)]="addonbefore" [fcPrefix]="'fc-icon-revocation'" name="textinner"></fc-text>
+                                    <fc-text [fcLabel]="'内部后缀'" [(ngModel)]="addonbefore" [fcSuffix]="'fc-icon-revocation'" name="textout"></fc-text>
+                                    <fc-text [fcLabel]="'后置标签'" [(ngModel)]="addonbefore" [fcAddonAfter]="'fc-icon-unit'" name="textoutright"></fc-text>
+                                    <fc-text [fcLabel]="'后置标签文本'" [(ngModel)]="addonbefore" [fcAddonAfter]="'万元'" name="textoutright03" fcMode="text"></fc-text>
+                                    <fc-long [fcLabel]="'整数'" [(ngModel)]="longValue" name="longname"></fc-long>
+                                </div>
+                                <div fccontent2>
+                                    <fc-any [fcLabel]="'自定义下拉单选'" [(ngModel)]="anyValue" [fcOption]="anyOptions" name="anyname"></fc-any>
+                                    <fc-many [fcLabel]="'自定义下拉多选'" [(ngModel)]="manyValue" [fcOption]="manyOptions" name="manyname"></fc-many>
+                                    <fc-chosen [fcLabel]="'下拉多选'" [fcLabel]="'下拉多选'" [(ngModel)]="chosenValue" [fcOption]="chosenOptions" name="chosename"></fc-chosen>
+                                    <fc-datetime [fcLabel]="'日期时间'" name="datetimename"></fc-datetime>
+                                    <fc-textarea [fcLabel]="'大文本框'" name="textareaname" [fcRows]="'2'"></fc-textarea>
+                                    <fc-check [fcLabel]="'多选'" [(ngModel)]="checkValue" [fcOption]="checkOptions" name="checkname"></fc-check>
+                                    <fc-radio [fcLabel]="'单选'" [(ngModel)]="radioValue" [fcOption]="radioOptions" name="radioname"></fc-radio>
+                                    <fc-switch [fcLabel]="'开关'" fcCheckValue="Y" fcOption='[{"label":"是","value":"Y"},{"label":"否","value":"N"}]' name="switchname"></fc-switch>
+                                </div>
+                            </fc-layoutcol>
+                        </fc-layoutpanel>
+                        <fc-layoutpanel fccontent id="id1">
+                            <fc-title fcLabel="客户基本信息1" fcBorder="bottom" fcWidth="100%" fcheader></fc-title>
+                            <form name="searchForm" fccontent>
+                                <div class="list-search-every list-search-every1">
+                                    <fc-button fcLabel="新增" fcType="primary"  name="buttonname1"></fc-button>
+                                    <fc-button fcLabel="上传" fcType="primary"  name="buttonname2"></fc-button>
+                                </div>
+                                <div class="list-search-every list-search-every2">
+                                    <fc-combo [fcLabel]="'客户名称'" [(ngModel)]="comboValue" [fcOption]="comboOptions" name="comboname"></fc-combo>
+                                </div>
+                                <div class="list-search-every list-search-every4">
+                                    <fc-radio [fcLabel]="'单选'" [(ngModel)]="radioValue" [fcOption]="radioOptions" name="radioname"></fc-radio>
+                                </div>
+                                <div class="list-search-every list-search-every5">
+                                    <fc-tag fcTitle="进行中" fcColor="blue"></fc-tag>
+                                    <fc-tag fcTitle="待进行" fcColor="green" fcIcon="fc-line"></fc-tag>
+                                    <fc-tag fcTitle="默认" fcColor="cyan" fcIcon="fc-line"></fc-tag>
+                                    <fc-tag fcTitle="滞缓" fcColor="orange" fcIcon="fc-line"></fc-tag>
+                                    <fc-tag fcTitle="停用" fcColor="red" fcIcon="fc-line"></fc-tag>
+                                </div>
+                            </form>
+                            <div style="width:100%;height:550px;" fccontent>
+                                <fc-listdata [fcAppid]="'SYSAPP'"></fc-listdata>
+                            </div>
+                        </fc-layoutpanel>
+                    </form>
+                </fc-layoutpanel>
+                <div class="fastposition-content" fccontent2>
+                    <div class="aligncenter">
+                        <fc-icon [fcIcon]="'fc-icon-good'" [fcSize]="'large'" fcToolTip="上一条" fcPosition="bottom" fcColor="#ababab" class="showhand"></fc-icon>
+                        <fc-icon [fcIcon]="'fc-icon-gejo'" [fcSize]="'large'" fcToolTip="下一条" fcPosition="bottom" fcColor="#ababab" class="showhand"></fc-icon>
+                    </div>
+                    <div>
+                        <fc-fastposition fccontent [fcLinks]="[{href:'id0','label':'客户注册信息0'},{href:'id1','label':'客户基本信息1'}]"></fc-fastposition>
+                    </div>
+                </div>
+            </fc-layoutcol>
+        </fc-layoutcol>>
+    </fc-layoutrow>
+</fc-layoutpanel>

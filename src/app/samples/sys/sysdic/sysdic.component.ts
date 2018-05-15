@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-sysdic',
+  selector: 'sysdic',
   templateUrl: './sysdic.component.html',
-  styleUrls: ['./sysdic.component.css']
+  styles: [``]
 })
 export class SysdicComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

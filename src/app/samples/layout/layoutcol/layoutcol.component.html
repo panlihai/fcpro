@@ -1,102 +1,118 @@
 <!-- 横向 fc-layoutcol -->
-<fc-layoutpanel>
-  <fc-title fcLabel="横向" fcheader></fc-title>
-  <fc-layoutcol fccontent fcSpans="1,1">
-    <fc-layoutgroup fcTitle="基本" fccontent1>
-      <div fccontent>
-        <fc-layoutcol fcSpans="1,1">
-          <div style="height:400px;background-color:#E6F7FF;" fccontent1>
-            fcSpans第一个参数表示第一个div的宽度占比
-          </div>
-          <div style="height:400px;background-color:#BAE7FF;" fccontent2>
-            fcSpans第一个参数表示第二个div的宽度占比
-          </div>
+<fc-layoutpanel class="templatefastposition samples">
+    <!-- 快速定位 -->
+    <fc-layoutcol fcSpans="9,1" fccontent>
+      <fc-title fcLabel="横向定位" fccontent1 fcSubtitle="横向定位布局" fcHasline="false"></fc-title>
+      <fc-title fcLabel="何时使用" fccontent1 fcSubtitle="横向布局可以设置占模板的比例宽度" fcHasline="false"></fc-title>
+      <fc-title fcLabel="代码演示" fccontent1 fcHasline="false"></fc-title>
+      <fc-layoutpanel fccontent1>
+          <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title> 
+      <!-- 组件内容开始 -->
+         <fc-layoutcol fccontent fcSpans="1,1">
+          <fc-layoutgroup id="basic" fcTitle="基本" fccontent1>
+            <div fccontent>
+              <fc-layoutcol fcSpans="1,1">
+                <div class="first" fccontent1></div>
+                <div class="second" fccontent2></div>
+              </fc-layoutcol>
+            </div>
+            <fc-adcode fcfooter fcTitle="描述" 
+                fcRemark="最基本的用法"
+                [fcview]='basicview'
+                [fccode]="basicjs"
+                [fcstyle]="basicstyle">
+            </fc-adcode>
+          </fc-layoutgroup>
+          <fc-layoutgroup id="custom" fcTitle="比例" fccontent2>
+            <div fccontent>
+              <fc-layoutcol fcSpans="8,2">
+                  <div class="first" fccontent1></div>
+                  <div class="second" fccontent2></div>
+              </fc-layoutcol>
+            </div>
+            <fc-adcode fcfooter fcTitle="描述" 
+                fcRemark="fcSpans第一个参数表示第一个div的宽度占比,fcSpans第二个参数表示第二个div的宽度占比"
+                [fcview]='customview'
+                [fccode]="basicjs"
+                [fcstyle]="basicstyle">
+            </fc-adcode>
+          </fc-layoutgroup>
+          <fc-layoutgroup id="flow" fcTitle="瀑布流" fccontent1>
+            <div fccontent>
+              <fc-layoutcol fcSpans="8,2">
+                <div class="first" fccontent1>
+                </div>
+                <div class="second" fccontent2>
+                </div>
+                <div class="third"style="" fccontent1>
+                </div>
+                <div class="four" fccontent2>
+                </div>
+                <div class="five" fccontent1>
+                </div>
+                <div class="six" fccontent2>
+                </div>
+              </fc-layoutcol>
+            </div>
+            <fc-adcode fcfooter fcTitle="描述" 
+                fcRemark="瀑布流，又称瀑布流式布局。是比较流行的一种网站页面布局，视觉表现为参差不齐的多栏布局，随着页面滚动条向下滚动。
+                最早采用此布局的网站是Pinterest，逐渐在国内流行开来。国内大多数清新站基本为这类风格。"
+                [fcview]='customview'
+                [fccode]="basicjs"
+                [fcstyle]="flowstyle">
+            </fc-adcode>
+          </fc-layoutgroup>
+          <fc-layoutgroup id="newline" fcTitle="自动换行" fccontent2>
+            <div fccontent>
+              <fc-layoutcol fcSpans="8,2">
+                <div style="height:400px;background-color:#f0f5ff;" fccontent1>
+                </div>
+                <div style="height:400px;background-color:#d6e4ff;" fccontent2>
+                </div>
+                <div style="height:400px;background-color:#adc6ff;" fccontent1>
+                </div>
+                <div style="height:400px;background-color:#85a5ff;" fccontent2>
+                </div>
+                <div style="height:400px;background-color:#597ef7;" fccontent1>
+                </div>
+                <div style="height:400px;background-color:#40a9ff;" fccontent2>
+                </div>
+              </fc-layoutcol>
+            </div>
+            <fc-adcode fcfooter fcTitle="描述" 
+                fcRemark="fcSpans第一个参数表示第一个div的宽度占比,fcSpans第二个参数表示第二个div的宽度占比"
+                [fcview]='newlineview'
+                [fccode]="basicjs">
+            </fc-adcode>
+          </fc-layoutgroup>
         </fc-layoutcol>
+          <!-- API -->
+        <fc-layoutpanel fccontent>
+              <fc-title id="attributesAPI" fcLabel="属性" fcheader></fc-title>
+              <div style="height:450px;" fccontent>
+                  <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+              </div>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent>
+              <fc-title id="eventAPI" fcLabel="事件" fcheader></fc-title>
+              <div style="height:450px;" fccontent>
+                  <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+              </div>
+        </fc-layoutpanel>
+      <!-- 组件内容结束 -->
+      </fc-layoutpanel>
+      <div class="fastposition-content" fccontent2>
+          <fc-fastposition [fcLinks]="
+          [
+          {href:'basic','label':'基本'},
+          {href:'custom','label':'比例'},
+          {href:'flow','label':'瀑布流'},
+          {href:'newline','label':'自动换行'},
+          {href:'attributesAPI','label':'属性API'},
+          {href:'eventAPI','label':'事件API'}
+          ]">
+      </fc-fastposition>
       </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="类型" fccontent2>
-      <div fccontent>
-        正在开发中
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="大小" fccontent1>
-      <div fccontent>
-        正在开发中
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="自定义比例" fccontent2>
-      <div fccontent>
-        <fc-layoutcol fcSpans="88,29">
-          <div style="height:400px;background-color:#fff0f6;" fccontent1>
-            fcSpans第一个参数表示第一个div的宽度占比
-          </div>
-          <div style="height:400px;background-color:#ffd6e7;" fccontent2>
-            fcSpans第一个参数表示第二个div的宽度占比
-          </div>
-        </fc-layoutcol>
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="瀑布流布局" fccontent1>
-      <div fccontent>
-        <fc-layoutcol fcSpans="88,29">
-          <div style="height:150px;background-color:#f9f0ff;" fccontent1>
-            瀑布流，又称瀑布流式布局。是比较流行的一种网站页面布局，视觉表现为参差不齐的多栏布局，随着页面滚动条向下滚动。最早采用此布局的网站是Pinterest，逐渐在国内流行开来。国内大多数清新站基本为这类风格。
-          </div>
-          <div style="height:130px;background-color:#efdbff;" fccontent2>
-            支持瀑布流布局
-          </div>
-          <div style="height:210px;background-color:#d3adf7;" fccontent1>
-            支持瀑布流布局
-          </div>
-          <div style="height:100px;background-color:#b37feb;" fccontent2>
-            支持瀑布流布局
-          </div>
-          <div style="height:70px;background-color:#9254de;" fccontent1>
-            支持瀑布流布局
-          </div>
-          <div style="height:180px;background-color:#722ed1;" fccontent2>
-            支持瀑布流布局
-          </div>
-        </fc-layoutcol>
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="自动换行" fccontent2>
-      <div fccontent>
-        <fc-layoutcol fcSpans="88,29">
-          <div style="height:400px;background-color:#f0f5ff;" fccontent1>
-            支持自动换行
-          </div>
-          <div style="height:400px;background-color:#d6e4ff;" fccontent2>
-            支持自动换行
-          </div>
-          <div style="height:400px;background-color:#adc6ff;" fccontent1>
-            支持自动换行
-          </div>
-          <div style="height:400px;background-color:#85a5ff;" fccontent2>
-            支持自动换行
-          </div>
-          <div style="height:400px;background-color:#597ef7;" fccontent1>
-            支持自动换行
-          </div>
-          <div style="height:400px;background-color:#40a9ff;" fccontent2>
-            支持自动换行
-          </div>
-        </fc-layoutcol>
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="更多" fccontent1>
-      <div fccontent>
-        待开发
-      </div>
-    </fc-layoutgroup>
-  </fc-layoutcol>
-  <!-- API -->
-  <fc-layoutpanel fccontent>
-    <fc-title fcLabel="属性" fcheader> </fc-title>
-    <fc-listdata style="height:600px;" fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-  </fc-layoutpanel>
-  <fc-layoutpanel fccontent>
-    <fc-title fcLabel="事件" fcheader> </fc-title>
-    <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-  </fc-layoutpanel>
+    </fc-layoutcol>
+    <!-- 快速定位结束 --> 
 </fc-layoutpanel>

@@ -1,35 +1,116 @@
 <!-- 导航栏 fc-navbar -->
-<fc-layoutpanel>
-  <fc-title fcLabel="导航栏" fcheader></fc-title>
-  <fc-layoutcol fccontent fcSpans="1,1">
-    <fc-layoutgroup fcTitle="基本" fccontent1>
-      <div fccontent>
-        正在开发中
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="类型" fccontent2>
-      <div fccontent>
-        正在开发中
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="大小" fccontent1>
-      <div fccontent>
-        正在开发中
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="更多" fccontent2>
-      <div fccontent>
-        待开发
-      </div>
-    </fc-layoutgroup>
-  </fc-layoutcol>
+<fc-layoutpanel  class="templatenavbar">
+   <!-- 快速定位 -->
+<fc-layoutcol fcSpans="9,1" fccontent>
+    <fc-title fcLabel="导航栏" fccontent1 fcSubtitle="导航栏菜单" fcHasline="false"></fc-title>
+    <fc-title fcLabel="何时使用" fccontent1 fcSubtitle="顶部导航栏组件" fcHasline="false"></fc-title>
+    <fc-title fcLabel="代码演示" fccontent1 fcHasline="false"></fc-title>
+    <fc-layoutpanel fccontent1>
+    <!-- 组件内容开始 -->
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>
+        <fc-layoutcol fccontent fcSpans="1">
+            <fc-layoutgroup id="basic" fcTitle="基本" fccontent1>
+              <div fccontent class="all">
+                <fc-navbar></fc-navbar>
+              </div>
+              <fc-adcode fcfooter fcTitle="描述" fcRemark="最基本的用法。"
+                  fcview='<fc-navbar></fc-navbar>'
+                  [fccode]="basicjs">
+              </fc-adcode>
+            </fc-layoutgroup>
+            <fc-layoutgroup id="icon" fcTitle="图标" fccontent1>
+              <div fccontent  class="all">
+                  <fc-navbar fcIcon="icon iconfont fc-icon-relation logo-img"></fc-navbar>
+              </div>
+              <fc-adcode fcfooter fcTitle="描述" fcRemark="导航图标更改"
+                  fcview='<fc-navbar fcIcon="icon iconfont fc-icon-relation logo-img"></fc-navbar>'
+                  [fccode]="basicjs">
+              </fc-adcode>
+            </fc-layoutgroup>
+            <fc-layoutgroup id="index" fcTitle="最顶层" fccontent1>
+              <div fccontent  class="all">
+                  <fc-navbar  fcZindex="'100'"></fc-navbar>
+              </div>
+              <fc-adcode fcfooter fcTitle="描述" fcRemark="设置导航层级为最顶层"
+                  fcview='<fc-navbar  fcZindex="100"></fc-navbar>'
+                  [fccode]="basicjs">
+              </fc-adcode>
+            </fc-layoutgroup>
+            <fc-layoutgroup id="title" fcTitle="标题" fccontent1>
+              <div fccontent  class="all">
+                  <fc-navbar  fcTitle="标题"></fc-navbar>
+              </div>
+              <fc-adcode fcfooter fcTitle="描述" fcRemark="导航标题更改"
+                  fcview=' <fc-navbar  fcTitle="标题"></fc-navbar>'
+                  [fccode]="basicjs">
+              </fc-adcode>
+            </fc-layoutgroup>
+            <fc-layoutgroup id="bgcolor" fcTitle="主题颜色" fccontent1>
+              <div fccontent  class="all">
+                  <fc-navbar  fcColor="#ccc"></fc-navbar>
+              </div>
+              <fc-adcode fcfooter fcTitle="描述" fcRemark="设置导航标题主题颜色"
+              fcview='  <fc-navbar  fcColor="#ccc"></fc-navbar>'
+              [fccode]="basicjs">
+             </fc-adcode>
+            </fc-layoutgroup>
+            <fc-layoutgroup id="log" fcTitle="Log更改" fccontent1>
+              <div fccontent  class="all">
+                  <fc-navbar fcLogo="'assets/svg/logo.svg'"></fc-navbar>
+              </div>
+              <fc-adcode fcfooter fcTitle="描述" fcRemark="log更改"
+              fcview='<fc-navbar fcLogo="assets/svg/logo.svg"></fc-navbar>'
+              [fccode]="basicjs">
+             </fc-adcode>
+            </fc-layoutgroup>
+        </fc-layoutcol>
+    </fc-layoutpanel>
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="事件" fcheader fcHasLine="false" fcSize="small"></fc-title>
+        <fc-layoutcol fccontent fcSpans="1">
+            <fc-layoutgroup id="navjs" fcTitle="导航事件" fccontent1>
+                <div fccontent class="all">
+                    <fc-navbar (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="log更改"
+                fcview='<fc-navbar (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar>'
+                [fccode]="navjs">
+               </fc-adcode>
+            </fc-layoutgroup>
+        </fc-layoutcol>  
+    </fc-layoutpanel>
+    <fc-layoutpanel fccontent>
+        <fc-title id="attributesAPI" fcLabel="属性" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+    </fc-layoutpanel>
+    <fc-layoutpanel fccontent>
+          <fc-title id="eventAPI" fcLabel="事件" fcheader></fc-title>
+          <div style="height:450px;" fccontent>
+              <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+          </div>
+    </fc-layoutpanel> 
+    <!-- 组件内容结束 -->
+    </fc-layoutpanel>
+    <div class="fastposition-content" fccontent2>
+        <fc-fastposition [fcLinks]="
+            [
+            {href:'basic','label':'基本'},
+            {href:'icon','label':'图标'},
+            {href:'index','label':'最顶层'},
+            {href:'title','label':'标题'},
+            {href:'bgcolor','label':'主题颜色'},
+            {href:'log','label':'log更改'},
+            {href:'navjs','label':'导航事件'},
+            {href:'attributesAPI','label':'属性API'},
+            {href:'eventAPI','label':'事件API'}
+            ]">
+        </fc-fastposition>
+    </div>
+    </fc-layoutcol>
+    <!-- 快速定位结束 -->
+
 </fc-layoutpanel>
-<!-- API -->
-<fc-layoutpanel>
-  <fc-title fcLabel="属性" fcheader> </fc-title>
-  <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-</fc-layoutpanel>
-<fc-layoutpanel>
-  <fc-title fcLabel="事件" fcheader> </fc-title>
-  <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-</fc-layoutpanel>
+    <!-- API -->

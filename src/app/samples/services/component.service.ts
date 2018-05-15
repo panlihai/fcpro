@@ -1,14 +1,21 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
-import { ParentService, ProvidersService } from 'fccore/index';
+import { ParentService, ProvidersService, SysdicdetailService } from 'fccore/index';
+import { Observable } from 'rxjs';
 @Injectable()
 export class ComponentService extends ParentService {
-  constructor(public providers: ProvidersService) {
+  constructor(public providers: ProvidersService, public sysdicdetailService: SysdicdetailService) {
     super(providers, "SYSCOMPONENT");
   }
+  /**
+   * 获取图标
+   */
+  getIcon(): Observable<any> {
+    return this.sysdicdetailService.findWithQuery({ DICID: 'SYSICON' });
+  }
   fcOption = {
-    //皮肤默认为bootstrap风格
-    fcClass: 'ag-blue',
+    //皮肤默认为material风格
+    fcClass: 'ag-theme-material',
     //是否启用查询
     fcEnableSearch: false,
     //是否启用排序

@@ -1,0 +1,29 @@
+<!-- 聊天组件 fc-chat -->
+<fc-layoutpanel>
+    <fc-title fcLabel="聊天组件" fcheader fcSubtitle="聊天组件组件" fcHasline="false"></fc-title>
+    <fc-title fcLabel="何时使用" fcheader fcSubtitle="显示聊天样式的场景" fcHasline="false"></fc-title>
+    <fc-title fcLabel="代码演示" fcheader fcHasline="false"></fc-title>
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="属性" fcheader fcHasLine="false" fcSize="small"></fc-title>
+        <fc-layoutcol fccontent fcSpans="1,1">
+            <fc-layoutgroup fcTitle="基本" fccontent1>
+                <div fccontent>
+                    <fc-chat></fc-chat>
+                </div>
+            </fc-layoutgroup>
+        </fc-layoutcol>
+    </fc-layoutpanel>
+   <!-- API -->
+   <fc-layoutpanel fccontent>
+        <fc-title fcLabel="属性" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+    </fc-layoutpanel>
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="事件" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+    </fc-layoutpanel>
+</fc-layoutpanel>

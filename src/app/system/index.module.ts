@@ -3,20 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Routers } from './index.route';
-import {
-  FcnavModule,
-    FcbasicModule,
-    FcadModule,
-    FctabModule,
-    FctlbModule,
-    FcsearchModule,
-    FcalertModule,
-    FclayoutModule,
-    FclistModule,
-    FcmodalModule,
-    FcchartModule
-} from 'fccomponent';
-import { SysdicService, SysmessageService } from 'fccore';
+import { SysdicService, SysmessageService, MessageService } from 'fccore';
 import { MainComponent } from './components/main/main.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -35,7 +22,7 @@ import { SysroleauthComponent } from './components/core/sysroleauth.component';
 import { SysproductComponent } from './components/core/sysproduct.component';
 import { SysappService } from './services/sysapp.service';
 import { SysproductService } from './services/sysproduct.service';
-import { SysroleauthService } from './services/sysroleauth.service';
+import { SysroleuserService } from './services/sysroleauth.service';
 import { SysbackcodeService } from './services/sysbackcode.service';
 import { SyscomponentService } from './services/syscomponent.service';
 import { SysparamService } from './services/sysparam.service';
@@ -43,25 +30,28 @@ import { SysroleService } from './services/sysrole.service';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
 import { SysappdetailComponent } from './components/core/sysappdetail.component';
-import { SysmessagebackComponent } from './components/core/sysmessageback.component';
+import { FclistModule, FctlbModule, FclayoutModule, FcbasicModule, 
+  FcadModule, FcmodalModule, FcsearchModule, FctabModule, FcchartModule } from 'fccomponent';
+import { SigninComponent } from './components/signin/signin.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { SysappeditComponent } from './components/core/sysappedit.component';
+import { SysroleauthService } from './services/sysroleuser.service';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(Routers),
-    FcnavModule,
-    FcbasicModule,
-    FcadModule,
-    FctabModule,
-    FctlbModule,
-    FcsearchModule,
-    FcalertModule,
-    FclayoutModule,
     FclistModule,
+    FctlbModule,
+    FclayoutModule,
+    FcbasicModule,
+    FctlbModule,
+    FcadModule,
     FcmodalModule,
     FcsearchModule,
-    FcchartModule   
+    FctabModule,
+    FcchartModule
   ],
   exports: [
 
@@ -74,6 +64,8 @@ import { SysmessagebackComponent } from './components/core/sysmessageback.compon
     ForgotComponent,
     SysdatasourceComponent,
     SysappComponent,
+    SysappdetailComponent,
+    SysappeditComponent,
     SysdicComponent,
     SysproductComponent,
     SysroleauthComponent,
@@ -82,9 +74,7 @@ import { SysmessagebackComponent } from './components/core/sysmessageback.compon
     SysmessageComponent,
     SysbackcodeComponent,
     SyscomponentComponent,
-    HomeComponent,
-    SysappdetailComponent,
-    SysmessagebackComponent
+    HomeComponent
   ],
   providers: [
     MainService,
@@ -96,7 +86,10 @@ import { SysmessagebackComponent } from './components/core/sysmessageback.compon
     SysparamService,
     SysmessageService,
     SysbackcodeService,
-    SyscomponentService
+    SyscomponentService,
+    SysroleuserService
   ]
 })
-export class SystemModule { }
+export class SystemModule { 
+ 
+}

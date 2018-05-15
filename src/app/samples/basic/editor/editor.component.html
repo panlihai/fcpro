@@ -1,44 +1,19 @@
 <!-- 富文本框 fc-editor -->
 <fc-layoutpanel>
-    <fc-title fcLabel="富文本框" fcheader></fc-title>
-    <fc-layoutcol fccontent fcSpans="1,1">
-        <fc-layoutgroup fcTitle="基本" fccontent1>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="类型" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="大小" fccontent1>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="禁用" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-        <fc-layoutgroup fcTitle="加载中文案" fccontent2>
-            <div fccontent>
-                正在开发中
-            </div>
-        </fc-layoutgroup>
-    </fc-layoutcol>
+    <fc-title fcLabel="富文本框" fcheader fcSubtitle="富文本框组件正在开发" fcHasline="false"></fc-title>
+    <fc-layoutpanel fccontent>
+    </fc-layoutpanel> 
     <!-- API -->
     <fc-layoutpanel fccontent>
-        <fc-title fcLabel="属性" fcheader> </fc-title>
-        <div style="height:450px;" fccontent>
-            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-        </div>
+            <fc-title fcLabel="属性" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+            </div>
     </fc-layoutpanel>
     <fc-layoutpanel fccontent>
-        <fc-title fcLabel="事件" fcheader></fc-title>
-        <div style="height:450px;" fccontent>
-            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-        </div>
+            <fc-title fcLabel="事件" fcheader></fc-title>
+            <div style="height:450px;" fccontent>
+                <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+            </div>
     </fc-layoutpanel>
 </fc-layoutpanel>

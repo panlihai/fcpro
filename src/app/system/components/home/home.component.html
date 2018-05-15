@@ -1,3 +1,4 @@
+<!-- 首页模板 -->
 <fc-layoutpanel>
     <fc-layoutcol fcSpans="7,3" fccontent>
         <!-- 铁路  总公司 -->
@@ -7,7 +8,6 @@
                 <div fccontent1 style="position: absolute;right: 30px;top: 15px;">
                     <span>消息</span>
                     <span>公告</span>
-                    <fc-button fcLabel="消息反馈" fcType="primary" (click)="messagebackTo('sysmessagebackList')"></fc-button>
                 </div>
                 <div fccontent1 class="all">
                     <span class="tielu">
@@ -143,9 +143,9 @@
             <fc-layoutpanel fccontent>
                 <fc-title fcLabel="快速开始/便捷导航" fcHasLine="false" fcheader fcBorder="bottom" style="line-height:2.5em;"></fc-title>
                 <div style="height:100px;" fccontent>
-                    <fc-tag fcTitle="单位基本信息" (click)="navTo('ar01ARCompanyList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
-                    <fc-tag fcTitle="债权单位维护" (click)="navTo('ar01ARCompanyCard')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
-                    <fc-tag fcTitle="债权单位审批" (click)="navTo('ar01ARCompanyAuditList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
+                    <fc-tag fcTitle="元数据管理" (click)="navTo('sysappList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
+                    <fc-tag fcTitle="系统授权" (click)="navTo('sysroleList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
+                    <fc-tag fcTitle="产品管理" (click)="navTo('sysproductList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
                     <fc-tag fcTitle="客户信息维护" (click)="navTo('ar09ARCustomList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
                     <fc-tag fcTitle="客户变更审批" (click)="navTo('ar09ARCustomAuditList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>
                     <fc-tag fcTitle="客户动态查询" (click)="navTo('ar09ARCustomStatsList')" fcColor="blue" fcIcon="fc-line" style="display:inline-block;margin-top:5px;"></fc-tag>

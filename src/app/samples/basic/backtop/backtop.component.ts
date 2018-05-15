@@ -5,7 +5,7 @@ import { ComponentService } from '../../services/component.service';
 @Component({
   selector: 'app-backtop',
   templateUrl: './backtop.component.html',
-  styleUrls: ['./backtop.component.css']
+  styles: [``]
 })
 export class BacktopComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

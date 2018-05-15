@@ -1,0 +1,31 @@
+<!-- 表单验证模板 -->
+<fc-layoutpanel>
+    <fc-tlbform fcheader [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" ></fc-tlbform>
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="表单验证" fcBorder="bottom" fcheader></fc-title>
+        <fc-layoutcol fcSpans="1,1" fccontent>
+            <div fccontent1>
+                <!--  <fc-text fcLabel="" [fcShowLabel]="false" [fcRequired]="true" [fcAppid]="appId" [(ngModel)]="mainObj.CARDTITLE" name="CARDTITLE"
+                    [fcValid]="mainValid.CARDTITLE"></fc-text> -->
+                <fc-any fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-any>
+                <fc-check fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-check>
+                <!-- <fc-many fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-many> -->
+                <!-- <fc-radio fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-radio> -->
+                <!-- <fc-chosen fcLabel="启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [(ngModel)]="mainObj.ENABLE"
+                    name="ENABLE" [fcValid]="mainValid.ENABLE"></fc-chosen> -->
+                <fc-combo fcLabel="归属路局" [fcAppid]="'SYSCOMPANY'" fcFieldCode="SHORTNAME" fcValueCode="CODE" fcLabelCode="SHORTNAME" [(ngModel)]="mainObj.SHORTNAME"
+                    [fcValid]="mainValid.SHORTNAME" name="SHORTNAME01"></fc-combo>
+            </div>
+            <div fccontent2>
+                <fc-text fcLabel="组件名称" [fcRequired]="true" [fcAppid]="appId" [(ngModel)]="mainObj.APPID" name="APPID" [fcValid]="mainValid.APPID"></fc-text>
+            </div>
+            <div fccontent2 class="checkbutton">
+                <fc-button fcLabel="开始校验" (click)="validator()"></fc-button>
+            </div>
+        </fc-layoutcol>
+    </fc-layoutpanel>
+</fc-layoutpanel>

@@ -5,7 +5,7 @@ import { ComponentParent } from '../../componentparent';
 @Component({
   selector: 'app-collapse',
   templateUrl: './collapse.component.html',
-  styleUrls: ['./collapse.component.css']
+  styles: [``]
 })
 export class CollapseComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {

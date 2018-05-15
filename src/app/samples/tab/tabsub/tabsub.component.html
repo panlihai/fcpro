@@ -1,39 +1,103 @@
 <!-- 按钮 fc-button -->
-<fc-layoutpanel>
-  <fc-title fcLabel="按钮" fcheader></fc-title>
-  <fc-layoutcol fccontent fcSpans="1,1">
-    <fc-layoutgroup fcTitle="基本" fccontent1>
-      <div fccontent>
-        <fc-tabsub [fcTabs]="tabsub" [fcSelectedIndex]="tabIndex">
-          <div fccontent1>fccontent1</div>
-          <div fccontent2>fccontent2</div>
-          <div fccontent3>fccontent3</div>
-        </fc-tabsub>
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="类型" fccontent2>
-      <div fccontent>
-        正在开发中
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="大小" fccontent1>
-      <div fccontent>
-        正在开发中
-      </div>
-    </fc-layoutgroup>
-    <fc-layoutgroup fcTitle="更多" fccontent2>
-      <div fccontent>
-        待开发
-      </div>
-    </fc-layoutgroup>
-  </fc-layoutcol>
-</fc-layoutpanel>
-<!-- API -->
-<fc-layoutpanel>
-  <fc-title fcLabel="属性" fcheader> </fc-title>
-  <fc-listdata fccontent [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-</fc-layoutpanel>
-<fc-layoutpanel>
-  <fc-title fcLabel="事件" fcheader> </fc-title>
-  <fc-listdata fccontent [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
-</fc-layoutpanel>
+<fc-layoutpanel class="tabsub">
+    <!-- 快速定位 -->
+    <fc-layoutcol fcSpans="9,1" fccontent>
+    <fc-layoutpanel fccontent1>
+    <!-- 组件内容开始 -->
+    <fc-layoutpanel fccontent>
+        <fc-title fcLabel="按钮" fcheader></fc-title>
+        <fc-layoutcol fccontent fcSpans="1,1">
+              <fc-layoutgroup id="basic" fcTitle="基本" fccontent1>
+                <div fccontent>
+                  <fc-tabsub [fcTabs]="tabsub" [fcSelectedIndex]="tabIndex">
+                    <div fccontent1>fccontent1</div>
+                    <div fccontent2>fccontent2</div>
+                    <div fccontent3>fccontent3</div>
+                  </fc-tabsub>
+                </div>
+                <fc-adcode fcfooter fcTitle="描述" fcRemark="最基本的用法。"
+                [fcview]="basicview"
+                [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="type" fcTitle="类型" fccontent2>
+                  <div fccontent>
+                    <fc-tabsub [fcTabs]="tabsub" [fcType]="card">
+                      <div fccontent1>fccontent1</div>
+                      <div fccontent2>fccontent2</div>
+                      <div fccontent3>fccontent3</div>
+                    </fc-tabsub>
+                  </div>
+                  <fc-adcode fcfooter fcTitle="描述" fcRemark="选项卡类型底部没有横线"
+                  [fcview]="typeview"
+                  [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="title" fcTitle="标题" fccontent2>
+                  <div fccontent>
+                    <fc-tabsub [fcTabs]="tabsub" [fcSelectedIndex]="tabIndex">
+                      <div fccontent1>fccontent1</div>
+                      <div fccontent2>fccontent2</div>
+                      <div fccontent3>fccontent3</div>
+                    </fc-tabsub>
+                  </div>
+                  <fc-adcode fcfooter fcTitle="描述" fcRemark="选项卡标题"
+                  [fcview]="titleview"
+                  [fccode]="basicjs"></fc-adcode>
+                </fc-layoutgroup>
+                <fc-layoutgroup id="index" fcTitle="索引" fccontent1>
+                  <div fccontent>
+                    <fc-tabsub [fcTabs]="tabsub" [fcSelectedIndex]="1">
+                      <div fccontent1>fccontent1</div>
+                      <div fccontent2>fccontent2</div>
+                      <div fccontent3>fccontent3</div>
+                    </fc-tabsub>
+                  </div>
+                  <fc-adcode fcfooter fcTitle="描述" fcRemark="设置选项卡选中第几个按钮和按钮相对的内容"
+                [fcview]="indexview"
+                [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+              <fc-layoutgroup id="position" fcTitle="定位" fccontent1>
+                  <div fccontent>
+                    <fc-tabsub [fcTabs]="tabsub" [fcShowPagination]="top">
+                      <div fccontent1>fccontent1</div>
+                      <div fccontent2>fccontent2</div>
+                      <div fccontent3>fccontent3</div>
+                    </fc-tabsub>
+                  </div>
+                  <fc-adcode fcfooter fcTitle="描述" fcRemark="选项卡定位值有top、right、left、center"
+                  [fcview]="positionview"
+                  [fccode]="basicjs"></fc-adcode>
+              </fc-layoutgroup>
+        </fc-layoutcol>
+    </fc-layoutpanel>
+       <!-- API -->
+    <fc-layoutpanel fccontent>
+        <fc-title id="attributesAPI" fcLabel="属性" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCFIELDS'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+    </fc-layoutpanel>
+    <fc-layoutpanel fccontent>
+        <fc-title id="eventAPI" fcLabel="事件" fcheader></fc-title>
+        <div style="height:450px;" fccontent>
+            <fc-listdata [fcAppid]="'FCEVENT'" [fcOption]="fcOption" [fcCondition]="fcCondition"></fc-listdata>
+        </div>
+    </fc-layoutpanel>
+    </fc-layoutpanel>
+    <!-- 组件内容结束 -->
+    <div class="fastposition-content" fccontent2>
+        <fc-fastposition [fcLinks]="
+            [
+            {href:'basic','label':'基本'},
+            {href:'type','label':'类型'},
+            {href:'title','label':'标题'},
+            {href:'index','label':'索引'},
+            {href:'position','label':'定位'},
+            {href:'attributesAPI','label':'属性API'},
+            {href:'eventAPI','label':'事件API'}
+            ]">
+        </fc-fastposition>
+    </div>
+    </fc-layoutcol>
+    <!-- 快速定位结束 -->
+    
+ 

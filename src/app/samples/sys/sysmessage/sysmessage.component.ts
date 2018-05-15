@@ -3,9 +3,9 @@ import { ComponentParent } from '../../componentparent';
 import { ComponentService } from '../../services/component.service';
 
 @Component({
-  selector: 'app-sysmessage',
+  selector: 'sysmessage',
   templateUrl: './sysmessage.component.html',
-  styleUrls: ['./sysmessage.component.css']
+  styles: [``]
 })
 export class SysmessageComponent extends ComponentParent {
   constructor(public mainService: ComponentService) {
