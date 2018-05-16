@@ -22,9 +22,9 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-## 什么是FC
+## 什么是FC,fcpro
 FC是fastcore的简称
-1.基于angular5、spring实现前后端分离的开发平台.
+1.基于angular5、spring实现前后端分离的开发平台.fcpro是前端应用.
 2.标准化的路由引擎.
 3.强制实施结构化模型-视图-控制器（MVC)框架.
 4.强制模块化.
@@ -34,7 +34,7 @@ FC是fastcore的简称
 <pre>
     <code>
     2018年05月16日09:08  
-    本项目删除了sample模块，另外新增[fcsample](https://github.com/panlihai/fcpro) 项目。
+    本项目删除了sample模块，另外新增 [fcsample](https://github.com/panlihai/fcpro)项目。
     <code>
 </pre>
 

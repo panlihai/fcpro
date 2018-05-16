@@ -11,11 +11,7 @@ export const AppRouters: Routes = [
         component: LayoutComponent,
         canActivate: [UserService],
         children: [
-            {
-                path: '',//组件
-                loadChildren: './samples/index.module#SamplesModule'
-            }
-            , {
+             {
                 path: 'system',//系统
                 loadChildren: './system/index.module#SystemModule'
             } 

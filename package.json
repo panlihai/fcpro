@@ -1,6 +1,6 @@
 {
   "name": "fcpro",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -12,8 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "fccomponent": "^0.6.22",
-    "ngx-monaco-editor": "^4.1.1"
+    "fccomponent": "^0.6.22"
   },
   "devDependencies": {
     "@angular/cli": "1.6.7",
