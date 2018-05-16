@@ -34,7 +34,7 @@ FC是fastcore的简称
 <pre>
     <code>
     2018年05月16日09:08  
-    本项目删除了sample模块，另外新增fcsample项目。
+    本项目删除了sample模块，另外新增[fcsample](https://github.com/panlihai/fcpro)项目。
     <code>
 </pre>
 
