@@ -4,6 +4,7 @@ import { ParentlistComponent } from 'fccomponent';
 import { SysroleService } from '../../services/sysrole.service';
 import { Sysroleuser } from '../../services/sysroleuser.service';
 import { Sysroleauth } from '../../services/sysroleauth.service';
+import { FCEVENT } from 'fccomponent/fc';
 @Component({
   selector: 'sysrole',
   templateUrl: 'sysrole.component.html',
@@ -73,37 +74,29 @@ import { Sysroleauth } from '../../services/sysroleauth.service';
   `]
 })
 export class SysroleComponent extends ParentlistComponent {
-  authList: Sysroleauth[];
-  userList: any[];
+  selectedObject: any;
+  // 选中的角色权限
+  roleauthList: Sysroleauth[];
+  // 选中的角色用户
+  roleuserList: Sysroleuser[];
   //列表条件
   listCondition: string;
-  //下拉单选
-  comboValue: string;
-  comboOptions: any[] = [{ icon: '', label: 'A', value: 'a' }, { icon: '', label: 'B', value: 'b' }, { icon: '', label: 'C', value: 'c' }];
   //用户权限
-  roleTab = [
-    { name: '该角色的用户', disabled: false },
-    { name: '该角色的权限', disabled: false },
-  ];
-  //显示增加人员的弹窗
-  showadduserwindow:boolean=false;
-  //元数据选中
-  checkValue: string = '新增';
-  checkappValue: string = '元数据';
-  checkOptions: any[] = [{ icon: '', label: '新增', value: 'a' }, { icon: '', label: '删除', value: 'b' }, { icon: '', label: '发布', value: 'c' }];
-  checkAppOptions: any[] = [{ icon: '', label: '元数据', value: 'a' }];
-  //点击添加按钮的弹窗
-  windowhidden :boolean;
+  roleTab: any[];
   constructor(public mainService: SysroleService, public router: Router, public activedRouter: ActivatedRoute) {
     super(mainService, router, activedRouter);
-    this.listCondition = '{"PID":"' + mainService.moduleId + '","ENABLE":"Y"}';
   }
+  /**
+   * 初始化当前组件需要的数据
+   * 初始状态默认选中第一个角色
+   */
   init(): void {
-    this.selectedObject = { ROLEID: 'MANAGER' }
-    this.getUser();
-    if(this.windowhidden===undefined){
-        this.windowhidden=true;
-    }
+    // 默认取到当前产品的所有角色
+    this.listCondition = '{"PID":"' + this.mainService.moduleId + '","ENABLE":"Y"}';
+    this.roleTab = [
+      { name: '该角色的用户', disabled: false },
+      { name: '该角色的权限', disabled: false },
+    ];
   }
 
   getDefaultQuery() {
@@ -112,37 +105,68 @@ export class SysroleComponent extends ParentlistComponent {
 
   }
 
-  getAuth() {
+  /**
+   * 获取选中的角色信息
+   * @param event 列表fclist事件句柄
+   */
+  listEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case 'select':
+        this.selectedObject = event.param;
+        this.mainService.createUserConditionByRoleid(this.selectedObject.ROLEID);
+        this.getRoleAuth();
+        this.getRoleUser();
+        break;
+    }
+  }
+
+  /**
+   * @description 当前选中的角色获取此角色的所有权限
+   */
+  getRoleAuth() {
     let roleId = this.selectedObject.ROLEID;
     this.mainService.getAuthByRoleid(roleId).subscribe(result => {
       if (result.CODE === '0') {
-        this.authList = result.DATA as Sysroleauth[];
-
+        this.roleauthList = result.DATA as Sysroleauth[];
       }
-      console.log(this.authList);
+      console.log(this.roleauthList);
     })
   }
-  getUser() {
+  /**
+   * @description 当前选中的角色获取此角色的所有用户
+   * 
+   */
+  getRoleUser() {
     let roleId = this.selectedObject.ROLEID;
     this.mainService.getUserByRoleid(roleId).subscribe(result => {
       if (result.CODE === '0') {
-        this.userList = result.DATA;
+        this.roleuserList = result.DATA;
+        this.mainService.logService.info(this.roleuserList);
       }
-      console.log(this.userList);
     })
-
   }
-  //点击添加人员按钮，弹窗出现
-  addUser() {
-    this.windowhidden=false;
+  /**
+  * 选中用户追加到当前选中的角色中，并保存到服务器
+  * @param event 模态框列表事件句柄
+  */
+  modallistEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case 'success':
+        this.roleuserList = this.roleuserList.concat(event.param);
+        this.mainService.saveRoleUser(event.param,this.selectedObject);
+        break;
+    }
   }
-  //取消添加人员按钮，弹窗消失
-  canceladduser(){
-    this.windowhidden=true;
+  /**
+   * @description 获取关闭事件，并删除当前角色的用户
+   * @param event tag事件句柄
+   * @author sundanhua
+   */
+  tagEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case 'close':
+        this.mainService.deleteRoleUser(event.param.USERID);
+        break;
+    }
   }
-  //确认添加用户
-  createUser(){
-
-  }
-
 }
