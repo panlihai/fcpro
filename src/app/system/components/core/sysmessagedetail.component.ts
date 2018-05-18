@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SysappService } from '../../services/sysapp.service';
 import { NzModalService } from 'ng-zorro-antd';
-import { FCEVENT } from '../../../fccomponent/fc';
-import { ParentlistComponent, ParentDetailComponent, TimelineOptions } from '../../../fccomponent';
+import { FCEVENT } from 'fccomponent/fc';
+import { ParentlistComponent, ParentDetailComponent, TimelineOptions } from 'fccomponent';
 import { eventNames } from 'cluster';
 import { SysmessageService, Sysmessage } from '../../services/sysmessage.service';
 @Component({

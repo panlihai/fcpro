@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentlistComponent } from '../../../fccomponent';
+import { ParentlistComponent } from 'fccomponent';
 import { SysroleService } from '../../services/sysrole.service';
 import { Sysroleuser } from '../../services/sysroleuser.service';
 import { Sysroleauth } from '../../services/sysroleauth.service';

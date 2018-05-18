@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { ProvidersService, MessageService } from 'fccore';
-import { LayoutService } from '../feature/system/services/layout.service';
-import { FcmodalconfirmComponent } from '../feature/fccomponent/fcmodal/fcmodalconfirm.component';
-import { FCEVENT } from '../feature/fccomponent/fc';
-import { NavsideOptions } from '../feature/fccomponent/fcnav/fcnavside.component';
-import { MenuOptions } from '../feature/fccomponent/fcnav/fcnavmenu.component';
-import { FcTaboptions } from '../feature/fccomponent/fcnav/fcnavtab.component';
+import { LayoutService } from '../system/services/layout.service';
+import { FcmodalconfirmComponent } from 'fccomponent/fcmodal/fcmodalconfirm.component';
+import { FCEVENT } from 'fccomponent/fc';
+import { NavsideOptions } from 'fccomponent/fcnav/fcnavside.component';
+import { MenuOptions } from 'fccomponent/fcnav/fcnavmenu.component';
+import { FcTaboptions } from 'fccomponent/fcnav/fcnavtab.component';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',

@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { ParentService, ProvidersService } from 'fccore';
 import { Observable } from 'rxjs';
-import { TimelineOptions } from '../../fccomponent/fcbasic/fctimeline.component';
+import { TimelineOptions } from 'fccomponent/fcbasic/fctimeline.component';
 @Injectable()
 export class SysmessageService extends ParentService {
   constructor(public providers: ProvidersService) {
