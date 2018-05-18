@@ -6,43 +6,7 @@ import { Sysroleuser } from '../../services/sysroleuser.service';
 import { Sysroleauth } from '../../services/sysroleauth.service';
 @Component({
   selector: 'sysrole',
-  template: `
-  <fc-layoutpanel fcFull="true">
-    <fc-layoutcol fcSpans="2,9" style="height:100%;" fccontent>
-      <div class="left" style="100%;" fccontent1>
-        <fc-title fcLabel="所有角色" fcHasLine="false" [fcBorder]="'bottom'"></fc-title>
-        <fc-list [fcAppid]="'SYSROLE'" [fcFieldCode]="'ROLENAME'" [fcCondition]="listCondition"></fc-list>
-        <fc-icon class="fc-role-add" [fcIcon]="'fc-icon-keep'" [fcSize]="'large'" [fcColor]="'#108ee9'"></fc-icon>
-      </div>
-      <fc-tabmain fccontent2 [fcTabs]="roleTab" class="role-tab">
-        <div style="border-top:1px solid #e9e9e9;" fccontent1>
-          <fc-title fcLabel="管理部" fcHasLine="false"></fc-title>
-          <fc-tag *ngFor="let user of userList" [fcTitle]="user.NAME" fcColor="blue" [fcIcon]="'fc-icon-users'" [fcClose]="true"></fc-tag>
-          <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addUser()"></fc-button>
-        </div>
-        <div style="border-top:1px solid #e9e9e9;" fccontent2>
-          <div class="path">
-            <span class="path-every">元数据</span>
-            <span class="path-every path-every-active">元数据属性</span>
-          </div>
-          <div class="app-check">
-            <fc-check [(ngModel)]="checkValue" [fcOption]="checkAppOptions"></fc-check>
-          </div>
-          <div class="app-check">
-            <fc-check [(ngModel)]="checkappValue" [fcOption]="checkOptions"></fc-check>
-          </div>
-          </div>
-      </fc-tabmain>
-    </fc-layoutcol>
-  </fc-layoutpanel>
-  <div [hidden]="windowhidden" class="adduser-window">
-    <fc-combo [fcLabel]="'人员'" [(ngModel)]="comboValue" [fcOption]="comboOptions"></fc-combo>
-    <div class="adduser-button">
-        <fc-button fcLabel="确定" fcType="primary" (click)="createUser()"></fc-button>
-        <fc-button fcLabel="取消" fcType="default" (click)="canceladduser()"></fc-button>
-    </div>   
-  </div>
-    `,
+  templateUrl: 'sysrole.component.html',
   styles: [`
   :host ::ng-deep .fc-layoutpanel .fc-content{
     height:100%;
