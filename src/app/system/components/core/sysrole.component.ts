@@ -153,7 +153,7 @@ export class SysroleComponent extends ParentlistComponent {
     switch (event.eventName) {
       case 'success':
         this.roleuserList = this.roleuserList.concat(event.param);
-        this.mainService.saveRoleUser(event.param,this.selectedObject);
+        this.mainService.saveRoleUser(event.param, this.selectedObject);
         break;
     }
   }
@@ -166,6 +166,13 @@ export class SysroleComponent extends ParentlistComponent {
     switch (event.eventName) {
       case 'close':
         this.mainService.deleteRoleUser(event.param.USERID);
+        break;
+    }
+  }
+
+  treeEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case '':
         break;
     }
   }
