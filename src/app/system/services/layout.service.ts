@@ -10,17 +10,18 @@ export class LayoutService {
     //点击的所有tab页面。
     _tabs: FcTaboptions[];
     //选中索引
-    _selectedIndex: number;
+    _selectedIndex: string="0";
     //是否被选中
     _navmenuSelected: boolean;
     constructor(private providers: ProvidersService, private sysmessageService: SysmessageService) {
+
     }
     init() {
         this._tabs = [{
-            id: '0', index: 0, enabled: true, name: '首页', close: false, content:
+            id: '0', index: 0, enabled: true, name: '首页', close: false, icon: 'fc-icon-home', content:
                 { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: FCCONFIG.pid, MENUTYPE: 'INURL' }
         }];
-        this._selectedIndex = 0;
+        this._selectedIndex = "0";
     }
     /**
      * 获取默认的消息对象。
@@ -46,7 +47,6 @@ export class LayoutService {
             this.sysmessageService.findWithQuery({ NOTIFICATIONUSERID: user.USERCODE, PAGESIZE: 1000, ISREAD: 'N', ORDER: "TS desc" })
         ]);
     }
-
     /**
      * 
      * @param router 
@@ -72,19 +72,18 @@ export class LayoutService {
         //判断是否存在路由
         let existTabs = this._tabs.filter(element => element.id === menu.ID);
         if (existTabs.length === 0) {
-
-
             this._tabs.push({
                 id: menu.ID,
                 enabled: true,
                 index: this._tabs.length,
                 name: menu.MENUNAME,
                 close: true,
+                icon: menu.MENUICON,
                 content: menu
             });
-            this._selectedIndex = this._tabs.length - 1;
+            this._selectedIndex = this._tabs.length - 1 + "";
         } else {
-            this._selectedIndex = existTabs[0].index;
+            this._selectedIndex = existTabs[0].index + "";
         }
         this._tabs.forEach(item => {
             if (item.name === menu.MENUNAME) {
@@ -109,7 +108,6 @@ export class LayoutService {
             this.providers.msgService.endAntLoading();
         });
     }
-
     /**
      * 存储路由
      * @param menu 
@@ -124,7 +122,7 @@ export class LayoutService {
         this._tabs.forEach(item => {
             item.index = tempIndex++;
         });
-        this._selectedIndex = this._selectedIndex - 1;
+        this._selectedIndex = Number(this._selectedIndex) - 1 + "";
         this.storeMenu(router, this._tabs[this._selectedIndex].content);
     }
     /**
@@ -133,7 +131,13 @@ export class LayoutService {
      * @param menu 关闭的路由菜单
      */
     navToByMenuId(router: Router, menuId: string) {
-        this.storeMenu(router, this.findMenuByMenuId(this.providers.menuService.menus, menuId));
+        let menu = this.findMenuByMenuId(this.providers.menuService.menus, menuId);
+        if (menu) {
+            this.storeMenu(router, menu);
+            this.providers.commonService.event("selectedMenu", menu);
+        } else {
+            this.providers.msgService.error(menuId + '不存在...');
+        }
     }
     /**
      * 
