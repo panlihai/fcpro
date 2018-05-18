@@ -22,7 +22,7 @@ import { SysroleauthComponent } from './components/core/sysroleauth.component';
 import { SysproductComponent } from './components/core/sysproduct.component';
 import { SysappService } from './services/sysapp.service';
 import { SysproductService } from './services/sysproduct.service';
-import { SysroleauthService } from './services/sysroleauth.service';
+import { SysroleuserService } from './services/sysroleauth.service';
 import { SysbackcodeService } from './services/sysbackcode.service';
 import { SyscomponentService } from './services/syscomponent.service';
 import { SysparamService } from './services/sysparam.service';
@@ -30,12 +30,13 @@ import { SysroleService } from './services/sysrole.service';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
 import { SysappdetailComponent } from './components/core/sysappdetail.component';
-import { LayoutService } from './services/layout.service';
 import { FclistModule, FctlbModule, FclayoutModule, FcbasicModule, 
   FcadModule, FcmodalModule, FcsearchModule, FctabModule, FcchartModule } from 'fccomponent';
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
+import { SysroleauthService } from './services/sysroleuser.service';
+import { LayoutService } from './services/layout.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -87,7 +88,8 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     SysparamService,
     SysmessageService,
     SysbackcodeService,
-    SyscomponentService
+    SyscomponentService,
+    SysroleuserService
   ]
 })
 export class SystemModule { 

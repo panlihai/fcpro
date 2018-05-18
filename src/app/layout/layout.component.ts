@@ -2,9 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { ProvidersService, MessageService } from 'fccore';
-import { FcmodalconfirmComponent, NavsideOptions, MenuOptions, FcTaboptions } from 'fccomponent';
-import { FCEVENT } from 'fccomponent/fc';
-import { LayoutService } from '../system/services/layout.service';
+import { LayoutService } from '../feature/system/services/layout.service';
+import { FcmodalconfirmComponent } from '../feature/fccomponent/fcmodal/fcmodalconfirm.component';
+import { FCEVENT } from '../feature/fccomponent/fc';
+import { NavsideOptions } from '../feature/fccomponent/fcnav/fcnavside.component';
+import { MenuOptions } from '../feature/fccomponent/fcnav/fcnavmenu.component';
+import { FcTaboptions } from '../feature/fccomponent/fcnav/fcnavtab.component';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -16,7 +19,7 @@ import { LayoutService } from '../system/services/layout.service';
     padding: 41px 5px 5px;
     height: 100%;
     box-sizing: border-box;
-    background: #ececec;
+    background: #e7e9eb;
     position: relative;
   }
   :host ::ng-deep .content-main{
@@ -27,7 +30,7 @@ import { LayoutService } from '../system/services/layout.service';
     overflow-y: auto;
     box-sizing: border-box;
     background-color: #EEF7FC;
-    border-top: 4px solid #ececec;
+    border-top: 5px solid #ececec;
   }
   :host ::ng-deep router-outlet + * {
     width: 100%;
@@ -46,6 +49,7 @@ import { LayoutService } from '../system/services/layout.service';
     top:5px;
     left:5px;
     background-color:#ffffff;
+    height:42px;
   }
   .nav-breadcrub {
     width:calc(100% - 5px);
@@ -84,7 +88,7 @@ export class LayoutComponent implements OnInit {
   allmenus = [];
   _menus: any = [];
   _tabs: FcTaboptions[];
-  _navTabSelectedIndex: number = 0;
+  _navTabSelectedIndex: string = "0";
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private mainService: LayoutService
@@ -100,10 +104,20 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
     this.mainService.getMessage().subscribe(res => {
       if (res[0].CODE === '0') {
-        this._navSideOption.fcValues1 = res[0].DATA;
+        this._navSideOption.fcValues1 = res[1].DATA;
+        this._navSideOption.fcValues1.forEach(element => {
+          if (element.TS !== null && element.TS !== '') {
+            element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+          }
+        })
       }
       if (res[1].CODE === '0') {
-        this._navSideOption.fcValues2 = res[1].DATA;
+        this._navSideOption.fcValues2 = res[0].DATA;
+        this._navSideOption.fcValues2.forEach(element => {
+          if (element.TS !== null && element.TS !== '') {
+            element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+          }
+        })
       }
     });
     this._navTabSelectedIndex = this.mainService._selectedIndex;
@@ -168,7 +182,7 @@ export class LayoutComponent implements OnInit {
         break;
       case 'select':
         //导航并存储列表
-        this.mainService.storeMenu(this._router, event.param,{});
+        this.mainService.storeMenu(this._router, event.param, {});
         this._navTabSelectedIndex = this.mainService._selectedIndex;
         this._navmenuSelected = this.mainService._navmenuSelected;
         break;
@@ -188,7 +202,27 @@ export class LayoutComponent implements OnInit {
         break;
     }
   }
-
+  /**
+    * 侧边栏页面事件
+    * @param event tab页面事件
+    */
+  navsideEvent(event: FCEVENT): void {
+    switch (event.eventName) {
+      case 'closed':
+        this.mainService.navRemoveMenu(this._router, event.param);
+        break;
+      case 'click':
+        this.mainService.navMessage(this._router, event.param);         
+        /* event.param.ISREAD="Y";
+        this._navSideOption.fcValues1.forEach(item,index=>{
+            if(item.ISREAD="Y"){
+              this._navSideOption.fcValues1.slice(index,index+1);
+            }
+        }) */
+        break;
+    }
+  }
+ 
   /**
    * 消息处理
    * @param message 消息对象
