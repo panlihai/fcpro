@@ -22,7 +22,6 @@ export class SysroleService extends ParentService {
     }
     this.userCondition = JSON.stringify(where);
   }
-
   /**
    * 根据角色id获取用户的权限信息
    * @param roleId 角色id
@@ -30,7 +29,6 @@ export class SysroleService extends ParentService {
   getAuthByRoleid(roleId: string): Observable<any> {
     return this.sysroleauthService.findWithQueryAll({ ROLEID: roleId })
   }
-
   /**
   * 根据角色id获取用户信息
   * @param roleId 角色id
@@ -39,7 +37,6 @@ export class SysroleService extends ParentService {
     let where = "AND usercode in (select userid from sys_roleuser where roleid='" + roleId + "')";
     return this.appService.findWithQuery('SYSUSER', { WHERE: where });
   }
-
   /**
    * 删除当前角色下的用户
    * @param userId 用户id

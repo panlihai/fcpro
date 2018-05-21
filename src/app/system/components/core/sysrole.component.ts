@@ -128,7 +128,6 @@ export class SysroleComponent extends ParentlistComponent {
   event(eventName: string, context: any): void {
 
   }
-
   /**
    * 获取选中的角色信息
    * @param event 列表fclist事件句柄
@@ -143,7 +142,6 @@ export class SysroleComponent extends ParentlistComponent {
         break;
     }
   }
-
   /**
    * @description 当前选中的角色获取此角色的所有权限
    */
