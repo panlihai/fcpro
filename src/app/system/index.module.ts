@@ -22,7 +22,6 @@ import { SysroleauthComponent } from './components/core/sysroleauth.component';
 import { SysproductComponent } from './components/core/sysproduct.component';
 import { SysappService } from './services/sysapp.service';
 import { SysproductService } from './services/sysproduct.service';
-import { SysroleuserService } from './services/sysroleauth.service';
 import { SysbackcodeService } from './services/sysbackcode.service';
 import { SyscomponentService } from './services/syscomponent.service';
 import { SysparamService } from './services/sysparam.service';
@@ -35,8 +34,9 @@ import { FclistModule, FctlbModule, FclayoutModule, FcbasicModule,
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
-import { SysroleauthService } from './services/sysroleuser.service';
 import { LayoutService } from './services/layout.service';
+import { SysroleauthService } from './services/sysroleauth.service';
+import { SysroleuserService } from './services/sysroleuser.service';
 @NgModule({
   imports: [
     CommonModule,

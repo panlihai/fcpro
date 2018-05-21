@@ -127,7 +127,6 @@ export class SysroleComponent extends ParentlistComponent {
       if (result.CODE === '0') {
         this.roleauthList = result.DATA as Sysroleauth[];
       }
-      console.log(this.roleauthList);
     })
   }
   /**
@@ -163,7 +162,7 @@ export class SysroleComponent extends ParentlistComponent {
   tagEvent(event: FCEVENT) {
     switch (event.eventName) {
       case 'close':
-        this.mainService.deleteRoleUser(event.param.USERID);
+        this.mainService.deleteRoleUser(event.param.value);
         break;
     }
   }
