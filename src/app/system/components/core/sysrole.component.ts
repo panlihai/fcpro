@@ -7,32 +7,7 @@ import { Sysroleauth } from '../../services/sysroleauth.service';
 import { FCEVENT } from 'fccomponent/fc';
 @Component({
   selector: 'sysrole',
-  template: `
-  <fc-layoutpanel fcFull="true">
-    <fc-layoutcol fcSpans="2,9" style="height:100%;" fccontent>
-      <div class="left" style="100%;" fccontent1>
-        <fc-title fcLabel="所有角色" fcHasLine="false" [fcBorder]="'bottom'"></fc-title>
-        <fc-list [fcAppid]="'SYSROLE'" [fcFieldCode]="'ROLENAME'" [fcCondition]="listCondition" fcEvent="listEvent($event)"></fc-list>
-        <fc-icon class="fc-role-add" [fcIcon]="'fc-icon-keep'" [fcSize]="'large'" [fcColor]="'#108ee9'"></fc-icon>
-      </div>
-      <fc-tabmain fccontent2 [fcTabs]="roleTab" class="role-tab">
-        <div style="border-top:1px solid #e9e9e9;" fccontent1>
-          <fc-title fcLabel="管理部" fcHasLine="false"></fc-title>
-          <fc-tag *ngFor="let user of userList" [fcTitle]="user.NAME" fcColor="blue" [fcIcon]="'fc-icon-users'" [fcClose]="true" (fcEvent)="tagEvent($event)"></fc-tag>
-          <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="modalMullist1.showModal()"></fc-button>
-          <fc-modallist #modalMullist1 fcTitle="请选择用户" [fcAppid]="'SYSUSER'" [fcType]="'multiple'" (fcEvent)="modallistEvent($event)" fcCondition="mainService.userCondition"></fc-modallist>
-        </div>
-        <div style="border-top:1px solid #e9e9e9;" fccontent2>
-          <div class="path">
-            <span class="path-every">元数据</span>
-            <span class="path-every path-every-active">元数据属性</span>
-          </div>
-        
-          </div>
-      </fc-tabmain>
-    </fc-layoutcol>
-  </fc-layoutpanel>
-    `,
+  templateUrl: 'sysrole.component.html',
   styles: [`
   :host ::ng-deep .fc-layoutpanel .fc-content{
     height:100%;
@@ -99,6 +74,7 @@ import { FCEVENT } from 'fccomponent/fc';
   `]
 })
 export class SysroleComponent extends ParentlistComponent {
+  selectedObject: any;
   // 选中的角色权限
   roleauthList: Sysroleauth[];
   // 选中的角色用户
@@ -175,7 +151,7 @@ export class SysroleComponent extends ParentlistComponent {
     switch (event.eventName) {
       case 'success':
         this.roleuserList = this.roleuserList.concat(event.param);
-        this.mainService.saveRoleUser(event.param,this.selectedObject);
+        this.mainService.saveRoleUser(event.param, this.selectedObject);
         break;
     }
   }
@@ -188,6 +164,13 @@ export class SysroleComponent extends ParentlistComponent {
     switch (event.eventName) {
       case 'close':
         this.mainService.deleteRoleUser(event.param.USERID);
+        break;
+    }
+  }
+
+  treeEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case '':
         break;
     }
   }
