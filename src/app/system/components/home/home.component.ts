@@ -10,25 +10,38 @@ import { FCEVENT } from 'fccomponent/fc';
   templateUrl: './home.component.html',
   styles: [
     `
+    .messages-notices{
+      position: absolute;
+      right: 30px;
+      top: 45px;
+    }
     .all{
       display:flex;
       justify-content:between;
       align-item:center;
+      height: 110px;
+      padding: 20px 0px 0px 20px;
     }
-    .tielu{
-      width:5%;
-      height:100%;
+    .railway{
+      height:40px;
+      width:40px;
+      font-size:40px;
       display:inline-block;
+      margin-right:20px;
+      width:5%;
     }
-    :host ::ng-deep .tielu .fc-icon-notice{
-      font-size:30px;
-      margin-top:30px;
+    :host ::ng-deep .railway .fc-icon-notice{
+      font-size:40px;
     }
-    .tielu_p{
-      height:30px;
-      line-height:30px;
-      font-size:12px;
-      color:#333333;
+    .detailcontent{
+      width:91%;
+    }
+    :host ::ng-deep .viewdetail a{
+      font-size:14px;
+    }
+    :host ::ng-deep .ant-tag-text{
+      font-size:14px;
+      color: #666666;
     }
     .home-list{
       width:100%;
@@ -40,19 +53,21 @@ import { FCEVENT } from 'fccomponent/fc';
     }
     .contact li{
       height:40px;
+      line-height:40px;
       border-bottom:1px solid #cccccc;
       display:flex;
       align-item:center;
       white-space:nowrap;
       overflow:hidden;
       position:relative;
+      padding-left:20px;
     }
     .contact li span{
       font-size:14px;
-      margin:10px;
     }
     .contact_right{
       color:#399dfb;
+      margin-left:10px;
     }
     .main_contact{
       position:relative;
@@ -161,9 +176,6 @@ import { FCEVENT } from 'fccomponent/fc';
       left: 32px;
       top: 5px;
     }
-    .telephone{
-      margin-top:3px;
-    }
    :host ::ng-deep .home-calendar .ant-fullcalendar-header{
       position: absolute;
       top: -54px;
@@ -172,32 +184,82 @@ import { FCEVENT } from 'fccomponent/fc';
     :host ::ng-deep .ant-fullcalendar-header .ant-radio-group{
       display:none;
     }
-    .talk-wrap {
+    :host ::ng-deep .contact_right a{
+      font-size:14px;
+    }
+    .chat-wrap{
+      width:50px;
+      height:50px;
+      overflow:hidden;
       position:fixed;
       right:25px;
-      bottom:25px;
+      bottom:30px;
     }
-    .talk-inner{
-      position:relative;
-    }
-    .contact_icon+.talk-inner{
-      opacity: 0;
-      transition: all 0.5s ease-out;
-      -moz-transition: all 0.5s ease-out;
-      -webkit-transition: all 0.5s ease-out; 
-      -o-transition: all 0.5s ease-out;
-    }
-    .contact_icon:hover+.talk-inner{
+    :host ::ng-deep .chat-show-wrap .fc-chatbox .fc-chatouter{
+      visibility:visible;
       opacity: 1;
-      transition: all 0.5s linear;
-      -moz-transition: all 0.5s linear;
-      -webkit-transition: all 0.5s linear; 
-      -o-transition: all 0.5s linear;
     }
+    :host ::ng-deep .ant-btn-circle{
+      width: 50px;
+      border-radius: 50%;
+      height: 50px;
+      background-color:#5c92FF;
+      border:none;
+      font-size:0px;
+    }
+    :host ::ng-deep .ant-btn-circle i{
+      font-size:18px;
+    }
+    :host ::ng-deep .fc-chatouter{
+      position: fixed;
+      bottom: 90px;
+      right: 60px;
+      opacity: 0;
+      visibility:hidden;
+      transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -webkit-transition: all 0.3s; 
+      -o-transition: all 0.3s;
+    }
+    .contacticon:hover{
+      cursor: pointer;
+    }
+    :host ::ng-deep .fc-title{
+      padding-left: 20px;
+    }
+  :host ::ng-deep .fastcontent{
+    padding-left:20px;
+  }
+  :host ::ng-deep .ant-tag-blue {
+    border: none;
+    background-color: #EEF7FC;
+    padding-left:10px;
+}
+  :host ::ng-deep .fastcontenttext a{
+  color:#333333;
+  font-size:14px;
+  height:40px;
+  line-height:40px;
+  display:inline-block;
+  margin-right:20px;
+}
+:host ::ng-deep .add button{
+  width:60px;
+  height:28px;
+  color:#5c92ff;
+}
+:host ::ng-deep .fc-timeline-left .fc-timeline-label {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  width:89px;
+}
     `
   ]
 })
 export class HomeComponent {
+   //隐藏聊天面板
+   showchat: boolean = false;
   //柱状图文字
   _barLabels: string[] = ['哈局', '沈阳局', '北京局', '太原局', '呼和局', '...', '乌鲁木齐'];
   //柱状图数据
@@ -245,8 +307,6 @@ export class HomeComponent {
         break;
     }
   }
-
-
   //选项卡
   _tabmain = [
     { name: '铁路局', disabled: false },
@@ -295,22 +355,22 @@ export class HomeComponent {
         label: "03-14 18:00",
         subTitle: "小标题",
         smark: "平台系统版本发布1.0版",
-        color: 2
+        color: 'normal'
       }, {
         label: "03-14 18:00",
         subTitle: "小标题",
         smark: "平台系统版本发布2.0版",
-        color: 2
+        color: 'normal'
       }, {
         label: "03-14 18:00",
         subTitle: "小标题",
         smark: "平台系统版本发布3.0版",
-        color: 2
+        color: 'normal'
       }, {
         label: "03-14 18:00",
         subTitle: "小标题",
         smark: "平台系统版本发布4.0版",
-        color: 2
+        color: 'normal'
       }
     ]
   }
@@ -322,5 +382,19 @@ export class HomeComponent {
   }
   navTo(url: string) {
     this.mainService.navToByMenuId(this.router, url);
+  }
+   /**
+   * 聊天面板
+   * @param event 
+   */
+  chatEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case 'send'://发布聊天记录
+        break;
+      case 'closed'://关闭聊天面板
+        this.showchat = false;
+        break;
+
+    }
   }
 }
