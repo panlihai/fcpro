@@ -1,6 +1,6 @@
 {
   "name": "fcpro",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "fccomponent": "^0.6.24"
+    "fccomponent": "^0.6.26"
   },
   "devDependencies": {
     "@angular/cli": "1.6.7",
