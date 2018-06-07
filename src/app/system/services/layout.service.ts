@@ -1,10 +1,11 @@
-/* 	元数据 */
+﻿/* 	元数据 */
 import { Injectable } from '@angular/core';
 import { ProvidersService, SysmessageService, Sysmenu, FCCONFIG, Sysmessage } from 'fccore';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { FcTaboptions } from 'fccomponent/fcnav/fcnavtab.component';
+import { FcRouteReuseStrategy } from './routereusestrategy.service';
 @Injectable()
 export class LayoutService {
     //点击的所有tab页面。
@@ -63,7 +64,9 @@ export class LayoutService {
             this.providers.msgService.endAntLoading();
         }).catch((error) => {
             console.error(error);
+            // this.providers.cacheService.setS('error',error);
             this.providers.msgService.endAntLoading();
+            router.navigate(['/system/error']);
         });;
     }
     /**
@@ -73,6 +76,9 @@ export class LayoutService {
      * @param param 
      */
     storeMenu(router: Router, menu: any, param = {}) {
+        if (menu.MENUTYPE === 'OUTURL') {
+            return;
+        }
         if (param) {
             menu.PARAM = param;
         }
@@ -105,21 +111,21 @@ export class LayoutService {
      */
     navMenu(router: Router, menu: any, refresh?: string) {
         if (refresh === undefined) {
-            refresh = 'Y';
+            refresh = 'N';
         }
         if (menu.MENUTYPE === 'APP') {
             // 开启加载条
-            // this.providers.msgService.startAntLoading();
+            this.providers.msgService.startAntLoading();
             router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
                 queryParams: { refresh: refresh, ID: menu.ID, MENUID: menu.MENUID, ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID, PARAM: menu.param }
-            })
-            // .then(() => {
-            //     this.providers.msgService.endAntLoading();
-            // })
-            // .catch((error) => {
-            //     console.error(error);
-            //     this.providers.msgService.endAntLoading();
-            // });
+            }).then(() => {
+                this.providers.msgService.endAntLoading();
+            }).catch((error) => {
+                console.log(error);
+                // this.providers.cacheService.setS('error',error);
+                this.providers.msgService.endAntLoading();
+                router.navigate(['/system/error']);
+            });
         } else if (menu.MENUTYPE === 'INURL') {
             // 开启加载条
             this.providers.msgService.startAntLoading();
@@ -128,8 +134,9 @@ export class LayoutService {
             }).then(() => {
                 this.providers.msgService.endAntLoading();
             }).catch((error) => {
-                console.error(error);
+                console.log(error);
                 this.providers.msgService.endAntLoading();
+                // this.providers.cacheService.setS('error',error);
             });
         } else {
             window.open(menu.MENUURL);
@@ -188,7 +195,9 @@ export class LayoutService {
             item.index = tempIndex++;
         });
         this._selectedIndex = Number(this._selectedIndex) - 1 + "";
+        this.providers.cacheService.setS('removeRouter',menu);
         this.storeMenu(router, this._tabs[this._selectedIndex].content);
+        
     }
     /**
      * 关闭路由并删除路由表

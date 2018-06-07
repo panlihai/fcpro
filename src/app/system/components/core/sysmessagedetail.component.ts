@@ -279,4 +279,7 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
     this.isreadColor = "blue";
     this.noreadColor = "#108ee9";
   }
+  tagEvent(event:FCEVENT){
+    
+  }
 }

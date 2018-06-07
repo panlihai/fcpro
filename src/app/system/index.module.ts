@@ -32,11 +32,11 @@ import { HomeComponent } from './components/home/home.component';
 import { SysappdetailComponent } from './components/core/sysappdetail.component';
 import { FclistModule, FctlbModule, FclayoutModule, FcbasicModule, 
   FcadModule, FcmodalModule, FcsearchModule, FctabModule, FcchartModule } from 'fccomponent';
-import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysroleauthService } from './services/sysroleuser.service';
 import { LayoutService } from './services/layout.service';
+import { SysmessagebackComponent } from './components/core/sysmessageback.component';
+import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -75,6 +75,8 @@ import { LayoutService } from './services/layout.service';
     SysmessageComponent,
     SysbackcodeComponent,
     SyscomponentComponent,
+    SysmessagebackComponent,
+    SysmessagedetailComponent,
     HomeComponent
   ],
   providers: [

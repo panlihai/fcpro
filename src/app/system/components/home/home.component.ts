@@ -213,7 +213,7 @@ export class HomeComponent {
    * 柱状图事件
    * @param event 
    */
-  chartbarEvent(event: FCEVENT) {
+  chatbarEvent(event: FCEVENT) {
     switch (event.eventName) {
       case 'hover':
         break;

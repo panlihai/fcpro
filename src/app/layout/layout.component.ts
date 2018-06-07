@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { ProvidersService, MessageService } from 'fccore';
 import { LayoutService } from '../system/services/layout.service';
@@ -62,9 +62,20 @@ import { FcTaboptions } from 'fccomponent/fcnav/fcnavtab.component';
     padding-left:10px;
     box-sizing:border-box;
   }
+  .body-mask {
+    width:100%;
+    height:100%;
+    background-color:#108ee9;
+    opacity:0.4;
+    position:fixed;
+    left:0;
+    top:0;
+    z-index:9;
+  }
   `]
 })
 export class LayoutComponent implements OnInit {
+  loading:string="";
   @ViewChild('confirmmodal')
   confirmmodal: FcmodalconfirmComponent;
   //系统名称
@@ -91,8 +102,12 @@ export class LayoutComponent implements OnInit {
   _navTabSelectedIndex: string = "0";
   constructor(private _router: Router,
     private _providers: ProvidersService,
-    private mainService: LayoutService
+    private mainService: LayoutService,
+    private activatedRoute: ActivatedRoute
   ) {
+    this._providers.commonService.createObservable(_providers.msgService.loadingid).subscribe(result=>{
+      this.loading = result;
+    })
     this.mainService.init();
     //订阅消息
     this.msgHandler();
@@ -100,6 +115,19 @@ export class LayoutComponent implements OnInit {
     this._navSideOption = this.mainService.initNavSideOptions();
     this._tabs = this.mainService._tabs;
     this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/home"]);
+    // //路由事件
+    // this._router.events.filter(event => event instanceof NavigationEnd)
+    //   .map(() => this.activatedRoute)
+    //   .map(route => {
+    //     while (route.firstChild) route = route.firstChild;
+    //     return route;
+    //   })
+    //   .filter(route => route.outlet === 'primary')
+    //   .mergeMap(route => route.data)
+    //   .subscribe((event) => {
+    //     var menu = { module: event["module"]};
+    //     this.mainService.providers.logService.debug(menu);
+    //   });
   }
   ngOnInit() {
     this.mainService.getMessage().subscribe(res => {
