@@ -7,7 +7,7 @@
         </div>
         <fc-tabmain fccontent2 [fcTabs]="roleTab" class="role-tab">
             <div style="border-top:1px solid #e9e9e9;" fccontent1>
-                <fc-tag *ngFor="let user of roleuserList" [fcLabel]="user.NAME" [fcValue]="user.USERC" fcColor="blue" [fcIcon]="'fc-icon-users'" [fcClose]="true" (fcEvent)="tagEvent($event)"></fc-tag>
+                <fc-tag *ngFor="let user of roleuserList" [fcLabel]="user.NAME" [fcValue]="user.USERCODE" fcColor="blue" [fcIcon]="'fc-icon-users'" [fcClose]="true" (fcEvent)="tagEvent($event)"></fc-tag>
                 <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="modalMullist1.showModal()"></fc-button>
                 <fc-modallist #modalMullist1 fcTitle="请选择用户" [fcAppid]="'SYSUSER'" [fcType]="'multiple'" (fcEvent)="modallistEvent($event)"
                     [fcCondition]="mainService.userCondition"></fc-modallist>
