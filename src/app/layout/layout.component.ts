@@ -72,6 +72,9 @@ import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.comp
     top:0;
     z-index:9;
   }
+  :host ::ng-deep .logo .icon-logo{
+    font-size:22px!important;
+  }
   `]
 })
 export class LayoutComponent implements OnInit {
