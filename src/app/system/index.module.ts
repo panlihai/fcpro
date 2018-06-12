@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Routers } from './index.route';
-import { SysdicService, SysmessageService, MessageService } from 'fccore';
+import { SysdicService, MessageService } from 'fccore';
 import { MainComponent } from './components/main/main.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -37,6 +37,11 @@ import { SysroleauthService } from './services/sysroleuser.service';
 import { LayoutService } from './services/layout.service';
 import { SysmessagebackComponent } from './components/core/sysmessageback.component';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
+import { SpreadSheetsModule } from '@grapecity/spread-sheets-angular';
+import { SysmessageService } from './services/sysmessage.service';
+import { SysversionService } from './services/sysversion.service';
+import { SysversionComponent } from './components/core/sysversion.component';
+import { SyshomeService } from './services/syshome.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -52,7 +57,8 @@ import { SysmessagedetailComponent } from './components/core/sysmessagedetail.co
     FcmodalModule,
     FcsearchModule,
     FctabModule,
-    FcchartModule
+    FcchartModule,
+    SpreadSheetsModule
   ],
   exports: [
 
@@ -73,11 +79,12 @@ import { SysmessagedetailComponent } from './components/core/sysmessagedetail.co
     SysroleComponent,
     SysparamComponent,
     SysmessageComponent,
+    SysmessagedetailComponent,
     SysbackcodeComponent,
     SyscomponentComponent,
     SysmessagebackComponent,
-    SysmessagedetailComponent,
-    HomeComponent
+    HomeComponent,
+    SysversionComponent
   ],
   providers: [
     LayoutService,
@@ -91,7 +98,9 @@ import { SysmessagedetailComponent } from './components/core/sysmessagedetail.co
     SysmessageService,
     SysbackcodeService,
     SyscomponentService,
-    SysroleuserService
+    SysroleuserService,
+    SyshomeService,
+    SysversionService
   ]
 })
 export class SystemModule { 

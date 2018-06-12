@@ -12,7 +12,15 @@
   },
   "private": true,
   "dependencies": {
-    "fccomponent": "^0.6.32"
+    "@grapecity/spread-excelio": "^11.1.2",
+    "@grapecity/spread-sheets": "^11.1.2",
+    "@grapecity/spread-sheets-angular": "^11.1.2",
+    "@grapecity/spread-sheets-charts": "^11.1.2",
+    "@grapecity/spread-sheets-pdf": "^11.1.2",
+    "@grapecity/spread-sheets-print": "^11.1.2",
+    "@grapecity/spread-sheets-resources-zh": "^11.1.2",
+    "fccomponent": "^0.6.32",
+    "fccore": "^0.7.4"
   },
   "devDependencies": {
     "@angular/cli": "1.6.7",

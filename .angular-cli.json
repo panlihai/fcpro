@@ -27,10 +27,11 @@
         "../node_modules/ag-grid/dist/styles/theme-bootstrap.css",
         "../node_modules/ag-grid/dist/styles/theme-material.css",
         "../node_modules/ag-grid/dist/styles/ag-theme-material.css",
+        "../node_modules/@grapecity/spread-sheets/styles/gc.spread.sheets.css",
         "assets/fonts/iconfont/iconfont.css",
         "assets/fonts/antdesign/iconfont.css",
-        "assets/styles/app.css",
-        "assets/styles/samples.css"
+        "assets/fonts/logo/iconfont.css",
+        "assets/styles/app.css"
       ],
       "scripts": [
         "../node_modules/chart.js/dist/Chart.js",

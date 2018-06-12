@@ -17,6 +17,8 @@ import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
 import { SysappdetailComponent } from './components/core/sysappdetail.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
+import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
+import { SysversionComponent } from './components/core/sysversion.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -76,6 +78,14 @@ export const Routers: Routes = [{
 }, {
     path: 'sysmessageList',//消息列表
     component: SysmessageComponent,
+    data: { keep: false }
+}, {
+    path: 'sysmessageDetail',//消息查看
+    component: SysmessagedetailComponent,
+    data: { keep: false }
+}, {
+    path: 'sysversionDetail',//版本查看
+    component: SysversionComponent,
     data: { keep: false }
 }, {
     path: 'sysbackcodeList',//全局返回码

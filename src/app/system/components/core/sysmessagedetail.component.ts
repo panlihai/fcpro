@@ -9,15 +9,18 @@ import { SysmessageService, Sysmessage } from '../../services/sysmessage.service
 @Component({
   selector: 'sysmessagedetail',
   template: `
+  <gc-spread-sheets (workbookInitialized)="workbookInit($event)">
+</gc-spread-sheets>
+<input (click)="_click($event)" [type]="'button' "[value]="'export'"/>
   <fc-layoutpanel style="height:100%;" class="messagedetail">
     <fc-layoutcol fcSpans="1,2" fccontent>
         <fc-title fcLabel="消息列表" fccontent1></fc-title>
         <div fccontent1 class="tagselect">
-            <fc-tag (click)="allmassageCondition()" fcTitle="全部" (fcEvent)="tagEvent($event)" [fcColor]="allmessageColor"></fc-tag>
-            <fc-tag (click)="isreadCondition()" fcTitle="已读" [fcColor]="isreadColor"></fc-tag>
-            <fc-tag (click)="noreadCondition()" fcTitle="未读" [fcColor]="noreadColor"></fc-tag>
+            <fc-tag (click)="allmassageCondition()" fcLabel="全部" (fcEvent)="tagEvent($event)" [fcColor]="allmessageColor"></fc-tag>
+            <fc-tag (click)="isreadCondition()" fcLabel="已读" [fcColor]="isreadColor"></fc-tag>
+            <fc-tag (click)="noreadCondition()" fcLabel="未读" [fcColor]="noreadColor"></fc-tag>
         </div>
-        <fc-timeline [fcOption]="timelineOption" [fcSelectedId]="selectedId" (fcEvent)="timelineEvent($event)" fcLabelPosition="left" fcLeft="38%" fclabelLeft="-56%" class="timeline-content" fccontent1 class="noread"></fc-timeline>
+        <fc-timeline [fcOption]="timelineOption" [fcSelectedId]="selectedId" (fcEvent)="timelineEvent($event)" fcLabelPosition="left" fcLeft="30%" class="timeline-content" fccontent1 class="noread"></fc-timeline>
         <fc-layoutpanel fccontent2>
           <fc-title fcLabel="消息明细" fccontent></fc-title>
           <p class="main-title" fccontent>{{mainObj.TITLE}}<span class="mesagge-time">{{mainObj.TS}}</span></p>
@@ -62,7 +65,6 @@ import { SysmessageService, Sysmessage } from '../../services/sysmessage.service
     height:100%;
     overflow:auto;
     padding-left: 20px;
-    border-left:5px solid #ffffff;
   }
   :host ::ng-deep .ant-tabs-content{
     height: calc(100% - 60px);
@@ -155,7 +157,13 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
         this.timelineOption.fcValues = result.DATA;
         this.timelineOption.fcValues.forEach(element => {
           if (element.TS !== null && element.TS !== '') {
-            element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+            //如果是当天时间，不显示年月日
+            if (new Date(element.TS).toDateString() === new Date().toDateString()) {
+              element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'hh:mm:ss') + "";
+            } else {
+              //如果是当年，不显示年，只显示月日
+              element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'MM-dd') + "";
+            }
           }
         })
       }
@@ -166,7 +174,7 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
         if (result.CODE === '0') {
           this.mainObj = result.DATA;
           if (this.mainObj.TS !== null && this.mainObj.TS !== '') {
-            this.mainObj.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(this.mainObj.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+              this.mainObj.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(this.mainObj.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
           }
           this.initFeedBack();
         }
@@ -207,7 +215,13 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
         this.sysmessageList = result.DATA;
         this.sysmessageList.forEach(element => {
           if (element.POSTTIME !== null && element.POSTTIME !== '') {
-            element.POSTTIME = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+            //如果是当天时间，不显示年月日
+            if (new Date(element.POSTTIME).toDateString() === new Date().toDateString()) {
+              element.POSTTIME = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'hh:mm:ss') + "";
+            } else {
+              //如果是当年，不显示年，只显示月日
+              element.POSTTIME = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'MM-dd') + "";
+            }
           }
         })
       }
@@ -234,7 +248,13 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
         this.timelineOption.fcValues = result.DATA;
         this.timelineOption.fcValues.forEach(element => {
           if (element.TS !== null && element !== '') {
-            element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+            //如果是当天时间，不显示年月日
+            if (new Date(element.TS).toDateString() === new Date().toDateString()) {
+              element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'hh:mm:ss') + "";
+            } else {
+              //如果是当年，不显示年，只显示月日
+              element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'MM-dd') + "";
+            }
           }
         })
       }
@@ -252,7 +272,13 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
         this.timelineOption.fcValues = result.DATA;
         this.timelineOption.fcValues.forEach(element => {
           if (element.TS !== null && element !== '') {
-            element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+            //如果是当天时间，不显示年月日
+            if (new Date(element.TS).toDateString() === new Date().toDateString()) {
+              element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'hh:mm:ss') + "";
+            } else {
+              //如果是当年，不显示年，只显示月日
+              element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'MM-dd') + "";
+            }
           }
         })
       }
@@ -270,7 +296,14 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
         this.timelineOption.fcValues = result.DATA;
         this.timelineOption.fcValues.forEach(element => {
           if (element.TS !== null && element !== '') {
-            element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+            //如果是当天时间，不显示年月日
+            let today = Number.parseInt(element.TS) * 1000;
+            if (new Date(today).getMonth() === new Date().getMonth() && new Date(today).getDate() === new Date().getDate()) {
+              element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'hh:mm:ss') + "";
+            } else {
+              //如果是当年，不显示年，只显示月日
+              element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'MM-dd') + "";
+            }
           }
         })
       }
@@ -279,7 +312,7 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
     this.isreadColor = "blue";
     this.noreadColor = "#108ee9";
   }
-  tagEvent(event:FCEVENT){
-    
+  tagEvent(event: FCEVENT) {
+
   }
 }

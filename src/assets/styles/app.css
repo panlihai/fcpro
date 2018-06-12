@@ -1,5 +1,12 @@
 /* 查询条件 */
-
+:host ::ng-deep .fc-modallist .ant-modal-content{
+    width:100%;
+    height:100%;
+  }
+  :host ::ng-deep .fc-modallist .ant-modal-body{
+    width: 100%;
+    height: calc(100% - 90px);
+  }
 * {
     margin: 0;
     padding: 0;
@@ -191,9 +198,6 @@ video {
 }
 .showhand:hover{
     cursor: pointer;
-}
-.ant-tooltip-open i{
-    color:#1890ff!important;
 }
 .fastposition-content{
     position:fixed;
