@@ -8,7 +8,7 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",    
+    "e2e": "ng e2e",
     "prod": "node --max-old-space-size=8000 ./node_modules/@angular/cli/bin/ng build --prod --aot --no-extract-license"
   },
   "private": true,
@@ -20,8 +20,7 @@
     "@grapecity/spread-sheets-pdf": "^11.1.2",
     "@grapecity/spread-sheets-print": "^11.1.2",
     "@grapecity/spread-sheets-resources-zh": "^11.1.2",
-    "fccomponent": "^0.6.32",
-    "fccore": "^0.7.4"
+    "fccomponent": "^0.6.37"
   },
   "devDependencies": {
     "@angular/cli": "1.6.7",
