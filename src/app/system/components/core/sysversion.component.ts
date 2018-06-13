@@ -8,7 +8,7 @@ import { SysversionService, Sysversion } from '../../services/sysversion.service
 @Component({
   selector: 'sysversiondetail',
   template: `
-  <fc-layoutpanel style="height:100%;" class="messagedetail">
+  <fc-layoutpanel style="height:100%;" class="detail">
   <fc-layoutcol fcSpans="1,2" fccontent>
       <fc-title fcLabel="版本列表" fccontent1></fc-title>
       <div fccontent1 class="tagselect">
@@ -20,8 +20,9 @@ import { SysversionService, Sysversion } from '../../services/sysversion.service
         <p class="main-title" fccontent>{{mainObj.VERSION}}<span class="mesagge-time">{{mainObj.TS}}</span></p>
         <fc-title fcLabel="上次发布版本" fccontent></fc-title>
         <p class="main-content" fccontent>{{mainObj.LASTVERSION}}</p>
-        <fc-title fcLabel="上次发布版本" fccontent></fc-title>
+        <fc-title fcLabel="版本详情" fccontent></fc-title>
         <p class="main-content" fccontent>{{mainObj.DESCRIPTION}}</p>
+        <div style="height:250px;"><fc-listdata fcAppid='SYSVERSION' fccontent></fc-listdata></div>
       </fc-layoutpanel>     
     </fc-layoutcol>
 </fc-layoutpanel>  
@@ -71,13 +72,13 @@ import { SysversionService, Sysversion } from '../../services/sysversion.service
     width:24%;
     float:left;
   }
-  :host ::ng-deep .messagedetail>.fc-layoutpanel{
+  :host ::ng-deep .detail>.fc-layoutpanel{
     height:100%;
   }
   :host ::ng-deep .margin-top15>button{
     margin-top:15px;
   }
-  :host ::ng-deep .messagedetail .fc-title{
+  :host ::ng-deep .detail .fc-title{
     margin-left:0px;
   }
   :host ::ng-deep .ant-tabs-nav{
@@ -93,12 +94,12 @@ import { SysversionService, Sysversion } from '../../services/sysversion.service
     right: 10px;
     top: 15px;
   }
-  .messagedetail .main-title{
+  .detail .main-title{
     min-height:30px;
     font-size:14px;
     font-weight:bold;
   }
-  .messagedetail .main-content{
+  .detail .main-content{
     min-height:30px;
   }
   .mesagge-time{
@@ -136,9 +137,22 @@ export class SysversionComponent extends ParentDetailComponent {
         this.timelineOption.fcValues = result.DATA;
         this.timelineOption.fcValues.forEach(item => {
           item.color = 'normal';
+          item.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(item.PUBLISHTIME) * 1000, 'MM-dd') + '';
         });
       }
     });
+    //初始化版本详情
+    this.selectedId = this.routerParam.ID;
+    this.mainService.initMainObj(this.selectedId)
+      .subscribe(result => {
+        if (result.CODE === '0') {
+          this.mainObj = result.DATA;
+          if (this.mainObj.TS !== null && this.mainObj.TS !== '') {
+            this.mainObj.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(this.mainObj.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+          }
+        }
+      });
+    //首页传过来的选中ID
   }
   /**
    * 
@@ -181,7 +195,7 @@ export class SysversionComponent extends ParentDetailComponent {
   /**
    * 回到首页
    */
-  backHome(){
+  backHome() {
     this.navRouter('/system/home');
   }
 }

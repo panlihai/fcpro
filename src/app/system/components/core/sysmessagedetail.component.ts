@@ -174,7 +174,7 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
         if (result.CODE === '0') {
           this.mainObj = result.DATA;
           if (this.mainObj.TS !== null && this.mainObj.TS !== '') {
-              this.mainObj.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(this.mainObj.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+            this.mainObj.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(this.mainObj.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
           }
           this.initFeedBack();
         }
