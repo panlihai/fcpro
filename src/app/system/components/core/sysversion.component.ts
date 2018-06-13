@@ -12,22 +12,16 @@ import { SysversionService, Sysversion } from '../../services/sysversion.service
   <fc-layoutcol fcSpans="1,2" fccontent>
       <fc-title fcLabel="版本列表" fccontent1></fc-title>
       <div fccontent1 class="tagselect">
-          <fc-tag fcIcon="fc-icon-add" fcLabel="新增" (fcEvent)="addversionEvent($event)"></fc-tag>
+          <fc-tag fcLabel="返回首页" (click)="backHome()"></fc-tag>
       </div>
       <fc-timeline [fcOption]="timelineOption" [fcSelectedId]="selectedId" (fcEvent)="timelineEvent($event)" fcLabelPosition="left" fcLeft="30%" class="timeline-content" fccontent1 class="noread"></fc-timeline>
       <fc-layoutpanel fccontent2>
         <fc-title fcLabel="版本明细" fccontent></fc-title>
         <p class="main-title" fccontent>{{mainObj.VERSION}}<span class="mesagge-time">{{mainObj.TS}}</span></p>
-        <p class="main-content" fccontent>上次发布版本：{{mainObj.LASTVERSION}}</p>
-        <p class="main-content" fccontent>改版内容：{{mainObj.DESCRIPTION}}</p>
-        <fc-button fcLabel="修改" fcType="primary" fccontent class="margin-top15" (click)="editVersion()"></fc-button>
-        <fc-title fcLabel="修改内容"></fc-title>
-        <fc-layoutcol fcSpans="1,1" fccontent style="margin-top:15px;">
-          <fc-text fccontent1 fcLabel="发布版本"></fc-text>
-          <fc-text fccontent2 fcLabel="上一个版本"></fc-text>
-          <fc-textarea fccontent1 fcLabel="描述"></fc-textarea>
-          <fc-button fcLabel="保存" fcType="primary" fccontent1 class="margin-top15" (click)="saveVersion()"></fc-button>
-        </fc-layoutcol>
+        <fc-title fcLabel="上次发布版本" fccontent></fc-title>
+        <p class="main-content" fccontent>{{mainObj.LASTVERSION}}</p>
+        <fc-title fcLabel="上次发布版本" fccontent></fc-title>
+        <p class="main-content" fccontent>{{mainObj.DESCRIPTION}}</p>
       </fc-layoutpanel>     
     </fc-layoutcol>
 </fc-layoutpanel>  
@@ -183,5 +177,11 @@ export class SysversionComponent extends ParentDetailComponent {
    */
   saveVersion() {
 
+  }
+  /**
+   * 回到首页
+   */
+  backHome(){
+    this.navRouter('/system/home');
   }
 }
