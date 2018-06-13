@@ -8,6 +8,7 @@ import { FCEVENT } from 'fccomponent/fc';
 import { NavsideOptions } from 'fccomponent/fcnav/fcnavside.component';
 import { MenuOptions, FcnavmenuComponent, Fcmenu } from 'fccomponent/fcnav/fcnavmenu.component';
 import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.component';
+import 'rxjs/add/operator/filter';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -130,7 +131,8 @@ export class LayoutComponent implements OnInit {
     });
     this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/home"]);
     // 路由事件
-    this._router.events.filter(event => event instanceof NavigationEnd)
+    this._router.events
+      .filter(event => event instanceof NavigationEnd)
       .map(() => this.activatedRoute)
       .map(route => {
         while (route.firstChild) route = route.firstChild;
@@ -138,51 +140,39 @@ export class LayoutComponent implements OnInit {
       })
       .filter(route => route.outlet === 'primary')
       .subscribe((event) => {
-        let menu: any = this.activatedRoute.snapshot.queryParams;
-        if (menu && menu.ID) {
-          let tabs = this.fcnavtab.fcTabs.filter(t => t.content.MENUID === menu.MENUID);
-          // if (tabs.length !== 0 && menu.ID !== tabs[0].id) {
-          if (tabs.length !== 0) {
-            // this.fcnavtab.fcTabs[tabs[0].index] = {
-            //   id: menu.ID, index: tabs[0].index, enabled: true,
-            //   name: menu.MENUNAME, close: tabs[0].index === 0 ? false : true,
-            //   icon: menu.MENUICON ? '' : menu.MENUICON,
-            //   refresh: 'N', content: menu
-            // };
-            this.fcnavtab.fcTabs[tabs[0].index].content = menu;
-
-          } else if (!menu['MENUID']) {
-            let selectedIndex = this.fcnavtab.fcSelectedIndex;
-            let cMenu = this.fcnavtab.fcTabs[selectedIndex].content as Fcmenu;
-            let content: any = {
-              ROUTER: event.routeConfig.path,
-              MENUICON: cMenu.MENUICON,
-              MENUTYPE: 'APP',
-              MENUNAME: cMenu.MENUNAME,
-              MENUID: cMenu.MENUID,
-              PID: cMenu.PID,
-              APPID: cMenu.APPID,
-              ID: menu.ID,
-              refresh: menu.refresh
-            }
-            this.fcnavtab.fcTabs[selectedIndex].content = content;
-          }
-        } else if (event.routeConfig.path.toLowerCase() !== 'home') {
-          menu = this.mainService.findMenuByRouter(this._menus, event.routeConfig.path);
-          if (menu) {
+        if (event instanceof NavigationEnd) {
+          let menu: any = this.activatedRoute.snapshot.queryParams;
+          if (menu && menu.ID) {
             let tabs = this.fcnavtab.fcTabs.filter(t => t.content.MENUID === menu.MENUID);
-            // if (tabs.length !== 0 && menu.ID !== tabs[0].id) {
             if (tabs.length !== 0) {
-              // this.fcnavtab.fcTabs[tabs[0].index] = {
-              //   id: menu.ID, index: tabs[0].index, enabled: true,
-              //   name: menu.MENUNAME, close: tabs[0].index === 0 ? false : true,
-              //   icon: menu.MENUICON ? '' : menu.MENUICON,
-              //   refresh: 'N', content: menu
-              // };
               this.fcnavtab.fcTabs[tabs[0].index].content = menu;
+            } else if (!menu['MENUID']) {
+              let selectedIndex = this.fcnavtab.fcSelectedIndex;
+              let cMenu = this.fcnavtab.fcTabs[selectedIndex].content as Fcmenu;
+              let content: any = {
+                ROUTER: event.routeConfig.path,
+                MENUICON: cMenu.MENUICON,
+                MENUTYPE: 'APP',
+                MENUNAME: cMenu.MENUNAME,
+                MENUID: cMenu.MENUID,
+                PID: cMenu.PID,
+                APPID: cMenu.APPID,
+                ID: menu.ID,
+                refresh: menu.refresh
+              }
+              this.fcnavtab.fcTabs[selectedIndex].content = content;
+            }
+          } else if (event.routeConfig.path.toLowerCase() !== 'home') {
+            menu = this.mainService.findMenuByRouter(this._menus, event.routeConfig.path);
+            if (menu) {
+              let tabs = this.fcnavtab.fcTabs.filter(t => t.content.MENUID === menu.MENUID);
+              if (tabs.length !== 0) {
+                this.fcnavtab.fcTabs[tabs[0].index].content = menu;
+              }
             }
           }
         }
+
       });
   }
   ngOnInit() {
