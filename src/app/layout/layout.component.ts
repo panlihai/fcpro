@@ -9,6 +9,8 @@ import { NavsideOptions } from 'fccomponent/fcnav/fcnavside.component';
 import { MenuOptions, FcnavmenuComponent, Fcmenu } from 'fccomponent/fcnav/fcnavmenu.component';
 import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.component';
 import 'rxjs/add/operator/filter';
+import { NzModalService } from 'ng-zorro-antd';
+import { ResetpwddialogComponent } from './resetpwddialog.component';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -111,7 +113,8 @@ export class LayoutComponent implements OnInit {
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private mainService: LayoutService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalService: NzModalService
   ) {
     //订阅消息
     this.msgHandler();
@@ -324,5 +327,25 @@ export class LayoutComponent implements OnInit {
   ngOnDestroy(): void {
     this._providers.daoService.ws.close();
   }
-
+  /**
+   * 修改密码
+   */
+  resetPassword = () => {
+    const subscription = this.modalService.open({
+      title: '修改密码',
+      content: ResetpwddialogComponent,
+      onOk() {
+      },
+      onCancel() {
+       
+      },
+      footer: false,
+      componentParams: {
+        name: '测试渲染Component'
+      }
+    });
+    subscription.subscribe(result => {
+      console.log(result);
+    })
+  };
 }

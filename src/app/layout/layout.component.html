@@ -1,14 +1,15 @@
+<fc-button fcLabel="修改密码" (click)="resetPassword()"></fc-button>
 <fc-layoutrow>
     <!-- 顶部工具栏 fc-navbar-->
-    <fc-navbar fccontent1 [fcTitle]="_projectName" fcFull="true" fcIcon="icon iconfont icon-logo" (fcEvent)="navbarEvent($event)" [fcStatus]="_navbarStatus"></fc-navbar>
+    <fc-navbar fccontent1 [fcTitle]="_projectName" fcFull="true" fcIcon="icon iconfont icon-logo" (fcEvent)="navbarEvent($event)"
+        [fcStatus]="_navbarStatus"></fc-navbar>
     <fc-layoutcol fccontent2 [fcSpans]="_layoutSpans" fcFull="true" class="content-wrap">
         <!-- 菜单导航 fc-navmenu-->
-        <fc-navmenu fccontent1 #fcnavmenu fcTheme="blue" [fcOption]="_menuOptions" [fcMenus]="_menus" [fcSelected]="_navmenuSelected" (fcEvent)="navmenuEvent($event);"
-            fcFull="true">
+        <fc-navmenu fccontent1 #fcnavmenu fcTheme="blue" [fcOption]="_menuOptions" [fcMenus]="_menus" [fcSelected]="_navmenuSelected"
+            (fcEvent)="navmenuEvent($event);" fcFull="true">
         </fc-navmenu>
         <!-- 选项卡导航 -->
-        <fc-navtab class="nav-tab" #fcnavtab fccontent2  (fcEvent)="navtabEvent($event)" 
-            fcShowPagination="true"></fc-navtab>
+        <fc-navtab class="nav-tab" #fcnavtab fccontent2 (fcEvent)="navtabEvent($event)" fcShowPagination="true"></fc-navtab>
         <!-- 路由入口 -->
         <div class="content-main" fccontent2>
             <router-outlet [ngStyle]="{'height':'100%'}"></router-outlet>

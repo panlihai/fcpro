@@ -29,7 +29,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
 import { FccoreModule, MessageService } from 'fccore';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { ResetpwddialogComponent } from './layout/resetpwddialog.component';
 @NgModule({
+  entryComponents: [
+    ResetpwddialogComponent
+  ],
   imports: [
     FormsModule,
     BrowserModule,
@@ -55,11 +59,12 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     AppComponent,
     LayoutComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    ResetpwddialogComponent
   ],
   providers: [
     LayoutService,
-    NzMessageService,    
+    NzMessageService,
     { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy },
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
