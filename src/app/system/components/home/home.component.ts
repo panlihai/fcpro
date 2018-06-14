@@ -519,23 +519,31 @@ export class HomeComponent implements OnInit {
    * 新增快速导航标签
    */
   addNavLinkTag(contentTpl, footerTpl) {
-    this.currentModal_navLink = this.nzModal.open({
-      title: "新增快速导航标签",
-      content: contentTpl,
-      footer: footerTpl,
-      style: { width: "50%" },
-      wrapClassName: "vertical-top-modal",
-      maskClosable: false,
-      zIndex: 1001,
-      onOk: function() {},
-      onCancel: function() {}
-    });
-    setTimeout(() => {
-      let gridApi: GridApi = this.navLink_listdata._gridApi;
-      let column: ColumnApi = this.navLink_listdata._gridColumnApi;
-      if (column) column.autoSizeAllColumns();
-    }, 500);
-    this.initNavLink();
+    if (this.navLinks.length < 8) {
+      this.currentModal_navLink = this.nzModal.open({
+        title: "新增快速导航标签",
+        content: contentTpl,
+        footer: footerTpl,
+        style: { width: "50%" },
+        wrapClassName: "vertical-top-modal",
+        maskClosable: false,
+        zIndex: 998,
+        onOk: function() {},
+        onCancel: function() {}
+      });
+      setTimeout(() => {
+        let gridApi: GridApi = this.navLink_listdata._gridApi;
+        let column: ColumnApi = this.navLink_listdata._gridColumnApi;
+        if (column) column.autoSizeAllColumns();
+      }, 500);
+      this.initNavLink();
+    } else {
+      this.nzModal.info({
+        title: "操作提示",
+        content: "快速导航标签不能超过8个",
+        zIndex: 999
+      });
+    }
   }
   /**
    * 处理新增快速导航标签——确定
@@ -544,26 +552,35 @@ export class HomeComponent implements OnInit {
     let gridApi: GridApi = this.navLink_listdata._gridApi;
     let column: ColumnApi = this.navLink_listdata._gridColumnApi;
     let selected = gridApi.getSelectedRows();
-    let saveObjs: any = [];
-    selected.forEach(el => {
-      let saveObj = this.mainService.getNavDefaultObj();
-      for (let key in el) {
-        if (key === "PID") saveObj[key] = el[key];
-        if (key === "ROUTER") saveObj[key] = el[key];
-      }
-      saveObj["CREATETIME"] = this.mainService.getNowTimeStamp() + "";
-      saveObj["LASTMODIFY"] = this.mainService.getNowTimeStamp() + "";
-      saveObj["USERID"] = this.mainService.getNowUserId();
-      saveObj["CATEGORY"] = "private";
-      delete saveObj["ID"];
-      saveObjs.push(saveObj);
-    });
-    this.mainService.saveNavLinks(saveObjs);
-    setTimeout(() => {
-      this.initNavLink();
-    }, 100);
-    this.currentModal_navLink.destroy("onOk");
-    this.currentModal_navLink = null;
+    let count = this.navLinks.length + selected.length;
+    if (count <= 8) {
+      let saveObjs: any = [];
+      selected.forEach(el => {
+        let saveObj = this.mainService.getNavDefaultObj();
+        for (let key in el) {
+          if (key === "PID") saveObj[key] = el[key];
+          if (key === "ROUTER") saveObj[key] = el[key];
+        }
+        saveObj["CREATETIME"] = this.mainService.getNowTimeStamp() + "";
+        saveObj["LASTMODIFY"] = this.mainService.getNowTimeStamp() + "";
+        saveObj["USERID"] = this.mainService.getNowUserId();
+        saveObj["CATEGORY"] = "private";
+        delete saveObj["ID"];
+        saveObjs.push(saveObj);
+      });
+      this.mainService.saveNavLinks(saveObjs);
+      setTimeout(() => {
+        this.initNavLink();
+      }, 100);
+      this.currentModal_navLink.destroy("onOk");
+      this.currentModal_navLink = null;
+    } else {
+      this.nzModal.info({
+        title: "操作提示",
+        content: "快速导航标签不能超过8个",
+        zIndex: 999
+      });
+    }
   }
   /**
    * 处理新增快速导航标签——取消
@@ -583,7 +600,9 @@ export class HomeComponent implements OnInit {
             this.mainService.providers.msgService.success("删除成功");
           else this.mainService.providers.msgService.warm("删除失败");
         });
-        this.initNavLink();
+        setTimeout(() => {
+          this.initNavLink();
+        });
         break;
       default:
         break;
