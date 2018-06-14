@@ -11,6 +11,7 @@ import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.comp
 import 'rxjs/add/operator/filter';
 import { NzModalService } from 'ng-zorro-antd';
 import { ResetpwddialogComponent } from './resetpwddialog.component';
+import { SysuserService, Sysuser } from '../system/services/sysuser.service';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -104,8 +105,6 @@ export class LayoutComponent implements OnInit {
   };
   //路由打开记录
   selectMenu = {};
-  //当前用户信息
-  user: any;
   // 当前所有菜单
   _menus: any = [];
   //布局比例
@@ -199,7 +198,6 @@ export class LayoutComponent implements OnInit {
         })
       }
     });
-
     //把弹出确认框变量存入到服务里
     MessageService.confirmModal = this.confirmmodal;
     if (this.fcnavtab.fcTabs.length === 0) {
@@ -330,22 +328,23 @@ export class LayoutComponent implements OnInit {
   /**
    * 修改密码
    */
-  resetPassword = () => {
-    const subscription = this.modalService.open({
+  resetPassword(): any {
+    const modal = this.modalService.open({
       title: '修改密码',
       content: ResetpwddialogComponent,
       onOk() {
+
       },
       onCancel() {
-       
+
       },
       footer: false,
       componentParams: {
-        name: '测试渲染Component'
+        options: {}
       }
     });
-    subscription.subscribe(result => {
-      console.log(result);
+    modal.subscribe(result => {
+      this.mainService.sysuserService.doReset(result);
     })
   };
 }

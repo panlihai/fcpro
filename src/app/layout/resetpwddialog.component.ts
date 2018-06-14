@@ -10,13 +10,14 @@ import { MenuOptions, FcnavmenuComponent, Fcmenu } from 'fccomponent/fcnav/fcnav
 import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.component';
 import 'rxjs/add/operator/filter';
 import { NzModalService, NzModalSubject } from 'ng-zorro-antd';
+import { Observable } from 'rxjs/Observable';
 @Component({
-    selector: 'resetpwddialog',
-    template: `
+  selector: 'resetpwddialog',
+  template: `
     <div>
       <div>
-        <fc-text fcLabel="上次密码" name="lastpwd"></fc-text>
-        <fc-text fcLabel="重置密码" name="resetpwd"></fc-text>
+        <fc-text fcLabel="原密码" [(ngModel)]="_lastPwd" name="lastpwd"></fc-text>
+        <fc-text fcLabel="重置密码" [(ngModel)]="_newPwd" name="resetpwd"></fc-text>
       </div>
       <div class="customize-footer">
         <fc-button  [fcType]="'primary'" fcLabel="确定" (click)="emitDataOutside($event)">
@@ -26,30 +27,33 @@ import { NzModalService, NzModalSubject } from 'ng-zorro-antd';
       </div>
     </div>
     `,
-    styles: [`
+  styles: [`
    .customize-footer{
-     
+     text-align:right;
    }
   `]
 })
-export class ResetpwddialogComponent implements OnInit {
-    _name: string;
-    @Input()
-    set name(value: string) {
-        this._name = value;
-    }
-    emitDataOutside() {
-        this.modal.next('传出数据');
-    }
+export class ResetpwddialogComponent {
+  _lastPwd: string;
+  _newPwd: string;
+  @Input()
+  lastPwd: string;
+  @Input()
+  newPwd: string;
+  @Input()
+  set options(option: any) {
+    this._lastPwd = option.lastPwd;
+    this._newPwd = option.newPwd;
+  }
+  emitDataOutside() {
+    let params = { lastPwd: this._lastPwd, newPwd: this._newPwd };
+    this.modal.next(params);
+  }
 
-    handleCancel(e) {
-        this.modal.destroy('onCancel');
-    }
-    constructor(private modal: NzModalSubject) {
+  handleCancel(e) {
+    this.modal.destroy();
+  }
+  constructor(private modal: NzModalSubject) {
 
-
-    }
-    ngOnInit() {
-
-    };
+  }
 }

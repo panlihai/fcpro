@@ -30,6 +30,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { FccoreModule, MessageService } from 'fccore';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ResetpwddialogComponent } from './layout/resetpwddialog.component';
+import { SysuserService } from './system/services/sysuser.service';
 @NgModule({
   entryComponents: [
     ResetpwddialogComponent
@@ -65,6 +66,7 @@ import { ResetpwddialogComponent } from './layout/resetpwddialog.component';
   providers: [
     LayoutService,
     NzMessageService,
+    SysuserService,
     { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy },
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
