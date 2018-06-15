@@ -1,28 +1,14 @@
-import {
-  Component,
-  OnInit,
-  AfterContentInit,
-  OnChanges,
-  ViewChild
-} from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import {
-  ParentComponent,
-  TimelineOptions,
-  FclistdataComponent
-} from "fccomponent";
-import { eventNames } from "cluster";
-import { FCEVENT } from "fccomponent/fc";
-import { LayoutService } from "../../services/layout.service";
-import { SyshomeService } from "../../services/syshome.service";
-import { NzModalService } from "ng-zorro-antd";
-import { GridApi, ColumnApi, RowNode, SelectionController } from "ag-grid";
-import { Jsonp } from "@angular/http";
-import { RowDataTransaction } from "ag-grid/dist/lib/rowModels/inMemory/inMemoryRowModel";
-import { environment } from "../../../../environments/environment";
+import { Component, OnInit, AfterContentInit, OnChanges } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ParentComponent, TimelineOptions } from 'fccomponent';
+import { eventNames } from 'cluster';
+import { FCEVENT } from 'fccomponent/fc';
+import { LayoutService } from '../../services/layout.service';
+import { SyshomeService } from '../../services/syshome.service';
+import { environment } from '../../../../environments/environment';
 @Component({
-  selector: "home",
-  templateUrl: "./home.component.html",
+  selector: 'home',
+  templateUrl: './home.component.html',
   styles: [
     `.messages-notices{
       position: absolute;
@@ -79,7 +65,7 @@ import { environment } from "../../../../environments/environment";
     }
     .contact_icon{
       z-index:999;
-    }
+    }     
    :host ::ng-deep .home-calendar .ant-fullcalendar-header{
       position: absolute;
       top: -54px;
@@ -122,7 +108,7 @@ import { environment } from "../../../../environments/environment";
       visibility:hidden;
       transition: all 0.3s;
       -moz-transition: all 0.3s;
-      -webkit-transition: all 0.3s;
+      -webkit-transition: all 0.3s; 
       -o-transition: all 0.3s;
     }
     .main_contain{
@@ -139,9 +125,7 @@ import { environment } from "../../../../environments/environment";
       padding-left: 20px;
     }
   :host ::ng-deep .fastcontent{
-      padding-left: 20px;
-      display: inline-block;
-      padding: 5px;
+    padding-left:20px;
   }
     :host ::ng-deep .fastcontenttext a{
     color:#333333;
@@ -245,7 +229,7 @@ import { environment } from "../../../../environments/environment";
     top: 20px;
     border-top: 16px solid transparent;
     border-right: 23px solid #f1f1f1;
-    }
+    }    
 .fc-chatinnerright{
     width:100%;
     margin-bottom:10px;
@@ -277,13 +261,13 @@ import { environment } from "../../../../environments/environment";
     border-top: 16px solid transparent;
     border-top: 16px solid transparent;
     border-left: 23px solid #5c92ff;
-    }
+    }  
 .fc-chatname{
     text-align:right;
     padding-right:20px;
     color:#cccccc;
     font-size:12px;
-}
+}  
 .fc-chatbottom {
     width: 100%;
     height: 60px;
@@ -351,321 +335,108 @@ import { environment } from "../../../../environments/environment";
   ]
 })
 export class HomeComponent implements OnInit {
-  navLinkListCondition: {};
-  @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
-  currentModal_navLink: any;
+
   //隐藏聊天面板
   showchat: boolean = false;
   //柱状图文字
-  _barLabels: string[] = [
-    "哈局",
-    "沈阳局",
-    "北京局",
-    "太原局",
-    "呼和局",
-    "...",
-    "乌鲁木齐"
-  ];
+  _barLabels: string[] = ['哈局', '沈阳局', '北京局', '太原局', '呼和局', '...', '乌鲁木齐'];
   //柱状图数据
   _barData: any[] = [
-    {
-      data: [73370315, 174698475, 87764250, 2250, 0, 250174, 9],
-      label: "计提利息总额"
-    },
-    {
-      data: [24823, 4310789, 790632, 23052, 668, 318150, 9],
-      label: "累计已提折旧总额"
-    }
+    { data: [73370315, 174698475, 87764250, 2250, 0, 250174, 9], label: '计提利息总额' },
+    { data: [24823, 4310789, 790632, 23052, 668, 318150, 9], label: '累计已提折旧总额' }
   ];
   //饼状图文字
-  _pieLabels: string[] = ["铁债", "国开行", "优先股"];
+  _pieLabels: string[] = ['铁债', '国开行', '优先股']
   //饼状图数据
   _pieData: number[] = [1692215654.69178, 293107561.643836, 933395486.794522];
   //选项卡
   _tabmain = [
-    { name: "铁路局", disabled: false },
-    { name: "总公司", disabled: false }
-  ];
+    { name: '铁路局', disabled: false },
+    { name: '总公司', disabled: false },
+  ]
   _tabmain2 = [
-    { name: "数据统计1", disabled: false },
-    { name: "数据统计2", disabled: false },
-    { name: "访问量", disabled: false }
-  ];
+    { name: '数据统计1', disabled: false },
+    { name: '数据统计2', disabled: false },
+    { name: '访问量', disabled: false }
+  ]
   //待办任务
   waitWork = {
-    field: { FIELDCODE: "FIELDNAME" },
-    data: [
-      {
-        FIELDNAME:
-          "2018.03.26-项目元数据框架构建；项目内容尽快完成项目元数据框架构建，尽快实施上线任务完成并实施"
-      }
+    field: { FIELDCODE: 'FIELDNAME' },
+    data: [{
+      FIELDNAME: '2018.03.26-项目元数据框架构建；项目内容尽快完成项目元数据框架构建，尽快实施上线任务完成并实施'
+    }
     ]
-  };
+  }
   test = [
     {
-      FIELDNAME:
-        "2018.03.26-项目元数据框架构建；项目内容尽快完成项目元数据框架构建，尽快实施上线任务完成并实施"
-    },
-    {
-      FIELDNAME: "2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发"
-    },
-    {
-      FIELDNAME: "2018.03.26-开始进行元数据方法的呈现方式"
-    },
-    {
-      FIELDNAME: "2018.03.26-项目元数据框架构建"
-    },
-    {
-      FIELDNAME: "2018.03.26-元数据组件开发"
-    },
-    {
-      FIELDNAME: "2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发"
-    }
-  ];
+      FIELDNAME: '2018.03.26-项目元数据框架构建；项目内容尽快完成项目元数据框架构建，尽快实施上线任务完成并实施'
+    }, {
+      FIELDNAME: '2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发'
+    }, {
+      FIELDNAME: '2018.03.26-开始进行元数据方法的呈现方式'
+    }, {
+      FIELDNAME: '2018.03.26-项目元数据框架构建'
+    }, {
+      FIELDNAME: '2018.03.26-元数据组件开发'
+    }, {
+      FIELDNAME: '2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发'
+    }]
   //时间轴
   versionTimeline: TimelineOptions = {
-    fcAppid: "",
-    fcLabelCode: "label",
-    fcTitleCode: "title",
-    fcColorCode: "color",
-    fcId: "ID"
+    fcAppid: '',
+    fcLabelCode: 'label',
+    fcTitleCode: 'title',
+    fcColorCode: 'color',
+    fcId: 'ID'
   };
   //待办任务状态
   _waitWorkStatus: string;
-  //navLink 标签
-  navLinks: any;
-  firstInit: boolean = true;
-  constructor(
-    public mainService: SyshomeService,
-    public router: Router,
-    public activedRoute: ActivatedRoute,
-    private _router: Router,
-    private nzModal: NzModalService
-  ) {}
+  constructor(public mainService: SyshomeService, public router: Router,
+    public activedRoute: ActivatedRoute, private _router: Router) {
+  }
   ngOnInit(): void {
-    this.mainService.providers.appService
-      .findWithQuery("SYSVERSION", { PAGENUM: 1, PAGESIZE: 6, ODER: "TS DESC" })
-      .subscribe(result => {
-        if (result.CODE === "0") {
-          let version = (this.versionTimeline.fcValues = []);
-          result.DATA.forEach(item => {
-            let t = this.mainService.providers.commonService.timestampFormat(
-              Number.parseInt(item.PUBLISHTIME) * 1000,
-              "MM-dd"
-            );
-            version.push({
-              label: t,
-              title: environment.projectName + "发布" + item.LASTVERSION + "版",
-              ID: item.ID,
-              color: "normal"
-            });
-          });
-        }
-      });
-    this.initNavLink();
-  }
-  /**
-   * YM
-   *动态加载快速导航标签数据;
-   */
-  initNavLink() {
-    this.mainService.getNavLinks().subscribe(res => {
-      if (res.CODE === "0") this.navLinks = res.DATA;
-      this.rebuildList_NavLink();
-      this.refreshNavLink();
-    });
-  }
-  /** YM
-   * 重查询NavLink_listdata数据
-   */
-  rebuildList_NavLink() {
-    let exitsRouters: any = [];
-    this.navLinks.forEach(el => {
-      exitsRouters.push(el.ROUTER);
-    });
-    let s = this.arrayToSqlString(exitsRouters);
-    if (s) {
-      this.navLinkListCondition = {
-        WHERE: `ENABLE='Y' AND APPID!='null' AND APPID!='SYSCOMPONENT' AND MENUTYPE='APP' AND ROUTER!='null' AND ROUTER NOT IN (${s})`
-      };
-    } else {
-      this.navLinkListCondition = {
-        WHERE: `ENABLE='Y' AND APPID!='null' AND APPID!='SYSCOMPONENT' AND MENUTYPE='APP' AND ROUTER!='null'`
-      };
-    }
-  }
-  /** YM
-   * 数组转sql批查询条件
-   * @param array
-   */
-  arrayToSqlString(array: Array<any>) {
-    let str: string = "";
-    for (let i = 0; i < array.length; i++) {
-      str += `'${array[i]}'`;
-      if (i !== array.length - 1) {
-        str += ",";
+    this.mainService.providers.appService.findWithQuery('SYSVERSION', { PAGENUM: 1, PAGESIZE: 6, ODER: 'TS DESC' }).subscribe(result => {
+      if (result.CODE === '0') {
+        let version = this.versionTimeline.fcValues = [];
+        result.DATA.forEach(item => {
+          let t = this.mainService.providers.commonService.timestampFormat(Number.parseInt(item.PUBLISHTIME) * 1000, 'MM-dd');
+          version.push({
+            label: t,
+            title: environment.projectName + '发布' + item.LASTVERSION + '版',
+            ID: item.ID,
+            color: 'normal'
+          })
+        })
       }
-    }
-    return str.toString();
-  }
-  /** YM
-   * 刷新快速导航标签
-   */
-  refreshNavLink() {
-    this.navLinks.forEach(link => {
-      this.mainService.getNavLabel(link).subscribe(res => {
-        if (res.CODE === "0") link["LABEL"] = res.DATA[0].MENUNAME;
-      });
-    });
-  }
-  /** YM
-   * 新增快速导航标签
-   */
-  addNavLinkTag(contentTpl, footerTpl) {
-    if (this.navLinks.length < 8) {
-      this.currentModal_navLink = this.nzModal.open({
-        title: "新增快速导航标签",
-        content: contentTpl,
-        footer: footerTpl,
-        style: { width: "50%" },
-        wrapClassName: "vertical-top-modal",
-        maskClosable: false,
-        zIndex: 998,
-        onOk: function() {},
-        onCancel: function() {}
-      });
-      setTimeout(() => {
-        let gridApi: GridApi = this.navLink_listdata._gridApi;
-        let column: ColumnApi = this.navLink_listdata._gridColumnApi;
-        if (column) column.autoSizeAllColumns();
-      });
-    } else {
-      this.nzModal.info({
-        title: "操作提示",
-        content: "快速导航标签不能超过8个",
-        zIndex: 999
-      });
-    }
-  }
-  /** YM
-   * 处理新增快速导航标签——确定
-   */
-  handleAddNavLink_ok(ev: any, listdata: FclistdataComponent) {
-    let gridApi: GridApi = this.navLink_listdata._gridApi;
-    let column: ColumnApi = this.navLink_listdata._gridColumnApi;
-    let selected = gridApi.getSelectedRows();
-    if (selected.length === 0) {
-      this.currentModal_navLink.destroy("onOk");
-      this.currentModal_navLink = null;
-    }
-    let count = this.navLinks.length + selected.length;
-    if (count <= 8) {
-      let saveObjs: any = [];
-      selected.forEach(el => {
-        let saveObj = this.mainService.getNavDefaultObj();
-        for (let key in el) {
-          if (key === "PID") saveObj[key] = el[key];
-          if (key === "ROUTER") saveObj[key] = el[key];
-        }
-        saveObj["CREATETIME"] = this.mainService.getNowTimeStamp() + "";
-        saveObj["LASTMODIFY"] = this.mainService.getNowTimeStamp() + "";
-        saveObj["USERID"] = this.mainService.getNowUserId();
-        saveObj["CATAGORY"] = "private";
-        delete saveObj["ID"];
-        saveObjs.push(saveObj);
-      });
-      this.mainService.saveNavLinks(saveObjs);
-      setTimeout(() => {
-        this.initNavLink();
-      });
-      this.currentModal_navLink.destroy("onOk");
-      this.currentModal_navLink = null;
-    } else {
-      this.nzModal.info({
-        title: "操作提示",
-        content: "快速导航标签不能超过8个",
-        zIndex: 999
-      });
-    }
-  }
-  /** YM
-   * 处理新增快速导航标签——取消
-   */
-  handleAddNavLink_cancel(ev: any) {
-    this.currentModal_navLink.destroy("onCancel");
-    this.currentModal_navLink = null;
-  }
-  /** YM
-   * 快速导航标签事件
-   */
-  navLinkEvent(ev: FCEVENT, link) {
-    switch (ev.eventName) {
-      case "close":
-        break;
-      case "beforeClose":
-        event.stopPropagation();
-        event.preventDefault();
-        this.nzModal.confirm({
-          title: "操作提示",
-          content: "是否确认删除该快速导航标签？",
-          onOk: () => {
-            this.mainService.deleteNavLink(link).subscribe(res => {
-              if (res.CODE === "0")
-                this.mainService.providers.msgService.success("删除成功");
-              else this.mainService.providers.msgService.warm("删除失败");
-            });
-            setTimeout(() => {
-              this.initNavLink();
-            });
-          },
-          onCancel: () => {}
-        });
-        break;
-      case "click":
-        event.stopPropagation();
-        event.preventDefault();
-        this.navTo(link.ROUTER);
-        break;
-      default:
-        break;
-    }
-  }
-  /** YM
-   * 新增快速导航标签弹窗列表事件
-   */
-  navLinkListEvent(ev: FCEVENT) {
-    switch (ev.eventName) {
-      case "":
-        break;
-    }
+    })
   }
   /**
-   * 柱状图事件
-   * @param event
-   */
+ * 柱状图事件
+ * @param event 
+ */
   chartbarEvent(event: FCEVENT) {
     switch (event.eventName) {
-      case "hover":
+      case 'hover':
         break;
-      case "click":
+      case 'click':
         break;
     }
   }
   /**
    * 饼状图事件
-   * @param event
+   * @param event 
    */
   chartpieEvent(event: FCEVENT) {
     switch (event.eventName) {
-      case "hover":
+      case 'hover':
         break;
-      case "click":
+      case 'click':
         break;
     }
   }
   /**
    * 上传图片
-   * @param event
+   * @param event 
    */
   fileEvent(event): any {
     switch (event.eventName) {
@@ -675,40 +446,46 @@ export class HomeComponent implements OnInit {
         break;
     }
   }
+  /**
+   * 快速开始
+   */
+  addStart() {
 
+  }
   navTo(url: string) {
     this.mainService.layoutService.navToByMenuId(this.router, url);
   }
   /**
-   * 时间轴事件
-   * @param event
-   */
+ * 时间轴事件
+ * @param event 
+ */
   timelineEvent(event: FCEVENT) {
     switch (event.eventName) {
-      case "selected": //选中
-        this.router.navigate(["/system/sysversionDetail"], {
-          queryParams: { ID: event.param.ID }
-        });
+      case 'selected'://选中
+        this.router.navigate(['/system/sysversionDetail'], { queryParams: { ID: event.param.ID } })
         break;
     }
   }
   /**
    * 聊天面板
-   * @param event
+   * @param event 
    */
   chatEvent(event: FCEVENT) {
     switch (event.eventName) {
-      case "send": //发布聊天记录
+      case 'send'://发布聊天记录
         break;
-      case "closed": //关闭聊天面板
+      case 'closed'://关闭聊天面板
         this.showchat = false;
         break;
+
     }
   }
   /**
    * 发送聊天记录
    */
-  sendChat() {}
+  sendChat() {
+
+  }
   /**
    * 关闭聊天面板
    */
