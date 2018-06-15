@@ -1,0 +1,23 @@
+<fc-layoutpanel>
+    <fc-title fcLabel="文字提示" fcheader></fc-title>
+    <fc-layoutcol fccontent fcSpans="1,1">
+      <fc-layoutgroup fcTitle="基本" fccontent1>
+        <div fccontent>
+            正在开发
+        </div>
+      </fc-layoutgroup>
+    </fc-layoutcol>
+  </fc-layoutpanel>
+  <!-- API -->
+  <fc-layoutpanel fccontent>
+    <fc-title fcLabel="属性" fcheader></fc-title>
+    <div style="height:450px;" fccontent>
+      <fc-listdata [fcAppid]="'FCFIELDS'"  ></fc-listdata>
+    </div>
+  </fc-layoutpanel>
+  <fc-layoutpanel fccontent>
+    <fc-title fcLabel="事件" fcheader></fc-title>
+    <div style="height:450px;" fccontent>
+      <fc-listdata [fcAppid]="'FCEVENT'"  ></fc-listdata>
+    </div>
+  </fc-layoutpanel>

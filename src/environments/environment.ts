@@ -6,11 +6,11 @@
 export const environment = {
   production: false,
   pid: "SYSTEM",
-  projectName: "FC快速开发平台",
+  projectName: "FC核心平台",
   systemurl: "/server/",
   apiurl: "/server/api/",
   logurl: "/server/api/",
   authurl: "/server/api/",
-  wsurl: "ws://pcorp.cn/server/msg",
+  wsurl: "ws://10.56.23.117:8000/server/msg",
   license:''
 };

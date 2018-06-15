@@ -1,0 +1,356 @@
+:host ::ng-deep  .fc-timeline-left .fc-timeline-label {
+    position: absolute;
+    display: block;
+    text-align: right;
+    padding-right: 10px;
+    right: 100%;
+    width: 100%;
+}
+/* 查询条件 */
+:host ::ng-deep .fc-modallist .ant-modal-content{
+    width:100%;
+    height:100%;
+  }
+  :host ::ng-deep .fc-modallist .ant-modal-body{
+    width: 100%;
+    height: calc(100% - 90px);
+  }
+* {
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C1C6CA;
+    opacity: 0.5;
+    height: 50px;
+    max-height: 50px;
+    outline-offset: -2px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #108ee9;
+    height: 50px;
+    max-height: 50px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+    position: absolute;
+    right: 2px;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #ffffff;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+.list-search {
+    width: 100%;
+    padding-top: 3px;
+    border-bottom: 1px solid #8E8E8E;
+    margin-bottom: 5px;
+}
+
+.list-search:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* 下拉超出部分全显示 */
+
+.ant-select-dropdown-menu-item {
+    overflow: visible !important;
+}
+
+.ant-select-dropdown {
+    overflow: auto !important;
+}
+
+.list-search-every {
+    width: 25%;
+    height: 33px;
+    float: left;
+}
+
+list-search-button {
+    width: 25%;
+    float: left;
+}
+
+/* 副标题 */
+
+.subtitle {
+    display: flex;
+    justify-content: space-between;
+}
+
+.subtitle .subtitle-item label {
+    font-weight: 700;
+}
+
+.subtitle .subtitle-item span {}
+.list-search .ant-form-item-required:before {
+    display: none;
+}
+
+/* 表单页码 */
+
+.form-right {
+    border-left: 20px solid #ECF3F7;
+    box-sizing: border-box;
+}
+
+.page-control-wrap {
+    width: 100%;
+    text-align: center;
+}
+
+.page-control-wrap .page-control i {
+    color: #ABABAB;
+    font-size: 26px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.page-control-wrap .page-control i:hover {
+    color: #1890FF;
+}
+
+.page-control-wrap .page-next i {
+    transform: rotate(180deg);
+}
+
+html,
+body,
+a,
+address,
+article,
+aside,
+audio,
+b,
+blockquote,
+body,
+br,
+button,
+canvas,
+caption,
+center,
+col,
+dd,
+dir,
+div,
+dl,
+dt,
+fieldset,
+figcaption,
+figure,
+font,
+footer,
+form,
+frame,
+frameset,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+head,
+header,
+hr,
+i,
+iframe,
+img,
+input,
+label,
+legend,
+li,
+nav,
+ol,
+option,
+p,
+pre,
+samp,
+section,
+select,
+small,
+span,
+strong,
+table,
+tbody,
+td,
+textarea,
+tfoot,
+th,
+thead,
+title,
+tr,
+ul,
+video {
+    font-family: Verdana, Arial, sans-serif, "Microsoft YaHei", "WenQuanYi Micro Hei", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB";
+    font-size: 12px;
+}
+
+/* 快速定位样式*/
+.aligncenter{
+    text-align:center;
+}
+.showhand:hover{
+    cursor: pointer;
+}
+.fastposition-content{
+    position:fixed;
+    top:150px;
+    right:54px;
+}
+/*label字体颜色*/
+.ant-form-item-label label {
+    color: #666666!important;
+}
+.ant-form-item-label label:after {
+    content: ""!important;
+    margin: 0 10px 0 0px!important;
+    top: 0px!important;
+}
+
+/* 文本边框颜色 */
+.ant-input{
+    border-color:#7d7d7d!important;
+}
+.ant-input:hover {
+    border-color:#1890ff!important;
+}
+/* 下拉选择边框颜色 */
+.ant-select-selection{
+    border-color:#7d7d7d!important;
+}
+.ant-select-selection:hover{
+    border-color:#1890ff!important;
+}
+/* 数值边框的颜色 */
+.ant-input-number{
+    border-color:#7d7d7d!important;
+}
+.ant-input-number:hover{
+    border-color:#1890ff!important;
+}
+.ant-switch-checked{
+    background-color: #1089ff!important;
+}
+/* 表单列表页面 */
+  .templateformlists .list-search-every1 {
+    width: 15%;
+  }
+  .templateformlists .list-search-every2 {
+    width: 25%;
+  }
+  .templateformlists .list-search-every4 {
+    width: 25%;
+  }
+  .templateformlists .list-search-every5 {
+    width: 35%;
+    line-height:27px;
+    text-align:right;
+  }
+  /* 左树左边搜索框的宽度 */
+  .treesearch-width{
+    width:80%;
+    display:inline-block;
+    margin-left: 6px;
+    margin-top:6px;
+  }
+/* 表单一列显示 */
+
+:global .form-col-1 .ant-form-item-label {
+    width: 12.5%;
+  }
+  
+  :global .form-col-1 .form-explain {
+    width: 83.33333333%;
+  }
+  /* 左树的模板页面 */
+  :global .ant-btn>i,
+  .ant-btn>span {
+    float: none !important;
+  }
+  
+  :global .tree-style>.ant-row {
+    height: 100%;
+  }
+  :global .tree-style>.ant-row>.fc-content1 {
+    height: 100%;
+    border: 1px solid;
+    overflow: auto;
+  }
+  :global .tree-style>.ant-row>.fc-content2 {
+    height: 100%;
+    overflow: auto;
+    padding-left: 10px;
+  }
+  :global .tree-style>.ant-row>.fc-content1 .fc-layoutrowcell2{
+    overflow: auto;
+  }
+  :global .tree-style .layoutcol-full .fc-content1 {
+    overflow: auto;
+  }
+  :global .tree-style .ant-tree-node .tree-children {
+    overflow: initial;
+  }
+  /* 选项卡内容铺满 */
+  :global .template-tab-full {
+    width: 100%;
+    height: 100%;
+  }
+  :global .template-tab-full>nz-tabset {
+      width: 100%;
+      height: 100%;
+  } 
+  :global .template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content {
+      height: calc(100% - 28px);
+      overflow: auto;
+      box-sizing: border-box;
+    }
+    :global .template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content > .ant-tabs-tabpane{
+      height:100%;
+      padding-top:5px;
+    }
+    :global .template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content > .ant-tabs-tabpane>div{
+      height:100%;
+    }
+    :global .template-heightauto{
+        overflow: auto;
+    }
+  :global .template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content {
+    height: calc(100% - 35px);
+    overflow: auto;
+    padding-top: 5px;
+  }
+  
+  :global .template-tab-full .ant-tabs-content>.ant-tabs-tabpane {
+    height: 100%;
+  }
+  
+  :global .template-tab-full .ant-tabs-content>.ant-tabs-tabpane>div {
+    height: 100%;
+  }
+  
+  :global .template-heightauto {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  :global .left-tree-hassearch>.fc-layoutrow>.fc-layoutrowcell2{
+    overflow: auto!important;
+  }
+  /* 超出部分出现滚动条 */
+  .template-beyoundscroll>.fc-layoutrow>.fc-layoutrowcell2{
+      overflow: auto;
+  }
