@@ -209,7 +209,7 @@ export class LayoutComponent implements OnInit {
   }
   /**
    * 导航栏事件
-   * @param event 
+   * @param event
    */
   navbarEvent(event: FCEVENT) {
     switch (event.eventName) {
@@ -253,7 +253,7 @@ export class LayoutComponent implements OnInit {
 
   /**
    *  菜单事件
-   * @param event 
+   * @param event
    */
   navmenuEvent(event: FCEVENT) {
     switch (event.eventName) {
@@ -320,7 +320,7 @@ export class LayoutComponent implements OnInit {
     });
   }
   /**
-   * 
+   *
    */
   ngOnDestroy(): void {
     this._providers.daoService.ws.close();

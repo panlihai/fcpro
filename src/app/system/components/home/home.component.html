@@ -107,7 +107,7 @@
       <fc-layoutpanel fccontent>
         <fc-title fcLabel="快速开始/便捷导航" fcHasLine="false" fcheader fcBorder="bottom"></fc-title>
         <div fccontent class="fastcontent" *ngFor="let navLink of navLinks">
-          <fc-tag fcClose="true" class="fastcontenttext" [fcLabel]="navLink.LABEL" (click)="navTo(navLink.ROUTER)" (fcEvent)="navLinkClosed($event,navLink)"></fc-tag>
+          <fc-tag fcClose="true" class="fastcontenttext" [fcLabel]="navLink.LABEL"  (fcEvent)="navLinkEvent($event,navLink)"></fc-tag>
         </div>
         <fc-button fccontent fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addNavLinkTag(contentTpl_navLink,footerTpl_navLink)"
           class="add"></fc-button>

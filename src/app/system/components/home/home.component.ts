@@ -460,9 +460,9 @@ export class HomeComponent implements OnInit {
               color: "normal"
             });
           });
-          this.initNavLink();
         }
       });
+    this.initNavLink();
   }
   /**
    * YM
@@ -593,19 +593,35 @@ export class HomeComponent implements OnInit {
     this.currentModal_navLink = null;
   }
   /** YM
-   * 快速导航标签关闭
+   * 快速导航标签事件
    */
-  navLinkClosed(ev: FCEVENT, link) {
+  navLinkEvent(ev: FCEVENT, link) {
     switch (ev.eventName) {
       case "close":
-        this.mainService.deleteNavLink(link).subscribe(res => {
-          if (res.CODE === "0")
-            this.mainService.providers.msgService.success("删除成功");
-          else this.mainService.providers.msgService.warm("删除失败");
+        break;
+      case "beforeClose":
+        event.stopPropagation();
+        event.preventDefault();
+        this.nzModal.confirm({
+          title: "操作提示",
+          content: "是否确认删除该快速导航标签？",
+          onOk: () => {
+            this.mainService.deleteNavLink(link).subscribe(res => {
+              if (res.CODE === "0")
+                this.mainService.providers.msgService.success("删除成功");
+              else this.mainService.providers.msgService.warm("删除失败");
+            });
+            setTimeout(() => {
+              this.initNavLink();
+            });
+          },
+          onCancel: () => {}
         });
-        setTimeout(() => {
-          this.initNavLink();
-        });
+        break;
+      case "click":
+        event.stopPropagation();
+        event.preventDefault();
+        this.navTo(link.ROUTER);
         break;
       default:
         break;
