@@ -465,6 +465,7 @@ export class HomeComponent implements OnInit {
       });
   }
   /**
+   * YM
    *动态加载快速导航标签数据;
    */
   initNavLink() {
@@ -474,7 +475,7 @@ export class HomeComponent implements OnInit {
       this.refreshNavLink();
     });
   }
-  /**
+  /** YM
    * 重查询NavLink_listdata数据
    */
   rebuildList_NavLink() {
@@ -493,7 +494,7 @@ export class HomeComponent implements OnInit {
       };
     }
   }
-  /**
+  /** YM
    * 数组转sql批查询条件
    * @param array
    */
@@ -507,7 +508,7 @@ export class HomeComponent implements OnInit {
     }
     return str.toString();
   }
-  /**
+  /** YM
    * 刷新快速导航标签
    */
   refreshNavLink() {
@@ -517,7 +518,7 @@ export class HomeComponent implements OnInit {
       });
     });
   }
-  /**
+  /** YM
    * 新增快速导航标签
    */
   addNavLinkTag(contentTpl, footerTpl) {
@@ -547,7 +548,7 @@ export class HomeComponent implements OnInit {
       });
     }
   }
-  /**
+  /** YM
    * 处理新增快速导航标签——确定
    */
   handleAddNavLink_ok(ev: any, listdata: FclistdataComponent) {
@@ -584,14 +585,14 @@ export class HomeComponent implements OnInit {
       });
     }
   }
-  /**
+  /** YM
    * 处理新增快速导航标签——取消
    */
   handleAddNavLink_cancel(ev: any) {
     this.currentModal_navLink.destroy("onCancel");
     this.currentModal_navLink = null;
   }
-  /**
+  /** YM
    * 快速导航标签关闭
    */
   navLinkClosed(ev: FCEVENT, link) {
@@ -610,7 +611,7 @@ export class HomeComponent implements OnInit {
         break;
     }
   }
-  /**
+  /** YM
    * 新增快速导航标签弹窗列表事件
    */
   navLinkListEvent(ev: FCEVENT) {
