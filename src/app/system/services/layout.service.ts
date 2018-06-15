@@ -7,13 +7,16 @@ import { element } from 'protractor';
 import { FcTaboptions } from 'fccomponent/fcnav/fcnavtab.component';
 import { FcRouteReuseStrategy } from './routereusestrategy.service';
 import { Fcmenu } from 'fccomponent/fcnav/fcnavmenu.component';
+import { SysuserService } from './sysuser.service';
 @Injectable()
 export class LayoutService {
     //选中索引
     _selectedIndex: string;
     //是否被选中
     _navmenuSelected: boolean;
-    constructor(public providers: ProvidersService, private sysmessageService: SysmessageService) { }
+    constructor(public providers: ProvidersService,
+        private sysmessageService: SysmessageService,
+        public sysuserService: SysuserService) { }
     /**
      * 获取默认的消息对象。
      */

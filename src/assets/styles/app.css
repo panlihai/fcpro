@@ -1,3 +1,11 @@
+:host ::ng-deep  .fc-timeline-left .fc-timeline-label {
+    position: absolute;
+    display: block;
+    text-align: right;
+    padding-right: 10px;
+    right: 100%;
+    width: 100%;
+}
 /* 查询条件 */
 :host ::ng-deep .fc-modallist .ant-modal-content{
     width:100%;

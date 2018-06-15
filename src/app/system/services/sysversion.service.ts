@@ -22,9 +22,6 @@ export class SysversionService extends ParentService {
             fcColorCode: 'color'
         }
     }
-    saveVersion(saveObj: Sysversion, mainObj: any): Observable<any> {
-        return this.save(saveObj);
-    }
 }
 export interface Sysversion {
     ID: string;//ID

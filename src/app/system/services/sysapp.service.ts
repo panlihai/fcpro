@@ -10,6 +10,7 @@ export class SysappService extends ParentService {
     this.listOptions.fcAutoSave = true;
     this.listOptions.fcEnableEdit = true;
     this.listOptions.fcShowToolPanel = false;
+    this.listOptions.fcPagination = false;
   }
   modifyAppFieldsName() {
     let ob = this.providers.daoService.getFromApi(this.getResourceUrl("modifyFieldsName"), {});

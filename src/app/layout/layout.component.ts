@@ -9,6 +9,9 @@ import { NavsideOptions } from 'fccomponent/fcnav/fcnavside.component';
 import { MenuOptions, FcnavmenuComponent, Fcmenu } from 'fccomponent/fcnav/fcnavmenu.component';
 import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.component';
 import 'rxjs/add/operator/filter';
+import { NzModalService } from 'ng-zorro-antd';
+import { ResetpwddialogComponent } from './resetpwddialog.component';
+import { SysuserService, Sysuser } from '../system/services/sysuser.service';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -102,8 +105,6 @@ export class LayoutComponent implements OnInit {
   };
   //路由打开记录
   selectMenu = {};
-  //当前用户信息
-  user: any;
   // 当前所有菜单
   _menus: any = [];
   //布局比例
@@ -111,7 +112,8 @@ export class LayoutComponent implements OnInit {
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private mainService: LayoutService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalService: NzModalService
   ) {
     //订阅消息
     this.msgHandler();
@@ -196,7 +198,6 @@ export class LayoutComponent implements OnInit {
         })
       }
     });
-
     //把弹出确认框变量存入到服务里
     MessageService.confirmModal = this.confirmmodal;
     if (this.fcnavtab.fcTabs.length === 0) {
@@ -208,7 +209,7 @@ export class LayoutComponent implements OnInit {
   }
   /**
    * 导航栏事件
-   * @param event 
+   * @param event
    */
   navbarEvent(event: FCEVENT) {
     switch (event.eventName) {
@@ -252,7 +253,7 @@ export class LayoutComponent implements OnInit {
 
   /**
    *  菜单事件
-   * @param event 
+   * @param event
    */
   navmenuEvent(event: FCEVENT) {
     switch (event.eventName) {
@@ -319,10 +320,31 @@ export class LayoutComponent implements OnInit {
     });
   }
   /**
-   * 
+   *
    */
   ngOnDestroy(): void {
     this._providers.daoService.ws.close();
   }
+  /**
+   * 修改密码
+   */
+  resetPassword(): any {
+    const modal = this.modalService.open({
+      title: '修改密码',
+      content: ResetpwddialogComponent,
+      onOk() {
 
+      },
+      onCancel() {
+
+      },
+      footer: false,
+      componentParams: {
+        options: {}
+      }
+    });
+    modal.subscribe(result => {
+      this.mainService.sysuserService.doReset(result);
+    })
+  };
 }
