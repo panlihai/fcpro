@@ -9,9 +9,6 @@ import { SysmessageService, Sysmessage } from '../../services/sysmessage.service
 @Component({
   selector: 'sysmessagedetail',
   template: `
-  <gc-spread-sheets (workbookInitialized)="workbookInit($event)">
-</gc-spread-sheets>
-<input (click)="_click($event)" [type]="'button' "[value]="'export'"/>
   <fc-layoutpanel style="height:100%;" class="messagedetail">
     <fc-layoutcol fcSpans="1,2" fccontent>
         <fc-title fcLabel="消息列表" fccontent1></fc-title>

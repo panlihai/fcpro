@@ -35,13 +35,15 @@ import { FclistModule, FctlbModule, FclayoutModule, FcbasicModule,
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysroleauthService } from './services/sysroleuser.service';
 import { LayoutService } from './services/layout.service';
-import { SysmessagebackComponent } from './components/core/sysmessageback.component';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SpreadSheetsModule } from '@grapecity/spread-sheets-angular';
 import { SysmessageService } from './services/sysmessage.service';
 import { SysversionService } from './services/sysversion.service';
 import { SysversionComponent } from './components/core/sysversion.component';
 import { SyshomeService } from './services/syshome.service';
+import { SyscompanyService } from './services/syscompany.service';
+import { SyscompanyComponent } from './components/core/syscompany.component';
+import { SyscompanyeditComponent } from './components/core/syscompanyedit.component';
 import { SysnavlinkService } from './services/sysnavlink.service';
 @NgModule({
   imports: [
@@ -83,9 +85,10 @@ import { SysnavlinkService } from './services/sysnavlink.service';
     SysmessagedetailComponent,
     SysbackcodeComponent,
     SyscomponentComponent,
-    SysmessagebackComponent,
     HomeComponent,
-    SysversionComponent
+    SysversionComponent,
+    SyscompanyComponent,
+    SyscompanyeditComponent
   ],
   providers: [
     LayoutService,
@@ -102,6 +105,7 @@ import { SysnavlinkService } from './services/sysnavlink.service';
     SysroleuserService,
     SyshomeService,
     SysversionService,
+    SyscompanyService,
     SysnavlinkService
   ]
 })
