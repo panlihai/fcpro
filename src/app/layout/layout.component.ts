@@ -209,7 +209,7 @@ export class LayoutComponent implements OnInit {
   }
   /**
    * 导航栏事件
-   * @param event 
+   * @param event
    */
   navbarEvent(event: FCEVENT) {
     switch (event.eventName) {
@@ -256,7 +256,7 @@ export class LayoutComponent implements OnInit {
 
   /**
    *  菜单事件
-   * @param event 
+   * @param event
    */
   navmenuEvent(event: FCEVENT) {
     switch (event.eventName) {
@@ -290,7 +290,7 @@ export class LayoutComponent implements OnInit {
           this.selectMenu[event.param.MENUID] = event.param.MENUID;
         }
         this._providers.commonService.event('tabClicked', event.param);
-        this.mainService.navMenu(this._router, event.param, 'N');
+        this.mainService.navMenu(this._router, event.param);
         break;
     }
   }
@@ -325,7 +325,7 @@ export class LayoutComponent implements OnInit {
     });
   }
   /**
-   * 
+   *
    */
   ngOnDestroy(): void {
     this._providers.daoService.ws.close();

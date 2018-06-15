@@ -30,7 +30,7 @@ import { SysroleService } from './services/sysrole.service';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
 import { SysappdetailComponent } from './components/core/sysappdetail.component';
-import { FclistModule, FctlbModule, FclayoutModule, FcbasicModule, 
+import { FclistModule, FctlbModule, FclayoutModule, FcbasicModule,
   FcadModule, FcmodalModule, FcsearchModule, FctabModule, FcchartModule } from 'fccomponent';
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysroleauthService } from './services/sysroleuser.service';
@@ -44,6 +44,7 @@ import { SyshomeService } from './services/syshome.service';
 import { SyscompanyService } from './services/syscompany.service';
 import { SyscompanyComponent } from './components/core/syscompany.component';
 import { SyscompanyeditComponent } from './components/core/syscompanyedit.component';
+import { SysnavlinkService } from './services/sysnavlink.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -104,9 +105,10 @@ import { SyscompanyeditComponent } from './components/core/syscompanyedit.compon
     SysroleuserService,
     SyshomeService,
     SysversionService,
-    SyscompanyService
+    SyscompanyService,
+    SysnavlinkService
   ]
 })
-export class SystemModule { 
- 
+export class SystemModule {
+
 }
