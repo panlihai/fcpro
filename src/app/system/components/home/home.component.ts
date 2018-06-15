@@ -538,8 +538,7 @@ export class HomeComponent implements OnInit {
         let gridApi: GridApi = this.navLink_listdata._gridApi;
         let column: ColumnApi = this.navLink_listdata._gridColumnApi;
         if (column) column.autoSizeAllColumns();
-      }, 500);
-      this.initNavLink();
+      });
     } else {
       this.nzModal.info({
         title: "操作提示",
@@ -555,6 +554,10 @@ export class HomeComponent implements OnInit {
     let gridApi: GridApi = this.navLink_listdata._gridApi;
     let column: ColumnApi = this.navLink_listdata._gridColumnApi;
     let selected = gridApi.getSelectedRows();
+    if (selected.length === 0) {
+      this.currentModal_navLink.destroy("onOk");
+      this.currentModal_navLink = null;
+    }
     let count = this.navLinks.length + selected.length;
     if (count <= 8) {
       let saveObjs: any = [];
@@ -567,14 +570,14 @@ export class HomeComponent implements OnInit {
         saveObj["CREATETIME"] = this.mainService.getNowTimeStamp() + "";
         saveObj["LASTMODIFY"] = this.mainService.getNowTimeStamp() + "";
         saveObj["USERID"] = this.mainService.getNowUserId();
-        saveObj["CATEGORY"] = "private";
+        saveObj["CATAGORY"] = "private";
         delete saveObj["ID"];
         saveObjs.push(saveObj);
       });
       this.mainService.saveNavLinks(saveObjs);
       setTimeout(() => {
         this.initNavLink();
-      }, 100);
+      });
       this.currentModal_navLink.destroy("onOk");
       this.currentModal_navLink = null;
     } else {
