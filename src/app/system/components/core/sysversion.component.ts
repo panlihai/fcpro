@@ -8,26 +8,21 @@ import { SysversionService, Sysversion } from '../../services/sysversion.service
 @Component({
   selector: 'sysversiondetail',
   template: `
-  <fc-layoutpanel style="height:100%;" class="messagedetail">
+  <fc-layoutpanel style="height:100%;" class="detail">
   <fc-layoutcol fcSpans="1,2" fccontent>
       <fc-title fcLabel="版本列表" fccontent1></fc-title>
       <div fccontent1 class="tagselect">
-          <fc-tag fcIcon="fc-icon-add" fcLabel="新增" (fcEvent)="addversionEvent($event)"></fc-tag>
+          <fc-tag fcLabel="返回首页" (click)="backHome()"></fc-tag>
       </div>
       <fc-timeline [fcOption]="timelineOption" [fcSelectedId]="selectedId" (fcEvent)="timelineEvent($event)" fcLabelPosition="left" fcLeft="30%" class="timeline-content" fccontent1 class="noread"></fc-timeline>
       <fc-layoutpanel fccontent2>
         <fc-title fcLabel="版本明细" fccontent></fc-title>
         <p class="main-title" fccontent>{{mainObj.VERSION}}<span class="mesagge-time">{{mainObj.TS}}</span></p>
-        <p class="main-content" fccontent>上次发布版本：{{mainObj.LASTVERSION}}</p>
-        <p class="main-content" fccontent>改版内容：{{mainObj.DESCRIPTION}}</p>
-        <fc-button fcLabel="修改" fcType="primary" fccontent class="margin-top15" (click)="editVersion()"></fc-button>
-        <fc-title fcLabel="修改内容"></fc-title>
-        <fc-layoutcol fcSpans="1,1" fccontent style="margin-top:15px;">
-          <fc-text fccontent1 fcLabel="发布版本"></fc-text>
-          <fc-text fccontent2 fcLabel="上一个版本"></fc-text>
-          <fc-textarea fccontent1 fcLabel="描述"></fc-textarea>
-          <fc-button fcLabel="保存" fcType="primary" fccontent1 class="margin-top15" (click)="saveVersion()"></fc-button>
-        </fc-layoutcol>
+        <fc-title fcLabel="上次发布版本" fccontent></fc-title>
+        <p class="main-content" fccontent>{{mainObj.LASTVERSION}}</p>
+        <fc-title fcLabel="版本详情" fccontent></fc-title>
+        <p class="main-content" fccontent>{{mainObj.DESCRIPTION}}</p>
+        <div style="height:250px;"><fc-listdata fcAppid='SYSVERSION' fccontent></fc-listdata></div>
       </fc-layoutpanel>     
     </fc-layoutcol>
 </fc-layoutpanel>  
@@ -77,13 +72,13 @@ import { SysversionService, Sysversion } from '../../services/sysversion.service
     width:24%;
     float:left;
   }
-  :host ::ng-deep .messagedetail>.fc-layoutpanel{
+  :host ::ng-deep .detail>.fc-layoutpanel{
     height:100%;
   }
   :host ::ng-deep .margin-top15>button{
     margin-top:15px;
   }
-  :host ::ng-deep .messagedetail .fc-title{
+  :host ::ng-deep .detail .fc-title{
     margin-left:0px;
   }
   :host ::ng-deep .ant-tabs-nav{
@@ -99,12 +94,12 @@ import { SysversionService, Sysversion } from '../../services/sysversion.service
     right: 10px;
     top: 15px;
   }
-  .messagedetail .main-title{
+  .detail .main-title{
     min-height:30px;
     font-size:14px;
     font-weight:bold;
   }
-  .messagedetail .main-content{
+  .detail .main-content{
     min-height:30px;
   }
   .mesagge-time{
@@ -142,9 +137,22 @@ export class SysversionComponent extends ParentDetailComponent {
         this.timelineOption.fcValues = result.DATA;
         this.timelineOption.fcValues.forEach(item => {
           item.color = 'normal';
+          item.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(item.PUBLISHTIME) * 1000, 'MM-dd') + '';
         });
       }
     });
+    //初始化版本详情
+    this.selectedId = this.routerParam.ID;
+    this.mainService.initMainObj(this.selectedId)
+      .subscribe(result => {
+        if (result.CODE === '0') {
+          this.mainObj = result.DATA;
+          if (this.mainObj.TS !== null && this.mainObj.TS !== '') {
+            this.mainObj.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(this.mainObj.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+          }
+        }
+      });
+    //首页传过来的选中ID
   }
   /**
    * 
@@ -183,5 +191,11 @@ export class SysversionComponent extends ParentDetailComponent {
    */
   saveVersion() {
 
+  }
+  /**
+   * 回到首页
+   */
+  backHome() {
+    this.navRouter('/system/home');
   }
 }

@@ -16,7 +16,7 @@ import { SysmessageService, Sysmessage } from '../../services/sysmessage.service
     <fc-layoutcol fcSpans="1,2" fccontent>
         <fc-title fcLabel="消息列表" fccontent1></fc-title>
         <div fccontent1 class="tagselect">
-            <fc-tag (click)="allmassageCondition()" fcLabel="全部" (fcEvent)="tagEvent($event)" [fcColor]="allmessageColor"></fc-tag>
+            <fc-tag (click)="allmassageCondition()" fcLabel="全部"  [fcColor]="allmessageColor"></fc-tag>
             <fc-tag (click)="isreadCondition()" fcLabel="已读" [fcColor]="isreadColor"></fc-tag>
             <fc-tag (click)="noreadCondition()" fcLabel="未读" [fcColor]="noreadColor"></fc-tag>
         </div>
@@ -174,7 +174,7 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
         if (result.CODE === '0') {
           this.mainObj = result.DATA;
           if (this.mainObj.TS !== null && this.mainObj.TS !== '') {
-              this.mainObj.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(this.mainObj.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+            this.mainObj.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(this.mainObj.TS) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
           }
           this.initFeedBack();
         }

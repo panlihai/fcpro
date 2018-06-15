@@ -26,9 +26,15 @@ import { LayoutService } from './system/services/layout.service';
 import { FcRouteReuseStrategy } from './system/services/routereusestrategy.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { NzMessageService, NgZorroAntdModule } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd';
 import { FccoreModule, MessageService } from 'fccore';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { ResetpwddialogComponent } from './layout/resetpwddialog.component';
+import { SysuserService } from './system/services/sysuser.service';
 @NgModule({
+  entryComponents: [
+    ResetpwddialogComponent
+  ],
   imports: [
     FormsModule,
     BrowserModule,
@@ -54,12 +60,15 @@ import { FccoreModule, MessageService } from 'fccore';
     AppComponent,
     LayoutComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    ResetpwddialogComponent
   ],
   providers: [
     LayoutService,
-    NzMessageService,    
-    { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy }
+    NzMessageService,
+    SysuserService,
+    { provide: RouteReuseStrategy, useClass: FcRouteReuseStrategy },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

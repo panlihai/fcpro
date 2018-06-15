@@ -19,6 +19,7 @@ import { NzModalService } from "ng-zorro-antd";
 import { GridApi, ColumnApi, RowNode, SelectionController } from "ag-grid";
 import { Jsonp } from "@angular/http";
 import { RowDataTransaction } from "ag-grid/dist/lib/rowModels/inMemory/inMemoryRowModel";
+import { environment } from "../../../../environments/environment";
 @Component({
   selector: "home",
   templateUrl: "./home.component.html",
@@ -426,7 +427,6 @@ export class HomeComponent implements OnInit {
     fcAppid: "",
     fcLabelCode: "label",
     fcTitleCode: "title",
-    fcSmarkCode: "smark",
     fcColorCode: "color",
     fcId: "ID"
   };
@@ -444,24 +444,26 @@ export class HomeComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.mainService.providers.appService
-      .findWithQuery("SYSVERSION", {})
+      .findWithQuery("SYSVERSION", { PAGENUM: 1, PAGESIZE: 6, ODER: "TS DESC" })
       .subscribe(result => {
         if (result.CODE === "0") {
           let version = (this.versionTimeline.fcValues = []);
           result.DATA.forEach(item => {
+            let t = this.mainService.providers.commonService.timestampFormat(
+              Number.parseInt(item.PUBLISHTIME) * 1000,
+              "MM-dd"
+            );
             version.push({
-              label: item.PUBLISHTIME,
-              title: item.LASTVERSION,
-              smark: item.DESCRIPTION,
+              label: t,
+              title: environment.projectName + "发布" + item.LASTVERSION + "版",
               ID: item.ID,
               color: "normal"
             });
           });
+          this.initNavLink();
         }
       });
-    this.initNavLink();
   }
-
   /**
    *动态加载快速导航标签数据;
    */
@@ -664,7 +666,9 @@ export class HomeComponent implements OnInit {
   timelineEvent(event: FCEVENT) {
     switch (event.eventName) {
       case "selected": //选中
-        this.router.navigate(["/system/sysversionDetail"], {});
+        this.router.navigate(["/system/sysversionDetail"], {
+          queryParams: { ID: event.param.ID }
+        });
         break;
     }
   }
