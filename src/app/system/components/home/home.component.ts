@@ -1,25 +1,20 @@
 import {
   Component,
   OnInit,
-  AfterContentInit,
-  OnChanges,
   ViewChild
 } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import {
-  ParentComponent,
   TimelineOptions,
-  FclistdataComponent
+  FclistdataComponent,
+  Fcmenu
 } from "fccomponent";
-import { eventNames } from "cluster";
 import { FCEVENT } from "fccomponent/fc";
-import { LayoutService } from "../../services/layout.service";
 import { SyshomeService } from "../../services/syshome.service";
 import { NzModalService } from "ng-zorro-antd";
-import { GridApi, ColumnApi, RowNode, SelectionController } from "ag-grid";
-import { Jsonp } from "@angular/http";
-import { RowDataTransaction } from "ag-grid/dist/lib/rowModels/inMemory/inMemoryRowModel";
+import { GridApi, ColumnApi } from "ag-grid";
 import { environment } from "../../../../environments/environment";
+import { Sysmenu } from "fccore";
 @Component({
   selector: "home",
   templateUrl: "./home.component.html",
@@ -383,9 +378,9 @@ export class HomeComponent implements OnInit {
   _pieData: number[] = [1692215654.69178, 293107561.643836, 933395486.794522];
   //选项卡
   _tabmain = [
-    { name: "铁路局", disabled: false },
-    { name: "总公司", disabled: false }
-  ];
+    { name: '公告', disabled: false },
+    { name: '消息', disabled: false },
+  ]
   _tabmain2 = [
     { name: "数据统计1", disabled: false },
     { name: "数据统计2", disabled: false },
@@ -430,6 +425,7 @@ export class HomeComponent implements OnInit {
     fcColorCode: "color",
     fcId: "ID"
   };
+  items: any;
   //待办任务状态
   _waitWorkStatus: string;
   //navLink 标签
@@ -441,7 +437,7 @@ export class HomeComponent implements OnInit {
     public activedRoute: ActivatedRoute,
     private _router: Router,
     private nzModal: NzModalService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.mainService.providers.appService
       .findWithQuery("SYSVERSION", { PAGENUM: 1, PAGESIZE: 6, ODER: "TS DESC" })
@@ -462,6 +458,12 @@ export class HomeComponent implements OnInit {
           });
         }
       });
+    // 查询SYSNOTIFY所有元数据
+    this.mainService.providers.appService.findWithQuery('SYSNOTIFY', {}).subscribe(result => {
+      if (result.CODE === '0') {
+        this.items = result.DATA
+      }
+    })
     this.initNavLink();
   }
   /**
@@ -531,8 +533,8 @@ export class HomeComponent implements OnInit {
         wrapClassName: "vertical-top-modal",
         maskClosable: false,
         zIndex: 998,
-        onOk: function() {},
-        onCancel: function() {}
+        onOk: function () { },
+        onCancel: function () { }
       });
       setTimeout(() => {
         let gridApi: GridApi = this.navLink_listdata._gridApi;
@@ -618,7 +620,7 @@ export class HomeComponent implements OnInit {
               this.initNavLink();
             });
           },
-          onCancel: () => {}
+          onCancel: () => { }
         });
         break;
       case "click":
@@ -693,6 +695,21 @@ export class HomeComponent implements OnInit {
     }
   }
   /**
+  * 消息公告点击跳转路由事件
+  * @param event 
+  */
+  linkevent(id) {
+    let menu = this.mainService.layoutService.findMenuByRouter(this.mainService.providers.menuService.menus, 'sysannouncementDetail');
+    if (menu) {
+      menu['param'] = id;
+      this.mainService.providers.commonService.event("selectedMenu", menu);
+    } else {
+      this.mainService.providers.msgService.error('sysannouncementDetail' + '不存在...');
+    }
+    // this.router.navigate(['/system/sysannouncementDetail'], { queryParams: { ID: id } })
+  }
+ 
+  /**
    * 聊天面板
    * @param event
    */
@@ -708,7 +725,7 @@ export class HomeComponent implements OnInit {
   /**
    * 发送聊天记录
    */
-  sendChat() {}
+  sendChat() { }
   /**
    * 关闭聊天面板
    */
