@@ -33,6 +33,7 @@ import { Sysmenu } from "fccore";
     }
     :host ::ng-deep .first-icon>i{
       font-size:40px;
+      padding-left: 21%;
     }
     .tagselect{
       position: absolute;

@@ -31,24 +31,6 @@
                     <fc-layoutcol fcSpans="7,4">
                         <div fccontent1>
                             <fc-title fcLabel="数据统计" fcHasLine="false"></fc-title>
-                            <fc-chartbar [fcOption]="_barLabels" [fcData]="_barData" (fcEvent)="chartbarEvent($event)"></fc-chartbar>
-                        </div>
-                    </fc-layoutcol>
-                </div>
-            </fc-tabmain>
-        </fc-layoutpanel>
-        <fc-layoutpanel fccontent1>
-            <div fccontent class="tagselect">
-                <fc-tag [fcCheckable]="true" fcLabel="今日"></fc-tag>
-                <fc-tag [fcCheckable]="true" fcLabel="本周"></fc-tag>
-                <fc-tag [fcCheckable]="true" fcLabel="本月"></fc-tag>
-                <fc-tag [fcCheckable]="true" fcLabel="全年"></fc-tag>
-            </div>
-            <fc-tabmain [fcTabs]="_tabmain2" fcheader class="visualization">
-                <div fccontent1>
-                    <fc-layoutcol fcSpans="7,4">
-                        <div fccontent1>
-                            <fc-title fcLabel="数据统计" fcHasLine="false"></fc-title>
                             <fc-chartbar [fcOption]="_barLabels" [fcData]="_barData" (fcEvent)="chatbarEvent($event)"></fc-chartbar>
                         </div>
                         <fc-chartpie [fcOption]="_pieLabels" [fcData]="_pieData" (fcEvent)="chartpieEvent($event)" fccontent2 class="piechart"></fc-chartpie>
