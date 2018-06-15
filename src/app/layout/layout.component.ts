@@ -286,7 +286,7 @@ export class LayoutComponent implements OnInit {
           this.selectMenu[event.param.MENUID] = event.param.MENUID;
         }
         this._providers.commonService.event('tabClicked', event.param);
-        this.mainService.navMenu(this._router, event.param, 'N');
+        this.mainService.navMenu(this._router, event.param);
         break;
     }
   }
