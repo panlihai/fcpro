@@ -247,6 +247,9 @@ export class LayoutComponent implements OnInit {
           this._router.navigate(['/signin']);
         })
         break;
+      case 'editUser'://修改密码
+        this.resetPassword();
+        break;
     }
   }
 
@@ -303,6 +306,8 @@ export class LayoutComponent implements OnInit {
       case 'click':
         this.mainService.navMessage(this._router, event.param);
         break;
+      case 'toggle':
+        this._navbarStatus = event.param;
     }
   }
 

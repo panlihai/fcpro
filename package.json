@@ -1,6 +1,6 @@
 {
   "name": "fcpro",
-  "version": "1.6.3",
+  "version": "1.7.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -20,7 +20,7 @@
     "@grapecity/spread-sheets-pdf": "^11.1.2",
     "@grapecity/spread-sheets-print": "^11.1.2",
     "@grapecity/spread-sheets-resources-zh": "^11.1.2",
-    "fccomponent": "^0.6.37"
+    "fccomponent": "^0.6.39"
   },
   "devDependencies": {
     "@angular/cli": "1.6.7",
