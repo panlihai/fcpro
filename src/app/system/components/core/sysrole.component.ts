@@ -41,6 +41,9 @@ export class SysroleComponent extends ParentlistComponent {
   roleuserList: Sysroleuser[];
   //列表条件
   listCondition: string;
+  //下拉单选
+  comboValue: string;
+  comboOptions: any[] = [{ icon: '', label: 'A', value: 'a' }, { icon: '', label: 'B', value: 'b' }, { icon: '', label: 'C', value: 'c' }];
   //用户权限
   roleTab: any[];
   // 所有节点数据
@@ -73,8 +76,8 @@ export class SysroleComponent extends ParentlistComponent {
     ];
 
   }
-
   getDefaultQuery() {
+    
   }
   event(eventName: string, context: any): void {
 

@@ -19,6 +19,7 @@ import { SysappdetailComponent } from './components/core/sysappdetail.component'
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SysversionComponent } from './components/core/sysversion.component';
+import { SysannouncementComponent } from './components/core/sysannouncement.component';
 import { SyscompanyComponent } from './components/core/syscompany.component';
 export const Routers: Routes = [{
     path: 'home',
@@ -87,6 +88,10 @@ export const Routers: Routes = [{
 }, {
     path: 'sysversionDetail',//版本查看
     component: SysversionComponent,
+    data: { keep: false }
+}, {
+    path: 'sysannouncementDetail',//消息公告
+    component: SysannouncementComponent,
     data: { keep: false }
 }, {
     path: 'sysbackcodeList',//全局返回码

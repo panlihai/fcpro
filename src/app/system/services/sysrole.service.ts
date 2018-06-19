@@ -123,7 +123,6 @@ export class SysroleService extends ParentService {
   getAuthByRoleid(roleId: string): Observable<any> {
     return this.sysroleauthService.findWithQueryAll({ ROLEID: roleId })
   }
-
   /**
   * 根据角色id获取用户信息
   * @param roleId 角色id

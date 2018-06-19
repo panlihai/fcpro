@@ -41,6 +41,7 @@ export class SysdicComponent extends ParentlistComponent {
   getDefaultQuery() {
   }
   event(eventName: string, context: any): void {
+  
   }
 
 }
