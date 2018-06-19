@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Routers } from './index.route';
-import { SysdicService, SysmessageService, MessageService } from 'fccore';
+import { SysdicService, MessageService } from 'fccore';
 import { MainComponent } from './components/main/main.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -37,6 +37,8 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
 import { LayoutService } from './services/layout.service';
 import { SysroleauthService } from './services/sysroleauth.service';
 import { SysroleuserService } from './services/sysroleuser.service';
+import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
+import { SysmessageService } from './services/sysmessage.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -73,6 +75,7 @@ import { SysroleuserService } from './services/sysroleuser.service';
     SysroleComponent,
     SysparamComponent,
     SysmessageComponent,
+    SysmessagedetailComponent,
     SysbackcodeComponent,
     SyscomponentComponent,
     HomeComponent

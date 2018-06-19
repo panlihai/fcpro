@@ -5,6 +5,7 @@ import { SysroleService } from '../../services/sysrole.service';
 import { Sysroleuser } from '../../services/sysroleuser.service';
 import { Sysroleauth } from '../../services/sysroleauth.service';
 import { FCEVENT } from 'fccomponent/fc';
+import { NzModalService } from 'ng-zorro-antd';
 @Component({
   selector: 'sysrole',
   templateUrl: 'sysrole.component.html',
@@ -74,7 +75,12 @@ import { FCEVENT } from 'fccomponent/fc';
   `]
 })
 export class SysroleComponent extends ParentlistComponent {
+  //左侧列表选中某一行
   selectedObject: any;
+  //左侧列表删除某一行
+  deleteObject:any;
+  //左侧列表修改某一行
+  editObject:any;
   // 选中的角色权限
   roleauthList: Sysroleauth[];
   // 选中的角色用户
@@ -83,7 +89,7 @@ export class SysroleComponent extends ParentlistComponent {
   listCondition: string;
   //用户权限
   roleTab: any[];
-  constructor(public mainService: SysroleService, public router: Router, public activedRouter: ActivatedRoute) {
+  constructor(public mainService: SysroleService, public router: Router, public activedRouter: ActivatedRoute, public modalService: NzModalService) {
     super(mainService, router, activedRouter);
   }
   /**
@@ -105,16 +111,43 @@ export class SysroleComponent extends ParentlistComponent {
 
   }
   /**
-   * 获取选中的角色信息
+   * 点击左侧列表-右侧获取选中的角色信息
+   * 点击修改-修改用户名称
+   * 点击删除-删除用户
    * @param event 列表fclist事件句柄
    */
-  listEvent(event: FCEVENT) {
+  listEvent(event: FCEVENT,modal) {
     switch (event.eventName) {
       case 'select':
         this.selectedObject = event.param;
         this.mainService.createUserConditionByRoleid(this.selectedObject.ROLEID);
         this.getRoleAuth();
         this.getRoleUser();
+        break;
+      case 'listOneEdit':
+        this.editObject = event.param;
+        this.modalService.open({
+          title: '更改角色名称',                                                                              
+          content: modal,
+          onOk() {
+            debugger;
+            alert('OK');
+          },
+          onCancel() {
+          }
+      });
+        break;
+      case 'listOneDelete': 
+        this.messageService.confirm("确认删除记录吗?", () => {
+          this.deleteObject = event.param;
+          this.mainService.delete({ ID: this.deleteObject.ID }).subscribe(result => {
+            if (result.CODE === '0') {
+                this.messageService.message('删除成功！');
+            }else {
+                this.messageService.message('删除失败！');
+            }
+          });    
+      }, () => { });
         break;
     }
   }
@@ -166,7 +199,6 @@ export class SysroleComponent extends ParentlistComponent {
         break;
     }
   }
-
   treeEvent(event: FCEVENT) {
     switch (event.eventName) {
       case '':

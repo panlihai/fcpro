@@ -192,9 +192,9 @@ video {
 .showhand:hover{
     cursor: pointer;
 }
-.ant-tooltip-open i{
+/* .ant-tooltip-open i{
     color:#1890ff!important;
-}
+} */
 .fastposition-content{
     position:fixed;
     top:150px;

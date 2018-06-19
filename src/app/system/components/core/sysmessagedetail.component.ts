@@ -13,9 +13,9 @@ import { SysmessageService, Sysmessage } from '../../services/sysmessage.service
     <fc-layoutcol fcSpans="1,2" fccontent>
         <fc-title fcLabel="消息列表" fccontent1></fc-title>
         <div fccontent1 class="tagselect">
-            <fc-tag (click)="allmassageCondition()" fcTitle="全部" (fcEvent)="tagEvent($event)" [fcColor]="allmessageColor"></fc-tag>
-            <fc-tag (click)="isreadCondition()" fcTitle="已读" [fcColor]="isreadColor"></fc-tag>
-            <fc-tag (click)="noreadCondition()" fcTitle="未读" [fcColor]="noreadColor"></fc-tag>
+            <fc-tag (click)="allmassageCondition()" fcLabel="全部" (fcEvent)="tagEvent($event)" [fcColor]="allmessageColor"></fc-tag>
+            <fc-tag (click)="isreadCondition()" fcLabel="已读" [fcColor]="isreadColor"></fc-tag>
+            <fc-tag (click)="noreadCondition()" fcLabel="未读" [fcColor]="noreadColor"></fc-tag>
         </div>
         <fc-timeline [fcOption]="timelineOption" [fcSelectedId]="selectedId" (fcEvent)="timelineEvent($event)" fcLabelPosition="left" fcLeft="38%" fclabelLeft="-56%" class="timeline-content" fccontent1 class="noread"></fc-timeline>
         <fc-layoutpanel fccontent2>

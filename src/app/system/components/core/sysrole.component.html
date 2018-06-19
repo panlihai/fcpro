@@ -2,7 +2,10 @@
     <fc-layoutcol fcSpans="2,9" style="height:100%;" fccontent>
         <div class="left" fccontent1>
             <fc-title fcLabel="所有角色" fcHasLine="false" [fcBorder]="'bottom'"></fc-title>
-            <fc-list [fcAppid]="'SYSROLE'" [fcFieldCode]="'ROLENAME'" [fcCondition]="listCondition" (fcEvent)="listEvent($event)"></fc-list>
+            <fc-list [fcAppid]="'SYSROLE'" [fcFieldCode]="'ROLENAME'" [fcCondition]="listCondition" (fcEvent)="listEvent($event,modal)"></fc-list>
+            <ng-template #modal>
+                <fc-text fcLabel="用户名称" [(ngModel)]="editObject.ROLENAME"></fc-text> 
+            </ng-template>
             <fc-icon class="fc-role-add" [fcIcon]="'fc-icon-keep'" [fcSize]="'large'" [fcColor]="'#108ee9'"></fc-icon>
         </div>
         <fc-tabmain fccontent2 [fcTabs]="roleTab" class="role-tab">
