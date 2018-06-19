@@ -66,27 +66,19 @@ export class ResetpwddialogComponent {
    */
   validator() {
     let v: boolean = true;
+    
     Object.keys(this.mainValid).forEach(key => {
       let validator = JSON.parse(this.mainValid[key]);
       //当前主对象的字段值
-      let value1 = this._lastPwd;
-      let value2 = this._newPwd;
+      let value = this._lastPwd;
       // 当前主对象的校验规则
       let valid = validator.validators;
       // 当前主对象校验规则错误说明
       let message = validator.errorMessages;
       // 判断是否必填
-      if (valid.required && value1.length === 0) {
-        validator.show = 'Y';
-        validator.showValidator = "required";
-        v = false;
-      } else if (value1.length > valid.maxLength) {
-        validator.show = 'Y';
-        validator.showValidator = "maxLength";
-        v = false;
-      } else if (valid.customVal) {
-        validator.show = 'Y';
-        validator.showValidator = "customVal";
+      if (valid.required && value.length === 0) {
+        this.mainValid._lastPwd.show = 'Y';
+        this.mainValid._lastPwd.showValidator = "required";
         v = false;
       }
       this.mainValid[key] = JSON.stringify(validator);
