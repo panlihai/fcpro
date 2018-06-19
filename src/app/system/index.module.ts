@@ -30,8 +30,10 @@ import { SysroleService } from './services/sysrole.service';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
 import { SysappdetailComponent } from './components/core/sysappdetail.component';
-import { FclistModule, FctlbModule, FclayoutModule, FcbasicModule,
-  FcadModule, FcmodalModule, FcsearchModule, FctabModule, FcchartModule } from 'fccomponent';
+import {
+  FclistModule, FctlbModule, FclayoutModule, FcbasicModule,
+  FcadModule, FcmodalModule, FcsearchModule, FctabModule, FcchartModule
+} from 'fccomponent';
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysroleauthService } from './services/sysroleuser.service';
 import { LayoutService } from './services/layout.service';
@@ -43,6 +45,7 @@ import { SysversionService } from './services/sysversion.service';
 import { SysversionComponent } from './components/core/sysversion.component';
 import { SyshomeService } from './services/syshome.service';
 import { SysnavlinkService } from './services/sysnavlink.service';
+import { SysroleDialogEditComponent } from './components/core/dialog/sysroleeditdialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -85,7 +88,11 @@ import { SysnavlinkService } from './services/sysnavlink.service';
     SyscomponentComponent,
     SysmessagebackComponent,
     HomeComponent,
-    SysversionComponent
+    SysversionComponent,
+    SysroleDialogEditComponent
+  ],
+  entryComponents: [
+    SysroleDialogEditComponent
   ],
   providers: [
     LayoutService,

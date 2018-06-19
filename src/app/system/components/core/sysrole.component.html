@@ -1,30 +1,6 @@
-<fc-layoutpanel fcFull="true" *ngIf="false">
-    <fc-layoutcol fcSpans="2,9" style="height:100%;" fccontent>
-        <div class="left" fccontent1>
-            <fc-title fcLabel="所有角色" fcHasLine="false" [fcBorder]="'bottom'"></fc-title>
-            <fc-list [fcAppid]="'SYSROLE'" [fcFieldCode]="'ROLENAME'" [fcCondition]="listCondition" (fcEvent)="listEvent($event)"></fc-list>
-            <fc-icon class="fc-role-add" [fcIcon]="'fc-icon-keep'" [fcSize]="'large'" [fcColor]="'#108ee9'"></fc-icon>
-        </div>
-        <fc-tabmain fccontent2 [fcTabs]="roleTab" class="role-tab">
-            <div style="border-top:1px solid #e9e9e9;" fccontent1>
-                <fc-tag *ngFor="let user of roleuserList" [fcLabel]="user.NAME" [fcValue]="user.USERCODE" fcColor="blue" [fcIcon]="'fc-icon-users'"
-                    [fcClose]="true" (fcEvent)="tagEvent($event)"></fc-tag>
-                <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="modalMullist1.showModal()"></fc-button>
-                <fc-modallist #modalMullist1 fcTitle="请选择用户" [fcAppid]="'SYSUSER'" [fcType]="'multiple'" (fcEvent)="modallistEvent($event)"
-                    [fcCondition]="mainService.userCondition"></fc-modallist>
-            </div>
-            <fc-layoutpanel fccontent2>
-                <fc-title fcLabel="当前角色拥有的权限" fcheader></fc-title>
-                <fc-layoutcol fccontent fcSpans="2,3">
-                    <fc-tree fccontent1 #tree [fcOption]="mainService.menuTreeOptions" [fcNodes]="fcNodes" (fcEvent)="treeEvent($event);"></fc-tree>
-                </fc-layoutcol>
-            </fc-layoutpanel>
-        </fc-tabmain>
-    </fc-layoutcol>
-</fc-layoutpanel>
 <fc-layoutpanel [fcFull]="true" class="templatetreetablist">
     <fc-layoutrow fcSpan="36" fccontent>
-        <fc-tlblist [fcAppid]="appId" fccontent1></fc-tlblist>
+        <fc-tlblist [fcAppid]="appId" fccontent1 (fcEvent)="tlblistEvent($event);"></fc-tlblist>
         <fc-layoutcol fccontent2 fcSpans="2,7" class="tree-style">
             <fc-layoutrow fcSpan="35" fccontent1>
                 <fc-title fcLabel="所有角色" fcHasLine="false" [fcBorder]="'bottom'" fcWidth="100%" fccontent1></fc-title>

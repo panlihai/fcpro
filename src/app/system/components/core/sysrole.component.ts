@@ -4,8 +4,8 @@ import { SysroleService } from '../../services/sysrole.service';
 import { Sysroleuser } from '../../services/sysroleuser.service';
 import { Sysroleauth } from '../../services/sysroleauth.service';
 import { FCEVENT } from 'fccomponent/fc';
-import { ParentlistComponent } from 'fccomponent/parentlist.component';
 import { FctreeComponent } from 'fccomponent/fcbasic/fctree.component';
+import { ParentlistComponent } from '../../parentlist.component';
 @Component({
   selector: 'sysrole',
   templateUrl: 'sysrole.component.html',
@@ -29,6 +29,9 @@ import { FctreeComponent } from 'fccomponent/fcbasic/fctree.component';
   :host ::ng-deep  .fc-content2>.template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content{
     overflow:hidden;
   }
+  :host ::ng-deep .ant-tag .anticon-cross {
+    color: red;
+ }
   `]
 })
 export class SysroleComponent extends ParentlistComponent {
@@ -80,6 +83,14 @@ export class SysroleComponent extends ParentlistComponent {
 
   }
 
+  /**
+   * 角色的新增
+   * @param event 列表fclist事件句柄
+   */
+  listAdd(event: FCEVENT) {
+    this.logService.info(event);
+
+  }
   /**
    * 获取选中的角色信息
    * @param event 列表fclist事件句柄
