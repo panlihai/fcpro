@@ -1,13 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { ProvidersService, MessageService } from 'fccore';
 import { LayoutService } from '../system/services/layout.service';
 import { FcmodalconfirmComponent } from 'fccomponent/fcmodal/fcmodalconfirm.component';
 import { FCEVENT } from 'fccomponent/fc';
 import { NavsideOptions } from 'fccomponent/fcnav/fcnavside.component';
-import { MenuOptions } from 'fccomponent/fcnav/fcnavmenu.component';
-import { FcTaboptions } from 'fccomponent/fcnav/fcnavtab.component';
+import { MenuOptions, FcnavmenuComponent, Fcmenu } from 'fccomponent/fcnav/fcnavmenu.component';
+import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.component';
+import 'rxjs/add/operator/filter';
+import { NzModalService } from 'ng-zorro-antd';
+import { ResetpwddialogComponent } from './resetpwddialog.component';
+import { SysuserService, Sysuser } from '../system/services/sysuser.service';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -62,9 +66,26 @@ import { FcTaboptions } from 'fccomponent/fcnav/fcnavtab.component';
     padding-left:10px;
     box-sizing:border-box;
   }
+  .body-mask {
+    width:100%;
+    height:100%;
+    background-color:#108ee9;
+    opacity:0.4;
+    position:fixed;
+    left:0;
+    top:0;
+    z-index:9;
+  }
+  :host ::ng-deep .logo .icon-logo{
+    font-size:22px!important;
+  }
   `]
 })
 export class LayoutComponent implements OnInit {
+  @ViewChild('fcnavmenu')
+  fcnavmenu: FcnavmenuComponent;
+  @ViewChild('fcnavtab')
+  fcnavtab: FcnavtabComponent;
   @ViewChild('confirmmodal')
   confirmmodal: FcmodalconfirmComponent;
   //系统名称
@@ -82,26 +103,83 @@ export class LayoutComponent implements OnInit {
     //所在产品优先级最高，当有产品时其它条件忽略
     fcPid: environment.pid
   };
-  //当前用户信息
-  user: any;
-  menus = [];
-  allmenus = [];
+  //路由打开记录
+  selectMenu = {};
+  // 当前所有菜单
   _menus: any = [];
-  _tabs: FcTaboptions[];
-  _navTabSelectedIndex: string = "0";
+  //布局比例
+  _layoutSpans: string = "2,9";
   constructor(private _router: Router,
     private _providers: ProvidersService,
-    private mainService: LayoutService
+    private mainService: LayoutService,
+    private activatedRoute: ActivatedRoute,
+    private modalService: NzModalService
   ) {
-    this.mainService.init();
     //订阅消息
     this.msgHandler();
     //初始化消息配置
     this._navSideOption = this.mainService.initNavSideOptions();
-    this._tabs = this.mainService._tabs;
+    this._providers.commonService.event('selectedMenu', {
+      ID: '0', MENUID: 'HOME', ROUTER: 'home',
+      PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '首页', MENUICON: 'fc-icon-home'
+    });
+    this._providers.commonService.subscribe('tabClicked', (result) => {
+      if (result) {
+        let menu = this.mainService.findMenuByRouter(this.fcnavmenu.fcMenus, result.param.ROUTER);
+        if (menu && !menu.select) {
+          menu.select = true;
+        }
+      }
+    });
     this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/home"]);
+    // 路由事件
+    this._router.events
+      .filter(event => event instanceof NavigationEnd)
+      .map(() => this.activatedRoute)
+      .map(route => {
+        while (route.firstChild) route = route.firstChild;
+        return route;
+      })
+      .filter(route => route.outlet === 'primary')
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          let menu: any = this.activatedRoute.snapshot.queryParams;
+          if (menu && menu.ID) {
+            let tabs = this.fcnavtab.fcTabs.filter(t => t.content.MENUID === menu.MENUID);
+            if (tabs.length !== 0) {
+              this.fcnavtab.fcTabs[tabs[0].index].content = menu;
+            } else if (!menu['MENUID']) {
+              let selectedIndex = this.fcnavtab.fcSelectedIndex;
+              let cMenu = this.fcnavtab.fcTabs[selectedIndex].content as Fcmenu;
+              let content: any = {
+                ROUTER: event.routeConfig.path,
+                MENUICON: cMenu.MENUICON,
+                MENUTYPE: 'APP',
+                MENUNAME: cMenu.MENUNAME,
+                MENUID: cMenu.MENUID,
+                PID: cMenu.PID,
+                APPID: cMenu.APPID,
+                ID: menu.ID,
+                refresh: menu.refresh
+              }
+              this.fcnavtab.fcTabs[selectedIndex].content = content;
+            }
+          } else if (event.routeConfig.path.toLowerCase() !== 'home') {
+            menu = this.mainService.findMenuByRouter(this._menus, event.routeConfig.path);
+            if (menu) {
+              let tabs = this.fcnavtab.fcTabs.filter(t => t.content.MENUID === menu.MENUID);
+              if (tabs.length !== 0) {
+                this.fcnavtab.fcTabs[tabs[0].index].content = menu;
+              }
+            }
+          }
+        }
+
+      });
   }
   ngOnInit() {
+    this.fcnavtab.fcTabs = [];
+    this.fcnavtab.fcSelectedIndex = 0;
     this.mainService.getMessage().subscribe(res => {
       if (res[0].CODE === '0') {
         this._navSideOption.fcValues1 = res[1].DATA;
@@ -120,13 +198,18 @@ export class LayoutComponent implements OnInit {
         })
       }
     });
-    this._navTabSelectedIndex = this.mainService._selectedIndex;
     //把弹出确认框变量存入到服务里
     MessageService.confirmModal = this.confirmmodal;
+    if (this.fcnavtab.fcTabs.length === 0) {
+      this.fcnavtab.fcTabs.push({
+        id: '0', index: 0, enabled: true, name: '首页', close: false, icon: 'fc-icon-home', refresh: 'Y', content:
+          { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: environment.pid, MENUTYPE: 'INURL' }
+      });
+    }
   }
   /**
    * 导航栏事件
-   * @param event 
+   * @param event
    */
   navbarEvent(event: FCEVENT) {
     switch (event.eventName) {
@@ -158,17 +241,22 @@ export class LayoutComponent implements OnInit {
           this._providers.userService.clearUserinfo();
           // 清除菜单缓存
           this._providers.menuService.removeMenus();
+          // 清除tab页面
+          this.fcnavtab.fcTabs = [];
+          this.fcnavtab.fcSelectedIndex = undefined;
           this._router.navigate(['/signin']);
         })
+        break;
+      case 'editUser'://修改密码
+        this.resetPassword();
         break;
     }
   }
 
-  //布局比例
-  _layoutSpans: string = "2,9";
+
   /**
    *  菜单事件
-   * @param event 
+   * @param event
    */
   navmenuEvent(event: FCEVENT) {
     switch (event.eventName) {
@@ -182,9 +270,8 @@ export class LayoutComponent implements OnInit {
         break;
       case 'select':
         //导航并存储列表
-        this.mainService.storeMenu(this._router, event.param, {});
-        this._navTabSelectedIndex = this.mainService._selectedIndex;
-        this._navmenuSelected = this.mainService._navmenuSelected;
+        event.param.refresh = 'Y';
+        this._providers.commonService.event('selectedMenu', event.param);
         break;
     }
   }
@@ -195,9 +282,14 @@ export class LayoutComponent implements OnInit {
   navtabEvent(event: FCEVENT): void {
     switch (event.eventName) {
       case 'closed':
-        this.mainService.navRemoveMenu(this._router, event.param);
+        this.selectMenu[event.param.MENUID] = "";
         break;
       case 'selected':
+        if (!this.selectMenu[event.param.MENUID]) {
+          //将该路由存放在路由打开记录中
+          this.selectMenu[event.param.MENUID] = event.param.MENUID;
+        }
+        this._providers.commonService.event('tabClicked', event.param);
         this.mainService.navMenu(this._router, event.param);
         break;
     }
@@ -209,20 +301,16 @@ export class LayoutComponent implements OnInit {
   navsideEvent(event: FCEVENT): void {
     switch (event.eventName) {
       case 'closed':
-        this.mainService.navRemoveMenu(this._router, event.param);
+        // 删除缓存
         break;
       case 'click':
-        this.mainService.navMessage(this._router, event.param);         
-        /* event.param.ISREAD="Y";
-        this._navSideOption.fcValues1.forEach(item,index=>{
-            if(item.ISREAD="Y"){
-              this._navSideOption.fcValues1.slice(index,index+1);
-            }
-        }) */
+        this.mainService.navMessage(this._router, event.param);
         break;
+      case 'toggle':
+        this._navbarStatus = event.param;
     }
   }
- 
+
   /**
    * 消息处理
    * @param message 消息对象
@@ -237,10 +325,31 @@ export class LayoutComponent implements OnInit {
     });
   }
   /**
-   * 
+   *
    */
   ngOnDestroy(): void {
     this._providers.daoService.ws.close();
   }
+  /**
+   * 修改密码
+   */
+  resetPassword(): any {
+    const modal = this.modalService.open({
+      title: '修改密码',
+      content: ResetpwddialogComponent,
+      onOk() {
 
+      },
+      onCancel() {
+
+      },
+      footer: false,
+      componentParams: {
+        options: {}
+      }
+    });
+    modal.subscribe(result => {
+      this.mainService.sysuserService.doReset(result);
+    })
+  };
 }

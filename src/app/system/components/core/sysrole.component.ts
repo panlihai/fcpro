@@ -1,81 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentlistComponent } from 'fccomponent';
 import { SysroleService } from '../../services/sysrole.service';
 import { Sysroleuser } from '../../services/sysroleuser.service';
 import { Sysroleauth } from '../../services/sysroleauth.service';
 import { FCEVENT } from 'fccomponent/fc';
-import { NzModalService } from 'ng-zorro-antd';
+import { ParentlistComponent } from 'fccomponent/parentlist.component';
+import { FctreeComponent } from 'fccomponent/fcbasic/fctree.component';
 @Component({
   selector: 'sysrole',
   templateUrl: 'sysrole.component.html',
   styles: [`
-  :host ::ng-deep .fc-layoutpanel .fc-content{
+  :host ::ng-deep .sysrole-hidden .fc-layoutrow{
+    overflow:hidden;
+  }
+  :host ::ng-deep .sysrole-auth .fc-layoutcol{
     height:100%;
   }
-  .path{
+  :host ::ng-deep  .sysrole-auth .fc-layoutcol .fc-content1, :host ::ng-deep .sysrole-auth .fc-layoutcol .fc-content2{
+    height:100%;
+    overflow:auto;
+  }
+  .sysrole-auth-tree{
 
   }
-  .path-every {
-    position:relative;
-    margin-right:10px;
+  .sysrole-auth-content{
+
   }
-  .path-every:after {
-    content:'/';
-    position:absolute;
-    right: -10px;
-    top: -3px;
-  }
-  .path .path-every:last-child:after {
-    content:'';
-  }
-  .path-every-active {
-    color:#108ee9;
-  }
-  .left{
-    height:100%;
-    border-right:1px solid #8C8C8C;
-    position:relative;
-  }
-  .role-add{
-    position:absolute;
-    right:10px;
-    bottom:20px;
-  }
-  :host ::ng-deep .role-tab .ant-tabs-nav-wrap {
-    text-align: center;
-  }
-  :host ::ng-deep .role-tab .ant-tabs-bar {
-    border-bottom: 1px solid #8C8C8C;
-  }
-  :host ::ng-deep .fc-layoutcol{
-    height:100%;
-  }
-  :host ::ng-deep .fc-content1{
-    height:100%;
-  }
-  .adduser-window{
-    margin: auto;  
-    position: absolute;  
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0; 
-    width: 500px;
-    height: 150px;
-    background-color: white;
-    border-radius: 8px;
-    padding:25px;
-    box-shadow: 0 0 15px;
-  }
-  .adduser-button{
-    text-align:right;
-    margin-top:15px;
+  :host ::ng-deep  .fc-content2>.template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content{
+    overflow:hidden;
   }
   `]
 })
 export class SysroleComponent extends ParentlistComponent {
-  //左侧列表选中某一行
+  @ViewChild('tree')
+  tree: FctreeComponent;
   selectedObject: any;
   //左侧列表删除某一行
   deleteObject:any;
@@ -87,10 +45,27 @@ export class SysroleComponent extends ParentlistComponent {
   roleuserList: Sysroleuser[];
   //列表条件
   listCondition: string;
+  //下拉单选
+  comboValue: string;
+  comboOptions: any[] = [{ icon: '', label: 'A', value: 'a' }, { icon: '', label: 'B', value: 'b' }, { icon: '', label: 'C', value: 'c' }];
   //用户权限
   roleTab: any[];
-  constructor(public mainService: SysroleService, public router: Router, public activedRouter: ActivatedRoute, public modalService: NzModalService) {
+  // 所有节点数据
+  fcNodes: any[] = [{ id: '0', name: '正在加载中...' }];
+  // 工具栏按钮条件
+  toolbarBtnCdc: string = '{"ALLOWTYPE":"AUTH"}';
+  // 列表按钮条件
+  listBtnCdc: string = '{"ALLOWTYPE":"AUTH"}';
+  // 表单按钮条件
+  formBtnCdc: string = '{"ALLOWTYPE":"AUTH"}';
+
+  constructor(public mainService: SysroleService,
+    public router: Router,
+    public activedRouter: ActivatedRoute) {
     super(mainService, router, activedRouter);
+  }
+  ngOnInit() {
+    this.fcNodes = this.mainService.getAllMenu();
   }
   /**
    * 初始化当前组件需要的数据
@@ -103,9 +78,10 @@ export class SysroleComponent extends ParentlistComponent {
       { name: '该角色的用户', disabled: false },
       { name: '该角色的权限', disabled: false },
     ];
-  }
 
+  }
   getDefaultQuery() {
+    
   }
   event(eventName: string, context: any): void {
 
@@ -121,7 +97,7 @@ export class SysroleComponent extends ParentlistComponent {
       case 'select':
         this.selectedObject = event.param;
         this.mainService.createUserConditionByRoleid(this.selectedObject.ROLEID);
-        this.getRoleAuth();
+        this.getRoleAuth(true);
         this.getRoleUser();
         break;
       case 'listOneEdit':
@@ -153,12 +129,16 @@ export class SysroleComponent extends ParentlistComponent {
   }
   /**
    * @description 当前选中的角色获取此角色的所有权限
+   * @param {是否点击后调用事件} isFirstLoad
    */
-  getRoleAuth() {
+  getRoleAuth(isSelect?: boolean) {
     let roleId = this.selectedObject.ROLEID;
     this.mainService.getAuthByRoleid(roleId).subscribe(result => {
       if (result.CODE === '0') {
         this.roleauthList = result.DATA as Sysroleauth[];
+        if (isSelect) {
+          this.mainService.getAuthMenu(this.tree.fcTree.nzNodes, this.roleauthList);
+        }
       }
     })
   }
@@ -171,7 +151,6 @@ export class SysroleComponent extends ParentlistComponent {
     this.mainService.getUserByRoleid(roleId).subscribe(result => {
       if (result.CODE === '0') {
         this.roleuserList = result.DATA;
-        this.mainService.logService.info(this.roleuserList);
       }
     })
   }
@@ -199,9 +178,27 @@ export class SysroleComponent extends ParentlistComponent {
         break;
     }
   }
+  /**
+   * 事件句柄处理
+   * @param event 树发生的事件
+   */
   treeEvent(event: FCEVENT) {
     switch (event.eventName) {
-      case '':
+      case 'check':
+        let roleId = this.selectedObject.ROLEID;
+        this.mainService.postAuthToRole(roleId, event.param, this.roleauthList)
+          .subscribe(result => {
+            this.mainService.messageService.message('操作成功');
+            this.getRoleAuth(true);
+          });
+        break;
+      case 'select':
+        let data = event.param.data.DATA;
+        if (data.MENUTYPE === 'APP') {
+          this.toolbarBtnCdc = '{"APPID":"' + data.APPID + '","BTNTYPE":"LIST","ALLOWTYPE":"AUTH"}';
+          this.listBtnCdc = '{"APPID":"' + data.APPID + '","BTNTYPE":"LISTONE","ALLOWTYPE":"AUTH"}';
+          this.formBtnCdc = '{"APPID":"' + data.APPID + '","BTNTYPE":"CARD","ALLOWTYPE":"AUTH"}';
+        }
         break;
     }
   }

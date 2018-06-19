@@ -51,14 +51,12 @@ import { ParentlistComponent } from 'fccomponent';
   `]
 })
 export class SysappComponent extends ParentlistComponent {
- 
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {
     super(mainService, router, activeRoute);
   }
   init(): void {
-     
   }
   getDefaultQuery() {
     return {
