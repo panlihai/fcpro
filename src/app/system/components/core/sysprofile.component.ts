@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentlistComponent, FclistdataComponent } from 'fccomponent';
+import { ParentlistComponent, FclistdataComponent, ParentDetailComponent } from 'fccomponent';
 import { SysprofileService } from '../../services/sysprofile.service';
 import { ResetpwddialogComponent } from '../../../layout/resetpwddialog.component';
 import { NzModalService } from 'ng-zorro-antd';
@@ -18,9 +18,9 @@ import { GridApi, ColumnApi } from 'ag-grid';
     text-align:center;
   }
   :host ::ng-deep .personel-avatar .fc-avatar{
-    width: 120px;
-    height: 120px;
-    margin:20px auto 10px;
+    width: 100px;
+    height: 100px;
+    margin-top:20px;
     border-radius: 50%;
     cursor:pointer;
     position:relative;
@@ -90,11 +90,7 @@ import { GridApi, ColumnApi } from 'ag-grid';
     color:#a3afb7;
   }
   .personel-title{
-    display:flex;
-    justify-content:space-between;
-    border-top: 1px solid #e4eaec;
-    margin-top: 10px;
-    padding-top: 5px;
+   
   }
   .personel-title span{
     font-size: 18px;
@@ -105,13 +101,25 @@ import { GridApi, ColumnApi } from 'ag-grid';
     color: #3889FF;
   }
   .sys-card{
-    background-color:#ffffff;
-    padding-left :10px;
-    padding-right:10px;
+    background-color:#fff;
+    padding:0 10px 10px;
+    border-radius:4px;
+    box-shadow:0 1px 6px rgba(0,0,0,.2);
+    position:relative;
   }
+  .edit-basicinfo{
+    cursor: pointer;
+    position:absolute;
+    right:10px;
+    top:5px;
+  }
+  :host ::ng-deep .fc-title[_ngcontent-c23] {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
   `]
 })
-export class SysprofileComponent extends ParentlistComponent {
+export class SysprofileComponent extends ParentDetailComponent {
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
   currentModal_navLink: any;
   navLinkListCondition: {};

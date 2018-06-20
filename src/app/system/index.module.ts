@@ -52,11 +52,14 @@ import { SysnavlinkService } from './services/sysnavlink.service';
 import { SysprofileService } from './services/sysprofile.service';
 import { SysprofileComponent } from './components/core/sysprofile.component';
 import { BasicpersoneldialogComponent } from './components/core/basicpersoneldialog.component';
+import { SysquotaService } from './services/sysquota.service';
+import { SysquotalistComponent } from './components/core/sysquotalist.component';
+import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 @NgModule({
-  entryComponents:[
+  entryComponents: [
     BasicpersoneldialogComponent
   ],
-  imports: [ 
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -101,7 +104,9 @@ import { BasicpersoneldialogComponent } from './components/core/basicpersoneldia
     SyscompanyComponent,
     SyscompanyeditComponent,
     SysprofileComponent,
-    BasicpersoneldialogComponent
+    BasicpersoneldialogComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent
   ],
   providers: [
     LayoutService,
@@ -121,7 +126,8 @@ import { BasicpersoneldialogComponent } from './components/core/basicpersoneldia
     SysannouncementService,
     SyscompanyService,
     SysnavlinkService,
-    SysprofileService
+    SysprofileService,
+    SysquotaService
   ]
 })
 export class SystemModule {

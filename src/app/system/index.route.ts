@@ -22,6 +22,8 @@ import { SysversionComponent } from './components/core/sysversion.component';
 import { SysannouncementComponent } from './components/core/sysannouncement.component';
 import { SyscompanyComponent } from './components/core/syscompany.component';
 import { SysprofileComponent } from './components/core/sysprofile.component';
+import { SysquotalistComponent } from './components/core/sysquotalist.component';
+import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -106,6 +108,14 @@ export const Routers: Routes = [{
     path: 'syscompanyList',//公司
     component: SyscompanyComponent,
     data: { keep: false }
+},{
+  path: 'sysquotaList',//指标列表
+  component: SysquotalistComponent,
+  data: { keep: false }
+},{
+  path: 'sysquotaEdit',//指标编辑
+  component: SysquotaEditComponent,
+  data: { keep: false }
 }, {
     path: 'sysprofileList',//个人信息维护
     component: SysprofileComponent,

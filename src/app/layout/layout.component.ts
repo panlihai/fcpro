@@ -23,7 +23,7 @@ import { SysuserService, Sysuser } from '../system/services/sysuser.service';
     padding: 41px 5px 5px;
     height: 100%;
     box-sizing: border-box;
-    background: #e7e9eb;
+    background: #F0F2F5;
     position: relative;
   }
   :host ::ng-deep .content-main{
