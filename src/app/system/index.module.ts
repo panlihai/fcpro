@@ -22,7 +22,6 @@ import { SysroleauthComponent } from './components/core/sysroleauth.component';
 import { SysproductComponent } from './components/core/sysproduct.component';
 import { SysappService } from './services/sysapp.service';
 import { SysproductService } from './services/sysproduct.service';
-import { SysroleuserService } from './services/sysroleauth.service';
 import { SysbackcodeService } from './services/sysbackcode.service';
 import { SyscomponentService } from './services/syscomponent.service';
 import { SysparamService } from './services/sysparam.service';
@@ -35,7 +34,6 @@ import {
   FcadModule, FcmodalModule, FcsearchModule, FctabModule, FcchartModule
 } from 'fccomponent';
 import { SysappeditComponent } from './components/core/sysappedit.component';
-import { SysroleauthService } from './services/sysroleuser.service';
 import { LayoutService } from './services/layout.service';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SpreadSheetsModule } from '@grapecity/spread-sheets-angular';
@@ -50,8 +48,13 @@ import { SyscompanyComponent } from './components/core/syscompany.component';
 import { SyscompanyeditComponent } from './components/core/syscompanyedit.component';
 import { SysnavlinkService } from './services/sysnavlink.service';
 import { SysroleDialogEditComponent } from './components/core/dialog/sysroleeditdialog.component';
+import { SysroleauthService } from './services/sysroleauth.service';
+import { SysroleuserService } from './services/sysroleuser.service';
+import { SysquotaService } from './services/sysquota.service';
+import { SysquotalistComponent } from './components/core/sysquotalist.component';
+import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 @NgModule({
-  imports: [ 
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -99,6 +102,8 @@ import { SysroleDialogEditComponent } from './components/core/dialog/sysroleedit
   ],
   entryComponents: [
     SysroleDialogEditComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent
   ],
   providers: [
     LayoutService,
@@ -117,7 +122,8 @@ import { SysroleDialogEditComponent } from './components/core/dialog/sysroleedit
     SysversionService,
     SysannouncementService,
     SyscompanyService,
-    SysnavlinkService
+    SysnavlinkService,
+    SysquotaService
   ]
 })
 export class SystemModule {

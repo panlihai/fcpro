@@ -1,10 +1,10 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
 import { ParentService, ProvidersService } from 'fccore';
-import { SysroleuserService } from './sysroleauth.service';
 import { Observable } from 'rxjs';
-import { SysroleauthService, Sysroleuser } from './sysroleuser.service';
+import { Sysroleuser, SysroleuserService } from './sysroleuser.service';
 import { TreeOptions } from 'fccomponent/fcbasic/fctree.component';
+import { SysroleauthService } from './sysroleauth.service';
 @Injectable()
 export class SysroleService extends ParentService {
   menuTreeOptions: TreeOptions = {
@@ -130,7 +130,6 @@ export class SysroleService extends ParentService {
     }
     this.userCondition = JSON.stringify(where);
   }
-
   /**
    * 根据角色id获取用户的权限信息
    * @param roleId 角色id
@@ -146,13 +145,12 @@ export class SysroleService extends ParentService {
     let where = "AND usercode in (select userid from sys_roleuser where roleid='" + roleId + "')";
     return this.appService.findWithQuery('SYSUSER', { WHERE: where });
   }
-
   /**
    * 删除当前角色下的用户
    * @param userId 用户id
    */
   deleteRoleUser(userId: string) {
-    this.sysroleuserService.delete({ USERID: userId }).subscribe(result => {
+    this.sysroleuserService.delete({ WHERE: "AND USERID='" + userId + "'" }).subscribe(result => {
       if (result.CODE === '0') {
         this.messageService.message('已删除');
       }

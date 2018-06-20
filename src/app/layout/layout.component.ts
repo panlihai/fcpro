@@ -28,7 +28,7 @@ import { SysuserService, Sysuser } from '../system/services/sysuser.service';
   }
   :host ::ng-deep .content-main{
     width: 100%;
-    height: 100%;
+    height:100%;
     padding: 5px;
     overflow-x: hidden;
     overflow-y: auto;

@@ -1,158 +1,139 @@
 <!-- 首页模板 -->
 <fc-layoutpanel class="templatehome">
     <fc-layoutcol fcSpans="7,3" fccontent>
-        <fc-layoutpanel fccontent1>
-            <div fccontent class="messages-notices">
-                <fc-tag [fcCheckable]="true" fcLabel="消息"></fc-tag>
-                <fc-tag [fcCheckable]="true" fcLabel="公告"></fc-tag>
-            </div>
-            <!-- 消息公告功能 -->
-            <fc-tabmain [fcTabs]="_tabmain" fcheader fcType="line" fccontent1>
-                <fc-layoutcol fccontent1 class="all" fcSpans="1,9" class="tabmain-width">
-                    <div fccontent1>
-                        <fc-icon fcIcon="fc-icon-notice" fcColor="#69d389" fccontent1 class="first-icon"></fc-icon>
-                    </div>
-                    <div fccontent2 *ngFor="let item of items" class="link-overflow">
-                        <fc-link [fcLabel]="item.CONTENT" class="viewdetail" (click)="linkevent(item.ID)"></fc-link>
-                    </div>
-                </fc-layoutcol>
-            </fc-tabmain>
-            <!-- 消息公告功能结束 -->
-        </fc-layoutpanel>
-        <fc-layoutpanel fccontent1>
-            <div fccontent class="tagselect">
-                <fc-tag [fcCheckable]="true" fcLabel="今日"></fc-tag>
-                <fc-tag [fcCheckable]="true" fcLabel="本周"></fc-tag>
-                <fc-tag [fcCheckable]="true" fcLabel="本月"></fc-tag>
-                <fc-tag [fcCheckable]="true" fcLabel="全年"></fc-tag>
-            </div>
-            <fc-tabmain [fcTabs]="_tabmain2" fcheader class="visualization">
+       <!--  公告开始 -->
+        <fc-layoutpanel fccontent1 class="separated-lefttop">
+            <fc-title fcLabel="公告" fcheader fcBorder="bottom"></fc-title>
+            <fc-layoutcol fccontent class="all" fcSpans="1,9" class="tabmain-width">
                 <div fccontent1>
-                    <fc-layoutcol fcSpans="7,4">
-                        <div fccontent1>
-                            <fc-title fcLabel="数据统计" fcHasLine="false"></fc-title>
-                            <fc-chartbar [fcOption]="_barLabels" [fcData]="_barData" (fcEvent)="chatbarEvent($event)"></fc-chartbar>
-                        </div>
-                        <fc-chartpie [fcOption]="_pieLabels" [fcData]="_pieData" (fcEvent)="chartpieEvent($event)" fccontent2 class="piechart"></fc-chartpie>
-                    </fc-layoutcol>
+                    <fc-icon fcIcon="fc-icon-notice" fcColor="#69d389" fccontent1 class="first-icon"></fc-icon>
                 </div>
-                <div fccontent2 style="height:321px;">
-                    <div>
-                        正在开发中
-                    </div>
-                </div>
-                <div fccontent3 style="height:321px;">
-                    <div>
-                        正在开发中
-                    </div>
-                </div>
-            </fc-tabmain>
-        </fc-layoutpanel>
-        <fc-layoutpanel fccontent1>
-            <fc-layoutcol fcSpans="6,4" fccontent>
-                <div fccontent1>
-                    <fc-title fcLabel="待办任务" fcBorder="bottom">
-                        <div fcextra>
-                            <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcText="急需"></fc-badge>
-                            <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcText="特急"></fc-badge>
-                            <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcText="默认"></fc-badge>
-                            <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcText="滞缓"></fc-badge>
-                            <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcText="待做"></fc-badge>
-                        </div>
-                    </fc-title>
-                    <div class="home-list">
-                        <div fccontent class="main_contain">
-                            <ul class="contact">
-                                <li>
-                                    <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcToolTip="特急" class="home-list-inlineblock"></fc-badge>
-                                    <span>2018.03.26-项目元数据框架构建；</span>
-                                </li>
-                                <li>
-                                    <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcToolTip="急需" class="home-list-inlineblock"></fc-badge>
-                                    <span>2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发</span>
-                                </li>
-                                <li>
-                                    <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcToolTip="待做" class="home-list-inlineblock"></fc-badge>
-                                    <span>2018.03.26-开始进行元数据方法的呈现方式</span>
-                                </li>
-                                <li>
-                                    <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcToolTip="特急" class="home-list-inlineblock"></fc-badge>
-                                    <span>2018.03.26-项目元数据框架构建</span>
-                                </li>
-                                <li>
-                                    <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcToolTip="默认" class="home-list-inlineblock"></fc-badge>
-                                    <span>2018.03.26-元数据组件开发</span>
-                                </li>
-                                <li>
-                                    <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcToolTip="滞缓" class="home-list-inlineblock"></fc-badge>
-                                    <span>2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div fccontent2 class="system-version">
-                    <fc-title fcLabel="系统版本" fcBorder="bottom"></fc-title>
-                    <fc-timeline [fcOption]="versionTimeline" (fcEvent)="timelineEvent($event)" fcLabelPosition="left" fcLeft="30%"></fc-timeline>
+                <div fccontent2 *ngFor="let item of items" class="link-overflow">
+                    <fc-link [fcLabel]="item.CONTENT" class="viewdetail" (click)="linkevent(item.ID)"></fc-link>
                 </div>
             </fc-layoutcol>
         </fc-layoutpanel>
-        <fc-layoutpanel fccontent2>
-            <fc-layoutpanel fccontent>
-                <fc-title fcLabel="工作计划" fcheader fcBorder="bottom"></fc-title>
-                <fc-calendar class="home-calendar" fccontent></fc-calendar>
-            </fc-layoutpanel>
-            <fc-layoutpanel fccontent>
-                <fc-title fcLabel="快速开始/便捷导航" fcHasLine="false" fcheader fcBorder="bottom"></fc-title>
-                <div fccontent class="fastcontent" *ngFor="let navLink of navLinks">
-                    <fc-tag fcClose="true" class="fastcontenttext" [fcLabel]="navLink.LABEL" (fcEvent)="navLinkEvent($event,navLink)"></fc-tag>
+        <!-- 公告结束 -->
+        <fc-layoutpanel fccontent1 class="separated-left">
+            <fc-title fcLabel="数据统计" fcheader fcBorder="bottom"></fc-title>
+            <div fccontent>
+                <fc-layoutcol fcSpans="7,4">
+                    <div fccontent1>
+                        <fc-title fcLabel="柱状图" fcHasLine="false"></fc-title>
+                        <fc-chartbar [fcOption]="_barLabels" [fcData]="_barData" (fcEvent)="chatbarEvent($event)"></fc-chartbar>
+                    </div>
+                    <div fccontent2>
+                        <fc-title fcLabel="饼状图" fcHasLine="false"></fc-title>
+                        <fc-chartpie [fcOption]="_pieLabels" [fcData]="_pieData" (fcEvent)="chartpieEvent($event)" fccontent2 class="piechart"></fc-chartpie>
+                    </div>
+                </fc-layoutcol>
+            </div>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent1>
+            <fc-layoutcol fcSpans="1,1" fccontent>
+                <div fccontent1 class="system-version separated-leftbottom">
+                    <fc-title fcLabel="系统版本" fcBorder="bottom"></fc-title>
+                    <fc-timeline [fcOption]="versionTimeline" (fcEvent)="timelineEvent($event)" fcLabelPosition="left" fcLeft="30%"></fc-timeline>
                 </div>
-                <fc-button fccontent fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addNavLinkTag(contentTpl_navLink,footerTpl_navLink)"
-                    class="add"></fc-button>
-            </fc-layoutpanel>
-            <fc-layoutpanel fccontent>
-                <fc-title fcLabel="常用联系人" fcHasLine="false" fcheader fcBorder="bottom"></fc-title>
+                <fc-layoutpanel fccontent2 class="separated-rightbottom">
+                    <fc-title fcLabel="常用联系人" fcHasLine="false" fcheader fcBorder="bottom"></fc-title>
+                    <div fccontent class="main_contain">
+                        <ul class="contact">
+                            <li>
+                                <span>王五</span>
+                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
+                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            </li>
+                            <li>
+                                <span>王五</span>
+                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
+                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            </li>
+                            <li>
+                                <span>王五</span>
+                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
+                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            </li>
+                            <li>
+                                <span>王五</span>
+                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
+                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            </li>
+                            <li>
+                                <span>王五</span>
+                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
+                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            </li>
+                            <li>
+                                <span>王五</span>
+                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
+                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            </li>
+                        </ul>
+                    </div>
+                </fc-layoutpanel>
+            </fc-layoutcol>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent2>
+            <div fccontent class="separated-leftbottom work-plan">
+                <fc-title fcLabel="工作计划" fccontent fcBorder="bottom"></fc-title>
+                <fc-calendar class="home-calendar" fccontent></fc-calendar>
+            </div>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent2 class="separated-right todo-tasks">
+            <fc-title fcLabel="待办任务" fcheader fcBorder="bottom">
+                <div fcextra>
+                    <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcText="急需"></fc-badge>
+                    <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcText="特急"></fc-badge>
+                    <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcText="默认"></fc-badge>
+                    <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcText="滞缓"></fc-badge>
+                    <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcText="待做"></fc-badge>
+                </div>
+            </fc-title>
+            <div class="home-list" fccontent>
                 <div fccontent class="main_contain">
-                    <ul class="contact">
+                    <ul class="contact todo-taskslist">
                         <li>
-                            <span>王五</span>
-                            <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                            <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcToolTip="特急" class="home-list-inlineblock"></fc-badge>
+                            <span>2018.03.26-项目元数据框架构建；</span>
                         </li>
                         <li>
-                            <span>王五</span>
-                            <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                            <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcToolTip="急需" class="home-list-inlineblock"></fc-badge>
+                            <span>2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发</span>
                         </li>
                         <li>
-                            <span>王五</span>
-                            <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                            <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcToolTip="待做" class="home-list-inlineblock"></fc-badge>
+                            <span>2018.03.26-开始进行元数据方法的呈现方式</span>
                         </li>
                         <li>
-                            <span>王五</span>
-                            <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                            <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcToolTip="特急" class="home-list-inlineblock"></fc-badge>
+                            <span>2018.03.26-项目元数据框架构建</span>
                         </li>
                         <li>
-                            <span>王五</span>
-                            <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                            <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcToolTip="默认" class="home-list-inlineblock"></fc-badge>
+                            <span>2018.03.26-元数据组件开发</span>
                         </li>
                         <li>
-                            <span>王五</span>
-                            <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                            <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                            <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcToolTip="滞缓" class="home-list-inlineblock"></fc-badge>
+                            <span>2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发</span>
                         </li>
                     </ul>
                 </div>
-            </fc-layoutpanel>
+            </div>
+        </fc-layoutpanel>
+        <fc-layoutpanel fccontent2 class="separated-rightbottom quick-navigation">
+            <fc-title fcLabel="快速开始/便捷导航" fcHasLine="false" fcheader fcBorder="bottom"></fc-title>
+            <div fccontent class="fastcontent" *ngFor="let navLink of navLinks">
+                <fc-tag fcClose="true" class="fastcontenttext" [fcLabel]="navLink.LABEL" (fcEvent)="navLinkEvent($event,navLink)"></fc-tag>
+            </div>
+            <fc-button fccontent fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addNavLinkTag(contentTpl_navLink,footerTpl_navLink)"
+                class="add"></fc-button>
         </fc-layoutpanel>
     </fc-layoutcol>
 </fc-layoutpanel>
 <div class="chat-wrap" [ngClass]="{'chat-show-wrap':showchat}">
-    <fc-button [fcType]="'primary'" [fcIconPositon]="'left'" [fcShape]="'circle'" [fcIcon]="'fc-icon-dialogue'" class="chatButton"
-        (click)="showchat=true;"></fc-button>
+    <!-- <fc-button [fcType]="'primary'" [fcIconPositon]="'left'" [fcShape]="'circle'" [fcIcon]="'fc-icon-dialogue'" class="chatButton"
+        (click)="showchat=true;"></fc-button> -->
     <!-- 聊天面板 -->
     <div class="fc-chatbox">
         <div class="fc-chatouter">
@@ -177,7 +158,6 @@
             </div>
             <div class="fc-chatbottom">
                 <div class="fc-chatsend">
-                    <i class="iconfont fc-icon-celerity fc-chatlink"></i>
                     <input type="text" PlaceHolder="消息" class="fc-chattext" />
                     <span class="fc-chatsendbutton" (click)="_clicksend($event)" (click)="sendChat()">发送</span>
                 </div>
@@ -187,7 +167,7 @@
 </div>
 <ng-template #contentTpl_navLink>
     <div style="height:400px;width:100%">
-        <fc-listdata #navLink_listdata fcAppid="SYSCHILDMENU" [fcCondition]="navLinkListCondition" [fcOption]="mainService.listOptions"
+        <fc-listdata #navLink_listdata fcAppid="SYSCHILDMENU" [fcCondition]="navLinkListCondition" [fcOption]="mainService.navLinkService.listOptions"
             (fcEvent)="navLinkListEvent($event)"></fc-listdata>
     </div>
 </ng-template>
