@@ -20,10 +20,7 @@ export class SysnavlinkService extends ParentService {
 
   navLinkBeforeClose(link: any) {
     let success: boolean = false;
-    this.nzModal.confirm({
-      title: "操作提示",
-      content: "是否确认删除该快速导航标签？",
-      onOk: () => {
+    this.providers.msgService.confirm("是否确认删除该快速导航标签？",() => {
         this.delete(link).subscribe(res => {
           if (res.CODE === "0") this.providers.msgService.success("删除成功");
           else this.providers.msgService.warm("删除失败");
@@ -33,10 +30,10 @@ export class SysnavlinkService extends ParentService {
           this.deleteSubject.next(success);
         });
       },
-      onCancel: () => {
+      () => {
         success = false;
       }
-    });
+    );
     return success;
   }
 
@@ -69,11 +66,7 @@ export class SysnavlinkService extends ParentService {
       this.currentModal_navLink = null;
       return true;
     } else {
-      this.nzModal.info({
-        title: "操作提示",
-        content: "快速导航标签不能超过8个",
-        zIndex: 999
-      });
+      this.providers.msgService.warm("快速导航标签不能超过8个");
       return false;
     }
   }
