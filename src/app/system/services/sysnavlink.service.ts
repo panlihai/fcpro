@@ -13,10 +13,7 @@ import { DEFAULT_RESIZE_TIME } from "@angular/cdk/scrolling";
 export class SysnavlinkService extends ParentService {
   currentModal_navLink: any;
   deleteSubject = new Subject();
-  constructor(
-    public providers: ProvidersService,
-    public nzModal: NzModalService,
-    public layoutService: LayoutService
+  constructor(public providers: ProvidersService, public nzModal: NzModalService, public layoutService: LayoutService
   ) {
     super(providers, "SYSNAVLINK");
   }
@@ -43,11 +40,7 @@ export class SysnavlinkService extends ParentService {
     return success;
   }
 
-  handleAddNavLink_ok(
-    navLink_listdata: FclistdataComponent,
-    navLinks: Array<any>,
-    navLinkListCondition: any
-  ) {
+  handleAddNavLink_ok(navLink_listdata: FclistdataComponent, navLinks: Array<any>, navLinkListCondition: any) {
     let gridApi: GridApi = navLink_listdata._gridApi;
     let column: ColumnApi = navLink_listdata._gridColumnApi;
     let selected = gridApi.getSelectedRows();
@@ -108,12 +101,7 @@ export class SysnavlinkService extends ParentService {
       });
     });
   }
-  addNavLinkTag(
-    navLinks: Array<any>,
-    contentTpl: any,
-    footerTpl: any,
-    navLink_listdata: FclistdataComponent
-  ): boolean {
+  addNavLinkTag(navLinks: Array<any>, contentTpl: any, footerTpl: any, navLink_listdata: FclistdataComponent): boolean {
     if (navLinks.length < 8) {
       this.currentModal_navLink = this.nzModal.open({
         title: "新增快速导航标签",
@@ -123,8 +111,8 @@ export class SysnavlinkService extends ParentService {
         wrapClassName: "vertical-top-modal",
         maskClosable: false,
         zIndex: 998,
-        onOk: function() {},
-        onCancel: function() {}
+        onOk: function () { },
+        onCancel: function () { }
       });
       return true;
     } else {
@@ -213,9 +201,7 @@ export class SysnavlinkService extends ParentService {
    */
   getSysChildMenu() {
     return this.providers.appService.findWithQuery("SYSCHILDMENU", {
-      WHERE: `ENABLE='Y' AND USERID='${
-        this.providers.userService.getUserInfo().ID
-      }'`
+      WHERE: `ENABLE='Y' AND USERID='${this.providers.userService.getUserInfo().ID}'`
     });
   }
   handleAddNavLink_cancel() {

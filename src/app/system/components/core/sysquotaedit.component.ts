@@ -63,11 +63,9 @@ export class SysquotaEditComponent extends ParentEditComponent {
   ) {
     super(mainService, router, activeRoute);
   }
-  init(): void {
-  }
+  init(): void { }
   addNew(mainObj: any): boolean {
     return true;
   }
-  event(eventName: string, param: any): void {
-  }
+  event(eventName: string, param: any): void { }
 }

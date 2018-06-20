@@ -430,7 +430,7 @@ export class HomeComponent implements OnInit {
     public activedRoute: ActivatedRoute,
     private _router: Router,
     private nzModal: NzModalService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.mainService.providers.appService
       .findWithQuery("SYSVERSION", { PAGENUM: 1, PAGESIZE: 6, ODER: "TS DESC" })
@@ -464,9 +464,7 @@ export class HomeComponent implements OnInit {
   initNavLink() {
     this.mainService.navLinkService.getNavLinks().subscribe(res => {
       if (res.CODE === "0") this.navLinks = res.DATA;
-      this.navLinkListCondition = this.mainService.navLinkService.rebuildList_NavLink(
-        this.navLinks
-      );
+      this.navLinkListCondition = this.mainService.navLinkService.rebuildList_NavLink(this.navLinks);
       this.mainService.navLinkService.refreshNavLink(this.navLinks);
     });
   }
@@ -474,14 +472,7 @@ export class HomeComponent implements OnInit {
    * 新增快速导航标签
    */
   addNavLinkTag(contentTpl, footerTpl) {
-    if (
-      this.mainService.navLinkService.addNavLinkTag(
-        this.navLinks,
-        contentTpl,
-        footerTpl,
-        this.navLink_listdata
-      )
-    ) {
+    if (this.mainService.navLinkService.addNavLinkTag(this.navLinks, contentTpl, footerTpl, this.navLink_listdata)) {
       setTimeout(() => {
         let column: ColumnApi = this.navLink_listdata._gridColumnApi;
         if (column) column.autoSizeAllColumns();
@@ -493,15 +484,11 @@ export class HomeComponent implements OnInit {
    */
   handleAddNavLink_ok(ev: any) {
     if (
-      this.mainService.navLinkService.handleAddNavLink_ok(
-        this.navLink_listdata,
-        this.navLinks,
-        this.navLinkListCondition
-      )
+      this.mainService.navLinkService.handleAddNavLink_ok(this.navLink_listdata, this.navLinks, this.navLinkListCondition)
     ) {
-     setTimeout(() => {
-      this.initNavLink();
-     });
+      setTimeout(() => {
+        this.initNavLink();
+      });
     }
   }
   /** YM
@@ -632,7 +619,7 @@ export class HomeComponent implements OnInit {
   /**
    * 发送聊天记录
    */
-  sendChat() {}
+  sendChat() { }
   /**
    * 关闭聊天面板
    */

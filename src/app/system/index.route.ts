@@ -112,7 +112,7 @@ export const Routers: Routes = [{
   component: SysquotalistComponent,
   data: { keep: false }
 },{
-  path: 'sysquotaList',//指标详情
+  path: 'sysquotaEdit',//指标编辑
   component: SysquotaEditComponent,
   data: { keep: false }
 }, {

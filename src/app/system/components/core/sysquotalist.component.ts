@@ -7,7 +7,8 @@ import { SysquotaService } from "../../services/sysquota.service";
 @Component({
   selector: "sysquota",
   template: `
-  <fc-layoutpanel fcFull="true" >
+  <fc-layoutpanel fcFull="true">
+    <fc-tlblist fctoolbar [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
     <fc-listdata fccontent  [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
   </fc-layoutpanel>
     `,
@@ -42,10 +43,15 @@ export class SysquotalistComponent extends ParentlistComponent {
   ) {
     super(mainService, router, activeRoute);
   }
-  init(): void {
+  init(): void { }
+  getDefaultQuery() { }
+  tlblistEvent(ev: FCEVENT) {
+    switch (ev.eventName) {
+      case "listAdd":
+        break;
+      default:
+        break;
+    }
   }
-  getDefaultQuery() {
-  }
-  event(eventName: string, context: any): void {
-  }
+  event(eventName: string, context: any): void { }
 }
