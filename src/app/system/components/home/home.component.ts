@@ -46,8 +46,6 @@ import { Sysmenu } from "fccore";
     }
     .home-list{
       width:100%;
-      height:300px;
-      overflow-y:hidden;
     }
     .home-list:hover{
       overflow-y:auto;
@@ -65,6 +63,12 @@ import { Sysmenu } from "fccore";
     }
     .contact li span{
       font-size:14px;
+    }
+    .todo-taskslist li span{
+      width: 97%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .contact_right{
       color:#399dfb;
@@ -123,6 +127,8 @@ import { Sysmenu } from "fccore";
     }
     .main_contain{
       margin-top: -10px;
+      height: 250px;
+      overflow: auto;
     }
     .contacticon{
       position: absolute;
@@ -155,10 +161,15 @@ import { Sysmenu } from "fccore";
   .system-version{
     padding-left:10px;
   }
+  
   .system-version>div{
     width:100%;
     height:300px;
     padding-left:20px;
+  }
+  :host ::ng-deep .system-version .fc-timeline{
+    height:240px;
+    overflow:auto;
   }
   .add {
     display:inline-block;
@@ -343,6 +354,35 @@ import { Sysmenu } from "fccore";
 :host ::ng-deep .ant-input:focus {
     box-shadow: none;
 }
+:host ::ng-deep .quick-navigation .fc-content{
+  height:110px;
+  overflow:auto;
+}
+:host ::ng-deep .templatehome .separated-lefttop .fc-layoutpanel{
+  background:white;
+  margin: 3px 3px 6px 3px;
+  padding:5px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #ccc;
+  width: auto;
+}
+:host ::ng-deep .templatehome .separated-left .fc-layoutpanel,.templatehome .separated-leftbottom,:host ::ng-deep .templatehome .separated-right .fc-layoutpanel,:host ::ng-deep .templatehome .separated-rightbottom .fc-layoutpanel{
+  background:white;
+  margin: 3px ;
+  padding:5px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #ccc;
+  width: auto;
+}
+:host ::ng-deep .templatehome .separated-rightbottom .fc-layoutpanel {
+  margin:3px;
+}
+.templatehome .work-plan {
+  margin-bottom:6px;
+ }
+ :host ::ng-deep .templatehome .todo-tasks .fc-layoutpanel{
+  margin-bottom:6px;
+ }
     `
   ]
 })
@@ -709,7 +749,7 @@ export class HomeComponent implements OnInit {
     }
     // this.router.navigate(['/system/sysannouncementDetail'], { queryParams: { ID: id } })
   }
- 
+
   /**
    * 聊天面板
    * @param event
@@ -732,19 +772,5 @@ export class HomeComponent implements OnInit {
    */
   closeChat() {
     this.showchat = false;
-  }
-   /**
-   * 聊天面板
-   * @param event 
-   */
-  chatEvent(event: FCEVENT) {
-    switch (event.eventName) {
-      case 'send'://发布聊天记录
-        break;
-      case 'closed'://关闭聊天面板
-        this.showchat = false;
-        break;
-
-    }
   }
 }

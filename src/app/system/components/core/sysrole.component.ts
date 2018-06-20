@@ -35,10 +35,6 @@ export class SysroleComponent extends ParentlistComponent {
   @ViewChild('tree')
   tree: FctreeComponent;
   selectedObject: any;
-  //左侧列表删除某一行
-  deleteObject:any;
-  //左侧列表修改某一行
-  editObject:any;
   // 选中的角色权限
   roleauthList: Sysroleauth[];
   // 选中的角色用户
@@ -86,13 +82,12 @@ export class SysroleComponent extends ParentlistComponent {
   event(eventName: string, context: any): void {
 
   }
+
   /**
-   * 点击左侧列表-右侧获取选中的角色信息
-   * 点击修改-修改用户名称
-   * 点击删除-删除用户
+   * 获取选中的角色信息
    * @param event 列表fclist事件句柄
    */
-  listEvent(event: FCEVENT,modal) {
+  listEvent(event: FCEVENT) {
     switch (event.eventName) {
       case 'select':
         this.selectedObject = event.param;
@@ -100,33 +95,9 @@ export class SysroleComponent extends ParentlistComponent {
         this.getRoleAuth(true);
         this.getRoleUser();
         break;
-      case 'listOneEdit':
-        this.editObject = event.param;
-        this.modalService.open({
-          title: '更改角色名称',                                                                              
-          content: modal,
-          onOk() {
-            debugger;
-            alert('OK');
-          },
-          onCancel() {
-          }
-      });
-        break;
-      case 'listOneDelete': 
-        this.messageService.confirm("确认删除记录吗?", () => {
-          this.deleteObject = event.param;
-          this.mainService.delete({ ID: this.deleteObject.ID }).subscribe(result => {
-            if (result.CODE === '0') {
-                this.messageService.message('删除成功！');
-            }else {
-                this.messageService.message('删除失败！');
-            }
-          });    
-      }, () => { });
-        break;
     }
   }
+
   /**
    * @description 当前选中的角色获取此角色的所有权限
    * @param {是否点击后调用事件} isFirstLoad
@@ -174,7 +145,7 @@ export class SysroleComponent extends ParentlistComponent {
   tagEvent(event: FCEVENT) {
     switch (event.eventName) {
       case 'close':
-        this.mainService.deleteRoleUser(event.param.value);
+        this.mainService.deleteRoleUser(event.param.USERID);
         break;
     }
   }

@@ -47,6 +47,8 @@ import { SyscompanyService } from './services/syscompany.service';
 import { SyscompanyComponent } from './components/core/syscompany.component';
 import { SyscompanyeditComponent } from './components/core/syscompanyedit.component';
 import { SysnavlinkService } from './services/sysnavlink.service';
+import { SysroleauthService } from './services/sysroleauth.service';
+import { SysroleuserService } from './services/sysroleuser.service';
 @NgModule({
   imports: [ 
     CommonModule,
@@ -99,11 +101,13 @@ import { SysnavlinkService } from './services/sysnavlink.service';
     SysdatasourceService,
     SysappService,
     SysproductService,
+    SysroleauthService,
     SysroleService,
     SysparamService,
     SysmessageService,
     SysbackcodeService,
     SyscomponentService,
+    SysroleuserService,
     SyshomeService,
     SysversionService,
     SysannouncementService,
