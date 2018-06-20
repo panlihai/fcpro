@@ -51,8 +51,8 @@ import { SysroleDialogEditComponent } from './components/core/dialog/sysroleedit
 import { SysroleauthService } from './services/sysroleauth.service';
 import { SysroleuserService } from './services/sysroleuser.service';
 import { SysquotaService } from './services/sysquota.service';
-import { SysquotalistComponent } from './components/core/sysquotalist.component';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
+import { SysquotalistComponent } from './components/core/sysquotalist.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -99,6 +99,9 @@ import { SysquotaEditComponent } from './components/core/sysquotaedit.component'
     SysannouncementComponent,
     SyscompanyComponent,
     SyscompanyeditComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent
+    
   ],
   entryComponents: [
     SysroleDialogEditComponent,

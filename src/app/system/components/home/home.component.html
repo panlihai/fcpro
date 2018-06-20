@@ -14,6 +14,7 @@
             </fc-layoutcol>
         </fc-layoutpanel>
         <!-- 公告结束 -->
+       <!--  数据统计开始 -->
         <fc-layoutpanel fccontent1 class="separated-left">
             <fc-title fcLabel="数据统计" fcheader fcBorder="bottom"></fc-title>
             <div fccontent>
@@ -29,12 +30,16 @@
                 </fc-layoutcol>
             </div>
         </fc-layoutpanel>
+       <!--  数据统计结束 -->
         <fc-layoutpanel fccontent1>
             <fc-layoutcol fcSpans="1,1" fccontent>
+               <!--  系统版本开始 -->
                 <div fccontent1 class="system-version separated-leftbottom">
                     <fc-title fcLabel="系统版本" fcBorder="bottom"></fc-title>
                     <fc-timeline [fcOption]="versionTimeline" (fcEvent)="timelineEvent($event)" fcLabelPosition="left" fcLeft="30%"></fc-timeline>
                 </div>
+               <!--  系统版本结束 -->
+               <!-- 常用联系人开始 -->
                 <fc-layoutpanel fccontent2 class="separated-rightbottom">
                     <fc-title fcLabel="常用联系人" fcHasLine="false" fcheader fcBorder="bottom"></fc-title>
                     <div fccontent class="main_contain">
@@ -72,14 +77,18 @@
                         </ul>
                     </div>
                 </fc-layoutpanel>
+                <!-- 常用联系人结束 -->
             </fc-layoutcol>
         </fc-layoutpanel>
+        <!-- 工作计划开始 -->
         <fc-layoutpanel fccontent2>
             <div fccontent class="separated-leftbottom work-plan">
                 <fc-title fcLabel="工作计划" fccontent fcBorder="bottom"></fc-title>
                 <fc-calendar class="home-calendar" fccontent></fc-calendar>
             </div>
         </fc-layoutpanel>
+        <!-- 工作计划结束 -->
+        <!-- 待办任务开始 -->
         <fc-layoutpanel fccontent2 class="separated-right todo-tasks">
             <fc-title fcLabel="待办任务" fcheader fcBorder="bottom">
                 <div fcextra>
@@ -121,6 +130,8 @@
                 </div>
             </div>
         </fc-layoutpanel>
+       <!--  待办任务结束 -->
+       <!-- 快速导航开始 -->
         <fc-layoutpanel fccontent2 class="separated-rightbottom quick-navigation">
             <fc-title fcLabel="快速开始/便捷导航" fcHasLine="false" fcheader fcBorder="bottom"></fc-title>
             <div fccontent class="fastcontent" *ngFor="let navLink of navLinks">
@@ -129,6 +140,7 @@
             <fc-button fccontent fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addNavLinkTag(contentTpl_navLink,footerTpl_navLink)"
                 class="add"></fc-button>
         </fc-layoutpanel>
+        <!-- 快速导航结束 -->
     </fc-layoutcol>
 </fc-layoutpanel>
 <div class="chat-wrap" [ngClass]="{'chat-show-wrap':showchat}">
