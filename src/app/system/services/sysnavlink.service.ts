@@ -109,11 +109,7 @@ export class SysnavlinkService extends ParentService {
       });
       return true;
     } else {
-      this.nzModal.info({
-        title: "操作提示",
-        content: "快速导航标签不能超过8个",
-        zIndex: 999
-      });
+      this.providers.msgService.warm("快速导航标签不能超过8个");
       return false;
     }
   }
@@ -171,7 +167,7 @@ export class SysnavlinkService extends ParentService {
     saveObjs.forEach(el => {
       this.save(el).subscribe(res => {
         if (res.CODE === "0") {
-          if (saveObjs.length === 1 && count === 0) {
+          if (count === 0) {
             this.providers.msgService.success("保存成功");
             count++;
           }
