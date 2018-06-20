@@ -1,14 +1,6 @@
-import {
-  Component,
-  OnInit,
-  ViewChild
-} from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import {
-  TimelineOptions,
-  FclistdataComponent,
-  Fcmenu
-} from "fccomponent";
+import { TimelineOptions, FclistdataComponent, Fcmenu } from "fccomponent";
 import { FCEVENT } from "fccomponent/fc";
 import { SyshomeService } from "../../services/syshome.service";
 import { NzModalService } from "ng-zorro-antd";
@@ -379,9 +371,9 @@ export class HomeComponent implements OnInit {
   _pieData: number[] = [1692215654.69178, 293107561.643836, 933395486.794522];
   //选项卡
   _tabmain = [
-    { name: '公告', disabled: false },
-    { name: '消息', disabled: false },
-  ]
+    { name: "公告", disabled: false },
+    { name: "消息", disabled: false }
+  ];
   _tabmain2 = [
     { name: "数据统计1", disabled: false },
     { name: "数据统计2", disabled: false },
@@ -438,7 +430,7 @@ export class HomeComponent implements OnInit {
     public activedRoute: ActivatedRoute,
     private _router: Router,
     private nzModal: NzModalService
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.mainService.providers.appService
       .findWithQuery("SYSVERSION", { PAGENUM: 1, PAGESIZE: 6, ODER: "TS DESC" })
@@ -460,174 +452,83 @@ export class HomeComponent implements OnInit {
         }
       });
     // 查询SYSNOTIFY所有元数据
-    this.mainService.providers.appService.findWithQuery('SYSNOTIFY', {}).subscribe(result => {
-      if (result.CODE === '0') {
-        this.items = result.DATA
-      }
-    })
+    this.mainService.providers.appService
+      .findWithQuery("SYSNOTIFY", {})
+      .subscribe(result => {
+        if (result.CODE === "0") {
+          this.items = result.DATA;
+        }
+      });
     this.initNavLink();
   }
-  /**
-   * YM
-   *动态加载快速导航标签数据;
-   */
   initNavLink() {
-    this.mainService.getNavLinks().subscribe(res => {
+    this.mainService.navLinkService.getNavLinks().subscribe(res => {
       if (res.CODE === "0") this.navLinks = res.DATA;
-      this.rebuildList_NavLink();
-      this.refreshNavLink();
-    });
-  }
-  /** YM
-   * 重查询NavLink_listdata数据
-   */
-  rebuildList_NavLink() {
-    let exitsRouters: any = [];
-    this.navLinks.forEach(el => {
-      exitsRouters.push(el.ROUTER);
-    });
-    let s = this.arrayToSqlString(exitsRouters);
-    if (s) {
-      this.navLinkListCondition = {
-        WHERE: `ENABLE='Y' AND APPID!='null' AND APPID!='SYSCOMPONENT' AND MENUTYPE='APP' AND ROUTER!='null' AND ROUTER NOT IN (${s})`
-      };
-    } else {
-      this.navLinkListCondition = {
-        WHERE: `ENABLE='Y' AND APPID!='null' AND APPID!='SYSCOMPONENT' AND MENUTYPE='APP' AND ROUTER!='null'`
-      };
-    }
-  }
-  /** YM
-   * 数组转sql批查询条件
-   * @param array
-   */
-  arrayToSqlString(array: Array<any>) {
-    let str: string = "";
-    for (let i = 0; i < array.length; i++) {
-      str += `'${array[i]}'`;
-      if (i !== array.length - 1) {
-        str += ",";
-      }
-    }
-    return str.toString();
-  }
-  /** YM
-   * 刷新快速导航标签
-   */
-  refreshNavLink() {
-    this.navLinks.forEach(link => {
-      this.mainService.getNavLabel(link).subscribe(res => {
-        if (res.CODE === "0") link["LABEL"] = res.DATA[0].MENUNAME;
-      });
+      this.navLinkListCondition = this.mainService.navLinkService.rebuildList_NavLink(
+        this.navLinks
+      );
+      this.mainService.navLinkService.refreshNavLink(this.navLinks);
     });
   }
   /** YM
    * 新增快速导航标签
    */
   addNavLinkTag(contentTpl, footerTpl) {
-    if (this.navLinks.length < 8) {
-      this.currentModal_navLink = this.nzModal.open({
-        title: "新增快速导航标签",
-        content: contentTpl,
-        footer: footerTpl,
-        style: { width: "50%" },
-        wrapClassName: "vertical-top-modal",
-        maskClosable: false,
-        zIndex: 998,
-        onOk: function () { },
-        onCancel: function () { }
-      });
+    if (
+      this.mainService.navLinkService.addNavLinkTag(
+        this.navLinks,
+        contentTpl,
+        footerTpl,
+        this.navLink_listdata
+      )
+    ) {
       setTimeout(() => {
-        let gridApi: GridApi = this.navLink_listdata._gridApi;
         let column: ColumnApi = this.navLink_listdata._gridColumnApi;
         if (column) column.autoSizeAllColumns();
-      });
-    } else {
-      this.nzModal.info({
-        title: "操作提示",
-        content: "快速导航标签不能超过8个",
-        zIndex: 999
       });
     }
   }
   /** YM
    * 处理新增快速导航标签——确定
    */
-  handleAddNavLink_ok(ev: any, listdata: FclistdataComponent) {
-    let gridApi: GridApi = this.navLink_listdata._gridApi;
-    let column: ColumnApi = this.navLink_listdata._gridColumnApi;
-    let selected = gridApi.getSelectedRows();
-    if (selected.length === 0) {
-      this.currentModal_navLink.destroy("onOk");
-      this.currentModal_navLink = null;
-    }
-    let count = this.navLinks.length + selected.length;
-    if (count <= 8) {
-      let saveObjs: any = [];
-      selected.forEach(el => {
-        let saveObj = this.mainService.getNavDefaultObj();
-        for (let key in el) {
-          if (key === "PID") saveObj[key] = el[key];
-          if (key === "ROUTER") saveObj[key] = el[key];
-        }
-        saveObj["CREATETIME"] = this.mainService.getNowTimeStamp() + "";
-        saveObj["LASTMODIFY"] = this.mainService.getNowTimeStamp() + "";
-        saveObj["USERID"] = this.mainService.getNowUserId();
-        saveObj["CATAGORY"] = "private";
-        delete saveObj["ID"];
-        saveObjs.push(saveObj);
-      });
-      this.mainService.saveNavLinks(saveObjs);
-      setTimeout(() => {
-        this.initNavLink();
-      });
-      this.currentModal_navLink.destroy("onOk");
-      this.currentModal_navLink = null;
-    } else {
-      this.nzModal.info({
-        title: "操作提示",
-        content: "快速导航标签不能超过8个",
-        zIndex: 999
-      });
+  handleAddNavLink_ok(ev: any) {
+    if (
+      this.mainService.navLinkService.handleAddNavLink_ok(
+        this.navLink_listdata,
+        this.navLinks,
+        this.navLinkListCondition
+      )
+    ) {
+     setTimeout(() => {
+      this.initNavLink();
+     });
     }
   }
   /** YM
    * 处理新增快速导航标签——取消
    */
   handleAddNavLink_cancel(ev: any) {
-    this.currentModal_navLink.destroy("onCancel");
-    this.currentModal_navLink = null;
+    this.mainService.navLinkService.handleAddNavLink_cancel();
   }
   /** YM
    * 快速导航标签事件
    */
-  navLinkEvent(ev: FCEVENT, link) {
+  navLinkEvent(ev: FCEVENT, link: any) {
     switch (ev.eventName) {
       case "close":
         break;
       case "beforeClose":
         event.stopPropagation();
         event.preventDefault();
-        this.nzModal.confirm({
-          title: "操作提示",
-          content: "是否确认删除该快速导航标签？",
-          onOk: () => {
-            this.mainService.deleteNavLink(link).subscribe(res => {
-              if (res.CODE === "0")
-                this.mainService.providers.msgService.success("删除成功");
-              else this.mainService.providers.msgService.warm("删除失败");
-            });
-            setTimeout(() => {
-              this.initNavLink();
-            });
-          },
-          onCancel: () => { }
+        this.mainService.navLinkService.deleteSubject.subscribe(res => {
+          if (res) this.initNavLink();
         });
+        this.mainService.navLinkService.navLinkBeforeClose(link);
         break;
       case "click":
         event.stopPropagation();
         event.preventDefault();
-        this.navTo(link.ROUTER);
+        this.mainService.layoutService.navToByMenuId(this.router, link.ROUTER);
         break;
       default:
         break;
@@ -696,20 +597,25 @@ export class HomeComponent implements OnInit {
     }
   }
   /**
-  * 消息公告点击跳转路由事件
-  * @param event 
-  */
+   * 消息公告点击跳转路由事件
+   * @param event
+   */
   linkevent(id) {
-    let menu = this.mainService.layoutService.findMenuByRouter(this.mainService.providers.menuService.menus, 'sysannouncementDetail');
+    let menu = this.mainService.layoutService.findMenuByRouter(
+      this.mainService.providers.menuService.menus,
+      "sysannouncementDetail"
+    );
     if (menu) {
-      menu['param'] = id;
+      menu["param"] = id;
       this.mainService.providers.commonService.event("selectedMenu", menu);
     } else {
-      this.mainService.providers.msgService.error('sysannouncementDetail' + '不存在...');
+      this.mainService.providers.msgService.error(
+        "sysannouncementDetail" + "不存在..."
+      );
     }
     // this.router.navigate(['/system/sysannouncementDetail'], { queryParams: { ID: id } })
   }
- 
+
   /**
    * 聊天面板
    * @param event
@@ -726,7 +632,7 @@ export class HomeComponent implements OnInit {
   /**
    * 发送聊天记录
    */
-  sendChat() { }
+  sendChat() {}
   /**
    * 关闭聊天面板
    */
