@@ -49,8 +49,11 @@ import { SyscompanyService } from './services/syscompany.service';
 import { SyscompanyComponent } from './components/core/syscompany.component';
 import { SyscompanyeditComponent } from './components/core/syscompanyedit.component';
 import { SysnavlinkService } from './services/sysnavlink.service';
+import { SysquotaService } from './services/sysquota.service';
+import { SysquotalistComponent } from './components/core/sysquotalist.component';
+import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 @NgModule({
-  imports: [ 
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -93,7 +96,9 @@ import { SysnavlinkService } from './services/sysnavlink.service';
     SysversionComponent,
     SysannouncementComponent,
     SyscompanyComponent,
-    SyscompanyeditComponent
+    SyscompanyeditComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent
   ],
   providers: [
     LayoutService,
@@ -112,7 +117,8 @@ import { SysnavlinkService } from './services/sysnavlink.service';
     SysversionService,
     SysannouncementService,
     SyscompanyService,
-    SysnavlinkService
+    SysnavlinkService,
+    SysquotaService
   ]
 })
 export class SystemModule {

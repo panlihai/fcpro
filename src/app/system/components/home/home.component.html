@@ -187,7 +187,7 @@
 </div>
 <ng-template #contentTpl_navLink>
     <div style="height:400px;width:100%">
-        <fc-listdata #navLink_listdata fcAppid="SYSCHILDMENU" [fcCondition]="navLinkListCondition" [fcOption]="mainService.listOptions"
+        <fc-listdata #navLink_listdata fcAppid="SYSCHILDMENU" [fcCondition]="navLinkListCondition" [fcOption]="mainService.navLinkService.listOptions"
             (fcEvent)="navLinkListEvent($event)"></fc-listdata>
     </div>
 </ng-template>
