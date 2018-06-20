@@ -57,7 +57,6 @@ export class SysappComponent extends ParentlistComponent {
     super(mainService, router, activeRoute);
   }
   init(): void {
-     
   }
   getDefaultQuery() {
     return {

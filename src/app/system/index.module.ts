@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Routers } from './index.route';
-import { SysdicService, MessageService } from 'fccore';
+import { MessageService } from 'fccore';
 import { MainComponent } from './components/main/main.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -37,17 +37,21 @@ import {
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysroleauthService } from './services/sysroleuser.service';
 import { LayoutService } from './services/layout.service';
-import { SysmessagebackComponent } from './components/core/sysmessageback.component';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SpreadSheetsModule } from '@grapecity/spread-sheets-angular';
 import { SysmessageService } from './services/sysmessage.service';
 import { SysversionService } from './services/sysversion.service';
 import { SysversionComponent } from './components/core/sysversion.component';
 import { SyshomeService } from './services/syshome.service';
+import { SysannouncementService } from './services/sysannouncement.service';
+import { SysannouncementComponent } from './components/core/sysannouncement.component';
+import { SyscompanyService } from './services/syscompany.service';
+import { SyscompanyComponent } from './components/core/syscompany.component';
+import { SyscompanyeditComponent } from './components/core/syscompanyedit.component';
 import { SysnavlinkService } from './services/sysnavlink.service';
 import { SysroleDialogEditComponent } from './components/core/dialog/sysroleeditdialog.component';
 @NgModule({
-  imports: [
+  imports: [ 
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -86,13 +90,15 @@ import { SysroleDialogEditComponent } from './components/core/dialog/sysroleedit
     SysmessagedetailComponent,
     SysbackcodeComponent,
     SyscomponentComponent,
-    SysmessagebackComponent,
     HomeComponent,
     SysversionComponent,
-    SysroleDialogEditComponent
+    SysroleDialogEditComponent,
+    SysannouncementComponent,
+    SyscompanyComponent,
+    SyscompanyeditComponent,
   ],
   entryComponents: [
-    SysroleDialogEditComponent
+    SysroleDialogEditComponent,
   ],
   providers: [
     LayoutService,
@@ -109,6 +115,8 @@ import { SysroleDialogEditComponent } from './components/core/dialog/sysroleedit
     SysroleuserService,
     SyshomeService,
     SysversionService,
+    SysannouncementService,
+    SyscompanyService,
     SysnavlinkService
   ]
 })

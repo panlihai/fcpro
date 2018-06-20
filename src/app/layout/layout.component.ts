@@ -180,6 +180,17 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
     this.fcnavtab.fcTabs = [];
     this.fcnavtab.fcSelectedIndex = 0;
+    this.getMessage();
+    //把弹出确认框变量存入到服务里
+    MessageService.confirmModal = this.confirmmodal;
+    if (this.fcnavtab.fcTabs.length === 0) {
+      this.fcnavtab.fcTabs.push({
+        id: '0', index: 0, enabled: true, name: '首页', close: false, icon: 'fc-icon-home', refresh: 'Y', content:
+          { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: environment.pid, MENUTYPE: 'INURL' }
+      });
+    }
+  }
+  getMessage() {
     this.mainService.getMessage().subscribe(res => {
       if (res[0].CODE === '0') {
         this._navSideOption.fcValues1 = res[1].DATA;
@@ -198,14 +209,6 @@ export class LayoutComponent implements OnInit {
         })
       }
     });
-    //把弹出确认框变量存入到服务里
-    MessageService.confirmModal = this.confirmmodal;
-    if (this.fcnavtab.fcTabs.length === 0) {
-      this.fcnavtab.fcTabs.push({
-        id: '0', index: 0, enabled: true, name: '首页', close: false, icon: 'fc-icon-home', refresh: 'Y', content:
-          { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: environment.pid, MENUTYPE: 'INURL' }
-      });
-    }
   }
   /**
    * 导航栏事件
@@ -246,6 +249,9 @@ export class LayoutComponent implements OnInit {
           this.fcnavtab.fcSelectedIndex = undefined;
           this._router.navigate(['/signin']);
         })
+        break;
+      case 'editUser'://修改密码
+        this.resetPassword();
         break;
     }
   }
@@ -301,8 +307,12 @@ export class LayoutComponent implements OnInit {
         // 删除缓存
         break;
       case 'click':
-        this.mainService.navMessage(this._router, event.param);
+        this.mainService.navMessage(this._router, event.param).subscribe(res => {
+          this.getMessage();
+        });
         break;
+      case 'toggle':
+        this._navbarStatus = event.param;
     }
   }
 

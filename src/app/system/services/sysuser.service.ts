@@ -15,7 +15,7 @@ export class SysuserService extends ParentService {
    * @param telsms 
    */
   createSms(telsms): Observable<any> {
-    
+
     let url = this.commonService.getUrlBy(this.moduleId, "SYSTELSMS", "CREATE");
     return this.providers.daoService.postFromApi(url, telsms);
   }
@@ -37,19 +37,19 @@ export class SysuserService extends ParentService {
         if (result1.CODE === '0') {
           let param = { PASSWORD: event.newPwd };
           let telsms = {
-            MOBILEPHONE: this.userInfo.TEL,//	N	VARCHAR2(20)	Y			手机号
-            RANDOM: this.commonService.Random(6),//	N	VARCHAR2(6)	Y			随机数
-            SMSCODE: this.commonService.Random(4),//	N	VARCHAR2(6)	Y			验证码
-            CREATTIME: this.commonService.getTimestamp(),//	N	NUMBER	Y			创建时间
-            TOKEN: this.cacheService.getS('token'),//	N	VARCHAR2(40)	Y			用户凭证
-            PID: this.moduleId,//	N	VARCHAR2(20)	Y			产品id
+            MOBILEPHONE: this.userInfo.TEL,//	手机号
+            RANDOM: this.commonService.Random(6),//随机数
+            SMSCODE: this.commonService.Random(4),//验证码
+            CREATTIME: this.commonService.getTimestamp(),//创建时间
+            TOKEN: this.cacheService.getS('token'),//用户凭证
+            PID: this.moduleId,//产品id
           };
           this.createSms(telsms).subscribe(result2 => {
             if (result2.CODE === '0') {
               this.resetPwd(telsms, param).subscribe(result3 => {
-                if(result3.CODE==='0'){
+                if (result3.CODE === '0') {
                   this.messageService.message('修改密码成功！');
-                }else{
+                } else {
                   this.messageService.error(result3.MSG);
                 }
               })
@@ -58,7 +58,7 @@ export class SysuserService extends ParentService {
             }
           });
         } else {
-          this.messageService.message('密码不正确...')
+          this.messageService.error('原密码不正确！')
         }
       });
 

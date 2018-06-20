@@ -4,7 +4,7 @@
         <fc-layoutcol fccontent2 fcSpans="2,7" class="tree-style">
             <fc-layoutrow fcSpan="35" fccontent1>
                 <fc-title fcLabel="所有角色" fcHasLine="false" [fcBorder]="'bottom'" fcWidth="100%" fccontent1></fc-title>
-                <fc-list [fcAppid]="'SYSROLE'" [fcFieldCode]="'ROLENAME'" fccontent2 [fcCondition]="listCondition" (fcEvent)="listEvent($event)"></fc-list>
+                <fc-list [fcAppid]="'SYSROLE'" [fcFieldCode]="'ROLENAME'" fccontent2  [fcSelectedId]="selectRoleId" [fcCondition]="listCondition" (fcEvent)="listEvent($event)"></fc-list>
                 <fc-icon class="fc-role-add" [fcIcon]="'fc-icon-keep'" [fcSize]="'large'" [fcColor]="'#108ee9'"></fc-icon>
             </fc-layoutrow>
             <fc-tabmain fccontent2 [fcTabs]="roleTab" class="template-tab-full">

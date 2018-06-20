@@ -6,12 +6,14 @@ import { ProvidersService } from "fccore";
 import { LayoutService } from "./layout.service";
 import { SysnavlinkService } from "./sysnavlink.service";
 import { GridApi, Column, ColumnApi } from "ag-grid";
+import { SysannouncementService } from './sysannouncement.service';
 @Injectable()
 export class SyshomeService {
   constructor(
     public providers: ProvidersService,
     public layoutService: LayoutService,
-    public navLinkService: SysnavlinkService
+    public navLinkService: SysnavlinkService,
+    public sysannouncementService:SysannouncementService
   ) {}
   /** YM
    *  获取快速导航标签数据流

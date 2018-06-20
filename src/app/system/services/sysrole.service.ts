@@ -4,10 +4,9 @@ import { ParentService, ProvidersService } from 'fccore';
 import { SysroleuserService } from './sysroleauth.service';
 import { Observable } from 'rxjs';
 import { SysroleauthService, Sysroleuser } from './sysroleuser.service';
-import { TreeOptions } from 'fccomponent';
+import { TreeOptions } from 'fccomponent/fcbasic/fctree.component';
 @Injectable()
 export class SysroleService extends ParentService {
-
   menuTreeOptions: TreeOptions = {
     //元数据id
     fcAppid: "SYSMENU",//元数据id
@@ -40,6 +39,22 @@ export class SysroleService extends ParentService {
     public sysroleauthService: SysroleauthService, public sysroleuserService: SysroleuserService) {
     super(providers, "SYSROLE");
   }
+  /**
+   * 保存或修改角色信息
+   * @param obj 保存或修改的对象
+   */
+  saveOrUpdateRole(obj: any): Observable<any> {
+    if (obj.ID === undefined) {
+      obj.SENABLE = 'Y';
+      obj.SORT = this.commonService.getTimestamp();
+      obj.ROLEID = this.commonService.getTimestamp();
+      obj.PID = this.moduleId;
+      return this.save(obj)
+    } else {
+      return this.update(obj)
+    }
+  }
+
   /**
    * 得到所有的菜单内容并转化成树形结构
    */
@@ -123,7 +138,6 @@ export class SysroleService extends ParentService {
   getAuthByRoleid(roleId: string): Observable<any> {
     return this.sysroleauthService.findWithQueryAll({ ROLEID: roleId })
   }
-
   /**
   * 根据角色id获取用户信息
   * @param roleId 角色id

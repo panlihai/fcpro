@@ -9,9 +9,9 @@ import { NzModalSubject } from 'ng-zorro-antd';
         <fc-text fcLabel="备注" [(ngModel)]="remark" name="remark"></fc-text>
       </div>
       <div class="customize-footer">
-        <fc-button  [fcType]="'primary'" fcLabel="确定" (click)="emitDataOutside($event)">
+        <fc-button  [fcType]="'primary'" fcLabel="确定" (click)="ok($event)">
         </fc-button>
-        <fc-button [fcType]="'default'" fcLabel="取消"  (click)="handleCancel($event)">
+        <fc-button [fcType]="'default'" fcLabel="取消"  (click)="cancel($event)">
         </fc-button>
       </div>
     </div>
@@ -23,21 +23,28 @@ import { NzModalSubject } from 'ng-zorro-antd';
   `]
 })
 export class SysroleDialogEditComponent {
-  roleName: string;
-  remark: string;
-  id:string;
+  roleName: string = '';
+  remark: string = '';
+  roleId: string = '';
+  id: string;
   @Input()
   set options(option: any) {
     this.roleName = option.ROLENAME;
     this.remark = option.REMARK;
     this.id = option.ID;
+    this.roleId = option.ROLEID;
   }
-  emitDataOutside() {
-    let params = { ID:this.id,ROLENAME: this.roleName, REMARK: this.remark };
-    this.modal.next(params);
+  ok() {
+    let param: any = { ROLENAME: this.roleName, REMARK: this.remark, ROLEID: this.roleId };
+    if (this.id) {
+      param.ID = this.id;
+    }
+
+    this.modal.next(param);
+    this.modal.destroy();
   }
 
-  handleCancel(e) {
+  cancel(e) {
     this.modal.destroy();
   }
   constructor(private modal: NzModalSubject) {
