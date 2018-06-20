@@ -20,16 +20,16 @@ export class SysnavlinkService extends ParentService {
 
   navLinkBeforeClose(link: any) {
     let success: boolean = false;
-    this.providers.msgService.confirm("是否确认删除该快速导航标签？",() => {
-        this.delete(link).subscribe(res => {
-          if (res.CODE === "0") this.providers.msgService.success("删除成功");
-          else this.providers.msgService.warm("删除失败");
-        });
-        success = true;
-        setTimeout(() => {
-          this.deleteSubject.next(success);
-        });
-      },
+    this.providers.msgService.confirm("是否确认删除该快速导航标签？", () => {
+      this.delete(link).subscribe(res => {
+        if (res.CODE === "0") this.providers.msgService.success("删除成功");
+        else this.providers.msgService.warm("删除失败");
+      });
+      success = true;
+      setTimeout(() => {
+        this.deleteSubject.next(success);
+      });
+    },
       () => {
         success = false;
       }
