@@ -49,7 +49,13 @@ import { SyscompanyService } from './services/syscompany.service';
 import { SyscompanyComponent } from './components/core/syscompany.component';
 import { SyscompanyeditComponent } from './components/core/syscompanyedit.component';
 import { SysnavlinkService } from './services/sysnavlink.service';
+import { SysprofileService } from './services/sysprofile.service';
+import { SysprofileComponent } from './components/core/sysprofile.component';
+import { BasicpersoneldialogComponent } from './components/core/basicpersoneldialog.component';
 @NgModule({
+  entryComponents:[
+    BasicpersoneldialogComponent
+  ],
   imports: [ 
     CommonModule,
     FormsModule,
@@ -93,7 +99,9 @@ import { SysnavlinkService } from './services/sysnavlink.service';
     SysversionComponent,
     SysannouncementComponent,
     SyscompanyComponent,
-    SyscompanyeditComponent
+    SyscompanyeditComponent,
+    SysprofileComponent,
+    BasicpersoneldialogComponent
   ],
   providers: [
     LayoutService,
@@ -112,7 +120,8 @@ import { SysnavlinkService } from './services/sysnavlink.service';
     SysversionService,
     SysannouncementService,
     SyscompanyService,
-    SysnavlinkService
+    SysnavlinkService,
+    SysprofileService
   ]
 })
 export class SystemModule {

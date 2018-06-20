@@ -248,7 +248,7 @@ export class LayoutComponent implements OnInit {
         })
         break;
       case 'editUser'://修改密码
-        this.resetPassword();
+        this.mainService.navToByMenuId(this._router, 'sysprofileList');
         break;
     }
   }
@@ -330,26 +330,5 @@ export class LayoutComponent implements OnInit {
   ngOnDestroy(): void {
     this._providers.daoService.ws.close();
   }
-  /**
-   * 修改密码
-   */
-  resetPassword(): any {
-    const modal = this.modalService.open({
-      title: '修改密码',
-      content: ResetpwddialogComponent,
-      onOk() {
 
-      },
-      onCancel() {
-
-      },
-      footer: false,
-      componentParams: {
-        options: {}
-      }
-    });
-    modal.subscribe(result => {
-      this.mainService.sysuserService.doReset(result);
-    })
-  };
 }

@@ -689,6 +689,7 @@ export class HomeComponent implements OnInit {
   timelineEvent(event: FCEVENT) {
     switch (event.eventName) {
       case "selected": //选中
+        this.navTo('sysversionDetail');
         this.router.navigate(["/system/sysversionDetail"], {
           queryParams: { ID: event.param.ID }
         });
@@ -709,7 +710,7 @@ export class HomeComponent implements OnInit {
     }
     // this.router.navigate(['/system/sysannouncementDetail'], { queryParams: { ID: id } })
   }
- 
+
   /**
    * 聊天面板
    * @param event
@@ -732,5 +733,11 @@ export class HomeComponent implements OnInit {
    */
   closeChat() {
     this.showchat = false;
+  }
+  /**
+   * 图表事件
+   */
+  chatbarEvent() {
+
   }
 }

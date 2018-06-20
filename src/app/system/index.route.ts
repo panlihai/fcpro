@@ -21,6 +21,7 @@ import { SysmessagedetailComponent } from './components/core/sysmessagedetail.co
 import { SysversionComponent } from './components/core/sysversion.component';
 import { SysannouncementComponent } from './components/core/sysannouncement.component';
 import { SyscompanyComponent } from './components/core/syscompany.component';
+import { SysprofileComponent } from './components/core/sysprofile.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -102,8 +103,12 @@ export const Routers: Routes = [{
     component: SyscomponentComponent,
     data: { keep: false }
 }, {
-    path: 'syscomponentList',//公司
+    path: 'syscompanyList',//公司
     component: SyscompanyComponent,
+    data: { keep: false }
+}, {
+    path: 'sysprofileList',//个人信息维护
+    component: SysprofileComponent,
     data: { keep: false }
 }, {
     path: '**',
