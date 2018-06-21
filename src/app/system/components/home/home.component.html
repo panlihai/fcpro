@@ -15,7 +15,7 @@
                 </div>
                 <div fccontent2 *ngFor="let notify of notifys" class="link-overflow">
                     <span><fc-badge [fcStatus]="notify.CATAGORY" fcStatusMode="CIRCLE" fcText=""></fc-badge></span><span>{{notify.PUBLISHTIME}}</span>
-                    <span style="display: inline-block;"><fc-link [fcLabel]="notify.CONTENT" class="viewdetail" (click)="linkevent(notify.ID,notify.CATAGORY,notify.PUBLISHUSER)"></fc-link></span>
+                    <span style="display: inline-block;"><fc-link [fcLabel]="notify.CONTENT" class="viewdetail" (click)="linkevent(notify.ID,notify.CATAGORY,notify.PUBLISHUSER,notify.CONTENT)"></fc-link></span>
                 </div>
             </fc-layoutcol>
         </fc-layoutpanel>

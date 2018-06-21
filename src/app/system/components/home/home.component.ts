@@ -632,35 +632,33 @@ export class HomeComponent implements OnInit {
   * @param event 
   */
   linkevent(id,catagory,publishuser) {
-    if(publishuser!== this.mainService.providers.userService.getUserInfo().USERCODE){
-      console.log(this.mainService.providers.userService.getUserInfo().USERCODE);
+    // if(publishuser!== this.mainService.providers.userService.getUserInfo().USERCODE){
       let obj: any = {
         TS: this.mainService.providers.commonService.getTimestamp(),
         SORT: this.mainService.providers.commonService.getTimestamp(),
         POSTTIME: this.mainService.providers.commonService.getTimestamp(),
-        CONTENT: "已经被读取",
+        CONTENT: "消息公告"+id+"进行回执",
         ISREAD: "N",
         ID: id,
         TYPE: "",
         NOTIFICATIONUSERID: publishuser,
         TITLE: "回执信息",
         POSTUSERID: this.mainService.providers.userService.getUserInfo().USERCODE
-      };   
+      };
       if(catagory==="error"){
         obj.TYPE = "danger";
-        console.log(obj.TYPE);
-      }
-      if(catagory==="success"){
-        obj.TYPE = "normal"
       }
       if(catagory==="processing"){
+        obj.TYPE = "normal"
+      }
+      if(catagory==="warning"){
         obj.TYPE = "waring"
       } 
       this.mainService.providers.appService.saveObject('SYSMESSAGE', obj).subscribe(res => {
         if (res.CODE === '0') this.mainService.providers.msgService.success('回执成功');
         else this.mainService.providers.msgService.error('回执失败')
       })    
-    }
+    // }
     
     let menu = this.mainService.layoutService.findMenuByRouter(this.mainService.providers.menuService.menus, 'sysannouncementDetail');
     if (menu) {
