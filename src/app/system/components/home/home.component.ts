@@ -15,6 +15,8 @@ import { NzModalService } from "ng-zorro-antd";
 import { GridApi, ColumnApi } from "ag-grid";
 import { environment } from "../../../../environments/environment";
 import { Sysmenu } from "fccore";
+import { element } from "protractor";
+import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
 @Component({
   selector: "home",
   templateUrl: "./home.component.html",
@@ -347,6 +349,12 @@ import { Sysmenu } from "fccore";
   ]
 })
 export class HomeComponent implements OnInit {
+  t1(arg0: any): any {
+    throw new Error("Method not implemented.");
+  }
+  //消息公告
+  notifys: any;
+  links: any;
   navLinkListCondition: {};
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
   currentModal_navLink: any;
@@ -426,7 +434,6 @@ export class HomeComponent implements OnInit {
     fcColorCode: "color",
     fcId: "ID"
   };
-  items: any;
   //待办任务状态
   _waitWorkStatus: string;
   //navLink 标签
@@ -462,11 +469,19 @@ export class HomeComponent implements OnInit {
     // 查询SYSNOTIFY所有元数据
     this.mainService.providers.appService.findWithQuery('SYSNOTIFY', {}).subscribe(result => {
       if (result.CODE === '0') {
-        this.items = result.DATA
+        this.notifys = result.DATA;
+        // 把时间转成时间戳
+        this.notifys.forEach((item, index) => {
+          this.notifys[index].PUBLISHTIME = this.mainService.providers.commonService.timestampFormat(
+            Number.parseInt(item.PUBLISHTIME),
+            "yyyy-MM-dd" + ""
+          );
+        });
       }
     })
     this.initNavLink();
   }
+
   /**
    * YM
    *动态加载快速导航标签数据;
@@ -611,6 +626,7 @@ export class HomeComponent implements OnInit {
         this.nzModal.confirm({
           title: "操作提示",
           content: "是否确认删除该快速导航标签？",
+
           onOk: () => {
             this.mainService.deleteNavLink(link).subscribe(res => {
               if (res.CODE === "0")
@@ -683,9 +699,53 @@ export class HomeComponent implements OnInit {
     this.mainService.layoutService.navToByMenuId(this.router, url);
   }
   /**
-   * 时间轴事件
-   * @param event
-   */
+  * 消息公告点击跳转路由事件
+  * @param event 
+  */
+  linkevent(id,catagory,publishuser) {
+    if(publishuser!== this.mainService.providers.userService.getUserInfo().USERCODE){
+      console.log(this.mainService.providers.userService.getUserInfo().USERCODE);
+      let obj: any = {
+        TS: this.mainService.providers.commonService.getTimestamp(),
+        SORT: this.mainService.providers.commonService.getTimestamp(),
+        POSTTIME: this.mainService.providers.commonService.getTimestamp(),
+        CONTENT: "已经被读取",
+        ISREAD: "N",
+        ID: id,
+        TYPE: "",
+        NOTIFICATIONUSERID: publishuser,
+        TITLE: "回执信息",
+        POSTUSERID: this.mainService.providers.userService.getUserInfo().USERCODE
+      };   
+      if(catagory==="error"){
+        obj.TYPE = "danger";
+        console.log(obj.TYPE);
+      }
+      if(catagory==="success"){
+        obj.TYPE = "normal"
+      }
+      if(catagory==="processing"){
+        obj.TYPE = "waring"
+      } 
+      this.mainService.providers.appService.saveObject('SYSMESSAGE', obj).subscribe(res => {
+        if (res.CODE === '0') this.mainService.providers.msgService.success('回执成功');
+        else this.mainService.providers.msgService.error('回执失败')
+      })    
+    }
+    
+    let menu = this.mainService.layoutService.findMenuByRouter(this.mainService.providers.menuService.menus, 'sysannouncementDetail');
+    if (menu) {
+      menu['param'] = id;
+      this.mainService.providers.commonService.event("selectedMenu", menu);
+    } else {
+      this.mainService.providers.msgService.error('sysannouncementDetail' + '不存在...');
+    }
+  }
+  // this.router.navigate(['/system/sysannouncementDetail'], { queryParams: { ID: id } })
+  /**
+  * 时间轴事件
+  * @param event
+  */
   timelineEvent(event: FCEVENT) {
     switch (event.eventName) {
       case "selected": //选中
@@ -695,21 +755,6 @@ export class HomeComponent implements OnInit {
         break;
     }
   }
-  /**
-  * 消息公告点击跳转路由事件
-  * @param event 
-  */
-  linkevent(id) {
-    let menu = this.mainService.layoutService.findMenuByRouter(this.mainService.providers.menuService.menus, 'sysannouncementDetail');
-    if (menu) {
-      menu['param'] = id;
-      this.mainService.providers.commonService.event("selectedMenu", menu);
-    } else {
-      this.mainService.providers.msgService.error('sysannouncementDetail' + '不存在...');
-    }
-    // this.router.navigate(['/system/sysannouncementDetail'], { queryParams: { ID: id } })
-  }
- 
   /**
    * 聊天面板
    * @param event

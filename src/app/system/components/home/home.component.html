@@ -3,8 +3,9 @@
     <fc-layoutcol fcSpans="7,3" fccontent>
         <fc-layoutpanel fccontent1>
             <div fccontent class="messages-notices">
-                <fc-tag [fcCheckable]="true" fcLabel="消息"></fc-tag>
-                <fc-tag [fcCheckable]="true" fcLabel="公告"></fc-tag>
+                <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcText="急需"></fc-badge>
+                <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcText="特急"></fc-badge>
+                <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcText="待办"></fc-badge>
             </div>
             <!-- 消息公告功能 -->
             <fc-tabmain [fcTabs]="_tabmain" fcheader fcType="line" fccontent1>
@@ -12,8 +13,9 @@
                     <div fccontent1>
                         <fc-icon fcIcon="fc-icon-notice" fcColor="#69d389" fccontent1 class="first-icon"></fc-icon>
                     </div>
-                    <div fccontent2 *ngFor="let item of items" class="link-overflow">
-                        <fc-link [fcLabel]="item.CONTENT" class="viewdetail" (click)="linkevent(item.ID)"></fc-link>
+                    <div fccontent2 *ngFor="let notify of notifys" class="link-overflow">
+                        <span><fc-badge [fcStatus]="notify.CATAGORY" fcStatusMode="CIRCLE" fcText=""></fc-badge></span><span>{{notify.PUBLISHTIME}}</span>
+                        <span style="display: inline-block;"><fc-link [fcLabel]="notify.CONTENT" class="viewdetail" (click)="linkevent(notify.ID,notify.CATAGORY,notify.PUBLISHUSER)"></fc-link></span>
                     </div>
                 </fc-layoutcol>
             </fc-tabmain>
@@ -57,7 +59,7 @@
                             <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcText="特急"></fc-badge>
                             <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcText="默认"></fc-badge>
                             <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcText="滞缓"></fc-badge>
-                            <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcText="待做"></fc-badge>
+                            <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcText="待办"></fc-badge>
                         </div>
                     </fc-title>
                     <div class="home-list">

@@ -7,13 +7,15 @@ import { LayoutService } from "./layout.service";
 import { SysnavlinkService } from "./sysnavlink.service";
 import { GridApi, Column, ColumnApi } from "ag-grid";
 import { SysannouncementService } from './sysannouncement.service';
+import { SysmessageService } from "./sysmessage.service";
 @Injectable()
 export class SyshomeService {
   constructor(
     public providers: ProvidersService,
     public layoutService: LayoutService,
     public navLinkService: SysnavlinkService,
-    public sysannouncementService:SysannouncementService
+    public sysannouncementService:SysannouncementService,
+    public sysmessageService:SysmessageService,
   ) {}
   /** YM
    *  获取快速导航标签数据流
