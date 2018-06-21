@@ -54,12 +54,14 @@ export class LayoutService {
         if (menu.MENUTYPE === 'APP') {
             // 开启加载条
             this.providers.msgService.startAntLoading();
-            router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
+            let params = {
                 queryParams: {
                     refresh: refresh, ID: menu.ID, MENUID: menu.MENUID, MENUNAME: menu.MENUNAME, MENUTYPE: menu.MENUTYPE,
                     ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID, PARAM: menu.param
                 }
-            }).then(() => {
+            };
+            this.providers.logService.info(params);
+            router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER],params ).then(() => {
                 this.providers.msgService.endAntLoading();
             }).catch((error) => {
                 console.log(error);
@@ -90,7 +92,8 @@ export class LayoutService {
      * @param msg 消息体
      *  
      */
-    navMessage(router: Router, msg: Sysmessage) {
+    navMessage(router: Router, msg: Sysmessage):Observable<any> {
+        msg.ISREAD='Y';
         let sourceAid = msg.SOURCEAID ? msg.SOURCEAID : '';
         let menu = this.findMenuByRouter(this.providers.menuService.menus, sourceAid.toLowerCase() + 'Detail');
         if (menu) {
@@ -106,7 +109,7 @@ export class LayoutService {
                 PID: this.sysmessageService.moduleId,
                 HASCHILD: 'N',
                 MENUTYPE: 'APP',
-                ID: 'sysmessageDetail',
+                ID: msg.ID,
                 REMARK: '',
                 MENUID: 'sysmessageDetail',
                 ROUTER: 'sysmessageDetail',
@@ -116,8 +119,10 @@ export class LayoutService {
                 DESCRIPTION: ''
             };
             menu['param'] = msg.ID;
+            console.log(menu);
             this.providers.commonService.event("selectedMenu", menu);
         }
+        return this.sysmessageService.update(msg);
     }
 
     /**

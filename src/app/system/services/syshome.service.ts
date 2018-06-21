@@ -8,6 +8,7 @@ import { SysnavlinkService } from "./sysnavlink.service";
 import { GridApi, Column, ColumnApi } from "ag-grid";
 import { SysannouncementService } from './sysannouncement.service';
 import { SysversionService } from "./sysversion.service";
+import { SysmessageService } from "./sysmessage.service";
 @Injectable()
 export class SyshomeService {
   constructor(
@@ -15,7 +16,8 @@ export class SyshomeService {
     public layoutService: LayoutService,
     public navLinkService: SysnavlinkService,
     public sysversionService: SysversionService,
-    public sysannouncementService: SysannouncementService
+    public sysannouncementService: SysannouncementService,
+    public sysmessageService:SysmessageService
   ) { }
   /**
    * 获取版本信息

@@ -20,22 +20,20 @@ import { SysmessageComponent } from './components/core/sysmessage.component';
 import { SysparamComponent } from './components/core/sysparam.component';
 import { SysroleauthComponent } from './components/core/sysroleauth.component';
 import { SysproductComponent } from './components/core/sysproduct.component';
-import { SysroleComponent } from './components/core/sysrole.component';
-import { HomeComponent } from './components/home/home.component';
-import { SysappdetailComponent } from './components/core/sysappdetail.component';
 import { SysappService } from './services/sysapp.service';
 import { SysproductService } from './services/sysproduct.service';
-import { SysroleuserService } from './services/sysroleauth.service';
 import { SysbackcodeService } from './services/sysbackcode.service';
 import { SyscomponentService } from './services/syscomponent.service';
 import { SysparamService } from './services/sysparam.service';
 import { SysroleService } from './services/sysrole.service';
+import { SysroleComponent } from './components/core/sysrole.component';
+import { HomeComponent } from './components/home/home.component';
+import { SysappdetailComponent } from './components/core/sysappdetail.component';
 import {
   FclistModule, FctlbModule, FclayoutModule, FcbasicModule,
   FcadModule, FcmodalModule, FcsearchModule, FctabModule, FcchartModule
 } from 'fccomponent';
 import { SysappeditComponent } from './components/core/sysappedit.component';
-import { SysroleauthService } from './services/sysroleuser.service';
 import { LayoutService } from './services/layout.service';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SpreadSheetsModule } from '@grapecity/spread-sheets-angular';
@@ -52,12 +50,18 @@ import { SysnavlinkService } from './services/sysnavlink.service';
 import { SysprofileService } from './services/sysprofile.service';
 import { SysprofileComponent } from './components/core/sysprofile.component';
 import { BasicpersoneldialogComponent } from './components/core/basicpersoneldialog.component';
+import { SysroleDialogEditComponent } from './components/core/dialog/sysroleeditdialog.component';
+import { SysroleauthService } from './services/sysroleauth.service';
+import { SysroleuserService } from './services/sysroleuser.service';
 import { SysquotaService } from './services/sysquota.service';
-import { SysquotalistComponent } from './components/core/sysquotalist.component';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
+import { SysquotalistComponent } from './components/core/sysquotalist.component';
 @NgModule({
   entryComponents: [
-    BasicpersoneldialogComponent
+    BasicpersoneldialogComponent,
+    SysroleDialogEditComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent
   ],
   imports: [
     CommonModule,
@@ -100,11 +104,18 @@ import { SysquotaEditComponent } from './components/core/sysquotaedit.component'
     SyscomponentComponent,
     HomeComponent,
     SysversionComponent,
+    SysroleDialogEditComponent,
     SysannouncementComponent,
     SyscompanyComponent,
     SyscompanyeditComponent,
     SysprofileComponent,
     BasicpersoneldialogComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent
+    
+  ],
+  entryComponents: [
+    SysroleDialogEditComponent,
     SysquotalistComponent,
     SysquotaEditComponent
   ],

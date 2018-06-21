@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { ParentService, ProvidersService } from 'fccore';
 import { Observable } from 'rxjs';
 @Injectable()
-export class SysroleuserService extends ParentService {
+export class SysroleauthService extends ParentService {
   constructor(public providers: ProvidersService) {
-    super(providers, "SYSROLEUSER");
+    super(providers, "SYSROLEAUTH");
   } 
 }
 
