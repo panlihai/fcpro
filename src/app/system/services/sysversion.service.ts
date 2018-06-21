@@ -19,6 +19,12 @@ export class SysversionService extends ParentService {
         fcId: "ID"
     };
     /**
+     *  获取版本
+     */
+    findAllVersion():Observable<any>{
+        return this.findWithQueryAll({});
+    }
+    /**
      * 获取版本数据
      */
     getSysversion() {

@@ -1,8 +1,7 @@
 <!-- 个人信息维护 -->
-<fc-layoutpanel class="sysprofile">
+<fc-layoutpanel class="sysprofile" [fcFull]="true">
     <fc-layoutcol fcSpans="3,7" fccontent>
-        <!-- 个人头像 -->
-        <div class="sys-card personel" style="height:180px;margin-top: 10px;" fccontent1>
+        <div class="sys-card personel" fccontent1>
             <!-- 没有上传头像时 -->
             <div class="personel-avatar upload-avatar">
                 <fc-avatar fcSrc="" (click)="editAvatar()"></fc-avatar>
@@ -13,73 +12,109 @@
             </div>
             <div class="text-center personel-user">
                 管理员
-
                 <p>上次登录:2018-6-19 13:17:17</p>
             </div>
-            <div style="position: absolute;top: 10px;right: 10px;">
-                <fc-tag fcLabel="修改密码" (click)="resetPassword()"></fc-tag>
-                <!-- <fc-tooltip fcTitle="修改密码" fcPosition="bottom" style="cursor: pointer;">
-                    <i class="icon iconfont fc-icon-jurisdiction" (click)="resetPassword()" fccontent></i>
-                </fc-tooltip> -->
-            </div>
         </div>
-        <fc-layoutcol fcSpans="1,1" fccontent2>
-            <!--基本信息  -->
-            <div class="sys-card" style="margin-left:10px;height:180px;" fccontent1>
-                <fc-title fcLabel="基本信息" fcBorder="bottom"></fc-title>
-                <fc-tooltip fcTitle="修改基本信息" class="edit-basicinfo" fcPosition="bottom">
-                    <i class="icon iconfont fc-icon-amend" (click)="editBasicPersonel()" fccontent></i>
-                </fc-tooltip>
-                <p class="label">单位：
-                    <span class="label-detail">铁路总公司</span>
-                </p>
-                <p class="label">部门：
-                    <span class="label-detail">实施部</span>
-                </p>
-                <p class="label">人员：
-                    <span class="label-detail">小张</span>
-                </p>
-            </div>
-            <!-- 快速导航 -->
-            <div class="sys-card" style="margin-left: 10px;height: 180px;" fccontent2>
-                <fc-title fcLabel="快速导航" fcBorder="bottom"></fc-title>
-                <div class="fastcontent">
-                    <fc-tag fcClose="true" *ngFor="let navLink of navLinks" style="float: left;margin-right: 20px;margin-bottom: 10px;" [fcLabel]="navLink.LABEL"
-                        (fcEvent)="navLinkEvent($event,navLink)"></fc-tag>
-                    <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addNavLinkTag(contentTpl_navLink,footerTpl_navLink)"
-                        class="add"></fc-button>
+        <div class="sys-card" style="height:120px;margin-top: 10px;" fccontent1>
+            <!-- 待办 -->
+            <div class="widget widget1">
+                <div class="widget-circle widget-circle1">
+                    <fc-icon fcIcon="fc-icon-picture" fcColor="#ffffff" fcFontSize="22px"></fc-icon>
+                </div>
+                <div class="widget-text">
+                    <h3 class="widget-text-title">
+                        <span class="widget-text-number">25</span> 项待办</h3>
+                    <span>未处理</span>
                 </div>
             </div>
-        </fc-layoutcol>
+        </div>
+        <div class="sys-card" style="height:120px;margin-top: 10px;" fccontent1>
+            <!-- 未读消息 -->
+            <div class="widget widget2">
+                <div class="widget-circle widget-circle2">
+                    <fc-icon fcIcon="fc-icon-information" fcColor="#ffffff" fcFontSize="22px"></fc-icon>
+                </div>
+                <div class="widget-text">
+                    <h3 class="widget-text-title">
+                        <span class="widget-text-number">4038</span>条消息</h3>
+                    <span>未读</span>
+                </div>
+            </div>
+        </div>
+        <div class="sys-card" style="height:120px;margin-top: 10px;" fccontent1>
+            <!-- 日志 -->
+            <div class="widget widget3">
+                <div class="widget-circle widget-circle3">
+                    <fc-icon fcIcon="fc-icon-log" fcColor="#ffffff" fcFontSize="22px"></fc-icon>
+                </div>
+                <div class="widget-text">
+                    <h3 class="widget-text-title">
+                        <span class="widget-text-number">28577</span> 条</h3>
+                    <span>操作日志</span>
+                </div>
+            </div>
+        </div>
+        <div class="sys-card" style="margin-left:10px;" fccontent2>
+            <fc-tabmain [fcTabs]="tabmain">
+                <div fccontent1>
+                    <!-- 待办任务 -->
+                    <fc-list fcAppid="SYSASSIGNMENT" [fcFieldCode]="'TASKNAME'" (fcEvent)="tasklistEvent($event)"></fc-list>
+                </div>
+                <div fccontent2>
+                    <!-- 消息 -->
+                    <fc-list fcAppid="SYSMESSAGE" [fcFieldCode]="'CONTENT'"></fc-list>
+                </div>
+                <div fccontent3>
+                    <!-- 个人信息 -->
+                    <fc-tlblist [fcButtons]="[{BTNTYPE:'default',BTNICON:'fc-icon-amend',BTNNAME:'修改',ACTCODE:'edit'}]" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+                    <div class="detail-item">
+                        <span class="detail-label">单位</span>
+                        <span class="label-detail">铁路总公司</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">部门</span>
+                        <span class="label-detail">实施部</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">人员</span>
+                        <span class="label-detail">小张</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">下级单位</span>
+                        <span class="label-detail">越通</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">通讯录</span>
+                        <span class="label-detail">18054343434</span>
+                    </div>
+                </div>
+                <div fccontent4>
+                    <!-- 快速导航 -->
+                    <div class="fastcontent">
+                        <fc-tag fcClose="true" *ngFor="let navLink of navLinks" style="float: left;margin-right: 20px;margin-bottom: 10px;" [fcLabel]="navLink.LABEL"
+                            (fcEvent)="navLinkEvent($event,navLink)"></fc-tag>
+                        <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addNavLinkTag(contentTpl_navLink,footerTpl_navLink)"
+                            class="add"></fc-button>
+                    </div>
+                </div>
+                <div fccontent5>
+                    <!-- 密码 -->
+                    <fc-title fcLabel="修改密码"></fc-title>
+                    <form>
+                        <fc-text fcLabel="原密码" [fcRequired]="true" [(ngModel)]="_lastPwd" [fcValid]="mainValid._lastPwd" name="lastpwd"></fc-text>
+                        <fc-text fcLabel="重置密码" [fcRequired]="true" [(ngModel)]="_newPwd" [fcValid]="mainValid._newPwd" name="resetpwd"></fc-text>
+                        <div style="text-align: center;">
+                            <fc-button fcLabel="重置" fcType="primary"></fc-button>
+                        </div>
+                    </form>
+                </div>
+                <div fccontent6>
+                    <!--日志 -->
+                    <div style="width:100%;height: 300px;padding-left: 10px">
+                        <fc-list fcAppid="SYSLOG" [fcFieldCode]="'HOST'" (fcEvent)="sysloglistEvent($event)"></fc-list>
+                    </div>
+                </div>
+            </fc-tabmain>
+        </div>
     </fc-layoutcol>
-    <fc-layoutcol fcSpans="1,1" fccontent>
-        <!-- 个人信息 -->
-        <div fccontent1>
-            <div class="sys-card" style="margin-top: 10px;">
-                <fc-title fcLabel="消息" fcBorder="bottom"></fc-title>
-                <div style="width:100%;height: 300px;padding-left: 10px;">
-                    <fc-listdata fcAppid="SYSMESSAGE"></fc-listdata>
-                </div>
-            </div>
-        </div>
-        <div fccontent2 style="padding-left: 10px;">
-            <div class="sys-card" style="margin-top: 10px;">
-                <fc-title fcLabel="待办任务" fcBorder="bottom"></fc-title>
-                <div style="width:100%;height: 300px;padding-left: 10px">
-                    <fc-listdata fcAppid="SYSASSIGNMENT"></fc-listdata>
-                </div>
-            </div>
-
-        </div>
-        <!-- 快速定位 -->
-        <div class="fastposition-content" *ngIf="false" fccontent2>
-            <fc-fastposition [fcLinks]="[{href:'id0','label':'快速导航'},{href:'id1','label':'消息'},{href:'id2','label':'待办任务'},{href:'id3','label':'日志'}]"></fc-fastposition>
-        </div>
-    </fc-layoutcol>
-    <div class="sys-card" style="margin-top: 10px;" fccontent>
-        <fc-title fcLabel="日志" fcBorder="bottom"></fc-title>
-        <div style="width:100%;height: 300px;padding-left: 10px">
-            <fc-listdata fcAppid="SYSLOG"></fc-listdata>
-        </div>
-    </div>
 </fc-layoutpanel>

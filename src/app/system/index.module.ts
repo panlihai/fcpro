@@ -61,6 +61,9 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
     BasicpersoneldialogComponent,
     SysroleDialogEditComponent,
     SysquotalistComponent,
+    SysquotaEditComponent,
+    SysroleDialogEditComponent,
+    SysquotalistComponent,
     SysquotaEditComponent
   ],
   imports: [
@@ -113,11 +116,6 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
     SysquotalistComponent,
     SysquotaEditComponent
     
-  ],
-  entryComponents: [
-    SysroleDialogEditComponent,
-    SysquotalistComponent,
-    SysquotaEditComponent
   ],
   providers: [
     LayoutService,

@@ -628,64 +628,39 @@ export class HomeComponent implements OnInit {
     this.mainService.layoutService.navToByMenuId(this.router, url);
   }
   /**
-<<<<<<< HEAD
-   * 时间轴事件
-   * @param event
-   */
-  timelineEvent(event: FCEVENT) {
-    switch (event.eventName) {
-      case "selected": //选中
-        this.navTo('sysversionDetail');
-        this.router.navigate(["/system/sysversionDetail"], {
-          queryParams: { ID: event.param.ID }
-        });
-        break;
-    }
-  }
-  /**
-   * 消息公告点击跳转路由事件
-   * @param event
-   */
-  linkevent(id) {
-    let menu = this.mainService.layoutService.findMenuByRouter(
-      this.mainService.providers.menuService.menus,
-      "sysannouncementDetail"
-    );
-=======
   * 消息公告点击跳转路由事件
   * @param event 
   */
-  linkevent(id,catagory,publishuser) {
+  linkevent(id, catagory, publishuser) {
     // if(publishuser!== this.mainService.providers.userService.getUserInfo().USERCODE){
-      let obj: any = {
-        TS: this.mainService.providers.commonService.getTimestamp(),
-        SORT: this.mainService.providers.commonService.getTimestamp(),
-        POSTTIME: this.mainService.providers.commonService.getTimestamp(),
-        CONTENT: "消息公告"+id+"进行回执",
-        ISREAD: "N",
-        ID: id,
-        TYPE: "",
-        NOTIFICATIONUSERID: publishuser,
-        TITLE: "回执信息",
-        POSTUSERID: this.mainService.providers.userService.getUserInfo().USERCODE
-      };
-      if(catagory==="error"){
-        obj.TYPE = "danger";
-      }
-      if(catagory==="processing"){
-        obj.TYPE = "normal"
-      }
-      if(catagory==="warning"){
-        obj.TYPE = "waring"
-      } 
-      this.mainService.providers.appService.saveObject('SYSMESSAGE', obj).subscribe(res => {
-        if (res.CODE === '0') this.mainService.providers.msgService.success('回执成功');
-        else this.mainService.providers.msgService.error('回执失败')
-      })    
+    let obj: any = {
+      TS: this.mainService.providers.commonService.getTimestamp(),
+      SORT: this.mainService.providers.commonService.getTimestamp(),
+      POSTTIME: this.mainService.providers.commonService.getTimestamp(),
+      CONTENT: "消息公告" + id + "进行回执",
+      ISREAD: "N",
+      ID: id,
+      TYPE: "",
+      NOTIFICATIONUSERID: publishuser,
+      TITLE: "回执信息",
+      POSTUSERID: this.mainService.providers.userService.getUserInfo().USERCODE
+    };
+    if (catagory === "error") {
+      obj.TYPE = "danger";
+    }
+    if (catagory === "processing") {
+      obj.TYPE = "normal"
+    }
+    if (catagory === "warning") {
+      obj.TYPE = "waring"
+    }
+    this.mainService.providers.appService.saveObject('SYSMESSAGE', obj).subscribe(res => {
+      if (res.CODE === '0') this.mainService.providers.msgService.success('回执成功');
+      else this.mainService.providers.msgService.error('回执失败')
+    })
     // }
-    
+
     let menu = this.mainService.layoutService.findMenuByRouter(this.mainService.providers.menuService.menus, 'sysannouncementDetail');
->>>>>>> 99091036d5bcb5d44e30e63403aadf0c1cd86f9d
     if (menu) {
       menu["param"] = id;
       this.mainService.providers.commonService.event("selectedMenu", menu);
@@ -699,15 +674,20 @@ export class HomeComponent implements OnInit {
   /* 时间轴事件
   * @param event
   */
- timelineEvent(event: FCEVENT) {
-   switch (event.eventName) {
-     case "selected": //选中
-       this.router.navigate(["/system/sysversionDetail"], {
-         queryParams: { ID: event.param.ID }
-       });
-       break;
-   }
- }
+  timelineEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case "selected": //选中
+        this.router.navigate(["/system/sysversionDetail"], {
+          queryParams: { ID: event.param.ID }
+        });
+        // let param = {
+        //   ID: event.param.ID,
+        //   ROUTER: "sysversionDetail"
+        // }
+        // this.mainService.providers.commonService.event('selectedMenu', param);
+        break;
+    }
+  }
   /**
    * 聊天面板
    * @param event

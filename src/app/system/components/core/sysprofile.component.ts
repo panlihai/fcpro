@@ -11,6 +11,9 @@ import { GridApi, ColumnApi } from 'ag-grid';
   selector: 'sysprofile',
   templateUrl: 'sysprofile.component.html',
   styles: [`
+  .sysprofile{
+
+  }
   .personel{
 
   }
@@ -83,10 +86,14 @@ import { GridApi, ColumnApi } from 'ag-grid';
   .account-stat-count+span {
     color: #a3afb7;
   }
-  .label{
+  .detail-item{
+    height:32px;
+    line-height:32px;
+  }
+  .detail-item .label{
     color:#000000;
   }
-  .label-detail{
+  .detail-item .label-detail{
     color:#a3afb7;
   }
   .personel-title{
@@ -107,19 +114,65 @@ import { GridApi, ColumnApi } from 'ag-grid';
     box-shadow:0 1px 6px rgba(0,0,0,.2);
     position:relative;
   }
-  .edit-basicinfo{
-    cursor: pointer;
-    position:absolute;
-    right:10px;
-    top:5px;
+  .widget{
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
   }
-  :host ::ng-deep .fc-title[_ngcontent-c23] {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
+  .widget-text{
+    text-align:right;
+    margin-right:20px;
+  }
+  .widget-text-title{
+    font-size:20px;
+  }
+  .widget-circle{
+    width:56px;
+    height:56px;
+    line-height:56px;
+    border-radius:50%;
+    text-align:center;
+    margin-left:20px;
+  }
+  .widget-text-number{
+    font-size:22px;
+  }
+  .widget-circle1{
+    background-color:#FF4D55;
+  }
+  .widget-circle2{
+    background-color:#007EFF;
+  }
+  .widget-circle3{
+    background-color:#52CC7A;
+  }
+  .widget1 .widget-text-number{
+    color:#FF4D55;
+  }
+  .widget2 .widget-text-number{
+    color:#007EFF;
+  }
+  .widget3 .widget-text-number{
+    color:#52CC7A;
+  }
+ 
   `]
 })
 export class SysprofileComponent extends ParentDetailComponent {
+  tabmain = [
+    { name: '待办任务', disabled: false, icon: 'fc-icon-picture' },
+    { name: '消息', disabled: false, icon: 'fc-icon-information' },
+    { name: '个人信息', disabled: false, icon: 'fc-icon-users' },
+    { name: '快速开始', disabled: false, icon: 'fc-icon-repository' },
+    { name: '密码', disabled: false, icon: 'fc-icon-reset' },
+    { name: '日志', disabled: false, icon: 'fc-icon-log' }
+  ];
+  //密码重置
+  _lastPwd: string;
+  _newPwd: string;
+  mainValid: any = {};
   //快速导航
   navLinkListCondition: {};
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
@@ -132,6 +185,7 @@ export class SysprofileComponent extends ParentDetailComponent {
     private modal: NzModalService) {
     super(mainService, router, activedRouter);
   }
+  listdataOptions: any;
   init(): void {
   }
   getDefaultQuery() {
@@ -206,6 +260,12 @@ export class SysprofileComponent extends ParentDetailComponent {
         break;
     }
   }
+  tlblistEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case 'edit':
+        break;
+    }
+  }
   /**
    * 上传个人头像
    */
@@ -259,5 +319,21 @@ export class SysprofileComponent extends ParentDetailComponent {
       }
     }).subscribe(result => {
     })
+  }
+  /**
+   * 待办任务事件
+   * @param param
+   */
+  tasklistEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case '':
+        break;
+    }
+  }
+  sysloglistEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case '':
+        break;
+    }
   }
 }
