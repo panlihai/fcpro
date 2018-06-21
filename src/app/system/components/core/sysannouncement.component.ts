@@ -98,10 +98,10 @@ export class SysannouncementComponent extends ParentlistComponent {
                     })
                 }, () => { })
                 break;
-            case "export": //导出      
+            case "exportexcel": //导出      
                 this.mainService.providers.msgService.message("导出事件触发")
                 break;
-            case "import": //导入
+            case "importexcel": //导入
                 this.mainService.providers.msgService.message("导入事件触发")
                 break;
         }

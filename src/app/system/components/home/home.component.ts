@@ -1,14 +1,6 @@
-import {
-  Component,
-  OnInit,
-  ViewChild
-} from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import {
-  TimelineOptions,
-  FclistdataComponent,
-  Fcmenu
-} from "fccomponent";
+import { TimelineOptions, FclistdataComponent, Fcmenu } from "fccomponent";
 import { FCEVENT } from "fccomponent/fc";
 import { SyshomeService } from "../../services/syshome.service";
 import { NzModalService } from "ng-zorro-antd";
@@ -48,8 +40,6 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
     }
     .home-list{
       width:100%;
-      height:300px;
-      overflow-y:hidden;
     }
     .home-list:hover{
       overflow-y:auto;
@@ -67,6 +57,12 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
     }
     .contact li span{
       font-size:14px;
+    }
+    .todo-taskslist li span{
+      width: 97%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .contact_right{
       color:#399dfb;
@@ -125,6 +121,8 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
     }
     .main_contain{
       margin-top: -10px;
+      height: 250px;
+      overflow: auto;
     }
     .contacticon{
       position: absolute;
@@ -157,10 +155,15 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
   .system-version{
     padding-left:10px;
   }
+  
   .system-version>div{
     width:100%;
     height:300px;
     padding-left:20px;
+  }
+  :host ::ng-deep .system-version .fc-timeline{
+    height:240px;
+    overflow:auto;
   }
   .add {
     display:inline-block;
@@ -345,6 +348,35 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
 :host ::ng-deep .ant-input:focus {
     box-shadow: none;
 }
+:host ::ng-deep .quick-navigation .fc-content{
+  height:110px;
+  overflow:auto;
+}
+:host ::ng-deep .templatehome .separated-lefttop .fc-layoutpanel{
+  background:white;
+  margin: 3px 3px 6px 3px;
+  padding:5px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #ccc;
+  width: auto;
+}
+:host ::ng-deep .templatehome .separated-left .fc-layoutpanel,.templatehome .separated-leftbottom,:host ::ng-deep .templatehome .separated-right .fc-layoutpanel,:host ::ng-deep .templatehome .separated-rightbottom .fc-layoutpanel{
+  background:white;
+  margin: 3px ;
+  padding:5px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #ccc;
+  width: auto;
+}
+:host ::ng-deep .templatehome .separated-rightbottom .fc-layoutpanel {
+  margin:3px;
+}
+.templatehome .work-plan {
+  margin-bottom:6px;
+ }
+ :host ::ng-deep .templatehome .todo-tasks .fc-layoutpanel{
+  margin-bottom:6px;
+ }
     `
   ]
 })
@@ -387,9 +419,9 @@ export class HomeComponent implements OnInit {
   _pieData: number[] = [1692215654.69178, 293107561.643836, 933395486.794522];
   //选项卡
   _tabmain = [
-    { name: '公告', disabled: false },
-    { name: '消息', disabled: false },
-  ]
+    { name: "公告", disabled: false },
+    { name: "消息", disabled: false }
+  ];
   _tabmain2 = [
     { name: "数据统计1", disabled: false },
     { name: "数据统计2", disabled: false },
@@ -487,122 +519,32 @@ export class HomeComponent implements OnInit {
    *动态加载快速导航标签数据;
    */
   initNavLink() {
-    this.mainService.getNavLinks().subscribe(res => {
+    this.mainService.navLinkService.getNavLinks().subscribe(res => {
       if (res.CODE === "0") this.navLinks = res.DATA;
-      this.rebuildList_NavLink();
-      this.refreshNavLink();
-    });
-  }
-  /** YM
-   * 重查询NavLink_listdata数据
-   */
-  rebuildList_NavLink() {
-    let exitsRouters: any = [];
-    this.navLinks.forEach(el => {
-      exitsRouters.push(el.ROUTER);
-    });
-    let s = this.arrayToSqlString(exitsRouters);
-    if (s) {
-      this.navLinkListCondition = {
-        WHERE: `ENABLE='Y' AND APPID!='null' AND APPID!='SYSCOMPONENT' AND MENUTYPE='APP' AND ROUTER!='null' AND ROUTER NOT IN (${s})`
-      };
-    } else {
-      this.navLinkListCondition = {
-        WHERE: `ENABLE='Y' AND APPID!='null' AND APPID!='SYSCOMPONENT' AND MENUTYPE='APP' AND ROUTER!='null'`
-      };
-    }
-  }
-  /** YM
-   * 数组转sql批查询条件
-   * @param array
-   */
-  arrayToSqlString(array: Array<any>) {
-    let str: string = "";
-    for (let i = 0; i < array.length; i++) {
-      str += `'${array[i]}'`;
-      if (i !== array.length - 1) {
-        str += ",";
-      }
-    }
-    return str.toString();
-  }
-  /** YM
-   * 刷新快速导航标签
-   */
-  refreshNavLink() {
-    this.navLinks.forEach(link => {
-      this.mainService.getNavLabel(link).subscribe(res => {
-        if (res.CODE === "0") link["LABEL"] = res.DATA[0].MENUNAME;
-      });
+      this.navLinkListCondition = this.mainService.navLinkService.rebuildList_NavLink(this.navLinks);
+      this.mainService.navLinkService.refreshNavLink(this.navLinks);
     });
   }
   /** YM
    * 新增快速导航标签
    */
   addNavLinkTag(contentTpl, footerTpl) {
-    if (this.navLinks.length < 8) {
-      this.currentModal_navLink = this.nzModal.open({
-        title: "新增快速导航标签",
-        content: contentTpl,
-        footer: footerTpl,
-        style: { width: "50%" },
-        wrapClassName: "vertical-top-modal",
-        maskClosable: false,
-        zIndex: 998,
-        onOk: function () { },
-        onCancel: function () { }
-      });
+    if (this.mainService.navLinkService.addNavLinkTag(this.navLinks, contentTpl, footerTpl, this.navLink_listdata)) {
       setTimeout(() => {
-        let gridApi: GridApi = this.navLink_listdata._gridApi;
         let column: ColumnApi = this.navLink_listdata._gridColumnApi;
         if (column) column.autoSizeAllColumns();
-      });
-    } else {
-      this.nzModal.info({
-        title: "操作提示",
-        content: "快速导航标签不能超过8个",
-        zIndex: 999
       });
     }
   }
   /** YM
    * 处理新增快速导航标签——确定
    */
-  handleAddNavLink_ok(ev: any, listdata: FclistdataComponent) {
-    let gridApi: GridApi = this.navLink_listdata._gridApi;
-    let column: ColumnApi = this.navLink_listdata._gridColumnApi;
-    let selected = gridApi.getSelectedRows();
-    if (selected.length === 0) {
-      this.currentModal_navLink.destroy("onOk");
-      this.currentModal_navLink = null;
-    }
-    let count = this.navLinks.length + selected.length;
-    if (count <= 8) {
-      let saveObjs: any = [];
-      selected.forEach(el => {
-        let saveObj = this.mainService.getNavDefaultObj();
-        for (let key in el) {
-          if (key === "PID") saveObj[key] = el[key];
-          if (key === "ROUTER") saveObj[key] = el[key];
-        }
-        saveObj["CREATETIME"] = this.mainService.getNowTimeStamp() + "";
-        saveObj["LASTMODIFY"] = this.mainService.getNowTimeStamp() + "";
-        saveObj["USERID"] = this.mainService.getNowUserId();
-        saveObj["CATAGORY"] = "private";
-        delete saveObj["ID"];
-        saveObjs.push(saveObj);
-      });
-      this.mainService.saveNavLinks(saveObjs);
+  handleAddNavLink_ok(ev: any) {
+    if (
+      this.mainService.navLinkService.handleAddNavLink_ok(this.navLink_listdata, this.navLinks, this.navLinkListCondition)
+    ) {
       setTimeout(() => {
         this.initNavLink();
-      });
-      this.currentModal_navLink.destroy("onOk");
-      this.currentModal_navLink = null;
-    } else {
-      this.nzModal.info({
-        title: "操作提示",
-        content: "快速导航标签不能超过8个",
-        zIndex: 999
       });
     }
   }
@@ -610,40 +552,27 @@ export class HomeComponent implements OnInit {
    * 处理新增快速导航标签——取消
    */
   handleAddNavLink_cancel(ev: any) {
-    this.currentModal_navLink.destroy("onCancel");
-    this.currentModal_navLink = null;
+    this.mainService.navLinkService.handleAddNavLink_cancel();
   }
   /** YM
    * 快速导航标签事件
    */
-  navLinkEvent(ev: FCEVENT, link) {
+  navLinkEvent(ev: FCEVENT, link: any) {
     switch (ev.eventName) {
       case "close":
         break;
       case "beforeClose":
         event.stopPropagation();
         event.preventDefault();
-        this.nzModal.confirm({
-          title: "操作提示",
-          content: "是否确认删除该快速导航标签？",
-
-          onOk: () => {
-            this.mainService.deleteNavLink(link).subscribe(res => {
-              if (res.CODE === "0")
-                this.mainService.providers.msgService.success("删除成功");
-              else this.mainService.providers.msgService.warm("删除失败");
-            });
-            setTimeout(() => {
-              this.initNavLink();
-            });
-          },
-          onCancel: () => { }
+        this.mainService.navLinkService.deleteSubject.subscribe(res => {
+          if (res) this.initNavLink();
         });
+        this.mainService.navLinkService.navLinkBeforeClose(link);
         break;
       case "click":
         event.stopPropagation();
         event.preventDefault();
-        this.navTo(link.ROUTER);
+        this.mainService.layoutService.navToByMenuId(this.router, link.ROUTER);
         break;
       default:
         break;
@@ -735,26 +664,27 @@ export class HomeComponent implements OnInit {
     
     let menu = this.mainService.layoutService.findMenuByRouter(this.mainService.providers.menuService.menus, 'sysannouncementDetail');
     if (menu) {
-      menu['param'] = id;
+      menu["param"] = id;
       this.mainService.providers.commonService.event("selectedMenu", menu);
     } else {
-      this.mainService.providers.msgService.error('sysannouncementDetail' + '不存在...');
+      this.mainService.providers.msgService.error(
+        "sysannouncementDetail" + "不存在..."
+      );
     }
   }
-  // this.router.navigate(['/system/sysannouncementDetail'], { queryParams: { ID: id } })
-  /**
-  * 时间轴事件
+
+  /* 时间轴事件
   * @param event
   */
-  timelineEvent(event: FCEVENT) {
-    switch (event.eventName) {
-      case "selected": //选中
-        this.router.navigate(["/system/sysversionDetail"], {
-          queryParams: { ID: event.param.ID }
-        });
-        break;
-    }
-  }
+ timelineEvent(event: FCEVENT) {
+   switch (event.eventName) {
+     case "selected": //选中
+       this.router.navigate(["/system/sysversionDetail"], {
+         queryParams: { ID: event.param.ID }
+       });
+       break;
+   }
+ }
   /**
    * 聊天面板
    * @param event
