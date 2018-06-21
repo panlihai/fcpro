@@ -3,9 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SysroleService } from '../../services/sysrole.service';
 import { Sysroleuser } from '../../services/sysroleuser.service';
 import { Sysroleauth } from '../../services/sysroleauth.service';
-import { FCEVENT } from 'fccomponent/fc';
-import { ParentlistComponent } from 'fccomponent/parentlist.component';
 import { FctreeComponent } from 'fccomponent/fcbasic/fctree.component';
+import { ParentlistComponent } from 'fccomponent/parentlist.component';
+import { NzModalService } from 'ng-zorro-antd';
+import { SysroleDialogEditComponent } from './dialog/sysroleeditdialog.component';
+import { PARAMETERS } from '@angular/core/src/util/decorators';
+import { FCEVENT } from 'fccomponent/fc';
 @Component({
   selector: 'sysrole',
   templateUrl: 'sysrole.component.html',
@@ -29,11 +32,15 @@ import { FctreeComponent } from 'fccomponent/fcbasic/fctree.component';
   :host ::ng-deep  .fc-content2>.template-tab-full>nz-tabset>.ant-tabs>.ant-tabs-content{
     overflow:hidden;
   }
+  :host ::ng-deep .ant-tag .anticon-cross {
+    color: red;
+ }
   `]
 })
 export class SysroleComponent extends ParentlistComponent {
   @ViewChild('tree')
   tree: FctreeComponent;
+  selectedRoleId: string;
   selectedObject: any;
   // 选中的角色权限
   roleauthList: Sysroleauth[];
@@ -56,6 +63,7 @@ export class SysroleComponent extends ParentlistComponent {
   formBtnCdc: string = '{"ALLOWTYPE":"AUTH"}';
 
   constructor(public mainService: SysroleService,
+    private modalService: NzModalService,
     public router: Router,
     public activedRouter: ActivatedRoute) {
     super(mainService, router, activedRouter);
@@ -77,23 +85,106 @@ export class SysroleComponent extends ParentlistComponent {
 
   }
   getDefaultQuery() {
-    
+
   }
   event(eventName: string, context: any): void {
 
   }
-
+  /**
+   * 点击工具栏新增事件
+   * @param event 事件
+   */
+  listAdd(event: FCEVENT) {
+    this.modalService.open({
+      title: '编辑角色信息',
+      content: SysroleDialogEditComponent,
+      onOk() { },
+      onCancel() { },
+      footer: false,
+      componentParams: {
+        options: {}
+      }
+    }).subscribe(obj => {
+      if (obj.hasOwnProperty('ROLENAME')) {
+        this.mainService.saveOrUpdateRole(obj).subscribe(result => {
+          this.messageService.message('操作成功！');
+          //重新初始化list组件
+          if (this.listCondition) {
+            this.listCondition = this.listCondition.replace(/(\s*$)/g, "") + " ";
+          }
+        });
+      }
+    });
+  }
   /**
    * 获取选中的角色信息
    * @param event 列表fclist事件句柄
    */
   listEvent(event: FCEVENT) {
     switch (event.eventName) {
+      case 'loaded':
+        if (event.param && event.param.length > 0) {
+          this.selectedObject = event.param[0];
+          this.selectedRoleId = this.selectedObject.ID;
+          this.mainService.createUserConditionByRoleid(this.selectedObject.ROLEID);
+          this.getRoleAuth(true);
+          this.getRoleUser();
+        }
+        break;
       case 'select':
         this.selectedObject = event.param;
         this.mainService.createUserConditionByRoleid(this.selectedObject.ROLEID);
         this.getRoleAuth(true);
         this.getRoleUser();
+        break;
+      case 'listOneDelete':
+        this.messageService.confirm("确认删除记录吗?", () => {
+          let mainObj = event.param;
+          if (this.beforeDelete(mainObj)) {
+            this.mainService.delete({ ID: mainObj.ID }).subscribe(result => {
+              if (result.CODE === '0') {
+                this.afterDelete();
+                this.messageService.message('删除成功！');
+                //重新初始化list组件
+                if (this.listCondition) {
+                  if (this.listCondition.substring(this.listCondition.length - 1) === ' ') {
+                    this.listCondition = this.listCondition.replace(/(\s*$)/g, "");
+                  } else {
+                    this.listCondition = this.listCondition + " ";
+                  }
+                }
+              } else {
+                this.messageService.message('删除失败！');
+              }
+            });
+          }
+        }, () => { });
+        break;
+      case 'listOneEdit':
+        this.modalService.open({
+          title: '编辑角色信息',
+          content: SysroleDialogEditComponent,
+          onOk() { },
+          onCancel() { },
+          footer: false,
+          componentParams: {
+            options: { ID: event.param.ID, REMARK: event.param.REMARK, ROLENAME: event.param.ROLENAME, ROLEID: event.param.ROLEID }
+          }
+        }).subscribe(obj => {
+          if (obj.hasOwnProperty('ROLENAME')) {
+            this.mainService.saveOrUpdateRole(obj).subscribe(result => {
+              this.messageService.message('操作成功！');
+              //重新初始化list组件
+              if (this.listCondition) {
+                if (this.listCondition.substring(this.listCondition.length - 1) === ' ') {
+                  this.listCondition = this.listCondition.replace(/(\s*$)/g, "");
+                } else {
+                  this.listCondition = this.listCondition + " ";
+                }
+              }
+            });
+          }
+        });
         break;
     }
   }

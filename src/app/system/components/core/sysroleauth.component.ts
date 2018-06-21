@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, ParentlistComponent } from 'fccomponent'; 
-import { SysroleauthService } from '../../services/sysroleuser.service';
+import { SysroleauthService } from '../../services/sysroleauth.service';
 @Component({
   selector: 'sysroleauth',
   template: `
