@@ -9,7 +9,13 @@ import { SysquotaService } from "../../services/sysquota.service";
   template: `
   <fc-layoutpanel fcFull="true">
     <fc-tlblist fctoolbar [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-    <fc-listdata fccontent  [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+    <fc-title fctoolbar fcLabel="指标实例"></fc-title>
+    <fc-layoutcol fccontent>
+    <fc-radio fccontent1 fcLabel="条件类型：" [ngModel]="saveObj.CATAGORY" (ngModelChange)="handleChartType_Radio($event)" name="CATAGORY" [fcOption]="ChartType"></fc-radio>
+    <fc-text fccontent2 fcLabel="图表ID：" [(ngModel)]="saveObj.DATAFROMEID" name="DATAFROMEID"></fc-text>
+    <fc-text fccontent1 fcLabel="图表ID：" [(ngModel)]="saveObj.CHARTID" name="CATAGORY"></fc-text>
+
+    </fc-layoutcol>
   </fc-layoutpanel>
     `,
   styles: [
@@ -36,6 +42,8 @@ import { SysquotaService } from "../../services/sysquota.service";
   ]
 })
 export class SysquotalistComponent extends ParentlistComponent {
+  saveObj: object = {};
+  ChartType: any[] = [{ icon: '', label: '线性图', value: '0' }, { icon: '', label: '柱状图', value: '1' }, { icon: '', label: '饼状图', value: '2' }];
   constructor(
     public mainService: SysquotaService,
     public router: Router,
@@ -43,15 +51,31 @@ export class SysquotalistComponent extends ParentlistComponent {
   ) {
     super(mainService, router, activeRoute);
   }
-  init(): void { }
+  init(): void {
+
+   }
   getDefaultQuery() { }
   tlblistEvent(ev: FCEVENT) {
     switch (ev.eventName) {
       case "listAdd":
+
         break;
       default:
         break;
     }
   }
   event(eventName: string, context: any): void { }
+  handleChartType_Radio(ev: FCEVENT) {
+    switch (ev.eventName) {
+      case '0':
+
+        break;
+      case '1':
+
+        break;
+      case '2':
+
+        break;
+    }
+  }
 }
