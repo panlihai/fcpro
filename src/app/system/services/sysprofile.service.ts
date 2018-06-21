@@ -1,15 +1,56 @@
 /* 	个人信息维护服务 */
 import { Injectable } from '@angular/core';
-import { ParentService, ProvidersService, SysappfieldsService } from 'fccore';
+import { ParentService, ProvidersService, SysappfieldsService, Sysmenu } from 'fccore';
 import { Observable } from 'rxjs/Observable';
 import { SysuserService } from './sysuser.service';
 import { SysnavlinkService } from './sysnavlink.service';
+import { Router } from '@angular/router';
+import { Fcmenu } from 'fccomponent';
 @Injectable()
 export class SysprofileService extends ParentService {
   constructor(public providers: ProvidersService,
     public sysuserService: SysuserService,
     public navLinkService: SysnavlinkService, ) {
     super(providers, "SYSAPP");
+  }
+  /**
+     * 
+     * @param menus 
+     * @param menuId 
+     */
+  findMenuByRouter(menus: any[], router: string): Fcmenu {
+    if (menus.length == 0) {
+      return null;
+    }
+    let menu: Sysmenu;
+    let i = 0;
+    do {
+      let item = menus[i];
+      if (item.ROUTER && item.ROUTER === router) {
+        menu = item;
+        break;
+      } else if (item.P_CHILDMENUS && item.P_CHILDMENUS.length !== 0) {
+        menu = this.findMenuByRouter(item.P_CHILDMENUS, router);
+        if (menu) {
+          break;
+        }
+      }
+      i++;
+    } while (i < menus.length);
+    return menu;
+  }
+  /**
+ * 关闭路由并删除路由表
+ * @param router 路由
+ * @param menu 关闭的路由菜单
+ */
+  navToByMenuId(router: Router, menuId: string) {
+    let menu = this.findMenuByRouter(this.providers.menuService.menus, menuId);
+    if (menu) {
+      this.providers.commonService.event("selectedMenu", menu);
+    } else {
+      this.providers.msgService.error(menuId + '不存在...');
+    }
   }
   /** YM
   *  获取快速导航标签数据流

@@ -120,10 +120,11 @@ import { GridApi, ColumnApi } from 'ag-grid';
   `]
 })
 export class SysprofileComponent extends ParentDetailComponent {
+  //快速导航
+  navLinkListCondition: {};
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
   currentModal_navLink: any;
-  navLinkListCondition: {};
-  //快速导航
+  //navLink 标签
   navLinks: any;
   constructor(public mainService: SysprofileService,
     public router: Router,
@@ -132,178 +133,12 @@ export class SysprofileComponent extends ParentDetailComponent {
     super(mainService, router, activedRouter);
   }
   init(): void {
-    this.initNavLink();
   }
   getDefaultQuery() {
   }
   event(eventName: string, context: any): void {
   }
-  /**
-  * YM
-  *动态加载快速导航标签数据;
-  */
-  initNavLink() {
-    this.mainService.getNavLinks().subscribe(res => {
-      if (res.CODE === "0") this.navLinks = res.DATA;
-      this.rebuildList_NavLink();
-      this.refreshNavLink();
-    });
-  }
-  /** YM
-   * 重查询NavLink_listdata数据
-   */
-  rebuildList_NavLink() {
-    let exitsRouters: any = [];
-    this.navLinks.forEach(el => {
-      exitsRouters.push(el.ROUTER);
-    });
-    let s = this.arrayToSqlString(exitsRouters);
-    if (s) {
-      this.navLinkListCondition = {
-        WHERE: `ENABLE='Y' AND APPID!='null' AND APPID!='SYSCOMPONENT' AND MENUTYPE='APP' AND ROUTER!='null' AND ROUTER NOT IN (${s})`
-      };
-    } else {
-      this.navLinkListCondition = {
-        WHERE: `ENABLE='Y' AND APPID!='null' AND APPID!='SYSCOMPONENT' AND MENUTYPE='APP' AND ROUTER!='null'`
-      };
-    }
-  }
-  /** YM
-   * 数组转sql批查询条件
-   * @param array
-   */
-  arrayToSqlString(array: Array<any>) {
-    let str: string = "";
-    for (let i = 0; i < array.length; i++) {
-      str += `'${array[i]}'`;
-      if (i !== array.length - 1) {
-        str += ",";
-      }
-    }
-    return str.toString();
-  }
-  /** YM
-   * 刷新快速导航标签
-   */
-  refreshNavLink() {
-    this.navLinks.forEach(link => {
-      this.mainService.getNavLabel(link).subscribe(res => {
-        if (res.CODE === "0") link["LABEL"] = res.DATA[0].MENUNAME;
-      });
-    });
-  }
-  /** YM
-   * 新增快速导航标签
-   */
-  addNavLinkTag(contentTpl, footerTpl) {
-    if (this.navLinks.length < 8) {
-      this.currentModal_navLink = this.modal.open({
-        title: "新增快速导航标签",
-        content: contentTpl,
-        footer: footerTpl,
-        style: { width: "50%" },
-        wrapClassName: "vertical-top-modal",
-        maskClosable: false,
-        zIndex: 998,
-        onOk: function () { },
-        onCancel: function () { }
-      });
-      setTimeout(() => {
-        let gridApi: GridApi = this.navLink_listdata._gridApi;
-        let column: ColumnApi = this.navLink_listdata._gridColumnApi;
-        if (column) column.autoSizeAllColumns();
-      });
-    } else {
-      this.modal.info({
-        title: "操作提示",
-        content: "快速导航标签不能超过8个",
-        zIndex: 999
-      });
-    }
-  }
-  /** YM
-   * 处理新增快速导航标签——确定
-   */
-  handleAddNavLink_ok(ev: any, listdata: FclistdataComponent) {
-    let gridApi: GridApi = this.navLink_listdata._gridApi;
-    let column: ColumnApi = this.navLink_listdata._gridColumnApi;
-    let selected = gridApi.getSelectedRows();
-    if (selected.length === 0) {
-      this.currentModal_navLink.destroy("onOk");
-      this.currentModal_navLink = null;
-    }
-    let count = this.navLinks.length + selected.length;
-    if (count <= 8) {
-      let saveObjs: any = [];
-      selected.forEach(el => {
-        let saveObj = this.mainService.getNavDefaultObj();
-        for (let key in el) {
-          if (key === "PID") saveObj[key] = el[key];
-          if (key === "ROUTER") saveObj[key] = el[key];
-        }
-        saveObj["CREATETIME"] = this.mainService.getNowTimeStamp() + "";
-        saveObj["LASTMODIFY"] = this.mainService.getNowTimeStamp() + "";
-        saveObj["USERID"] = this.mainService.getNowUserId();
-        saveObj["CATAGORY"] = "private";
-        delete saveObj["ID"];
-        saveObjs.push(saveObj);
-      });
-      this.mainService.saveNavLinks(saveObjs);
-      setTimeout(() => {
-        this.initNavLink();
-      });
-      this.currentModal_navLink.destroy("onOk");
-      this.currentModal_navLink = null;
-    } else {
-      this.modal.info({
-        title: "操作提示",
-        content: "快速导航标签不能超过8个",
-        zIndex: 999
-      });
-    }
-  }
-  /** YM
-   * 处理新增快速导航标签——取消
-   */
-  handleAddNavLink_cancel(ev: any) {
-    this.currentModal_navLink.destroy("onCancel");
-    this.currentModal_navLink = null;
-  }
-  /** YM
-   * 快速导航标签事件
-   */
-  navLinkEvent(ev: FCEVENT, link) {
-    switch (ev.eventName) {
-      case "close":
-        break;
-      case "beforeClose":
-        event.stopPropagation();
-        event.preventDefault();
-        this.modal.confirm({
-          title: "操作提示",
-          content: "是否确认删除该快速导航标签？",
-          onOk: () => {
-            this.mainService.deleteNavLink(link).subscribe(res => {
-              if (res.CODE === "0")
-                this.mainService.providers.msgService.success("删除成功");
-              else this.mainService.providers.msgService.warm("删除失败");
-            });
-            setTimeout(() => {
-              this.initNavLink();
-            });
-          },
-          onCancel: () => { }
-        });
-        break;
-      case "click":
-        event.stopPropagation();
-        event.preventDefault();
-        this.navTo(link.ROUTER);
-        break;
-      default:
-        break;
-    }
-  }
+
   /**
    * 跳转
    * @param url 
@@ -311,7 +146,66 @@ export class SysprofileComponent extends ParentDetailComponent {
   navTo(url: string) {
     // this.mainService.appService.navToByMenuId(this.router, url);
   }
-
+  initNavLink() {
+    this.mainService.navLinkService.getNavLinks().subscribe(res => {
+      if (res.CODE === "0") this.navLinks = res.DATA;
+      this.navLinkListCondition = this.mainService.navLinkService.rebuildList_NavLink(this.navLinks);
+      this.mainService.navLinkService.refreshNavLink(this.navLinks);
+    });
+  }
+  /** YM
+   * 新增快速导航标签
+   */
+  addNavLinkTag(contentTpl, footerTpl) {
+    if (this.mainService.navLinkService.addNavLinkTag(this.navLinks, contentTpl, footerTpl, this.navLink_listdata)) {
+      setTimeout(() => {
+        let column: ColumnApi = this.navLink_listdata._gridColumnApi;
+        if (column) column.autoSizeAllColumns();
+      });
+    }
+  }
+  /** YM
+   * 处理新增快速导航标签——确定
+   */
+  handleAddNavLink_ok(ev: any) {
+    if (
+      this.mainService.navLinkService.handleAddNavLink_ok(this.navLink_listdata, this.navLinks, this.navLinkListCondition)
+    ) {
+      setTimeout(() => {
+        this.initNavLink();
+      });
+    }
+  }
+  /** YM
+   * 处理新增快速导航标签——取消
+   */
+  handleAddNavLink_cancel(ev: any) {
+    this.mainService.navLinkService.handleAddNavLink_cancel();
+  }
+  /** YM
+   * 快速导航标签事件
+   */
+  navLinkEvent(ev: FCEVENT, link: any) {
+    switch (ev.eventName) {
+      case "close":
+        break;
+      case "beforeClose":
+        event.stopPropagation();
+        event.preventDefault();
+        this.mainService.navLinkService.deleteSubject.subscribe(res => {
+          if (res) this.initNavLink();
+        });
+        this.mainService.navLinkService.navLinkBeforeClose(link);
+        break;
+      case "click":
+        event.stopPropagation();
+        event.preventDefault();
+        this.mainService.navToByMenuId(this.router, link.ROUTER);
+        break;
+      default:
+        break;
+    }
+  }
   /**
    * 上传个人头像
    */
