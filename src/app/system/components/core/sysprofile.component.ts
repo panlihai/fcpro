@@ -7,6 +7,8 @@ import { NzModalService } from 'ng-zorro-antd';
 import { BasicpersoneldialogComponent } from './basicpersoneldialog.component';
 import { FCEVENT } from 'fccomponent/fc';
 import { GridApi, ColumnApi } from 'ag-grid';
+import { ProvidersService } from 'fccore';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'sysprofile',
   templateUrl: 'sysprofile.component.html',
@@ -15,7 +17,7 @@ import { GridApi, ColumnApi } from 'ag-grid';
 
   }
   .personel{
-
+    height:100%;
   }
   .personel-avatar{
     text-align:center;
@@ -138,6 +140,7 @@ import { GridApi, ColumnApi } from 'ag-grid';
   }
   .widget-text-number{
     font-size:22px;
+    cursor:pointer;
   }
   .widget-circle1{
     background-color:#FF4D55;
@@ -157,7 +160,35 @@ import { GridApi, ColumnApi } from 'ag-grid';
   .widget3 .widget-text-number{
     color:#52CC7A;
   }
- 
+  .fc-layoutcol{
+
+  }
+  :host ::ng-deep .fc-full>.fc-content>fc-layoutcol>.fc-layoutcol, 
+  :host ::ng-deep .fc-full>.fc-content>fc-layoutcol>.fc-layoutcol>.fc-content1,  
+  :host ::ng-deep .fc-full>.fc-content>fc-layoutcol>.fc-layoutcol>.fc-content2,
+  :host ::ng-deep .left>.fc-layoutrow>div>div{
+    height: 100%;
+  }
+  :host ::ng-deep .sysprofile-tab nz-tabset{
+    height:100%;
+  }
+  :host ::ng-deep .sysprofile-tab .ant-tabs-content{
+    height: calc(100% - 40px);
+  }
+  ant-tabs-content{
+
+  }
+  :host ::ng-deep .sysprofile-tab .ant-tabs-tabpane,
+  :host ::ng-deep .sysprofile-tab .ant-tabs-tabpane>div,
+  .sysprofile-list{
+    width:100%;
+    height:100%;
+  }
+  :host ::ng-deep .sysprofile-list .fc-list{
+    width:100%;
+    height:calc(100% - 40px);
+    overflow:auto;
+  }
   `]
 })
 export class SysprofileComponent extends ParentDetailComponent {
@@ -165,8 +196,8 @@ export class SysprofileComponent extends ParentDetailComponent {
     { name: '待办任务', disabled: false, icon: 'fc-icon-picture' },
     { name: '消息', disabled: false, icon: 'fc-icon-information' },
     { name: '个人信息', disabled: false, icon: 'fc-icon-users' },
-    { name: '快速开始', disabled: false, icon: 'fc-icon-repository' },
-    { name: '密码', disabled: false, icon: 'fc-icon-reset' },
+    { name: '常用功能', disabled: false, icon: 'fc-icon-repository' },
+    { name: '修改密码', disabled: false, icon: 'fc-icon-reset' },
     { name: '日志', disabled: false, icon: 'fc-icon-log' }
   ];
   //密码重置
@@ -175,19 +206,36 @@ export class SysprofileComponent extends ParentDetailComponent {
   mainValid: any = {};
   //快速导航
   navLinkListCondition: {};
+  //个人信息工具栏
+  personelinfotlb: any = [{ BTNTYPE: 'default', BTNICON: 'fc-icon-amend', BTNNAME: '修改', ACTCODE: 'edit' }];
+  //个人信息修改
+  personelEdit: boolean = false;
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
   currentModal_navLink: any;
   //navLink 标签
   navLinks: any;
+  //用户信息
+  userInfo: any;
+  //在线用户
+  signinTime: string;
   constructor(public mainService: SysprofileService,
     public router: Router,
+    private _providers: ProvidersService,
     public activedRouter: ActivatedRoute,
     private modal: NzModalService) {
     super(mainService, router, activedRouter);
   }
   listdataOptions: any;
   init(): void {
+    //获取用户信息
+    this.userInfo = this.userInfo;
+    this.mainService.getSigninTime().subscribe(result => {
+      if (result.CODE === '0') {
+        this.signinTime = result.DATA.LOGTIME;
+      }
+    })
   }
+
   getDefaultQuery() {
   }
   event(eventName: string, context: any): void {
@@ -200,69 +248,43 @@ export class SysprofileComponent extends ParentDetailComponent {
   navTo(url: string) {
     // this.mainService.appService.navToByMenuId(this.router, url);
   }
-  initNavLink() {
-    this.mainService.navLinkService.getNavLinks().subscribe(res => {
-      if (res.CODE === "0") this.navLinks = res.DATA;
-      this.navLinkListCondition = this.mainService.navLinkService.rebuildList_NavLink(this.navLinks);
-      this.mainService.navLinkService.refreshNavLink(this.navLinks);
-    });
-  }
   /** YM
    * 新增快速导航标签
    */
   addNavLinkTag(contentTpl, footerTpl) {
-    if (this.mainService.navLinkService.addNavLinkTag(this.navLinks, contentTpl, footerTpl, this.navLink_listdata)) {
-      setTimeout(() => {
-        let column: ColumnApi = this.navLink_listdata._gridColumnApi;
-        if (column) column.autoSizeAllColumns();
-      });
-    }
+
   }
   /** YM
    * 处理新增快速导航标签——确定
    */
   handleAddNavLink_ok(ev: any) {
-    if (
-      this.mainService.navLinkService.handleAddNavLink_ok(this.navLink_listdata, this.navLinks, this.navLinkListCondition)
-    ) {
-      setTimeout(() => {
-        this.initNavLink();
-      });
-    }
+
   }
   /** YM
    * 处理新增快速导航标签——取消
    */
   handleAddNavLink_cancel(ev: any) {
-    this.mainService.navLinkService.handleAddNavLink_cancel();
+
   }
   /** YM
    * 快速导航标签事件
    */
   navLinkEvent(ev: FCEVENT, link: any) {
-    switch (ev.eventName) {
-      case "close":
-        break;
-      case "beforeClose":
-        event.stopPropagation();
-        event.preventDefault();
-        this.mainService.navLinkService.deleteSubject.subscribe(res => {
-          if (res) this.initNavLink();
-        });
-        this.mainService.navLinkService.navLinkBeforeClose(link);
-        break;
-      case "click":
-        event.stopPropagation();
-        event.preventDefault();
-        this.mainService.navToByMenuId(this.router, link.ROUTER);
-        break;
-      default:
-        break;
-    }
+
   }
+  /**
+   * 个人信息事件
+   * @param event 
+   */
   tlblistEvent(event: FCEVENT) {
     switch (event.eventName) {
       case 'edit':
+        this.personelinfotlb = [{ BTNTYPE: 'default', BTNICON: 'fc-icon-save', BTNNAME: '保存', ACTCODE: 'save' }];
+        this.personelEdit = true;
+        break;
+      case 'save':
+        this.personelinfotlb = [{ BTNTYPE: 'default', BTNICON: 'fc-icon-amend', BTNNAME: '修改', ACTCODE: 'edit' }];
+        this.personelEdit = false;
         break;
     }
   }
@@ -335,5 +357,48 @@ export class SysprofileComponent extends ParentDetailComponent {
       case '':
         break;
     }
+  }
+  taskpaginationEvent(event: FCEVENT) {
+    switch (event.eventName) {
+
+    }
+  }
+  msgpaginationEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case 'pageSizeChange'://每页显示多少条
+
+        break;
+      case 'jumpPage':
+        //跳到第几页,第一次进来时不要触发，否则fcReflesh()会执行两次
+
+        break;
+    }
+  }
+  /**
+   * 跳转到待办
+   */
+  navToAssignment() {
+    this._providers.commonService.event('selectedMenu', {
+      ID: '', MENUID: 'ASSIGNMENT', ROUTER: 'sysassignmentList',
+      PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '待办任务', MENUICON: 'fc-icon-bgefficiency'
+    });
+  }
+  /**
+   * 跳转到消息
+   */
+  navToMessage() {
+    this._providers.commonService.event('selectedMenu', {
+      ID: '', MENUID: 'SYSMESSAGE', ROUTER: 'sysmessageDetail',
+      PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '消息详情', MENUICON: 'fc-icon-bgefficiency'
+    });
+  }
+  /**
+   * 跳转到系统日志
+   */
+  navToSyslog() {
+    this._providers.commonService.event('selectedMenu', {
+      ID: '', MENUID: 'SYSLOG', ROUTER: 'syslogList',
+      PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '访问日志', MENUICON: 'fc-icon-bgefficiency'
+    });
   }
 }

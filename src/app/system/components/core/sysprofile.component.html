@@ -1,92 +1,112 @@
 <!-- 个人信息维护 -->
 <fc-layoutpanel class="sysprofile" [fcFull]="true">
     <fc-layoutcol fcSpans="3,7" fccontent>
-        <div class="sys-card personel" fccontent1>
-            <!-- 没有上传头像时 -->
-            <div class="personel-avatar upload-avatar">
-                <fc-avatar fcSrc="" (click)="editAvatar()"></fc-avatar>
-            </div>
-            <!-- 修改头像时 -->
-            <div class="personel-avatar edit-avatar" *ngIf="false">
-                <fc-avatar fcSrc="assets/img/github.jpg" (click)="uploadAvatar()"></fc-avatar>
-            </div>
-            <div class="text-center personel-user">
-                管理员
-                <p>上次登录:2018-6-19 13:17:17</p>
-            </div>
-        </div>
-        <div class="sys-card" style="height:120px;margin-top: 10px;" fccontent1>
-            <!-- 待办 -->
-            <div class="widget widget1">
-                <div class="widget-circle widget-circle1">
-                    <fc-icon fcIcon="fc-icon-picture" fcColor="#ffffff" fcFontSize="22px"></fc-icon>
+        <fc-layoutrow fcSpan="200" class="left" fccontent1>
+            <div class="sys-card personel" fccontent1>
+                <!-- 没有上传头像时 -->
+                <div class="personel-avatar upload-avatar">
+                    <fc-avatar fcSrc="" (click)="editAvatar()"></fc-avatar>
                 </div>
-                <div class="widget-text">
-                    <h3 class="widget-text-title">
-                        <span class="widget-text-number">25</span> 项待办</h3>
-                    <span>未处理</span>
+                <!-- 修改头像时 -->
+                <div class="personel-avatar edit-avatar" *ngIf="false">
+                    <fc-avatar fcSrc="assets/img/github.jpg" (click)="uploadAvatar()"></fc-avatar>
+                </div>
+                <div class="text-center personel-user">
+                    {{userInfo.NAME}} | {{userInfo.REMARK}}
+                    <p>上次登录:{{signinTime}}</p>
                 </div>
             </div>
-        </div>
-        <div class="sys-card" style="height:120px;margin-top: 10px;" fccontent1>
-            <!-- 未读消息 -->
-            <div class="widget widget2">
-                <div class="widget-circle widget-circle2">
-                    <fc-icon fcIcon="fc-icon-information" fcColor="#ffffff" fcFontSize="22px"></fc-icon>
+            <div fccontent2>
+                <div class="sys-card" style="height:33.33%;margin-top: 10px;">
+                    <!-- 待办 -->
+                    <div class="widget widget1">
+                        <div class="widget-circle widget-circle1">
+                            <fc-icon fcIcon="fc-icon-picture" fcColor="#ffffff" fcFontSize="22px"></fc-icon>
+                        </div>
+                        <div class="widget-text">
+                            <h3 class="widget-text-title">
+                                <span class="widget-text-number">25</span> 项待办</h3>
+                            <span>未处理</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="widget-text">
-                    <h3 class="widget-text-title">
-                        <span class="widget-text-number">4038</span>条消息</h3>
-                    <span>未读</span>
+                <div class="sys-card" style="height:33.33%;margin-top: 10px;">
+                    <!-- 未读消息 -->
+                    <div class="widget widget2">
+                        <div class="widget-circle widget-circle2">
+                            <fc-icon fcIcon="fc-icon-information" fcColor="#ffffff" fcFontSize="22px"></fc-icon>
+                        </div>
+                        <div class="widget-text">
+                            <h3 class="widget-text-title">
+                                <span class="widget-text-number">4038</span>条消息</h3>
+                            <span>未读</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sys-card" style="height:33.33%;margin-top: 10px;">
+                    <!-- 日志 -->
+                    <div class="widget widget3">
+                        <div class="widget-circle widget-circle3">
+                            <fc-icon fcIcon="fc-icon-log" fcColor="#ffffff" fcFontSize="22px"></fc-icon>
+                        </div>
+                        <div class="widget-text">
+                            <h3 class="widget-text-title">
+                                <span class="widget-text-number" (click)="navToMessage();">28577</span> 条</h3>
+                            <span>操作日志</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="sys-card" style="height:120px;margin-top: 10px;" fccontent1>
-            <!-- 日志 -->
-            <div class="widget widget3">
-                <div class="widget-circle widget-circle3">
-                    <fc-icon fcIcon="fc-icon-log" fcColor="#ffffff" fcFontSize="22px"></fc-icon>
-                </div>
-                <div class="widget-text">
-                    <h3 class="widget-text-title">
-                        <span class="widget-text-number">28577</span> 条</h3>
-                    <span>操作日志</span>
-                </div>
-            </div>
-        </div>
-        <div class="sys-card" style="margin-left:10px;" fccontent2>
-            <fc-tabmain [fcTabs]="tabmain">
-                <div fccontent1>
+        </fc-layoutrow>
+        <div class="sys-card" style="height:100%;margin-left:10px;" fccontent2>
+            <fc-tabmain [fcTabs]="tabmain" class="sysprofile-tab" style="height:100%;">
+                <div class="sysprofile-list" fccontent1>
                     <!-- 待办任务 -->
                     <fc-list fcAppid="SYSASSIGNMENT" [fcFieldCode]="'TASKNAME'" (fcEvent)="tasklistEvent($event)"></fc-list>
+                    <fc-pagination [fcTotal]="_pageTotal" [fcPageIndex]="_pageNum" [fcPageSize]="_pageSize" [fcSize]="fcSize" [fcPageSizeSelectorValues]="fcPageSizeSelectorValues"
+                        (fcEvent)="taskpaginationEvent($event)"></fc-pagination>
                 </div>
-                <div fccontent2>
+                <div class="sysprofile-list" fccontent2>
                     <!-- 消息 -->
                     <fc-list fcAppid="SYSMESSAGE" [fcFieldCode]="'CONTENT'"></fc-list>
+                    <fc-pagination [fcTotal]="_pageTotal" [fcPageIndex]="_pageNum" [fcPageSize]="_pageSize" [fcSize]="fcSize" [fcPageSizeSelectorValues]="fcPageSizeSelectorValues"
+                        (fcEvent)="msgpaginationEvent($event)"></fc-pagination>
                 </div>
                 <div fccontent3>
                     <!-- 个人信息 -->
-                    <fc-tlblist [fcButtons]="[{BTNTYPE:'default',BTNICON:'fc-icon-amend',BTNNAME:'修改',ACTCODE:'edit'}]" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-                    <div class="detail-item">
-                        <span class="detail-label">单位</span>
-                        <span class="label-detail">铁路总公司</span>
+                    <div class="view-personelinfo" [hidden]="personelEdit">
+                        <fc-tlblist [fcButtons]="[{ BTNTYPE: 'default', BTNICON: 'fc-icon-amend', BTNNAME: '修改', ACTCODE: 'edit' }]" style="margin-top: 10px;display:block;"
+                            (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+                        <div class="detail-item">
+                            <span class="detail-label">单位</span>
+                            <span class="label-detail">铁路总公司</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">部门</span>
+                            <span class="label-detail">实施部</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">人员</span>
+                            <span class="label-detail">小张</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">下级单位</span>
+                            <span class="label-detail">越通</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">通讯录</span>
+                            <span class="label-detail">18054343434</span>
+                        </div>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">部门</span>
-                        <span class="label-detail">实施部</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">人员</span>
-                        <span class="label-detail">小张</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">下级单位</span>
-                        <span class="label-detail">越通</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">通讯录</span>
-                        <span class="label-detail">18054343434</span>
-                    </div>
+                    <form class="edit-personelinfo" [hidden]="!personelEdit">
+                        <fc-tlblist [fcButtons]="[{ BTNTYPE: 'default', BTNICON: 'fc-icon-save', BTNNAME: '保存', ACTCODE: 'save' }]" style="margin-top: 10px;display:block;"
+                            (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+                        <fc-text fcLabel="单位" name="info1"></fc-text>
+                        <fc-text fcLabel="部门" name="info2"></fc-text>
+                        <fc-text fcLabel="人员" name="info3"></fc-text>
+                        <fc-text fcLabel="下级单位" name="info4"></fc-text>
+                        <fc-text fcLabel="通讯录" name="info5"></fc-text>
+                    </form>
                 </div>
                 <div fccontent4>
                     <!-- 快速导航 -->
@@ -99,7 +119,6 @@
                 </div>
                 <div fccontent5>
                     <!-- 密码 -->
-                    <fc-title fcLabel="修改密码"></fc-title>
                     <form>
                         <fc-text fcLabel="原密码" [fcRequired]="true" [(ngModel)]="_lastPwd" [fcValid]="mainValid._lastPwd" name="lastpwd"></fc-text>
                         <fc-text fcLabel="重置密码" [fcRequired]="true" [(ngModel)]="_newPwd" [fcValid]="mainValid._newPwd" name="resetpwd"></fc-text>
@@ -110,8 +129,10 @@
                 </div>
                 <div fccontent6>
                     <!--日志 -->
-                    <div style="width:100%;height: 300px;padding-left: 10px">
-                        <fc-list fcAppid="SYSLOG" [fcFieldCode]="'HOST'" (fcEvent)="sysloglistEvent($event)"></fc-list>
+                    <div class="sysprofile-list">
+                        <fc-list fcAppid="SYSLOG" fcFieldCode="LOGID" (fcEvent)="sysloglistEvent($event)"></fc-list>
+                        <fc-pagination [fcTotal]="_pageTotal" [fcPageIndex]="_pageNum" [fcPageSize]="_pageSize" [fcSize]="fcSize" [fcPageSizeSelectorValues]="fcPageSizeSelectorValues"
+                            (fcEvent)="taskpaginationEvent($event)"></fc-pagination>
                     </div>
                 </div>
             </fc-tabmain>

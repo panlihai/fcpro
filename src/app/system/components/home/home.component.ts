@@ -6,7 +6,7 @@ import { SyshomeService } from "../../services/syshome.service";
 import { NzModalService } from "ng-zorro-antd";
 import { GridApi, ColumnApi } from "ag-grid";
 import { environment } from "../../../../environments/environment";
-import { Sysmenu } from "fccore";
+import { Sysmenu, ProvidersService } from "fccore";
 import { NavLinkFunctionName, Args_NavLink } from "../../services/sysnavlink.service";
 import { element } from "protractor";
 import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
@@ -475,6 +475,7 @@ export class HomeComponent implements OnInit {
   constructor(
     public mainService: SyshomeService,
     public router: Router,
+    private _providers: ProvidersService,
     public activedRoute: ActivatedRoute,
     private _router: Router,
     private nzModal: NzModalService
@@ -676,20 +677,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  /* 时间轴事件
+  /* 版本控制时间轴事件
   * @param event
   */
   timelineEvent(event: FCEVENT) {
     switch (event.eventName) {
       case "selected": //选中
-        this.router.navigate(["/system/sysversionDetail"], {
-          queryParams: { ID: event.param.ID }
+        this._providers.commonService.event('selectedMenu', {//跳转到版本控制详情界面
+          ID: event.param.ID, MENUID: 'SYSVERSION', ROUTER: 'sysversionDetail',
+          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '版本控制', MENUICON: 'fc-icon-bgefficiency'
         });
-        // let param = {
-        //   ID: event.param.ID,
-        //   ROUTER: "sysversionDetail"
-        // }
-        // this.mainService.providers.commonService.event('selectedMenu', param);
         break;
     }
   }

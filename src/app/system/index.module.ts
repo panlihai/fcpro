@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Routers } from './index.route';
-import { MessageService } from 'fccore';
 import { MainComponent } from './components/main/main.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -56,6 +55,9 @@ import { SysroleuserService } from './services/sysroleuser.service';
 import { SysquotaService } from './services/sysquota.service';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
+import { SyslogComponent } from './components/core/syslog.component';
+import { SyslogService } from './services/syslog.service';
+import { SyssessionService } from './services/syssession.service';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -114,8 +116,8 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
     SysprofileComponent,
     BasicpersoneldialogComponent,
     SysquotalistComponent,
-    SysquotaEditComponent
-    
+    SysquotaEditComponent,
+    SyslogComponent
   ],
   providers: [
     LayoutService,
@@ -136,7 +138,9 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
     SyscompanyService,
     SysnavlinkService,
     SysprofileService,
-    SysquotaService
+    SysquotaService,
+    SyslogService,
+    SyssessionService
   ]
 })
 export class SystemModule {

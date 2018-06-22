@@ -3,15 +3,21 @@ import { Injectable } from '@angular/core';
 import { ParentService, ProvidersService, SysappfieldsService, Sysmenu } from 'fccore';
 import { Observable } from 'rxjs/Observable';
 import { SysuserService } from './sysuser.service';
-import { SysnavlinkService } from './sysnavlink.service';
 import { Router } from '@angular/router';
 import { Fcmenu } from 'fccomponent';
+import { SyssessionService } from './syssession.service';
+import { SysnavlinkService } from './sysnavlink.service';
 @Injectable()
 export class SysprofileService extends ParentService {
   constructor(public providers: ProvidersService,
     public sysuserService: SysuserService,
-    public navLinkService: SysnavlinkService, ) {
+    public sysnavLinkService: SysnavlinkService,
+    public syssessionService: SyssessionService) {
     super(providers, "SYSAPP");
+  }
+  //获取在线用户登录时间
+  getSigninTime(): Observable<any> {
+    return this.syssessionService.getSyssession();
   }
   /**
      * 
@@ -56,14 +62,14 @@ export class SysprofileService extends ParentService {
   *  获取快速导航标签数据流
   */
   getNavLinks() {
-    return this.navLinkService.findWithQuery({});
+    return this.sysnavLinkService.findWithQuery({});
   }
   /** YM
    *  初始化NavLink OBJ
    */
   getNavDefaultObj() {
     return this.providers.appService.initObjDefaultValue(
-      this.navLinkService.app
+      this.sysnavLinkService.app
     );
   }
   /** YM
@@ -83,7 +89,7 @@ export class SysprofileService extends ParentService {
    */
   saveNavLinks(saveObjs) {
     saveObjs.forEach(el => {
-      this.navLinkService.save(el).subscribe(res => {
+      this.sysnavLinkService.save(el).subscribe(res => {
         if (res.CODE === "0") {
           this.providers.msgService.success("快速导航标签更新成功");
         } else {
@@ -104,7 +110,7 @@ export class SysprofileService extends ParentService {
    *  删除快速导航标签
    */
   deleteNavLink(link) {
-    return this.navLinkService.delete(link);
+    return this.sysnavLinkService.delete(link);
   }
   /** YM
    *  获取系统子菜单数据用于快速导航标签
