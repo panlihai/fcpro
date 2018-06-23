@@ -23,6 +23,7 @@ import { SysannouncementComponent } from './components/core/sysannouncement.comp
 import { SyscompanyComponent } from './components/core/syscompany.component';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
+import { SysassignmentComponent } from './components/core/sysassignment.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -96,6 +97,10 @@ export const Routers: Routes = [{
     component: SysannouncementComponent,
     data: { keep: false }
 }, {
+    path: 'sysassignmentDetail',//消息公告
+    component: SysassignmentComponent,
+    data: { keep: false }
+}, {
     path: 'sysbackcodeList',//全局返回码
     component: SysbackcodeComponent,
     data: { keep: false }
@@ -103,14 +108,6 @@ export const Routers: Routes = [{
     path: 'syscomponentList',//平台组件
     component: SyscomponentComponent,
     data: { keep: false }
-}, {
-    path: 'syscomponentList',//公司
-    component: SyscompanyComponent,
-    data: { keep: false }
-},{
-  path: 'sysquotaList',//指标列表
-  component: SysquotalistComponent,
-  data: { keep: false }
 },{
   path: 'sysquotaEdit',//指标编辑
   component: SysquotaEditComponent,

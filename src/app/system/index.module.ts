@@ -53,6 +53,8 @@ import { SysroleuserService } from './services/sysroleuser.service';
 import { SysquotaService } from './services/sysquota.service';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
+import { SysassignmentService } from './services/sysassignment.service';
+import { SysassignmentComponent } from './components/core/sysassignment.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -100,8 +102,8 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
     SyscompanyComponent,
     SyscompanyeditComponent,
     SysquotalistComponent,
-    SysquotaEditComponent
-    
+    SysquotaEditComponent,
+    SysassignmentComponent
   ],
   entryComponents: [
     SysroleDialogEditComponent,
@@ -126,7 +128,8 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
     SysannouncementService,
     SyscompanyService,
     SysnavlinkService,
-    SysquotaService
+    SysquotaService,
+    SysassignmentService
   ]
 })
 export class SystemModule {
