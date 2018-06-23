@@ -1,6 +1,6 @@
 /* 	个人信息维护服务 */
 import { Injectable } from '@angular/core';
-import { ParentService, ProvidersService, SysappfieldsService, Sysmenu } from 'fccore';
+import { ParentService, ProvidersService, SysappfieldsService, Sysmenu, Sysmessage } from 'fccore';
 import { Observable } from 'rxjs/Observable';
 import { SysuserService } from './sysuser.service';
 import { SyssessionService } from './syssession.service';
@@ -9,6 +9,7 @@ import { SyslogService } from './syslog.service';
 import { SyscompanyService } from './syscompany.service';
 import { SysemployService } from './sysemploy.service';
 import { SysnavlinkService, Args_NavLink, NavLinkFunctionName } from './sysnavlink.service';
+import { SysassignmentService } from './sysassignment.service';
 @Injectable()
 export class SysprofileService extends ParentService {
   constructor(public providers: ProvidersService,
@@ -18,7 +19,8 @@ export class SysprofileService extends ParentService {
     public sysmessageService: SysmessageService,
     public syslogService: SyslogService,
     public syscompanyService: SyscompanyService,
-    public sysemployService: SysemployService
+    public sysemployService: SysemployService,
+    public sysassignmentService: SysassignmentService
   ) {
     super(providers, "SYSUSER");
   }
@@ -34,12 +36,76 @@ export class SysprofileService extends ParentService {
     this.sysuserService.doReset(event);
   }
   /**
-   * 
+   * 消息
    * @param pageNum 分页
    * @param pageSize 分页大小
    */
   getSysmsg(pageNum: number, pageSize: number): Observable<any> {
-    return this.sysuserService.findWithQuery({ pageSize: pageSize, pageNum: pageNum });
+    return this.sysmessageService.findWithQuery({ pageSize: pageSize, pageNum: pageNum });
+  }
+  /**
+   * 消息被点击后已读
+   * @param msg 
+   */
+  msgIsRead(msg: Sysmessage): Observable<any> {
+    msg.ISREAD = 'Y';
+    msg.TYPE = 'default';
+    return this.sysmessageService.update(msg);
+  }
+  /**
+   * 根据id删除消息
+   * @param id 
+   */
+  deleteSysmsg(id: string): Observable<any> {
+    return this.sysmessageService.delete({ ID: id });
+  }
+  /**
+   * 待办
+   * @param pageNum 分页
+   * @param pageSize 分页大小
+   */
+  getSystask(pageNum: number, pageSize: number): Observable<any> {
+    return this.sysassignmentService.findWithQuery({ pageSize: pageSize, pageNum: pageNum });
+  }
+  /**
+ * 根据id删除任务
+ * @param id 
+ */
+  deleteSystask(id: string): Observable<any> {
+    return this.sysassignmentService.delete({ ID: id });
+  }
+  /**
+ * 处理待办任务
+ * @param msg 
+ */
+  handleTask(id: string): Observable<any> {
+    return this.sysassignmentService.update({ ID: id });
+  }
+  /**
+   * 日志
+   * @param pageNum 分页
+   * @param pageSize 分页大小
+   */
+  getSyslog(pageNum: number, pageSize: number): Observable<any> {
+    return this.syslogService.findWithQuery({ pageSize: pageSize, pageNum: pageNum });
+  }
+  /**
+   * 查询人员信息
+   */
+  getSysemployee(): Observable<any> {
+    return this.sysemployService.findWithQuery({});
+  }
+  getSysuser(userId: string): Observable<any> {
+    return this.sysuserService.findWithQuery({ ID: userId });
+  }
+  /**
+   * 修改个人信息
+   * @param obj 
+   */
+  editPersonelInfo(obj: any): Observable<any> {
+    return this.providers.commonService.createObservableJoin([
+      this.sysuserService.update(obj)
+    ])
   }
   /**
    * 删除一条消息记录

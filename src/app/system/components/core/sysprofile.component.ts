@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {  FclistdataComponent, ParentDetailComponent } from 'fccomponent';
+import { FclistdataComponent, ParentDetailComponent } from 'fccomponent';
 import { SysprofileService } from '../../services/sysprofile.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { FCEVENT } from 'fccomponent/fc';
@@ -12,9 +12,6 @@ import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.ser
   selector: 'sysprofile',
   templateUrl: 'sysprofile.component.html',
   styles: [`
-  .sysprofile{
-
-  }
   .personel{
     height:100%;
   }
@@ -57,7 +54,8 @@ import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.ser
     left:0;
     display:none;
   }
-  :host ::ng-deep .personel-avatar .fc-avatar:hover::before,:host ::ng-deep .personel-avatar .fc-avatar:hover::after{
+  :host ::ng-deep .personel-avatar .fc-avatar:hover::before,
+  :host ::ng-deep .personel-avatar .fc-avatar:hover::after{
     display:block;
   }
   .text-center{
@@ -66,17 +64,6 @@ import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.ser
   .personel-user{
     color:#000000;
     font-size:20px;
-  }
-  .flex-3{
-    display:flex;
-    justify-content:space-between;
-    margin-top:20px;
-    padding: 10px;
-    background-color: #f6f9fd;
-  }
-  .flex-3-item{
-    width:33.33%;
-    text-align:center;
   }
   .personel-account{
     font-size:20px;
@@ -87,16 +74,9 @@ import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.ser
   .account-stat-count+span {
     color: #a3afb7;
   }
-  .personel-title{
-   
-  }
   .personel-title span{
     font-size: 18px;
     font-weight: 700;
-  }
-  :host ::ng-deep .personel .fc-tooltip-default .iconfont{
-    font-size: 18px;
-    color: #3889FF;
   }
   .sys-card{
     background-color:#fff;
@@ -149,9 +129,6 @@ import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.ser
   .widget3 .widget-text-number{
     color:#52CC7A;
   }
-  .fc-layoutcol{
-
-  }
   :host ::ng-deep .fc-full>.fc-content>fc-layoutcol>.fc-layoutcol, 
   :host ::ng-deep .fc-full>.fc-content>fc-layoutcol>.fc-layoutcol>.fc-content1,  
   :host ::ng-deep .fc-full>.fc-content>fc-layoutcol>.fc-layoutcol>.fc-content2,
@@ -163,9 +140,6 @@ import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.ser
   }
   :host ::ng-deep .sysprofile-tab .ant-tabs-content{
     height: calc(100% - 40px);
-  }
-  ant-tabs-content{
-
   }
   :host ::ng-deep .sysprofile-tab .ant-tabs-tabpane,
   :host ::ng-deep .sysprofile-tab .ant-tabs-tabpane>div,
@@ -184,7 +158,7 @@ import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.ser
     text-align: center;
     margin-top:40px;
   }
-  .view-personelinfo{
+  .view-personelinfo,.edit-personelinfo{
     overflow-y: auto;
     height: 100%;
     overflow-x: hidden;
@@ -202,10 +176,10 @@ export class SysprofileComponent extends ParentDetailComponent {
     { name: '日志', disabled: false, icon: 'fc-icon-log' }
   ];
   //密码重置
-  _lastPwd: string;
-  _newPwd: string;
+  lastPwd: string;
+  newPwd: string;
   mainValid: any = {};
-  //快速导航，过滤
+  //快速导航，过滤 
   navLinkListCondition: any;
   links: any;
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
@@ -218,12 +192,11 @@ export class SysprofileComponent extends ParentDetailComponent {
   userInfo: any;
   //在线用户
   signinTime: string;
-  //用户
-  sysuserObj: any;
   //人员
   sysemployeeObj: any;
+  //用户
+  sysuserObj: any;
   //部门
-
   //单位
   syscompanyObj: any;
   //消息分页总数
@@ -232,6 +205,30 @@ export class SysprofileComponent extends ParentDetailComponent {
   msgPageNum: number;
   //消息分页大小
   msgPageSize: number;
+  //待办任务分页总数
+  taskPageTotal: number;
+  //待办任务分页索引
+  taskPageNum: number;
+  //待办任务分页大小
+  taskPageSize: number;
+  //日志分页总数
+  logPageTotal: number;
+  //日志分页索引
+  logPageNum: number;
+  //日志分页大小
+  logPageSize: number;
+  //消息过滤
+  msglistCondition: string;
+  //待办过滤
+  tasklistCondition: string;
+  //日志过滤
+  loglistCondition: string;
+  //重置密码对象
+  passwordObj: any;
+  //头像区域的用户名
+  avaterUserName: string;
+  //头像区域的备注
+  avaterUserRemark: string;
   constructor(public mainService: SysprofileService,
     public router: Router,
     private _providers: ProvidersService,
@@ -239,10 +236,8 @@ export class SysprofileComponent extends ParentDetailComponent {
     private modal: NzModalService) {
     super(mainService, router, activedRouter);
   }
-  listdataOptions: any;
   init(): void {
-    //获取用户信息
-    this.userInfo = this.userInfo;
+    //获取登录时间
     this.mainService.getSigninTime().subscribe(result => {
       if (result.CODE === '0') {
         this.signinTime = result.DATA.LOGTIME;
@@ -250,17 +245,77 @@ export class SysprofileComponent extends ParentDetailComponent {
     })
     //快速导航
     this.initNavLink();
-    //消息分页总条数
-    // this.mainService.getSysmsg().subscribe(result => {
-    //   if (result.CODE === '0') {
-    //     this.msgPageTotal = result.DATA;
-    //   }
-    // })
+    //消息
+    this.msgPageNum = 1;
+    this.msgPageSize = 20;
+    this.msgPageTotal = 0;
+    this.initMsg();
+    //待办
+    this.taskPageNum = 1;
+    this.taskPageSize = 20;
+    this.taskPageTotal = 0;
+    this.initTask();
+    //日志
+    this.logPageNum = 1;
+    this.logPageSize = 20;
+    this.logPageTotal = 0;
+    this.initLog();
+    //人员信息
+    this.mainService.getSysemployee().subscribe(result => {
+      if (result.CODE === '0') {
+
+      }
+    })
+    //用户表
+    this.sysuserObj = this.userInfo;
+    //头像区域的用户名
+    this.avaterUserName = this.userInfo.NAME;
+    //头像区域的备注
+    this.avaterUserRemark = this.userInfo.REMARK;
   }
 
   getDefaultQuery() {
   }
   event(eventName: string, context: any): void {
+  }
+  /**
+   * 初始化消息
+   */
+  initMsg() {
+    this.mainService.getSysmsg(this.msgPageNum, this.msgPageSize).subscribe(result => {
+      if (result.CODE === '0') {
+        this.msgPageTotal = result.TOTALSIZE;
+      }
+    })
+    this.msglistCondition = '{"PAGESIZE":"' + this.msgPageSize + '","PAGENUM":"' + this.msgPageNum + '"}';
+  }
+  /**
+   * 初始化待办任务
+   */
+  initTask() {
+    this.mainService.getSystask(this.taskPageNum, this.taskPageSize).subscribe(result => {
+      if (result.CODE === '0') {
+        this.taskPageTotal = result.TOTALSIZE;
+      }
+    })
+    this.tasklistCondition = '{"PAGESIZE":"' + this.taskPageSize + '","PAGENUM":"' + this.taskPageNum + '"}';
+  }
+  /**
+   * 初始化日志
+   */
+  initLog() {
+    this.mainService.getSyslog(this.logPageNum, this.logPageSize).subscribe(result => {
+      if (result.CODE === '0') {
+        this.logPageTotal = result.TOTALSIZE;
+      }
+    })
+    this.loglistCondition = '{"PAGESIZE":"' + this.logPageSize + '","PAGENUM":"' + this.logPageNum + '"}';
+  }
+  /**
+   * 重置密码
+   */
+  resetPwd() {
+    this.mainService.doReset({ lastPwd: this.lastPwd, newPwd: this.newPwd });
   }
   /**
    * 修改个人信息
@@ -272,7 +327,23 @@ export class SysprofileComponent extends ParentDetailComponent {
    * 保存个人信息
    */
   savePersonelinfo() {
+    //预览个人信息
     this.personelEdit = false;
+    let sysuserObj: any = {
+      ID: this.sysuserObj.ID,
+      NAME: this.sysuserObj.NAME,
+      USERCODE: this.sysuserObj.USERCODE,
+      PASSWORD: this.userInfo.PASSWORD,
+      PERSONID: this.userInfo.PERSONID
+    }
+    this.mainService.editPersonelInfo(sysuserObj).subscribe(res => {
+      if (res[0].CODE === '0') {
+        this.avaterUserName = sysuserObj.NAME;
+        this.messageService.message("修改成功");
+      } else {
+        this.messageService.error(res[0].MSG);
+      }
+    })
   }
   /**
    * 上传个人头像
@@ -298,6 +369,33 @@ export class SysprofileComponent extends ParentDetailComponent {
           PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '待办任务', MENUICON: 'fc-icon-bgefficiency'
         });
         break;
+      case 'listOneHandle'://立即处理
+        this.messageService.confirm("确认处理这项任务吗?", () => {
+          this.mainService.handleTask(event.param.ID).subscribe(result => {
+            if (result.CODE === '0') {
+              event.param.STATUS = 'default';
+              //刷新任务
+              this.initTask();
+              this.messageService.message('任务已处理!');
+            } else {
+              this.messageService.error(result.MSG);
+            }
+          });
+        }, () => { });
+        break;
+      case 'listOneDelete'://删除
+        this.messageService.confirm("确认删除记录吗?", () => {
+          this.mainService.deleteSystask(event.param.ID).subscribe(result => {
+            if (result.CODE === '0') {
+              this.messageService.message("删除成功");
+              //刷新消息
+              this.initTask();
+            } else {
+              this.messageService.error(result.MSG);
+            }
+          })
+        }, () => { });
+        break;
     }
   }
   /**
@@ -311,7 +409,6 @@ export class SysprofileComponent extends ParentDetailComponent {
           ID: event.param.ID, MENUID: 'SYSLOG', ROUTER: 'syslogList',
           PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '访问日志', MENUICON: 'fc-icon-bgefficiency'
         });
-
         break;
     }
   }
@@ -326,15 +423,29 @@ export class SysprofileComponent extends ParentDetailComponent {
           ID: event.param.ID, MENUID: 'SYSMESSAGE', ROUTER: 'sysmessageDetail',
           PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '消息详情', MENUICON: 'fc-icon-bgefficiency'
         });
+        this.mainService.msgIsRead(event.param).subscribe(result => {
+          if (result.CODE === '0') {
+            this.messageService.message('我已阅读这条消息！');
+          }
+        })
         break;
       case 'listOneView':
         this._providers.commonService.event('selectedMenu', {
           ID: event.param.ID, MENUID: 'SYSMESSAGE', ROUTER: 'sysmessageDetail',
           PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '消息详情', MENUICON: 'fc-icon-bgefficiency'
         });
+        break;
       case 'listOneDelete'://删除
         this.messageService.confirm("确认删除记录吗?", () => {
-
+          this.mainService.deleteSysmsg(event.param.ID).subscribe(result => {
+            if (result.CODE === '0') {
+              this.messageService.message("删除成功");
+              //刷新消息
+              this.initMsg();
+            } else {
+              this.messageService.error(result.MSG);
+            }
+          })
         }, () => { });
         break;
     }
@@ -345,17 +456,25 @@ export class SysprofileComponent extends ParentDetailComponent {
   msgpaginationEvent(event: FCEVENT) {
     switch (event.eventName) {
       case 'pageSizeChange'://每页显示多少条
-
+        this.msglistCondition = '{"PAGESIZE":"' + event.param + '","PAGENUM":"' + this.msgPageNum + '"}';
         break;
       case 'jumpPage':
-        //跳到第几页,第一次进来时不要触发，否则fcReflesh()会执行两次
-
+        this.msglistCondition = '{"PAGESIZE":"' + this.msgPageSize + '","PAGENUM":"' + event.param + '"}';
         break;
     }
   }
+  /**
+   * 任务分页事件
+   * @param event 
+   */
   taskpaginationEvent(event: FCEVENT) {
     switch (event.eventName) {
-
+      case 'pageSizeChange'://每页显示多少条
+        this.tasklistCondition = '{"PAGESIZE":"' + event.param + '","PAGENUM":"' + this.taskPageNum + '"}';
+        break;
+      case 'jumpPage':
+        this.tasklistCondition = '{"PAGESIZE":"' + this.taskPageSize + '","PAGENUM":"' + event.param + '"}';
+        break;
     }
   }
 
