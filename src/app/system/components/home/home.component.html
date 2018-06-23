@@ -15,7 +15,7 @@
                 </div>
                 <div fccontent2 *ngFor="let notify of notifys" class="link-overflow">
                     <span><fc-badge [fcStatus]="notify.CATAGORY" fcStatusMode="CIRCLE" fcText=""></fc-badge></span><span>{{notify.PUBLISHTIME}}</span>
-                    <span style="display: inline-block;"><fc-link [fcLabel]="notify.CONTENT" class="viewdetail" (click)="linkevent(notify.ID,notify.CATAGORY,notify.PUBLISHUSER,notify.CONTENT)"></fc-link></span>
+                    <span style="display: inline-block;"><fc-link [fcLabel]="notify.CONTENT" class="viewdetail" (click)="announcementEvent(notify.ID,notify.CATAGORY,notify.PUBLISHUSER,notify.CONTENT)"></fc-link></span>
                 </div>
             </fc-layoutcol>
         </fc-layoutpanel>
@@ -97,43 +97,15 @@
         <!-- 待办任务开始 -->
         <fc-layoutpanel fccontent2 class="separated-right todo-tasks">
             <fc-title fcLabel="待办任务" fcheader fcBorder="bottom">
-                <div fcextra>
-                    <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcText="急需"></fc-badge>
-                    <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcText="特急"></fc-badge>
-                    <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcText="默认"></fc-badge>
-                    <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcText="滞缓"></fc-badge>
-                    <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcText="待做"></fc-badge>
+                <div fcextra style="cursor:pointer;">
+                    <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcText="历史"  (click)="assignmentHistory()"></fc-badge>
                 </div>
             </fc-title>
             <div class="home-list" fccontent>
-                <div fccontent class="main_contain">
-                    <ul class="contact todo-taskslist">
-                        <li>
-                            <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcToolTip="特急" class="home-list-inlineblock"></fc-badge>
-                            <span>2018.03.26-项目元数据框架构建；</span>
-                        </li>
-                        <li>
-                            <fc-badge fcStatus="error" fcStatusMode="CIRCLE" fcToolTip="急需" class="home-list-inlineblock"></fc-badge>
-                            <span>2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发</span>
-                        </li>
-                        <li>
-                            <fc-badge fcStatus="default" fcStatusMode="CIRCLE" fcToolTip="待做" class="home-list-inlineblock"></fc-badge>
-                            <span>2018.03.26-开始进行元数据方法的呈现方式</span>
-                        </li>
-                        <li>
-                            <fc-badge fcStatus="success" fcStatusMode="CIRCLE" fcToolTip="特急" class="home-list-inlineblock"></fc-badge>
-                            <span>2018.03.26-项目元数据框架构建</span>
-                        </li>
-                        <li>
-                            <fc-badge fcStatus="processing" fcStatusMode="CIRCLE" fcToolTip="默认" class="home-list-inlineblock"></fc-badge>
-                            <span>2018.03.26-元数据组件开发</span>
-                        </li>
-                        <li>
-                            <fc-badge fcStatus="warning" fcStatusMode="CIRCLE" fcToolTip="滞缓" class="home-list-inlineblock"></fc-badge>
-                            <span>2018.03.26-元数据组件开发；项目内容尽快完成数据组件开发</span>
-                        </li>
-                    </ul>
-                </div>
+                <div fccontent *ngFor="let wait of waits" class="link-overflow">
+                    <span>{{wait.CREATETIME}}</span>
+                    <span style="display: inline-block;"><fc-link [fcLabel]="wait.TASKNAME" class="viewdetail" (click)="assignmentEvent(wait)"></fc-link></span>
+                </div>               
             </div>
         </fc-layoutpanel>
        <!--  待办任务结束 -->

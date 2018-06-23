@@ -59,6 +59,8 @@ import { SyslogComponent } from './components/core/syslog.component';
 import { SyslogService } from './services/syslog.service';
 import { SyssessionService } from './services/syssession.service';
 import { SysemployService } from './services/sysemploy.service';
+import { SysassignmentService } from './services/sysassignment.service';
+import { SysassignmentComponent } from './components/core/sysassignment.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -118,7 +120,8 @@ import { SysemployService } from './services/sysemploy.service';
     BasicpersoneldialogComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
-    SyslogComponent
+    SyslogComponent,
+    SysassignmentComponent
   ],
   providers: [
     LayoutService,
@@ -142,7 +145,9 @@ import { SysemployService } from './services/sysemploy.service';
     SysquotaService,
     SyslogService,
     SyssessionService,
-    SysemployService
+    SysemployService,
+    SysquotaService,
+    SysassignmentService
   ]
 })
 export class SystemModule {

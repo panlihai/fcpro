@@ -307,6 +307,7 @@ export class LayoutComponent implements OnInit {
         // 删除缓存
         break;
       case 'click':
+      debugger;
         this.mainService.navMessage(this._router, event.param).subscribe(res => {
           this.getMessage();
         });
