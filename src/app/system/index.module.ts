@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Routers } from './index.route';
-import { MessageService } from 'fccore';
 import { MainComponent } from './components/main/main.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -47,6 +46,9 @@ import { SyscompanyService } from './services/syscompany.service';
 import { SyscompanyComponent } from './components/core/syscompany.component';
 import { SyscompanyeditComponent } from './components/core/syscompanyedit.component';
 import { SysnavlinkService } from './services/sysnavlink.service';
+import { SysprofileService } from './services/sysprofile.service';
+import { SysprofileComponent } from './components/core/sysprofile.component';
+import { BasicpersoneldialogComponent } from './components/core/dialog/basicpersoneldialog.component';
 import { SysroleDialogEditComponent } from './components/core/dialog/sysroleeditdialog.component';
 import { SysroleauthService } from './services/sysroleauth.service';
 import { SysroleuserService } from './services/sysroleuser.service';
@@ -54,7 +56,22 @@ import { SysquotaService } from './services/sysquota.service';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
 import { SyscontactService } from './services/syscontact.service';
+import { SyslogComponent } from './components/core/syslog.component';
+import { SyslogService } from './services/syslog.service';
+import { SyssessionService } from './services/syssession.service';
+import { SysemployService } from './services/sysemploy.service';
+import { SysassignmentService } from './services/sysassignment.service';
+import { SysassignmentComponent } from './components/core/sysassignment.component';
 @NgModule({
+  entryComponents: [
+    BasicpersoneldialogComponent,
+    SysroleDialogEditComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent,
+    SysroleDialogEditComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -100,14 +117,12 @@ import { SyscontactService } from './services/syscontact.service';
     SysannouncementComponent,
     SyscompanyComponent,
     SyscompanyeditComponent,
+    SysprofileComponent,
+    BasicpersoneldialogComponent,
     SysquotalistComponent,
-    SysquotaEditComponent
-    
-  ],
-  entryComponents: [
-    SysroleDialogEditComponent,
-    SysquotalistComponent,
-    SysquotaEditComponent
+    SysquotaEditComponent,
+    SyslogComponent,
+    SysassignmentComponent
   ],
   providers: [
     LayoutService,
@@ -128,7 +143,13 @@ import { SyscontactService } from './services/syscontact.service';
     SyscontactService,
     SyscompanyService,
     SysnavlinkService,
-    SysquotaService
+    SysprofileService,
+    SysquotaService,
+    SyslogService,
+    SyssessionService,
+    SysemployService,
+    SysquotaService,
+    SysassignmentService
   ]
 })
 export class SystemModule {

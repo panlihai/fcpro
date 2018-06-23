@@ -4,9 +4,12 @@ import { TimelineOptions, FclistdataComponent, Fcmenu } from "fccomponent";
 import { FCEVENT } from "fccomponent/fc";
 import { SyshomeService } from "../../services/syshome.service";
 import { NzModalService } from "ng-zorro-antd";
-import { GridApi, ColumnApi } from "ag-grid";
+import {  ColumnApi } from "ag-grid";
 import { environment } from "../../../../environments/environment";
-import { Sysmenu } from "fccore";
+import { Sysmenu, ProvidersService } from "fccore";
+import { NavLinkFunctionName, Args_NavLink } from "../../services/sysnavlink.service";
+import { element } from "protractor";
+import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
 @Component({
   selector: "home",
   templateUrl: "./home.component.html",
@@ -404,7 +407,11 @@ export class HomeComponent implements OnInit {
   contacts: any[];
   //输入框内准备发送的消息
   sendMassage: any;
-  navLinkListCondition: {};
+  navLinkListCondition: any;
+  //消息公告
+  notifys: any;
+  waits:any;
+  links: any;
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
   currentModal_navLink: any;
   //隐藏聊天面板
@@ -483,7 +490,6 @@ export class HomeComponent implements OnInit {
     fcColorCode: "color",
     fcId: "ID"
   };
-  items: any;
   //待办任务状态
   _waitWorkStatus: string;
   //navLink 标签
@@ -492,6 +498,7 @@ export class HomeComponent implements OnInit {
   constructor(
     public mainService: SyshomeService,
     public router: Router,
+    private _providers: ProvidersService,
     public activedRoute: ActivatedRoute,
     private _router: Router,
     private nzModal: NzModalService
@@ -519,13 +526,31 @@ export class HomeComponent implements OnInit {
         }
       });
     // 查询SYSNOTIFY所有元数据
-    this.mainService.providers.appService
-      .findWithQuery("SYSNOTIFY", {})
-      .subscribe(result => {
-        if (result.CODE === "0") {
-          this.items = result.DATA;
-        }
-      });
+    this.mainService.getannouncement().subscribe(result => {
+      if (result.CODE === '0') {
+        this.notifys = result.DATA;
+        // 把时间转成时间戳
+        this.notifys.forEach((item, index) => {
+          this.notifys[index].PUBLISHTIME = this.mainService.providers.commonService.timestampFormat(
+            Number.parseInt(item.PUBLISHTIME),
+            "yyyy-MM-dd" + ""
+          );
+        });
+      }
+    })
+    // 查询SYSASSIGNMENT所有元数据
+    this.mainService.getassignment().subscribe(result => {
+      if (result.CODE === '0') {
+        this.waits = result.DATA;
+        // 把时间转成时间戳
+        this.waits.forEach((item, index) => {
+          this.waits[index].CREATETIME = this.mainService.providers.commonService.timestampFormat(
+            Number.parseInt(item.CREATETIME),
+            "yyyy-MM-dd" + ""
+          );
+        });
+      }
+    })
     this.initNavLink();
     // 查询系统通讯录所有元数据
     this.mainService.providers.appService
@@ -537,18 +562,25 @@ export class HomeComponent implements OnInit {
       });
 
   }
+
+  /**
+   * YM
+   *动态加载快速导航标签数据;
+   */
   initNavLink() {
-    this.mainService.navLinkService.getNavLinks().subscribe(res => {
+    this.mainService.NavLinkFunction(NavLinkFunctionName.getNavLinks).subscribe(res => {
       if (res.CODE === "0") this.navLinks = res.DATA;
-      this.navLinkListCondition = this.mainService.navLinkService.rebuildList_NavLink(this.navLinks);
-      this.mainService.navLinkService.refreshNavLink(this.navLinks);
+      let args: Args_NavLink = { navlinks: this.navLinks }
+      this.navLinkListCondition = this.mainService.NavLinkFunction(NavLinkFunctionName.rebuildList_NavLink, args);
+      this.mainService.NavLinkFunction(NavLinkFunctionName.refreshNavLink, args);
     });
   }
   /** YM
    * 新增快速导航标签
    */
   addNavLinkTag(contentTpl, footerTpl) {
-    if (this.mainService.navLinkService.addNavLinkTag(this.navLinks, contentTpl, footerTpl, this.navLink_listdata)) {
+    let args: Args_NavLink = { navlinks: this.navLinks, contentTpl: contentTpl, footerTpl: footerTpl, listdata: this.navLink_listdata }
+    if (this.mainService.NavLinkFunction(NavLinkFunctionName.addNavLinkTag, args)) {
       setTimeout(() => {
         let column: ColumnApi = this.navLink_listdata._gridColumnApi;
         if (column) column.autoSizeAllColumns();
@@ -559,8 +591,9 @@ export class HomeComponent implements OnInit {
    * 处理新增快速导航标签——确定
    */
   handleAddNavLink_ok(ev: any) {
+    let args: Args_NavLink = { navlinks: this.navLinks, listdata: this.navLink_listdata, condition: this.navLinkListCondition }
     if (
-      this.mainService.navLinkService.handleAddNavLink_ok(this.navLink_listdata, this.navLinks, this.navLinkListCondition)
+      this.mainService.NavLinkFunction(NavLinkFunctionName.handleAddNavLink_ok, args)
     ) {
       setTimeout(() => {
         this.initNavLink();
@@ -571,7 +604,7 @@ export class HomeComponent implements OnInit {
    * 处理新增快速导航标签——取消
    */
   handleAddNavLink_cancel(ev: any) {
-    this.mainService.navLinkService.handleAddNavLink_cancel();
+    this.mainService.NavLinkFunction(NavLinkFunctionName.handleAddNavLink_cancel)
   }
   /** YM
    * 快速导航标签事件
@@ -583,15 +616,16 @@ export class HomeComponent implements OnInit {
       case "beforeClose":
         event.stopPropagation();
         event.preventDefault();
-        this.mainService.navLinkService.deleteSubject.subscribe(res => {
+        let args: Args_NavLink = { link: link }
+        this.mainService.NavLinkFunction(NavLinkFunctionName.deleteSubject).subscribe(res => {
           if (res) this.initNavLink();
         });
-        this.mainService.navLinkService.navLinkBeforeClose(link);
+        this.mainService.NavLinkFunction(NavLinkFunctionName.navLinkBeforeClose, args);
         break;
       case "click":
         event.stopPropagation();
         event.preventDefault();
-        this.mainService.layoutService.navToByMenuId(this.router, link.ROUTER);
+        this.mainService.navToByMenuId(this.router, link.ROUTER);
         break;
       default:
         break;
@@ -647,38 +681,59 @@ export class HomeComponent implements OnInit {
     this.mainService.layoutService.navToByMenuId(this.router, url);
   }
   /**
-   * 时间轴事件
-   * @param event
-   */
+  * 消息公告点击跳转路由事件
+  * @param event 
+  */
+  announcementEvent(id,catagory,publishuser) {
+    if(publishuser!== this.mainService.providers.userService.getUserInfo().USERCODE){
+      let obj: any = {
+        TS: this.mainService.announcementtime(),
+        SORT: this.mainService.announcementtime(),
+        POSTTIME: this.mainService.announcementtime(),
+        CONTENT: "消息公告"+id+"进行回执",
+        ISREAD: "N",
+        ID: id,
+        TYPE: "",
+        NOTIFICATIONUSERID: publishuser,
+        TITLE: "回执信息",
+        POSTUSERID: this.mainService.announcementPOSTUSER()
+        // POSTUSERID: this.mainService.providers.userService.getUserInfo().USERCODE
+      };
+      if(catagory==="error"){
+        obj.TYPE = "danger";
+      }
+      if(catagory==="processing"){
+        obj.TYPE = "normal"
+      }
+      if(catagory==="warning"){
+        obj.TYPE = "waring"
+      }  
+      this.mainService.announcementsave(obj)
+    }  
+    this.mainService.sysannouncementrouter(this._router, id);
+  }
+  // 历史待办模块功能
+  assignmentHistory(id){ 
+    this.mainService.sysassignmentrouter(this._router, id);
+  }
+  // 待办任务列表点击
+  assignmentEvent(wait){
+
+    this.mainService.assignmentMessage(this._router, wait);
+  }
+  /* 时间轴事件
+  * @param event
+  */
   timelineEvent(event: FCEVENT) {
     switch (event.eventName) {
       case "selected": //选中
-        this.router.navigate(["/system/sysversionDetail"], {
-          queryParams: { ID: event.param.ID }
+        this._providers.commonService.event('selectedMenu', {//跳转到版本控制详情界面
+          ID: event.param.ID, MENUID: 'SYSVERSION', ROUTER: 'sysversionDetail',
+          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '版本控制', MENUICON: 'fc-icon-bgefficiency'
         });
         break;
     }
   }
-  /**
-   * 消息公告点击跳转路由事件
-   * @param event
-   */
-  linkevent(id) {
-    let menu = this.mainService.layoutService.findMenuByRouter(
-      this.mainService.providers.menuService.menus,
-      "sysannouncementDetail"
-    );
-    if (menu) {
-      menu["param"] = id;
-      this.mainService.providers.commonService.event("selectedMenu", menu);
-    } else {
-      this.mainService.providers.msgService.error(
-        "sysannouncementDetail" + "不存在..."
-      );
-    }
-    // this.router.navigate(['/system/sysannouncementDetail'], { queryParams: { ID: id } })
-  }
-
   /**
    * 聊天面板
    * @param event
@@ -776,4 +831,10 @@ export class HomeComponent implements OnInit {
     //调用获取聊天消息
     this.getChatmessage(this.contactname);
   }
+// }
+//    * 图表事件
+//    */
+//   chatbarEvent() {
+
+//   }
 }

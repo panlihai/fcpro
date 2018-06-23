@@ -17,7 +17,10 @@ export class SysnavlinkService extends ParentService {
   ) {
     super(providers, "SYSNAVLINK");
   }
-
+  /**YM
+   * 处理链接删除
+   * @param link 
+   */
   navLinkBeforeClose(link: any) {
     let success: boolean = false;
     this.providers.msgService.confirm("是否确认删除该快速导航标签？", () => {
@@ -36,7 +39,12 @@ export class SysnavlinkService extends ParentService {
     );
     return success;
   }
-
+  /**YM
+   * 处理弹窗确认事件
+   * @param navLink_listdata 
+   * @param navLinks 
+   * @param navLinkListCondition 
+   */
   handleAddNavLink_ok(navLink_listdata: FclistdataComponent, navLinks: Array<any>, navLinkListCondition: any) {
     let gridApi: GridApi = navLink_listdata._gridApi;
     let column: ColumnApi = navLink_listdata._gridColumnApi;
@@ -94,6 +102,13 @@ export class SysnavlinkService extends ParentService {
       });
     });
   }
+  /**YM
+   * 处理新增快速导航标签事件
+   * @param navLinks 
+   * @param contentTpl 
+   * @param footerTpl 
+   * @param navLink_listdata 
+   */
   addNavLinkTag(navLinks: Array<any>, contentTpl: any, footerTpl: any, navLink_listdata: FclistdataComponent): boolean {
     if (navLinks.length < 8) {
       this.currentModal_navLink = this.nzModal.open({
@@ -193,6 +208,9 @@ export class SysnavlinkService extends ParentService {
       WHERE: `ENABLE='Y' AND USERID='${this.providers.userService.getUserInfo().ID}'`
     });
   }
+  /**YM
+   * 处理弹出取消事件
+   */
   handleAddNavLink_cancel() {
     this.currentModal_navLink.destroy("onCancel");
     this.currentModal_navLink = null;
@@ -231,4 +249,26 @@ export class SysnavlinkService extends ParentService {
     //是否自动保存
     fcAutoSave: false
   };
+}
+/**
+ * YM
+ * 快速导航/自定义链接功能的枚举值
+ */
+export const enum NavLinkFunctionName {
+  deleteSubject,
+  getNavLinks,
+  rebuildList_NavLink,
+  refreshNavLink,
+  addNavLinkTag,
+  handleAddNavLink_ok,
+  handleAddNavLink_cancel,
+  navLinkBeforeClose,
+}
+export interface Args_NavLink {
+  navlinks?: Array<any>,
+  contentTpl?: any,
+  footerTpl?: any,
+  listdata?: FclistdataComponent,
+  condition?: any,
+  link?: any
 }
