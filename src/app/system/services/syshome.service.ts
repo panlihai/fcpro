@@ -2,26 +2,24 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
-import { ProvidersService, Sysmenu } from "fccore";
+import { ProvidersService,Sysmenu } from "fccore";
 import { LayoutService } from "./layout.service";
-import { SysnavlinkService } from "./sysnavlink.service";
-import { SysannouncementService, Sysnotify } from './sysannouncement.service';
+import { SysnavlinkService, NavLinkFunctionName } from "./sysnavlink.service";
+import { SysannouncementService } from './sysannouncement.service';
 import { SysmessageService, Sysmessage } from "./sysmessage.service";
 import { SysassignmentService, Sysassignment} from "./sysassignment.service";
 import { Fcmenu } from "fccomponent/fcnav/fcnavmenu.component";
-import { runInThisContext } from "vm";
 @Injectable()
 export class SyshomeService {
   constructor(
     public providers: ProvidersService,
     public layoutService: LayoutService,
-    public navLinkService: SysnavlinkService,
-    public sysannouncementService:SysannouncementService,
+    private navLinkService: SysnavlinkService,
+    public sysannouncementService: SysannouncementService,
     public sysmessageService:SysmessageService,
     public sysassignmentService:SysassignmentService
-  ) {
-  }
-    /**
+  ) {}
+   /**
      * 获取当前消息公告的所有内容
      * */
     getannouncement() {
@@ -176,4 +174,33 @@ export class SyshomeService {
         }
         return this.sysmessageService.update(msg);
     }
+  /**
+   * YM
+   * 快速导航/自定义链接功能
+   * @param fucName 
+   * @param args 
+   */
+  NavLinkFunction(fucName: NavLinkFunctionName, args?: Args_NavLink): any {
+    switch (fucName) {
+      case NavLinkFunctionName.deleteSubject:
+        return this.navLinkService.deleteSubject;
+      case NavLinkFunctionName.getNavLinks:
+        return this.navLinkService.getNavLinks();
+      case NavLinkFunctionName.rebuildList_NavLink:
+        return this.navLinkService.rebuildList_NavLink(args.navlinks);
+      case NavLinkFunctionName.refreshNavLink:
+        return this.navLinkService.refreshNavLink(args.navlinks);
+      case NavLinkFunctionName.addNavLinkTag:
+        return this.navLinkService.addNavLinkTag(args.navlinks, args.contentTpl, args.footerTpl, args.listdata);
+      case NavLinkFunctionName.handleAddNavLink_ok:
+        return this.navLinkService.handleAddNavLink_ok(args.listdata, args.navlinks, args.condition)
+      case NavLinkFunctionName.handleAddNavLink_cancel:
+        return this.navLinkService.handleAddNavLink_cancel();
+      case NavLinkFunctionName.navLinkBeforeClose:
+        return this.navLinkService.navLinkBeforeClose(args.link);
     }
+  }
+  navToByMenuId(router: Router, url: any) {
+    return this.layoutService.navToByMenuId(router, url)
+  }
+}

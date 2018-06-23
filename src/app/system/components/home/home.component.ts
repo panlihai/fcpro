@@ -6,6 +6,10 @@ import { SyshomeService } from "../../services/syshome.service";
 import { NzModalService } from "ng-zorro-antd";
 import {  ColumnApi } from "ag-grid";
 import { environment } from "../../../../environments/environment";
+import { Sysmenu } from "fccore";
+import { NavLinkFunctionName, Args_NavLink } from "../../services/sysnavlink.service";
+import { element } from "protractor";
+import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
 @Component({
   selector: "home",
   templateUrl: "./home.component.html",
@@ -378,15 +382,11 @@ import { environment } from "../../../../environments/environment";
   ]
 })
 export class HomeComponent implements OnInit {
-  _navSideOption: any;
-  t1(arg0: any): any {
-    throw new Error("Method not implemented.");
-  }
+  navLinkListCondition: any;
   //消息公告
   notifys: any;
   waits:any;
   links: any;
-  navLinkListCondition: {};
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
   currentModal_navLink: any;
   //隐藏聊天面板
@@ -531,17 +531,19 @@ export class HomeComponent implements OnInit {
    *动态加载快速导航标签数据;
    */
   initNavLink() {
-    this.mainService.navLinkService.getNavLinks().subscribe(res => {
+    this.mainService.NavLinkFunction(NavLinkFunctionName.getNavLinks).subscribe(res => {
       if (res.CODE === "0") this.navLinks = res.DATA;
-      this.navLinkListCondition = this.mainService.navLinkService.rebuildList_NavLink(this.navLinks);
-      this.mainService.navLinkService.refreshNavLink(this.navLinks);
+      let args: Args_NavLink = { navlinks: this.navLinks }
+      this.navLinkListCondition = this.mainService.NavLinkFunction(NavLinkFunctionName.rebuildList_NavLink, args);
+      this.mainService.NavLinkFunction(NavLinkFunctionName.refreshNavLink, args);
     });
   }
   /** YM
    * 新增快速导航标签
    */
   addNavLinkTag(contentTpl, footerTpl) {
-    if (this.mainService.navLinkService.addNavLinkTag(this.navLinks, contentTpl, footerTpl, this.navLink_listdata)) {
+    let args: Args_NavLink = { navlinks: this.navLinks, contentTpl: contentTpl, footerTpl: footerTpl, listdata: this.navLink_listdata }
+    if (this.mainService.NavLinkFunction(NavLinkFunctionName.addNavLinkTag, args)) {
       setTimeout(() => {
         let column: ColumnApi = this.navLink_listdata._gridColumnApi;
         if (column) column.autoSizeAllColumns();
@@ -552,8 +554,9 @@ export class HomeComponent implements OnInit {
    * 处理新增快速导航标签——确定
    */
   handleAddNavLink_ok(ev: any) {
+    let args: Args_NavLink = { navlinks: this.navLinks, listdata: this.navLink_listdata, condition: this.navLinkListCondition }
     if (
-      this.mainService.navLinkService.handleAddNavLink_ok(this.navLink_listdata, this.navLinks, this.navLinkListCondition)
+      this.mainService.NavLinkFunction(NavLinkFunctionName.handleAddNavLink_ok, args)
     ) {
       setTimeout(() => {
         this.initNavLink();
@@ -564,7 +567,7 @@ export class HomeComponent implements OnInit {
    * 处理新增快速导航标签——取消
    */
   handleAddNavLink_cancel(ev: any) {
-    this.mainService.navLinkService.handleAddNavLink_cancel();
+    this.mainService.NavLinkFunction(NavLinkFunctionName.handleAddNavLink_cancel)
   }
   /** YM
    * 快速导航标签事件
@@ -576,15 +579,16 @@ export class HomeComponent implements OnInit {
       case "beforeClose":
         event.stopPropagation();
         event.preventDefault();
-        this.mainService.navLinkService.deleteSubject.subscribe(res => {
+        let args: Args_NavLink = { link: link }
+        this.mainService.NavLinkFunction(NavLinkFunctionName.deleteSubject).subscribe(res => {
           if (res) this.initNavLink();
         });
-        this.mainService.navLinkService.navLinkBeforeClose(link);
+        this.mainService.NavLinkFunction(NavLinkFunctionName.navLinkBeforeClose, args);
         break;
       case "click":
         event.stopPropagation();
         event.preventDefault();
-        this.mainService.layoutService.navToByMenuId(this.router, link.ROUTER);
+        this.mainService.navToByMenuId(this.router, link.ROUTER);
         break;
       default:
         break;
