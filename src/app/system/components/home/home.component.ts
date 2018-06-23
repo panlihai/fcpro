@@ -214,11 +214,11 @@ import { Sysmenu } from "fccore";
 }
 .fc-chattime{
     width:100%;
-    height:50px;
+    height:22px;
     color:#666666;
     font-size:12px;
     text-align: center;
-    line-height: 50px;
+    line-height: 22px;
 }
 .fc-chatleft{
     position: relative;
@@ -375,10 +375,35 @@ import { Sysmenu } from "fccore";
  :host ::ng-deep .templatehome .todo-tasks .fc-layoutpanel{
   margin-bottom:6px;
  }
+ .seeMore {
+  text-align: center;
+  color: #;
+  color: #5C92FF;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+}
+.seeMore span:hover{
+  border-bottom: 1px solid #1890FF;
+}
     `
   ]
 })
 export class HomeComponent implements OnInit {
+  //初始化分页大小
+  pagesize: number = 2;
+  //初始化每一页几个数据
+  pagenum: number = 1;
+  //当前用户
+  currentUser: any;
+  //聊天消息
+  contactMessages: any[] = [];
+  //联系人姓名
+  contactname: any;
+  //通讯录列表
+  contacts: any[];
+  //输入框内准备发送的消息
+  sendMassage: any;
   navLinkListCondition: {};
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
   currentModal_navLink: any;
@@ -472,6 +497,8 @@ export class HomeComponent implements OnInit {
     private nzModal: NzModalService
   ) { }
   ngOnInit(): void {
+    this.pagenum = 1;
+    this.currentUser = this.mainService.getUserinfo().USERCODE;
     this.mainService.providers.appService
       .findWithQuery("SYSVERSION", { PAGENUM: 1, PAGESIZE: 6, ODER: "TS DESC" })
       .subscribe(result => {
@@ -500,6 +527,15 @@ export class HomeComponent implements OnInit {
         }
       });
     this.initNavLink();
+    // 查询系统通讯录所有元数据
+    this.mainService.providers.appService
+      .findWithQuery("SYSCONTACT", {})
+      .subscribe(result => {
+        if (result.CODE === "0") {
+          this.contacts = result.DATA;
+        }
+      });
+
   }
   initNavLink() {
     this.mainService.navLinkService.getNavLinks().subscribe(res => {
@@ -659,11 +695,85 @@ export class HomeComponent implements OnInit {
   /**
    * 发送聊天记录
    */
-  sendChat() { }
+
+  sendChat() {
+    //获取消息，合成消息体
+    let time;
+    let obj = [{
+      CONTENT: this.sendMassage,
+      POSTUSERID: this.currentUser,
+      NOTIFICATIONUSERID: this.contactname,
+      POSTTIME: Math.floor(new Date().getTime()/1000)      
+    }];
+    //如果是当天时间，不显示年月日
+    console.log(new Date(obj[0].POSTTIME*1000).toLocaleDateString());
+    if (new Date(obj[0].POSTTIME*1000).toLocaleDateString() === new Date().toLocaleDateString()) {
+      time = this.mainService.providers.commonService.timestampFormat(obj[0].POSTTIME * 1000, 'hh:mm:ss') + "";
+    } else {
+      //如果不是当天，年月日时分秒
+      time = this.mainService.providers.commonService.timestampFormat(obj[0].POSTTIME * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+    }
+    obj[0].POSTTIME=time;
+    //往集合顶部插入一条消息记录，并且清空输入框
+    this.contactMessages = obj.concat(this.contactMessages);
+    this.sendMassage = '';
+    //将该条数据保存到数据库里面
+    this.mainService.saveMessage_chat(obj);
+  }
   /**
    * 关闭聊天面板
    */
   closeChat() {
     this.showchat = false;
+  }
+  /**
+  * 点击消息按钮出现聊天面板
+  */
+  showcontact(userid) {
+    this.pagenum = 1;
+    this.showchat = true;
+    this.contactname = userid;
+    this.contactMessages = [];
+    //首次加载聊天内容
+    this.getChatmessage(userid);
+    //远程消息接收
+    this.mainService.providers.daoService.connectionWs(this.contactname).subscribe(data => {
+      if (data.length !== 0) {
+        this.contactMessages = this.contactMessages.concat(JSON.parse(data));
+      }
+    });
+  }
+  /**
+   *  查询指定联系人的聊天内容 
+   */
+  getChatmessage(userid) {
+    this.mainService.getChatcontent(userid, this.pagesize, this.pagenum)
+      .subscribe(result => {
+        if (result.CODE === "0") {
+          //时间的显示
+           result.DATA.forEach(element => {
+            if (element.POSTTIME !== null && element.POSTTIME !== '') {
+              //如果是当天时间，不显示年月日
+              if (new Date(element.POSTTIME*1000).toLocaleDateString() === new Date().toLocaleDateString()) {
+                element.POSTTIME = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.POSTTIME) * 1000, 'hh:mm:ss') + "";
+              } else {
+                //如果不是当天，年月日时分秒
+                element.POSTTIME = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.POSTTIME) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+              }
+            }
+            console.log(element.POSTTIME);
+          })
+
+          this.contactMessages = result.DATA.concat(this.contactMessages);
+        }
+      });
+    console.log(this.contactMessages);
+
+  }
+  /* 点击查看更多 */
+  seeMore() {
+    this.pagenum++;
+    //调用获取聊天消息
+    this.getChatmessage(this.contactname);
   }
 }

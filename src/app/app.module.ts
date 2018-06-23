@@ -30,6 +30,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { FccoreModule, MessageService } from 'fccore';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ResetpwddialogComponent } from './layout/resetpwddialog.component';
+import { AngularDraggableModule } from 'angular2-draggable';
 import { SysuserService } from './system/services/sysuser.service';
 @NgModule({
   entryComponents: [
@@ -54,7 +55,8 @@ import { SysuserService } from './system/services/sysuser.service';
     FclistModule,
     FcmodalModule,
     FcchartModule,
-    FcprogressModule
+    FcprogressModule,
+    AngularDraggableModule
   ],
   declarations: [
     AppComponent,

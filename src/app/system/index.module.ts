@@ -53,6 +53,7 @@ import { SysroleuserService } from './services/sysroleuser.service';
 import { SysquotaService } from './services/sysquota.service';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
+import { SyscontactService } from './services/syscontact.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -124,6 +125,7 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
     SyshomeService,
     SysversionService,
     SysannouncementService,
+    SyscontactService,
     SyscompanyService,
     SysnavlinkService,
     SysquotaService

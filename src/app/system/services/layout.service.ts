@@ -61,7 +61,7 @@ export class LayoutService {
                 }
             };
             this.providers.logService.info(params);
-            router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER],params ).then(() => {
+            router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], params).then(() => {
                 this.providers.msgService.endAntLoading();
             }).catch((error) => {
                 console.log(error);
@@ -92,8 +92,8 @@ export class LayoutService {
      * @param msg 消息体
      *  
      */
-    navMessage(router: Router, msg: Sysmessage):Observable<any> {
-        msg.ISREAD='Y';
+    navMessage(router: Router, msg: Sysmessage): Observable<any> {
+        msg.ISREAD = 'Y';
         let sourceAid = msg.SOURCEAID ? msg.SOURCEAID : '';
         let menu = this.findMenuByRouter(this.providers.menuService.menus, sourceAid.toLowerCase() + 'Detail');
         if (menu) {

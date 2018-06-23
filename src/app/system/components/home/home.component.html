@@ -1,7 +1,7 @@
 <!-- 首页模板 -->
 <fc-layoutpanel class="templatehome">
     <fc-layoutcol fcSpans="7,3" fccontent>
-       <!--  公告开始 -->
+        <!--  公告开始 -->
         <fc-layoutpanel fccontent1 class="separated-lefttop">
             <fc-title fcLabel="公告" fcheader fcBorder="bottom"></fc-title>
             <fc-layoutcol fccontent class="all" fcSpans="1,9" class="tabmain-width">
@@ -14,7 +14,7 @@
             </fc-layoutcol>
         </fc-layoutpanel>
         <!-- 公告结束 -->
-       <!--  数据统计开始 -->
+        <!--  数据统计开始 -->
         <fc-layoutpanel fccontent1 class="separated-left">
             <fc-title fcLabel="数据统计" fcheader fcBorder="bottom"></fc-title>
             <div fccontent>
@@ -30,49 +30,24 @@
                 </fc-layoutcol>
             </div>
         </fc-layoutpanel>
-       <!--  数据统计结束 -->
+        <!--  数据统计结束 -->
         <fc-layoutpanel fccontent1>
             <fc-layoutcol fcSpans="1,1" fccontent>
-               <!--  系统版本开始 -->
+                <!--  系统版本开始 -->
                 <div fccontent1 class="system-version separated-leftbottom">
                     <fc-title fcLabel="系统版本" fcBorder="bottom"></fc-title>
                     <fc-timeline [fcOption]="versionTimeline" (fcEvent)="timelineEvent($event)" fcLabelPosition="left" fcLeft="30%"></fc-timeline>
                 </div>
-               <!--  系统版本结束 -->
-               <!-- 常用联系人开始 -->
+                <!--  系统版本结束 -->
+                <!-- 常用联系人开始 -->
                 <fc-layoutpanel fccontent2 class="separated-rightbottom">
                     <fc-title fcLabel="常用联系人" fcHasLine="false" fcheader fcBorder="bottom"></fc-title>
                     <div fccontent class="main_contain">
-                        <ul class="contact">
+                        <ul class="contact" *ngFor="let contact of contacts">
                             <li>
-                                <span>王五</span>
-                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
-                            </li>
-                            <li>
-                                <span>王五</span>
-                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
-                            </li>
-                            <li>
-                                <span>王五</span>
-                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
-                            </li>
-                            <li>
-                                <span>王五</span>
-                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
-                            </li>
-                            <li>
-                                <span>王五</span>
-                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
-                            </li>
-                            <li>
-                                <span>王五</span>
-                                <fc-link fcLabel="17600606775" class="contact_right"></fc-link>
-                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showchat=true;"></fc-icon>
+                                <span>{{contact.USERID}}</span>
+                                <fc-link fcLabel={{contact.TEL}} class="contact_right"></fc-link>
+                                <fc-icon fcIcon="fc-icon-chat" fcColor="#5c92ff" fcSize="default" class="contacticon" (click)="showcontact(contact.USERID)"></fc-icon>
                             </li>
                         </ul>
                     </div>
@@ -130,8 +105,8 @@
                 </div>
             </div>
         </fc-layoutpanel>
-       <!--  待办任务结束 -->
-       <!-- 快速导航开始 -->
+        <!--  待办任务结束 -->
+        <!-- 快速导航开始 -->
         <fc-layoutpanel fccontent2 class="separated-rightbottom quick-navigation">
             <fc-title fcLabel="快速开始/便捷导航" fcHasLine="false" fcheader fcBorder="bottom"></fc-title>
             <div fccontent class="fastcontent" *ngFor="let navLink of navLinks">
@@ -142,36 +117,38 @@
         </fc-layoutpanel>
         <!-- 快速导航结束 -->
     </fc-layoutcol>
-</fc-layoutpanel>
+</fc-layoutpanel> 
 <div class="chat-wrap" [ngClass]="{'chat-show-wrap':showchat}">
     <!-- <fc-button [fcType]="'primary'" [fcIconPositon]="'left'" [fcShape]="'circle'" [fcIcon]="'fc-icon-dialogue'" class="chatButton"
         (click)="showchat=true;"></fc-button> -->
     <!-- 聊天面板 -->
-    <div class="fc-chatbox">
-        <div class="fc-chatouter">
-            <div class="fc-chattop">
+    <div class="fc-chatbox " >
+        <div class="fc-chatouter"  ngDraggable>
+            <div class="fc-chattop" >
                 <i class="iconfont fc-icon-line fc-userimg"></i>
-                <div class="fc-username">张三</div>
-                <i class="iconfont fc-icon-shut fc-close" (click)="closeChat();"></i>
+                <div class="fc-username">{{contactname}}</div>
+                <i class="iconfont fc-icon-shut fc-close" (click)="closeChat(contactname);"></i>
             </div>
-            <div class="fc-chatcontent">
-                <div class="fc-chattime">星期五14:09</div>
-                <div class="fc-chatleft">
-                    链接操作很好用，你有没有感觉到?
+            <div class="fc-chatcontent" >
+                <div (click)="seeMore()" class="seeMore">
+                    <span>查看更多</span>
                 </div>
-                <div class="fc-chatinnerright">
-                    <div class="fc-chatright">
-                        我也感觉到了，哈哈哈
+                <div *ngFor="let contactmessage of contactMessages">
+                    <div class="fc-chattime">{{contactmessage.POSTTIME}}</div>
+                    <div class="fc-chatleft" *ngIf="contactmessage.POSTUSERID===contactname">
+                       {{contactmessage.CONTENT}}
                     </div>
-                </div>
-                <div class="fc-chatname">
-                    Angel
+                    <div class="fc-chatinnerright" *ngIf="contactmessage.POSTUSERID!==contactname">
+                        <div class="fc-chatright">
+                            {{contactmessage.CONTENT}}
+                        </div>
+                    </div>                   
                 </div>
             </div>
-            <div class="fc-chatbottom">
+            <div class="fc-chatbottom " >
                 <div class="fc-chatsend">
-                    <input type="text" PlaceHolder="消息" class="fc-chattext" />
-                    <span class="fc-chatsendbutton" (click)="_clicksend($event)" (click)="sendChat()">发送</span>
+                    <input type="text" PlaceHolder="消息" class="fc-chattext"  [(ngModel)]="sendMassage"/>
+                    <span class="fc-chatsendbutton"(click)="sendChat()">发送</span>
                 </div>
             </div>
         </div>
