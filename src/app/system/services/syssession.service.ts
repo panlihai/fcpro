@@ -6,10 +6,7 @@ import { Observable } from 'rxjs';
 export class SyssessionService extends ParentService {
   constructor(public providers: ProvidersService) {
     super(providers, "SYSSESSION");
-  }
-  getSyssession(): Observable<any> {
-    return this.findWithQueryAll({});
-  }
+  } 
 }
 export interface Syssession {
   TOKEN: string;	//用户凭证

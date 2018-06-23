@@ -48,7 +48,7 @@ import { SyscompanyeditComponent } from './components/core/syscompanyedit.compon
 import { SysnavlinkService } from './services/sysnavlink.service';
 import { SysprofileService } from './services/sysprofile.service';
 import { SysprofileComponent } from './components/core/sysprofile.component';
-import { BasicpersoneldialogComponent } from './components/core/basicpersoneldialog.component';
+import { BasicpersoneldialogComponent } from './components/core/dialog/basicpersoneldialog.component';
 import { SysroleDialogEditComponent } from './components/core/dialog/sysroleeditdialog.component';
 import { SysroleauthService } from './services/sysroleauth.service';
 import { SysroleuserService } from './services/sysroleuser.service';
@@ -58,6 +58,7 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
 import { SyslogComponent } from './components/core/syslog.component';
 import { SyslogService } from './services/syslog.service';
 import { SyssessionService } from './services/syssession.service';
+import { SysemployService } from './services/sysemploy.service';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -140,7 +141,8 @@ import { SyssessionService } from './services/syssession.service';
     SysprofileService,
     SysquotaService,
     SyslogService,
-    SyssessionService
+    SyssessionService,
+    SysemployService
   ]
 })
 export class SystemModule {

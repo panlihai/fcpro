@@ -1,14 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentlistComponent, FclistdataComponent, ParentDetailComponent } from 'fccomponent';
+import {  FclistdataComponent, ParentDetailComponent } from 'fccomponent';
 import { SysprofileService } from '../../services/sysprofile.service';
-import { ResetpwddialogComponent } from '../../../layout/resetpwddialog.component';
 import { NzModalService } from 'ng-zorro-antd';
-import { BasicpersoneldialogComponent } from './basicpersoneldialog.component';
 import { FCEVENT } from 'fccomponent/fc';
 import { GridApi, ColumnApi } from 'ag-grid';
 import { ProvidersService } from 'fccore';
 import { environment } from '../../../../environments/environment';
+import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.service';
 @Component({
   selector: 'sysprofile',
   templateUrl: 'sysprofile.component.html',
@@ -87,16 +86,6 @@ import { environment } from '../../../../environments/environment';
   }
   .account-stat-count+span {
     color: #a3afb7;
-  }
-  .detail-item{
-    height:32px;
-    line-height:32px;
-  }
-  .detail-item .label{
-    color:#000000;
-  }
-  .detail-item .label-detail{
-    color:#a3afb7;
   }
   .personel-title{
    
@@ -180,7 +169,8 @@ import { environment } from '../../../../environments/environment';
   }
   :host ::ng-deep .sysprofile-tab .ant-tabs-tabpane,
   :host ::ng-deep .sysprofile-tab .ant-tabs-tabpane>div,
-  .sysprofile-list{
+  .sysprofile-list,
+  .personelinfo{
     width:100%;
     height:100%;
   }
@@ -189,9 +179,20 @@ import { environment } from '../../../../environments/environment';
     height:calc(100% - 40px);
     overflow:auto;
   }
+  .footer-btn{
+    width: 100%;
+    text-align: center;
+    margin-top:40px;
+  }
+  .view-personelinfo{
+    overflow-y: auto;
+    height: 100%;
+    overflow-x: hidden;
+  }
   `]
 })
 export class SysprofileComponent extends ParentDetailComponent {
+  //选项卡
   tabmain = [
     { name: '待办任务', disabled: false, icon: 'fc-icon-picture' },
     { name: '消息', disabled: false, icon: 'fc-icon-information' },
@@ -204,20 +205,33 @@ export class SysprofileComponent extends ParentDetailComponent {
   _lastPwd: string;
   _newPwd: string;
   mainValid: any = {};
-  //快速导航
-  navLinkListCondition: {};
-  //个人信息工具栏
-  personelinfotlb: any = [{ BTNTYPE: 'default', BTNICON: 'fc-icon-amend', BTNNAME: '修改', ACTCODE: 'edit' }];
-  //个人信息修改
-  personelEdit: boolean = false;
+  //快速导航，过滤
+  navLinkListCondition: any;
+  links: any;
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
   currentModal_navLink: any;
   //navLink 标签
   navLinks: any;
+  //个人信息修改
+  personelEdit: boolean = false;
   //用户信息
   userInfo: any;
   //在线用户
   signinTime: string;
+  //用户
+  sysuserObj: any;
+  //人员
+  sysemployeeObj: any;
+  //部门
+
+  //单位
+  syscompanyObj: any;
+  //消息分页总数
+  msgPageTotal: number;
+  //消息分页索引
+  msgPageNum: number;
+  //消息分页大小
+  msgPageSize: number;
   constructor(public mainService: SysprofileService,
     public router: Router,
     private _providers: ProvidersService,
@@ -234,59 +248,31 @@ export class SysprofileComponent extends ParentDetailComponent {
         this.signinTime = result.DATA.LOGTIME;
       }
     })
+    //快速导航
+    this.initNavLink();
+    //消息分页总条数
+    // this.mainService.getSysmsg().subscribe(result => {
+    //   if (result.CODE === '0') {
+    //     this.msgPageTotal = result.DATA;
+    //   }
+    // })
   }
 
   getDefaultQuery() {
   }
   event(eventName: string, context: any): void {
   }
-
   /**
-   * 跳转
-   * @param url 
+   * 修改个人信息
    */
-  navTo(url: string) {
-    // this.mainService.appService.navToByMenuId(this.router, url);
-  }
-  /** YM
-   * 新增快速导航标签
-   */
-  addNavLinkTag(contentTpl, footerTpl) {
-
-  }
-  /** YM
-   * 处理新增快速导航标签——确定
-   */
-  handleAddNavLink_ok(ev: any) {
-
-  }
-  /** YM
-   * 处理新增快速导航标签——取消
-   */
-  handleAddNavLink_cancel(ev: any) {
-
-  }
-  /** YM
-   * 快速导航标签事件
-   */
-  navLinkEvent(ev: FCEVENT, link: any) {
-
+  editPersonelinfo() {
+    this.personelEdit = true;
   }
   /**
-   * 个人信息事件
-   * @param event 
+   * 保存个人信息
    */
-  tlblistEvent(event: FCEVENT) {
-    switch (event.eventName) {
-      case 'edit':
-        this.personelinfotlb = [{ BTNTYPE: 'default', BTNICON: 'fc-icon-save', BTNNAME: '保存', ACTCODE: 'save' }];
-        this.personelEdit = true;
-        break;
-      case 'save':
-        this.personelinfotlb = [{ BTNTYPE: 'default', BTNICON: 'fc-icon-amend', BTNNAME: '修改', ACTCODE: 'edit' }];
-        this.personelEdit = false;
-        break;
-    }
+  savePersonelinfo() {
+    this.personelEdit = false;
   }
   /**
    * 上传个人头像
@@ -301,68 +287,61 @@ export class SysprofileComponent extends ParentDetailComponent {
 
   }
   /**
- * 修改密码
- */
-  resetPassword(): any {
-    const modal = this.modal.open({
-      title: '修改密码',
-      content: ResetpwddialogComponent,
-      onOk() {
-
-      },
-      onCancel() {
-
-      },
-      footer: false,
-      componentParams: {
-        options: {}
-      }
-    });
-    modal.subscribe(result => {
-      this.mainService.sysuserService.doReset(result);
-    })
-  };
-  /**
-   * 修改基本信息
-   */
-  editBasicPersonel() {
-    this.modal.open({
-      title: '修改个人基本信息',
-      content: BasicpersoneldialogComponent,
-      onOk() {
-
-      },
-      onCancel() {
-
-      },
-      footer: false,
-      componentParams: {
-        options: {}
-      }
-    }).subscribe(result => {
-    })
-  }
-  /**
    * 待办任务事件
    * @param param
    */
   tasklistEvent(event: FCEVENT) {
     switch (event.eventName) {
-      case '':
+      case 'select'://选中一条
+        this._providers.commonService.event('selectedMenu', {
+          ID: event.param.ID, MENUID: 'SYSASSIGNMENT', ROUTER: 'sysassignmentList',
+          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '待办任务', MENUICON: 'fc-icon-bgefficiency'
+        });
         break;
     }
   }
+  /**
+   * 访问日志事件
+   * @param event 
+   */
   sysloglistEvent(event: FCEVENT) {
     switch (event.eventName) {
-      case '':
+      case 'select'://选中一条
+        this._providers.commonService.event('selectedMenu', {
+          ID: event.param.ID, MENUID: 'SYSLOG', ROUTER: 'syslogList',
+          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '访问日志', MENUICON: 'fc-icon-bgefficiency'
+        });
+
         break;
     }
   }
-  taskpaginationEvent(event: FCEVENT) {
+  /**
+   * 消息事件
+   * @param event 
+   */
+  msglistEvent(event: FCEVENT) {
     switch (event.eventName) {
+      case 'select'://选中一条
+        this._providers.commonService.event('selectedMenu', {
+          ID: event.param.ID, MENUID: 'SYSMESSAGE', ROUTER: 'sysmessageDetail',
+          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '消息详情', MENUICON: 'fc-icon-bgefficiency'
+        });
+        break;
+      case 'listOneView':
+        this._providers.commonService.event('selectedMenu', {
+          ID: event.param.ID, MENUID: 'SYSMESSAGE', ROUTER: 'sysmessageDetail',
+          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '消息详情', MENUICON: 'fc-icon-bgefficiency'
+        });
+      case 'listOneDelete'://删除
+        this.messageService.confirm("确认删除记录吗?", () => {
 
+        }, () => { });
+        break;
     }
   }
+  /**
+   * 消息分页事件
+   */
   msgpaginationEvent(event: FCEVENT) {
     switch (event.eventName) {
       case 'pageSizeChange'://每页显示多少条
@@ -374,12 +353,18 @@ export class SysprofileComponent extends ParentDetailComponent {
         break;
     }
   }
+  taskpaginationEvent(event: FCEVENT) {
+    switch (event.eventName) {
+
+    }
+  }
+
   /**
    * 跳转到待办
    */
   navToAssignment() {
     this._providers.commonService.event('selectedMenu', {
-      ID: '', MENUID: 'ASSIGNMENT', ROUTER: 'sysassignmentList',
+      MENUID: 'ASSIGNMENT', ROUTER: 'sysassignmentList',
       PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '待办任务', MENUICON: 'fc-icon-bgefficiency'
     });
   }
@@ -388,7 +373,7 @@ export class SysprofileComponent extends ParentDetailComponent {
    */
   navToMessage() {
     this._providers.commonService.event('selectedMenu', {
-      ID: '', MENUID: 'SYSMESSAGE', ROUTER: 'sysmessageDetail',
+      MENUID: 'SYSMESSAGE', ROUTER: 'sysmessageDetail',
       PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '消息详情', MENUICON: 'fc-icon-bgefficiency'
     });
   }
@@ -397,8 +382,81 @@ export class SysprofileComponent extends ParentDetailComponent {
    */
   navToSyslog() {
     this._providers.commonService.event('selectedMenu', {
-      ID: '', MENUID: 'SYSLOG', ROUTER: 'syslogList',
+      MENUID: 'SYSLOG', ROUTER: 'syslogList',
       PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '访问日志', MENUICON: 'fc-icon-bgefficiency'
     });
   }
+  /**
+  * YM
+  *动态加载快速导航标签数据;
+  */
+  initNavLink() {
+    this.mainService.NavLinkFunction(NavLinkFunctionName.getNavLinks).subscribe(res => {
+      if (res.CODE === "0") this.navLinks = res.DATA;
+      let args: Args_NavLink = { navlinks: this.navLinks }
+      this.navLinkListCondition = this.mainService.NavLinkFunction(NavLinkFunctionName.rebuildList_NavLink, args);
+      this.mainService.NavLinkFunction(NavLinkFunctionName.refreshNavLink, args);
+    });
+  }
+  /** YM
+   * 新增快速导航标签
+   */
+  addNavLinkTag(contentTpl, footerTpl) {
+    let args: Args_NavLink = { navlinks: this.navLinks, contentTpl: contentTpl, footerTpl: footerTpl, listdata: this.navLink_listdata }
+    if (this.mainService.NavLinkFunction(NavLinkFunctionName.addNavLinkTag, args)) {
+      setTimeout(() => {
+        let column: ColumnApi = this.navLink_listdata._gridColumnApi;
+        if (column) column.autoSizeAllColumns();
+      });
+    }
+  }
+  /** YM
+   * 处理新增快速导航标签——确定
+   */
+  handleAddNavLink_ok(ev: any) {
+    let args: Args_NavLink = { navlinks: this.navLinks, listdata: this.navLink_listdata, condition: this.navLinkListCondition }
+    if (
+      this.mainService.NavLinkFunction(NavLinkFunctionName.handleAddNavLink_ok, args)
+    ) {
+      setTimeout(() => {
+        this.initNavLink();
+      });
+    }
+  }
+  /** YM
+   * 处理新增快速导航标签——取消
+   */
+  handleAddNavLink_cancel(ev: any) {
+    this.mainService.NavLinkFunction(NavLinkFunctionName.handleAddNavLink_cancel)
+  }
+  /** YM
+   * 快速导航标签事件
+   */
+  navLinkEvent(ev: FCEVENT, link: any) {
+    switch (ev.eventName) {
+      case "close":
+        break;
+      case "beforeClose":
+        event.stopPropagation();
+        event.preventDefault();
+        this.mainService.NavLinkFunction(NavLinkFunctionName.deleteSubject).subscribe(res => {
+          if (res) this.initNavLink();
+        });
+        this.mainService.NavLinkFunction(NavLinkFunctionName.navLinkBeforeClose, { link: link });
+        break;
+      case "click":
+        event.stopPropagation();
+        event.preventDefault();
+        this.logService.debug('路由' + ev.param);
+        this._providers.commonService.event('selectedMenu', {
+          ID: '', MENUID: 'SYSNAVLINK', ROUTER: 'sysassignmentList',
+          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '待办任务', MENUICON: 'fc-icon-bgefficiency'
+        });
+        break;
+      default:
+        break;
+    }
+  }
 }
+
+

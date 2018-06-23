@@ -10,7 +10,7 @@ import { MenuOptions, FcnavmenuComponent, Fcmenu } from 'fccomponent/fcnav/fcnav
 import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.component';
 import 'rxjs/add/operator/filter';
 import { NzModalService } from 'ng-zorro-antd';
-import { ResetpwddialogComponent } from './resetpwddialog.component';
+import { ResetpwddialogComponent } from '../system/components/core/dialog/resetpwddialog.component';
 import { SysuserService, Sysuser } from '../system/services/sysuser.service';
 @Component({
   selector: 'layout',
