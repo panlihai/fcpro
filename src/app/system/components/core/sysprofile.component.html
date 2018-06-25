@@ -12,7 +12,7 @@
                     <fc-avatar fcSrc="assets/img/github.jpg" (click)="uploadAvatar()"></fc-avatar>
                 </div>
                 <div class="text-center personel-user">
-                    {{userInfo.NAME}} | {{userInfo.REMARK}}
+                    {{avaterUserName}} | {{avaterUserRemark}}
                     <p>上次登录:{{signinTime}}</p>
                 </div>
             </div>
@@ -62,85 +62,91 @@
             <fc-tabmain [fcTabs]="tabmain" class="sysprofile-tab" style="height:100%;">
                 <div class="sysprofile-list" fccontent1>
                     <!-- 待办任务 -->
-                    <fc-list fcAppid="SYSASSIGNMENT" [fcFieldCode]="'TASKNAME'" (fcEvent)="tasklistEvent($event)"></fc-list>
-                    <fc-pagination [fcTotal]="_pageTotal" [fcPageIndex]="_pageNum" [fcPageSize]="_pageSize" [fcSize]="fcSize" [fcPageSizeSelectorValues]="fcPageSizeSelectorValues"
-                        (fcEvent)="taskpaginationEvent($event)"></fc-pagination>
+                    <fc-list fcAppid="SYSASSIGNMENT" [fcFieldCode]="'TASKNAME'" fcIcon="fc-icon-picture" fcSubTitleCode="CREATETIME" fcStatusCode='STATUS'
+                        [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}"
+                        (fcEvent)="tasklistEvent($event)"></fc-list>
+                    <fc-pagination [fcTotal]="taskPageTotal" [fcPageIndex]="taskPageNum" [fcPageSize]="taskPageSize" (fcEvent)="taskpaginationEvent($event)"></fc-pagination>
                 </div>
                 <div class="sysprofile-list" fccontent2>
                     <!-- 消息 -->
-                    <!-- <fc-list fcAppid="SYSMESSAGE" [fcFieldCode]="'TITLE'" fcIcon="fc-icon-information" fc fcSubTitleCode="CONTENT" fcStatusCode='TYPE'
-                        [fcCheckValue]="{'normal':'success','waring':'warning','danger':'error'}" (fcEvent)="msglistEvent($event)"></fc-list>
-                    <fc-pagination [fcTotal]="msgPageTotal" [fcPageIndex]="msgPageNum" [fcPageSize]="msgPageSize" (fcEvent)="msgpaginationEvent($event)"></fc-pagination> -->
+                    <fc-list fcAppid="SYSMESSAGE" [fcFieldCode]="'TITLE'" fcIcon="fc-icon-information" fcSubTitleCode="CONTENT" fcStatusCode='TYPE'
+                        [fcCheckValue]="{'normal':'success','waring':'warning','danger':'error','default':'default'}" (fcEvent)="msglistEvent($event)"
+                        [fcCondition]="msglistCondition"></fc-list>
+                    <fc-pagination [fcTotal]="msgPageTotal" [fcPageIndex]="msgPageNum" [fcPageSize]="msgPageSize" (fcEvent)="msgpaginationEvent($event)"></fc-pagination>
                 </div>
                 <div class="personelinfo" fccontent3>
                     <!-- 个人信息 -->
                     <div class="view-personelinfo" [hidden]="personelEdit">
-                        <fc-title fcLabel="用户信息"></fc-title>
-                        <fc-layoutcol>
-                            <fc-label fcLabel="用户编码" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="用户名称" fcValue="111111111" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="111111111" fccontent2></fc-label>
-                        </fc-layoutcol>
                         <fc-title fcLabel="人员信息"></fc-title>
                         <fc-layoutcol>
-                            <fc-label fcLabel="工号" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="姓名" fcValue="111111111" fccontent2></fc-label>
-                            <fc-label fcLabel="性别" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="年龄" fcValue="111111111" fccontent2></fc-label>
-                            <fc-label fcLabel="年龄" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="证件类型" fcValue="111111111" fccontent2></fc-label>
-                            <fc-label fcLabel="证件号码" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="户口所在地" fcValue="111111111" fccontent2></fc-label>
-                            <fc-label fcLabel="婚姻状况" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="开始工作日期" fcValue="111111111" fccontent2></fc-label>
+                            <fc-label fcLabel="工号" fcValue="20329887665" fccontent1></fc-label>
+                            <fc-label fcLabel="姓名" fcValue="张三" fccontent2></fc-label>
+                            <fc-label fcLabel="性别" fcValue="男" fccontent1></fc-label>
+                            <fc-label fcLabel="年龄" fcValue="30" fccontent2></fc-label>
+                            <fc-label fcLabel="证件类型" fcValue="身份证" fccontent1></fc-label>
+                            <fc-label fcLabel="证件号码" fcValue="441881199505017218" fccontent2></fc-label>
+                            <fc-label fcLabel="户口所在地" fcValue="北京" fccontent1></fc-label>
+                            <fc-label fcLabel="婚姻状况" fcValue="已婚" fccontent2></fc-label>
+                            <fc-label fcLabel="开始工作日期" fcValue="2010年6月30日" fccontent1></fc-label>
+                        </fc-layoutcol>
+                        <fc-title fcLabel="用户信息"></fc-title>
+                        <fc-layoutcol>
+                            <fc-label fcLabel="用户编码" [fcValue]="sysuserObj.USERCODE" fccontent1></fc-label>
+                            <fc-label fcLabel="用户名称" [fcValue]="sysuserObj.NAME" fccontent2></fc-label>
+                            <fc-label fcLabel="有效期" [fcValue]="sysuserObj.AVAILABLEDATE" fccontent1></fc-label>
+                            <fc-label fcLabel="失效期" [fcValue]="sysuserObj.DISABLEDATE" fccontent2></fc-label>
                         </fc-layoutcol>
                         <fc-title fcLabel="部门信息"></fc-title>
                         <fc-layoutcol>
-                            <fc-label fcLabel="用户编码" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="用户名称" fcValue="111111111" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="111111111" fccontent2></fc-label>
+                            <fc-label fcLabel="部门编号" fcValue="201803298765" fccontent1></fc-label>
+                            <fc-label fcLabel="部门名称" fcValue="开发实施部" fccontent2></fc-label>
+                            <fc-label fcLabel="有效期" fcValue="2018-06-23" fccontent1></fc-label>
+                            <fc-label fcLabel="失效期" fcValue="2018-12-31" fccontent2></fc-label>
                         </fc-layoutcol>
                         <fc-title fcLabel="单位信息"> </fc-title>
                         <fc-layoutcol>
-                            <fc-label fcLabel="用户编码" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="用户名称" fcValue="111111111" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="111111111" fccontent2></fc-label>
+                            <fc-label fcLabel="单位编码" fcValue="2078472399876" fccontent1></fc-label>
+                            <fc-label fcLabel="单位名称" fcValue="东软越通" fccontent2></fc-label>
+                            <fc-label fcLabel="有效期" fcValue="2010-06-30" fccontent1></fc-label>
+                            <fc-label fcLabel="失效期" fcValue="2020-12-31" fccontent2></fc-label>
                         </fc-layoutcol>
                         <div class="footer-btn">
                             <fc-button fcLabel="修改" (click)="editPersonelinfo()" fcIcon="fc-icon-amend" fcIconPositon="left" fcType="primary"></fc-button>
                         </div>
                     </div>
                     <form class="edit-personelinfo" [hidden]="!personelEdit">
-                        <fc-title fcLabel="用户信息"></fc-title>
-                        <fc-layoutcol>
-                            <fc-label fcLabel="用户编码" fcValue="111111111" fccontent1></fc-label>
-                            <fc-text fcLabel="用户名称" fccontent2></fc-text>
-                            <fc-label fcLabel="有效期" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="111111111" fccontent2></fc-label>
-                        </fc-layoutcol>
                         <fc-title fcLabel="人员信息"></fc-title>
                         <fc-layoutcol>
-                            <fc-label fcLabel="用户编码" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="用户名称" fcValue="111111111" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="111111111" fccontent2></fc-label>
+                            <fc-label fcLabel="工号" fcValue="20329887665" fccontent1></fc-label>
+                            <fc-label fcLabel="姓名" fcValue="张三" fccontent2></fc-label>
+                            <fc-label fcLabel="性别" fcValue="男" fccontent1></fc-label>
+                            <fc-label fcLabel="年龄" fcValue="30" fccontent2></fc-label>
+                            <fc-label fcLabel="证件类型" fcValue="身份证" fccontent1></fc-label>
+                            <fc-label fcLabel="证件号码" fcValue="441881199505017218" fccontent2></fc-label>
+                            <fc-label fcLabel="户口所在地" fcValue="北京" fccontent1></fc-label>
+                            <fc-label fcLabel="婚姻状况" fcValue="已婚" fccontent2></fc-label>
+                            <fc-label fcLabel="开始工作日期" fcValue="2010-06-30" fccontent1></fc-label>
+                        </fc-layoutcol>
+                        <fc-title fcLabel="用户信息"></fc-title>
+                        <fc-layoutcol>
+                            <fc-label fcLabel="用户编码" [fcValue]="sysuserObj.USERCODE" fccontent1></fc-label>
+                            <fc-text fcLabel="用户名称" [(ngModel)]="sysuserObj.NAME" name="sysuserObj.NAME" fccontent2></fc-text>
+                            <fc-label fcLabel="有效期" [fcValue]="sysuserObj.AVAILABLEDATE" fccontent1></fc-label>
+                            <fc-label fcLabel="失效期" [fcValue]="sysuserObj.DISABLEDATE" fccontent2></fc-label>
                         </fc-layoutcol>
                         <fc-title fcLabel="部门信息"></fc-title>
                         <fc-layoutcol>
-                            <fc-label fcLabel="用户编码" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="用户名称" fcValue="111111111" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="111111111" fccontent2></fc-label>
+                            <fc-label fcLabel="部门编号" fcValue="201803298765" fccontent1></fc-label>
+                            <fc-label fcLabel="部门名称" fcValue="开发实施部" fccontent2></fc-label>
+                            <fc-label fcLabel="有效期" fcValue="2018-06-23" fccontent1></fc-label>
+                            <fc-label fcLabel="失效期" fcValue="2018-12-31" fccontent2></fc-label>
                         </fc-layoutcol>
                         <fc-title fcLabel="单位信息"> </fc-title>
                         <fc-layoutcol>
-                            <fc-label fcLabel="用户编码" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="用户名称" fcValue="111111111" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" fcValue="111111111" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="111111111" fccontent2></fc-label>
+                            <fc-label fcLabel="单位编码" fcValue="2078472399876" fccontent1></fc-label>
+                            <fc-label fcLabel="单位名称" fcValue="东软越通" fccontent2></fc-label>
+                            <fc-label fcLabel="有效期" fcValue="2010-06-30" fccontent1></fc-label>
+                            <fc-label fcLabel="失效期" fcValue="2020-12-31" fccontent2></fc-label>
                         </fc-layoutcol>
                         <div class="footer-btn">
                             <fc-button fcLabel="确认修改" (click)="savePersonelinfo()" fcIcon="fc-icon-save" fcIconPositon="left" fcType="primary"></fc-button>
@@ -149,7 +155,7 @@
                 </div>
                 <div fccontent4>
                     <!-- 快速导航 -->
-                    <div class="fastcontent">
+                    <div class="fastcontent" style="margin-top: 40px;">
                         <fc-tag fcClose="true" *ngFor="let navLink of navLinks" style="float: left;margin-right: 20px;margin-bottom: 10px;" [fcLabel]="navLink.LABEL"
                             (fcEvent)="navLinkEvent($event,navLink)"></fc-tag>
                         <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addNavLinkTag(contentTpl_navLink,footerTpl_navLink)"
@@ -159,18 +165,17 @@
                 <div fccontent5>
                     <!-- 密码 -->
                     <form class="edit-password" style="margin-top: 40px;">
-                        <fc-text fcLabel="原密码" [fcRequired]="true" [(ngModel)]="_lastPwd" [fcValid]="mainValid._lastPwd" name="lastpwd"></fc-text>
-                        <fc-text fcLabel="重置密码" [fcRequired]="true" [(ngModel)]="_newPwd" [fcValid]="mainValid._newPwd" name="resetpwd"></fc-text>
+                        <fc-text fcLabel="原密码" [fcRequired]="true" [(ngModel)]="lastPwd" [fcValid]="mainValid.lastPwd" name="lastpwd"></fc-text>
+                        <fc-text fcLabel="重置密码" [fcRequired]="true" [(ngModel)]="newPwd" [fcValid]="mainValid.newPwd" name="resetpwd"></fc-text>
                         <div class="footer-btn">
-                            <fc-button fcLabel="确认修改" fcType="primary"></fc-button>
+                            <fc-button fcLabel="确认修改" fcType="primary" (click)="resetPwd()"></fc-button>
                         </div>
                     </form>
                 </div>
                 <!--日志 -->
                 <div class="sysprofile-list" fccontent6>
                     <fc-list fcAppid="SYSLOG" [fcFieldCode]="'LOGID'" (fcEvent)="sysloglistEvent($event)"></fc-list>
-                    <fc-pagination [fcTotal]="_pageTotal" [fcPageIndex]="_pageNum" [fcPageSize]="_pageSize" [fcSize]="fcSize" [fcPageSizeSelectorValues]="fcPageSizeSelectorValues"
-                        (fcEvent)="sysloglistEvent($event)"></fc-pagination>
+                    <fc-pagination [fcTotal]="logPageTotal" [fcPageIndex]="logPageNum" [fcPageSize]="logPageSize" (fcEvent)="sysloglistEvent($event)"></fc-pagination>
                 </div>
             </fc-tabmain>
         </div>
