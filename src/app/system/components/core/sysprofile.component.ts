@@ -148,7 +148,12 @@ import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.ser
     width:100%;
     height:100%;
   }
-  :host ::ng-deep .sysprofile-list .fc-list{
+  .view-personelinfo,.edit-personelinfo{
+    height: 100%;
+    overflow:hidden;
+  }
+  :host ::ng-deep .sysprofile-list .fc-list,
+  :host ::ng-deep .personelinfo .view-personelinfo-content{
     width:100%;
     height:calc(100% - 40px);
     overflow:auto;
@@ -157,11 +162,6 @@ import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.ser
     width: 100%;
     text-align: center;
     margin-top:40px;
-  }
-  .view-personelinfo,.edit-personelinfo{
-    overflow-y: auto;
-    height: 100%;
-    overflow-x: hidden;
   }
   `]
 })
@@ -396,6 +396,12 @@ export class SysprofileComponent extends ParentDetailComponent {
           })
         }, () => { });
         break;
+      case 'listSearch'://立即查询
+        this._providers.commonService.event('selectedMenu', {
+          ID: event.param.ID, MENUID: 'SYSASSIGNMENT', ROUTER: 'sysassignmentList',
+          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '待办任务', MENUICON: 'fc-icon-bgefficiency'
+        });
+        break;
     }
   }
   /**
@@ -429,7 +435,7 @@ export class SysprofileComponent extends ParentDetailComponent {
           }
         })
         break;
-      case 'listOneView':
+      case 'listOneView'://预览
         this._providers.commonService.event('selectedMenu', {
           ID: event.param.ID, MENUID: 'SYSMESSAGE', ROUTER: 'sysmessageDetail',
           PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '消息详情', MENUICON: 'fc-icon-bgefficiency'
