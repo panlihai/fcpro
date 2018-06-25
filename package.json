@@ -20,7 +20,8 @@
     "@grapecity/spread-sheets-pdf": "^11.1.2",
     "@grapecity/spread-sheets-print": "^11.1.2",
     "@grapecity/spread-sheets-resources-zh": "^11.1.2",
-    "fccomponent": "^0.6.43"
+    "angular2-draggable": "^1.4.2",
+    "fccomponent": "^0.6.41"
   },
   "devDependencies": {
     "@angular/cli": "1.6.7",

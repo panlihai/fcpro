@@ -62,6 +62,7 @@ import { SyssessionService } from './services/syssession.service';
 import { SysemployService } from './services/sysemploy.service';
 import { SysassignmentService } from './services/sysassignment.service';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { AngularDraggableModule } from 'angular2-draggable';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -87,7 +88,8 @@ import { SysassignmentComponent } from './components/core/sysassignment.componen
     FcsearchModule,
     FctabModule,
     FcchartModule,
-    SpreadSheetsModule
+    SpreadSheetsModule,
+    AngularDraggableModule
   ],
   exports: [
 

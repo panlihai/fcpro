@@ -353,15 +353,42 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
   height:110px;
   overflow:auto;
 }
-:host ::ng-deep .templatehome .separated-lefttop .fc-layoutpanel{
+:host ::ng-deep .templatehome .separated-lefttop .fc-layoutpanel,:host ::ng-deep .templatehome .separated-left .fc-layoutpanel{
   background:white;
-  margin: 3px 3px 6px 3px;
+  padding:5px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #ccc;
+  width: auto;
+}
+:host ::ng-deep .templatehome .separated-lefttop .fc-layoutpanel{
+  margin:3px 3px 5px 3px;
+}
+
+.templatehome .separated-righttop{
+  background:white;
+  margin: 3px ;
+  padding:5px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #ccc;
+  width: auto;
+}
+:host ::ng-deep .templatehome .separated-rightcenter .fc-layoutpanel{
+  background:white;
+  margin: 3px ;
   padding:5px;
   border-radius: 2px;
   box-shadow: 0 0 5px #ccc;
   width: auto;
 }
 :host ::ng-deep .templatehome .separated-left .fc-layoutpanel,.templatehome .separated-leftbottom,:host ::ng-deep .templatehome .separated-right .fc-layoutpanel,:host ::ng-deep .templatehome .separated-rightbottom .fc-layoutpanel{
+  background:white;
+  margin: 3px ;
+  padding:5px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #ccc;
+  width: auto;
+}
+:host ::ng-deep .templatehome .separated-leftrightbottom .fc-layoutpanel {
   background:white;
   margin: 3px ;
   padding:5px;
@@ -378,6 +405,9 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
  :host ::ng-deep .templatehome .todo-tasks .fc-layoutpanel{
   margin-bottom:6px;
  }
+ :host ::ng-deep .templatehome  .fc-layoutpanel{
+      background-color: #EEF7FC;
+ }
  .seeMore {
   text-align: center;
   color: #;
@@ -393,6 +423,7 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
   ]
 })
 export class HomeComponent implements OnInit {
+  simpleDrop: any = null;
   //初始化分页大小
   pagesize: number = 2;
   //初始化每一页几个数据
@@ -758,17 +789,23 @@ export class HomeComponent implements OnInit {
       CONTENT: this.sendMassage,
       POSTUSERID: this.currentUser,
       NOTIFICATIONUSERID: this.contactname,
-      POSTTIME: Math.floor(new Date().getTime()/1000)      
+      POSTTIME: this.mainService.providers.commonService.getTimestamp(),
+      TS:this.mainService.providers.commonService.getTimestamp(),
+      ISSEND:'N',
+      ISREAD:'N',
+      SORT:this.mainService.providers.commonService.getTimestamp(),
+      TITLE:'来自联系人的消息',
+      TYPE:'normal'
     }];
     //如果是当天时间，不显示年月日
     console.log(new Date(obj[0].POSTTIME*1000).toLocaleDateString());
     if (new Date(obj[0].POSTTIME*1000).toLocaleDateString() === new Date().toLocaleDateString()) {
-      time = this.mainService.providers.commonService.timestampFormat(obj[0].POSTTIME * 1000, 'hh:mm:ss') + "";
+      time = this.mainService.providers.commonService.timestampFormat(obj[0].POSTTIME*1000, 'hh:mm:ss') + "";
     } else {
       //如果不是当天，年月日时分秒
-      time = this.mainService.providers.commonService.timestampFormat(obj[0].POSTTIME * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+      time = this.mainService.providers.commonService.timestampFormat(obj[0].POSTTIME*1000, 'yyyy-MM-dd hh:mm:ss') + "";
     }
-    obj[0].POSTTIME=time;
+    obj[0].POSTTIME=time; 
     //往集合顶部插入一条消息记录，并且清空输入框
     this.contactMessages = obj.concat(this.contactMessages);
     this.sendMassage = '';
@@ -804,6 +841,7 @@ export class HomeComponent implements OnInit {
   getChatmessage(userid) {
     this.mainService.getChatcontent(userid, this.pagesize, this.pagenum)
       .subscribe(result => {
+        debugger;
         if (result.CODE === "0") {
           //时间的显示
            result.DATA.forEach(element => {
@@ -816,14 +854,11 @@ export class HomeComponent implements OnInit {
                 element.POSTTIME = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.POSTTIME) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
               }
             }
-            console.log(element.POSTTIME);
           })
 
           this.contactMessages = result.DATA.concat(this.contactMessages);
         }
       });
-    console.log(this.contactMessages);
-
   }
   /* 点击查看更多 */
   seeMore() {

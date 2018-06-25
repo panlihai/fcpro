@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import {DndModule} from 'ng2-dnd';
 import {
   FcnavModule,
   FcbasicModule,
@@ -55,6 +56,7 @@ import { SysuserService } from './system/services/sysuser.service';
     FcmodalModule,
     FcchartModule,
     FcprogressModule
+    
   ],
   declarations: [
     AppComponent,

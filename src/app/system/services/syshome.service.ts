@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
 import { ProvidersService,Sysmenu } from "fccore";
 import { LayoutService } from "./layout.service";
-import { SysnavlinkService, NavLinkFunctionName, Args_NavLink } from "./sysnavlink.service";
+import { SysnavlinkService, NavLinkFunctionName, Args_NavLink} from "./sysnavlink.service";
 import { SysannouncementService } from './sysannouncement.service';
 import { SysmessageService, Sysmessage } from "./sysmessage.service";
 import { SysassignmentService, Sysassignment} from "./sysassignment.service";
@@ -231,8 +231,10 @@ export class SyshomeService {
           "PAGENUM": pagenum,
       })
   }
+  //将发送的消息保存到数据库里面
   saveMessage_chat(obj){
-    this.sysmessageService.save(obj).subscribe(res=>{
+    this.sysmessageService.save(obj).subscribe(res=>{1
+      debugger;
       if(res.CODE==='0'){
         this.providers.msgService.success("保存成功");
       }else if(res.CODE==='1'){
