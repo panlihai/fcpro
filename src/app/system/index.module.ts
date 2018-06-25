@@ -44,7 +44,7 @@ import { SysannouncementService } from './services/sysannouncement.service';
 import { SysannouncementComponent } from './components/core/sysannouncement.component';
 import { SyscompanyService } from './services/syscompany.service';
 import { SyscompanyComponent } from './components/core/syscompany.component';
-import { SyscompanyeditComponent } from './components/core/syscompanyedit.component';
+import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
 import { SysnavlinkService } from './services/sysnavlink.service';
 import { SysprofileService } from './services/sysprofile.service';
 import { SysprofileComponent } from './components/core/sysprofile.component';
@@ -61,6 +61,9 @@ import { SyssessionService } from './services/syssession.service';
 import { SysemployService } from './services/sysemploy.service';
 import { SysassignmentService } from './services/sysassignment.service';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { UploadavatardialogComponent } from './components/core/dialog/uploadavatardialog.component';
+import { companytransferdialogComponent } from './components/core/dialog/companytransferdialog.component';
+import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -69,7 +72,9 @@ import { SysassignmentComponent } from './components/core/sysassignment.componen
     SysquotaEditComponent,
     SysroleDialogEditComponent,
     SysquotalistComponent,
-    SysquotaEditComponent
+    SysquotaEditComponent,
+    UploadavatardialogComponent,
+    companytransferdialogComponent
   ],
   imports: [
     CommonModule,
@@ -115,13 +120,16 @@ import { SysassignmentComponent } from './components/core/sysassignment.componen
     SysroleDialogEditComponent,
     SysannouncementComponent,
     SyscompanyComponent,
-    SyscompanyeditComponent,
     SysprofileComponent,
     BasicpersoneldialogComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
     SyslogComponent,
-    SysassignmentComponent
+    SysassignmentComponent,
+    UploadavatardialogComponent,
+    companytransferdialogComponent,
+    SyscompanymodifyComponent,
+    SyscompanyaddComponent
   ],
   providers: [
     LayoutService,

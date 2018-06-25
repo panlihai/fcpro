@@ -4,7 +4,6 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { LockscreenComponent } from './components/lockscreen/lockscreen.component';
-import { SignupComponent } from './components/signup/signup.component';
 import { SysdatasourceComponent } from './components/core/sysdatasource.component';
 import { SysappComponent } from './components/core/sysapp.component';
 import { SysdicComponent } from './components/core/sysdic.component';
@@ -26,6 +25,8 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SyslogComponent } from './components/core/syslog.component';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
+import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -111,8 +112,16 @@ export const Routers: Routes = [{
     component: SyscomponentComponent,
     data: { keep: false }
 }, {
-    path: 'syscompanyList',//公司
+    path: 'syscompanyList',//单位列表
     component: SyscompanyComponent,
+    data: { keep: false }
+}, {
+    path: 'syscompanyAdd',//单位设立
+    component: SyscompanyaddComponent,
+    data: { keep: false }
+}, {
+    path: 'syscompanyModify',//单位调整
+    component: SyscompanymodifyComponent,
     data: { keep: false }
 }, {
     path: 'sysquotaList',//指标列表
@@ -130,10 +139,10 @@ export const Routers: Routes = [{
     path: 'syslogList',//访问日志
     component: SyslogComponent,
     data: { keep: false }
-},{
-  path: 'sysquotaEdit',//指标编辑
-  component: SysquotaEditComponent,
-  data: { keep: false }
+}, {
+    path: 'sysquotaEdit',//指标编辑
+    component: SysquotaEditComponent,
+    data: { keep: false }
 }, {
     path: '**',
     redirectTo: 'main',
