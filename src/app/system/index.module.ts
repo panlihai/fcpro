@@ -52,6 +52,7 @@ import { SysnavlinkService } from './services/sysnavlink.service';
 import { SysquotaService } from './services/sysquota.service';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
+import { SysquotavalueService } from './services/sysquotavalue.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -118,7 +119,8 @@ import { SysquotaEditComponent } from './components/core/sysquotaedit.component'
     SysannouncementService,
     SyscompanyService,
     SysnavlinkService,
-    SysquotaService
+    SysquotaService,
+    SysquotavalueService
   ]
 })
 export class SystemModule {

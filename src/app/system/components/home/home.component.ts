@@ -463,11 +463,11 @@ export class HomeComponent implements OnInit {
     this.initNavLink();
   }
   initNavLink() {
-    this.mainService.NavLinkFunction(NavLinkFunctionName.getNavLinks).subscribe(res => {
+    this.mainService.getNavLinks().subscribe(res => {
       if (res.CODE === "0") this.navLinks = res.DATA;
       let args: Args_NavLink = { navlinks: this.navLinks }
-      this.navLinkListCondition = this.mainService.NavLinkFunction(NavLinkFunctionName.rebuildList_NavLink, args);
-      this.mainService.NavLinkFunction(NavLinkFunctionName.refreshNavLink, args);
+      this.navLinkListCondition = this.mainService.rebuildList_NavLink(args);
+      this.mainService.refreshNavLink(args);
     });
   }
   /** YM
@@ -475,7 +475,7 @@ export class HomeComponent implements OnInit {
    */
   addNavLinkTag(contentTpl, footerTpl) {
     let args: Args_NavLink = { navlinks: this.navLinks, contentTpl: contentTpl, footerTpl: footerTpl, listdata: this.navLink_listdata }
-    if (this.mainService.NavLinkFunction(NavLinkFunctionName.addNavLinkTag, args)) {
+    if (this.mainService.addNavLinkTag(args)) {
       setTimeout(() => {
         let column: ColumnApi = this.navLink_listdata._gridColumnApi;
         if (column) column.autoSizeAllColumns();
@@ -488,7 +488,7 @@ export class HomeComponent implements OnInit {
   handleAddNavLink_ok(ev: any) {
     let args: Args_NavLink = { navlinks: this.navLinks, listdata: this.navLink_listdata, condition: this.navLinkListCondition }
     if (
-      this.mainService.NavLinkFunction(NavLinkFunctionName.handleAddNavLink_ok, args)
+      this.mainService.handleAddNavLink_ok(args)
     ) {
       setTimeout(() => {
         this.initNavLink();
@@ -499,7 +499,7 @@ export class HomeComponent implements OnInit {
    * 处理新增快速导航标签——取消
    */
   handleAddNavLink_cancel(ev: any) {
-    this.mainService.NavLinkFunction(NavLinkFunctionName.handleAddNavLink_cancel)
+    this.mainService.handleAddNavLink_cancel()
   }
   /** YM
    * 快速导航标签事件
@@ -512,10 +512,10 @@ export class HomeComponent implements OnInit {
         event.stopPropagation();
         event.preventDefault();
         let args: Args_NavLink = { link: link }
-        this.mainService.NavLinkFunction(NavLinkFunctionName.deleteSubject).subscribe(res => {
+        this.mainService.deleteSubject().subscribe(res => {
           if (res) this.initNavLink();
         });
-        this.mainService.NavLinkFunction(NavLinkFunctionName.navLinkBeforeClose, args);
+        this.mainService.navLinkBeforeClose(args);
         break;
       case "click":
         event.stopPropagation();

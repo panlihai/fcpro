@@ -1,0 +1,51 @@
+<fc-layoutpanel class="full-layoutpanel" fcFull="true" *ngIf="PageState==='list'">
+    <fc-title fctoolbar fcLabel="指标值列表页"></fc-title>
+    <fc-tlblist fctoolbar [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+    <fc-listdata #detailList fccontent [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+</fc-layoutpanel>
+<fc-layoutpanel class="full-layoutpanel" fcFull="true" *ngIf="PageState==='edit'||PageState==='add'">
+    <fc-title fccontent fcLabel="指标值编辑页"></fc-title>
+    <fc-layoutcol fccontent>
+        <fc-any fccontent1 [fcAppid]="appId" [ngModel]="saveObj.CATAGORY" (ngModelChange)="typeChange($event)" name="CATAGORY" [fcAppid]="appId" fcFieldCode="CATAGORY" fcLabelCode="DICDESC" fcValueCode="DICVALUE" [fcDisabled]="PageState==='edit'"></fc-any>
+        <!-- <fc-radio fccontent1 fcLabel="取值类型：" [ngModel]="saveObj.CATAGORY" (ngModelChange)="handleChartType_Radio($event)" name="CATAGORY" [fcOption]="AccessToDataType"></fc-radio> -->
+        <fc-text fccontent2 [fcAppid]="appId" fcFieldCode='CHARTID' [(ngModel)]="saveObj.CHARTID" name="CHARTID" fcDisabled="true"></fc-text>
+    </fc-layoutcol>
+    <div fccontent [ngSwitch]="saveObj.CATAGORY">
+        <div style="height:350px;padding:5px;" *ngSwitchCase="'static'">
+            <div style="width: 100%;display: flex;flex: 1;justify-content: left;margin-bottom: 12px;" fccontent>
+                <fc-button fcSize="large" fcToolTip="新增数据" (click)="static_add(contentTpl_Static,footerTpl)" fcLabel="+"></fc-button>
+                <!-- <fc-button fcType="primary" (click)="static_delete()" fcLabel="选中删除"></fc-button> -->
+                <!-- <fc-button fcType="primary" (click)="static_sort()" fcLabel="默认排序"></fc-button> -->
+            </div>
+            <fc-listdata #listdata fcOrder="CHARTID" [fcAppid]="appId" [fcCondition]="editCondition" [fcOption]="mainService.editOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+        </div>
+        <div *ngSwitchCase="'SQL'">
+            <fc-textarea fcCol="1" fcRows="2" fcPlaceHolder="请选择执行的SQL" [fcAppid]="appId" fcFieldCode='VALUE' [(ngModel)]="saveObj.VALUE" (click)="showModal('SQL取值选择',contentTpl_SQL)" name="SQLVALUE"></fc-textarea>
+        </div>
+        <fc-layoutcol *ngSwitchCase="'custom'">
+            <fc-text fccontent1 fcPlaceHolder="请输入自定接口名" [fcAppid]="appId" fcFieldCode='VALUE' [(ngModel)]="saveObj.VALUE" name="CUSTOMVALUE"></fc-text>
+        </fc-layoutcol>
+    </div>
+    <div class="btnWrapper" fccontent style="margin-top: 10px;">
+        <fc-button (click)="handle_cancel()" fcLabel="取消"></fc-button>
+        <fc-button fcType="primary" (click)="handle_ok()" fcLabel="确定"></fc-button>
+    </div>
+</fc-layoutpanel>
+<ng-template #contentTpl_Static>
+    <fc-layoutcol>
+        <fc-text fccontent1 fcPlaceHolder="请输入数据值" [fcAppid]="appId" fcFieldCode='VALUE' [(ngModel)]="saveObj.VALUE" name="VALUE"></fc-text>
+        <fc-text fccontent2 fcPlaceHolder="请输入属性名" [fcAppid]="appId" fcFieldCode='LABEL' [(ngModel)]="saveObj.LABEL" name="LABEL"></fc-text>
+        <fc-text fccontent1 fcPlaceHolder="请输入系列名" [fcAppid]="appId" fcFieldCode='SERIES' [(ngModel)]="saveObj.SERIES" name="SERIES"></fc-text>
+    </fc-layoutcol>
+</ng-template>
+<ng-template #contentTpl_SQL>
+    <div style="height:400px;padding:5px;">
+        <fc-listdata fcAppid="SYSSQLEXECUTE" [fcOption]="mainService.SQLlistOptions" (fcEvent)="SQLlistdataEvent($event)"></fc-listdata>
+    </div>
+</ng-template>
+<ng-template #footerTpl>
+    <div>
+        <fc-button (click)="add_cancel()" fcLabel="取消"></fc-button>
+        <fc-button [fcType]="'primary'" (click)="add_ok()" fcLabel="确定"></fc-button>
+    </div>
+</ng-template>
