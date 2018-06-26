@@ -5,11 +5,12 @@ import { SysannouncementService } from '../../services/sysannouncement.service';
 import { FCEVENT } from 'fccomponent/fc';
 import { SysmessageService, Sysmessage } from '../../services/sysmessage.service';
 @Component({
-    selector: 'sysversion',
+    selector: 'sysannouncement',
     template: `
     <fc-layoutpanel fcFull="true" >
-    <fc-layoutrow fcSpan="180"  fccontent>
-    <div fccontent1>
+    <fc-layoutrow fcSpan="65"  fccontent>
+    <fc-title fcLabel="详情查看" fccontent1 fcBorder="bottom"></fc-title>
+    <div fccontent2>
            <fc-layoutcol fcSpans="1,1" fccontent>
               <fc-text fccontent1 style="flex:1" fcPlaceHolder="请输入标题" fcLabel="标题" [(ngModel)]="saveObj.TITLE" name="TITLE" fcReadonly="true"></fc-text>
               <fc-text fccontent2 style="flex:1" fcPlaceHolder="请输入发布人" fcLabel="发布人" [(ngModel)]="saveObj.PUBLISHUSER" name="PUBLISHUSER" fcReadonly="true"></fc-text>
@@ -44,31 +45,23 @@ import { SysmessageService, Sysmessage } from '../../services/sysmessage.service
 })
 export class SysannouncementComponent extends ParentlistComponent {
     content: string = "";
-    versionCode: string = '';
-    canEdit: boolean = false;
-    btn_1_label: string = "返回";
-    btn_2_label: string = "重置";
-    btn_3_label: string = "发布"
     versionSearchObj: any;
     saveObj: any = {};
-    contenTp1_back: any;
-    nzModal: any;
     init(): void {
-        this.mainService.providers.msgService.message("初始化完成");
-        //initObjDefaultValue 获取数据默认的数据值
-        this.saveObj = this.appService.initObjDefaultValue(this.mainApp);
-        this.appService.findWithQuery(this.appId, { WHERE: `ID='${this.routerParam.PARAM}'` }).subscribe(res => {
+       //initObjDefaultValue 获取数据默认的数据值
+          this.saveObj = this.mainService.initObjDefaultValue(this.mainApp);
+          // 点击数据，通过appId、routerParam,去动态传ID
+          this.mainService.announcementRouter(this.appId,this.routerParam).subscribe(res => {
             if (res.CODE === '0')
                 this.saveObj = res.DATA[0]
-                this.saveObj.PUBLISHTIME = this.mainService.providers.commonService.timestampFormat(
-                    Number.parseInt(this.saveObj.PUBLISHTIME) ,
+                // 把事件转成2018-12-15
+                this.saveObj.PUBLISHTIME = this.mainService.providers.commonService.timestampFormat(Number.parseInt(this.saveObj.PUBLISHTIME) ,
                     "yyyy-MM-dd" + ""
                   );
-        })
+        })  
     }
     getDefaultQuery() {
     }
-
     event(eventName: string, context: any): void {
     }
 
@@ -76,66 +69,5 @@ export class SysannouncementComponent extends ParentlistComponent {
         public router: Router,
         public activeRoute: ActivatedRoute) {
         super(mainService, router, activeRoute);
-    }
-    tlblistEvent(event: FCEVENT) {
-        switch (event.eventName) {
-            case 'listAdd':
-                this.saveObj = {};
-                this.saveObj.TITLE = '';
-                this.saveObj.CONTENT = '';
-                this.saveObj.PUBLISHUSER = '';
-                this.saveObj.PUBLISHDEPT = '';
-                this.saveObj.CATAGORY = '';
-                break;
-            case "listDelete": //删除
-                this.mainService.providers.msgService.confirm('确认删除？', () => {
-                    this.selectedObjects.forEach(el => {
-                        this.mainService.delete(el).subscribe(res => {
-                            if (res.CODE === '0') this.mainService.providers.msgService.success('删除成功')
-                            else this.mainService.providers.msgService.warm('删除失败')
-                        }
-                        )
-                    })
-                }, () => { })
-                break;
-            case "exportexcel": //导出      
-                this.mainService.providers.msgService.message("导出事件触发")
-                break;
-            case "importexcel": //导入
-                this.mainService.providers.msgService.message("导入事件触发")
-                break;
-        }
-    }
-    Btn1_Events(versionCode: string, label: string) {
-        switch (label) {
-            case "返回":
-                this.router.navigate(['/system/home'], {})
-                break;
-        }
-    }
-    Btn2_Events(label: string) {
-        switch (label) {
-            case "重置":
-                this.saveObj.TITLE = '';
-                this.saveObj.CONTENT = '';
-                this.saveObj.PUBLISHUSER = '';
-                this.saveObj.PUBLISHDEPT = '';
-                this.saveObj.CATAGORY = '';
-                break;
-        }
-    }
-    Btn3_Events(label: string) {
-        switch (label) {
-            case "发布":
-                delete this.saveObj['ID'];
-                this.mainService.save(this.saveObj).subscribe(res => {
-                    if (res.CODE = '0') {
-                        this.messageService.success('发布成功');
-                    } else {
-                        this.messageService.warm("发布失败");
-                    }
-                });
-                break;
-        }
     }
 }

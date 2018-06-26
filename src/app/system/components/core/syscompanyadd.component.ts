@@ -3,15 +3,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParentEditComponent } from 'fccomponent';
 import { SyscompanyService } from '../../services/syscompany.service';
 @Component({
-  selector: 'syscompanyedit',
-  template: `
-单位编辑 正在开发中
-  `,
+  selector: 'syscompanyadd',
+  templateUrl:'./syscompanyadd.component.html',
   styles: [`
 
   `]
 })
-export class SyscompanyeditComponent extends ParentEditComponent {
+export class SyscompanyaddComponent extends ParentEditComponent {
+  constructor(public mainService: SyscompanyService,
+    public router: Router,
+    public activeRoute: ActivatedRoute) {
+    super(mainService, router, activeRoute);
+  }
   init(): void {
   }
   addNew(mainObj: any): boolean {
@@ -19,10 +22,5 @@ export class SyscompanyeditComponent extends ParentEditComponent {
   }
   event(eventName: string, param: any): void {
 
-  }
-  constructor(public mainService: SyscompanyService,
-    public router: Router,
-    public activeRoute: ActivatedRoute) {
-    super(mainService, router, activeRoute);
   }
 }

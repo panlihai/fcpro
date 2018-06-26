@@ -4,7 +4,6 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { LockscreenComponent } from './components/lockscreen/lockscreen.component';
-import { SignupComponent } from './components/signup/signup.component';
 import { SysdatasourceComponent } from './components/core/sysdatasource.component';
 import { SysappComponent } from './components/core/sysapp.component';
 import { SysdicComponent } from './components/core/sysdic.component';
@@ -21,8 +20,13 @@ import { SysmessagedetailComponent } from './components/core/sysmessagedetail.co
 import { SysversionComponent } from './components/core/sysversion.component';
 import { SysannouncementComponent } from './components/core/sysannouncement.component';
 import { SyscompanyComponent } from './components/core/syscompany.component';
+import { SysprofileComponent } from './components/core/sysprofile.component';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
+import { SyslogComponent } from './components/core/syslog.component';
+import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
+import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -96,6 +100,10 @@ export const Routers: Routes = [{
     component: SysannouncementComponent,
     data: { keep: false }
 }, {
+    path: 'sysassignmentDetail',//消息公告
+    component: SysassignmentComponent,
+    data: { keep: false }
+}, {
     path: 'sysbackcodeList',//全局返回码
     component: SysbackcodeComponent,
     data: { keep: false }
@@ -104,7 +112,7 @@ export const Routers: Routes = [{
     component: SyscomponentComponent,
     data: { keep: false }
 }, {
-    path: 'syscomponentList',//公司
+    path: 'syscompanyList',//单位列表
     component: SyscompanyComponent,
     data: { keep: false }
 },{
@@ -115,6 +123,22 @@ export const Routers: Routes = [{
   path: 'sysquotavalue',//指标编辑
   component: SysquotaEditComponent,
   data: { keep: false }
+}, {
+    path: 'syscompanyAdd',//单位设立
+    component: SyscompanyaddComponent,
+    data: { keep: false }
+}, {
+    path: 'syscompanyModify',//单位调整
+    component: SyscompanymodifyComponent,
+    data: { keep: false }
+}, {
+    path: 'sysprofileList',//个人信息维护
+    component: SysprofileComponent,
+    data: { keep: false }
+}, {
+    path: 'syslogList',//访问日志
+    component: SyslogComponent,
+    data: { keep: false }
 }, {
     path: '**',
     redirectTo: 'main',
