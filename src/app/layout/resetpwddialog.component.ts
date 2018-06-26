@@ -1,16 +1,5 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { environment } from '../../environments/environment';
-import { ProvidersService, MessageService } from 'fccore';
-import { LayoutService } from '../system/services/layout.service';
-import { FcmodalconfirmComponent } from 'fccomponent/fcmodal/fcmodalconfirm.component';
-import { FCEVENT } from 'fccomponent/fc';
-import { NavsideOptions } from 'fccomponent/fcnav/fcnavside.component';
-import { MenuOptions, FcnavmenuComponent, Fcmenu } from 'fccomponent/fcnav/fcnavmenu.component';
-import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.component';
-import 'rxjs/add/operator/filter';
-import { NzModalService, NzModalSubject } from 'ng-zorro-antd';
-import { Observable } from 'rxjs/Observable';
+import { Component, Input } from '@angular/core';
+import { NzModalSubject } from 'ng-zorro-antd';
 @Component({
   selector: 'resetpwddialog',
   template: `

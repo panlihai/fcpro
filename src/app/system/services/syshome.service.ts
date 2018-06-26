@@ -9,6 +9,7 @@ import { GridApi, Column, ColumnApi } from "ag-grid";
 import { SysannouncementService } from './sysannouncement.service';
 import { Subject } from "rxjs";
 import { FclistdataComponent, Fcmenu } from "fccomponent";
+import { SysmessageService } from "./sysmessage.service";
 @Injectable()
 export class SyshomeService {
   constructor(
