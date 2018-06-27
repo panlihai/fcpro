@@ -27,6 +27,7 @@ import { SyslogComponent } from './components/core/syslog.component';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
 import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
 import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
+import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -122,6 +123,10 @@ export const Routers: Routes = [{
 }, {
     path: 'syscompanyModify',//单位调整
     component: SyscompanymodifyComponent,
+    data: { keep: false }
+}, {
+    path: 'syscompanychangeauditList',//单位变更审批
+    component: SyscompanychangeauditComponent,
     data: { keep: false }
 }, {
     path: 'sysquotaList',//指标列表
