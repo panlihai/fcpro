@@ -19,10 +19,10 @@ export class SysquotaService extends ParentService {
   ) {
     super(providers, "SYSQUOTA");
   }
-  /**
-   * 打开指定模板弹窗
-   * @param args 
-   */
+  /**YM
+     * 打开指定模板弹窗
+     * @param args 
+     */
   dialogOpen(args: Args_Quota) {
     this.currentModal = this.modalService.open({
       title: args.titleTpl ? args.titleTpl : "指标实例修改",
@@ -31,10 +31,10 @@ export class SysquotaService extends ParentService {
       style: { width: "70%" }
     })
   }
-  /**
-   * 处理更新
-   * @param obj 
-   */
+  /**YM
+     * 处理更新
+     * @param obj 
+     */
   handle_update(obj) {
     this.save(obj).subscribe(res => {
       if (res.CODE === "0") {
@@ -46,10 +46,10 @@ export class SysquotaService extends ParentService {
     this.currentModal.destroy("onOk");
     this.currentModal = null;
   }
-  /**
-   * 处理保存
-   * @param obj 
-   */
+  /**YM
+     * 处理保存
+     * @param obj 
+     */
   handle_save(obj) {
     this.save(obj).subscribe(res => {
       if (res.CODE === "0") {
@@ -61,17 +61,17 @@ export class SysquotaService extends ParentService {
     this.currentModal.destroy("onOk");
     this.currentModal = null;
   }
-  /**
-   * 处理取消
-   */
+  /**YM
+     * 处理取消
+     */
   handle_cancel() {
     this.currentModal.destroy("onCancel");
     this.currentModal = null;
   }
-  /**
-   * 获取数据
-   * @param chartid 
-   */
+  /**YM
+     * 获取数据
+     * @param chartid 
+     */
   getQuotaValue(chartid: any) {
     return this.quotavaludService.findWithQuery({ where: `CHARTID = '${chartid}'` })
   }
@@ -116,11 +116,11 @@ export class SysquotaService extends ParentService {
     })
     return { handleObj_series, handleObj_noSeries }
   }
-  /**
-   * 解决俩个表重复CARAGORY字段产生的问题
-   * @param saveObj 
-   * @param param 
-   */
+  /**YM
+     * 解决俩个表重复CARAGORY字段产生的问题
+     * @param saveObj 
+     * @param param 
+     */
   dealObj_oneView(saveObj, param) {
     for (let index in param) {
       if (index !== 'CATAGORY')
@@ -128,10 +128,10 @@ export class SysquotaService extends ParentService {
     }
     return saveObj;
   }
-  /**
-   *  从接口获取数据;
-   * @param method 
-   */
+  /**YM
+     *  从接口获取数据;
+     * @param method 
+     */
   getDataFromInterface(method) {
     if (method === null) {
       method = this.condition();
