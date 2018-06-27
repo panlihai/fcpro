@@ -10,7 +10,7 @@ import { MenuOptions, FcnavmenuComponent, Fcmenu } from 'fccomponent/fcnav/fcnav
 import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.component';
 import 'rxjs/add/operator/filter';
 import { NzModalService } from 'ng-zorro-antd';
-import { ResetpwddialogComponent } from './resetpwddialog.component';
+import { ResetpwddialogComponent } from '../system/components/core/dialog/resetpwddialog.component';
 import { SysuserService, Sysuser } from '../system/services/sysuser.service';
 @Component({
   selector: 'layout',
@@ -23,7 +23,7 @@ import { SysuserService, Sysuser } from '../system/services/sysuser.service';
     padding: 41px 5px 5px;
     height: 100%;
     box-sizing: border-box;
-    background: #e7e9eb;
+    background: #F0F2F5;
     position: relative;
   }
   :host ::ng-deep .content-main{
@@ -251,7 +251,7 @@ export class LayoutComponent implements OnInit {
         })
         break;
       case 'editUser'://修改密码
-        this.resetPassword();
+        this.mainService.navToByMenuId(this._router, 'sysprofileList');
         break;
     }
   }
@@ -307,6 +307,7 @@ export class LayoutComponent implements OnInit {
         // 删除缓存
         break;
       case 'click':
+      debugger;
         this.mainService.navMessage(this._router, event.param).subscribe(res => {
           this.getMessage();
         });
@@ -335,26 +336,5 @@ export class LayoutComponent implements OnInit {
   ngOnDestroy(): void {
     this._providers.daoService.ws.close();
   }
-  /**
-   * 修改密码
-   */
-  resetPassword(): any {
-    const modal = this.modalService.open({
-      title: '修改密码',
-      content: ResetpwddialogComponent,
-      onOk() {
 
-      },
-      onCancel() {
-
-      },
-      footer: false,
-      componentParams: {
-        options: {}
-      }
-    });
-    modal.subscribe(result => {
-      this.mainService.sysuserService.doReset(result);
-    })
-  };
 }

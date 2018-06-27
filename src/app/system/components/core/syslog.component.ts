@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, ParentlistComponent } from 'fccomponent';
-import { SyscomponentService } from '../../services/syscomponent.service';
+import { SysdicService } from 'fccore';
+import { SyslogService } from '../../services/syslog.service';
 @Component({
-  selector: 'syscomponent',
+  selector: 'syslog',
   template: `
   <fc-layoutpanel fcFull="true">
     <fc-layoutrow fcSpan="30" style="height:100%;" fccontent>
-      <fc-tlblist fccontent1 [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-      <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+        <fc-tlblist fccontent1 [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+      <fc-listdata fccontent2 [fcAppid]="appId"  (fcEvent)="listdataEvent($event)"></fc-listdata>
     </fc-layoutrow>
-  </fc-layoutpanel>
+</fc-layoutpanel>
   `,
   styles: [`
   :host ::ng-deep .fc-layoutpanel .fc-content{
@@ -30,17 +31,18 @@ import { SyscomponentService } from '../../services/syscomponent.service';
   }
   `]
 })
-export class SyscomponentComponent extends ParentlistComponent {
-  constructor(public mainService: SyscomponentService,
+export class SyslogComponent extends ParentlistComponent {
+  constructor(public mainService: SyslogService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
-    super(mainService, router, activeRoute);    
-  }  
+    super(mainService, router, activeRoute);
+  }
   init(): void {
   }
   getDefaultQuery() {
   }
   event(eventName: string, context: any): void {
+  
   }
 
 }

@@ -4,9 +4,9 @@ import { TimelineOptions, FclistdataComponent, Fcmenu } from "fccomponent";
 import { FCEVENT } from "fccomponent/fc";
 import { SyshomeService } from "../../services/syshome.service";
 import { NzModalService } from "ng-zorro-antd";
-import { GridApi, ColumnApi } from "ag-grid";
+import {  ColumnApi } from "ag-grid";
 import { environment } from "../../../../environments/environment";
-import { Sysmenu } from "fccore";
+import { Sysmenu, ProvidersService } from "fccore";
 import { NavLinkFunctionName, Args_NavLink } from "../../services/sysnavlink.service";
 import { element } from "protractor";
 import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
@@ -383,11 +383,9 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
 })
 export class HomeComponent implements OnInit {
   navLinkListCondition: any;
-  t1(arg0: any): any {
-    throw new Error("Method not implemented.");
-  }
   //消息公告
   notifys: any;
+  waits:any;
   links: any;
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
   currentModal_navLink: any;
@@ -475,6 +473,7 @@ export class HomeComponent implements OnInit {
   constructor(
     public mainService: SyshomeService,
     public router: Router,
+    private _providers: ProvidersService,
     public activedRoute: ActivatedRoute,
     private _router: Router,
     private nzModal: NzModalService
@@ -500,13 +499,26 @@ export class HomeComponent implements OnInit {
         }
       });
     // 查询SYSNOTIFY所有元数据
-    this.mainService.providers.appService.findWithQuery('SYSNOTIFY', {}).subscribe(result => {
+    this.mainService.getannouncement().subscribe(result => {
       if (result.CODE === '0') {
         this.notifys = result.DATA;
         // 把时间转成时间戳
         this.notifys.forEach((item, index) => {
           this.notifys[index].PUBLISHTIME = this.mainService.providers.commonService.timestampFormat(
             Number.parseInt(item.PUBLISHTIME),
+            "yyyy-MM-dd" + ""
+          );
+        });
+      }
+    })
+    // 查询SYSASSIGNMENT所有元数据
+    this.mainService.getassignment().subscribe(result => {
+      if (result.CODE === '0') {
+        this.waits = result.DATA;
+        // 把时间转成时间戳
+        this.waits.forEach((item, index) => {
+          this.waits[index].CREATETIME = this.mainService.providers.commonService.timestampFormat(
+            Number.parseInt(item.CREATETIME),
             "yyyy-MM-dd" + ""
           );
         });
@@ -636,19 +648,20 @@ export class HomeComponent implements OnInit {
   * 消息公告点击跳转路由事件
   * @param event 
   */
-  linkevent(id,catagory,publishuser) {
-    // if(publishuser!== this.mainService.providers.userService.getUserInfo().USERCODE){
+  announcementEvent(id,catagory,publishuser) {
+    if(publishuser!== this.mainService.providers.userService.getUserInfo().USERCODE){
       let obj: any = {
-        TS: this.mainService.providers.commonService.getTimestamp(),
-        SORT: this.mainService.providers.commonService.getTimestamp(),
-        POSTTIME: this.mainService.providers.commonService.getTimestamp(),
+        TS: this.mainService.announcementtime(),
+        SORT: this.mainService.announcementtime(),
+        POSTTIME: this.mainService.announcementtime(),
         CONTENT: "消息公告"+id+"进行回执",
         ISREAD: "N",
         ID: id,
         TYPE: "",
         NOTIFICATIONUSERID: publishuser,
         TITLE: "回执信息",
-        POSTUSERID: this.mainService.providers.userService.getUserInfo().USERCODE
+        POSTUSERID: this.mainService.announcementPOSTUSER()
+        // POSTUSERID: this.mainService.providers.userService.getUserInfo().USERCODE
       };
       if(catagory==="error"){
         obj.TYPE = "danger";
@@ -658,36 +671,33 @@ export class HomeComponent implements OnInit {
       }
       if(catagory==="warning"){
         obj.TYPE = "waring"
-      } 
-      this.mainService.providers.appService.saveObject('SYSMESSAGE', obj).subscribe(res => {
-        if (res.CODE === '0') this.mainService.providers.msgService.success('回执成功');
-        else this.mainService.providers.msgService.error('回执失败')
-      })    
-    // }
-    
-    let menu = this.mainService.layoutService.findMenuByRouter(this.mainService.providers.menuService.menus, 'sysannouncementDetail');
-    if (menu) {
-      menu["param"] = id;
-      this.mainService.providers.commonService.event("selectedMenu", menu);
-    } else {
-      this.mainService.providers.msgService.error(
-        "sysannouncementDetail" + "不存在..."
-      );
-    }
+      }  
+      this.mainService.announcementsave(obj)
+    }  
+    this.mainService.sysannouncementrouter(this._router, id);
   }
+  // 历史待办模块功能
+  assignmentHistory(id){ 
+    this.mainService.sysassignmentrouter(this._router, id);
+  }
+  // 待办任务列表点击
+  assignmentEvent(wait){
 
+    this.mainService.assignmentMessage(this._router, wait);
+  }
   /* 时间轴事件
   * @param event
   */
- timelineEvent(event: FCEVENT) {
-   switch (event.eventName) {
-     case "selected": //选中
-       this.router.navigate(["/system/sysversionDetail"], {
-         queryParams: { ID: event.param.ID }
-       });
-       break;
-   }
- }
+  timelineEvent(event: FCEVENT) {
+    switch (event.eventName) {
+      case "selected": //选中
+        this._providers.commonService.event('selectedMenu', {//跳转到版本控制详情界面
+          ID: event.param.ID, MENUID: 'SYSVERSION', ROUTER: 'sysversionDetail',
+          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '版本控制', MENUICON: 'fc-icon-bgefficiency'
+        });
+        break;
+    }
+  }
   /**
    * 聊天面板
    * @param event
@@ -710,5 +720,11 @@ export class HomeComponent implements OnInit {
    */
   closeChat() {
     this.showchat = false;
+  }
+  /**
+   * 图表事件
+   */
+  chatbarEvent() {
+
   }
 }
