@@ -12,15 +12,15 @@ export class SysquotavalueService extends ParentService {
         super(providers, "SYS_QUOTAVALUE");
     }
     /**YM
-     * 获取当前时间戳
-     */
+         * 获取当前时间戳
+         */
     getTimeStamp() {
         return this.providers.commonService.getTimestamp().toString();
     }
-    /**
-     * 打开指定模板弹窗
-     * @param args 
-     */
+    /**YM
+         * 打开指定模板弹窗
+         * @param args 
+         */
     dialogOpen(args: Args_QuotaValue) {
         this.currentModal = this.modalService.open({
             title: args.titleTpl ? args.titleTpl : null,
@@ -29,17 +29,17 @@ export class SysquotavalueService extends ParentService {
             style: { width: "90%" }
         })
     }
-    /**
-     * 关闭弹窗
-     */
+    /**YM
+         * 关闭弹窗
+         */
     close_modal() {
         this.currentModal.destroy();
         this.currentModal = null
     }
-    /**
-     * 处理更新
-     * @param saveObjs 
-     */
+    /**YM
+         * 处理更新
+         * @param saveObjs 
+         */
     handle_update(saveObjs) {
         let count: number = 0;
         saveObjs.forEach(el => {
@@ -55,10 +55,10 @@ export class SysquotavalueService extends ParentService {
             });
         });
     }
-    /**
-     * 处理保存
-     * @param saveObjs 
-     */
+    /**YM
+         * 处理保存
+         * @param saveObjs 
+         */
     handle_save(saveObjs) {
         let count: number = 0;
         saveObjs.forEach(el => {
@@ -74,45 +74,45 @@ export class SysquotavalueService extends ParentService {
             });
         });
     }
-    /**
-     * 处理取消
-     */
+    /**YM
+         * 处理取消
+         */
     handle_cancel() {
 
     }
-    /**
-     * 成功的消息
-     * @param msg 
-     */
+    /**YM
+         * 成功的消息
+         * @param msg 
+         */
     successMsg(msg) {
         this.messageService.success(msg);
     }
-    /**
-     * 警告的消息
-     */
+    /**YM
+         * 警告的消息
+         */
     warnMsg(msg) {
         this.messageService.warm(msg);
     }
-    /**
-     * 错误的消息
-     * @param msg 
-     */
+    /**YM
+         * 错误的消息
+         * @param msg 
+         */
     errMsg(msg) {
         this.messageService.error(msg);
     }
-    /**
-     * 确认处理操作信息
-     * @param msg 
-     * @param ok 
-     * @param cancel 
-     */
+    /**YM
+         * 确认处理操作信息
+         * @param msg 
+         * @param ok 
+         * @param cancel 
+         */
     confirmMsg(msg, ok, cancel) {
         this.messageService.confirm(msg, ok, cancel);
     }
-    /**
-     * 删除方法
-     * @param obj 
-     */
+    /**YM
+         * 删除方法
+         * @param obj 
+         */
     deleteObj(obj) {
         let success: boolean;
         this.messageService.confirm('是否确认删除?', () => {
@@ -129,10 +129,10 @@ export class SysquotavalueService extends ParentService {
         }, () => { });
         return success;
     }
-    /**
-     * 批量删除（未测试）
-     * @param objs 
-     */
+    /**YM
+         * 批量删除（未测试）
+         * @param objs 
+         */
     deleteObjs(objs) {
         let count = 0;
         objs.forEach(obj => {
