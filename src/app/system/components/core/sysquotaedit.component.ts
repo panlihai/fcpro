@@ -16,7 +16,8 @@ import { RowDataTransaction } from "ag-grid/dist/lib/rowModels/inMemory/inMemory
   styles: [
     `
       :host ::ng-deep .fc-layoutpanel .fc-content {
-        height: 100%;
+        height: 80% !important;
+        overflow:hidden;
       }
       :host ::ng-deep .ag-sort-order{
         display : none !important;

@@ -10,8 +10,9 @@ import { ValuesColumnPanel } from "ag-grid-enterprise";
   templateUrl: "./sysquotalist.component.html",
   styles: [
     `
-      :host ::ng-deep .fc-layoutpanel .fc-layoutrow .fc-content {
-        height: 100% !important;
+      :host ::ng-deep .full-layoutpanel  .fc-content {
+        height: 75% !important;
+        overflow:hidden;
       }
       :host ::ng-deep .fc-layoutpanel>.fc-content>.fc-layoutrow>.fc-layoutrowcell2 {
         height: 100%;
