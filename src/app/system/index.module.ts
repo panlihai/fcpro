@@ -65,6 +65,9 @@ import { SysassignmentComponent } from './components/core/sysassignment.componen
 import { UploadavatardialogComponent } from './components/core/dialog/uploadavatardialog.component';
 import { companytransferdialogComponent } from './components/core/dialog/companytransferdialog.component';
 import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
+import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
+import { SyscompanyrelationService } from './services/syscompanyrelation.service';
+import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -130,7 +133,8 @@ import { SyscompanymodifyComponent } from './components/core/syscompanymodify.co
     UploadavatardialogComponent,
     companytransferdialogComponent,
     SyscompanymodifyComponent,
-    SyscompanyaddComponent
+    SyscompanyaddComponent,
+    SyscompanychangeauditComponent
   ],
   providers: [
     LayoutService,
@@ -151,12 +155,14 @@ import { SyscompanymodifyComponent } from './components/core/syscompanymodify.co
     SyscompanyService,
     SysnavlinkService,
     SysprofileService,
-    SysquotaService,
     SyslogService,
     SyssessionService,
     SysemployService,
     SysquotavalueService,
     SysassignmentService
+    SysquotaService,
+    SyscompanyrelationService,
+    SystbvorgcurorgService
   ]
 })
 export class SystemModule {

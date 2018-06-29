@@ -28,6 +28,7 @@ import { SysassignmentComponent } from './components/core/sysassignment.componen
 import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
 import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
 import { SysparamComponent } from './components/core/sysparam.component';
+import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -127,6 +128,13 @@ export const Routers: Routes = [{
 }, {
     path: 'syscompanyAdd',//单位设立
     component: SyscompanyaddComponent,
+},{
+    path: 'syscompanychangeauditList',//单位变更审批
+    component: SyscompanychangeauditComponent,
+    data: { keep: false }
+}, {
+    path: 'sysquotaList',//指标列表
+    component: SysquotalistComponent,
     data: { keep: false }
 }, {
     path: 'syscompanyModify',//单位调整
