@@ -91,36 +91,7 @@ export class SyshomeService {
         }
         return this.sysmessageService.update(msg);
     }
-    /**
-     * 查找当前路由
-     * @param menus 
-     * @param menuId 
-     */
-        findMenuByRouter(menus: any[], router: string): Fcmenu {
-        // 当menu不存在是  返回空
-        if (menus.length == 0) {
-            return null;
-        }
-        // Sysmenu对象赋值给menu
-        let menu: Sysmenu;
-        let i = 0;
-        do {
-            // menus[i]数组里面的[i]对象赋值给item
-            let item = menus[i];
-            // 有路由并且路由相等
-            if (item.ROUTER && item.ROUTER === router) {
-                menu = item;
-                break;
-            } else if (item.P_CHILDMENUS && item.P_CHILDMENUS.length !== 0) {
-                menu = this.findMenuByRouter(item.P_CHILDMENUS, router);
-                if (menu) {
-                    break;
-                }
-            }
-            i++;
-        } while (i < menus.length);
-        return menu;
-    }
+   
     // sysannouncementrouter跳转到消息公告路由并生成tag标签
     sysannouncementrouter(router: Router, msg: any){
         let menu = this.layoutService.findMenuByRouter(this.providers.menuService.menus, 'sysannouncementDetail');

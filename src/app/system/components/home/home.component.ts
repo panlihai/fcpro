@@ -4,7 +4,7 @@ import { TimelineOptions, FclistdataComponent, Fcmenu } from "fccomponent";
 import { FCEVENT } from "fccomponent/fc";
 import { SyshomeService } from "../../services/syshome.service";
 import { NzModalService } from "ng-zorro-antd";
-import {  ColumnApi } from "ag-grid";
+import { ColumnApi } from "ag-grid";
 import { environment } from "../../../../environments/environment";
 import { Sysmenu, ProvidersService } from "fccore";
 import { NavLinkFunctionName, Args_NavLink } from "../../services/sysnavlink.service";
@@ -385,7 +385,7 @@ export class HomeComponent implements OnInit {
   navLinkListCondition: any;
   //消息公告
   notifys: any;
-  waits:any;
+  waits: any;
   links: any;
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
   currentModal_navLink: any;
@@ -578,8 +578,6 @@ export class HomeComponent implements OnInit {
       case "close":
         break;
       case "beforeClose":
-        event.stopPropagation();
-        event.preventDefault();
         let args: Args_NavLink = { link: link }
         this.mainService.deleteSubject().subscribe(res => {
           if (res) this.initNavLink();
@@ -587,8 +585,6 @@ export class HomeComponent implements OnInit {
         this.mainService.navLinkBeforeClose(args);
         break;
       case "click":
-        event.stopPropagation();
-        event.preventDefault();
         this.mainService.navToByMenuId(this.router, link.ROUTER);
         break;
       default:
@@ -648,13 +644,13 @@ export class HomeComponent implements OnInit {
   * 消息公告点击跳转路由事件
   * @param event 
   */
-  announcementEvent(id,catagory,publishuser) {
-    if(publishuser!== this.mainService.providers.userService.getUserInfo().USERCODE){
+  announcementEvent(id, catagory, publishuser) {
+    if (publishuser !== this.mainService.providers.userService.getUserInfo().USERCODE) {
       let obj: any = {
         TS: this.mainService.announcementtime(),
         SORT: this.mainService.announcementtime(),
         POSTTIME: this.mainService.announcementtime(),
-        CONTENT: "消息公告"+id+"进行回执",
+        CONTENT: "消息公告" + id + "进行回执",
         ISREAD: "N",
         ID: id,
         TYPE: "",
@@ -663,25 +659,25 @@ export class HomeComponent implements OnInit {
         POSTUSERID: this.mainService.announcementPOSTUSER()
         // POSTUSERID: this.mainService.providers.userService.getUserInfo().USERCODE
       };
-      if(catagory==="error"){
+      if (catagory === "error") {
         obj.TYPE = "danger";
       }
-      if(catagory==="processing"){
+      if (catagory === "processing") {
         obj.TYPE = "normal"
       }
-      if(catagory==="warning"){
+      if (catagory === "warning") {
         obj.TYPE = "waring"
-      }  
+      }
       this.mainService.announcementsave(obj)
-    }  
+    }
     this.mainService.sysannouncementrouter(this._router, id);
   }
   // 历史待办模块功能
-  assignmentHistory(id){ 
+  assignmentHistory(id) {
     this.mainService.sysassignmentrouter(this._router, id);
   }
   // 待办任务列表点击
-  assignmentEvent(wait){
+  assignmentEvent(wait) {
 
     this.mainService.assignmentMessage(this._router, wait);
   }

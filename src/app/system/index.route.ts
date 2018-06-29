@@ -27,6 +27,7 @@ import { SyslogComponent } from './components/core/syslog.component';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
 import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
 import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
+import { SysparamComponent } from './components/core/sysparam.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -115,14 +116,14 @@ export const Routers: Routes = [{
     path: 'syscompanyList',//单位列表
     component: SyscompanyComponent,
     data: { keep: false }
-},{
-  path: 'sysquotaList',//指标列表
-  component: SysquotalistComponent,
-  data: { keep: false }
-},{
-  path: 'sysquotavalue',//指标编辑
-  component: SysquotaEditComponent,
-  data: { keep: false }
+}, {
+    path: 'sysquotaList',//指标列表
+    component: SysquotalistComponent,
+    data: { keep: false }
+}, {
+    path: 'sysquotavalue',//指标编辑
+    component: SysquotaEditComponent,
+    data: { keep: false }
 }, {
     path: 'syscompanyAdd',//单位设立
     component: SyscompanyaddComponent,
@@ -138,6 +139,10 @@ export const Routers: Routes = [{
 }, {
     path: 'syslogList',//访问日志
     component: SyslogComponent,
+    data: { keep: false }
+}, {
+    path: 'sysparamList',//系统参数
+    component: SysparamComponent,
     data: { keep: false }
 }, {
     path: '**',

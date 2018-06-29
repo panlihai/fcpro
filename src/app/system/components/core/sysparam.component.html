@@ -1,0 +1,32 @@
+<fc-layoutpanel [fcFull]="true" class="templatetreetablist">
+    <fc-layoutrow fccontent [fcSpan]="pageState==='edit'?'10':'36'" fccontent>
+        <fc-tlblist fccontent1 [fcAppid]="appId" fccontent1 (fcEvent)="tlblistEvent($event)" *ngIf="pageState!=='edit'"></fc-tlblist>
+        <fc-layoutcol fccontent2 [fcSpans]="pageState==='edit'?'0,1':'2,7'" class="tree-style">
+            <fc-layoutrow [fcSpan]="pageState==='edit'?'0':'70'" fccontent1 *ngIf="pageState!=='edit'">
+                <fc-text #filter fccontent1 [fcShowLabel]="false" fcPlaceHolder="参数名称过滤" [ngModel]="filter_paramName" (ngModelChange)="filter_param($event,filter)" name="filter"></fc-text>
+                <fc-title fccontent1 [fcLabel]="PID_name" fcHasLine="false" [fcBorder]="'bottom'" fcWidth="100%"></fc-title>
+                <fc-list #list_cp fccontent2 [fcAppid]="appId" fcFieldCode="PARAMNAME" [fcCondition]="listCondition" [fcSelectedId]="selectedParamId" (fcEvent)="listEvent($event)"></fc-list>
+            </fc-layoutrow>
+            <fc-layoutgroup fccontent2 class="fullgroup" [fcFull]="true" fcMargin="0 0 0 0">
+                <fc-title fccontent fcLabel="参数详情"></fc-title>
+                <fc-layoutcol fccontent>
+                    <fc-text fccontent1 fcLabel="参数代码:" fcPlaceHolder="请输入参数代码" [(ngModel)]="saveObj.PARAMID" name="PARAMID" [fcReadonly]="pageState!=='edit'"></fc-text>
+                    <fc-text fccontent2 fcLabel="参数中文名称:" fcPlaceHolder="请输入参数中文名称" [(ngModel)]="saveObj.PARAMNAME" name="PARAMNAME" [fcReadonly]="pageState!=='edit'" [fcReadonly]="pageState!=='edit'"></fc-text>
+                    <fc-combo #combo1 fccontent1 fcLabel="参数类型:" fcPlaceHolder="请选择参数类型" [(ngModel)]="saveObj.PARAMTYPE" (ngModelChange)="paramTypeChange($event)" [fcAppid]="appId" fcFieldCode="PARAMTYPE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="PARAMTYPE" [fcReadonly]="pageState!=='edit'"></fc-combo>
+                    <fc-text fccontent2 fcLabel="参数值:" fcPlaceHolder="请输入参数值" [(ngModel)]="saveObj.PARAMVALUE" *ngIf="saveObj.PARAMTYPE==='CUSTOM'" name="PARAMVALUE" [fcReadonly]="pageState!=='edit'"></fc-text>
+                    <fc-text fccontent2 fcLabel="数据字典码:" fcPlaceHolder="请选择数据字典码" [(ngModel)]="saveObj.PARAMDIC" (click)="showModal('选择数据字典码',dicContentTpl)" *ngIf="saveObj.PARAMTYPE==='DIC'" name="PARAMDIC" [fcReadonly]="pageState!=='edit'"></fc-text>
+                    <fc-combo #combo2 fccontent1 fcLabel="参数值:" fcPlaceHolder="请选择参数值" [(ngModel)]="saveObj.PARAMVALUE" (click)="updateCombo_DIC()" [fcAppid]="appId" [fcOption]="data_DIC" *ngIf="saveObj.PARAMTYPE==='DIC'&&saveObj.PARAMDIC" name="PARAMVALUE" [fcReadonly]="pageState!=='edit'"></fc-combo>
+                    <fc-text fccontent2 fcLabel="排序码:" fcPlaceHolder="请输入排序码" [(ngModel)]="saveObj.SORT" name="SORT" [fcReadonly]="pageState!=='edit'"></fc-text>
+                    <fc-check fccontent1 #check_cp [fcOption]="check_enable" [(ngModel)]="saveObj.ENABLE" (ngModelChange)="checkEvent($event)" name="ENABLE" [fcDisabled]="pageState!=='edit'"></fc-check>
+                </fc-layoutcol>
+                <fc-textarea fccontent fcCol="1" fcRows="2" fcPlaceHolder="请输入备注" [fcAppid]="appId" fcFieldCode='REMARK' [(ngModel)]="saveObj.REMARK" name="REMARK" [fcReadonly]="pageState!=='edit'"></fc-textarea>
+                <fc-tlbform fccontent fcLayout="center" [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" *ngIf="pageState==='edit'"></fc-tlbform>
+            </fc-layoutgroup>
+        </fc-layoutcol>
+    </fc-layoutrow>
+</fc-layoutpanel>
+<ng-template #dicContentTpl>
+    <div style="height:400px;padding:5px;">
+        <fc-listdata fcAppid="SYSDIC" [fcOption]="mainService.dicListOptions" (fcEvent)="dicListdataEvent($event)"></fc-listdata>
+    </div>
+</ng-template>

@@ -9,7 +9,7 @@ import { RowDataTransaction } from 'ag-grid/dist/lib/rowModels/inMemory/inMemory
 export class SysquotavalueService extends ParentService {
     currentModal: any;
     constructor(public providers: ProvidersService, private modalService: NzModalService) {
-        super(providers, "SYS_QUOTAVALUE");
+        super(providers, "SYSQUOTAVALUE");
     }
     /**YM
          * 获取当前时间戳
