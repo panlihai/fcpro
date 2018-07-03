@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentlistComponent, TreeOptions, ParentEditComponent } from 'fccomponent';
+import { ParentlistComponent, TreeOptions, ParentEditComponent, ParentDetailComponent } from 'fccomponent';
 import { SyscompanyService } from '../../services/syscompany.service';
 @Component({
     selector: 'syscompanymodify',
@@ -9,7 +9,7 @@ import { SyscompanyService } from '../../services/syscompany.service';
 
   `]
 })
-export class SyscompanymodifyComponent extends ParentEditComponent {
+export class SyscompanymodifyComponent extends ParentDetailComponent {
     //隶属关系对象
     syscompanyrelationObj: any;
     constructor(public mainService: SyscompanyService,
@@ -19,19 +19,17 @@ export class SyscompanymodifyComponent extends ParentEditComponent {
     }
     init(): void {
         //初始化主对象编辑
-        if (this.routerParam) {
-            this.mainService.getDefaultDataById(this.routerParam).subscribe(result => {
-                if (result.CODE === '0') {
-                    this.mainObj = result.DATA;
-                }
-            })
-            //初始化单位隶属关系对象编辑
-            this.mainService.getModifyCompanyRelationData(this.routerParam).subscribe(result => {
-                if (result.CODE === '0') {
-                    this.syscompanyrelationObj = result.DATA;
-                }
-            })
-        }
+        this.mainService.initMainObj(this.routerParam.ID).subscribe(result => {
+            if (result.CODE === '0') {
+                this.mainObj = result.DATA;
+            }
+        })
+        //初始化单位隶属关系对象编辑
+        this.mainService.getModifyCompanyRelationData(this.routerParam.ID).subscribe(result => {
+            if (result.CODE === '0') {
+                this.syscompanyrelationObj = result.DATA;
+            }
+        })
     }
     addNew(mainObj: any): boolean {
         return true;

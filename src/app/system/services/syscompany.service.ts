@@ -17,14 +17,14 @@ export class SyscompanyService extends ParentService {
    * @param id 
    */
   getDefaultDataById(param: any): Observable<any> {
-    return this.findWithQueryAll({ ID: param.ID });
+    return this.initMainObj(param);
   }
   /**
    * 根据id获取单位隶属关系对象的编辑数据
    * @param id 
    */
   getModifyCompanyRelationData(param: any): Observable<any> {
-    return this.syscompanyrelationService.findWithQueryAll({ ID: param.ID });
+    return this.syscompanyrelationService.initMainObj(param);
   }
   /**
    * 获取单位隶属关系的字段
@@ -34,12 +34,11 @@ export class SyscompanyService extends ParentService {
       return item;
     });
   }
-  //单位隶属关系
   companyTreeOptions: TreeOptions = {
     //元数据id
     fcAppid: "SYSTBVORGCURORG",//元数据id
     //树结构节点显示内容
-    fcLabel: ':{SCOMPANY_NAME}::{SCOMPANY_CODE}',//支持:{参数名称}
+    fcLabel: ':{SCOMPANY_NAME}::{SDIM_CODE}',//支持:{参数名称}
     // 关联父节点字段名称
     fcParentCode: 'SPARENT_CODE',
     // 当前节点字段名称
@@ -47,9 +46,9 @@ export class SyscompanyService extends ParentService {
     // 叶子节点字段名称
     fcLeafCode: 'ISLAST',
     // 根节点条件
-    fcTopWhere: "SPARENT_CODE is null or SPARENT_CODE=''",
+    fcTopWhere: "(SPARENT_CODE is null or SPARENT_CODE = '')  and SDIM_CODE = 'ysdw' and SEND_DATE <= 2018072619 AND SEND_DATE >= 2018072619",
     // 展开条件
-    fcExpWhere: "SPARENT_CODE=':{SPARENT_CODE}'",
+    fcExpWhere: "SPARENT_CODE=':{SCOMPANY_CODE}' and SDIM_CODE = 'ysdw' and SEND_DATE <= 2018072619 AND SEND_DATE >= 2018072619",
     // 排序字段
     fcOrderby: "",
     // 模式 false为单选，true为多选
@@ -59,52 +58,30 @@ export class SyscompanyService extends ParentService {
     // 是否显示线条
     fcShowLine: true,
     //是否可拖拽
-    fcAllowDrag: true
+    fcAllowDrag: true,
+    fcLeafValue: 'N'
   }
-
+  /**
+   * 克隆树对象
+   * @param dim 单位维度
+   * @param sendDate 失效日期
+   */
+  cloneTreeObj(dim: string, sendDate: string) {
+    //改变值
+    let cloneObj: any = {};
+    cloneObj = this.commonService.cloneObj(this.companyTreeOptions);
+    //根节点条件
+    cloneObj.fcTopWhere = "(SPARENT_CODE is null or SPARENT_CODE = '')  and SDIM_CODE=" + "'" + dim + "'" + ' ' + " and SBEGIN_DATE <= " + sendDate + ' ' + "AND SEND_DATE >=" + sendDate;
+    //展开条件
+    cloneObj.fcExpWhere = "SPARENT_CODE=':{SCOMPANY_CODE}' and SDIM_CODE=" + "'" + dim + "'" + ' ' + "and SBEGIN_DATE <=" + sendDate + ' ' + "AND SEND_DATE >=" + sendDate;
+    this.companyTreeOptions = cloneObj;
+  }
+  /**
+   * 获取组织机构视图数据
+   */
   getOrgData(): Observable<any> {
-    return this.systbvorgcurorgService.findWithQuery({});
-  }
-  /**
- * 得到所有的单位内容并转化成树形结构
- */
-  getAllMenu(data): any[] {
-    let companyData: any[];
-    this.getOrgData().subscribe(result => {
-      if (result.CODE === '0') {
-        companyData = result.DATA;
-      }
-    })
-    return this.companyToTree(companyData);
-  }
-  /**
- * 把单位结构转成树形结构
- * @param _menus 菜单集合
- * @param authList 权限集合
- */
-  private companyToTree(_menus: any): any[] {
-    let nodes: any[] = [];
-    if (_menus && _menus.length > 0) {
-      _menus.forEach(menu => {
-        // if (menu.PID === this.moduleId) {
-        let node: any = {
-          id: menu.ID,// 唯一身份
-          name: menu.SCOMPANY_NAME,//默认显示申请，您可以设置displayField的options属性
-          checked: false,// 指定是否选中复选框
-          disableCheckbox: false,// 禁用复选框
-          halfChecked: false,// 实现'全部检查'效果
-          hasChildren: false,//对于异步数据加载，所以你需要设置getChildren的options属性
-          DATA: menu
-        };
-        if (menu.P_CHILDMENUS && menu.P_CHILDMENUS.length !== 0) {
-          node.children = this.companyToTree(menu.P_CHILDMENUS);
-          node.hasChildren = true;
-        }
-        nodes.push(node);
-        // }
-      });
-    }
-    return nodes;
+    return this.systbvorgcurorgService.findWithQueryAll({
+    });
   }
   /**
    * 根据单位隶属关系(SYS_COMPANY_RELATION)的组织机构代码(SORG_CODE)
@@ -112,7 +89,12 @@ export class SyscompanyService extends ParentService {
    * 和单位基本信息表(SYS_COMPANY)关联显示中文名
    * 
    */
-
+  createCompany(mainObj: any, relationObj: any): Observable<any> {
+    return this.commonService.createObservableConcat(
+      this.save(mainObj),
+      this.syscompanyrelationService.save(relationObj)
+    );
+  }
   //列表
   fclistdataOption = {
     //皮肤默认为bootstrap风格

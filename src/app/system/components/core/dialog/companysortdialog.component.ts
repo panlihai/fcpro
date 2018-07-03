@@ -2,37 +2,23 @@ import { Component, Input } from '@angular/core';
 import { NzModalSubject } from 'ng-zorro-antd';
 import { FCEVENT } from 'fccomponent/fc';
 import { SyscompanyService } from '../../../services/syscompany.service';
-/* 转移 */
+// 排序下级
 @Component({
-    selector: 'companytransferdialog',
+    selector: 'companysortdialog',
     template: `
     <div>
       <div>
-        <fc-tlblist [fcButtons]="tlbconfig" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-        <form fccontent>
-            <fc-layoutpanel fccontent id="id0">
-                <fc-title fcLabel="变更信息" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
-                <fc-layoutcol fcSpans="1,1" fccontent>
-                    <div fccontent1>
-                        <!-- <fc-datetime [fcLabel]="'生效日期'" [fcAppid]="appId" [(ngModel)]="mainObj.SBEGIN_DATE" fcPlaceHolder="请输入生效日期" name="SYSCOMPANY.SBEGIN_DATE"></fc-datetime> -->
-                    </div>
-                    <div fccontent2>
-                        <fc-text [fcLabel]="'变更文号'" [fcAppid]="appId" [(ngModel)]="mainObj.SAPPROVAL_DCMTNO" fcPlaceHolder="请输入变更文号" name="SYSCOMPANY.SAPPROVAL_DCMTNO"></fc-text>
-                    </div>
-                </fc-layoutcol>
-                <fc-layoutcol fcSpans="1,0" fccontent>
-                    <div fccontent1>
-                        <!-- <fc-textarea [fcLabel]="'变更原因'" fcCol="1" fcPlaceHolder="请输入变更原因" name="SYSCOMPANY.SINVEST_TYPE"></fc-textarea> -->
-                    </div>
-                </fc-layoutcol>
-            </fc-layoutpanel>
-            <fc-layoutpanel fccontent id="id1">
-                <fc-title fcLabel="上级单位" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
-                <div style="width: 100%; height:400px;" fccontent>
-                    <!-- 单位隶属关系 -->
-                    <fc-listdata fcAppid="SYSCOMPANYRELATION" [fcOption]="mainService.syscompanyrelationOption"></fc-listdata>
-                </div>
-            </fc-layoutpanel>
+      <form fccontent1 class="list-search" name="searchForm" #searchForm >
+        <div class="list-search-every">
+            <fc-combo [fcLabel]="'维度'" fcAppid="SYSCOMPANYDIM" fcLabelCode="SDIM_NAME" fcValueCode="SDIM_CODE" [(ngModel)]="comboValue" name="SDIM_CODE"></fc-combo>
+        </div>
+        <div class="list-search-every">
+        <fc-combo [fcLabel]="'上级'"fcAppid="SYSCOMPANYRELATION" fcLabelCode="SPARENT_CODE" fcValueCode="SPARENT_CODE" [(ngModel)]="comboValue" name="comboname"></fc-combo>
+        </div>
+        <div class="list-search-every list-search-button">
+            <fc-button fcLabel="查询" fcType="primary" name="search"></fc-button>
+            <fc-button fcLabel="清空" fcType="default" name="reset"></fc-button>
+        </div>
         </form>
       </div>
       <div class="customize-footer">
@@ -49,7 +35,7 @@ import { SyscompanyService } from '../../../services/syscompany.service';
    }
   `]
 })
-export class companytransferdialogComponent {
+export class companysortdialogComponent {
     //工具栏配置
     tlbconfig: any[] = [{
         'BTNTYPE': 'default',
@@ -99,7 +85,6 @@ export class companytransferdialogComponent {
     }
     _userId: string;
     constructor(private modal: NzModalSubject, public mainService: SyscompanyService) {
-
     }
     emitDataOutside() {
         let params = { userId: this._userId };
@@ -113,9 +98,9 @@ export class companytransferdialogComponent {
         this.modal.destroy();
     }
     /**
-     * 工具栏事件
-     * @param event 
-     */
+    * 工具栏事件
+    * @param event 
+    */
     tlblistEvent(event: FCEVENT) {
         switch (event.eventName) {
             case 'save'://保存

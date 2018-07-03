@@ -263,7 +263,7 @@ video {
   }
   /* 左树左边搜索框的宽度 */
   .treesearch-width{
-    width:80%;
+    width:95%;
     display:inline-block;
     margin-left: 6px;
     margin-top:6px;

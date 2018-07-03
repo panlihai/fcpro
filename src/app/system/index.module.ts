@@ -67,6 +67,7 @@ import { SyscompanymodifyComponent } from './components/core/syscompanymodify.co
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 import { SyscompanyrelationService } from './services/syscompanyrelation.service';
 import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
+import { companysortdialogComponent } from './components/core/dialog/companysortdialog.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -77,7 +78,8 @@ import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
     SysquotalistComponent,
     SysquotaEditComponent,
     UploadavatardialogComponent,
-    companytransferdialogComponent
+    companytransferdialogComponent,
+    companysortdialogComponent
   ],
   imports: [
     CommonModule,
@@ -133,7 +135,8 @@ import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
     companytransferdialogComponent,
     SyscompanymodifyComponent,
     SyscompanyaddComponent,
-    SyscompanychangeauditComponent
+    SyscompanychangeauditComponent,
+    companysortdialogComponent
   ],
   providers: [
     LayoutService,
