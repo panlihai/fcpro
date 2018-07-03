@@ -14,6 +14,7 @@ import { ValuesColumnPanel } from "ag-grid-enterprise";
         height: 75% !important;
         overflow:hidden;
       }
+
       :host ::ng-deep .fc-layoutpanel>.fc-content>.fc-layoutrow>.fc-layoutrowcell2 {
         height: 100%;
       }

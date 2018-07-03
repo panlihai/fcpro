@@ -1,4 +1,4 @@
-<fc-layoutpanel class="full-layoutpanel" fcFull="true">
+<fc-layoutpanel class="full-layoutpanel">
     <fc-title fcheader fcLabel="指标实例"></fc-title>
     <fc-tlblist fctoolbar [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
     <div fctoolbar style="width: 400px">
@@ -9,7 +9,9 @@
         <fc-chartpie fccontent1 [fcOption]="chartLabel" [fcData]="chartData" *ngIf="toShow('pie')"></fc-chartpie>
         <fc-chartline fccontent1 [fcOption]="chartLabel" [fcData]="chartData" *ngIf="toShow('line')"></fc-chartline>
     </fc-layoutcol>
-    <fc-listdata fccontent [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+    <div fccontent style="height:400px">
+        <fc-listdata [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+    </div>
 </fc-layoutpanel>
 <ng-template #contentTpl>
     <fc-layoutcol>
