@@ -54,6 +54,7 @@ import { SysroleauthService } from './services/sysroleauth.service';
 import { SysroleuserService } from './services/sysroleuser.service';
 import { SysquotaService } from './services/sysquota.service';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
+import { SysquotavalueService } from './services/sysquotavalue.service';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
 import { SyslogComponent } from './components/core/syslog.component';
 import { SyslogService } from './services/syslog.service';
@@ -67,6 +68,8 @@ import { SyscompanymodifyComponent } from './components/core/syscompanymodify.co
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 import { SyscompanyrelationService } from './services/syscompanyrelation.service';
 import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
+import { SysdepartmentService } from './services/sysdepartment.service';
+import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -133,7 +136,8 @@ import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
     companytransferdialogComponent,
     SyscompanymodifyComponent,
     SyscompanyaddComponent,
-    SyscompanychangeauditComponent
+    SyscompanychangeauditComponent,
+    SysdepartmentComponent
   ],
   providers: [
     LayoutService,
@@ -154,14 +158,15 @@ import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
     SyscompanyService,
     SysnavlinkService,
     SysprofileService,
-    SysquotaService,
     SyslogService,
     SyssessionService,
     SysemployService,
-    SysquotaService,
+    SysquotavalueService,
     SysassignmentService,
+    SysquotaService,
     SyscompanyrelationService,
-    SystbvorgcurorgService
+    SystbvorgcurorgService,
+    SysdepartmentService
   ]
 })
 export class SystemModule {

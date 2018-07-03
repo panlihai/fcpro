@@ -1,0 +1,31 @@
+<fc-layoutpanel class="full-layoutpanel">
+    <fc-title fcheader fcLabel="指标实例"></fc-title>
+    <fc-tlblist fctoolbar [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+    <div fctoolbar style="width: 400px">
+        <fc-any fcLabel="图表类型" [fcAppid]="appId" [ngModel]="saveObj.CATAGORY" (ngModelChange)="chartTypeChange($event)" name="CATAGORY" [fcOption]="chartType"></fc-any>
+    </div>
+    <fc-layoutcol fccontent fcSpans="7,4">
+        <fc-chartbar fccontent1 [fcOption]="chartLabel" [fcData]="chartData" *ngIf="toShow('bar')"></fc-chartbar>
+        <fc-chartpie fccontent1 [fcOption]="chartLabel" [fcData]="chartData" *ngIf="toShow('pie')"></fc-chartpie>
+        <fc-chartline fccontent1 [fcOption]="chartLabel" [fcData]="chartData" *ngIf="toShow('line')"></fc-chartline>
+    </fc-layoutcol>
+    <div fccontent style="height:400px">
+        <fc-listdata [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
+    </div>
+</fc-layoutpanel>
+<ng-template #contentTpl>
+    <fc-layoutcol>
+        <!-- <fc-radio fccontent1 fcLabel="条件类型：" [ngModel]="saveObj.CATAGORY" (ngModelChange)="handleChartType_Radio($event)" name="CATAGORY" [fcAppid]="appId" fcFieldCode="CATAGORY" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-radio> -->
+        <!-- <fc-radio fccontent1 fcLabel="条件类型：" [ngModel]="saveObj.CATAGORY" (ngModelChange)="handleChartType_Radio($event)" name="CATAGORY" [fcOption]="ChartType"></fc-radio> -->
+        <!-- <div fccontent2 style="height:42px"></div> -->
+        <fc-text fccontent1 fcLabel="图表ID：" [(ngModel)]="saveObj.CHARTID" name="CHARTID"></fc-text>
+        <fc-text fccontent2 fcLabel="元数据编码：" [(ngModel)]="saveObj.APPID" name="APPID"></fc-text>
+    </fc-layoutcol>
+    <fc-textarea fcCol="1" fcRows="2" fcLabel="取值策略：" [(ngModel)]="saveObj.DATAFROMID" name="DATAFROMID"></fc-textarea>
+</ng-template>
+<ng-template #footerTpl>
+    <div>
+        <fc-button (click)="handle_cancel()" fcLabel="取消"></fc-button>
+        <fc-button [fcType]="'primary'" (click)="handle_ok()" fcLabel="确定"></fc-button>
+    </div>
+</ng-template>
