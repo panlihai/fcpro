@@ -2,13 +2,14 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
-import { ProvidersService, Sysmenu } from "fccore";
+import { ProvidersService, ResponseResult, Sysmenu } from "fccore";
 import { LayoutService } from "./layout.service";
 import { SysnavlinkService, NavLinkFunctionName, Args_NavLink } from "./sysnavlink.service";
 import { SysannouncementService } from './sysannouncement.service';
+import { Subject } from "rxjs";
+import { FclistdataComponent, Fcmenu } from "fccomponent";
 import { SysmessageService, Sysmessage } from "./sysmessage.service";
-import { SysassignmentService, Sysassignment } from "./sysassignment.service";
-import { Fcmenu } from "fccomponent/fcnav/fcnavmenu.component";
+import { SysassignmentService, Sysassignment} from "./sysassignment.service";
 import { SysversionService } from "./sysversion.service";
 @Injectable()
 export class SyshomeService {
@@ -90,36 +91,7 @@ export class SyshomeService {
         }
         return this.sysmessageService.update(msg);
     }
-    /**
-     * 查找当前路由
-     * @param menus 
-     * @param menuId 
-     */
-    findMenuByRouter(menus: any[], router: string): Fcmenu {
-        // 当menu不存在是  返回空
-        if (menus.length == 0) {
-            return null;
-        }
-        // Sysmenu对象赋值给menu
-        let menu: Sysmenu;
-        let i = 0;
-        do {
-            // menus[i]数组里面的[i]对象赋值给item
-            let item = menus[i];
-            // 有路由并且路由相等
-            if (item.ROUTER && item.ROUTER === router) {
-                menu = item;
-                break;
-            } else if (item.P_CHILDMENUS && item.P_CHILDMENUS.length !== 0) {
-                menu = this.findMenuByRouter(item.P_CHILDMENUS, router);
-                if (menu) {
-                    break;
-                }
-            }
-            i++;
-        } while (i < menus.length);
-        return menu;
-    }
+   
     // sysannouncementrouter跳转到消息公告路由并生成tag标签
     sysannouncementrouter(router: Router, msg: any) {
         let menu = this.layoutService.findMenuByRouter(this.providers.menuService.menus, 'sysannouncementDetail');
@@ -176,39 +148,100 @@ export class SyshomeService {
         }
         return this.sysmessageService.update(msg);
     }
-    /**
-     * 获取版本信息
-     */
-    getSysversion() {
-        this.sysversionService.getSysversion();
+  /**
+   * 获取版本信息
+   */
+  getSysversion() {
+    this.sysversionService.getSysversion();
+  }
+  /** YM
+   *  获取快速导航标签数据流
+   */
+  getNavLinks() {
+    return this.navLinkService.getNavLinks();
+  }
+  /** YM
+ * 重构查询条件并返回
+ * @param args
+ */
+  rebuildList_NavLink(args?: Args_NavLink) {
+    return this.navLinkService.rebuildList_NavLink(args.navlinks);
+  }
+  /** YM
+ * 刷新快速导航标签
+ */
+  refreshNavLink(args?: Args_NavLink) {
+    return this.navLinkService.refreshNavLink(args.navlinks);
+  }
+  /**YM
+ * 处理新增快速导航标签事件
+ * @param args 
+ */
+  addNavLinkTag(args?: Args_NavLink) {
+    return this.navLinkService.addNavLinkTag(args.navlinks, args.contentTpl, args.footerTpl, args.listdata);
+  }
+  /**YM
+ * 处理弹窗确认事件
+ * @param args 
+ */
+  handleAddNavLink_ok(args?: Args_NavLink) {
+    return this.navLinkService.handleAddNavLink_ok(args.listdata, args.navlinks, args.condition)
+  }
+  /**YM
+ * 处理弹出取消事件
+ */
+  handleAddNavLink_cancel() {
+    return this.navLinkService.handleAddNavLink_cancel();
+  }
+  /**YM
+ * 处理链接删除
+ * @param args 
+ */
+  navLinkBeforeClose(args?: Args_NavLink) {
+    return this.navLinkService.navLinkBeforeClose(args.link);
+  }
+  /**YM
+   * 返回删除数据的流
+   */
+  deleteSubject = () => {
+    return this.navLinkService.deleteSubject;
+  }
+   /**
+   * 路由跳转事件
+   * @param router 
+   * @param url 
+   */
+  navToByMenuId(router: Router, menuId: any) {
+    let menu = this.findMenuByRouter(this.providers.menuService.menus, menuId);
+    if (menu) {
+      this.providers.commonService.event("selectedMenu", menu);
+    } else {
+      this.providers.msgService.error(menuId + '不存在...');
     }
-    /**
-     * YM
-     * 快速导航/自定义链接功能
-     * @param fucName 
-     * @param args 
-     */
-    NavLinkFunction(fucName: NavLinkFunctionName, args?: Args_NavLink): any {
-        switch (fucName) {
-            case NavLinkFunctionName.deleteSubject:
-                return this.navLinkService.deleteSubject;
-            case NavLinkFunctionName.getNavLinks:
-                return this.navLinkService.getNavLinks();
-            case NavLinkFunctionName.rebuildList_NavLink:
-                return this.navLinkService.rebuildList_NavLink(args.navlinks);
-            case NavLinkFunctionName.refreshNavLink:
-                return this.navLinkService.refreshNavLink(args.navlinks);
-            case NavLinkFunctionName.addNavLinkTag:
-                return this.navLinkService.addNavLinkTag(args.navlinks, args.contentTpl, args.footerTpl, args.listdata);
-            case NavLinkFunctionName.handleAddNavLink_ok:
-                return this.navLinkService.handleAddNavLink_ok(args.listdata, args.navlinks, args.condition)
-            case NavLinkFunctionName.handleAddNavLink_cancel:
-                return this.navLinkService.handleAddNavLink_cancel();
-            case NavLinkFunctionName.navLinkBeforeClose:
-                return this.navLinkService.navLinkBeforeClose(args.link);
+  }
+  /**
+    * @param menus 
+    * @param menuId 
+    */
+  findMenuByRouter(menus: any[], router: string): Fcmenu {
+    if (menus.length == 0) {
+      return null;
+    }
+    let menu: Sysmenu;
+    let i = 0;
+    do {
+      let item = menus[i];
+      if (item.ROUTER && item.ROUTER === router) {
+        menu = item;
+        break;
+      } else if (item.P_CHILDMENUS && item.P_CHILDMENUS.length !== 0) {
+        menu = this.findMenuByRouter(item.P_CHILDMENUS, router);
+        if (menu) {
+          break;
         }
-    }
-    navToByMenuId(router: Router, url: any) {
-        return this.layoutService.navToByMenuId(router, url)
-    }
+      }
+      i++;
+    } while (i < menus.length);
+    return menu;
+  }
 }

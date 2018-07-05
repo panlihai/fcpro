@@ -27,7 +27,9 @@ import { SyslogComponent } from './components/core/syslog.component';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
 import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
 import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
+import { SysparamComponent } from './components/core/sysparam.component';
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
+import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -117,13 +119,16 @@ export const Routers: Routes = [{
     component: SyscompanyComponent,
     data: { keep: false }
 }, {
-    path: 'syscompanyAdd',//单位设立
-    component: SyscompanyaddComponent,
+    path: 'sysquotaList',//指标列表
+    component: SysquotalistComponent,
     data: { keep: false }
 }, {
-    path: 'syscompanyModify',//单位调整
-    component: SyscompanymodifyComponent,
+    path: 'sysquotavalue',//指标编辑
+    component: SysquotaEditComponent,
     data: { keep: false }
+}, {
+    path: 'syscompanyAdd',//单位设立
+    component: SyscompanyaddComponent,
 }, {
     path: 'syscompanychangeauditList',//单位变更审批
     component: SyscompanychangeauditComponent,
@@ -133,8 +138,8 @@ export const Routers: Routes = [{
     component: SysquotalistComponent,
     data: { keep: false }
 }, {
-    path: 'sysquotaEdit',//指标编辑
-    component: SysquotaEditComponent,
+    path: 'syscompanyModify',//单位调整
+    component: SyscompanymodifyComponent,
     data: { keep: false }
 }, {
     path: 'sysprofileList',//个人信息维护
@@ -145,8 +150,12 @@ export const Routers: Routes = [{
     component: SyslogComponent,
     data: { keep: false }
 }, {
-    path: 'sysquotaEdit',//指标编辑
-    component: SysquotaEditComponent,
+    path: 'sysparamList',//系统参数
+    component: SysparamComponent,
+    data: { keep: false }
+},{
+    path: 'sysdepartment',//部门管理
+    component: SysdepartmentComponent,
     data: { keep: false }
 }, {
     path: '**',
