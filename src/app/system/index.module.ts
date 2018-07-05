@@ -69,7 +69,10 @@ import { SyscompanychangeauditComponent } from './components/core/syscompanychan
 import { SyscompanyrelationService } from './services/syscompanyrelation.service';
 import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
 import { SysdepartmentService } from './services/sysdepartment.service';
-import { SysdepartmentComponent } from './components/core/sysdepartment.component';
+import { SysdepartmentlistComponent } from './components/core/sysdepartmentlist.component';
+import { SysdepartmentrelationService } from './services/sysdepartmentrelation.service';
+import { SystbvdeptcurorgService } from './services/systbvdeptcurorg.service';
+import { SysdepartmentaddComponent } from './components/core/sysdepartmentadd.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -137,7 +140,8 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SyscompanymodifyComponent,
     SyscompanyaddComponent,
     SyscompanychangeauditComponent,
-    SysdepartmentComponent
+    SysdepartmentlistComponent,
+    SysdepartmentaddComponent
   ],
   providers: [
     LayoutService,
@@ -166,7 +170,9 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysquotaService,
     SyscompanyrelationService,
     SystbvorgcurorgService,
-    SysdepartmentService
+    SysdepartmentService,
+    SysdepartmentrelationService,
+    SystbvdeptcurorgService
   ]
 })
 export class SystemModule {

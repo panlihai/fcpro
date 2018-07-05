@@ -12,6 +12,6 @@ export const environment = {
   logurl: "/server/api/",
   authurl: "/server/api/",
   //wsurl: "ws://pcorp.cn/server/msg", 
-  wsurl: "ws://192.168.0.117/server/msg",
+  wsurl: "ws://10.56.23.218/server/msg",
   license:''
 };

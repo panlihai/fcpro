@@ -29,7 +29,8 @@ import { SyscompanymodifyComponent } from './components/core/syscompanymodify.co
 import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
 import { SysparamComponent } from './components/core/sysparam.component';
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
-import { SysdepartmentComponent } from './components/core/sysdepartment.component';
+import { SysdepartmentlistComponent } from './components/core/sysdepartmentlist.component';
+import { SysdepartmentaddComponent } from './components/core/sysdepartmentadd.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -153,9 +154,13 @@ export const Routers: Routes = [{
     path: 'sysparamList',//系统参数
     component: SysparamComponent,
     data: { keep: false }
-},{
-    path: 'sysdepartment',//部门管理
-    component: SysdepartmentComponent,
+}, {
+    path: 'sysdepartmentList',//部门管理
+    component: SysdepartmentlistComponent,
+    data: { keep: false }
+}, {
+    path: 'sysdepartmentAdd',//设立部门
+    component: SysdepartmentaddComponent,
     data: { keep: false }
 }, {
     path: '**',

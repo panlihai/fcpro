@@ -6,7 +6,6 @@ import { FCEVENT } from "fccomponent/fc";
 import { SysquotaService, Args_Quota, ChartDatas, QuotaValueType, ChartData, ChartTypeName, ChartTypeCode, DialogState } from "../../services/sysquota.service";
 import { ValuesColumnPanel } from "ag-grid-enterprise";
 @Component({
-  selector: "sysquota",
   templateUrl: "./sysquotalist.component.html",
   styles: [
     `
@@ -14,7 +13,6 @@ import { ValuesColumnPanel } from "ag-grid-enterprise";
         height: 75% !important;
         overflow:hidden;
       }
-
       :host ::ng-deep .fc-layoutpanel>.fc-content>.fc-layoutrow>.fc-layoutrowcell2 {
         height: 100%;
       }
