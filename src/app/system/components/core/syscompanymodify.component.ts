@@ -24,12 +24,6 @@ export class SyscompanymodifyComponent extends ParentDetailComponent {
                 this.mainObj = result.DATA;
             }
         })
-        //初始化单位隶属关系对象编辑
-        this.mainService.getModifyCompanyRelationData(this.routerParam.ID).subscribe(result => {
-            if (result.CODE === '0') {
-                this.syscompanyrelationObj = result.DATA;
-            }
-        })
     }
     addNew(mainObj: any): boolean {
         return true;

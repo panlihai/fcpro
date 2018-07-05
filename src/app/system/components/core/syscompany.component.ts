@@ -43,7 +43,10 @@ export class SyscompanyComponent extends ParentlistComponent {
     senDateToString: string;
     @ViewChild('tree')
     tree: FctreeComponent;
+    //树选中id
     selectedCompanyId: string;
+    // 树选中code
+    selectedCompanyCode: string;
     // 所有节点数据
     fcNodes: any[] = [{ id: '', name: '正在加载中...' }];
     //树条件
@@ -84,6 +87,7 @@ export class SyscompanyComponent extends ParentlistComponent {
      */
     changeCompanydim(event: any) {
         this.companydimAny = event.SDIM_CODE;
+        // this.mainService.queryCompanyData(this.condition, this.companydimAny, this.senDateToString);
         this.mainService.cloneTreeObj(this.companydimAny, this.senDateToString);
         this.tree.fcNodes = undefined;
     }
@@ -92,24 +96,30 @@ export class SyscompanyComponent extends ParentlistComponent {
      */
     changeSendDate(event: any) {
         this.senDateToString = this.commonService.dateFormat(this.sendDate, 'yyyyMMdd');
+        // this.mainService.queryCompanyData(this.condition, this.companydimAny, this.senDateToString);
         this.mainService.cloneTreeObj(this.companydimAny, this.senDateToString);
         this.tree.fcNodes = undefined;
     }
     event(eventName: string, context: any): void {
         switch (eventName) {
             case 'listSetting'://设立
-                this._providers.commonService.event('selectedMenu', {
-                    MENUID: 'SYSCOMPANY', ROUTER: 'syscompanyAdd',
-                    PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '单位调整', MENUICON: 'fc-icon-bgefficiency'
-                });
+                this.router.navigate(["/" + environment.pid.toLowerCase() + "/syscompanyAdd"], {
+                    queryParams: {
+                        refresh: 'Y', MENUID: 'SYSCOMPANY', MENUNAME: '单位设立', MENUTYPE: 'APP',
+                        ROUTER: 'syscompanyAdd', PID: environment.pid, APPID: 'SYSCOMPANY',
+                        parentCode: this.selectedCompanyCode, dimcode: this.companydimAny
+                    }
+                })
                 break;
             case 'listAdjust'://调整
                 if (this.selectedObject && this.selectedObject !== null) {
                     if (this.selectedObject.ID !== undefined && this.selectedObject.ID !== '') {
-                        this._providers.commonService.event('selectedMenu', {
-                            ID: this.selectedObject.ID, MENUID: 'SYSCOMPANYTEST', ROUTER: 'syscompanyModify',
-                            PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '单位调整', MENUICON: 'fc-icon-bgefficiency'
-                        });
+                        this.router.navigate(["/" + environment.pid.toLowerCase() + "/syscompanyModify"], {
+                            queryParams: {
+                                refresh: 'Y', MENUID: 'SYSCOMPANY', MENUNAME: '单位调整', MENUTYPE: 'APP',
+                                ROUTER: 'syscompanyModify', PID: environment.pid, APPID: 'SYSCOMPANY', ID: context.param.ID
+                            }
+                        })
                     }
                 } else {
                     this.messageService.error("请选择一条数据！");
@@ -156,9 +166,14 @@ export class SyscompanyComponent extends ParentlistComponent {
     treeEvent(event: FCEVENT) {
         switch (event.eventName) {
             case 'check':
-                let data = event.param.node.data;
-                this.condition = '{"ID":' + data.id + '}';
+                let data = event.param.node.data.DATA;
+                // this.mainService.queryCompanyData(this.condition, this.companydimAny, this.senDateToString, data.SCOMPANY_CODE);
+                let con: any = {
+                    WHERE: "(SPARENT_CODE like" + " " + "'" + data.SCOMPANY_CODE + "%" + "'" + ' ' + "OR SCOMPANY_CODE =" + "'" + data.SCOMPANY_CODE + "')" + ' ' + "AND SDIM_CODE=" + "'" + this.companydimAny + "'" + ' ' + " and SBEGIN_DATE <= " + this.senDateToString + ' ' + "AND SEND_DATE >=" + this.senDateToString,
+                }
+                this.condition = JSON.stringify(con);
                 this.listWnd.fcReflesh();
+                this.selectedCompanyCode = data.SCOMPANY_CODE;
                 break;
             case 'select'://选中节点
                 this.selectedTreeId = event.param;

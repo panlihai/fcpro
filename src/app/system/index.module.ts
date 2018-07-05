@@ -68,6 +68,7 @@ import { SyscompanychangeauditComponent } from './components/core/syscompanychan
 import { SyscompanyrelationService } from './services/syscompanyrelation.service';
 import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
 import { companysortdialogComponent } from './components/core/dialog/companysortdialog.component';
+import { SyscompanydimService } from './services/syscompanydim1.service';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -164,7 +165,8 @@ import { companysortdialogComponent } from './components/core/dialog/companysort
     SysquotaService,
     SysassignmentService,
     SyscompanyrelationService,
-    SystbvorgcurorgService
+    SystbvorgcurorgService,
+    SyscompanydimService
   ]
 })
 export class SystemModule {

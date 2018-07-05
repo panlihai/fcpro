@@ -5,12 +5,14 @@ import { Observable } from 'rxjs';
 import { TreeOptions } from 'fccomponent';
 import { SyscompanyrelationService } from './syscompanyrelation.service';
 import { SystbvorgcurorgService } from './systbvorgcurorg.service';
+import { SyscompanydimService } from './syscompanydim1.service';
 @Injectable()
 export class SyscompanyService extends ParentService {
   constructor(public providers: ProvidersService,
     public syscompanyrelationService: SyscompanyrelationService,
+    public syscompanydimService: SyscompanydimService,
     public systbvorgcurorgService: SystbvorgcurorgService) {
-    super(providers, "SYSCOMPANYTEST");
+    super(providers, "SYSCOMPANY");
   }
   /**
    * 根据id获取主对象的编辑数据
@@ -77,6 +79,22 @@ export class SyscompanyService extends ParentService {
     this.companyTreeOptions = cloneObj;
   }
   /**
+   * 过滤列表单位数据
+   * @param companyCondition 过滤
+   * @param code 单位代码
+   * @param dim 维度
+   * @param date 失效时间 
+   */
+  queryCompanyData(companyCondition: string, dim: string, date: string, code: string) {
+    let con: any = {
+      WHERE: "(SPARENT_CODE like" + " " + "'" + code + "%" + "'" + ' ' + "OR SCOMPANY_CODE =" + "'" + code + "')" + ' ' + "AND SDIM_CODE=" + "'" + dim + "'" + ' ' + " and SBEGIN_DATE <= " + date + ' ' + "AND SEND_DATE >=" + date,
+    }
+    companyCondition = JSON.stringify(con);
+    let cloneObj: any = '';
+    cloneObj = this.commonService.cloneObj(companyCondition);
+    companyCondition = cloneObj;
+  }
+  /**
    * 获取组织机构视图数据
    */
   getOrgData(): Observable<any> {
@@ -84,16 +102,41 @@ export class SyscompanyService extends ParentService {
     });
   }
   /**
-   * 根据单位隶属关系(SYS_COMPANY_RELATION)的组织机构代码(SORG_CODE)
-   * 和上级组织机构代码(SPARENT_CODE)
-   * 和单位基本信息表(SYS_COMPANY)关联显示中文名
-   * 
+   * 保存或者修改单位信息
+   * @param mainObj 单位基本信息对象
+   * @param relationObj 单位隶属关系对象
    */
-  createCompany(mainObj: any, relationObj: any): Observable<any> {
-    return this.commonService.createObservableConcat(
-      this.save(mainObj),
-      this.syscompanyrelationService.save(relationObj)
-    );
+  saveOrUpdateCompany(mainObj: any, relationObj: any, dimCode: string, parentCode): Observable<any> {
+    //单位是否启用
+    mainObj.BSTOP_FLAG = '0';
+    //填写的信息保存到单位隶属表中
+    relationObj = {
+      SBEGIN_DATE: this.commonService.dateFormat(mainObj.SBEGIN_DATE, 'yyyyMMdd'),//生效日期
+      SEND_DATE: this.commonService.dateFormat(mainObj.SEND_DATE, 'yyyyMMdd'),//失效日期
+      SDIM_CODE: dimCode,//维度代码
+      SORG_CODE: mainObj.SCOMPANY_CODE,//组织机构代码
+      SPARENT_CODE: parentCode,//上级组织机构代码
+      SPARENT_PATH: parentCode + ':' + mainObj.SCOMPANY_CODE,//上级组织机构路径
+      SCRATOR: this.userInfo.NAME,//创建人
+      SCREATE_TIME: this.commonService.timestampFormat(this.commonService.getTimestamp(), 'yyyyMMdd'),//创建时间
+    }
+    if (mainObj.ID === undefined || mainObj.ID === '') {
+      //生效日期
+      mainObj.SBEGIN_DATE = this.commonService.dateFormat(mainObj.SBEGIN_DATE, 'yyyyMMdd');
+      //注销日期
+      mainObj.SEND_DATE = this.commonService.dateFormat(mainObj.SEND_DATE, 'yyyyMMdd');
+      //成立日期
+      mainObj.SEST_DATE = this.commonService.dateFormat(mainObj.SEST_DATE, 'yyyyMMdd');
+      return this.commonService.createObservableJoin([
+        this.save(mainObj),
+        this.syscompanyrelationService.save(relationObj)
+      ]);
+    } else {
+      return this.commonService.createObservableJoin([
+        this.update(mainObj),
+        this.syscompanyrelationService.update(relationObj)
+      ]);
+    }
   }
   //列表
   fclistdataOption = {
