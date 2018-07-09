@@ -4,12 +4,10 @@ import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
 import { ProvidersService, ResponseResult, Sysmenu } from "fccore";
 import { LayoutService } from "./layout.service";
-import { SysnavlinkService, NavLinkFunctionName, Args_NavLink } from "./sysnavlink.service";
+import { SysnavlinkService, Args_NavLink } from "./sysnavlink.service";
 import { SysannouncementService } from './sysannouncement.service';
-import { SysmessageService } from "./sysmessage.service";
-import { Subject } from "rxjs";
-import { FclistdataComponent, Fcmenu } from "fccomponent";
-import { SysmessageService, Sysmessage } from "./sysmessage.service";
+import {  Fcmenu } from "fccomponent";
+import { SysmessageService} from "./sysmessage.service";
 import { SysassignmentService, Sysassignment} from "./sysassignment.service";
 import { SysversionService } from "./sysversion.service";
 @Injectable()

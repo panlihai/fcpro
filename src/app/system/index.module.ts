@@ -91,7 +91,6 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysquotalistComponent,
     SysquotaEditComponent,
     UploadavatardialogComponent,
-    companytransferdialogComponent,
     companysortdialogComponent,
     SysroleDialogEditComponent,
     SysquotalistComponent,
@@ -103,8 +102,7 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SyscompanymodifyComponent,
     SyscompanyaddComponent,
     SyscompanychangeauditComponent,
-    companysortdialogComponent,
-    SysdepartmentComponent
+    SysdepartmentComponent,
   ],
   imports: [
     CommonModule,
@@ -160,7 +158,15 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysbizcoderulemodalComponent,
     SysbizcoderuleaddComponent,
     SysbizcoderuleeditComponent,
-    SysdepartmentdimComponent
+    SysdepartmentdimComponent,
+    SyscompanyaddComponent,
+    SyscompanychangeauditComponent ,
+    SyscompanymodifyComponent ,
+    SyslogComponent,
+    SysdepartmentComponent ,
+    UploadavatardialogComponent ,
+    companysortdialogComponent ,
+    companytransferdialogComponent 
   ],
   providers: [
     LayoutService,
