@@ -25,6 +25,11 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SyslogComponent } from './components/core/syslog.component';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { SysbizcoderuleComponent } from './components/core/sysbizcoderule.component';
+import { SyscompanydimComponent } from './components/core/syscompanydim.component';
+import { SysbizcoderuleaddComponent } from './components/core/sysbizcoderuleadd.component';
+import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
+import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
 import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
 import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
 import { SysparamComponent } from './components/core/sysparam.component';
@@ -101,6 +106,30 @@ export const Routers: Routes = [{
 }, {
     path: 'sysannouncementDetail',//消息公告
     component: SysannouncementComponent,
+    data: { keep: false }
+}, {
+    path: 'sysbizcoderuleList',//编码规则
+    component: SysbizcoderuleComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
+    component: SysbizcoderuleeditComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysbizcoderuleAdd',//编码工具栏新增模态框
+    component: SysbizcoderuleaddComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysdepartmentdimList',//部门维度
+    component: SysdepartmentdimComponent,
+    data: { keep: false }
+}
+, {
+    path: 'syscompanydimList',//维度规则
+    component: SyscompanydimComponent,
     data: { keep: false }
 }, {
     path: 'sysassignmentDetail',//消息公告

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SysappService } from '../../services/sysapp.service';
 import { NzModalService } from 'ng-zorro-antd';
-import { FCEVENT } from 'fccomponent/fc';
 import { ParentEditComponent } from 'fccomponent/parentedit.component';
 import { Sysappbuttons } from 'fccore/services/sysappbuttons.service';
 @Component({
@@ -31,6 +30,4 @@ export class SysappeditComponent extends ParentEditComponent {
   }
   event(eventName: string, param: any): void {
   }
-  
- 
 }

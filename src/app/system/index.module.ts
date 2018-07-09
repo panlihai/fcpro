@@ -62,6 +62,16 @@ import { SyssessionService } from './services/syssession.service';
 import { SysemployService } from './services/sysemploy.service';
 import { SysassignmentService } from './services/sysassignment.service';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { SysbizcoderuleService } from './services/sysbizcoderule.service';
+import { SysbizcoderuleComponent } from './components/core/sysbizcoderule.component';
+import { SyscompanydimComponent } from './components/core/syscompanydim.component';
+import { SyscompanydimService } from './services/syscompanydim.service';
+import { SysbizcoderulemodalComponent } from './components/core/sysbizcoderulemodal.component';
+import { SysbizcodedefineService } from './services/sysbizcodedefine.service';
+import { SysbizcoderuleaddComponent } from './components/core/sysbizcoderuleadd.component';
+import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
+import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
+import { SysdepartmentdimService } from './services/sysdepartmentdim.service';
 import { UploadavatardialogComponent } from './components/core/dialog/uploadavatardialog.component';
 import { companytransferdialogComponent } from './components/core/dialog/companytransferdialog.component';
 import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
@@ -69,7 +79,6 @@ import { SyscompanychangeauditComponent } from './components/core/syscompanychan
 import { SyscompanyrelationService } from './services/syscompanyrelation.service';
 import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
 import { companysortdialogComponent } from './components/core/dialog/companysortdialog.component';
-import { SyscompanydimService } from './services/syscompanydim1.service';
 import { SysdepartmentService } from './services/sysdepartment.service';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 @NgModule({
@@ -82,8 +91,18 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysquotalistComponent,
     SysquotaEditComponent,
     UploadavatardialogComponent,
+    companysortdialogComponent,
+    SysroleDialogEditComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent,
+    SyslogComponent,
+    SysassignmentComponent,
+    UploadavatardialogComponent,
     companytransferdialogComponent,
-    companysortdialogComponent
+    SyscompanymodifyComponent,
+    SyscompanyaddComponent,
+    SyscompanychangeauditComponent,
+    SysdepartmentComponent,
   ],
   imports: [
     CommonModule,
@@ -133,15 +152,21 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     BasicpersoneldialogComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
-    SyslogComponent,
     SysassignmentComponent,
-    UploadavatardialogComponent,
-    companytransferdialogComponent,
-    SyscompanymodifyComponent,
+    SysbizcoderuleComponent,
+    SyscompanydimComponent,
+    SysbizcoderulemodalComponent,
+    SysbizcoderuleaddComponent,
+    SysbizcoderuleeditComponent,
+    SysdepartmentdimComponent,
     SyscompanyaddComponent,
-    SyscompanychangeauditComponent,
-    companysortdialogComponent,
-    SysdepartmentComponent
+    SyscompanychangeauditComponent ,
+    SyscompanymodifyComponent ,
+    SyslogComponent,
+    SysdepartmentComponent ,
+    UploadavatardialogComponent ,
+    companysortdialogComponent ,
+    companytransferdialogComponent 
   ],
   providers: [
     LayoutService,
@@ -168,6 +193,11 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysquotavalueService,
     SysassignmentService,
     SysquotaService,
+    SysassignmentService,
+    SysbizcoderuleService,
+    SyscompanydimService,
+    SysbizcodedefineService,
+    SysdepartmentdimService,
     SyscompanyrelationService,
     SystbvorgcurorgService,
     SyscompanydimService,

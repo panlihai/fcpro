@@ -477,7 +477,7 @@ export class HomeComponent implements OnInit {
     public activedRoute: ActivatedRoute,
     private _router: Router,
     private nzModal: NzModalService
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.mainService.providers.appService
       .findWithQuery("SYSVERSION", { PAGENUM: 1, PAGESIZE: 6, ODER: "TS DESC" })
@@ -591,6 +591,9 @@ export class HomeComponent implements OnInit {
         break;
     }
   }
+  navTo(url: string) {
+    this.mainService.navToByMenuId(this.router, url);
+  }
   /** YM
    * 新增快速导航标签弹窗列表事件
    */
@@ -635,10 +638,6 @@ export class HomeComponent implements OnInit {
       case "failure":
         break;
     }
-  }
-
-  navTo(url: string) {
-    this.mainService.layoutService.navToByMenuId(this.router, url);
   }
   /**
   * 消息公告点击跳转路由事件

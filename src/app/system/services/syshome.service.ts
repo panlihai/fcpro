@@ -4,11 +4,10 @@ import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
 import { ProvidersService, ResponseResult, Sysmenu } from "fccore";
 import { LayoutService } from "./layout.service";
-import { SysnavlinkService, NavLinkFunctionName, Args_NavLink } from "./sysnavlink.service";
+import { SysnavlinkService, Args_NavLink } from "./sysnavlink.service";
 import { SysannouncementService } from './sysannouncement.service';
-import { Subject } from "rxjs";
-import { FclistdataComponent, Fcmenu } from "fccomponent";
-import { SysmessageService, Sysmessage } from "./sysmessage.service";
+import {  Fcmenu } from "fccomponent";
+import { SysmessageService} from "./sysmessage.service";
 import { SysassignmentService, Sysassignment} from "./sysassignment.service";
 import { SysversionService } from "./sysversion.service";
 @Injectable()
@@ -46,6 +45,33 @@ export class SyshomeService {
                 this.providers.msgService.error('回执失败')
             }
         })
+    }
+    // 公告消息回执处理
+    backannouncement(id,catagory,publishuser){
+        if(publishuser!== this.announcementPOSTUSER()){
+            let obj: any = {
+              TS: this.announcementtime(),
+              SORT: this.announcementtime(),
+              POSTTIME: this.announcementtime(),
+              CONTENT: "消息公告"+id+"进行回执",
+              ISREAD: "N",
+              ID: id,
+              TYPE: "",
+              NOTIFICATIONUSERID: publishuser,
+              TITLE: "回执信息",
+              POSTUSERID: this.announcementPOSTUSER()
+            };
+            if(catagory==="error"){
+              obj.TYPE = "danger";
+            }
+            if(catagory==="processing"){
+              obj.TYPE = "normal"
+            }
+            if(catagory==="warning"){
+              obj.TYPE = "waring"
+            }  
+            this.announcementsave(obj)
+          } 
     }
     /**
      * 获取当前待办任务的所有内容
