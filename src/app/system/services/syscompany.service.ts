@@ -36,6 +36,8 @@ export class SyscompanyService extends ParentService {
       return item;
     });
   }
+  //根据当前单位代码过滤单位隶属关系列表
+
   companyTreeOptions: TreeOptions = {
     //元数据id
     fcAppid: "SYSTBVORGCURORG",//元数据id
@@ -118,7 +120,7 @@ export class SyscompanyService extends ParentService {
       SPARENT_CODE: parentCode,//上级组织机构代码
       SPARENT_PATH: parentCode + ':' + mainObj.SCOMPANY_CODE,//上级组织机构路径
       SCRATOR: this.userInfo.NAME,//创建人
-      SCREATE_TIME: this.commonService.timestampFormat(this.commonService.getTimestamp(), 'yyyyMMdd'),//创建时间
+      SCREATE_TIME: this.commonService.timestampFormat(this.commonService.getTimestamp() * 1000, 'yyyyMMdd'),//创建时间
     }
     if (mainObj.ID === undefined || mainObj.ID === '') {
       //生效日期
@@ -126,7 +128,7 @@ export class SyscompanyService extends ParentService {
       //注销日期
       mainObj.SEND_DATE = this.commonService.dateFormat(mainObj.SEND_DATE, 'yyyyMMdd');
       //成立日期
-      mainObj.SEST_DATE = this.commonService.dateFormat(mainObj.SEST_DATE, 'yyyyMMdd');
+      mainObj.SEST_DATE = this.commonService.dateFormat(mainObj.SEST_DATE, 'yyyyMMdd');  //生效日期
       return this.commonService.createObservableJoin([
         this.save(mainObj),
         this.syscompanyrelationService.save(relationObj)
@@ -138,6 +140,7 @@ export class SyscompanyService extends ParentService {
       ]);
     }
   }
+
   //列表
   fclistdataOption = {
     //皮肤默认为bootstrap风格
@@ -174,7 +177,7 @@ export class SyscompanyService extends ParentService {
     fcAutoSave: false,
     fcAutoSize: false
   };
-  //
+  //单位隶属关系
   syscompanyrelationOption = {
     //皮肤默认为bootstrap风格
     fcClass: 'ag-blue',
@@ -191,7 +194,7 @@ export class SyscompanyService extends ParentService {
     //是否显示工具栏
     fcShowToolPanel: false,
     //是否分页
-    fcPagination: true,
+    fcPagination: false,
     //是否显示分组
     fcRowGroupPanelShow: 'none',//'always',
     //是否启用状态栏

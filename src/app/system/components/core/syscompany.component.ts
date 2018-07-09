@@ -64,66 +64,18 @@ export class SyscompanyComponent extends ParentlistComponent {
         //失效日期 
         this.sendDate = this.commonService.getDateByTimetamp(this.commonService.getTimestamp());
         this.senDateToString = this.commonService.dateFormat(this.sendDate, 'yyyyMMdd');
-        this.treeCondition = '';
-        this.mainService.getOrgData().subscribe(result => {
-            if (result.CODE === '0') {
-                result.DATA.forEach(item => {
-                    //默认维度
-                    if (item.BISDEFAULT === 'Y') {
-                        this.companydimAny = item.SDIM_CODE;
-                        this.mainService.cloneTreeObj(this.companydimAny, this.senDateToString);
-                    }
-                });
-            }
-        })
+        this.initOrgData();
     }
     getDefaultQuery() {
 
     }
-
-    /**
-     * 选择不同的维度切换树结构
-     * @param event 
-     */
-    changeCompanydim(event: any) {
-        this.companydimAny = event.SDIM_CODE;
-        // this.mainService.queryCompanyData(this.condition, this.companydimAny, this.senDateToString);
-        this.mainService.cloneTreeObj(this.companydimAny, this.senDateToString);
-        this.tree.fcNodes = undefined;
-    }
-    /**
-     * 选择时间切换树结构
-     */
-    changeSendDate(event: any) {
-        this.senDateToString = this.commonService.dateFormat(this.sendDate, 'yyyyMMdd');
-        // this.mainService.queryCompanyData(this.condition, this.companydimAny, this.senDateToString);
-        this.mainService.cloneTreeObj(this.companydimAny, this.senDateToString);
-        this.tree.fcNodes = undefined;
-    }
     event(eventName: string, context: any): void {
         switch (eventName) {
             case 'listSetting'://设立
-                this.router.navigate(["/" + environment.pid.toLowerCase() + "/syscompanyAdd"], {
-                    queryParams: {
-                        refresh: 'Y', MENUID: 'SYSCOMPANY', MENUNAME: '单位设立', MENUTYPE: 'APP',
-                        ROUTER: 'syscompanyAdd', PID: environment.pid, APPID: 'SYSCOMPANY',
-                        parentCode: this.selectedCompanyCode, dimcode: this.companydimAny
-                    }
-                })
+                this.listSetting();
                 break;
             case 'listAdjust'://调整
-                if (this.selectedObject && this.selectedObject !== null) {
-                    if (this.selectedObject.ID !== undefined && this.selectedObject.ID !== '') {
-                        this.router.navigate(["/" + environment.pid.toLowerCase() + "/syscompanyModify"], {
-                            queryParams: {
-                                refresh: 'Y', MENUID: 'SYSCOMPANY', MENUNAME: '单位调整', MENUTYPE: 'APP',
-                                ROUTER: 'syscompanyModify', PID: environment.pid, APPID: 'SYSCOMPANY', ID: context.param.ID
-                            }
-                        })
-                    }
-                } else {
-                    this.messageService.error("请选择一条数据！");
-                }
+                this.listAdjust();
                 break;
             case 'listRefresh'://刷新
                 break;
@@ -160,20 +112,14 @@ export class SyscompanyComponent extends ParentlistComponent {
         }
     }
     /**
-  * 事件句柄处理
-  * @param event 树发生的事件
-  */
+    * 事件句柄处理
+    * @param event 树发生的事件
+    */
     treeEvent(event: FCEVENT) {
         switch (event.eventName) {
             case 'check':
                 let data = event.param.node.data.DATA;
-                // this.mainService.queryCompanyData(this.condition, this.companydimAny, this.senDateToString, data.SCOMPANY_CODE);
-                let con: any = {
-                    WHERE: "(SPARENT_CODE like" + " " + "'" + data.SCOMPANY_CODE + "%" + "'" + ' ' + "OR SCOMPANY_CODE =" + "'" + data.SCOMPANY_CODE + "')" + ' ' + "AND SDIM_CODE=" + "'" + this.companydimAny + "'" + ' ' + " and SBEGIN_DATE <= " + this.senDateToString + ' ' + "AND SEND_DATE >=" + this.senDateToString,
-                }
-                this.condition = JSON.stringify(con);
-                this.listWnd.fcReflesh();
-                this.selectedCompanyCode = data.SCOMPANY_CODE;
+                this.checkTree(data);
                 break;
             case 'select'://选中节点
                 this.selectedTreeId = event.param;
@@ -181,6 +127,88 @@ export class SyscompanyComponent extends ParentlistComponent {
             case 'initialized'://初始化
                 break;
 
+        }
+    }
+    /**
+     * 初始化组织机构数据
+     */
+    initOrgData() {
+        this.treeCondition = '';
+        this.mainService.getOrgData().subscribe(result => {
+            if (result.CODE === '0') {
+                result.DATA.forEach(item => {
+                    //默认维度
+                    if (item.BISDEFAULT === 'Y') {
+                        this.companydimAny = item.SDIM_CODE;
+                        this.mainService.cloneTreeObj(this.companydimAny, this.senDateToString);
+                    }
+                });
+            }
+        })
+    }
+    /**
+     * 选择不同的维度切换树结构
+     * @param event 
+     */
+    changeCompanydim(event: any) {
+        this.companydimAny = event.SDIM_CODE;
+        // this.mainService.queryCompanyData(this.condition, this.companydimAny, this.senDateToString);
+        this.mainService.cloneTreeObj(this.companydimAny, this.senDateToString);
+        this.tree.fcNodes = undefined;
+    }
+    /**
+     * 选择时间切换树结构
+     */
+    changeSendDate(event: any) {
+        this.senDateToString = this.commonService.dateFormat(this.sendDate, 'yyyyMMdd');
+        // this.mainService.queryCompanyData(this.condition, this.companydimAny, this.senDateToString);
+        this.mainService.cloneTreeObj(this.companydimAny, this.senDateToString);
+        this.tree.fcNodes = undefined;
+    }
+    /**
+     * 选中树节点
+     * @param data 
+     */
+    checkTree(data: any) {
+        let con: any = {
+            WHERE: "(SPARENT_CODE like" + " " + "'" + data.SCOMPANY_CODE + "%" + "'" + ' ' + "OR SCOMPANY_CODE =" + "'" + data.SCOMPANY_CODE + "')" + ' ' + "AND SDIM_CODE=" + "'" + this.companydimAny + "'" + ' ' + " and SBEGIN_DATE <= " + this.senDateToString + ' ' + "AND SEND_DATE >=" + this.senDateToString,
+        }
+        this.condition = JSON.stringify(con);
+        this.selectedCompanyCode = data.SCOMPANY_CODE;
+        this.listWnd.fcReflesh();
+    }
+    /**
+     * 设立单位
+     */
+    listSetting() {
+        if (this.selectedCompanyCode !== undefined && this.selectedCompanyCode !== '') {
+            this.router.navigate(["/" + environment.pid.toLowerCase() + "/syscompanyAdd"], {
+                queryParams: {
+                    refresh: 'Y', MENUID: 'SYSCOMPANY', MENUNAME: '单位设立', MENUTYPE: 'APP',
+                    ROUTER: 'syscompanyAdd', PID: environment.pid, APPID: 'SYSCOMPANY',
+                    parentCode: this.selectedCompanyCode, dimCode: this.companydimAny
+                }
+            })
+        } else {
+            this.messageService.error("请选择父节点！");
+        }
+    }
+    /**
+     * 调整单位
+     */
+    listAdjust() {
+        if (this.selectedObject && this.selectedObject !== null) {
+            if (this.selectedObject.ID !== undefined && this.selectedObject.ID !== '') {
+                this.router.navigate(["/" + environment.pid.toLowerCase() + "/syscompanyModify"], {
+                    queryParams: {
+                        refresh: 'Y', MENUID: 'SYSCOMPANY', MENUNAME: '单位调整', MENUTYPE: 'APP',
+                        ROUTER: 'syscompanyModify', PID: environment.pid, APPID: 'SYSCOMPANY', ID: this.selectedObject.ID,
+                        parentCode: this.selectedCompanyCode, dimCode: this.companydimAny
+                    }
+                })
+            }
+        } else {
+            this.messageService.error("请选择一条数据！");
         }
     }
 }

@@ -9,8 +9,7 @@
                         <fc-title fcLabel="变更信息" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
                         <fc-layoutcol fcSpans="1,1" fccontent>
                             <div fccontent1>
-                                <fc-date [fcLabel]="'生效日期'" [fcAppid]="appId" fcFormat="YYYYMMDD" [(ngModel)]="mainObj.SBEGIN_DATE" fcPlaceHolder="请输入生效日期"
-                                    name="SYSCOMPANY.SBEGIN_DATE"></fc-date>
+                                <fc-date [fcLabel]="'生效日期'" [fcAppid]="appId" fcFormat="YYYYMMDD" [(ngModel)]="sbeginDate" fcPlaceHolder="请输入生效日期" name="SYSCOMPANY.SBEGIN_DATE"></fc-date>
                             </div>
                             <div fccontent2>
                                 <fc-text [fcLabel]="'变更文号'" [fcAppid]="appId" [(ngModel)]="mainObj.SAPPROVAL_DCMTNO" fcPlaceHolder="请输入变更文号" name="SYSCOMPANY.SAPPROVAL_DCMTNO"></fc-text>
@@ -46,8 +45,8 @@
                                         fcLabelCode='DICDESC' name="SYSCOMPANY.ILEVEL"></fc-combo> -->
                                 <!-- <fc-check [fcLabel]="'虚拟单位'" [fcAppid]="appId" [(ngModel)]="mainObj.BIS_VIRTUAL" fcLabelCode="DICDESC" fcValueCode="DICVALUE"
                                         name="SYSCOMPANY.BIS_VIRTUAL"></fc-check> -->
-                                <fc-datetime [fcLabel]="'成立日期'" [fcAppid]="appId" [(ngModel)]="mainObj.SBEGIN_DATE" fcPlaceHolder="请输入成立日期" name="mainObj.SBEGIN_DATE"></fc-datetime>
-                                <fc-datetime [fcLabel]="'注销日期'" [fcAppid]="appId" [(ngModel)]="mainObj.SEND_DATE" fcPlaceHolder="请输入注销日期" name="mainObj.SEND_DATE"></fc-datetime>
+                                <fc-date [fcLabel]="'成立日期'" [fcAppid]="appId" fcFormat="YYYYMMDD" [(ngModel)]="sestDate" fcPlaceHolder="请输入成立日期" name="mainObj.SBEGIN_DATE"></fc-date>
+                                <fc-date [fcLabel]="'注销日期'" [fcAppid]="appId" fcFormat="YYYYMMDD" [(ngModel)]="sendDate" fcPlaceHolder="请输入注销日期" name="mainObj.SEND_DATE"></fc-date>
                                 <fc-text [fcLabel]="'传真'" [fcAppid]="appId" [(ngModel)]="mainObj.SFAX" fcPlaceHolder="请输入传真" name="SYSCOMPANY.SFAX"></fc-text>
                                 <fc-text [fcLabel]="'网址'" [fcAppid]="appId" [(ngModel)]="mainObj.SWEBSITE" fcPlaceHolder="请输入网址" name="SYSCOMPANY.SWEBSITE"></fc-text>
                                 <!-- 没有字段 -->
@@ -59,8 +58,8 @@
             </fc-layoutpanel>
             <div class="fastposition-content" fccontent2>
                 <div class="aligncenter">
-                    <fc-icon [fcIcon]="'fc-icon-good'" [fcSize]="'large'" fcToolTip="上一条" fcPosition="bottom" [fcColor]="'#A7A7A7'" class="showhand"></fc-icon>
-                    <fc-icon [fcIcon]="'fc-icon-gejo'" [fcSize]="'large'" fcToolTip="下一条" fcPosition="bottom" [fcColor]="'#A7A7A7'" class="showhand"></fc-icon>
+                    <fc-icon [fcIcon]="'fc-icon-good'" (click)="prev()" [fcSize]="'large'" fcToolTip="上一条" fcPosition="bottom" [fcColor]="'#A7A7A7'" class="showhand"></fc-icon>
+                    <fc-icon [fcIcon]="'fc-icon-gejo'" (click)="next()" [fcSize]="'large'" fcToolTip="下一条" fcPosition="bottom" [fcColor]="'#A7A7A7'" class="showhand"></fc-icon>
                 </div>
                 <div>
                     <fc-fastposition fccontent [fcLinks]="[{href:'id0','label':'变更信息'},{href:'id1','label':'基本信息'}]"></fc-fastposition>
