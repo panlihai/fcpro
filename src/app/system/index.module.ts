@@ -55,6 +55,16 @@ import { SysquotaEditComponent } from './components/core/sysquotaedit.component'
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
 import { SysassignmentService } from './services/sysassignment.service';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { SysbizcoderuleService } from './services/sysbizcoderule.service';
+import { SysbizcoderuleComponent } from './components/core/sysbizcoderule.component';
+import { SyscompanydimComponent } from './components/core/syscompanydim.component';
+import { SyscompanydimService } from './services/syscompanydim.service';
+import { SysbizcoderulemodalComponent } from './components/core/sysbizcoderulemodal.component';
+import { SysbizcodedefineService } from './services/sysbizcodedefine.service';
+import { SysbizcoderuleaddComponent } from './components/core/sysbizcoderuleadd.component';
+import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
+import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
+import { SysdepartmentdimService } from './services/sysdepartmentdim.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -103,7 +113,13 @@ import { SysassignmentComponent } from './components/core/sysassignment.componen
     SyscompanyeditComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
-    SysassignmentComponent
+    SysassignmentComponent,
+    SysbizcoderuleComponent,
+    SyscompanydimComponent,
+    SysbizcoderulemodalComponent,
+    SysbizcoderuleaddComponent,
+    SysbizcoderuleeditComponent,
+    SysdepartmentdimComponent
   ],
   entryComponents: [
     SysroleDialogEditComponent,
@@ -129,7 +145,11 @@ import { SysassignmentComponent } from './components/core/sysassignment.componen
     SyscompanyService,
     SysnavlinkService,
     SysquotaService,
-    SysassignmentService
+    SysassignmentService,
+    SysbizcoderuleService,
+    SyscompanydimService,
+    SysbizcodedefineService,
+    SysdepartmentdimService
   ]
 })
 export class SystemModule {

@@ -105,7 +105,8 @@
                 <div fccontent *ngFor="let wait of waits" class="link-overflow">
                     <span>{{wait.CREATETIME}}</span>
                     <span style="display: inline-block;"><fc-link [fcLabel]="wait.TASKNAME" class="viewdetail" (click)="assignmentEvent(wait)"></fc-link></span>
-                </div>               
+                </div>    
+                <!-- <fc-list fccontent fcAppid="SYSASSIGNMENT" [fcFieldCode]="'TASKNAME'"  (fcEvent)="listEvent($event)"></fc-list>            -->
             </div>
         </fc-layoutpanel>
        <!--  待办任务结束 -->

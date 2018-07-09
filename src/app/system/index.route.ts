@@ -4,7 +4,6 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { LockscreenComponent } from './components/lockscreen/lockscreen.component';
-import { SignupComponent } from './components/signup/signup.component';
 import { SysdatasourceComponent } from './components/core/sysdatasource.component';
 import { SysappComponent } from './components/core/sysapp.component';
 import { SysdicComponent } from './components/core/sysdic.component';
@@ -20,10 +19,13 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SysversionComponent } from './components/core/sysversion.component';
 import { SysannouncementComponent } from './components/core/sysannouncement.component';
-import { SyscompanyComponent } from './components/core/syscompany.component';
-import { SysquotalistComponent } from './components/core/sysquotalist.component';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { SysbizcoderuleComponent } from './components/core/sysbizcoderule.component';
+import { SyscompanydimComponent } from './components/core/syscompanydim.component';
+import { SysbizcoderuleaddComponent } from './components/core/sysbizcoderuleadd.component';
+import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
+import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -95,6 +97,30 @@ export const Routers: Routes = [{
 }, {
     path: 'sysannouncementDetail',//消息公告
     component: SysannouncementComponent,
+    data: { keep: false }
+}, {
+    path: 'sysbizcoderuleList',//编码规则
+    component: SysbizcoderuleComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
+    component: SysbizcoderuleeditComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysbizcoderuleAdd',//编码工具栏新增模态框
+    component: SysbizcoderuleaddComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysdepartmentdimList',//部门维度
+    component: SysdepartmentdimComponent,
+    data: { keep: false }
+}
+, {
+    path: 'syscompanydimList',//维度规则
+    component: SyscompanydimComponent,
     data: { keep: false }
 }, {
     path: 'sysassignmentDetail',//消息公告

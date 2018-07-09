@@ -476,7 +476,7 @@ export class HomeComponent implements OnInit {
     public activedRoute: ActivatedRoute,
     private _router: Router,
     private nzModal: NzModalService
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.mainService.providers.appService
       .findWithQuery("SYSVERSION", { PAGENUM: 1, PAGESIZE: 6, ODER: "TS DESC" })
@@ -594,6 +594,9 @@ export class HomeComponent implements OnInit {
         break;
     }
   }
+  navTo(url: string) {
+    this.mainService.navToByMenuId(this.router, url);
+  }
   /** YM
    * 新增快速导航标签弹窗列表事件
    */
@@ -639,40 +642,12 @@ export class HomeComponent implements OnInit {
         break;
     }
   }
-
-  navTo(url: string) {
-    this.mainService.layoutService.navToByMenuId(this.router, url);
-  }
   /**
   * 消息公告点击跳转路由事件
   * @param event 
   */
   announcementEvent(id,catagory,publishuser) {
-    if(publishuser!== this.mainService.providers.userService.getUserInfo().USERCODE){
-      let obj: any = {
-        TS: this.mainService.announcementtime(),
-        SORT: this.mainService.announcementtime(),
-        POSTTIME: this.mainService.announcementtime(),
-        CONTENT: "消息公告"+id+"进行回执",
-        ISREAD: "N",
-        ID: id,
-        TYPE: "",
-        NOTIFICATIONUSERID: publishuser,
-        TITLE: "回执信息",
-        POSTUSERID: this.mainService.announcementPOSTUSER()
-        // POSTUSERID: this.mainService.providers.userService.getUserInfo().USERCODE
-      };
-      if(catagory==="error"){
-        obj.TYPE = "danger";
-      }
-      if(catagory==="processing"){
-        obj.TYPE = "normal"
-      }
-      if(catagory==="warning"){
-        obj.TYPE = "waring"
-      }  
-      this.mainService.announcementsave(obj)
-    }  
+    this.mainService.backannouncement(id,catagory,publishuser);
     this.mainService.sysannouncementrouter(this._router, id);
   }
   // 历史待办模块功能

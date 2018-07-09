@@ -4,9 +4,9 @@ import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
 import { ProvidersService,Sysmenu } from "fccore";
 import { LayoutService } from "./layout.service";
-import { SysnavlinkService, NavLinkFunctionName } from "./sysnavlink.service";
+import { SysnavlinkService, NavLinkFunctionName, Args_NavLink } from "./sysnavlink.service";
 import { SysannouncementService } from './sysannouncement.service';
-import { SysmessageService, Sysmessage } from "./sysmessage.service";
+import { SysmessageService } from "./sysmessage.service";
 import { SysassignmentService, Sysassignment} from "./sysassignment.service";
 import { Fcmenu } from "fccomponent/fcnav/fcnavmenu.component";
 @Injectable()
@@ -23,8 +23,7 @@ export class SyshomeService {
      * 获取当前消息公告的所有内容
      * */
     getannouncement() {
-        return this.providers.appService
-        .findWithQuery("SYSNOTIFY", {})
+        return this.providers.appService.findWithQuery("SYSNOTIFY", {})
     }
     //回执消息返回的时间睉
     announcementtime(){
@@ -44,12 +43,38 @@ export class SyshomeService {
             }
         })
     }
+    // 公告消息回执处理
+    backannouncement(id,catagory,publishuser){
+        if(publishuser!== this.announcementPOSTUSER()){
+            let obj: any = {
+              TS: this.announcementtime(),
+              SORT: this.announcementtime(),
+              POSTTIME: this.announcementtime(),
+              CONTENT: "消息公告"+id+"进行回执",
+              ISREAD: "N",
+              ID: id,
+              TYPE: "",
+              NOTIFICATIONUSERID: publishuser,
+              TITLE: "回执信息",
+              POSTUSERID: this.announcementPOSTUSER()
+            };
+            if(catagory==="error"){
+              obj.TYPE = "danger";
+            }
+            if(catagory==="processing"){
+              obj.TYPE = "normal"
+            }
+            if(catagory==="warning"){
+              obj.TYPE = "waring"
+            }  
+            this.announcementsave(obj)
+          } 
+    }
     /**
      * 获取当前待办任务的所有内容
      * */
     getassignment() {
-        return this.providers.appService
-        .findWithQuery("SYSASSIGNMENT", {})
+        return this.providers.appService.findWithQuery("SYSASSIGNMENT", {})
     }
     /**
      * 跳转至消息路由，当SOURCEAID，SOURCEID有匹配的路由时直接跳转，否则跳转至sysmessageDetail路由
