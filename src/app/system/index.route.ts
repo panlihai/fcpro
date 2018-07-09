@@ -19,13 +19,22 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SysversionComponent } from './components/core/sysversion.component';
 import { SysannouncementComponent } from './components/core/sysannouncement.component';
+import { SyscompanyComponent } from './components/core/syscompany.component';
+import { SysprofileComponent } from './components/core/sysprofile.component';
+import { SysquotalistComponent } from './components/core/sysquotalist.component';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
+import { SyslogComponent } from './components/core/syslog.component';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
 import { SysbizcoderuleComponent } from './components/core/sysbizcoderule.component';
 import { SyscompanydimComponent } from './components/core/syscompanydim.component';
 import { SysbizcoderuleaddComponent } from './components/core/sysbizcoderuleadd.component';
 import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
 import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
+import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
+import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
+import { SysparamComponent } from './components/core/sysparam.component';
+import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
+import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -134,10 +143,49 @@ export const Routers: Routes = [{
     path: 'syscomponentList',//平台组件
     component: SyscomponentComponent,
     data: { keep: false }
+}, {
+    path: 'syscompanyList',//单位列表
+    component: SyscompanyComponent,
+    data: { keep: false }
+}, {
+    path: 'sysquotaList',//指标列表
+    component: SysquotalistComponent,
+    data: { keep: false }
+}, {
+    path: 'sysquotavalue',//指标编辑
+    component: SysquotaEditComponent,
+    data: { keep: false }
+}, {
+    path: 'syscompanyAdd',//单位设立
+    component: SyscompanyaddComponent,
+}, {
+    path: 'syscompanychangeauditList',//单位变更审批
+    component: SyscompanychangeauditComponent,
+    data: { keep: false }
+}, {
+    path: 'sysquotaList',//指标列表
+    component: SysquotalistComponent,
+    data: { keep: false }
+}, {
+    path: 'syscompanyModify',//单位调整
+    component: SyscompanymodifyComponent,
+    data: { keep: false }
+}, {
+    path: 'sysprofileList',//个人信息维护
+    component: SysprofileComponent,
+    data: { keep: false }
+}, {
+    path: 'syslogList',//访问日志
+    component: SyslogComponent,
+    data: { keep: false }
+}, {
+    path: 'sysparamList',//系统参数
+    component: SysparamComponent,
+    data: { keep: false }
 },{
-  path: 'sysquotaEdit',//指标编辑
-  component: SysquotaEditComponent,
-  data: { keep: false }
+    path: 'sysdepartment',//部门管理
+    component: SysdepartmentComponent,
+    data: { keep: false }
 }, {
     path: '**',
     redirectTo: 'main',

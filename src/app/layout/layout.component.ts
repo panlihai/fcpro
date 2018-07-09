@@ -10,8 +10,6 @@ import { MenuOptions, FcnavmenuComponent, Fcmenu } from 'fccomponent/fcnav/fcnav
 import { FcTaboptions, FcnavtabComponent } from 'fccomponent/fcnav/fcnavtab.component';
 import 'rxjs/add/operator/filter';
 import { NzModalService } from 'ng-zorro-antd';
-import { ResetpwddialogComponent } from './resetpwddialog.component';
-import { SysuserService, Sysuser } from '../system/services/sysuser.service';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -23,8 +21,11 @@ import { SysuserService, Sysuser } from '../system/services/sysuser.service';
     padding: 41px 5px 5px;
     height: 100%;
     box-sizing: border-box;
-    background: #e7e9eb;
+    background: #F0F2F5;
     position: relative;
+  }
+  :host ::ng-deep .content-wrap-tab>div>.fc-content2{
+    padding: 0px 5px 5px;
   }
   :host ::ng-deep .content-main{
     width: 100%;
@@ -33,8 +34,7 @@ import { SysuserService, Sysuser } from '../system/services/sysuser.service';
     overflow-x: hidden;
     overflow-y: auto;
     box-sizing: border-box;
-    background-color: #EEF7FC;
-    border-top: 5px solid #ececec;
+    border-top: 5px solid #F0F2F5;
   }
   :host ::ng-deep router-outlet + * {
     width: 100%;
@@ -79,6 +79,22 @@ import { SysuserService, Sysuser } from '../system/services/sysuser.service';
   :host ::ng-deep .logo .icon-logo{
     font-size:22px!important;
   }
+  :host ::ng-deep .fc-navbar-tab .fc-navbar{
+    background-color:#001529!important;
+  }
+  :host ::ng-deep .nav-tabsub .ant-tabs-ink-bar{
+    background: transparent;
+  }
+  :host ::ng-deep .nav-tabmain .ant-tabs-bar{
+    background-color:#ffffff;
+  }
+  :host ::ng-deep .nav-tabsub .ant-tabs-bar{
+    background-color:#F0F2F5;
+  }
+  :host ::ng-deep .nav-tabsub .ant-tabs-bar,:host ::ng-deep .nav-tabmain .ant-tabs-bar {
+    border-bottom: 1px solid transparent;
+    margin-bottom: 0px;
+  }
   `]
 })
 export class LayoutComponent implements OnInit {
@@ -107,8 +123,12 @@ export class LayoutComponent implements OnInit {
   selectMenu = {};
   // 当前所有菜单
   _menus: any = [];
+  //子菜单
+  _childMenus: any = [];
   //布局比例
   _layoutSpans: string = "2,9";
+  //显示模式
+  displaymode: string;
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private mainService: LayoutService,
@@ -178,16 +198,18 @@ export class LayoutComponent implements OnInit {
       });
   }
   ngOnInit() {
-    this.fcnavtab.fcTabs = [];
-    this.fcnavtab.fcSelectedIndex = 0;
-    this.getMessage();
-    //把弹出确认框变量存入到服务里
-    MessageService.confirmModal = this.confirmmodal;
-    if (this.fcnavtab.fcTabs.length === 0) {
-      this.fcnavtab.fcTabs.push({
-        id: '0', index: 0, enabled: true, name: '首页', close: false, icon: 'fc-icon-home', refresh: 'Y', content:
-          { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: environment.pid, MENUTYPE: 'INURL' }
-      });
+    if (this.fcnavtab) {
+      this.fcnavtab.fcTabs = [];
+      this.fcnavtab.fcSelectedIndex = 0;
+      this.getMessage();
+      //把弹出确认框变量存入到服务里
+      MessageService.confirmModal = this.confirmmodal;
+      if (this.fcnavtab.fcTabs.length === 0) {
+        this.fcnavtab.fcTabs.push({
+          id: '0', index: 0, enabled: true, name: '首页', close: false, icon: 'fc-icon-home', refresh: 'Y', content:
+            { ID: '0', MENUID: 'HOME', ROUTER: 'home', PID: environment.pid, MENUTYPE: 'INURL' }
+        });
+      }
     }
   }
   getMessage() {
@@ -210,6 +232,8 @@ export class LayoutComponent implements OnInit {
       }
     });
   }
+
+
   /**
    * 导航栏事件
    * @param event
@@ -237,6 +261,15 @@ export class LayoutComponent implements OnInit {
         } else {
           menu.select = true;
         }
+        let displayMode = this._providers.productService.mainObj.DISPLAYMODE;
+        /* 切换布局 有选项卡模式和左侧菜单模式*/
+        // if (displayMode === 'TAB') {
+        //   this.displaymode = 'tab';
+        //   this._layoutSpans = "0,1";
+        // } else if (displayMode === 'MENU') {
+        //   this.displaymode = 'menu';
+        //   this._layoutSpans = "2,9";
+        // }
         break;
       case 'logout'://登出
         this._providers.userService.logout().subscribe(result => {
@@ -251,9 +284,28 @@ export class LayoutComponent implements OnInit {
         })
         break;
       case 'editUser'://修改密码
-        this.resetPassword();
+        this.mainService.navToByMenuId(this._router, 'sysprofileList');
         break;
     }
+  }
+  /**
+   * 导航父级选项卡跳转路由
+   * @param menu 
+   */
+  selectedtabmain(menu: any) {
+    this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/" + menu.ROUTER]);
+    if (menu.P_CHILDMENUS && menu.P_CHILDMENUS.length !== 0) {
+      this._childMenus = menu.P_CHILDMENUS;
+    } else {
+      this._childMenus.length = 0;
+    }
+  }
+  /**
+   * 导航子级选项卡跳转路由
+   * @param menu 
+   */
+  selectedtabsub(menu: any) {
+    this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/" + menu.ROUTER]);
   }
 
 
@@ -307,7 +359,7 @@ export class LayoutComponent implements OnInit {
         // 删除缓存
         break;
       case 'click':
-      debugger;
+        debugger;
         this.mainService.navMessage(this._router, event.param).subscribe(res => {
           this.getMessage();
         });
@@ -336,26 +388,4 @@ export class LayoutComponent implements OnInit {
   ngOnDestroy(): void {
     this._providers.daoService.ws.close();
   }
-  /**
-   * 修改密码
-   */
-  resetPassword(): any {
-    const modal = this.modalService.open({
-      title: '修改密码',
-      content: ResetpwddialogComponent,
-      onOk() {
-
-      },
-      onCancel() {
-
-      },
-      footer: false,
-      componentParams: {
-        options: {}
-      }
-    });
-    modal.subscribe(result => {
-      this.mainService.sysuserService.doReset(result);
-    })
-  };
 }

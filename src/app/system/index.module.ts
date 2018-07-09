@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Routers } from './index.route';
-import { MessageService } from 'fccore';
 import { MainComponent } from './components/main/main.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -45,14 +44,22 @@ import { SysannouncementService } from './services/sysannouncement.service';
 import { SysannouncementComponent } from './components/core/sysannouncement.component';
 import { SyscompanyService } from './services/syscompany.service';
 import { SyscompanyComponent } from './components/core/syscompany.component';
-import { SyscompanyeditComponent } from './components/core/syscompanyedit.component';
+import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
 import { SysnavlinkService } from './services/sysnavlink.service';
+import { SysprofileService } from './services/sysprofile.service';
+import { SysprofileComponent } from './components/core/sysprofile.component';
+import { BasicpersoneldialogComponent } from './components/core/dialog/basicpersoneldialog.component';
 import { SysroleDialogEditComponent } from './components/core/dialog/sysroleeditdialog.component';
 import { SysroleauthService } from './services/sysroleauth.service';
 import { SysroleuserService } from './services/sysroleuser.service';
 import { SysquotaService } from './services/sysquota.service';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
+import { SysquotavalueService } from './services/sysquotavalue.service';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
+import { SyslogComponent } from './components/core/syslog.component';
+import { SyslogService } from './services/syslog.service';
+import { SyssessionService } from './services/syssession.service';
+import { SysemployService } from './services/sysemploy.service';
 import { SysassignmentService } from './services/sysassignment.service';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
 import { SysbizcoderuleService } from './services/sysbizcoderule.service';
@@ -65,7 +72,40 @@ import { SysbizcoderuleaddComponent } from './components/core/sysbizcoderuleadd.
 import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
 import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
 import { SysdepartmentdimService } from './services/sysdepartmentdim.service';
+import { UploadavatardialogComponent } from './components/core/dialog/uploadavatardialog.component';
+import { companytransferdialogComponent } from './components/core/dialog/companytransferdialog.component';
+import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
+import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
+import { SyscompanyrelationService } from './services/syscompanyrelation.service';
+import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
+import { companysortdialogComponent } from './components/core/dialog/companysortdialog.component';
+import { SysdepartmentService } from './services/sysdepartment.service';
+import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 @NgModule({
+  entryComponents: [
+    BasicpersoneldialogComponent,
+    SysroleDialogEditComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent,
+    SysroleDialogEditComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent,
+    UploadavatardialogComponent,
+    companytransferdialogComponent,
+    companysortdialogComponent,
+    SysroleDialogEditComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent,
+    SyslogComponent,
+    SysassignmentComponent,
+    UploadavatardialogComponent,
+    companytransferdialogComponent,
+    SyscompanymodifyComponent,
+    SyscompanyaddComponent,
+    SyscompanychangeauditComponent,
+    companysortdialogComponent,
+    SysdepartmentComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -110,7 +150,8 @@ import { SysdepartmentdimService } from './services/sysdepartmentdim.service';
     SysroleDialogEditComponent,
     SysannouncementComponent,
     SyscompanyComponent,
-    SyscompanyeditComponent,
+    SysprofileComponent,
+    BasicpersoneldialogComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
     SysassignmentComponent,
@@ -120,11 +161,6 @@ import { SysdepartmentdimService } from './services/sysdepartmentdim.service';
     SysbizcoderuleaddComponent,
     SysbizcoderuleeditComponent,
     SysdepartmentdimComponent
-  ],
-  entryComponents: [
-    SysroleDialogEditComponent,
-    SysquotalistComponent,
-    SysquotaEditComponent
   ],
   providers: [
     LayoutService,
@@ -144,12 +180,22 @@ import { SysdepartmentdimService } from './services/sysdepartmentdim.service';
     SysannouncementService,
     SyscompanyService,
     SysnavlinkService,
+    SysprofileService,
+    SyslogService,
+    SyssessionService,
+    SysemployService,
+    SysquotavalueService,
+    SysassignmentService,
     SysquotaService,
     SysassignmentService,
     SysbizcoderuleService,
     SyscompanydimService,
     SysbizcodedefineService,
-    SysdepartmentdimService
+    SysdepartmentdimService,
+    SyscompanyrelationService,
+    SystbvorgcurorgService,
+    SyscompanydimService,
+    SysdepartmentService
   ]
 })
 export class SystemModule {
