@@ -24,7 +24,6 @@
                                     name="SYSCOMPANY.SBEGIN_DATE" [fcValid]="mainValid.SBEGIN_DATE"></fc-date>
                                 <fc-text [fcLabel]="'联系电话'" [(ngModel)]="mainObj.SCONTACT_TEL" fcPlaceHolder="请输入联系电话" name="SYSCOMPANY.SCONTACT_TEL"></fc-text>
                                 <fc-text [fcLabel]="'邮政编码'" [(ngModel)]="mainObj.SPOST_CODE" fcPlaceHolder="请输入邮政编码" name="SYSCOMPANY.SPOST_CODE"></fc-text>
-                                <fc-text [fcLabel]="'地址'" [(ngModel)]="mainObj.SADDRESS" fcPlaceHolder="请输入地址" name="SYSCOMPANY.SADDRESS"></fc-text>
                             </div>
                             <div fccontent2>
                                 <fc-text [fcLabel]="'单位简码'" [fcAppid]="appId" fcFieldCode="SSPELLING_CODE" [(ngModel)]="mainObj.SSPELLING_CODE" fcPlaceHolder="请输入单位简码"
@@ -42,6 +41,7 @@
                                     name="SYSCOMPANY.SEND_DATE" [fcValid]="mainValid.SEND_DATE"></fc-date>
                                 <fc-text [fcLabel]="'传真'" [fcAppid]="appId" [(ngModel)]="mainObj.SFAX" fcPlaceHolder="请输入传真" name="SYSCOMPANY.SFAX"></fc-text>
                                 <fc-text [fcLabel]="'网址'" [fcAppid]="appId" [(ngModel)]="mainObj.SWEBSITE" fcPlaceHolder="请输入网址" name="SYSCOMPANY.SWEBSITE"></fc-text>
+                                <fc-text [fcLabel]="'地址'" [(ngModel)]="mainObj.SADDRESS" fcPlaceHolder="请输入地址" name="SYSCOMPANY.SADDRESS"></fc-text>
                                 <!-- 没有 -->
                                 <!-- <fc-text [fcLabel]="'状态'" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入状态" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
                             </div>
@@ -49,7 +49,7 @@
                     </fc-layoutpanel>
                     <fc-layoutpanel fccontent id="id1">
                         <fc-title fcLabel="上级单位" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
-                        <div style="width: 100%; height:400px;" fccontent>
+                        <div style="width:96%; height:50px;" fccontent>
                             <!-- 单位隶属关系 -->
                             <fc-listdata fcAppid="SYSCOMPANYRELATION" [fcOption]="mainService.syscompanyrelationOption" [fcCondition]="companyrelationCondition"></fc-listdata>
                         </div>
@@ -60,12 +60,12 @@
                             <div fccontent1>
                                 <fc-text [fcLabel]="'纳税人识别号'" [fcAppid]="appId" fcFieldCode="SAPPROVAL_DCMTNO" [(ngModel)]="mainObj.SAPPROVAL_DCMTNO" fcPlaceHolder="请输入纳税人识别号"
                                     name="SYSCOMPANY.SAPPROVAL_DCMTNO" [fcValid]="mainValid.SAPPROVAL_DCMTNO"></fc-text>
-                                <fc-text [fcLabel]="'开户银行'" [fcAppid]="appId" fcFieldCode="SINVEST_TYPE" [(ngModel)]="mainObj.SINVEST_TYPE" fcPlaceHolder="请输入开户银行"
-                                    name="SYSCOMPANY.SINVEST_TYPE" [fcValid]="mainValid.SINVEST_TYPE"></fc-text>
                                 <fc-text [fcLabel]="'开票地址'" fcFieldCode="SADDRESS" [(ngModel)]="mainObj.SADDRESS" fcPlaceHolder="请输入开票地址" name="SYSCOMPANY.SADDRESS"
                                     [fcValid]="mainValid.SADDRESS"></fc-text>
                             </div>
                             <div fccontent2>
+                                <fc-text [fcLabel]="'开户银行'" [fcAppid]="appId" fcFieldCode="SINVEST_TYPE" [(ngModel)]="mainObj.SINVEST_TYPE" fcPlaceHolder="请输入开户银行"
+                                    name="SYSCOMPANY.SINVEST_TYPE" [fcValid]="mainValid.SINVEST_TYPE"></fc-text>
                                 <!-- <fc-text [fcLabel]="'联系电话'" [fcAppid]="appId"  fcFieldCode="SCOMPANY_NAME" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入联系电话" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
                                 <!-- <fc-text [fcLabel]="'银行账号'" [fcAppid]="appId" fcFieldCode="SCOMPANY_NAME" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入银行账号" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
                             </div>
@@ -75,6 +75,7 @@
                         <fc-title fcLabel="注册信息" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
                         <fc-layoutcol fcSpans="1,1" fccontent>
                             <div fccontent1>
+                                <fc-text [fcLabel]="'法定代表人'" [fcAppid]="appId" [(ngModel)]="mainObj.SREPRESENTATIVE" fcPlaceHolder="请输入法定代表人" name="SYSCOMPANY.SREPRESENTATIVE"></fc-text>
                                 <!-- <fc-text [fcLabel]="'统一社会信用代码'" [(ngModel)]="mainObj.SSPELLING_CODE" fcPlaceHolder="请输入统一社会信用代码" name="SYSCOMPANY.SSPELLING_CODE"></fc-text> -->
                                 <!-- <fc-text [fcLabel]="'注册资本(万元)'" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入注册资本" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
                                 <fc-text [fcLabel]="'登记机关'" [fcAppid]="appId" [(ngModel)]="mainObj.SAPPROVING_COMPANY" fcPlaceHolder="请输入登记机关" name="SYSCOMPANY.SAPPROVING_COMPANY"></fc-text>
@@ -82,7 +83,6 @@
                                 <!-- <fc-text [fcLabel]="'营业期限'" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入营业期限" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
                             </div>
                             <div fccontent2>
-                                <fc-text [fcLabel]="'法定代表人'" [fcAppid]="appId" [(ngModel)]="mainObj.SREPRESENTATIVE" fcPlaceHolder="请输入法定代表人" name="SYSCOMPANY.SREPRESENTATIVE"></fc-text>
                                 <!-- <fc-text [fcLabel]="'实缴资本(万元)'" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入实缴资本" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
                                 <!-- <fc-text [fcLabel]="'证照编号'" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入证照编好" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
                                 <fc-text [fcLabel]="'企业类型'" [fcAppid]="appId" [(ngModel)]="mainObj.SCOMPANY_TYPE" fcPlaceHolder="请输入企业类型" name="SYSCOMPANY.SCOMPANY_TYPE"></fc-text>
@@ -99,7 +99,7 @@
             </fc-layoutpanel>
             <div class="fastposition-content" style="top:100px;" fccontent2>
                 <div class="aligncenter">
-                  
+
                 </div>
                 <div>
                     <fc-fastposition fccontent [fcLinks]="[{href:'id0','label':'基本信息'},{href:'id1','label':'上级单位'},{href:'id2','label':'开票信息'},{href:'id3','label':'注册信息'}]"></fc-fastposition>

@@ -111,7 +111,6 @@ export class SyscompanyaddComponent extends ParentEditComponent {
       this.validator();
       return true;
     }
-
   }
   /**
    * 保存返回

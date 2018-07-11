@@ -12,7 +12,7 @@ import { ProvidersService } from 'fccore';
 
   `]
 })
-export class SyscompanymodifyComponent extends ParentDetailComponent {
+export class SyscompanymodifyComponent extends ParentEditComponent {
     //隶属关系对象
     syscompanyrelationObj: any;
     //修改id
@@ -23,6 +23,8 @@ export class SyscompanymodifyComponent extends ParentDetailComponent {
     sestDate: Date;
     // 注销日期
     sendDate: Date;
+    //上传附件
+    sysresUpload: string;
     constructor(public mainService: SyscompanyService,
         public router: Router,
         public activeRoute: ActivatedRoute,
@@ -31,15 +33,16 @@ export class SyscompanymodifyComponent extends ParentDetailComponent {
     }
     init(): void {
         this.editId = this.routerParam.ID;
-        this.sbeginDate = this.mainObj.SBEGIN_DATE;
-        this.sestDate = this.mainObj.SEST_DATE;
-        this.sendDate = this.mainObj.SEND_DATE;
         //初始化主对象编辑
-        this.mainService.initMainObj(this.editId)
+        this.mainService.findWithQueryAll({ ID: this.editId })
             .subscribe(result => {
                 if (result.CODE === '0') {
-                    this.mainObj = result.DATA;
+                    this.mainObj = result.DATA[0];
+                    this.sbeginDate = this.mainObj.SBEGIN_DATE;
+                    this.sestDate = this.mainObj.SEST_DATE;
+                    this.sendDate = this.mainObj.SEND_DATE;
                 }
+
             })
     }
     addNew(mainObj: any): boolean {
@@ -54,8 +57,9 @@ export class SyscompanymodifyComponent extends ParentDetailComponent {
     tlbformEvent(event: FCEVENT) {
         switch (event.eventName) {
             case 'cardSaveBack':
-                this.cardSaveBack(event.eventName);
-                this
+                if (this.beforeSave()) {
+                    this.cardSaveBack(event.eventName);
+                }
                 break;
             case 'cardBack':
                 this.cardBack(event.eventName);
@@ -89,6 +93,12 @@ export class SyscompanymodifyComponent extends ParentDetailComponent {
         });
     }
     /**
+     * 
+     */
+    beforeSave(): boolean {
+        return true;
+    }
+    /**
      * 上一条
      */
     prev() {
@@ -99,5 +109,15 @@ export class SyscompanymodifyComponent extends ParentDetailComponent {
      */
     next() {
 
+    }
+    /**
+     * 上传附件
+     * @param event 
+     */
+    fctextEvent(event: FCEVENT) {
+        switch (event.eventName) {
+            case 'click'://上传
+                break;
+        }
     }
 }
