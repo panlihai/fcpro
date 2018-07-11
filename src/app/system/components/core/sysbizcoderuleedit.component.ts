@@ -11,17 +11,16 @@ import { environment } from '../../../../environments/environment';
     selector: 'sysbizcoderule',
     template: `  
   <fc-layoutpanel fcFull="true">
-  <fc-tlbform fccontent [fcAppid]="'SYSBIZCODEDEFINE'" (fcEvent)="tlbformEvent($event)" fctoolbar></fc-tlbform>
+  <fc-tlbform fccontent [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" fctoolbar></fc-tlbform>
   <fc-title fccontent fcLabel="基本信息" fcBorder="bottom" ></fc-title>
   <fc-layoutcol fcSpans="1,1" fccontent>
-      <fc-text fccontent1 style="flex:1" [(ngModel)]="mainObj.SBIZCODE_RULE_CODE" fcLabel="编码规则编号" name="TITLE"></fc-text>
-      <fc-text fccontent2 style="flex:1" [(ngModel)]="mainObj.SBIZCODE_RULE_NAME"  fcLabel="编码规则名称" name="PUBLISHUSER" ></fc-text>
-      <fc-text fccontent1 style="flex:1" [fcLabel]="'所属应用'" [(ngModel)]="mainObj.SBIZCODE_RULE_APPNAME" (click)="modalMullist1.showModal()" [fcAddonAfter]="'fc-icon-unit'" name="SBIZCODE_RULE_APPNAME" fcMode="icon"></fc-text>
+      <fc-text fccontent1 style="flex:1" [(ngModel)]="mainObj.SBIZCODE_RULE_NAME"  fcLabel="编码规则名称" name="PUBLISHUSER" ></fc-text>
+      <fc-text fccontent2 style="flex:1" [fcLabel]="'所属应用'" [(ngModel)]="mainObj.SBIZCODE_RULE_APPNAME" (click)="modalMullist1.showModal()" [fcAddonAfter]="'fc-icon-bgsearch'" name="SBIZCODE_RULE_APPNAME" fcMode="icon"></fc-text>
       <fc-modallist #modalMullist1 fcTitle="所属应用" [fcAppid]="'SYSAPP'" [fcType]="'multiple'" (fcEvent)="modallistEvent($event)"
       [fcCondition]="mainService.userCondition"></fc-modallist>
-      <fc-radio [fcLabel]="'状态'" [(ngModel)]="mainObj.SSTATE" [fcAppid]="appId" fccontent2 fcFieldCode="SSTATE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-radio>
+      <fc-radio  fccontent1 [fcLabel]="'状态'" [(ngModel)]="mainObj.SSTATE" [fcAppid]="appId" fcFieldCode="SSTATE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-radio>
+      <fc-radio  fccontent2  [fcLabel]="'向下可用'" [(ngModel)]="mainObj.SSTATE" [fcAppid]="appId"fcFieldCode="SSTATE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-radio>
       <fc-text fccontent1 style="flex:1" [(ngModel)]="mainObj.SCRATOR"  fcLabel="启用单位" name="CATAGORY" ></fc-text>
-      <fc-radio [fcLabel]="'向下可用'" [(ngModel)]="mainObj.SSTATE" [fcAppid]="appId" fccontent2 fcFieldCode="SSTATE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-radio>
   </fc-layoutcol>
   <fc-textarea fccontent fcCol="1" fcRows="2" [(ngModel)]="mainObj.SDESCRIPTION" fcLabel="描述" name="SDESCRIPTION"></fc-textarea>
   <fc-title fccontent fcLabel="编码规则设置" fcBorder="bottom" ></fc-title>
@@ -33,9 +32,9 @@ import { environment } from '../../../../environments/environment';
           </div>
       </fc-layoutcol>
       <div style="height:215px;">
-        <fc-listdata  fccontent [fcAppid]="'SYSBIZCODEDEFINE'" (fcEvent)="componentEvents('delet',$event)"></fc-listdata>
+        <fc-listdata  fccontent [fcAppid]="'SYSBIZCODEDEFINE'"  [fcCondition]="sendCondition" (fcEvent)="componentEvents('delet',$event)"></fc-listdata>
       </div>
-  </div>      
+  </div>
 </fc-layoutpanel>
 <ng-template #fixedvaluetitle style="z-index:999;">
     <span>{{rulemodalObj.SSEGMENT_TYPE}}</span>
@@ -107,6 +106,56 @@ import { environment } from '../../../../environments/environment';
       <fc-button fcLabel="保存" fcType="primary" (click)="updateEvent()"></fc-button>
     </div>
 </ng-template>
+<ng-template #bizcoderuleaddtitle style="z-index:999;">
+    <span>编码类型新增</span>
+</ng-template>
+<ng-template #bizcoderuleadd  style="z-index:999;">
+  <fc-radio fccontent [(ngModel)]="rulemodaladdObj.SSEGMENT_TYPE" [fcAppid]="'SYSBIZCODEDEFINE'" fcFieldCode="SSEGMENT_TYPE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"
+  (ngModelChange)="componentEvents('select2Events',$event)"></fc-radio>
+  <div fccontent *ngIf="this.rulemodaladdObj.SSEGMENT_TYPE == '固定值参数'">
+        <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.SSEGMENT_NAME"  fcLabel="名称" name="SSEGMENT_NAME" ></fc-text>
+        <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.SPARAM_NAME"  fcLabel="参数名称" name="SPARAM_NAME" ></fc-text>
+        <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.SDEFAULT_VALUE"  fcLabel="值" name="SDEFAULT_VALUE" ></fc-text>
+        <fc-textarea fccontent [fcAppid]="'SYSBIZCODERULE'"  [(ngModel)]="rulemodaladdObj.SDESCRIPTION" fcLabel="描述" name="SDESCRIPTION"></fc-textarea> 
+  </div>
+  <div fccontent *ngIf="this.rulemodaladdObj.SSEGMENT_TYPE == '枚举代码参数'">
+    <fc-layoutcol fcSpans="1,1" fccontent>
+        <fc-text fccontent1 style="flex:1" [(ngModel)]="rulemodaladdObj.SSEGMENT_NAME"  fcLabel="名称" name="SSEGMENT_NAME" ></fc-text>
+        <fc-text fccontent2 style="flex:1" [(ngModel)]="rulemodaladdObj.SPARAM_NAME"  fcLabel="参数名称" name="SPARAM_NAME" ></fc-text>
+        <fc-text fccontent1 style="flex:1" [(ngModel)]="rulemodaladdObj.SDEFAULT_VALUE"  fcLabel="默认值" name="SDEFAULT_VALUE" ></fc-text>
+        <fc-text fccontent2 style="flex:1" [fcLabel]="'枚举字典'" [(ngModel)]="rulemodaladdObj.SENUMERATE_TERM_CODE" [fcAddonAfter]="'fc-icon-bgsearch'" (click)="modalscrator1.showModal()" name="SCRATOR" fcMode="icon" ></fc-text>
+        <fc-modallist #modalscrator1 fcTitle="枚举字典" [fcAppid]="appId" [fcType]="'multiple'" (fcEvent)="modalscratorEvent($event)"
+        [fcCondition]="mainService.userCondition"></fc-modallist> 
+    </fc-layoutcol>
+    <div style="height:215px;">
+        <fc-listdata  fccontent #waterList [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="componentEvents('delet',$event)"></fc-listdata>
+    </div>
+    </div>
+    <div fccontent *ngIf="this.rulemodaladdObj.SSEGMENT_TYPE == '业务字段参数'">
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.SSEGMENT_NAME"  fcLabel="名称" name="SSEGMENT_NAME" ></fc-text>
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.SPARAM_NAME"  fcLabel="参数名称" name="SPARAM_NAME" ></fc-text>
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.NFIXED_NUM"  fcLabel="限制长度" name="NFIXED_NUM" ></fc-text>
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.NSERIALTYPE_START_VALUE"  fcLabel="截取起始位置" name="NSERIALTYPE_START_VALUE" ></fc-text>
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.NSERIALTYPE_FULL_CODE"  fcLabel="填充码" name="NSERIALTYPE_FULL_CODE" ></fc-text>
+    </div>
+    <div fccontent *ngIf="this.rulemodaladdObj.SSEGMENT_TYPE == '日期参数'">
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.SSEGMENT_NAME"  fcLabel="显示名称" name="SSEGMENT_NAME" ></fc-text>
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.SPARAM_NAME"  fcLabel="参数名称" name="SPARAM_NAME" ></fc-text>
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.SDATE_FORMAT_CODE"  fcLabel="日期格式" name="SDATE_FORMAT_CODE" ></fc-text>
+          <fc-textarea fccontent [fcAppid]="'SYSBIZCODERULE'" fcLabel="描述" name="SDESCRIPTION"  [(ngModel)]="mainObj.SDESCRIPTION" ></fc-textarea>
+    </div>
+    <div fccontent *ngIf="this.rulemodaladdObj.SSEGMENT_TYPE == '流水号参数'">
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.SSEGMENT_NAME"  fcLabel="名称" name="SSEGMENT_NAME" ></fc-text>
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.NFIXED_NUM"  fcLabel="限制长度" name="NFIXED_NUM" ></fc-text>
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.NSERIALTYPE_FULL_CODE"  fcLabel="填充码" name="NSERIALTYPE_FULL_CODE" ></fc-text>
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.NSERIALTYPE_START_VALUE"  fcLabel="起始值" name="NSERIALTYPE_START_VALUE" ></fc-text>
+          <fc-text fccontent style="flex:1" [(ngModel)]="rulemodaladdObj.NSERIALTYPE_STEP_VALUE"  fcLabel="增量值" name="NSERIALTYPE_STEP_VALUE" ></fc-text>
+    </div>
+    <div fccontent style="text-align:right">
+      <fc-button fcLabel="取消" fcType="default"  (click)="backEvent()"></fc-button>
+      <fc-button fcLabel="保存" fcType="primary" (click)="saveEvent()"></fc-button>
+    </div>
+</ng-template>
     `,
     styles: [`
   `]
@@ -114,11 +163,16 @@ import { environment } from '../../../../environments/environment';
 export class SysbizcoderuleeditComponent extends ParentEditComponent {
   tlbBtns:Sysappbuttons[];
   rulemodalObj: any;
+  rulemodaladdObj:any;
+  allObj:any;
   currentModal: any;
   content: any = [];
   // 固定值模态框层级关系和宽
   fixedvalueWidth : string = "45"
   fixedvalueZindex : string = "999"
+  //固定值模态框开始  
+  // 新增模态框层级关系和宽
+  bizcoderuleaddWidth : string = "67"
   //固定值模态框开始  
   @ViewChild('fixedvaluetitle')
   fixedvaluetitle: TemplateRef<HTMLElement>;
@@ -143,8 +197,16 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
    //日期模态框结束 
   @ViewChild('bizcoderule')
   bizcoderule: TemplateRef<HTMLElement>;
+  //固定值模态框开始  
+  @ViewChild('bizcoderuleaddtitle')
+  bizcoderuleaddtitle: TemplateRef<HTMLElement>;
+  @ViewChild('bizcoderuleadd')
+  bizcoderuleadd: TemplateRef<HTMLElement>;
+  //固定值模态框结束  
   arr : any = {};
-  radioOptions: any[] = [{ icon: '', label: '是', value: '1' }, { icon: '', label: '否', value: '2' }];
+  fcRowData: any[];
+  // sendCondition:string='{"ID":null}';
+  sendCondition:string;
   constructor(public mainService: SysbizcoderuleService,private modal: NzModalSubject,
     public router: Router,
     public layoutService : LayoutService,
@@ -168,6 +230,13 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
     return true;
   }
   init(): void {
+    if(this.mainObj.ID){
+      //SBIZCODE_RULE_ID  = this.mainObj.SBIZCODE_RULE_CODE   那么列表开始过滤
+      this.sendCondition='{"SBIZCODE_RULE_ID":"'+this.mainObj.SBIZCODE_RULE_CODE+'"}';
+    }else{
+      this.content = '';
+      this.sendCondition='{"WHERE":"and 1!=1"}';
+    }
   }
   event(eventName: string, param: any): void {
   }
@@ -200,67 +269,86 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
           if (ev.eventName == "listEdit") {
             this.rulemodalObj = ev.param;
             // 修改事件  选中列表中某条数据，让修改弹窗中字段为选中列表字段内容
-                if(this.rulemodalObj.ID === "1"){
+                if(this.rulemodalObj.SSEGMENT_TYPE === "固定值参数"){
                   this.showModal(this.fixedvaluetitle,this.fixedvalue,this.fixedvalueWidth,this.fixedvalueZindex);
                 }
-                if(this.rulemodalObj.ID === "2"){
+                if(this.rulemodalObj.SSEGMENT_TYPE === "枚举代码参数"){
                   this.showModal(this.fixedvaluetitle,this.enumeration,this.fixedvalueWidth,this.fixedvalueZindex);
                 }
-                if(this.rulemodalObj.ID === "3"){
+                if(this.rulemodalObj.SSEGMENT_TYPE === "业务字段参数"){
                   this.showModal(this.fixedvaluetitle,this.business,this.fixedvalueWidth,this.fixedvalueZindex);
                 }
-                if(this.rulemodalObj.ID === "4"){
+                if(this.rulemodalObj.SSEGMENT_TYPE === "日期参数"){
                   this.showModal(this.fixedvaluetitle,this.date,this.fixedvalueWidth,this.fixedvalueZindex);
                 }
-                if(this.rulemodalObj.ID === "5"){
+                if(this.rulemodalObj.SSEGMENT_TYPE === "流水号参数"){
                   this.showModal(this.fixedvaluetitle,this.smallwarter,this.fixedvalueWidth,this.fixedvalueZindex);
                 }
           }
           // 向上移动
           if (ev.eventName == "listUp") {
             this.rulemodalObj = ev.param;
-            this.rulemodalObj.ID = parseInt(this.rulemodalObj.ID) - 1
-            console.log(this.rulemodalObj.ID)
           }
           // 向下移动
           if (ev.eventName == "listDown") {
             this.rulemodalObj = ev.param;
             this.rulemodalObj.ID = parseInt(this.rulemodalObj.ID) + 1
-            console.log(this.rulemodalObj.ID)
           }
           // 置顶
           if (ev.eventName == "listTop") {
             this.rulemodalObj = ev.param;
             this.rulemodalObj.ID = 1 
-            console.log(this.rulemodalObj.ID)
           }
           // 置底
           if (ev.eventName == "listBottom") {
             this.rulemodalObj = ev.param;
             this.rulemodalObj.ID = 5
-            console.log(this.rulemodalObj.ID)
           }
         break;
+        case 'select2Events':
+        this.messageService.success('触发单选框按钮')
+        this.rulemodaladdObj.SSEGMENT_TYPE = ev
+        break; 
     }   
   }
+
    // 修改sysbizcodedefine数据
    updateEvent(){
     //修改事件放发
     this.mainService.childrensave(this.rulemodalObj);
-    // 新增事件方法
-    //  this.mainService.rulemodalObjsave(this.rulemodalObj);
+    }
+    saveEvent(){
+      //新增sysbizcodedefine数据
+      let obj={
+        SSEGMENT_TYPE:this.rulemodalObj.SSEGMENT_TYPE,
+        SSEGMENT_NAME:this.rulemodalObj.SSEGMENT_NAME,
+        SPARAM_NAME:this.rulemodalObj.SPARAM_NAME,
+        SDEFAULT_VALUE:this.rulemodalObj.SDEFAULT_VALUE,
+        SDESCRIPTION:this.rulemodalObj.SDESCRIPTION,
+        SENUMERATE_TERM_CODE:this.rulemodalObj.SENUMERATE_TERM_CODE,
+        NFIXED_NUM:this.rulemodalObj.NFIXED_NUM,
+        NSERIALTYPE_START_VALUE:this.rulemodalObj.NSERIALTYPE_START_VALUE,
+        NSERIALTYPE_FULL_CODE:this.rulemodalObj.NSERIALTYPE_FULL_CODE,
+        SDATE_FORMAT_CODE:this.rulemodalObj.SDATE_FORMAT_CODE,
+        NSERIALTYPE_STEP_VALUE:this.rulemodalObj.NSERIALTYPE_STEP_VALUE
+      }
+    this.mainService.rulemodalObjsave(obj);
     }
   // 模态框取消按钮事件
   backEvent(){
     this.currentModal.destroy();
   }
   ngOnInit(): void {
-    // 查询SYSBIZCODEDEFINE所有的元数据
+  //   // 查询SYSBIZCODEDEFINE所有的元数据
     this.mainService.rulemodal().subscribe(result => {
      if (result.CODE === '0') {
        this.rulemodalObj = result.DATA;
+       this.rulemodaladdObj = result.DATA;
        this.rulemodalObj.forEach(el => {
-         this.content.push(el.SPARAM_NAME)
+        // this.rulemodalObj.SBIZCODE_RULE_ID = this.mainObj.SBIZCODE_RULE_CODE;
+        // el.SBIZCODE_RULE_ID = this.mainObj.SBIZCODE_RULE_CODE;
+        // console.log(el)
+        this.content.push(el.SPARAM_NAME)
      })
      // 把数组转成字符串
      this.content =  this.content.join("-")
@@ -268,13 +356,7 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
    })
  }
  bizcodeaddrouter(){
-  this.router.navigate(["/" + environment.pid.toLocaleLowerCase()  + "/sysbizcoderuleAdd"]
-  , {        
-    queryParams: {
-      // userObj:  JSON.stringify(event.param),
-      // refresh:'Y'
-    }
-  })  
+   this.showModal(this.bizcoderuleaddtitle,this.bizcoderuleadd,this.bizcoderuleaddWidth,this.fixedvalueZindex);
  }
          /**
   * 选中用户追加到当前选中的角色中，并保存到服务器
@@ -284,7 +366,7 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
   switch (event.eventName) {
     case 'success':
       this.mainObj.SBIZCODE_RULE_APPNAME = event.param[0].APPNAME;
-      this.mainObj.SBIZCODE_RULE_CODE = event.param[0].APPID;
+      // this.mainObj.SBIZCODE_RULE_CODE = event.param[0].APPID;
     break;
     case 'cacle':
     break;

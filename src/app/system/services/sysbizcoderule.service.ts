@@ -49,16 +49,7 @@ export class SysbizcoderuleService extends ParentService {
     }
   })
 }
- // 字表数据修改保存
-  rulemodalObjsave(obj) {
-  return this.providers.appService.saveObject('SYSBIZCODEDEFINE', obj).subscribe(res => {
-    if (res.CODE = '0') {
-      this.providers.msgService.success('保存成功');
-    } else if (res.CODE = '1') {
-      this.providers.msgService.error('保存失败')
-    }
-  })
-}
+
 /**
  * 将新增的用户的信息添加到数据库写到service下面
  */
@@ -80,6 +71,16 @@ addUser(obj){
   // 字表数据修改保存s
   childrensave(obj) {
     return this.providers.appService.updateObject('SYSBIZCODEDEFINE', obj).subscribe(res => {
+      if (res.CODE = '0') {
+        this.providers.msgService.success('保存成功');
+      } else if (res.CODE = '1') {
+        this.providers.msgService.error('保存失败')
+      }
+    })
+  }
+  // 字表数据修改保存
+  rulemodalObjsave(obj) {
+    return this.providers.appService.saveObject('SYSBIZCODEDEFINE', obj).subscribe(res => {
       if (res.CODE = '0') {
         this.providers.msgService.success('保存成功');
       } else if (res.CODE = '1') {

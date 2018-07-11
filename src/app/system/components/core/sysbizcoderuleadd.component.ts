@@ -5,20 +5,23 @@ import { SysbizcoderuleService } from '../../services/sysbizcoderule.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { LayoutService } from '../../services/layout.service';
 import { SysbizcodedefineService } from '../../services/sysbizcodedefine.service';
+import { environment } from '../../../../environments/environment';
+import { FCEVENT } from 'fccomponent/fc';
 @Component({
     selector: 'sysbizcoderule',
     template: `
   <fc-layoutpanel fcFull="true">
-  <fc-tlbform fccontent [fcAppid]="'SYSBIZCODEDEFINE'" (fcEvent)="tlbformEvent($event)" fctoolbar></fc-tlbform>
+  <fc-tlbform fccontent [fcAppid]="appId"   (fcEvent)="componentEvents('tlbformEvent',$event)"  fctoolbar></fc-tlbform>
   <fc-title fccontent fcLabel="编码类型新增" fcBorder="bottom"></fc-title>
-  <fc-combo fccontent [fcLabel]="'编码字段类型'" [(ngModel)]="mainObj.SSEGMENT_TYPE" [fcAppid]="appId" fcFieldCode="SSEGMENT_TYPE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-combo>
-  <div fccontent>
+  <fc-combo fccontent [fcLabel]="'编码字段类型'" [(ngModel)]="mainObj.SSEGMENT_TYPE" [fcAppid]="appId" fcFieldCode="SSEGMENT_TYPE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"
+  (ngModelChange)="componentEvents('select2Events',$event)"></fc-combo>
+  <div fccontent *ngIf="this.mainObj.SSEGMENT_TYPE == '固定值参数'">
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.SSEGMENT_NAME"  fcLabel="名称" name="SSEGMENT_NAME" ></fc-text>
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.SPARAM_NAME"  fcLabel="参数名称" name="SPARAM_NAME" ></fc-text>
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.SDEFAULT_VALUE"  fcLabel="值" name="SDEFAULT_VALUE" ></fc-text>
         <fc-textarea fccontent [fcAppid]="'SYSBIZCODERULE'"  [(ngModel)]="mainObj.SDESCRIPTION" fcLabel="描述" name="SDESCRIPTION"></fc-textarea> 
   </div>
-  <div fccontent>
+  <div fccontent *ngIf="this.mainObj.SSEGMENT_TYPE == '枚举代码参数'">
         <fc-layoutcol fcSpans="1,1" fccontent>
             <fc-text fccontent1 style="flex:1" [(ngModel)]="mainObj.SSEGMENT_NAME"  fcLabel="名称" name="SSEGMENT_NAME" ></fc-text>
             <fc-text fccontent2 style="flex:1" [(ngModel)]="mainObj.SPARAM_NAME"  fcLabel="参数名称" name="SPARAM_NAME" ></fc-text>
@@ -31,20 +34,20 @@ import { SysbizcodedefineService } from '../../services/sysbizcodedefine.service
             <fc-listdata  fccontent #waterList [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="componentEvents('delet',$event)"></fc-listdata>
         </div>
   </div>
-  <div fccontent>
+  <div fccontent *ngIf="this.mainObj.SSEGMENT_TYPE == '业务字段参数'">
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.SSEGMENT_NAME"  fcLabel="名称" name="SSEGMENT_NAME" ></fc-text>
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.SPARAM_NAME"  fcLabel="参数名称" name="SPARAM_NAME" ></fc-text>
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.NFIXED_NUM"  fcLabel="限制长度" name="NFIXED_NUM" ></fc-text>
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.NSERIALTYPE_START_VALUE"  fcLabel="截取起始位置" name="NSERIALTYPE_START_VALUE" ></fc-text>
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.NSERIALTYPE_FULL_CODE"  fcLabel="填充码" name="NSERIALTYPE_FULL_CODE" ></fc-text>
   </div>
-  <div fccontent>
+  <div fccontent *ngIf="this.mainObj.SSEGMENT_TYPE == '日期参数'">
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.SSEGMENT_NAME"  fcLabel="显示名称" name="SSEGMENT_NAME" ></fc-text>
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.SPARAM_NAME"  fcLabel="参数名称" name="SPARAM_NAME" ></fc-text>
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.SDATE_FORMAT_CODE"  fcLabel="日期格式" name="SDATE_FORMAT_CODE" ></fc-text>
         <fc-textarea fccontent [fcAppid]="'SYSBIZCODERULE'" fcLabel="描述" name="SDESCRIPTION"  [(ngModel)]="mainObj.SDESCRIPTION" ></fc-textarea>
   </div>
-  <div fccontent>
+  <div fccontent *ngIf="this.mainObj.SSEGMENT_TYPE == '流水号参数'">
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.SSEGMENT_NAME"  fcLabel="名称" name="SSEGMENT_NAME" ></fc-text>
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.NFIXED_NUM"  fcLabel="限制长度" name="NFIXED_NUM" ></fc-text>
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.NSERIALTYPE_FULL_CODE"  fcLabel="填充码" name="NSERIALTYPE_FULL_CODE" ></fc-text>
@@ -52,7 +55,6 @@ import { SysbizcodedefineService } from '../../services/sysbizcodedefine.service
         <fc-text fccontent style="flex:1" [(ngModel)]="mainObj.NSERIALTYPE_STEP_VALUE"  fcLabel="增量值" name="NSERIALTYPE_STEP_VALUE" ></fc-text>
   </div>
 </fc-layoutpanel>
-  
     `,
     styles: [`
   `]
@@ -90,5 +92,38 @@ export class SysbizcoderuleaddComponent extends ParentEditComponent {
     }
     event(eventName: string, context: any): void {
     }
+    /**
+   * 组件事件收集
+   * @param type 字符串命名
+   * @param ev 事件传过来的参数
+   */
+  componentEvents(type: string, ev: any) {
+    switch (type) {
+      case 'select2Events':
+      this.messageService.success('触发单选框按钮')
+        this.mainObj.SSEGMENT_TYPE = ev
+        break;
+      case 'tlbformEvent':
+        if (ev.eventName == 'cardBack') {
+            // 新增路由
+          this.router.navigate(["/" + environment.pid.toLocaleLowerCase()  + "/sysbizcoderuleEdit"])
+        }
+        if (ev.eventName == 'cardSave') {
+            //保存按钮  
+            this.mainService.rulemodalObjsave(this.mainObj);
+          }
+        break
+    }
+  }
+  // 枚举字典事件
+  modalscratorEvent(event: FCEVENT){
+    switch (event.eventName) {
+      case 'success':
+        this.mainObj.SENUMERATE_TERM_CODE = event.param[0].SENUMERATE_TERM_CODE;
+      break;
+      case 'cacle':
+      break;
+    }
+  }
 }
 // 新修改版本

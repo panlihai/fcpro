@@ -1,6 +1,6 @@
 import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentlistComponent} from 'fccomponent';
+import { ParentEditComponent, ParentlistComponent} from 'fccomponent';
 import { SysbizcoderuleService } from '../../services/sysbizcoderule.service';
 import { NzModalService, NzModalSubject } from 'ng-zorro-antd';
 import { FCEVENT } from 'fccomponent/fc';
