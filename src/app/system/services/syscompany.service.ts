@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { TreeOptions } from 'fccomponent';
 import { SyscompanyrelationService } from './syscompanyrelation.service';
 import { SystbvorgcurorgService } from './systbvorgcurorg.service';
-import { SyscompanydimService } from './syscompanydim1.service';
+import { SyscompanydimService } from './syscompanydim.service';
 @Injectable()
 export class SyscompanyService extends ParentService {
   constructor(public providers: ProvidersService,
@@ -36,6 +36,8 @@ export class SyscompanyService extends ParentService {
       return item;
     });
   }
+  //根据当前单位代码过滤单位隶属关系列表
+
   companyTreeOptions: TreeOptions = {
     //元数据id
     fcAppid: "SYSTBVORGCURORG",//元数据id
@@ -54,7 +56,7 @@ export class SyscompanyService extends ParentService {
     // 排序字段
     fcOrderby: "",
     // 模式 false为单选，true为多选
-    fcMode: true,
+    fcMode: false,
     // 展开子节点
     fcOpenChild: false,
     // 是否显示线条
@@ -110,23 +112,39 @@ export class SyscompanyService extends ParentService {
     //单位是否启用
     mainObj.BSTOP_FLAG = '0';
     //填写的信息保存到单位隶属表中
-    relationObj = {
-      SBEGIN_DATE: this.commonService.dateFormat(mainObj.SBEGIN_DATE, 'yyyyMMdd'),//生效日期
-      SEND_DATE: this.commonService.dateFormat(mainObj.SEND_DATE, 'yyyyMMdd'),//失效日期
-      SDIM_CODE: dimCode,//维度代码
-      SORG_CODE: mainObj.SCOMPANY_CODE,//组织机构代码
-      SPARENT_CODE: parentCode,//上级组织机构代码
-      SPARENT_PATH: parentCode + ':' + mainObj.SCOMPANY_CODE,//上级组织机构路径
-      SCRATOR: this.userInfo.NAME,//创建人
-      SCREATE_TIME: this.commonService.timestampFormat(this.commonService.getTimestamp(), 'yyyyMMdd'),//创建时间
+    if (mainObj.SBEGIN_DATE !== undefined && mainObj.SBEGIN_DATE !== ''
+      && mainObj.SEND_DATE !== undefined && mainObj.SEND_DATE !== '') {
+      relationObj = {
+        SBEGIN_DATE: this.commonService.dateFormat(mainObj.SBEGIN_DATE, 'yyyyMMdd'),//生效日期
+        SEND_DATE: this.commonService.dateFormat(mainObj.SEND_DATE, 'yyyyMMdd'),//失效日期
+        SDIM_CODE: dimCode,//维度代码
+        SORG_CODE: mainObj.SCOMPANY_CODE,//组织机构代码
+        SPARENT_CODE: parentCode,//上级组织机构代码
+        SPARENT_PATH: parentCode + ':' + mainObj.SCOMPANY_CODE,//上级组织机构路径
+        SCRATOR: this.userInfo.NAME,//创建人
+        SCREATE_TIME: this.commonService.timestampFormat(this.commonService.getTimestamp() * 1000, 'yyyyMMdd'),//创建时间
+      }
+    } else {
+      relationObj = {
+        SDIM_CODE: dimCode,//维度代码
+        SORG_CODE: mainObj.SCOMPANY_CODE,//组织机构代码
+        SPARENT_CODE: parentCode,//上级组织机构代码
+        SPARENT_PATH: parentCode + ':' + mainObj.SCOMPANY_CODE,//上级组织机构路径
+        SCRATOR: this.userInfo.NAME,//创建人
+        SCREATE_TIME: this.commonService.timestampFormat(this.commonService.getTimestamp() * 1000, 'yyyyMMdd'),//创建时间
+      }
     }
     if (mainObj.ID === undefined || mainObj.ID === '') {
-      //生效日期
-      mainObj.SBEGIN_DATE = this.commonService.dateFormat(mainObj.SBEGIN_DATE, 'yyyyMMdd');
-      //注销日期
-      mainObj.SEND_DATE = this.commonService.dateFormat(mainObj.SEND_DATE, 'yyyyMMdd');
-      //成立日期
-      mainObj.SEST_DATE = this.commonService.dateFormat(mainObj.SEST_DATE, 'yyyyMMdd');
+      if (mainObj.SBEGIN_DATE !== undefined && mainObj.SBEGIN_DATE !== ''
+        && mainObj.SEND_DATE !== undefined && mainObj.SEND_DATE !== ''
+        && mainObj.SEST_DATE !== undefined && mainObj.SEST_DATE !== '') {
+        //生效日期
+        mainObj.SBEGIN_DATE = this.commonService.dateFormat(mainObj.SBEGIN_DATE, 'yyyyMMdd');
+        //注销日期
+        mainObj.SEND_DATE = this.commonService.dateFormat(mainObj.SEND_DATE, 'yyyyMMdd');
+        //成立日期
+        mainObj.SEST_DATE = this.commonService.dateFormat(mainObj.SEST_DATE, 'yyyyMMdd');  //生效日期
+      }
       return this.commonService.createObservableJoin([
         this.save(mainObj),
         this.syscompanyrelationService.save(relationObj)
@@ -137,6 +155,38 @@ export class SyscompanyService extends ParentService {
         this.syscompanyrelationService.update(relationObj)
       ]);
     }
+  }
+  /**
+   * 获取维度
+   */
+  getCompanyDim(): Observable<any> {
+    return this.syscompanydimService.findWithQuery({});
+  }
+
+  /**
+   *获取单位隶属关系
+   * @param dimCode 维度
+   */
+  getOrgRelationData(dimCode: string): Observable<any> {
+    return this.syscompanyrelationService.findWithQuery({ SDIM_CODE: dimCode });
+  }
+  /**
+   * 更新单位隶属关系
+   * @param id 
+   */
+  updateOrgRelationData(thisId: string, thatId: string, thatRn: number, thisRn: number): Observable<any> {
+    let obj1: any = {
+      ID: thisId,
+      NDISPLAYNO: thisRn
+    }
+    let obj2: any = {
+      ID: thatId,
+      NDISPLAYNO: thatRn
+
+    }
+    return this.commonService.createObservableJoin([
+      this.syscompanyrelationService.updateList([obj1, obj2]),
+    ]);
   }
   //列表
   fclistdataOption = {
@@ -165,7 +215,7 @@ export class SyscompanyService extends ParentService {
     //选中方式
     fcRowSelection: 'multiple',
     //是否启用操作列
-    fcEnableAction: false,
+    fcEnableAction: true,
     //选中有checkbox
     fcCheckboxSelection: true,
     //是否启用编辑
@@ -174,7 +224,7 @@ export class SyscompanyService extends ParentService {
     fcAutoSave: false,
     fcAutoSize: false
   };
-  //
+  //单位隶属关系
   syscompanyrelationOption = {
     //皮肤默认为bootstrap风格
     fcClass: 'ag-blue',
@@ -191,7 +241,7 @@ export class SyscompanyService extends ParentService {
     //是否显示工具栏
     fcShowToolPanel: false,
     //是否分页
-    fcPagination: true,
+    fcPagination: false,
     //是否显示分组
     fcRowGroupPanelShow: 'none',//'always',
     //是否启用状态栏
