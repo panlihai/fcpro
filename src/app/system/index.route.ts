@@ -4,7 +4,6 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { LockscreenComponent } from './components/lockscreen/lockscreen.component';
-import { SignupComponent } from './components/signup/signup.component';
 import { SysdatasourceComponent } from './components/core/sysdatasource.component';
 import { SysappComponent } from './components/core/sysapp.component';
 import { SysdicComponent } from './components/core/sysdic.component';
@@ -30,6 +29,16 @@ import { SysusereditComponent } from './components/core/sysuseredit.component';
 import { SysemployeeComponent } from './components/core/sysemployee.component';
 import { SysemployeeeditComponent } from './components/core/sysemployeeedit.component';
 import { SysuserComponent } from './components/core/sysuser.component';
+import { SysbizcoderuleComponent } from './components/core/sysbizcoderule.component';
+import { SyscompanydimComponent } from './components/core/syscompanydim.component';
+import { SysbizcoderuleaddComponent } from './components/core/sysbizcoderuleadd.component';
+import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
+import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
+import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
+import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
+import { SysparamComponent } from './components/core/sysparam.component';
+import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
+import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -103,6 +112,30 @@ export const Routers: Routes = [{
     component: SysannouncementComponent,
     data: { keep: false }
 }, {
+    path: 'sysbizcoderuleList',//编码规则
+    component: SysbizcoderuleComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
+    component: SysbizcoderuleeditComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysbizcoderuleAdd',//编码工具栏新增模态框
+    component: SysbizcoderuleaddComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysdepartmentdimList',//部门维度
+    component: SysdepartmentdimComponent,
+    data: { keep: false }
+}
+, {
+    path: 'syscompanydimList',//维度规则
+    component: SyscompanydimComponent,
+    data: { keep: false }
+}, {
     path: 'sysassignmentDetail',//消息公告
     component: SysassignmentComponent,
     data: { keep: false }
@@ -115,7 +148,7 @@ export const Routers: Routes = [{
     component: SyscomponentComponent,
     data: { keep: false }
 }, {
-    path: 'syscompanyList',//公司
+    path: 'syscompanyList',//单位列表
     component: SyscompanyComponent,
     data: { keep: false }
 }, {
@@ -123,8 +156,23 @@ export const Routers: Routes = [{
     component: SysquotalistComponent,
     data: { keep: false }
 }, {
-    path: 'sysquotaEdit',//指标编辑
+    path: 'sysquotavalue',//指标编辑
     component: SysquotaEditComponent,
+    data: { keep: false }
+}, {
+    path: 'syscompanyAdd',//单位设立
+    component: SyscompanyaddComponent,
+}, {
+    path: 'syscompanychangeauditList',//单位变更审批
+    component: SyscompanychangeauditComponent,
+    data: { keep: false }
+}, {
+    path: 'sysquotaList',//指标列表
+    component: SysquotalistComponent,
+    data: { keep: false }
+}, {
+    path: 'syscompanyModify',//单位调整
+    component: SyscompanymodifyComponent,
     data: { keep: false }
 }, {
     path: 'sysprofileList',//个人信息维护
@@ -134,10 +182,14 @@ export const Routers: Routes = [{
     path: 'syslogList',//访问日志
     component: SyslogComponent,
     data: { keep: false }
+}, {
+    path: 'sysparamList',//系统参数
+    component: SysparamComponent,
+    data: { keep: false }
 },{
-  path: 'sysquotaEdit',//指标编辑
-  component: SysquotaEditComponent,
-  data: { keep: false }
+    path: 'sysdepartment',//部门管理
+    component: SysdepartmentComponent,
+    data: { keep: false }
 }, {
     path: 'sysuserList',//用户管理
     component: SysuserComponent,

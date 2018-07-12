@@ -8,6 +8,7 @@ import { GridApi, ColumnApi } from 'ag-grid';
 import { ProvidersService } from 'fccore';
 import { environment } from '../../../../environments/environment';
 import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.service';
+import { UploadavatardialogComponent } from './dialog/uploadavatardialog.component';
 @Component({
   selector: 'sysprofile',
   templateUrl: 'sysprofile.component.html',
@@ -148,20 +149,20 @@ import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.ser
     width:100%;
     height:100%;
   }
-  :host ::ng-deep .sysprofile-list .fc-list{
-    width:100%;
-    height:calc(100% - 40px);
-    overflow:auto;
+  .view-personelinfo,.edit-personelinfo{
+    height: 100%;
+    overflow:hidden;
+  }
+  :host ::ng-deep .sysprofile-list .fc-list,
+  :host ::ng-deep .personelinfo .personelinfo-content{
+    width: 100%;
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
   }
   .footer-btn{
     width: 100%;
     text-align: center;
-    margin-top:40px;
-  }
-  .view-personelinfo,.edit-personelinfo{
-    overflow-y: auto;
-    height: 100%;
-    overflow-x: hidden;
   }
   `]
 })
@@ -229,6 +230,8 @@ export class SysprofileComponent extends ParentDetailComponent {
   avaterUserName: string;
   //头像区域的备注
   avaterUserRemark: string;
+  //用户头像
+  userAvatar: string;
   constructor(public mainService: SysprofileService,
     public router: Router,
     private _providers: ProvidersService,
@@ -237,6 +240,9 @@ export class SysprofileComponent extends ParentDetailComponent {
     super(mainService, router, activedRouter);
   }
   init(): void {
+    if (this.userAvatar === undefined) {
+      this.userAvatar = '';
+    }
     //获取登录时间
     this.mainService.getSigninTime().subscribe(result => {
       if (result.CODE === '0') {
@@ -349,7 +355,18 @@ export class SysprofileComponent extends ParentDetailComponent {
    * 上传个人头像
    */
   uploadAvatar() {
+    this.modal.open({
+      title: '上传个人头像',
+      content: UploadavatardialogComponent,
+      onOk() { },
+      onCancel() { },
+      footer: false,
+      componentParams: {
+        options: { userId: this.sysuserObj.ID }
+      }
+    }).subscribe(result => {
 
+    });
   }
   /**
    * 修改个人头像
@@ -396,6 +413,12 @@ export class SysprofileComponent extends ParentDetailComponent {
           })
         }, () => { });
         break;
+      case 'listSearch'://立即查询
+        this._providers.commonService.event('selectedMenu', {
+          ID: event.param.ID, MENUID: 'SYSASSIGNMENT', ROUTER: 'sysassignmentList',
+          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '待办任务', MENUICON: 'fc-icon-bgefficiency'
+        });
+        break;
     }
   }
   /**
@@ -429,7 +452,7 @@ export class SysprofileComponent extends ParentDetailComponent {
           }
         })
         break;
-      case 'listOneView':
+      case 'listOneView'://预览
         this._providers.commonService.event('selectedMenu', {
           ID: event.param.ID, MENUID: 'SYSMESSAGE', ROUTER: 'sysmessageDetail',
           PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '消息详情', MENUICON: 'fc-icon-bgefficiency'

@@ -4,12 +4,12 @@
         <fc-layoutrow fcSpan="200" class="left" fccontent1>
             <div class="sys-card personel" fccontent1>
                 <!-- 没有上传头像时 -->
-                <div class="personel-avatar upload-avatar">
+                <div class="personel-avatar upload-avatar" *ngIf="false">
                     <fc-avatar fcSrc="" (click)="editAvatar()"></fc-avatar>
                 </div>
                 <!-- 修改头像时 -->
-                <div class="personel-avatar edit-avatar" *ngIf="false">
-                    <fc-avatar fcSrc="assets/img/github.jpg" (click)="uploadAvatar()"></fc-avatar>
+                <div class="personel-avatar edit-avatar" >
+                    <fc-avatar [fcSrc]="userAvatar" (click)="uploadAvatar()"></fc-avatar>
                 </div>
                 <div class="text-center personel-user">
                     {{avaterUserName}} | {{avaterUserRemark}}
@@ -77,77 +77,81 @@
                 <div class="personelinfo" fccontent3>
                     <!-- 个人信息 -->
                     <div class="view-personelinfo" [hidden]="personelEdit">
-                        <fc-title fcLabel="人员信息"></fc-title>
-                        <fc-layoutcol>
-                            <fc-label fcLabel="工号" fcValue="20329887665" fccontent1></fc-label>
-                            <fc-label fcLabel="姓名" fcValue="张三" fccontent2></fc-label>
-                            <fc-label fcLabel="性别" fcValue="男" fccontent1></fc-label>
-                            <fc-label fcLabel="年龄" fcValue="30" fccontent2></fc-label>
-                            <fc-label fcLabel="证件类型" fcValue="身份证" fccontent1></fc-label>
-                            <fc-label fcLabel="证件号码" fcValue="441881199505017218" fccontent2></fc-label>
-                            <fc-label fcLabel="户口所在地" fcValue="北京" fccontent1></fc-label>
-                            <fc-label fcLabel="婚姻状况" fcValue="已婚" fccontent2></fc-label>
-                            <fc-label fcLabel="开始工作日期" fcValue="2010年6月30日" fccontent1></fc-label>
-                        </fc-layoutcol>
-                        <fc-title fcLabel="用户信息"></fc-title>
-                        <fc-layoutcol>
-                            <fc-label fcLabel="用户编码" [fcValue]="sysuserObj.USERCODE" fccontent1></fc-label>
-                            <fc-label fcLabel="用户名称" [fcValue]="sysuserObj.NAME" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" [fcValue]="sysuserObj.AVAILABLEDATE" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" [fcValue]="sysuserObj.DISABLEDATE" fccontent2></fc-label>
-                        </fc-layoutcol>
-                        <fc-title fcLabel="部门信息"></fc-title>
-                        <fc-layoutcol>
-                            <fc-label fcLabel="部门编号" fcValue="201803298765" fccontent1></fc-label>
-                            <fc-label fcLabel="部门名称" fcValue="开发实施部" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" fcValue="2018-06-23" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="2018-12-31" fccontent2></fc-label>
-                        </fc-layoutcol>
-                        <fc-title fcLabel="单位信息"> </fc-title>
-                        <fc-layoutcol>
-                            <fc-label fcLabel="单位编码" fcValue="2078472399876" fccontent1></fc-label>
-                            <fc-label fcLabel="单位名称" fcValue="东软越通" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" fcValue="2010-06-30" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="2020-12-31" fccontent2></fc-label>
-                        </fc-layoutcol>
+                        <div class="personelinfo-content">
+                            <fc-title fcLabel="人员信息"></fc-title>
+                            <fc-layoutcol>
+                                <fc-label fcLabel="工号" fcValue="20329887665" fccontent1></fc-label>
+                                <fc-label fcLabel="姓名" fcValue="张三" fccontent2></fc-label>
+                                <fc-label fcLabel="性别" fcValue="男" fccontent1></fc-label>
+                                <fc-label fcLabel="年龄" fcValue="30" fccontent2></fc-label>
+                                <fc-label fcLabel="证件类型" fcValue="身份证" fccontent1></fc-label>
+                                <fc-label fcLabel="证件号码" fcValue="441881199505017218" fccontent2></fc-label>
+                                <fc-label fcLabel="户口所在地" fcValue="北京" fccontent1></fc-label>
+                                <fc-label fcLabel="婚姻状况" fcValue="已婚" fccontent2></fc-label>
+                                <fc-label fcLabel="开始工作日期" fcValue="2010年6月30日" fccontent1></fc-label>
+                            </fc-layoutcol>
+                            <fc-title fcLabel="用户信息"></fc-title>
+                            <fc-layoutcol>
+                                <fc-label fcLabel="用户编码" [fcValue]="sysuserObj.USERCODE" fccontent1></fc-label>
+                                <fc-label fcLabel="用户名称" [fcValue]="sysuserObj.NAME" fccontent2></fc-label>
+                                <fc-label fcLabel="有效期" [fcValue]="sysuserObj.AVAILABLEDATE" fccontent1></fc-label>
+                                <fc-label fcLabel="失效期" [fcValue]="sysuserObj.DISABLEDATE" fccontent2></fc-label>
+                            </fc-layoutcol>
+                            <fc-title fcLabel="部门信息"></fc-title>
+                            <fc-layoutcol>
+                                <fc-label fcLabel="部门编号" fcValue="201803298765" fccontent1></fc-label>
+                                <fc-label fcLabel="部门名称" fcValue="开发实施部" fccontent2></fc-label>
+                                <fc-label fcLabel="有效期" fcValue="2018-06-23" fccontent1></fc-label>
+                                <fc-label fcLabel="失效期" fcValue="2018-12-31" fccontent2></fc-label>
+                            </fc-layoutcol>
+                            <fc-title fcLabel="单位信息"> </fc-title>
+                            <fc-layoutcol>
+                                <fc-label fcLabel="单位编码" fcValue="2078472399876" fccontent1></fc-label>
+                                <fc-label fcLabel="单位名称" fcValue="东软越通" fccontent2></fc-label>
+                                <fc-label fcLabel="有效期" fcValue="2010-06-30" fccontent1></fc-label>
+                                <fc-label fcLabel="失效期" fcValue="2020-12-31" fccontent2></fc-label>
+                            </fc-layoutcol>
+                        </div>
                         <div class="footer-btn">
                             <fc-button fcLabel="修改" (click)="editPersonelinfo()" fcIcon="fc-icon-amend" fcIconPositon="left" fcType="primary"></fc-button>
                         </div>
                     </div>
                     <form class="edit-personelinfo" [hidden]="!personelEdit">
-                        <fc-title fcLabel="人员信息"></fc-title>
-                        <fc-layoutcol>
-                            <fc-label fcLabel="工号" fcValue="20329887665" fccontent1></fc-label>
-                            <fc-label fcLabel="姓名" fcValue="张三" fccontent2></fc-label>
-                            <fc-label fcLabel="性别" fcValue="男" fccontent1></fc-label>
-                            <fc-label fcLabel="年龄" fcValue="30" fccontent2></fc-label>
-                            <fc-label fcLabel="证件类型" fcValue="身份证" fccontent1></fc-label>
-                            <fc-label fcLabel="证件号码" fcValue="441881199505017218" fccontent2></fc-label>
-                            <fc-label fcLabel="户口所在地" fcValue="北京" fccontent1></fc-label>
-                            <fc-label fcLabel="婚姻状况" fcValue="已婚" fccontent2></fc-label>
-                            <fc-label fcLabel="开始工作日期" fcValue="2010-06-30" fccontent1></fc-label>
-                        </fc-layoutcol>
-                        <fc-title fcLabel="用户信息"></fc-title>
-                        <fc-layoutcol>
-                            <fc-label fcLabel="用户编码" [fcValue]="sysuserObj.USERCODE" fccontent1></fc-label>
-                            <fc-text fcLabel="用户名称" [(ngModel)]="sysuserObj.NAME" name="sysuserObj.NAME" fccontent2></fc-text>
-                            <fc-label fcLabel="有效期" [fcValue]="sysuserObj.AVAILABLEDATE" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" [fcValue]="sysuserObj.DISABLEDATE" fccontent2></fc-label>
-                        </fc-layoutcol>
-                        <fc-title fcLabel="部门信息"></fc-title>
-                        <fc-layoutcol>
-                            <fc-label fcLabel="部门编号" fcValue="201803298765" fccontent1></fc-label>
-                            <fc-label fcLabel="部门名称" fcValue="开发实施部" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" fcValue="2018-06-23" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="2018-12-31" fccontent2></fc-label>
-                        </fc-layoutcol>
-                        <fc-title fcLabel="单位信息"> </fc-title>
-                        <fc-layoutcol>
-                            <fc-label fcLabel="单位编码" fcValue="2078472399876" fccontent1></fc-label>
-                            <fc-label fcLabel="单位名称" fcValue="东软越通" fccontent2></fc-label>
-                            <fc-label fcLabel="有效期" fcValue="2010-06-30" fccontent1></fc-label>
-                            <fc-label fcLabel="失效期" fcValue="2020-12-31" fccontent2></fc-label>
-                        </fc-layoutcol>
+                        <div class="personelinfo-content">
+                            <fc-title fcLabel="人员信息"></fc-title>
+                            <fc-layoutcol>
+                                <fc-label fcLabel="工号" fcValue="20329887665" fccontent1></fc-label>
+                                <fc-label fcLabel="姓名" fcValue="张三" fccontent2></fc-label>
+                                <fc-label fcLabel="性别" fcValue="男" fccontent1></fc-label>
+                                <fc-label fcLabel="年龄" fcValue="30" fccontent2></fc-label>
+                                <fc-label fcLabel="证件类型" fcValue="身份证" fccontent1></fc-label>
+                                <fc-label fcLabel="证件号码" fcValue="441881199505017218" fccontent2></fc-label>
+                                <fc-label fcLabel="户口所在地" fcValue="北京" fccontent1></fc-label>
+                                <fc-label fcLabel="婚姻状况" fcValue="已婚" fccontent2></fc-label>
+                                <fc-label fcLabel="开始工作日期" fcValue="2010-06-30" fccontent1></fc-label>
+                            </fc-layoutcol>
+                            <fc-title fcLabel="用户信息"></fc-title>
+                            <fc-layoutcol>
+                                <fc-label fcLabel="用户编码" [fcValue]="sysuserObj.USERCODE" fccontent1></fc-label>
+                                <fc-text fcLabel="用户名称" [(ngModel)]="sysuserObj.NAME" name="sysuserObj.NAME" fccontent2></fc-text>
+                                <fc-label fcLabel="有效期" [fcValue]="sysuserObj.AVAILABLEDATE" fccontent1></fc-label>
+                                <fc-label fcLabel="失效期" [fcValue]="sysuserObj.DISABLEDATE" fccontent2></fc-label>
+                            </fc-layoutcol>
+                            <fc-title fcLabel="部门信息"></fc-title>
+                            <fc-layoutcol>
+                                <fc-label fcLabel="部门编号" fcValue="201803298765" fccontent1></fc-label>
+                                <fc-label fcLabel="部门名称" fcValue="开发实施部" fccontent2></fc-label>
+                                <fc-label fcLabel="有效期" fcValue="2018-06-23" fccontent1></fc-label>
+                                <fc-label fcLabel="失效期" fcValue="2018-12-31" fccontent2></fc-label>
+                            </fc-layoutcol>
+                            <fc-title fcLabel="单位信息"> </fc-title>
+                            <fc-layoutcol>
+                                <fc-label fcLabel="单位编码" fcValue="2078472399876" fccontent1></fc-label>
+                                <fc-label fcLabel="单位名称" fcValue="东软越通" fccontent2></fc-label>
+                                <fc-label fcLabel="有效期" fcValue="2010-06-30" fccontent1></fc-label>
+                                <fc-label fcLabel="失效期" fcValue="2020-12-31" fccontent2></fc-label>
+                            </fc-layoutcol>
+                        </div>
                         <div class="footer-btn">
                             <fc-button fcLabel="确认修改" (click)="savePersonelinfo()" fcIcon="fc-icon-save" fcIconPositon="left" fcType="primary"></fc-button>
                         </div>

@@ -1,41 +1,29 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import {
   ParentlistComponent,
   ParentDetailComponent,
-  ParentEditComponent
+  ParentEditComponent,
+  FclistdataComponent
 } from "fccomponent";
-import { SysannouncementService } from "../../services/sysannouncement.service";
 import { FCEVENT } from "fccomponent/fc";
-import { SysquotaService } from "../../services/sysquota.service";
+import { Args_QuotaValue, AccessToData, SysquotavalueService, PageStateConfig, ObjectState } from "../../services/sysquotavalue.service";
+import { GridApi, ColumnApi } from "ag-grid";
+import { RowDataTransaction } from "ag-grid/dist/lib/rowModels/inMemory/inMemoryRowModel";
 @Component({
   selector: "sysquota",
-  template: `
-    <fc-layoutpanel fcFull="true" >
-    <fc-layoutrow fcSpan="220"  fccontent>
-      <div fccontent1>
-           <fc-tlblist [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-           <fc-layoutcol fcSpans="1,1" fccontent>
-              <fc-text fccontent1 style="flex:1" fcPlaceHolder="请输入标题" fcLabel="标题" [(ngModel)]="saveObj.TITLE" name="TITLE"></fc-text>
-              <fc-text fccontent2 style="flex:1" fcPlaceHolder="请输入发布人" fcLabel="发布人" [(ngModel)]="saveObj.PUBLISHUSER" name="PUBLISHUSER" ></fc-text>
-              <fc-text fccontent1 style="flex:1" fcPlaceHolder="请输入发布单位" fcLabel="发布单位" [(ngModel)]="saveObj.PUBLISHDEPT" name="PUBLISHDEPT"></fc-text>
-              <fc-text fccontent2 style="flex:1" fcPlaceHolder="请输入公告类型" fcLabel="公告类型" [(ngModel)]="saveObj.CATAGORY" name="CATAGORY" ></fc-text>
-           </fc-layoutcol>
-           <fc-textarea fccontent fcCol="1" fcRows="2" [fcAppid]="appId" [(ngModel)]="saveObj.CONTENT" fcPlaceHolder="请输入发布内容" fcLabel="发布内容" name="DESCRIPTION"></fc-textarea>
-           <div fccontent style="text-align:center;">
-              <fc-button fccontent1 [fcLabel]="btn_1_label" fcType="primary" (click)="Btn1_Events(versionCode,btn_1_label)"></fc-button>
-              <fc-button fccontent2 [fcLabel]="btn_2_label" fcType="default" (click)="Btn2_Events(btn_2_label)"></fc-button>
-              <fc-button fccontent2 [fcLabel]="btn_3_label" fcType="default" (click)="Btn3_Events(btn_3_label)"></fc-button>
-           </div>
-      </div>
-    <fc-listdata  fccontent2 [fcCondition]="versionSearchObj"  [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
-    </fc-layoutrow>
-  </fc-layoutpanel>
-    `,
+  templateUrl: "./sysquotaedit.component.html",
   styles: [
     `
       :host ::ng-deep .fc-layoutpanel .fc-content {
-        height: 100%;
+        height: 80% !important;
+        overflow:hidden;
+      }
+      :host ::ng-deep .ag-sort-order{
+        display : none !important;
+      }
+      :host ::ng-deep .ant-radio-group{
+        display:flex !important;
       }
       .list-search {
         width: 100%;
@@ -52,20 +40,136 @@ import { SysquotaService } from "../../services/sysquota.service";
       .listdata {
         height: 100%;
       }
+      .btnWrapper{
+        width: 100%;
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        position: relative;
+        top:30px
+      }
     `
   ]
 })
 export class SysquotaEditComponent extends ParentEditComponent {
+  editCondition: { where: string; };
+  PageState: any = PageStateConfig.list;
+  sppId: any;
+  ObjState: ObjectState;
+  saveObj: any = {};
+  AccessToDataType: any[] = [{ icon: '', label: AccessToData.static.name, value: AccessToData.static.code }, { icon: '', label: AccessToData.SQL.name, value: AccessToData.SQL.code }, { icon: '', label: AccessToData.custom.name, value: AccessToData.custom.code }];
+  args: Args_QuotaValue;
+  // indexObj_edit: any;
+  @ViewChild('listdata') editlist: FclistdataComponent;
+  @ViewChild('detailList') detailList: FclistdataComponent
+  @ViewChild('contentTpl') contentTpl: any;
+  @ViewChild('footerTpl') footerTpl: any;
   constructor(
-    public mainService: SysquotaService,
+    public mainService: SysquotavalueService,
     public router: Router,
     public activeRoute: ActivatedRoute
   ) {
     super(mainService, router, activeRoute);
   }
-  init(): void { }
+  init(): void {
+    this.PageState = PageStateConfig.list;
+  }
   addNew(mainObj: any): boolean {
     return true;
   }
   event(eventName: string, param: any): void { }
+  tlblistEvent(ev: FCEVENT) {
+    switch (ev.eventName) {
+      case "listAdd":
+        this.saveObj = {};
+        this.PageState = PageStateConfig.add;
+        this.ObjState = ObjectState.Add;
+        this.editCondition = { where: `CHARTID = '${this.saveObj.CHARTID}'` }
+        this.saveObj.CHARTID = this.mainService.getTimeStamp()
+        // this.args = { titleTpl: '指标值新增', contentTpl: this.contentTpl, footerTpl: this.footerTpl };
+        // this.mainService.dialogOpen(this.args);
+        break;
+      default:
+        break;
+    }
+  }
+  listdataEvent(ev: FCEVENT) {
+    switch (ev.eventName) {
+      case 'listOneView':
+        break;
+      case 'listEdit':
+        this.saveObj = ev.param;
+        this.editCondition = { where: `CHARTID = '${this.saveObj.CHARTID}'` }
+        this.PageState = PageStateConfig.edit;
+        this.ObjState = ObjectState.Update;
+        // setTimeout(() => {
+        //   this.indexObj_edit = this.editlist.fcRowData;
+        // });
+        // this.args = { titleTpl: '指标值修改', contentTpl: this.contentTpl, footerTpl: this.footerTpl }
+        // this.mainService.dialogOpen(this.args)
+        break;
+      case 'listOneDelete':
+        this.mainService.confirmMsg('确认删除？', () => {
+          this.mainService.delete(ev.param).subscribe(res => {
+            if (res.CODE === '0') {
+              this.mainService.successMsg('删除成功');
+              this.detailList.fcReflesh();
+            }
+            else this.mainService.errMsg('删除失败');
+          })
+        }, () => { })
+        break;
+      default:
+        break;
+    }
+  }
+  SQLlistdataEvent(ev: FCEVENT) {
+    switch (ev.eventName) {
+      case 'rowDoubleClick':
+        this.saveObj.VALUE = ev.param[0].SQLKEY;
+        this.mainService.close_modal();
+        break;
+    }
+  }
+  typeChange(ev) {
+    this.saveObj.CATAGORY = ev.DICVALUE;
+    this.saveObj.VALUE = null;
+    this.saveObj.LABEL = null;
+    this.saveObj.SERIES = null;
+  }
+  showModal(title, contentTpl: any) {
+    this.args = { titleTpl: title, contentTpl: contentTpl }
+    this.mainService.dialogOpen(this.args)
+  }
+  handle_ok() {
+    this.mainService.handle_ok(this.saveObj, this.editlist);
+    this.PageState = PageStateConfig.list;
+  }
+  handle_cancel() {
+    this.mainService.handle_cancel()
+    this.PageState = PageStateConfig.list;
+  }
+  static_add(contentTpl, footerTpl) {
+    let args: Args_QuotaValue = { titleTpl: '新增数据', contentTpl: contentTpl, footerTpl: footerTpl }
+    this.mainService.dialogOpen(args);
+  }
+  static_delete() {
+    // let gridApi: GridApi = this.editlist._gridApi;
+    // let columnApi: ColumnApi = this.editlist._gridColumnApi;
+    // let selected = gridApi.getSelectedRows();
+    // let removed: RowDataTransaction = { remove: selected };
+    // gridApi.updateRowData(removed);
+    // this.static_sort();
+  }
+  static_sort() {
+    // let gridApi: GridApi = this.editlist._gridApi;
+    // let columnApi: ColumnApi = this.editlist._gridColumnApi;
+    // gridApi.setSortModel([{ colId: 'SERIES', sort: true }, { colId: 'LABEL', sort: true }])
+  }
+  add_cancel() {
+    this.mainService.close_modal();
+  }
+  add_ok() {
+    this.mainService.add_ok(this.saveObj, this.editlist)
+  }
 }

@@ -7,10 +7,10 @@ import { SyscomponentService } from '../../services/syscomponent.service';
   template: `
   <fc-layoutpanel fcFull="true">
     <fc-layoutrow fcSpan="30" style="height:100%;" fccontent>
-        <fc-tlblist fccontent1 [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
+      <fc-tlblist fccontent1 [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
       <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
     </fc-layoutrow>
-</fc-layoutpanel>
+  </fc-layoutpanel>
   `,
   styles: [`
   :host ::ng-deep .fc-layoutpanel .fc-content{

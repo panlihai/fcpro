@@ -1,0 +1,82 @@
+<!-- 单位调整 -->
+<fc-layoutpanel class="templatefastposition">
+    <fc-layoutrow fcSpan="30" fccontent>
+        <fc-tlbform [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" fccontent1></fc-tlbform>
+        <fc-layoutcol fcSpans="9,1" fccontent2>
+            <fc-layoutpanel fccontent1>
+                <form fccontent>
+                    <fc-layoutpanel fccontent id="id0">
+                        <fc-title fcLabel="变更信息" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
+                        <fc-layoutcol fcSpans="1,1" fccontent>
+                            <div fccontent1>
+                                <fc-date [fcLabel]="'生效日期'" [fcAppid]="appId" fcFieldCode="SBEGIN_DATE" fcFormat="YYYYMMDD" [(ngModel)]="sbeginDate" fcPlaceHolder="请输入生效日期"
+                                    name="SYSCOMPANY.SBEGIN_DATE" [fcValid]="mainValid.SBEGIN_DATE"></fc-date>
+                                <fc-text [fcLabel]="'上传附件'" [fcAppid]="appId" fcAddonAfter="fc-icon-icaffix" [(ngModel)]="sysresUpload" (fcEvent)="fctextEvent($event)"
+                                    fcPlaceHolder="请上传附件" name="sysresUpload"></fc-text>
+                            </div>
+                            <div fccontent2>
+                                <fc-text [fcLabel]="'变更文号'" [fcAppid]="appId" [(ngModel)]="mainObj.SAPPROVAL_DCMTNO" fcPlaceHolder="请输入变更文号" name="SYSCOMPANY.SAPPROVAL_DCMTNO"></fc-text>
+                            </div>
+                        </fc-layoutcol>
+                        <fc-layoutcol fcSpans="1,0" fccontent>
+                            <div fccontent1>
+                                <fc-textarea [fcLabel]="'变更原因'" fcCol="1" [fcRequired]="true" fcPlaceHolder="请输入变更原因" name="SYSCOMPANY.SINVEST_TYPE"></fc-textarea>
+                            </div>
+                        </fc-layoutcol>
+                    </fc-layoutpanel>
+                    <fc-layoutpanel fccontent id="id1">
+                        <fc-title fcLabel="基本信息" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
+                        <fc-layoutcol fcSpans="1,1" fccontent>
+                            <div fccontent1>
+                                <fc-text [fcLabel]="'单位代码'" [fcAppid]="appId" [(ngModel)]="mainObj.SCOMPANY_CODE" fcPlaceHolder="请输入单位代码" name="SYSCOMPANY.SCOMPANY_CODE"
+                                    [fcValid]="mainValid.SCOMPANY_CODE"></fc-text>
+                                <fc-text [fcLabel]="'单位全称'" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入单位全称" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text>
+                                <fc-combo [fcLabel]="'单位性质'" [fcAppid]="appId" fcFieldCode="SCOMPANY_TYPE" [(ngModel)]="mainObj.SCOMPANY_TYPE" fcValueCode='DICVALUE'
+                                    fcLabelCode='DICDESC' fcPlaceHolder="请输入单位性质" name="SYSCOMPANY.SCOMPANY_TYPE" [fcValid]="mainValid.SCOMPANY_TYPE"></fc-combo>
+                                <!-- 没有字段 -->
+                                <!-- <fc-text [fcLabel]="'控股方式'" [fcAppid]="appId" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入控股方式" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
+                                <!-- <fc-check [fcLabel]="'法人单位'" [fcAppid]="appId" [(ngModel)]="mainObj.SAPPROVING_COMPANY" fcPlaceHolder="请输入法人单位" name="SYSCOMPANY.SAPPROVING_COMPANY"></fc-check> -->
+                                <fc-text [fcLabel]="'拼音简码'" [(ngModel)]="mainObj.SSPELLING_CODE" fcPlaceHolder="请输入拼音简码" name="SYSCOMPANY.SSPELLING_CODE"></fc-text>
+                                <fc-date [fcLabel]="'生效日期'" [fcAppid]="appId" fcFieldCode="SBEGIN_DATE" fcFormat="YYYYMMDD" [(ngModel)]="sbeginDate" fcPlaceHolder="请选择生效日期"
+                                    name="mainObj.SBEGIN_DATE" [fcValid]="mainValid.SBEGIN_DATE"></fc-date>
+                                <fc-text [fcLabel]="'联系电话'" [(ngModel)]="mainObj.SCONTACT_TEL" fcPlaceHolder="请输入联系电话" name="SYSCOMPANY.SCONTACT_TEL"></fc-text>
+                                <fc-text [fcLabel]="'邮政编码'" [(ngModel)]="mainObj.SPOST_CODE" fcPlaceHolder="请输入邮政编码" name="SYSCOMPANY.SPOST_CODE"></fc-text>
+                                <fc-text [fcLabel]="'地址'" [(ngModel)]="mainObj.SADDRESS" fcPlaceHolder="请输入地址" name="SYSCOMPANY.SADDRESS"></fc-text>
+                            </div>
+                            <div fccontent2>
+                                <fc-text [fcLabel]="'单位简码'" [fcAppid]="appId" fcFieldCode="SSPELLING_CODE" [(ngModel)]="mainObj.SSPELLING_CODE" fcPlaceHolder="请输入单位简码"
+                                    name="SYSCOMPANY.SSPELLING_CODE" [fcValid]="mainValid.SSPELLING_CODE"></fc-text>
+                                <fc-text [fcLabel]="'单位简称'" [fcAppid]="appId" fcFieldCode="SSHORT_NAME" [(ngModel)]="mainObj.SSHORT_NAME" fcPlaceHolder="请输入单位简称"
+                                    name="SYSCOMPANY.SSHORT_NAME" [fcValid]="mainValid.SSHORT_NAME"></fc-text>
+                                <!-- <fc-text [fcLabel]="'行业属性'" [fcAppid]="appId" [(ngModel)]="mainObj.SINDUSTRY" fcPlaceHolder="请输入行业属性" name="SYSCOMPANY.SINDUSTRY"></fc-text> -->
+                                <!-- <fc-combo [fcLabel]="'路内层级'" [fcAppid]="appId" [(ngModel)]="mainObj.ILEVEL" fcPlaceHolder="请输入路内层级" fcValueCode='DICVALUE'
+                                        fcLabelCode='DICDESC' name="SYSCOMPANY.ILEVEL"></fc-combo> -->
+                                <!-- <fc-check [fcLabel]="'虚拟单位'" [fcAppid]="appId" [(ngModel)]="mainObj.BIS_VIRTUAL" fcLabelCode="DICDESC" fcValueCode="DICVALUE"
+                                        name="SYSCOMPANY.BIS_VIRTUAL"></fc-check> -->
+                                <fc-date [fcLabel]="'成立日期'" [fcAppid]="appId" fcFieldCode="SEST_DATE" fcFormat="YYYYMMDD" [(ngModel)]="sestDate" fcPlaceHolder="请输入成立日期"
+                                    name="mainObj.SEST_DATE" [fcValid]="mainValid.SEST_DATE"></fc-date>
+                                <fc-date [fcLabel]="'注销日期'" [fcAppid]="appId" fcFieldCode="SEND_DATE" fcFormat="YYYYMMDD" [(ngModel)]="sendDate" fcPlaceHolder="请输入注销日期"
+                                    name="mainObj.SEND_DATE" [fcValid]="mainValid.SEND_DATE"></fc-date>
+                                <fc-text [fcLabel]="'传真'" [fcAppid]="appId" [(ngModel)]="mainObj.SFAX" fcPlaceHolder="请输入传真" name="SYSCOMPANY.SFAX"></fc-text>
+                                <fc-text [fcLabel]="'网址'" [fcAppid]="appId" [(ngModel)]="mainObj.SWEBSITE" fcPlaceHolder="请输入网址" name="SYSCOMPANY.SWEBSITE"></fc-text>
+                                <!-- 没有字段 -->
+                                <!-- <fc-text [fcLabel]="'状态'" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入状态" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
+                            </div>
+                        </fc-layoutcol>
+                    </fc-layoutpanel>
+                </form>
+            </fc-layoutpanel>
+            <div class="fastposition-content" fccontent2>
+                <div class="aligncenter">
+                    <fc-icon [fcIcon]="'fc-icon-good'" (click)="prev()" [fcSize]="'large'" fcToolTip="上一条" fcPosition="bottom" [fcColor]="'#A7A7A7'"
+                        class="showhand"></fc-icon>
+                    <fc-icon [fcIcon]="'fc-icon-gejo'" (click)="next()" [fcSize]="'large'" fcToolTip="下一条" fcPosition="bottom" [fcColor]="'#A7A7A7'"
+                        class="showhand"></fc-icon>
+                </div>
+                <div>
+                    <fc-fastposition fccontent [fcLinks]="[{href:'id0','label':'变更信息'},{href:'id1','label':'基本信息'}]"></fc-fastposition>
+                </div>
+            </div>
+        </fc-layoutcol>
+    </fc-layoutrow>
+</fc-layoutpanel>

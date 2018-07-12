@@ -6,11 +6,11 @@ import { SysassignmentService } from '../../services/sysassignment.service';
     selector: 'sysassignment',
     template: `
     <fc-layoutpanel fcFull="true" >
-    <fc-layoutrow fcSpan="34"  fccontent>
-    <fc-title fccontent1 fcLabel="待办历史查看" fcheader fcBorder="bottom"></fc-title>
-    <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event,saveObjs)"></fc-listdata>
-    </fc-layoutrow>
-  </fc-layoutpanel>
+      <fc-layoutrow fcSpan="34"  fccontent>
+      <fc-title fccontent1 fcLabel="待办历史查看" fcheader fcBorder="bottom"></fc-title>
+      <fc-listdata fccontent2 [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event,saveObjs)"></fc-listdata>
+      </fc-layoutrow>
+    </fc-layoutpanel>
     `,
     styles: [`
     :host ::ng-deep .fc-layoutpanel .fc-content{
@@ -18,7 +18,7 @@ import { SysassignmentService } from '../../services/sysassignment.service';
       }
   `]
 })
-export class SysassignmentComponent extends ParentlistComponent {
+export class SysassignmentComponent extends ParentlistComponent {    
     content: string = "";
     versionSearchObj: any;
     saveObjs: any = {};
@@ -44,7 +44,7 @@ export class SysassignmentComponent extends ParentlistComponent {
       case 'listSearch':
       this.mainService.providers.msgService.message("立即查询事件触发")
       this.mainService.assignmentsearchMessage(this.router,this.saveObjs)
-        break;
+      break;
     }
   };
     constructor(public mainService: SysassignmentService,
