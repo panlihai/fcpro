@@ -124,17 +124,19 @@ import { SysmessageService, Sysmessage } from '../../services/sysmessage.service
   `]
 })
 export class SysmessagedetailComponent extends ParentDetailComponent {
-  selectedId: any;
-  sysmessageList: Sysmessage[];
-  //回复的消息
-  feedBackObj: Sysmessage;
   //消息配置
   timelineOption = this.mainService.initTimelineOption();
+  //回复的消息
+  feedBackObj: Sysmessage;
+  //时间轴选中项
+  selectedId: any;
+  //回复内容列表
+  sysmessageList: Sysmessage[];
   //全部消息标签颜色
   allmessageColor: string;
-  //全部消息标签颜色
+  //已读消息标签颜色
   isreadColor: string;
-  //全部消息标签颜色
+  //未读消息标签颜色
   noreadColor: string;
   constructor(public mainService: SysmessageService,
     public router: Router,
@@ -185,24 +187,11 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
 
   }
   /**
-   * 点击回复内容
-   */
-  postFeedback() {
-    this.sysmessageList.push(this.feedBackObj);
-    this.mainService.feedBack(this.feedBackObj, this.mainObj).subscribe(result => {
-      if (result.CODE === '0') {
-        this.messageService.message("回复成功");
-      } else {
-        this.messageService.error("回复失败");
-      }
-    });
-  }
-  /**
-   * 初始化已回复内容
+   * 根据id查询已回复内容
    */
   initFeedBack() {
     this.selectedId = this.mainObj.ID;
-    this.mainService.findWithQueryAll({ SOURCEAID: 'SYSMESSAGE', SOURCEID: this.mainObj.ID, ORDER: 'TS DESC' }).subscribe(result => {
+    this.mainService.findAllMessage(this.mainObj.ID).subscribe(result => {
       if (result.CODE === '0') {
         this.sysmessageList = result.DATA;
         this.sysmessageList.forEach(element => {
@@ -216,6 +205,19 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
             }
           }
         })
+      }
+    });
+  }
+  /**
+   * 点击回复内容
+   */
+  postFeedback() {
+    this.sysmessageList.push(this.feedBackObj);
+    this.mainService.feedBack(this.feedBackObj, this.mainObj).subscribe(result => {
+      if (result.CODE === '0') {
+        this.messageService.message("回复成功");
+      } else {
+        this.messageService.error("回复失败");
       }
     });
   }
@@ -303,8 +305,5 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
     this.allmessageColor = "blue";
     this.isreadColor = "blue";
     this.noreadColor = "#108ee9";
-  }
-  tagEvent(event: FCEVENT) {
-
   }
 }

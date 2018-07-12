@@ -198,10 +198,11 @@ export class LayoutComponent implements OnInit {
       });
   }
   ngOnInit() {
+    this.getMessage();
     if (this.fcnavtab) {
       this.fcnavtab.fcTabs = [];
-      this.fcnavtab.fcSelectedIndex = 0;
-      this.getMessage();
+      this.fcnavtab.fcSelectedIndex = 0;/* 
+      this.getMessage(); */
       //把弹出确认框变量存入到服务里
       MessageService.confirmModal = this.confirmmodal;
       if (this.fcnavtab.fcTabs.length === 0) {
