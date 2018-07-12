@@ -24,9 +24,9 @@ export class SysmessageService extends ParentService {
     }
   }
   
-  /**
+   /*
     * 获取未读消息
-    * */
+    */
   getMessageBy(param:any): Observable<any> {
     let user = this.providers.userService.getUserInfo();
     let obj = {

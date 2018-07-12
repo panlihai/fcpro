@@ -63,6 +63,11 @@ import { SysemployService } from './services/sysemploy.service';
 import { SysassignmentService } from './services/sysassignment.service';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
 import { AngularDraggableModule } from 'angular2-draggable';
+import { SysemployeeService } from './services/sysemployee.service';
+import { SysemployeeComponent } from './components/core/sysemployee.component';
+import { SysemployeeeditComponent } from './components/core/sysemployeeedit.component';
+import { SysuserComponent } from './components/core/sysuser.component';
+import { SysusereditComponent } from './components/core/sysuseredit.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -89,10 +94,9 @@ import { AngularDraggableModule } from 'angular2-draggable';
     FctabModule,
     FcchartModule,
     SpreadSheetsModule,
-    AngularDraggableModule
+    AngularDraggableModule,
   ],
   exports: [
-
   ],
   declarations: [
     MainComponent,
@@ -124,7 +128,11 @@ import { AngularDraggableModule } from 'angular2-draggable';
     SysquotalistComponent,
     SysquotaEditComponent,
     SyslogComponent,
-    SysassignmentComponent
+    SysassignmentComponent,
+    SysuserComponent,
+    SysusereditComponent,
+    SysemployeeComponent,
+    SysemployeeeditComponent
   ],
   providers: [
     LayoutService,
@@ -151,7 +159,8 @@ import { AngularDraggableModule } from 'angular2-draggable';
     SyssessionService,
     SysemployService,
     SysquotaService,
-    SysassignmentService
+    SysassignmentService,
+    SysemployeeService,
   ]
 })
 export class SystemModule {

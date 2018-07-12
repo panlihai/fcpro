@@ -97,6 +97,7 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
     :host ::ng-deep .chat-show-wrap .fc-chatbox .fc-chatouter{
       visibility:visible;
       opacity: 1;
+      cursor: move;
     }
     :host ::ng-deep .ant-btn-circle{
       width: 50px;
@@ -353,61 +354,25 @@ import { OrderDownlineTreeviewEventParser } from "ngx-treeview";
   height:110px;
   overflow:auto;
 }
-:host ::ng-deep .templatehome .separated-lefttop .fc-layoutpanel,:host ::ng-deep .templatehome .separated-left .fc-layoutpanel{
+:host ::ng-deep .templatehome .separated-lefttop .fc-layoutpanel,:host ::ng-deep .templatehome .separated-left .fc-layoutpanel,.templatehome .separated-righttop,:host ::ng-deep .templatehome .separated-rightcenter .fc-layoutpanel,:host ::ng-deep .templatehome .separated-left .fc-layoutpanel,.templatehome .separated-leftbottom,:host ::ng-deep .templatehome .separated-right .fc-layoutpanel,:host ::ng-deep .templatehome .separated-rightbottom .fc-layoutpanel,:host ::ng-deep .templatehome .separated-leftrightbottom .fc-layoutpanel {
   background:white;
   padding:5px;
   border-radius: 2px;
   box-shadow: 0 0 5px #ccc;
   width: auto;
 }
-:host ::ng-deep .templatehome .separated-lefttop .fc-layoutpanel{
-  margin:3px 3px 5px 3px;
+:host ::ng-deep .templatehome .separated-lefttop .fc-layoutpanel,:host ::ng-deep .templatehome .separated-left .fc-layoutpanel,:host ::ng-deep .templatehome .separated-left .fc-layoutpanel,.templatehome .separated-leftbottom{
+  margin: 0px 5px 5px 0px;
 }
-
 .templatehome .separated-righttop{
-  background:white;
-  margin: 3px ;
-  padding:5px;
-  border-radius: 2px;
-  box-shadow: 0 0 5px #ccc;
-  width: auto;
+  margin: 0px 0px 5px 0px;
 }
 :host ::ng-deep .templatehome .separated-rightcenter .fc-layoutpanel{
-  background:white;
-  margin: 3px ;
-  padding:5px;
-  border-radius: 2px;
-  box-shadow: 0 0 5px #ccc;
-  width: auto;
-}
-:host ::ng-deep .templatehome .separated-left .fc-layoutpanel,.templatehome .separated-leftbottom,:host ::ng-deep .templatehome .separated-right .fc-layoutpanel,:host ::ng-deep .templatehome .separated-rightbottom .fc-layoutpanel{
-  background:white;
-  margin: 3px ;
-  padding:5px;
-  border-radius: 2px;
-  box-shadow: 0 0 5px #ccc;
-  width: auto;
+  margin-bottom: 5px;
 }
 :host ::ng-deep .templatehome .separated-leftrightbottom .fc-layoutpanel {
-  background:white;
-  margin: 3px ;
-  padding:5px;
-  border-radius: 2px;
-  box-shadow: 0 0 5px #ccc;
-  width: auto;
+  margin-right: 5px;
 }
-:host ::ng-deep .templatehome .separated-rightbottom .fc-layoutpanel {
-  margin:3px;
-}
-.templatehome .work-plan {
-  margin-bottom:6px;
- }
- :host ::ng-deep .templatehome .todo-tasks .fc-layoutpanel{
-  margin-bottom:6px;
- }
- :host ::ng-deep .templatehome  .fc-layoutpanel{
-      background-color: #EEF7FC;
- }
  .seeMore {
   text-align: center;
   color: #;
@@ -781,7 +746,6 @@ export class HomeComponent implements OnInit {
   /**
    * 发送聊天记录
    */
-
   sendChat() {
     //获取消息，合成消息体
     let time;
@@ -798,14 +762,14 @@ export class HomeComponent implements OnInit {
       TYPE:'normal'
     }];
     //如果是当天时间，不显示年月日
-    console.log(new Date(obj[0].POSTTIME*1000).toLocaleDateString());
-    if (new Date(obj[0].POSTTIME*1000).toLocaleDateString() === new Date().toLocaleDateString()) {
-      time = this.mainService.providers.commonService.timestampFormat(obj[0].POSTTIME*1000, 'hh:mm:ss') + "";
+    console.log(new Date(obj[0].TS*1000).toLocaleDateString());
+    if (new Date(obj[0].TS*1000).toLocaleDateString() === new Date().toLocaleDateString()) {
+      time = this.mainService.providers.commonService.timestampFormat(obj[0].TS*1000, 'hh:mm:ss') + "";
     } else {
       //如果不是当天，年月日时分秒
-      time = this.mainService.providers.commonService.timestampFormat(obj[0].POSTTIME*1000, 'yyyy-MM-dd hh:mm:ss') + "";
+      time = this.mainService.providers.commonService.timestampFormat(obj[0].TS*1000, 'yyyy-MM-dd hh:mm:ss') + "";
     }
-    obj[0].POSTTIME=time; 
+    obj[0].TS=time; 
     //往集合顶部插入一条消息记录，并且清空输入框
     this.contactMessages = obj.concat(this.contactMessages);
     this.sendMassage = '';
@@ -841,21 +805,19 @@ export class HomeComponent implements OnInit {
   getChatmessage(userid) {
     this.mainService.getChatcontent(userid, this.pagesize, this.pagenum)
       .subscribe(result => {
-        debugger;
         if (result.CODE === "0") {
           //时间的显示
            result.DATA.forEach(element => {
-            if (element.POSTTIME !== null && element.POSTTIME !== '') {
+            if (element.TS !== null && element.TS !== '') {
               //如果是当天时间，不显示年月日
               if (new Date(element.POSTTIME*1000).toLocaleDateString() === new Date().toLocaleDateString()) {
-                element.POSTTIME = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.POSTTIME) * 1000, 'hh:mm:ss') + "";
+                element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.POSTTIME) * 1000, 'hh:mm:ss') + "";
               } else {
                 //如果不是当天，年月日时分秒
-                element.POSTTIME = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.POSTTIME) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
+                element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.POSTTIME) * 1000, 'yyyy-MM-dd hh:mm:ss') + "";
               }
             }
           })
-
           this.contactMessages = result.DATA.concat(this.contactMessages);
         }
       });

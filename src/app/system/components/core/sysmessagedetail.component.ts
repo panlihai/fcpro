@@ -126,12 +126,6 @@ import { SysmessageService, Sysmessage } from '../../services/sysmessage.service
 export class SysmessagedetailComponent extends ParentDetailComponent {
   selectedId: any;
   sysmessageList: Sysmessage[];
-  //消息过滤标签
-  tagMessage: any[] = [
-    { id: 1, label: '全部', color: 'white' },
-    { id: 2, label: '已读', color: 'blue' },
-    { id: 3, label: '未读', color: 'red' },
-  ]
   //回复的消息
   feedBackObj: Sysmessage;
   //消息配置
@@ -144,7 +138,8 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
   noreadColor: string;
   constructor(public mainService: SysmessageService,
     public router: Router,
-    public activeRoute: ActivatedRoute, private modal: NzModalService) {
+    public activeRoute: ActivatedRoute,
+    private modal: NzModalService) {
     super(mainService, router, activeRoute);
   }
   init(): void {
@@ -154,7 +149,7 @@ export class SysmessagedetailComponent extends ParentDetailComponent {
         this.timelineOption.fcValues = result.DATA;
         this.timelineOption.fcValues.forEach(element => {
           if (element.TS !== null && element.TS !== '') {
-            //如果是当天时间，不显示年月日
+            //如果是当天时间，不显示年月日只显示时分秒
             if (new Date(element.TS).toDateString() === new Date().toDateString()) {
               element.TS = this.mainService.providers.commonService.timestampFormat(Number.parseInt(element.TS) * 1000, 'hh:mm:ss') + "";
             } else {

@@ -1,5 +1,5 @@
 <!-- 首页模板 -->
-<fc-layoutpanel class="templatehome">
+<fc-layoutpanel class="templatehome" >
     <fc-layoutcol fcSpans="7,3" fccontent>
         <!--  公告开始 -->
         <fc-layoutpanel fccontent1 class="separated-lefttop">
@@ -100,19 +100,19 @@
     <!-- <fc-button [fcType]="'primary'" [fcIconPositon]="'left'" [fcShape]="'circle'" [fcIcon]="'fc-icon-dialogue'" class="chatButton"
         (click)="showchat=true;"></fc-button> -->
     <!-- 聊天面板 -->
-    <div class="fc-chatbox " >
+    <div class="fc-chatbox ">
         <div class="fc-chatouter" ngDraggable>
             <div class="fc-chattop" >
                 <i class="iconfont fc-icon-line fc-userimg"></i>
                 <div class="fc-username">{{contactname}}</div>
                 <i class="iconfont fc-icon-shut fc-close" (click)="closeChat(contactname);"></i>
             </div>
-            <div class="fc-chatcontent" >
+            <div class="fc-chatcontent">
                 <div (click)="seeMore()" class="seeMore">
                     <span>查看更多</span>
                 </div>
                 <div *ngFor="let contactmessage of contactMessages">
-                    <div class="fc-chattime">{{contactmessage.POSTTIME}}</div>
+                    <div class="fc-chattime">{{contactmessage.TS}}</div>
                     <div class="fc-chatleft" *ngIf="contactmessage.POSTUSERID===contactname">
                        {{contactmessage.CONTENT}}
                     </div>
@@ -123,7 +123,7 @@
                     </div>                   
                 </div>
             </div>
-            <div class="fc-chatbottom " >
+            <div class="fc-chatbottom ">
                 <div class="fc-chatsend">
                     <input type="text" PlaceHolder="消息" class="fc-chattext"  [(ngModel)]="sendMassage"/>
                     <span class="fc-chatsendbutton"(click)="sendChat()">发送</span>

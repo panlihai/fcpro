@@ -233,7 +233,7 @@ export class SyshomeService {
   }
   //将发送的消息保存到数据库里面
   saveMessage_chat(obj){
-    this.sysmessageService.save(obj).subscribe(res=>{1
+    this.sysmessageService.save(obj).subscribe(res=>{
       debugger;
       if(res.CODE==='0'){
         this.providers.msgService.success("保存成功");

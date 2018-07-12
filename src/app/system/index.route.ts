@@ -26,6 +26,10 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SyslogComponent } from './components/core/syslog.component';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { SysusereditComponent } from './components/core/sysuseredit.component';
+import { SysemployeeComponent } from './components/core/sysemployee.component';
+import { SysemployeeeditComponent } from './components/core/sysemployeeedit.component';
+import { SysuserComponent } from './components/core/sysuser.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -135,6 +139,23 @@ export const Routers: Routes = [{
   component: SysquotaEditComponent,
   data: { keep: false }
 }, {
+    path: 'sysuserList',//用户管理
+    component: SysuserComponent,
+    data: { keep: false }
+  }, 
+  {
+    path: 'sysuserEdit',//修改用户
+    component: SysusereditComponent,
+    data: { keep: false }
+  }, {
+    path: 'sysemployeeList',//员工管理
+    component: SysemployeeComponent,
+    data: { keep: false }
+  }, {
+    path: 'sysemployeeEdit',//编辑员工
+    component: SysemployeeeditComponent,
+    data: { keep: false }
+  },{
     path: '**',
     redirectTo: 'main',
     pathMatch: 'full'
