@@ -55,6 +55,7 @@ import { SysuserService } from './system/services/sysuser.service';
     FcmodalModule,
     FcchartModule,
     FcprogressModule,
+    FcprogressModule,
     NgZorroAntdModule.forRoot()
   ],
   declarations: [

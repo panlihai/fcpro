@@ -56,12 +56,19 @@ import { SysquotaService } from './services/sysquota.service';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SysquotavalueService } from './services/sysquotavalue.service';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
+import { SyscontactService } from './services/syscontact.service';
 import { SyslogComponent } from './components/core/syslog.component';
 import { SyslogService } from './services/syslog.service';
 import { SyssessionService } from './services/syssession.service';
 import { SysemployService } from './services/sysemploy.service';
 import { SysassignmentService } from './services/sysassignment.service';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { AngularDraggableModule } from 'angular2-draggable';
+import { SysemployeeService } from './services/sysemployee.service';
+import { SysemployeeComponent } from './components/core/sysemployee.component';
+import { SysemployeeeditComponent } from './components/core/sysemployeeedit.component';
+import { SysuserComponent } from './components/core/sysuser.component';
+import { SysusereditComponent } from './components/core/sysuseredit.component';
 import { SysbizcoderuleService } from './services/sysbizcoderule.service';
 import { SysbizcoderuleComponent } from './components/core/sysbizcoderule.component';
 import { SyscompanydimComponent } from './components/core/syscompanydim.component';
@@ -117,10 +124,10 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     FcsearchModule,
     FctabModule,
     FcchartModule,
-    SpreadSheetsModule
+    SpreadSheetsModule,
+    AngularDraggableModule,
   ],
   exports: [
-
   ],
   declarations: [
     MainComponent,
@@ -163,6 +170,14 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SyslogComponent,
     SysdepartmentComponent,
     UploadavatardialogComponent,
+    companytransferdialogComponent,
+    SysassignmentComponent,
+    SysuserComponent,
+    SysusereditComponent,
+    SysemployeeComponent,
+    SysemployeeeditComponent,
+    SysdepartmentComponent,
+    UploadavatardialogComponent,
     companytransferdialogComponent
   ],
   providers: [
@@ -181,6 +196,7 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SyshomeService,
     SysversionService,
     SysannouncementService,
+    SyscontactService,
     SyscompanyService,
     SysnavlinkService,
     SysprofileService,
@@ -191,6 +207,7 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysassignmentService,
     SysquotaService,
     SysassignmentService,
+    SysemployeeService,
     SysbizcoderuleService,
     SyscompanydimService,
     SysbizcodedefineService,
