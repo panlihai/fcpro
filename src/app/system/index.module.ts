@@ -78,7 +78,6 @@ import { SyscompanymodifyComponent } from './components/core/syscompanymodify.co
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 import { SyscompanyrelationService } from './services/syscompanyrelation.service';
 import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
-import { companysortdialogComponent } from './components/core/dialog/companysortdialog.component';
 import { SysdepartmentService } from './services/sysdepartment.service';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 @NgModule({
@@ -91,7 +90,6 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysquotalistComponent,
     SysquotaEditComponent,
     UploadavatardialogComponent,
-    companysortdialogComponent,
     SysroleDialogEditComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
@@ -160,13 +158,12 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysbizcoderuleeditComponent,
     SysdepartmentdimComponent,
     SyscompanyaddComponent,
-    SyscompanychangeauditComponent ,
-    SyscompanymodifyComponent ,
+    SyscompanychangeauditComponent,
+    SyscompanymodifyComponent,
     SyslogComponent,
-    SysdepartmentComponent ,
-    UploadavatardialogComponent ,
-    companysortdialogComponent ,
-    companytransferdialogComponent 
+    SysdepartmentComponent,
+    UploadavatardialogComponent,
+    companytransferdialogComponent
   ],
   providers: [
     LayoutService,

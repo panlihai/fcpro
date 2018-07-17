@@ -14,22 +14,23 @@ import { SyscompanyService } from '../../../services/syscompany.service';
                 <fc-title fcLabel="变更信息" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
                 <fc-layoutcol fcSpans="1,1" fccontent>
                     <div fccontent1>
-                        <!-- <fc-datetime [fcLabel]="'生效日期'" [fcAppid]="appId" [(ngModel)]="mainObj.SBEGIN_DATE" fcPlaceHolder="请输入生效日期" name="SYSCOMPANY.SBEGIN_DATE"></fc-datetime> -->
+                        <fc-date [fcLabel]="'生效日期'" [(ngModel)]="sbeginDate" fcPlaceHolder="请输入生效日期" name="sbeginDate"></fc-date>
+                        <fc-text [fcLabel]="'上传附件'"  fcAddonAfter="fc-icon-icaffix" [(ngModel)]="sysresUpload" (fcEvent)="fctextEvent($event)"
+                            fcPlaceHolder="请上传附件" name="sysresUpload"></fc-text>
                     </div>
                     <div fccontent2>
-                        <fc-text [fcLabel]="'变更文号'" [fcAppid]="appId" [(ngModel)]="mainObj.SAPPROVAL_DCMTNO" fcPlaceHolder="请输入变更文号" name="SYSCOMPANY.SAPPROVAL_DCMTNO"></fc-text>
+                        <fc-text [fcLabel]="'变更文号'"  [(ngModel)]="dcmtno" fcPlaceHolder="请输入变更文号" name="dcmtno"></fc-text>
                     </div>
                 </fc-layoutcol>
                 <fc-layoutcol fcSpans="1,0" fccontent>
                     <div fccontent1>
-                        <!-- <fc-textarea [fcLabel]="'变更原因'" fcCol="1" fcPlaceHolder="请输入变更原因" name="SYSCOMPANY.SINVEST_TYPE"></fc-textarea> -->
+                        <fc-textarea [fcLabel]="'变更原因'" fcCol="1" fcPlaceHolder="请输入变更原因" name="changeResult"></fc-textarea>
                     </div>
                 </fc-layoutcol>
             </fc-layoutpanel>
             <fc-layoutpanel fccontent id="id1">
                 <fc-title fcLabel="上级单位" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
-                <div style="width: 100%; height:400px;" fccontent>
-                    <!-- 单位隶属关系 -->
+                <div style="width: 100%; height:100px;" fccontent>
                     <fc-listdata fcAppid="SYSCOMPANYRELATION" [fcOption]="mainService.syscompanyrelationOption"></fc-listdata>
                 </div>
             </fc-layoutpanel>
@@ -56,41 +57,20 @@ export class companytransferdialogComponent {
         'BTNICON': '',
         'ACTCODE': 'save',
         'BTNNAME': '保存'
-    },
-    {
-        'BTNTYPE': 'default',
-        'BTNICON': '',
-        'ACTCODE': 'moveup',
-        'BTNNAME': '上移'
-    },
-    {
-        'BTNTYPE': 'default',
-        'BTNICON': '',
-        'ACTCODE': 'movedown',
-        'BTNNAME': '下移'
-    },
-    {
-        'BTNTYPE': 'default',
-        'BTNICON': '',
-        'ACTCODE': 'settop',
-        'BTNNAME': '置顶'
-    }, {
-        'BTNTYPE': 'default',
-        'BTNICON': '',
-        'ACTCODE': 'setbottom',
-        'BTNNAME': '置底'
-    }, {
-        'BTNTYPE': 'default',
-        'BTNICON': '',
-        'ACTCODE': 'moveto',
-        'BTNNAME': '移至'
     }, {
         'BTNTYPE': 'default',
         'BTNICON': '',
         'ACTCODE': 'back',
         'BTNNAME': '返回列表'
-    }
-    ]
+    }];
+    // 生效日期
+    sbeginDate: Date;
+    //变更文号
+    dcmtno: string;
+    //变更原因
+    changeResult: string;
+    //上传附件
+    sysresUpload: string;
     @Input()
     userId: string;
     @Input()
@@ -107,6 +87,7 @@ export class companytransferdialogComponent {
         if (this._userId == '') {
             this.modal.destroy();
         }
+        this.modal.destroy();
     }
 
     handleCancel(e) {
@@ -120,17 +101,17 @@ export class companytransferdialogComponent {
         switch (event.eventName) {
             case 'save'://保存
                 break;
-            case 'moveup'://上移
-                break;
-            case 'movedown'://下移
-                break;
-            case 'settop'://置顶
-                break;
-            case 'setbottom'://置底
-                break;
-            case 'moveto'://移至
-                break;
             case 'back'://返回列表
+                break;
+        }
+    }
+    /**
+     * 上传附件事件
+     * @param event 
+     */
+    fctextEvent(event: FCEVENT) {
+        switch (event.eventName) {
+            case 'click'://上传附件
                 break;
         }
     }

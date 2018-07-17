@@ -49,7 +49,7 @@
                     </fc-layoutpanel>
                     <fc-layoutpanel fccontent id="id1">
                         <fc-title fcLabel="上级单位" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
-                        <div style="width:96%; height:50px;" fccontent>
+                        <div style="width:96%; height:150px;" fccontent>
                             <!-- 单位隶属关系 -->
                             <fc-listdata fcAppid="SYSCOMPANYRELATION" [fcOption]="mainService.syscompanyrelationOption" [fcCondition]="companyrelationCondition"></fc-listdata>
                         </div>
@@ -60,12 +60,12 @@
                             <div fccontent1>
                                 <fc-text [fcLabel]="'纳税人识别号'" [fcAppid]="appId" fcFieldCode="SAPPROVAL_DCMTNO" [(ngModel)]="mainObj.SAPPROVAL_DCMTNO" fcPlaceHolder="请输入纳税人识别号"
                                     name="SYSCOMPANY.SAPPROVAL_DCMTNO" [fcValid]="mainValid.SAPPROVAL_DCMTNO"></fc-text>
-                                <fc-text [fcLabel]="'开票地址'" fcFieldCode="SADDRESS" [(ngModel)]="mainObj.SADDRESS" fcPlaceHolder="请输入开票地址" name="SYSCOMPANY.SADDRESS"
-                                    [fcValid]="mainValid.SADDRESS"></fc-text>
                             </div>
                             <div fccontent2>
-                                <fc-text [fcLabel]="'开户银行'" [fcAppid]="appId" fcFieldCode="SINVEST_TYPE" [(ngModel)]="mainObj.SINVEST_TYPE" fcPlaceHolder="请输入开户银行"
-                                    name="SYSCOMPANY.SINVEST_TYPE" [fcValid]="mainValid.SINVEST_TYPE"></fc-text>
+                                <fc-text [fcLabel]="'开票地址'" fcFieldCode="SADDRESS" [(ngModel)]="mainObj.SADDRESS" fcPlaceHolder="请输入开票地址" name="SYSCOMPANY.SADDRESS"
+                                    [fcValid]="mainValid.SADDRESS"></fc-text>
+                                <!-- <fc-text [fcLabel]="'开户银行'" [fcAppid]="appId" fcFieldCode="SINVEST_TYPE" [(ngModel)]="mainObj.SINVEST_TYPE" fcPlaceHolder="请输入开户银行"
+                                    name="SYSCOMPANY.SINVEST_TYPE" [fcValid]="mainValid.SINVEST_TYPE"></fc-text> -->
                                 <!-- <fc-text [fcLabel]="'联系电话'" [fcAppid]="appId"  fcFieldCode="SCOMPANY_NAME" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入联系电话" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
                                 <!-- <fc-text [fcLabel]="'银行账号'" [fcAppid]="appId" fcFieldCode="SCOMPANY_NAME" [(ngModel)]="mainObj.SCOMPANY_NAME" fcPlaceHolder="请输入银行账号" name="SYSCOMPANY.SCOMPANY_NAME"></fc-text> -->
                             </div>
@@ -97,7 +97,7 @@
                     </fc-layoutpanel>
                 </form>
             </fc-layoutpanel>
-            <div class="fastposition-content" style="top:100px;" fccontent2>
+            <div class="fastposition-content" style="top:120px;" fccontent2>
                 <div class="aligncenter">
 
                 </div>
