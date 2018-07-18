@@ -87,9 +87,12 @@ import { SysdepartmentService } from './services/sysdepartment.service';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 import { SyswizardComponent } from './components/core/syswizard.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { SysappaddComponent } from './components/core/sysappadd.component';
+import { chooseicondialogComponent } from './components/core/dialog/chooseicondialog.component';
+import { SyswizardService } from './services/syswizard.service';
+import { ChartsModule } from 'ng2-charts';
+import { SysappmodifyComponent } from './components/core/sysappmodify.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
+import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -109,7 +112,8 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     companytransferdialogComponent,
     SyscompanymodifyComponent,
     SyscompanychangeauditComponent,
-    SysdepartmentComponent
+    SysdepartmentComponent,
+    chooseicondialogComponent
   ],
   imports: [
     CommonModule,
@@ -128,7 +132,8 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     FcchartModule,
     SpreadSheetsModule,
     AngularDraggableModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    ChartsModule
   ],
   exports: [
   ],
@@ -140,7 +145,7 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     ForgotComponent,
     SysdatasourceComponent,
     SysappComponent,
-    SysappaddComponent,
+    SysappmodifyComponent,
     SysappeditComponent,
     SysdicComponent,
     SysproductComponent,
@@ -182,7 +187,9 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     SysdepartmentComponent,
     UploadavatardialogComponent,
     companytransferdialogComponent,
-    SyswizardComponent
+    SyswizardComponent,
+    SysdatasourceeditComponent,
+    chooseicondialogComponent 
 
   ],
   providers: [
@@ -220,7 +227,8 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     SyscompanyrelationService,
     SystbvorgcurorgService,
     SyscompanydimService,
-    SysdepartmentService
+    SysdepartmentService,
+    SyswizardService
   ]
 })
 export class SystemModule {

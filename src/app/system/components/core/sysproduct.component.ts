@@ -106,17 +106,24 @@ export class SysproductComponent extends ParentlistComponent {
   addProduct() {
     this.navRouter('sysproductAdd');
   }
-  /**
-   * 修改产品，跳转到修改产品页面
+   /**
+   * 跳转到编辑页面
    * @param event 
    */
-  modifyProduct(event: FCEVENT) {
-    this.navRouter('sysproductModify', event.param);
+  listEdit(event: FCEVENT) {
+    let selectedObj: any = event;
+    if (selectedObj && selectedObj !== null) {
+      this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysProducts));
+      this.navRouter(this.getRouteUrl('Modify'), { ID: selectedObj.ID, refresh: 'Y' });
+    }
   }
   /**
-   * 删除
+   * 删除一条记录
+   * @param event 
    */
-  delectProduct(event: FCEVENT) {
-
+  delectOneProduct(event: FCEVENT) {
+    let ev: any = {};
+    ev.param = event;
+    this.listOneDelete(ev);
   }
 }
