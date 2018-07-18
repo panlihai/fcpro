@@ -57,7 +57,6 @@ export class SysversionComponent extends ParentlistComponent {
   btn_2_label: string = "重置";
   versionSearchObj: any;
   saveObj: any = {};
-
   init(): void {
     this.mainService.providers.msgService.message("初始化完成");
     //initObjDefaultValue 获取数据默认的数据值
@@ -104,9 +103,9 @@ export class SysversionComponent extends ParentlistComponent {
       case "保存":
         if (this.beforeSave())
           this.mainService.save(this.saveObj).subscribe(res => {
-            if(res.CODE='0'){
+            if (res.CODE = '0') {
               this.messageService.success('保存成功');
-            }else{
+            } else {
               this.messageService.warm("保存失败");
             }
           });
