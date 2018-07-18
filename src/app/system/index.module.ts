@@ -55,12 +55,18 @@ import { SysquotaService } from './services/sysquota.service';
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SysquotavalueService } from './services/sysquotavalue.service';
 import { SysquotalistComponent } from './components/core/sysquotalist.component';
+import { SyscontactService } from './services/syscontact.service';
 import { SyslogComponent } from './components/core/syslog.component';
 import { SyslogService } from './services/syslog.service';
 import { SyssessionService } from './services/syssession.service';
 import { SysemployService } from './services/sysemploy.service';
 import { SysassignmentService } from './services/sysassignment.service';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { SysemployeeService } from './services/sysemployee.service';
+import { SysemployeeComponent } from './components/core/sysemployee.component';
+import { SysemployeeeditComponent } from './components/core/sysemployeeedit.component';
+import { SysuserComponent } from './components/core/sysuser.component';
+import { SysusereditComponent } from './components/core/sysuseredit.component';
 import { SysbizcoderuleService } from './services/sysbizcoderule.service';
 import { SysbizcoderuleComponent } from './components/core/sysbizcoderule.component';
 import { SyscompanydimComponent } from './components/core/syscompanydim.component';
@@ -76,7 +82,6 @@ import { SyscompanymodifyComponent } from './components/core/syscompanymodify.co
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 import { SyscompanyrelationService } from './services/syscompanyrelation.service';
 import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
-import { companysortdialogComponent } from './components/core/dialog/companysortdialog.component';
 import { SysdepartmentService } from './services/sysdepartment.service';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 import { SysroleeditdialogComponent } from './components/core/dialog/sysroleeditdialog.component';
@@ -92,7 +97,6 @@ import { SysproducteditComponent } from './components/core/sysproductedit.compon
     SysquotalistComponent,
     SysquotaEditComponent,
     UploadavatardialogComponent,
-    companysortdialogComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
     SyslogComponent,
@@ -126,7 +130,6 @@ import { SysproducteditComponent } from './components/core/sysproductedit.compon
     SpreadSheetsModule
   ],
   exports: [
-
   ],
   declarations: [
     MainComponent,
@@ -162,12 +165,22 @@ import { SysproducteditComponent } from './components/core/sysproductedit.compon
     SysbizcoderuleeditComponent,
     SysdepartmentdimComponent,
     SyscompanyaddComponent,
-    SyscompanychangeauditComponent ,
-    SyscompanymodifyComponent ,
+    SyscompanychangeauditComponent,
+    SyscompanymodifyComponent,
     SyslogComponent,
-    SysdepartmentComponent ,
+    SysdepartmentComponent,
+    UploadavatardialogComponent,
+    companytransferdialogComponent,
+    SysassignmentComponent,
+    SysuserComponent,
+    SysusereditComponent,
+    SysemployeeComponent,
+    SysemployeeeditComponent,
+    SysdepartmentComponent,
+    UploadavatardialogComponent,
+    companytransferdialogComponent,
+
     UploadavatardialogComponent ,
-    companysortdialogComponent ,
     companytransferdialogComponent,
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
@@ -190,6 +203,7 @@ import { SysproducteditComponent } from './components/core/sysproductedit.compon
     SyshomeService,
     SysversionService,
     SysannouncementService,
+    SyscontactService,
     SyscompanyService,
     SysnavlinkService,
     SysprofileService,
@@ -200,6 +214,7 @@ import { SysproducteditComponent } from './components/core/sysproductedit.compon
     SysassignmentService,
     SysquotaService,
     SysassignmentService,
+    SysemployeeService,
     SysbizcoderuleService,
     SyscompanydimService,
     SysbizcodedefineService,

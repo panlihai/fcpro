@@ -8,10 +8,9 @@ export class SysmessageService extends ParentService {
   constructor(public providers: ProvidersService) {
     super(providers, "SYSMESSAGE");
   }
-  findAllMessage(): Observable<any> {
-    return this.findWithQuery({});
-  }
-  //获取默认的消息对象
+  /**
+   * 获取消息对象
+   */
   initTimelineOption(): any {
     return {
       fcAppid: '',
@@ -23,17 +22,24 @@ export class SysmessageService extends ParentService {
       fcId: 'ID'
     }
   }
-  
   /**
-    * 获取未读消息
-    * */
-  getMessageBy(param:any): Observable<any> {
+   * 根据条件获取消息
+   * @param param 
+   */
+  getMessageBy(param: any): Observable<any> {
     let user = this.providers.userService.getUserInfo();
     let obj = {
-      NOTIFICATIONUSERID: user.USERCODE, PAGESIZE: 1000,  ORDER: "TS desc" 
+      NOTIFICATIONUSERID: user.USERCODE, PAGESIZE: 1000, ORDER: "TS desc"
     }
-    Object.assign(obj,param);
+    Object.assign(obj, param);
     return this.findWithQuery(obj);
+  }
+  /**
+   * 查询已回复内容
+   * @param mainObjId 
+   */
+  findAllMessage(mainObjId): Observable<any> {
+    return this.findWithQuery({ SOURCEAID: 'SYSMESSAGE', SOURCEID: mainObjId, ORDER: 'TS DESC'});
   }
   /**
    * 回复消息
@@ -48,7 +54,7 @@ export class SysmessageService extends ParentService {
     feedBackObj.POSTTIME = this.commonService.getTimestamp() + "";
     feedBackObj.POSTUSERID = this.userInfo.USERID;
     feedBackObj.TITLE = '回复-' + mainObj.TITLE;
-    feedBackObj.TS = this.commonService.getTimestamp()+"";
+    feedBackObj.TS = this.commonService.getTimestamp() + "";
     feedBackObj.SORT = this.commonService.getTimestamp() + "";
     feedBackObj.TYPE = 'normal';
     feedBackObj.NOTIFICATIONUSERID = mainObj.POSTUSERID;
@@ -56,19 +62,19 @@ export class SysmessageService extends ParentService {
   }
 }
 export interface Sysmessage {
-  SOURCEID: string;
-  SORT: string;
-  ISSEND: string;
-  NOTIFICATIONUSERID: string;
-  ID: string;
-  TITLE: string;
-  TYPE: string;
-  CONTENT: string;
-  NOTIFICATIONTIME: string;
-  POSTTIME: string;
-  POSTUSERID: string;
-  ISREAD: string;
-  APPID: string;
-  SOURCEAID: string;
-  TS: string;
+  ID: string;//主键ID
+  TITLE: string;//标题
+  NOTIFICATIONUSERID: string;//接收用户
+  TYPE: string;//消息类型
+  CONTENT: string;//内容
+  NOTIFICATIONTIME: string;//接收用户
+  POSTTIME: string;//发送时间
+  POSTUSERID: string;//发送人
+  ISREAD: string;//已读?
+  PID: string;//产品ID
+  SOURCEAID: string;//关联对象元数据
+  SOURCEID: string;//关联对象表中具体数据id
+  SORT: string;//	排序
+  TS: string;//时间戳
+  ISSEND: string;//推送?
 }
