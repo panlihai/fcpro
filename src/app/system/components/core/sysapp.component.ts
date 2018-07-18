@@ -4,13 +4,11 @@ import { SysappService } from '../../services/sysapp.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { FCEVENT } from 'fccomponent/fc';
 import { ParentlistComponent } from 'fccomponent';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'sysapp',
   template: `
   <fc-layoutcol fcSpans="2,9" style="height:100%;" class="layoutcol-full">
-    <fc-layoutpanel fccontent1>
-      <fc-list fccontent fcAppid="SYSPRODUCT" [fcFieldCode]="'PNAME'"  (fcEvent)="listEvent($event)"></fc-list>
-    </fc-layoutpanel>
     <fc-layoutpanel fcFull="true" fccontent2 fcTitle="元数据列表">    
       <fc-tlblist [fcAppid]="appId" (fcEvent)="tlblistEvent($event)" fcheader></fc-tlblist>
       <fc-layoutrow fcSpan="40" style="height:90%;" fccontent>
@@ -65,33 +63,17 @@ export class SysappComponent extends ParentlistComponent {
     }
   }
   /**
-   * 
-   */
-  listEvent(event: FCEVENT) {
-    switch (event.eventName) {
-      case "select":
-        if (this.searchObj.WHERE && this.searchObj.WHERE.length !== 0) {
-          this.searchObj.WHERE += " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
-        } else {
-          this.searchObj.WHERE = " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
-        }
-        this.search();
-        break;
-    }
-  }
-
-  /**
-   * 
    * @param eventName 事件名称
    * @param context 按钮内容
    */
   event(eventName: string, context: any): void {
     switch (eventName) {
-      case 'modifyFields'://修改字段的英文名称为中文名称
-        this.mainService.modifyAppFieldsName();
-        break;
-        case 'modify':
+        case 'listAdd':
+        this.listAdd(event);
         break;
     }
+  }
+  listAdd(event){
+    this.router.navigate(["/" + environment.pid.toLocaleLowerCase()  + "/sysappAdd"])  
   }
 }
