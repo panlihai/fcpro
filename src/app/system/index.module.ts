@@ -27,12 +27,10 @@ import { SysparamService } from './services/sysparam.service';
 import { SysroleService } from './services/sysrole.service';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
-import { SysappdetailComponent } from './components/core/sysappdetail.component';
 import {
   FclistModule, FctlbModule, FclayoutModule, FcbasicModule,
   FcadModule, FcmodalModule, FcsearchModule, FctabModule, FcchartModule
 } from 'fccomponent';
-import { SysappeditComponent } from './components/core/sysappedit.component';
 import { LayoutService } from './services/layout.service';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SpreadSheetsModule } from '@grapecity/spread-sheets-angular';
@@ -88,6 +86,9 @@ import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
 import { companysortdialogComponent } from './components/core/dialog/companysortdialog.component';
 import { SysdepartmentService } from './services/sysdepartment.service';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { SysappaddComponent } from './components/core/sysappadd.component';
+import { SysappeditComponent } from './components/core/sysappedit.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -107,9 +108,8 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     UploadavatardialogComponent,
     companytransferdialogComponent,
     SyscompanymodifyComponent,
-    SyscompanyaddComponent,
     SyscompanychangeauditComponent,
-    SysdepartmentComponent,
+    SysdepartmentComponent
   ],
   imports: [
     CommonModule,
@@ -128,6 +128,7 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     FcchartModule,
     SpreadSheetsModule,
     AngularDraggableModule,
+    NgZorroAntdModule
   ],
   exports: [
   ],
@@ -139,7 +140,7 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     ForgotComponent,
     SysdatasourceComponent,
     SysappComponent,
-    SysappdetailComponent,
+    SysappaddComponent,
     SysappeditComponent,
     SysdicComponent,
     SysproductComponent,

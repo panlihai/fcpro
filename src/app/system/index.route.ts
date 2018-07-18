@@ -14,8 +14,6 @@ import { SysbackcodeComponent } from './components/core/sysbackcode.component';
 import { SyscomponentComponent } from './components/core/syscomponent.component';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
-import { SysappdetailComponent } from './components/core/sysappdetail.component';
-import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SysversionComponent } from './components/core/sysversion.component';
 import { SysannouncementComponent } from './components/core/sysannouncement.component';
@@ -39,6 +37,8 @@ import { SyscompanyaddComponent } from './components/core/syscompanyadd.componen
 import { SysparamComponent } from './components/core/sysparam.component';
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
+import { SysappaddComponent } from './components/core/sysappadd.component';
+import { SysappeditComponent } from './components/core/sysappedit.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -71,13 +71,14 @@ export const Routers: Routes = [{
     path: 'sysappList',//元数据
     component: SysappComponent,
     data: { keep: false }
-}, {
-    path: 'sysappEdit',//元数据编辑
-    component: SysappeditComponent,
+}
+, {
+    path: 'sysappAdd',//元数据新增
+    component: SysappaddComponent,
     data: { keep: false }
 }, {
-    path: 'sysappDetail',//元数据详情
-    component: SysappdetailComponent,
+    path: 'sysappEdit',//元数据修改
+    component: SysappeditComponent,
     data: { keep: false }
 }, {
     path: 'sysdicList',//数据字典
