@@ -83,7 +83,6 @@ import { SyscompanymodifyComponent } from './components/core/syscompanymodify.co
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 import { SyscompanyrelationService } from './services/syscompanyrelation.service';
 import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
-import { companysortdialogComponent } from './components/core/dialog/companysortdialog.component';
 import { SysdepartmentService } from './services/sysdepartment.service';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
@@ -99,7 +98,6 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     SysquotalistComponent,
     SysquotaEditComponent,
     UploadavatardialogComponent,
-    companysortdialogComponent,
     SysroleDialogEditComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
@@ -168,18 +166,20 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     SysbizcoderuleeditComponent,
     SysdepartmentdimComponent,
     SyscompanyaddComponent,
-    SyscompanychangeauditComponent ,
-    SyscompanymodifyComponent ,
+    SyscompanychangeauditComponent,
+    SyscompanymodifyComponent,
     SyslogComponent,
+    SysdepartmentComponent,
+    UploadavatardialogComponent,
+    companytransferdialogComponent,
     SysassignmentComponent,
     SysuserComponent,
     SysusereditComponent,
     SysemployeeComponent,
     SysemployeeeditComponent,
     SysdepartmentComponent,
-    UploadavatardialogComponent ,
-    companysortdialogComponent ,
-    companytransferdialogComponent 
+    UploadavatardialogComponent,
+    companytransferdialogComponent
   ],
   providers: [
     LayoutService,
