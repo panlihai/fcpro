@@ -87,6 +87,8 @@ import { SyscompanyrelationService } from './services/syscompanyrelation.service
 import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
 import { SysdepartmentService } from './services/sysdepartment.service';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
+import { SyswizardComponent } from './components/core/syswizard.component';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -107,7 +109,7 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SyscompanymodifyComponent,
     SyscompanyaddComponent,
     SyscompanychangeauditComponent,
-    SysdepartmentComponent,
+    SysdepartmentComponent
   ],
   imports: [
     CommonModule,
@@ -126,6 +128,7 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     FcchartModule,
     SpreadSheetsModule,
     AngularDraggableModule,
+    NgZorroAntdModule
   ],
   exports: [
   ],
@@ -178,7 +181,9 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysemployeeeditComponent,
     SysdepartmentComponent,
     UploadavatardialogComponent,
-    companytransferdialogComponent
+    companytransferdialogComponent,
+    SyswizardComponent
+
   ],
   providers: [
     LayoutService,

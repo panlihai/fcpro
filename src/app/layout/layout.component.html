@@ -1,7 +1,7 @@
 <fc-layoutrow>
     <!-- 顶部工具栏 fc-navbar-->
     <fc-navbar fccontent1 [fcTitle]="_projectName" fcFull="true" fcIcon="icon iconfont icon-logo" (fcEvent)="navbarEvent($event)"
-        [fcStatus]="_navbarStatus" [ngClass]="{'fc-navbar-tab':displaymode==='tab'}"></fc-navbar>
+        [fcStatus]="_navbarStatus" [ngClass]="{'sys-navbar-tab':displaymode==='tab'}"></fc-navbar>
     <fc-layoutcol fccontent2 [fcSpans]="_layoutSpans" fcFull="true" class="content-wrap" [ngClass]="{'content-wrap-tab':displaymode==='tab'}">
         <!-- 菜单模式开始****************************************************************************** -->
         <!-- 菜单导航 fc-navmenu-->
@@ -13,20 +13,20 @@
         <!-- 菜单模式结束****************************************************************************** -->
         <!-- 选项卡模式结束****************************************************************************** -->
         <!-- 父选项卡导航 -->
-        <!-- <nz-tabset nzTabPosition="top" *ngIf="displaymode==='tab'" class="nav-tabmain" [nzType]="'line'" fccontent2>
+        <nz-tabset nzTabPosition="top" *ngIf="displaymode==='tab'" class="sys-nav-tabmain" [nzType]="'line'" fccontent2>
             <nz-tab *ngFor="let menu of  _menus" (nzClick)="selectedtabmain(menu)">
                 <ng-template #nzTabHeading>
                     {{menu.MENUNAME}}
                 </ng-template>
             </nz-tab>
         </nz-tabset>
-        <nz-tabset nzTabPosition="top" *ngIf="displaymode==='tab'&&_childMenus.length!==0" class="nav-tabsub" [nzType]="'line'" fccontent2>
+        <nz-tabset nzTabPosition="top" *ngIf="displaymode==='tab'&&_childMenus.length!==0" class="sys-nav-tabsub" [nzType]="'line'" fccontent2>
             <nz-tab *ngFor="let menu of  _childMenus" (nzClick)="selectedtabsub(menu)">
                 <ng-template #nzTabHeading>
                     {{menu.MENUNAME}}
                 </ng-template>
             </nz-tab>
-        </nz-tabset> -->
+        </nz-tabset>
         <!-- 选项卡模式结束****************************************************************************** -->
         <!-- 路由入口 -->
         <div class="content-main" fccontent2>

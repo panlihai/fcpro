@@ -39,6 +39,7 @@ import { SyscompanyaddComponent } from './components/core/syscompanyadd.componen
 import { SysparamComponent } from './components/core/sysparam.component';
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
+import { SyswizardComponent } from './components/core/syswizard.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -116,22 +117,22 @@ export const Routers: Routes = [{
     component: SysbizcoderuleComponent,
     data: { keep: false }
 }
-, {
+    , {
     path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
     component: SysbizcoderuleeditComponent,
     data: { keep: false }
 }
-, {
+    , {
     path: 'sysbizcoderuleAdd',//编码工具栏新增模态框
     component: SysbizcoderuleaddComponent,
     data: { keep: false }
 }
-, {
+    , {
     path: 'sysdepartmentdimList',//部门维度
     component: SysdepartmentdimComponent,
     data: { keep: false }
 }
-, {
+    , {
     path: 'syscompanydimList',//维度规则
     component: SyscompanydimComponent,
     data: { keep: false }
@@ -186,7 +187,7 @@ export const Routers: Routes = [{
     path: 'sysparamList',//系统参数
     component: SysparamComponent,
     data: { keep: false }
-},{
+}, {
     path: 'sysdepartment',//部门管理
     component: SysdepartmentComponent,
     data: { keep: false }
@@ -194,20 +195,24 @@ export const Routers: Routes = [{
     path: 'sysuserList',//用户管理
     component: SysuserComponent,
     data: { keep: false }
-  }, 
-  {
+},
+{
     path: 'sysuserEdit',//修改用户
     component: SysusereditComponent,
     data: { keep: false }
-  }, {
+}, {
     path: 'sysemployeeList',//员工管理
     component: SysemployeeComponent,
     data: { keep: false }
-  }, {
+}, {
     path: 'sysemployeeEdit',//编辑员工
     component: SysemployeeeditComponent,
     data: { keep: false }
-  },{
+}, {
+    path: 'syswizardList',//开发向导-卡片
+    component: SyswizardComponent,
+    data: { keep: false }
+}, {
     path: '**',
     redirectTo: 'main',
     pathMatch: 'full'
