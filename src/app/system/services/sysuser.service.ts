@@ -1,10 +1,14 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
-import { ParentService, ProvidersService } from 'fccore';
+import { ParentService, ProvidersService, SysmessageService, CommonService } from 'fccore';
 import { Observable } from 'rxjs';
+import { NzModalService } from 'ng-zorro-antd';
+import { Router } from '@angular/router';
 @Injectable()
 export class SysuserService extends ParentService {
-  constructor(public providers: ProvidersService) {
+  constructor(public providers: ProvidersService,
+    public nzModal: NzModalService
+  ) {
     super(providers, "SYSUSER");
   }
   getPwd(): Observable<any> {
@@ -63,8 +67,45 @@ export class SysuserService extends ParentService {
       });
     }
   }
+  /**
+   * 获取所有的用户
+   */
+  getUser() {
+    return this.providers.appService.findWithQuery("SYSUSER", {})
+  }
+  /**
+   * 根据userid获取用户角色
+   * @param uerid 
+   */
+  getuserRole(uerid) {
+    return this.providers.appService.findWithQuery('SYSROLEUSER', { USERID: uerid })
+  }
+  /**
+ * 将当前用户的角色信息全部删除
+ * @param userid 
+ */
+  alldelete(userid) {
+    return this.providers.appService.deleteObject('SYSROLEUSER', userid).subscribe(res => {
+      if (res.CODE === '0') {
+      } else if (res.CODE === '1') {
+        this.providers.msgService.error("删除失败");
+      }
+    })
+  }
+  /**
+ * 将修改的用户的角色添加到数据库
+ * @param obj 
+ */
+  editUserrole(obj) {
+    return this.providers.appService.saveObject('SYSROLEUSER', obj).subscribe(res => {
+      if (res.CODE === '0') {
+        this.providers.msgService.success('保存成功');
+      } else if (res.CODE === '1') {
+        this.providers.msgService.error('保存失败')
+      }
+    })
+  }
 }
-
 export interface Sysuser {
   ID: string;//	主键id 
   USERCODE: string; //用户编码 

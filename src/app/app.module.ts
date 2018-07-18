@@ -7,7 +7,7 @@ import {
   FcadModule,
   FcmodalModule,
   FctabModule,
-  FctlbModule,   
+  FctlbModule,
   FcsearchModule,
   FcalertModule,
   FclayoutModule,
@@ -26,7 +26,7 @@ import { LayoutService } from './system/services/layout.service';
 import { FcRouteReuseStrategy } from './system/services/routereusestrategy.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NgZorroAntdModule } from 'ng-zorro-antd';
 import { FccoreModule, MessageService } from 'fccore';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ResetpwddialogComponent } from './system/components/core/dialog/resetpwddialog.component';
@@ -54,7 +54,9 @@ import { SysuserService } from './system/services/sysuser.service';
     FclistModule,
     FcmodalModule,
     FcchartModule,
-    FcprogressModule
+    FcprogressModule,
+    FcprogressModule,
+    NgZorroAntdModule.forRoot()
   ],
   declarations: [
     AppComponent,

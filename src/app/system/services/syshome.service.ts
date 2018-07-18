@@ -4,42 +4,41 @@ import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
 import { ProvidersService, ResponseResult, Sysmenu } from "fccore";
 import { LayoutService } from "./layout.service";
-import { SysnavlinkService, NavLinkFunctionName, Args_NavLink } from "./sysnavlink.service";
+import { SysnavlinkService, Args_NavLink } from "./sysnavlink.service";
 import { SysannouncementService } from './sysannouncement.service';
-import { Subject } from "rxjs";
-import { FclistdataComponent, Fcmenu } from "fccomponent";
-import { SysmessageService, Sysmessage } from "./sysmessage.service";
+import {  Fcmenu } from "fccomponent";
+import { SysmessageService} from "./sysmessage.service";
 import { SysassignmentService, Sysassignment} from "./sysassignment.service";
 import { SysversionService } from "./sysversion.service";
 @Injectable()
 export class SyshomeService {
-  constructor(
-    public providers: ProvidersService,
-    public layoutService: LayoutService,
-    private navLinkService: SysnavlinkService,
-    public sysannouncementService: SysannouncementService,
-    public sysmessageService:SysmessageService,
-    public sysassignmentService:SysassignmentService,
-    public sysversionService:SysversionService
-  ) {}
-   /**
-     * 获取当前消息公告的所有内容
-     * */
+    constructor(
+        public providers: ProvidersService,
+        public layoutService: LayoutService,
+        private navLinkService: SysnavlinkService,
+        public sysannouncementService: SysannouncementService,
+        public sysmessageService: SysmessageService,
+        public sysassignmentService: SysassignmentService,
+        public sysversionService: SysversionService
+    ) { }
+    /**
+      * 获取当前消息公告的所有内容
+      * */
     getannouncement() {
         return this.providers.appService
-        .findWithQuery("SYSNOTIFY", {})
+            .findWithQuery("SYSNOTIFY", {})
     }
     //回执消息返回的时间睉
-    announcementtime(){
+    announcementtime() {
         this.providers.commonService.getTimestamp()
     }
     //获取发布人的user
-    announcementPOSTUSER(){
+    announcementPOSTUSER() {
         this.providers.userService.getUserInfo().USERCODE
     }
     //   提醒用户是否已读，读取后回执给发布者
-    announcementsave(obj){
-            this.providers.appService.saveObject('SYSMESSAGE', obj).subscribe(res => {
+    announcementsave(obj) {
+        this.providers.appService.saveObject('SYSMESSAGE', obj).subscribe(res => {
             if (res.CODE === '0') {
                 this.providers.msgService.success('回执成功');
             } else {
@@ -47,12 +46,39 @@ export class SyshomeService {
             }
         })
     }
+    // 公告消息回执处理
+    backannouncement(id,catagory,publishuser){
+        if(publishuser!== this.announcementPOSTUSER()){
+            let obj: any = {
+              TS: this.announcementtime(),
+              SORT: this.announcementtime(),
+              POSTTIME: this.announcementtime(),
+              CONTENT: "消息公告"+id+"进行回执",
+              ISREAD: "N",
+              ID: id,
+              TYPE: "",
+              NOTIFICATIONUSERID: publishuser,
+              TITLE: "回执信息",
+              POSTUSERID: this.announcementPOSTUSER()
+            };
+            if(catagory==="error"){
+              obj.TYPE = "danger";
+            }
+            if(catagory==="processing"){
+              obj.TYPE = "normal"
+            }
+            if(catagory==="warning"){
+              obj.TYPE = "waring"
+            }  
+            this.announcementsave(obj)
+          } 
+    }
     /**
      * 获取当前待办任务的所有内容
      * */
     getassignment() {
         return this.providers.appService
-        .findWithQuery("SYSASSIGNMENT", {})
+            .findWithQuery("SYSASSIGNMENT", {})
     }
     /**
      * 跳转至消息路由，当SOURCEAID，SOURCEID有匹配的路由时直接跳转，否则跳转至sysmessageDetail路由
@@ -60,7 +86,7 @@ export class SyshomeService {
      * @param msg 消息体
      *  有 Observable<any>需要return
      */
-        assignmentMessage(router: Router, msg: Sysassignment):Observable<any> {
+    assignmentMessage(router: Router, msg: Sysassignment): Observable<any> {
         let sourceId = msg.SOURCEID ? msg.SOURCEID : '';
         let menu = this.findMenuByRouter(this.providers.menuService.menus, sourceId.toLowerCase() + 'Detail');
         if (menu) {
@@ -93,31 +119,31 @@ export class SyshomeService {
     }
    
     // sysannouncementrouter跳转到消息公告路由并生成tag标签
-    sysannouncementrouter(router: Router, msg: any){
+    sysannouncementrouter(router: Router, msg: any) {
         let menu = this.layoutService.findMenuByRouter(this.providers.menuService.menus, 'sysannouncementDetail');
         if (menu) {
-          menu["param"] = msg;
-          this.providers.commonService.event("selectedMenu", menu);
+            menu["param"] = msg;
+            this.providers.commonService.event("selectedMenu", menu);
         } else {
-          this.providers.msgService.error(
-            "sysannouncementDetail" + "不存在..."
-          );
+            this.providers.msgService.error(
+                "sysannouncementDetail" + "不存在..."
+            );
         }
     }
-       // sysannouncementrouter跳转到消息公告路由并生成tag标签
-       sysassignmentrouter(router: Router, msg: any){
+    // sysannouncementrouter跳转到消息公告路由并生成tag标签
+    sysassignmentrouter(router: Router, msg: any) {
         let menu = this.layoutService.findMenuByRouter(this.providers.menuService.menus, 'sysassignmentDetail');
         if (menu) {
-          menu["param"] = msg;
-          this.providers.commonService.event("selectedMenu", menu);
+            menu["param"] = msg;
+            this.providers.commonService.event("selectedMenu", menu);
         } else {
-          this.providers.msgService.error(
-            "sysassignmentDetail" + "不存在..."
-          );
+            this.providers.msgService.error(
+                "sysassignmentDetail" + "不存在..."
+            );
         }
     }
     //历史待办功能模块
-    assignmenthistory(router: Router, msg: Sysassignment):Observable<any> {
+    assignmenthistory(router: Router, msg: Sysassignment): Observable<any> {
         let sourceId = msg.SOURCEID ? msg.SOURCEID : '';
         let menu = this.findMenuByRouter(this.providers.menuService.menus, sourceId.toLowerCase() + 'Detail');
         if (menu) {
@@ -243,5 +269,36 @@ export class SyshomeService {
       i++;
     } while (i < menus.length);
     return menu;
+  }
+  /**
+    * 获取当前用户
+    * */
+   getUserinfo(): any {
+    return this.providers.userService.getUserInfo();
+  }
+  /**
+   * 获取当前用户和指定联系人的所有聊天内容
+   * */
+  getChatcontent(userid,pagesize,pagenum) {
+    return this.providers.appService
+      .findWithQuery("SYSMESSAGE", {
+        "WHERE": " (NOTIFICATIONUSERID = '" + userid + "' and POSTUSERID = '" +
+          this.providers.userService.getUserInfo().USERCODE + "') OR (NOTIFICATIONUSERID='" +
+          this.providers.userService.getUserInfo().USERCODE + "' and POSTUSERID='" + userid + "')",
+          "ORDER":"TS desc",
+          "PAGESIZE": pagesize,
+          "PAGENUM": pagenum,
+      })
+  }
+  //将发送的消息保存到数据库里面
+  saveMessage_chat(obj){
+    this.sysmessageService.save(obj).subscribe(res=>{
+      debugger;
+      if(res.CODE==='0'){
+        this.providers.msgService.success("保存成功");
+      }else if(res.CODE==='1'){
+        this.providers.msgService.error("保存失败");
+      }
+    });
   }
 }

@@ -14,8 +14,6 @@ import { SysbackcodeComponent } from './components/core/sysbackcode.component';
 import { SyscomponentComponent } from './components/core/syscomponent.component';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
-import { SysappdetailComponent } from './components/core/sysappdetail.component';
-import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SysversionComponent } from './components/core/sysversion.component';
 import { SysannouncementComponent } from './components/core/sysannouncement.component';
@@ -25,6 +23,14 @@ import { SysquotalistComponent } from './components/core/sysquotalist.component'
 import { SysquotaEditComponent } from './components/core/sysquotaedit.component';
 import { SyslogComponent } from './components/core/syslog.component';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
+import { SysusereditComponent } from './components/core/sysuseredit.component';
+import { SysemployeeComponent } from './components/core/sysemployee.component';
+import { SysemployeeeditComponent } from './components/core/sysemployeeedit.component';
+import { SysuserComponent } from './components/core/sysuser.component';
+import { SysbizcoderuleComponent } from './components/core/sysbizcoderule.component';
+import { SyscompanydimComponent } from './components/core/syscompanydim.component';
+import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
+import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
 import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
 import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
 import { SysparamComponent } from './components/core/sysparam.component';
@@ -32,6 +38,12 @@ import { SyscompanychangeauditComponent } from './components/core/syscompanychan
 import { SysdepartmentlistComponent } from './components/core/sysdepartmentlist.component';
 import { SysdepartmenteditComponent } from './components/core/sysdepartmentedit.component';
 import { SysserviceeditComponent } from './components/core/sysserviceEdit.component';
+import { SysicondialogComponent } from './components/core/dialog/sysicondialog.component';
+import { SysproducteditComponent } from './components/core/sysproductedit.component';
+import { SyswizardComponent } from './components/core/syswizard.component';
+import { SysappaddComponent } from './components/core/sysappadd.component';
+import { SysappeditComponent } from './components/core/sysappedit.component';
+
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -64,13 +76,14 @@ export const Routers: Routes = [{
     path: 'sysappList',//元数据
     component: SysappComponent,
     data: { keep: false }
-}, {
-    path: 'sysappEdit',//元数据编辑
-    component: SysappeditComponent,
+}
+, {
+    path: 'sysappAdd',//元数据新增
+    component: SysappaddComponent,
     data: { keep: false }
 }, {
-    path: 'sysappDetail',//元数据详情
-    component: SysappdetailComponent,
+    path: 'sysappEdit',//元数据修改
+    component: SysappeditComponent,
     data: { keep: false }
 }, {
     path: 'sysdicList',//数据字典
@@ -80,7 +93,23 @@ export const Routers: Routes = [{
     path: 'sysproductList',//软件产品
     component: SysproductComponent,
     data: { keep: false }
-}, {
+}
+, {
+    path: 'sysproductEdit',//软件产品
+    component: SysproducteditComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysbizcoderuleList',//编码规则
+    component: SysbizcoderuleComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
+    component: SysbizcoderuleeditComponent,
+    data: { keep: false }
+}
+, {
     path: 'sysroleauthList',//系统参数
     component: SysroleauthComponent,
     data: { keep: false }
@@ -103,6 +132,29 @@ export const Routers: Routes = [{
 }, {
     path: 'sysannouncementDetail',//消息公告
     component: SysannouncementComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysiconList',//编码规则
+    component: SysicondialogComponent,
+}, {
+    path: 'sysbizcoderuleList',//编码规则
+    component: SysbizcoderuleComponent,
+    data: { keep: false }
+}
+    , {
+    path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
+    component: SysbizcoderuleeditComponent,
+    data: { keep: false }
+}
+    , {
+    path: 'sysdepartmentdimList',//部门维度
+    component: SysdepartmentdimComponent,
+    data: { keep: false }
+}
+    , {
+    path: 'syscompanydimList',//维度规则
+    component: SyscompanydimComponent,
     data: { keep: false }
 }, {
     path: 'sysassignmentDetail',//消息公告
@@ -166,6 +218,27 @@ export const Routers: Routes = [{
 }, {
     path: 'sysserviceEdit',//设立部门
     component: SysserviceeditComponent,
+    data: { keep: false }
+}, {
+    path: 'sysuserList',//用户管理
+    component: SysuserComponent,
+    data: { keep: false }
+},
+{
+    path: 'sysuserEdit',//修改用户
+    component: SysusereditComponent,
+    data: { keep: false }
+}, {
+    path: 'sysemployeeList',//员工管理
+    component: SysemployeeComponent,
+    data: { keep: false }
+}, {
+    path: 'sysemployeeEdit',//编辑员工
+    component: SysemployeeeditComponent,
+    data: { keep: false }
+}, {
+    path: 'syswizardList',//开发向导-卡片
+    component: SyswizardComponent,
     data: { keep: false }
 }, {
     path: '**',
