@@ -94,7 +94,7 @@ export class SysdepartmentlistComponent extends ParentlistComponent {
     switch (eventName) {
       case 'deptAdd'://设立
         this._providers.commonService.event('selectedMenu', {
-          MENUID: 'SYSDEPARTMENT', ROUTER: 'sysdepartmentAdd',
+          MENUID: 'SYSDEPARTMENT', ROUTER: 'sysdepartmentEdit',
           PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '设立部门', MENUICON: 'fc-icon-bgefficiency'
         });
         break;

@@ -1,25 +1,80 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
-import { ParentService, ProvidersService } from 'fccore';
+import { ParentService, ProvidersService, listOption } from 'fccore';
 import { SysdepartmentrelationService } from './sysdepartmentrelation.service';
 import { SystbvdeptcurorgService } from './systbvdeptcurorg.service';
-import { Observable } from 'rxjs';
-import { TreeOptions } from 'fccomponent/fcbasic';
-import { NzModalService, NzModalSubject } from 'ng-zorro-antd';
+import { Observable, Subject } from 'rxjs';
+import { TreeOptions, FctextComponent } from 'fccomponent/fcbasic';
+import { NzModalService } from 'ng-zorro-antd';
 import { FclistdataComponent } from 'fccomponent';
-import { GridApi, ColumnApi, Grid } from 'ag-grid';
+import { GridApi } from 'ag-grid';
 import { RowDataTransaction } from 'ag-grid/dist/lib/rowModels/inMemory/inMemoryRowModel';
+import { ConfigInterface } from 'ng-zorro-antd/src/modal/nz-modal.service';
+import { DialogListComponent } from '../components/core/dialog/dialogList.component';
 @Injectable()
 export class SysdepartmentService extends ParentService {
-  currentModal: NzModalSubject;
+  updateEmployeeSubject = new Subject();
+  dialogArgsSubject = new Subject();
   constructor(public providers: ProvidersService,
     public sysdeptrelationService: SysdepartmentrelationService,
     public systbvdeptcurorgService: SystbvdeptcurorgService,
-    public nzModal: NzModalService, ) {
-    super(providers, "SYSDEPARTMENT");
+    private nzModal: NzModalService,
+  ) {
+    super(providers, 'SYSDEPARTMENT');
   }
-  beforeEmployee_add(employeeList_dept: FclistdataComponent) {
-    let gridApi: GridApi = employeeList_dept._gridApi;
+  /** YM
+    * 根据单位编码获取失效日期
+    * @param companyCode 
+    */
+  getCompanyEndDate(companyCode) {
+    return this.appService.findWithQuery('SYSCOMPANY', { where: `SCOMPANY_CODE = '${companyCode}'` })
+  }
+  /** YM
+    * 保存前进行的部门员工信息处理
+    * @param listdata 
+    * @param mainObj 
+    */
+  updateEmployeeDept(listdata: FclistdataComponent, mainObj: any) {
+    let gridApi: GridApi = listdata._gridApi;
+    let saveArr: any = [];
+    let msgCountOne: boolean = false;
+    let success: boolean;
+    gridApi.forEachNode(node => {
+      saveArr.push(node.data);
+    })
+    saveArr.forEach(el => {
+      delete el['DOACTION'];
+      delete el['RN'];
+      delete el['ROWNUM'];
+      el['SBIRTH_DATE'] = this.commonService.dateFormat(this.commonService.getDateByTimetamp(el['SBIRTH_DATE']), 'YYYY/MM/DD')
+      el['SFIRST_WORK_DATE'] = this.commonService.dateFormat(this.commonService.getDateByTimetamp(el['SFIRST_WORK_DATE']), 'YYYY/MM/DD')
+      el['SMODIFIER'] = this.getUserInfo().USERCODE;
+      el['SMODIFI_TIME'] = this.commonService.getDate('');
+      el['SCOMPANY_CODE'] = mainObj['SCOMPANY_CODE']
+      this.appService.updateObject("SYSEMPLOYEE", el).subscribe(res => {
+        if (res.CODE === '0') {
+          if (!msgCountOne) {
+            this.messageService.success("职员信息更新成功");
+            msgCountOne = true;
+            success = true;
+            this.updateEmployeeSubject.next(success);
+          }
+        } else {
+          if (!msgCountOne) {
+            this.messageService.error("职员信息更新失败");
+            msgCountOne = true;
+          }
+        }
+      });
+    });
+    return true;
+  }
+  /** YM
+    * 过滤列表
+    * @param listdata 
+    */
+  IdNotInList_conditon(listdata: FclistdataComponent) {
+    let gridApi: GridApi = listdata._gridApi;
     let ids: any = [];
     let rowData = gridApi.getRenderedNodes()
     if (rowData) {
@@ -30,12 +85,12 @@ export class SysdepartmentService extends ParentService {
     if (ids && ids.length !== 0) {
       let s = this.arrayToSqlString(ids)
       return { WHERE: `ID NOT IN (${s})` }
-    } else return {};
+    }
   }
-  /** YM
- * 数组转sql批查询条件
- * @param array
- */
+  /** YM YM
+    * 数组转sql批查询条件
+    * @param array
+    */
   arrayToSqlString(array: Array<any>) {
     let str: string = "";
     for (let i = 0; i < array.length; i++) {
@@ -46,81 +101,101 @@ export class SysdepartmentService extends ParentService {
     }
     return str.toString();
   }
-  open(args: Args_Dept) {
-    if (args) {
-      this.currentModal = this.nzModal.open({
-        title: args.titleTpl ? args.titleTpl : null,
-        content: args.contentTpl ? args.contentTpl : null,
-        footer: args.footerTpl ? args.footerTpl : null,
-        style: { width: "60%" },
-        onOk: () => { },
-        onCancel: () => { }
-      })
-      return true;
-    } else {
-      return false;
-    }
-  }
-  checkEmployeeList(listdata_dept: FclistdataComponent) {
-    let gridApi: GridApi = listdata_dept._gridApi;
-    let cond: string = EmployList_State.noValue;
+  /** YM
+    * 从列表获取相关信息
+    * @param listComp 
+    */
+  getInfoFromList(listComp: FclistdataComponent) {
+    let gridApi: GridApi = listComp._gridApi;
+    let state: string = DialogListState.noValue;
+    let data: any = [];
     gridApi.forEachNode(el => {
-      cond = EmployList_State.existValue;
+      state = DialogListState.existValue;
+      data.push(el.data);
     })
-    return cond;
+    return { state: state, data: data };
   }
-
-  dialogCancel() {
-    this.currentModal.destroy();
-    this.currentModal = null;
-  }
-  dialogOk(employeeList: FclistdataComponent, employeeList_dept: FclistdataComponent, changeObj: { key: any, value: any }) {
-    let gridApi: GridApi = employeeList._gridApi;
-    let gridApi_depr: GridApi = employeeList_dept._gridApi;
+  /** YM
+    * 处理列表弹窗数据的业务函数
+    * @param Args_Dialog 
+    */
+  dialogOk(dialogArgs: DialogArgs) {
+    let gridApi: GridApi = dialogArgs.dialogList._gridApi;
+    let target_gridApi: GridApi = undefined;
+    if (dialogArgs.targetList instanceof FclistdataComponent) {
+      target_gridApi = dialogArgs.targetList._gridApi;
+    }
     let selected = gridApi.getSelectedRows();
     let toChange: RowDataTransaction = {};
-    selected.forEach(el => {
-      for (let index in el) {
-        if (index === changeObj.key) {
-          el[index] = changeObj.value
-        }
-      }
-    })
-    toChange.add = selected;
-    gridApi_depr.updateRowData(toChange)
-    this.currentModal.destroy();
-    this.currentModal = null;
+    let backObj: any;
+    if (gridApi && target_gridApi) {
+      toChange.add = selected;
+      target_gridApi.updateRowData(toChange)
+    } else {
+      backObj = gridApi.getSelectedRows()[0];
+    }
+    return backObj;
   }
-  employee_del(employeeList_dept) {
+  /** YM
+    * 删除员工信息表
+    * @param employeeList_dept 
+    */
+  delEmployee(employeeList_dept) {
     let gridApi: GridApi = employeeList_dept._gridApi;
     let selected = gridApi.getSelectedRows();
     let toChange: RowDataTransaction = {};
     toChange.remove = selected;
     gridApi.updateRowData(toChange)
   }
+  stringAsNumToMinus(ilevel: string, value: number) {
+    return (Number.parseInt(ilevel) - value).toString();
+  }
   /** YM
- *  初始化DefaultObj
- */
+  * 打开窗口的函数方法
+  * @param dialogArgs 
+  */
+  openDialog(dialogArgs: DialogArgs) {
+    if (dialogArgs.beforefuc)
+      dialogArgs.beforefuc();
+    this.nzModal.open({
+      title: dialogArgs.configInterface.title ? dialogArgs.configInterface.title : '',
+      content: dialogArgs.configInterface.content ? dialogArgs.configInterface.content : DialogListComponent,
+      onOk() { },
+      onCancel() { },
+      footer: false,
+      width: dialogArgs.configInterface.width,
+      style: dialogArgs.configInterface.style,
+      componentParams: {
+        options: dialogArgs
+      }
+    }).subscribe(dialogArgs => {
+      if (dialogArgs.hasOwnProperty('methodIndex'))
+        this.dialogArgsSubject.next(dialogArgs);
+    });
+  }
+  /** YM YM
+    *  初始化DefaultObj
+    */
   getDefaultObj() {
     return this.providers.appService.initObjDefaultValue(this.app);
   }
-  /**
-   * 根据id获取主对象的编辑数据
-   * @param id 
-   */
+  /** YM
+    * 根据id获取主对象的编辑数据
+    * @param id 
+    */
   getDefaultDataById(param: any): Observable<any> {
     return this.initMainObj(param);
   }
-  /**
-   * 根据id获取单位隶属关系对象的编辑数据
-   * @param id 
-   */
+  /** YM
+    * 根据id获取部门隶属关系对象的编辑数据
+    * @param id 
+    */
   getModifyDepartmentRelationData(param: any): Observable<any> {
     return this.sysdeptrelationService.initMainObj(param);
   }
-  /**
-   * 获取单位隶属关系的字段
-   */
+  /** YM
+    * 获取部门隶属关系的字段
+    */
   getSysdepartmentrelationField() {
     this.sysdeptrelationService.getFormFields().forEach(item => {
       return item;
@@ -154,11 +229,11 @@ export class SysdepartmentService extends ParentService {
     fcAllowDrag: true,
     fcLeafValue: 'N'
   }
-  /**
-   * 克隆树对象
-   * @param dim 单位维度
-   * @param sendDate 失效日期
-   */
+  /** YM
+    * 克隆树对象
+    * @param dim 部门维度
+    * @param sendDate 失效日期
+    */
   cloneTreeObj(dim: string, sendDate: string) {
     //改变值
     let cloneObj: any = {};
@@ -169,30 +244,47 @@ export class SysdepartmentService extends ParentService {
     cloneObj.fcExpWhere = "SPARENT_CODE=':{SDEPT_CODE}' and SDIM_CODE=" + "'" + dim + "'" + ' ' + "and SBEGIN_DATE <=" + sendDate + ' ' + "AND SEND_DATE >=" + sendDate;
     this.departmentTreeOptions = cloneObj;
   }
-  /**
-   * 获取组织机构视图数据
-   */
+  /** YM
+    * 获取组织机构视图数据
+    */
   getDeptData(): Observable<any> {
     return this.systbvdeptcurorgService.findWithQueryAll({
     });
   }
-  /**
-   * 根据单位隶属关系(SYS_DEARTMENT_RELATION)的组织机构代码(SDEPT_CODE)
-   * 和上级组织机构代码(SPARENT_CODE)
-   * 和单位基本信息表(SYS_DEARTMENT)关联显示中文名
-   * 
-   */
-  createDepartment(mainObj: any, relationObj: any): Observable<any> {
-    return this.commonService.createObservableConcat(
-      this.save(mainObj),
-      this.sysdeptrelationService.save(relationObj)
-    );
+  /** YM
+    * 保存之前的处理函数
+    * @param mainObj 
+    */
+  beforeSave(mainObj: any) {
+    mainObj = this.buildScratorInfo(mainObj)
+    return mainObj;
   }
-  employeeListOptions = {
+  /** YM
+    * 创建修改人信息
+    */
+  buildScratorInfo(mainObj) {
+    mainObj.SCRATOR = this.userService.getUserInfo().USERCODE;
+    mainObj.SCREATE_TIME = this.commonService.getDate('');
+    mainObj.SMODIFIER = this.userService.getUserInfo().USERCODE;
+    mainObj.SMODIFY_TIME = this.commonService.getDate('');
+    return mainObj;
+  }
+  /** YM
+    * 根据部门隶属关系(SYS_DEARTMENT_RELATION)的组织机构代码(SDEPT_CODE)
+    * 和上级组织机构代码(SPARENT_CODE)
+    * 和部门基本信息表(SYS_DEARTMENT)关联显示中文名
+    * 
+    */
+  createDepartment(mainObj: any, relationObj: any): Observable<any> {
+    return this.commonService.createObservableConcat(this.save(mainObj), this.sysdeptrelationService.save(relationObj));
+  }
+
+  dialogListOptions = {
     //皮肤默认为bootstrap风格
     fcClass: 'ag-blue',
     //每页显示条数
     fcPaginationPageSize: 20,
+    fcHeight: 500,
     //是否启用查询
     fcEnableSearch: false,
     //是否启用排序
@@ -329,7 +421,7 @@ export class SysdepartmentService extends ParentService {
     fcAutoSave: false
   };
 }
-export const EmployList_State = {
+export const DialogListState = {
   existValue: 'existValue',
   noValue: 'noValue'
 }
@@ -358,8 +450,20 @@ export interface Sysdepartment {
   GROUP_NAME: string;	//
   ILEVEL: number;	//
 }
-export interface Args_Dept {
-  titleTpl: any,
-  contentTpl?: any,
-  footerTpl?: any,
+
+export interface DialogArgs {
+  [key: string]: any;
+  configInterface?: ConfigInterface,
+  appId?: string,
+  methodIndex?: string,
+  listOption?: listOption,
+  condition?: object,
+  mainfuc?: (args?: any) => any,
+  beforefuc?: (args?: any) => any,
+  afterfuc?: (args?: any) => any,
+  textComponent?: FctextComponent,
+  preSetRowData?: any,
+  selectedRowDataInDialog?: any;
+  dialogList?: FclistdataComponent;
+  targetList?: FclistdataComponent;
 }

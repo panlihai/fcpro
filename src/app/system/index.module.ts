@@ -72,18 +72,19 @@ import { SysdepartmentService } from './services/sysdepartment.service';
 import { SysdepartmentlistComponent } from './components/core/sysdepartmentlist.component';
 import { SysdepartmentrelationService } from './services/sysdepartmentrelation.service';
 import { SystbvdeptcurorgService } from './services/systbvdeptcurorg.service';
-import { SysdepartmentaddComponent } from './components/core/sysdepartmentadd.component';
+import { DialogListComponent } from './components/core/dialog/dialogList.component';
+import { SysdepartmenteditComponent } from './components/core/sysdepartmentedit.component';
+import { SysserviceService } from './services/sysservice.service';
+import { SysserviceeditComponent } from './components/core/sysserviceEdit.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
     SysroleDialogEditComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
-    SysroleDialogEditComponent,
-    SysquotalistComponent,
-    SysquotaEditComponent,
     UploadavatardialogComponent,
-    companytransferdialogComponent
+    companytransferdialogComponent,
+    DialogListComponent
   ],
   imports: [
     CommonModule,
@@ -141,7 +142,9 @@ import { SysdepartmentaddComponent } from './components/core/sysdepartmentadd.co
     SyscompanyaddComponent,
     SyscompanychangeauditComponent,
     SysdepartmentlistComponent,
-    SysdepartmentaddComponent
+    SysdepartmenteditComponent,
+    DialogListComponent,
+    SysserviceeditComponent
   ],
   providers: [
     LayoutService,
@@ -172,7 +175,8 @@ import { SysdepartmentaddComponent } from './components/core/sysdepartmentadd.co
     SystbvorgcurorgService,
     SysdepartmentService,
     SysdepartmentrelationService,
-    SystbvdeptcurorgService
+    SystbvdeptcurorgService,
+    SysserviceService
   ]
 })
 export class SystemModule {

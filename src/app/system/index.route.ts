@@ -30,7 +30,8 @@ import { SyscompanyaddComponent } from './components/core/syscompanyadd.componen
 import { SysparamComponent } from './components/core/sysparam.component';
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 import { SysdepartmentlistComponent } from './components/core/sysdepartmentlist.component';
-import { SysdepartmentaddComponent } from './components/core/sysdepartmentadd.component';
+import { SysdepartmenteditComponent } from './components/core/sysdepartmentedit.component';
+import { SysserviceeditComponent } from './components/core/sysserviceEdit.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -159,8 +160,12 @@ export const Routers: Routes = [{
     component: SysdepartmentlistComponent,
     data: { keep: false }
 }, {
-    path: 'sysdepartmentAdd',//设立部门
-    component: SysdepartmentaddComponent,
+    path: 'sysdepartmentEdit',//设立部门
+    component: SysdepartmenteditComponent,
+    data: { keep: false }
+}, {
+    path: 'sysserviceEdit',//设立部门
+    component: SysserviceeditComponent,
     data: { keep: false }
 }, {
     path: '**',
