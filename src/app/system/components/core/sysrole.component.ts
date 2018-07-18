@@ -6,9 +6,9 @@ import { Sysroleauth } from '../../services/sysroleauth.service';
 import { FctreeComponent } from 'fccomponent/fcbasic/fctree.component';
 import { ParentlistComponent } from 'fccomponent/parentlist.component';
 import { NzModalService } from 'ng-zorro-antd';
-import { SysroleDialogEditComponent } from './dialog/sysroleeditdialog.component';
 import { PARAMETERS } from '@angular/core/src/util/decorators';
 import { FCEVENT } from 'fccomponent/fc';
+import { SysroleeditdialogComponent } from './dialog/sysroleeditdialog.component';
 @Component({
   selector: 'sysrole',
   templateUrl: 'sysrole.component.html',
@@ -88,7 +88,7 @@ export class SysroleComponent extends ParentlistComponent {
 
   }
   event(eventName: string, context: any): void {
-
+     
   }
   /**
    * 点击工具栏新增事件
@@ -97,7 +97,7 @@ export class SysroleComponent extends ParentlistComponent {
   listAdd(event: FCEVENT) {
     this.modalService.open({
       title: '编辑角色信息',
-      content: SysroleDialogEditComponent,
+      content: SysroleeditdialogComponent,
       onOk() { },
       onCancel() { },
       footer: false,
@@ -163,7 +163,7 @@ export class SysroleComponent extends ParentlistComponent {
       case 'listOneEdit':
         this.modalService.open({
           title: '编辑角色信息',
-          content: SysroleDialogEditComponent,
+          content: SysroleeditdialogComponent,
           onOk() { },
           onCancel() { },
           footer: false,

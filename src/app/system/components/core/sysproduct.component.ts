@@ -26,16 +26,44 @@ export class SysproductComponent extends ParentlistComponent {
     this.initPproduct();
     this.sysLookUp = this.mainService.fastLookUp();
   }
-  /**
-   * 查询
-   */
+  
   getDefaultQuery() {
+    return {
+      ENABLE:'Y',
+      WHERE:' AND 1=1'
+    }
   }
   /**
-   * 主对象的事件
-   * @param eventName 事件名 
-   * @param context 返回参数
+ * 
+ * @param eventName 事件名称
+ * 选列表中的每行数据把每行数据的字段内容传递给修改页面
+ */
+listEvent(event: FCEVENT) {
+  switch (event.eventName) {
+    case "select":
+      if (this.searchObj.WHERE && this.searchObj.WHERE.length !== 0) {
+        this.searchObj.WHERE += " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
+      } else {
+        this.searchObj.WHERE = " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
+      }
+      this.search();
+      break;
+  }
+}
+  /**
+   * 初始化产品
    */
+  initPproduct() {
+    this.mainService.findWithQuery({}).subscribe(result => {
+      this.sysProducts = result.P_LISTVALUE;
+    });
+  }
+  /**
+   * 新增产品,跳转到新增产品页面
+   */
+  addProduct() {
+    this.navRouter('sysproductAdd');
+  }
   event(eventName: string, context: any): void {
     switch (eventName) {
       case 'lookUpA'://根据字母快速查找
@@ -91,20 +119,6 @@ export class SysproductComponent extends ParentlistComponent {
       case 'lookUpZ':
         break;
     }
-  }
-  /**
-   * 初始化产品
-   */
-  initPproduct() {
-    this.mainService.findWithQuery({}).subscribe(result => {
-      this.sysProducts = result.P_LISTVALUE;
-    });
-  }
-  /**
-   * 新增产品,跳转到新增产品页面
-   */
-  addProduct() {
-    this.navRouter('sysproductAdd');
   }
    /**
    * 跳转到编辑页面

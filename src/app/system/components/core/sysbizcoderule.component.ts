@@ -1,6 +1,6 @@
 import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentlistComponent} from 'fccomponent';
+import { ParentEditComponent, ParentlistComponent} from 'fccomponent';
 import { SysbizcoderuleService } from '../../services/sysbizcoderule.service';
 import { NzModalService, NzModalSubject } from 'ng-zorro-antd';
 import { FCEVENT } from 'fccomponent/fc';
@@ -70,12 +70,5 @@ listEvent(event: FCEVENT) {
  * @param context 按钮内容
  */
 event(eventName: string, context: any): void {
-  switch (eventName) {
-    case 'modifyFields'://修改字段的英文名称为中文名称
-      this.mainService.modifyAppFieldsName();
-      break;
-      case 'modify':
-      break;
-  }
 }
 }
