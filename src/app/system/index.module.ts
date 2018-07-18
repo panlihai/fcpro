@@ -49,7 +49,6 @@ import { SysnavlinkService } from './services/sysnavlink.service';
 import { SysprofileService } from './services/sysprofile.service';
 import { SysprofileComponent } from './components/core/sysprofile.component';
 import { BasicpersoneldialogComponent } from './components/core/dialog/basicpersoneldialog.component';
-import { SysroleDialogEditComponent } from './components/core/dialog/sysroleeditdialog.component';
 import { SysroleauthService } from './services/sysroleauth.service';
 import { SysroleuserService } from './services/sysroleuser.service';
 import { SysquotaService } from './services/sysquota.service';
@@ -68,7 +67,6 @@ import { SyscompanydimComponent } from './components/core/syscompanydim.componen
 import { SyscompanydimService } from './services/syscompanydim.service';
 import { SysbizcoderulemodalComponent } from './components/core/sysbizcoderulemodal.component';
 import { SysbizcodedefineService } from './services/sysbizcodedefine.service';
-import { SysbizcoderuleaddComponent } from './components/core/sysbizcoderuleadd.component';
 import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
 import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
 import { SysdepartmentdimService } from './services/sysdepartmentdim.service';
@@ -81,18 +79,20 @@ import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
 import { companysortdialogComponent } from './components/core/dialog/companysortdialog.component';
 import { SysdepartmentService } from './services/sysdepartment.service';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
+import { SysroleeditdialogComponent } from './components/core/dialog/sysroleeditdialog.component';
+import { SysbizcoderuledialogComponent } from './components/core/dialog/sysbizcoderuledialog.component';
+import { SysiconService } from './services/sysicon.service';
+import { SysicondialogComponent } from './components/core/dialog/sysicondialog.component';
+import { SysproducteditComponent } from './components/core/sysproductedit.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
-    SysroleDialogEditComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
-    SysroleDialogEditComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
     UploadavatardialogComponent,
     companysortdialogComponent,
-    SysroleDialogEditComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
     SyslogComponent,
@@ -103,6 +103,10 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SyscompanyaddComponent,
     SyscompanychangeauditComponent,
     SysdepartmentComponent,
+    SysbizcoderuledialogComponent,
+    SysroleeditdialogComponent,
+    SysproducteditComponent
+
   ],
   imports: [
     CommonModule,
@@ -145,7 +149,6 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SyscomponentComponent,
     HomeComponent,
     SysversionComponent,
-    SysroleDialogEditComponent,
     SysannouncementComponent,
     SyscompanyComponent,
     SysprofileComponent,
@@ -156,7 +159,6 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysbizcoderuleComponent,
     SyscompanydimComponent,
     SysbizcoderulemodalComponent,
-    SysbizcoderuleaddComponent,
     SysbizcoderuleeditComponent,
     SysdepartmentdimComponent,
     SyscompanyaddComponent,
@@ -166,7 +168,11 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SysdepartmentComponent ,
     UploadavatardialogComponent ,
     companysortdialogComponent ,
-    companytransferdialogComponent 
+    companytransferdialogComponent,
+    SysbizcoderuledialogComponent,
+    SysroleeditdialogComponent,
+    SysicondialogComponent,
+    SysproducteditComponent
   ],
   providers: [
     LayoutService,
@@ -201,7 +207,8 @@ import { SysdepartmentComponent } from './components/core/sysdepartment.componen
     SyscompanyrelationService,
     SystbvorgcurorgService,
     SyscompanydimService,
-    SysdepartmentService
+    SysdepartmentService,
+    SysiconService
   ]
 })
 export class SystemModule {

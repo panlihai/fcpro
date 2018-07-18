@@ -15,110 +15,207 @@ export class SysbizcoderuleService extends ParentService {
        public sysappService: SysappService
   ) {
     super(providers, "SYSBIZCODERULE");
-    this.listOptions.fcEnableEdit = false;
   }
-  // 消息公告动态设置路由，点击那条数据通过ID区别路由不同
-  bizcoderuleRouter(appId,routerParam){
-    return this.appService.findWithQuery(appId, { WHERE: `ID='${routerParam.PARAM}'` })
-  } 
   /**
-     * 获取当前编码规则的所有内容
+     * 获取当前编码规则子表的所有内容
      * */
-    getassignment() {
-      return this.providers.appService.findWithQuery("SYSBIZCODERULE", {})
-  }
-   /**
-     * 获取当前所属应用的所有内容
-     * */
-    applicationall() {
-      return this.providers.appService.findWithQuery("SYSAPP", {})
-    }
-   /**
-     * 获取当前编码规则的所有内容
-     * */
-    rulemodal() {
+    bizcodedefineAll() {
       return this.providers.appService.findWithQuery("SYSBIZCODEDEFINE", {})
-    }
- // 字表数据修改保存
- updatesave(obj) {
-  return this.providers.appService.updateObject('SYSBIZCODERULE', obj).subscribe(res => {
-    if (res.CODE = '0') {
-      this.providers.msgService.success('保存成功');
-    } else if (res.CODE = '1') {
-      this.providers.msgService.error('保存失败')
-    }
-  })
-}
-
-/**
- * 将新增的用户的信息添加到数据库写到service下面
- */
-addUser(obj){
- return this.save(obj).subscribe(res => {
-    if(res.CODE='0'){
-      this.messageService.success('保存成功');
-    }else{
-      this.messageService.warm("保存失败");
-    }
-  });
- }
+  }
   /**
-  * 将修改后的用户信息更新到数据库
-  */
- editUser(obj: any): Observable<any> {
-    return this.updateList(obj);
+     * 子表根据逐步字段过滤出子表当前数据
+     * */
+  childrensendCondition(mainObj,sendCondition){
+    if (mainObj.ID) {
+      //SBIZCODE_RULE_ID  = this.mainObj.SBIZCODE_RULE_CODE   那么列表开始过滤
+      //子表根据主表this.mainObj.SBIZCODE_RULE_CODE字段过滤子表SBIZCODE_RULE_ID这段，子表出现过滤出的数据
+      sendCondition = '{"ORDER":"NSERIAL_NUM","SBIZCODE_RULE_ID":"' + mainObj.SBIZCODE_RULE_CODE + '"}';
+    } else {
+      sendCondition = sendCondition + '';
+    }
   }
-  // 字表数据修改保存s
-  childrensave(obj) {
-    return this.providers.appService.updateObject('SYSBIZCODEDEFINE', obj).subscribe(res => {
-      if (res.CODE = '0') {
-        this.providers.msgService.success('保存成功');
-      } else if (res.CODE = '1') {
-        this.providers.msgService.error('保存失败')
-      }
-    })
-  }
-  // 字表数据修改保存
-  rulemodalObjsave(obj) {
-    return this.providers.appService.saveObject('SYSBIZCODEDEFINE', obj).subscribe(res => {
-      if (res.CODE = '0') {
-        this.providers.msgService.success('保存成功');
-      } else if (res.CODE = '1') {
-        this.providers.msgService.error('保存失败')
-      }
-    })
-  }
-   // 字表数据修改保存
-   parentsave(obj) {
-    return this.providers.appService.updateObject('SYSBIZCODERULE', obj).subscribe(res => {
-      if (res.CODE = '0') {
-        this.providers.msgService.success('保存成功');
-      } else if (res.CODE = '1') {
-        this.providers.msgService.error('保存失败')
-      }
-    })
-  }
-    /**YM
-   * 处理弹出取消事件
+ /**
+   * 更新上移下移列表
+   * @param id 
    */
-  handleAddNavLink_cancel() {
-    this.currentModal_navLink.destroy("onCancel");
-    this.currentModal_navLink = null;
+  updateOrgRelationData(thisId: string, thatId: string, thatRn: number, thisRn: number): Observable<any> {
+    let obj1: any = {
+      ID: thisId,
+      NSERIAL_NUM: thisRn     
+    }
+    let obj2: any = {
+      ID: thatId,
+      NSERIAL_NUM: thatRn
+    }
+    return this.commonService.createObservableJoin([
+      this.sysbizcodedefineService.updateList([obj1, obj2]),
+    ]);
   }
-  navToByMenuId(router: Router, url: any) {
-    return this.layoutService.navToByMenuId(router, url)
+  // 刷新列表
+  listrefleshFun(sendCondition,bizcoderuledifinelist){
+      //刷新列表
+      let con: any = {
+      ORDER: 'NSERIAL_NUM'
+    }
+    sendCondition = JSON.stringify(con);
+    bizcoderuledifinelist.fcReflesh();
   }
-  modifyAppFieldsName() {
-    let ob = this.providers.daoService.getFromApi(this.getResourceUrl("modifyFieldsName"), {});
-    ob.subscribe(result => {
-      if (result.CODE === '0') {
-        this.logService.debug(result);
-      } else {
-        this.logService.error(result.MSG);
+  // 编码规则方法
+  bizcoderuleFun(mainObj){
+    return this.providers.appService.findWithQuery('SYSBIZCODEDEFINE',{SBIZCODE_RULE_ID:mainObj.SBIZCODE_RULE_CODE})
+  }
+   /**
+     * 上移
+     */
+    listUpfun(bizcoderuledifinelist,sendCondition,ev,content) {
+      let obj: any = ev;
+      if (obj.ID && obj.ID !== '') {
+        //选中数据序号
+        let thisNum: number = obj.NSERIAL_NUM;
+        // thisNum = obj.NDISPLAYNO;
+        let listData = bizcoderuledifinelist.fcRowData;
+        //选中数据
+        let thisData: any = {};
+        //上一条数据
+        let preData: any = {};
+        // 选中sparaname值
+        let thisparaname : string = '';
+        // 上一条数据
+        let presparaname : string = '';
+        if (obj.ID === listData[0].ID) {
+          this.messageService.error("已到顶部,不能上移！");
+        } else if (obj.ID !== listData[0].ID) {
+          listData.forEach(item => {
+            if (obj.ID === item.ID) {
+              thisData = item;
+              preData = listData[item.RN - 2];
+              thisparaname = item.SPARAM_NAME;
+              // presparaname = listData[item.RN - 2];
+              presparaname = listData[item.RN - 2].SPARAM_NAME
+              thisData.NSERIAL_NUM = preData.NSERIAL_NUM;
+              preData.NSERIAL_NUM = thisNum;
+              this.updateOrgRelationData(thisData.ID, preData.ID, preData.NSERIAL_NUM, thisData.NSERIAL_NUM).subscribe(result => {
+                if (result[0].CODE === '0') {
+                  // //刷新列表
+                  this.listrefleshFun(sendCondition,bizcoderuledifinelist);
+                } else {
+                  this.messageService.error("排序失败");
+                }
+              })
+            }
+          });
+        }
       }
-    });
-  }
+    }
+    /**
+     * 下移
+     */
+    listDownfun(bizcoderuledifinelist,sendCondition,ev){
+      let obj: any = ev;
+        if (obj.ID && obj.ID !== '') {
+            //选中数据序号
+            let thisNum: number = obj.NSERIAL_NUM;
+            let listData = bizcoderuledifinelist.fcRowData;
+            //选中数据
+            let thisData: any = {};
+            //下一条数据
+            let nextData: any = {};
+            if (obj.ID === listData[listData.length - 1].ID) {
+                this.messageService.error("已到底部,不能下移！");
+            } else if (obj.ID !== listData[listData.length - 1].ID) {
+                listData.forEach(item => {
+                    if (obj.ID === item.ID) {
+                        thisData = item;
+                        nextData = listData[item.RN];
+                        thisData.NSERIAL_NUM = nextData.NSERIAL_NUM;
+                        nextData.NSERIAL_NUM = thisNum;
+                        this.updateOrgRelationData(thisData.ID, nextData.ID, nextData.NSERIAL_NUM, thisData.NSERIAL_NUM).subscribe(result => {
+                          if (result[0].CODE === '0') {
+                            // //刷新列表
+                            this.listrefleshFun(sendCondition,bizcoderuledifinelist);
+                          } else {
+                            this.messageService.error("排序失败");
+                          }
+                        })
+                    }
+                });
+            }
+        }
+    }
+  /**
+       * 置頂
+       */
+    listTopfun(bizcoderuledifinelist,sendCondition,ev){
+      let obj: any = ev;
+      if (obj.ID && obj.ID !== '') {
+        //选中数据序号
+        let thisNum: number = obj.NSERIAL_NUM;
+        // thisNum = obj.NDISPLAYNO;
+        let listData = bizcoderuledifinelist.fcRowData;
+        //选中数据
+        let thisData: any = {};
+        //第一条数据
+        let firstData: any = {};
+        if (obj.ID === listData[0].ID) {
+          this.messageService.error("已到顶部,不需要置顶啦！");
+        } else if (obj.ID !== listData[0].ID) {
+          listData.forEach(item => {
+            if (obj.ID === item.ID) {
+              thisData = item;
+              firstData = listData[0];
+              thisData.NSERIAL_NUM = firstData.NSERIAL_NUM;
+              firstData.NSERIAL_NUM = thisNum;
+              this.updateOrgRelationData(thisData.ID, firstData.ID, firstData.NSERIAL_NUM, thisData.NSERIAL_NUM).subscribe(result => {
+                if (result[0].CODE === '0') {       
+                    // //刷新列表
+                    this.listrefleshFun(sendCondition,bizcoderuledifinelist);
+                } else {
+                  this.messageService.error("排序失败");
+                }
+              })
+            }
+          });
+        }
+      }
+    }
+ /**
+       * 置底部
+       */
+    listBottomfun(bizcoderuledifinelist,sendCondition,ev){
+      let obj: any = ev;
+      if (obj.ID && obj.ID !== '') {
+        //选中数据序号
+        let thisNum: number = obj.NSERIAL_NUM;
+        // thisNum = obj.NDISPLAYNO;
+        let listData = bizcoderuledifinelist.fcRowData;
+        //选中数据
+        let thisData: any = {};
+        //第一条数据
+        let lastData: any = {};
+        if (obj.ID === listData[listData.length - 1].ID) {
+          this.messageService.error("已到底部,不需要置底啦！");
+        } else if (obj.ID !== listData[listData.length - 1].ID) {
+          listData.forEach(item => {
+            if (obj.ID === item.ID) {
+              thisData = item;
+              lastData = listData[listData.length - 1];
+              thisData.NSERIAL_NUM = lastData.NSERIAL_NUM;
+              lastData.NSERIAL_NUM = thisNum;
+              this.updateOrgRelationData(thisData.ID, lastData.ID, lastData.NSERIAL_NUM, thisData.NSERIAL_NUM).subscribe(result => {
+                if (result[0].CODE === '0') {
+                  // //刷新列表
+                  this.listrefleshFun(sendCondition,bizcoderuledifinelist);
+                } else {
+                  this.messageService.error("排序失败");
+                }
+              })
+            }
+          });
+        }
+      }
+    }  
 }
 
 export interface Sysbizcoderule {
+ 
 }

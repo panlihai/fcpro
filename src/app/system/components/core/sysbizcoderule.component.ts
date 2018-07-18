@@ -70,12 +70,5 @@ listEvent(event: FCEVENT) {
  * @param context 按钮内容
  */
 event(eventName: string, context: any): void {
-  switch (eventName) {
-    case 'modifyFields'://修改字段的英文名称为中文名称
-      this.mainService.modifyAppFieldsName();
-      break;
-      case 'modify':
-      break;
-  }
 }
 }

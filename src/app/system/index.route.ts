@@ -27,7 +27,6 @@ import { SyslogComponent } from './components/core/syslog.component';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
 import { SysbizcoderuleComponent } from './components/core/sysbizcoderule.component';
 import { SyscompanydimComponent } from './components/core/syscompanydim.component';
-import { SysbizcoderuleaddComponent } from './components/core/sysbizcoderuleadd.component';
 import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
 import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
 import { SyscompanymodifyComponent } from './components/core/syscompanymodify.component';
@@ -35,6 +34,8 @@ import { SyscompanyaddComponent } from './components/core/syscompanyadd.componen
 import { SysparamComponent } from './components/core/sysparam.component';
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
+import { SysicondialogComponent } from './components/core/dialog/sysicondialog.component';
+import { SysproducteditComponent } from './components/core/sysproductedit.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -83,7 +84,23 @@ export const Routers: Routes = [{
     path: 'sysproductList',//软件产品
     component: SysproductComponent,
     data: { keep: false }
-}, {
+}
+, {
+    path: 'sysproductEdit',//软件产品
+    component: SysproducteditComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysbizcoderuleList',//编码规则
+    component: SysbizcoderuleComponent,
+    data: { keep: false }
+}
+, {
+    path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
+    component: SysbizcoderuleeditComponent,
+    data: { keep: false }
+}
+, {
     path: 'sysroleauthList',//系统参数
     component: SysroleauthComponent,
     data: { keep: false }
@@ -107,19 +124,10 @@ export const Routers: Routes = [{
     path: 'sysannouncementDetail',//消息公告
     component: SysannouncementComponent,
     data: { keep: false }
-}, {
-    path: 'sysbizcoderuleList',//编码规则
-    component: SysbizcoderuleComponent,
-    data: { keep: false }
 }
 , {
-    path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
-    component: SysbizcoderuleeditComponent,
-    data: { keep: false }
-}
-, {
-    path: 'sysbizcoderuleAdd',//编码工具栏新增模态框
-    component: SysbizcoderuleaddComponent,
+    path: 'sysiconList',//编码规则
+    component: SysicondialogComponent,
     data: { keep: false }
 }
 , {
