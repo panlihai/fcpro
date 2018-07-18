@@ -5,52 +5,26 @@ import { SysproductService } from '../../services/sysproduct.service';
 import { FCEVENT } from 'fccomponent/fc';
 @Component({
   selector: 'sysproduct',
-  template: `
-    <fc-layoutrow fcSpan="80" style="height:100%;">
-      <fc-layoutpanel fccontent1>
-        <fc-tlblist fctoolbar [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-        <form fccontent class="list-search" name="searchForm" #searchForm>
-            <div class="list-search-every list-search-every1">
-                <fc-combo fcLabel="" [fcAppid]="appId" fcRequired="false" fcFieldCode='ENABLE' [(ngModel)]="searchObj.ENABLE" fcValueCode='DICVALUE'
-                    fcLabelCode='DICDESC' name="ENABLE"></fc-combo>
-            </div>
-            <div class="list-search-every list-search-every2">
-                <fc-text [fcAppid]="appId" fcRequired="false" fcFieldCode='PNAME' [(ngModel)]="searchObj.PNAME" name="productname" [fcOption]="{field:{FIELDCODE:'PNAME'}}"></fc-text>
-            </div>
-            <div class="list-search-every list-search-button">
-                <fc-button fcLabel="查询" fcType="primary" (click)="search()"></fc-button>
-                <fc-button fcLabel="清空" fcType="default" (click)="reset()"></fc-button>
-            </div>
-        </form>  
-      </fc-layoutpanel>
-      <fc-listdata fccontent2  [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)"></fc-listdata>
-    </fc-layoutrow>
-  `,
+  templateUrl: 'sysproduct.component.html',
   styles: [`
-  :host ::ng-deep .fc-layoutpanel .fc-content{
-    height:100%;
-  }
-  .list-search {
-    width:100%;
-  }
-  .list-search:after{
-    content:'';
-    display:block;
-    clearfix:both;
-  }
-  .list-search-every{
-    width:24%;
-    float:left;
+  .sys-card-btn{
+    width:50%;
   }
   `]
 })
 export class SysproductComponent extends ParentlistComponent {
+  //产品数据
+  sysProducts: any[];
+  //字母查找
+  sysLookUp: any[];
   constructor(public mainService: SysproductService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
     super(mainService, router, activeRoute);
   }
   init(): void {
+    this.initPproduct();
+    this.sysLookUp = this.mainService.fastLookUp();
   }
   
   getDefaultQuery() {
@@ -76,17 +50,87 @@ listEvent(event: FCEVENT) {
       break;
   }
 }
-
+  /**
+   * 初始化产品
+   */
+  initPproduct() {
+    this.mainService.findWithQuery({}).subscribe(result => {
+      this.sysProducts = result.P_LISTVALUE;
+    });
+  }
+  /**
+   * 新增产品,跳转到新增产品页面
+   */
+  addProduct() {
+    this.navRouter('sysproductAdd');
+  }
   event(eventName: string, context: any): void {
     switch (eventName) {
-      case "doAction":
-        this.mainService.doAction().subscribe(result=>{
-          if(result.CODE==='0'){
-            this.messageService.error(JSON.stringify(result.DATA));
-          }
-        });
+      case 'lookUpA'://根据字母快速查找
+        break;
+      case 'lookUpB':
+        break;
+      case 'lookUpC':
+        break;
+      case 'lookUpD':
+        break;
+      case 'lookUpE':
+        break;
+      case 'lookUpF':
+        break;
+      case 'lookUpG':
+        break;
+      case 'lookUpH':
+        break;
+      case 'lookUpI':
+        break;
+      case 'lookUpJ':
+        break;
+      case 'lookUpK':
+        break;
+      case 'lookUpL':
+        break;
+      case 'lookUpM':
+        break;
+      case 'lookUpN':
+        break;
+      case 'lookUpO':
+        break;
+      case 'lookUpP':
+        break;
+      case 'lookUpQ':
+        break;
+      case 'lookUpR':
+        break;
+      case 'lookUpS':
+        break;
+      case 'lookUpT':
+        break;
+      case 'lookUpU':
+        break;
+      case 'lookUpV':
+        break;
+      case 'lookUpW':
+        break;
+      case 'lookUpX':
+        break;
+      case 'lookUpY':
+        break;
+      case 'lookUpZ':
         break;
     }
   }
+  /**
+   * 修改产品，跳转到修改产品页面
+   * @param event 
+   */
+  modifyProduct(event: FCEVENT) {
+    this.navRouter('sysproductModify', event.param);
+  }
+  /**
+   * 删除
+   */
+  delectProduct(event: FCEVENT) {
 
+  }
 }

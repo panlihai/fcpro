@@ -27,12 +27,10 @@ import { SysparamService } from './services/sysparam.service';
 import { SysroleService } from './services/sysrole.service';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
-import { SysappdetailComponent } from './components/core/sysappdetail.component';
 import {
   FclistModule, FctlbModule, FclayoutModule, FcbasicModule,
   FcadModule, FcmodalModule, FcsearchModule, FctabModule, FcchartModule
 } from 'fccomponent';
-import { SysappeditComponent } from './components/core/sysappedit.component';
 import { LayoutService } from './services/layout.service';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SpreadSheetsModule } from '@grapecity/spread-sheets-angular';
@@ -89,6 +87,10 @@ import { SysbizcoderuledialogComponent } from './components/core/dialog/sysbizco
 import { SysiconService } from './services/sysicon.service';
 import { SysicondialogComponent } from './components/core/dialog/sysicondialog.component';
 import { SysproducteditComponent } from './components/core/sysproductedit.component';
+import { SyswizardComponent } from './components/core/syswizard.component';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { SysappaddComponent } from './components/core/sysappadd.component';
+import { SysappeditComponent } from './components/core/sysappedit.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -104,13 +106,11 @@ import { SysproducteditComponent } from './components/core/sysproductedit.compon
     UploadavatardialogComponent,
     companytransferdialogComponent,
     SyscompanymodifyComponent,
-    SyscompanyaddComponent,
     SyscompanychangeauditComponent,
     SysdepartmentComponent,
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
     SysproducteditComponent
-
   ],
   imports: [
     CommonModule,
@@ -127,7 +127,8 @@ import { SysproducteditComponent } from './components/core/sysproductedit.compon
     FcsearchModule,
     FctabModule,
     FcchartModule,
-    SpreadSheetsModule
+    SpreadSheetsModule,
+    NgZorroAntdModule
   ],
   exports: [
   ],
@@ -139,7 +140,7 @@ import { SysproducteditComponent } from './components/core/sysproductedit.compon
     ForgotComponent,
     SysdatasourceComponent,
     SysappComponent,
-    SysappdetailComponent,
+    SysappaddComponent,
     SysappeditComponent,
     SysdicComponent,
     SysproductComponent,
@@ -179,13 +180,14 @@ import { SysproducteditComponent } from './components/core/sysproductedit.compon
     SysdepartmentComponent,
     UploadavatardialogComponent,
     companytransferdialogComponent,
-
     UploadavatardialogComponent ,
     companytransferdialogComponent,
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
     SysicondialogComponent,
-    SysproducteditComponent
+    SysproducteditComponent,
+    SyswizardComponent
+
   ],
   providers: [
     LayoutService,

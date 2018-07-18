@@ -14,8 +14,6 @@ import { SysbackcodeComponent } from './components/core/sysbackcode.component';
 import { SyscomponentComponent } from './components/core/syscomponent.component';
 import { SysroleComponent } from './components/core/sysrole.component';
 import { HomeComponent } from './components/home/home.component';
-import { SysappdetailComponent } from './components/core/sysappdetail.component';
-import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysmessagedetailComponent } from './components/core/sysmessagedetail.component';
 import { SysversionComponent } from './components/core/sysversion.component';
 import { SysannouncementComponent } from './components/core/sysannouncement.component';
@@ -40,6 +38,9 @@ import { SyscompanychangeauditComponent } from './components/core/syscompanychan
 import { SysdepartmentComponent } from './components/core/sysdepartment.component';
 import { SysicondialogComponent } from './components/core/dialog/sysicondialog.component';
 import { SysproducteditComponent } from './components/core/sysproductedit.component';
+import { SyswizardComponent } from './components/core/syswizard.component';
+import { SysappaddComponent } from './components/core/sysappadd.component';
+import { SysappeditComponent } from './components/core/sysappedit.component';
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -72,13 +73,14 @@ export const Routers: Routes = [{
     path: 'sysappList',//元数据
     component: SysappComponent,
     data: { keep: false }
-}, {
-    path: 'sysappEdit',//元数据编辑
-    component: SysappeditComponent,
+}
+, {
+    path: 'sysappAdd',//元数据新增
+    component: SysappaddComponent,
     data: { keep: false }
 }, {
-    path: 'sysappDetail',//元数据详情
-    component: SysappdetailComponent,
+    path: 'sysappEdit',//元数据修改
+    component: SysappeditComponent,
     data: { keep: false }
 }, {
     path: 'sysdicList',//数据字典
@@ -132,14 +134,22 @@ export const Routers: Routes = [{
 , {
     path: 'sysiconList',//编码规则
     component: SysicondialogComponent,
+}, {
+    path: 'sysbizcoderuleList',//编码规则
+    component: SysbizcoderuleComponent,
     data: { keep: false }
 }
-, {
+    , {
+    path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
+    component: SysbizcoderuleeditComponent,
+    data: { keep: false }
+}
+    , {
     path: 'sysdepartmentdimList',//部门维度
     component: SysdepartmentdimComponent,
     data: { keep: false }
 }
-, {
+    , {
     path: 'syscompanydimList',//维度规则
     component: SyscompanydimComponent,
     data: { keep: false }
@@ -194,7 +204,7 @@ export const Routers: Routes = [{
     path: 'sysparamList',//系统参数
     component: SysparamComponent,
     data: { keep: false }
-},{
+}, {
     path: 'sysdepartment',//部门管理
     component: SysdepartmentComponent,
     data: { keep: false }
@@ -202,20 +212,24 @@ export const Routers: Routes = [{
     path: 'sysuserList',//用户管理
     component: SysuserComponent,
     data: { keep: false }
-  }, 
-  {
+},
+{
     path: 'sysuserEdit',//修改用户
     component: SysusereditComponent,
     data: { keep: false }
-  }, {
+}, {
     path: 'sysemployeeList',//员工管理
     component: SysemployeeComponent,
     data: { keep: false }
-  }, {
+}, {
     path: 'sysemployeeEdit',//编辑员工
     component: SysemployeeeditComponent,
     data: { keep: false }
-  },{
+}, {
+    path: 'syswizardList',//开发向导-卡片
+    component: SyswizardComponent,
+    data: { keep: false }
+}, {
     path: '**',
     redirectTo: 'main',
     pathMatch: 'full'
