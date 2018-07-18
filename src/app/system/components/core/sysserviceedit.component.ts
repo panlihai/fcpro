@@ -19,6 +19,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
         return true;
     }
     init(): void {
+        this.mainObj = this.mainService.getDefaultObj();
     }
 
     getDefaultQuery() {
