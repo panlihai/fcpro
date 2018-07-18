@@ -31,8 +31,7 @@
         "assets/fonts/iconfont/iconfont.css",
         "assets/fonts/antdesign/iconfont.css",
         "assets/fonts/logo/iconfont.css",
-        "assets/styles/app.css",
-        "../node_modules/ng2-dnd/bundles/style.css"
+        "assets/styles/app.css"
       ],
       "scripts": [
         "../node_modules/chart.js/dist/Chart.js",
