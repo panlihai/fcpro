@@ -24,9 +24,6 @@ import { NzModalService } from 'ng-zorro-antd';
     background: #F0F2F5;
     position: relative;
   }
-  :host ::ng-deep .content-wrap-tab>div>.fc-content2{
-    padding: 0px 5px 5px;
-  }
   :host ::ng-deep .content-main{
     width: 100%;
     height:100%;
@@ -48,10 +45,10 @@ import { NzModalService } from 'ng-zorro-antd';
     position: absolute;
   }
   .nav-tab{
-    width:calc(100% - 5px);
+    width:100%;
     position:absolute;
-    top:5px;
-    left:5px;
+    top:0px;
+    left:0px;
     background-color:#ffffff;
     height:42px;
   }
@@ -79,21 +76,27 @@ import { NzModalService } from 'ng-zorro-antd';
   :host ::ng-deep .logo .icon-logo{
     font-size:22px!important;
   }
-  :host ::ng-deep .fc-navbar-tab .fc-navbar{
+  :host ::ng-deep .sys-navbar-tab .fc-navbar{
     background-color:#001529!important;
   }
-  :host ::ng-deep .nav-tabsub .ant-tabs-ink-bar{
-    background: transparent;
+  :host ::ng-deep .content-wrap-tab>div>.fc-content2 {
+    padding: 0px 15px 5px;
   }
-  :host ::ng-deep .nav-tabmain .ant-tabs-bar{
-    background-color:#ffffff;
+  :host ::ng-deep .sys-nav-tabmain .ant-tabs-bar {
+      background-color: #ffffff;
+      margin-bottom:0;
   }
-  :host ::ng-deep .nav-tabsub .ant-tabs-bar{
-    background-color:#F0F2F5;
+  :host ::ng-deep .sys-nav-tabsub .ant-tabs-bar {
+      border-bottom: 1px solid transparent;
+      margin-bottom: 0px;
   }
-  :host ::ng-deep .nav-tabsub .ant-tabs-bar,:host ::ng-deep .nav-tabmain .ant-tabs-bar {
-    border-bottom: 1px solid transparent;
-    margin-bottom: 0px;
+  :host ::ng-deep .sys-nav-tabmain .ant-tabs-ink-bar {
+      background: transparent;
+  }
+  :host ::ng-deep .sys-nav-tabsub .ant-tabs-bar {
+      background-color: #F0F2F5;
+      border-bottom: 1px solid transparent;
+      margin-bottom: 0px;
   }
   `]
 })
@@ -201,8 +204,7 @@ export class LayoutComponent implements OnInit {
     this.getMessage();
     if (this.fcnavtab) {
       this.fcnavtab.fcTabs = [];
-      this.fcnavtab.fcSelectedIndex = 0;/* 
-      this.getMessage(); */
+      this.fcnavtab.fcSelectedIndex = 0;
       //把弹出确认框变量存入到服务里
       MessageService.confirmModal = this.confirmmodal;
       if (this.fcnavtab.fcTabs.length === 0) {
@@ -241,11 +243,11 @@ export class LayoutComponent implements OnInit {
    */
   navbarEvent(event: FCEVENT) {
     switch (event.eventName) {
-      case 'toggle':
+      case 'toggle'://展开收起消息
         this._navbarStatus = event.param;
         break;
-      case 'selectDropdown':
-      case 'selectMenu':
+      case 'selectDropdown'://下拉菜单
+      case 'selectMenu'://下拉菜单
         this._menus = event.param.P_CHILDMENUS;
         let menu = this._menus[0];
         if (menu.HASCHILD === 'Y') {
@@ -263,14 +265,14 @@ export class LayoutComponent implements OnInit {
           menu.select = true;
         }
         let displayMode = this._providers.productService.mainObj.DISPLAYMODE;
-        /* 切换布局 有选项卡模式和左侧菜单模式*/
-        // if (displayMode === 'TAB') {
-        //   this.displaymode = 'tab';
-        //   this._layoutSpans = "0,1";
-        // } else if (displayMode === 'MENU') {
-        //   this.displaymode = 'menu';
-        //   this._layoutSpans = "2,9";
-        // }
+        // 切换布局 有选项卡模式和左侧菜单模式
+        if (displayMode === 'TAB') {
+          this.displaymode = 'tab';
+          this._layoutSpans = "0,1";
+        } else if (displayMode === 'MENU') {
+          this.displaymode = 'menu';
+          this._layoutSpans = "2,9";
+        }
         break;
       case 'logout'://登出
         this._providers.userService.logout().subscribe(result => {
@@ -316,7 +318,7 @@ export class LayoutComponent implements OnInit {
    */
   navmenuEvent(event: FCEVENT) {
     switch (event.eventName) {
-      case 'toggle':
+      case 'toggle'://展开收起左侧导航
         this._navmenuStatus = event.param;
         if (this._navmenuStatus === "closed") {
           this._layoutSpans = "3,85";
@@ -360,6 +362,7 @@ export class LayoutComponent implements OnInit {
         // 删除缓存
         break;
       case 'click':
+        //点击一项
         debugger;
         this.mainService.navMessage(this._router, event.param).subscribe(res => {
           this.getMessage();

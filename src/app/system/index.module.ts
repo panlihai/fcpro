@@ -47,7 +47,6 @@ import { SysnavlinkService } from './services/sysnavlink.service';
 import { SysprofileService } from './services/sysprofile.service';
 import { SysprofileComponent } from './components/core/sysprofile.component';
 import { BasicpersoneldialogComponent } from './components/core/dialog/basicpersoneldialog.component';
-import { SysroleDialogEditComponent } from './components/core/dialog/sysroleeditdialog.component';
 import { SysroleauthService } from './services/sysroleauth.service';
 import { SysroleuserService } from './services/sysroleuser.service';
 import { SysquotaService } from './services/sysquota.service';
@@ -61,7 +60,6 @@ import { SyssessionService } from './services/syssession.service';
 import { SysemployService } from './services/sysemploy.service';
 import { SysassignmentService } from './services/sysassignment.service';
 import { SysassignmentComponent } from './components/core/sysassignment.component';
-import { AngularDraggableModule } from 'angular2-draggable';
 import { SysemployeeService } from './services/sysemployee.service';
 import { SysemployeeComponent } from './components/core/sysemployee.component';
 import { SysemployeeeditComponent } from './components/core/sysemployeeedit.component';
@@ -73,7 +71,6 @@ import { SyscompanydimComponent } from './components/core/syscompanydim.componen
 import { SyscompanydimService } from './services/syscompanydim.service';
 import { SysbizcoderulemodalComponent } from './components/core/sysbizcoderulemodal.component';
 import { SysbizcodedefineService } from './services/sysbizcodedefine.service';
-import { SysbizcoderuleaddComponent } from './components/core/sysbizcoderuleadd.component';
 import { SysbizcoderuleeditComponent } from './components/core/sysbizcoderuleedit.component';
 import { SysdepartmentdimComponent } from './components/core/sysdepartmentdim.component';
 import { SysdepartmentdimService } from './services/sysdepartmentdim.service';
@@ -84,21 +81,36 @@ import { SyscompanychangeauditComponent } from './components/core/syscompanychan
 import { SyscompanyrelationService } from './services/syscompanyrelation.service';
 import { SystbvorgcurorgService } from './services/systbvorgcurorg.service';
 import { SysdepartmentService } from './services/sysdepartment.service';
-import { SysdepartmentComponent } from './components/core/sysdepartment.component';
+import { SysdepartmentlistComponent } from './components/core/sysdepartmentlist.component';
+import { SysdepartmentrelationService } from './services/sysdepartmentrelation.service';
+import { SystbvdeptcurorgService } from './services/systbvdeptcurorg.service';
+import { DialogListComponent } from './components/core/dialog/dialogList.component';
+import { SysdepartmenteditComponent } from './components/core/sysdepartmentedit.component';
+import { SysserviceService } from './services/sysservice.service';
+import { SysserviceeditComponent } from './components/core/sysserviceEdit.component';
+import { SysroleeditdialogComponent } from './components/core/dialog/sysroleeditdialog.component';
+import { SysbizcoderuledialogComponent } from './components/core/dialog/sysbizcoderuledialog.component';
+import { SysiconService } from './services/sysicon.service';
+import { SysicondialogComponent } from './components/core/dialog/sysicondialog.component';
+import { SysproducteditComponent } from './components/core/sysproductedit.component';
+import { SyswizardComponent } from './components/core/syswizard.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { SysappaddComponent } from './components/core/sysappadd.component';
+import { chooseicondialogComponent } from './components/core/dialog/chooseicondialog.component';
+import { SyswizardService } from './services/syswizard.service';
+import { ChartsModule } from 'ng2-charts';
+import { SysappmodifyComponent } from './components/core/sysappmodify.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
+import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
+import { SysappaddComponent } from './components/core/sysappadd.component';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
-    SysroleDialogEditComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
-    SysroleDialogEditComponent,
+    DialogListComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
     UploadavatardialogComponent,
-    SysroleDialogEditComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
     SyslogComponent,
@@ -107,7 +119,10 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     companytransferdialogComponent,
     SyscompanymodifyComponent,
     SyscompanychangeauditComponent,
-    SysdepartmentComponent
+    chooseicondialogComponent,
+    SysbizcoderuledialogComponent,
+    SysroleeditdialogComponent,
+    SysproducteditComponent
   ],
   imports: [
     CommonModule,
@@ -125,7 +140,8 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     FctabModule,
     FcchartModule,
     SpreadSheetsModule,
-    AngularDraggableModule,
+    NgZorroAntdModule,
+    ChartsModule,
     NgZorroAntdModule
   ],
   exports: [
@@ -138,7 +154,7 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     ForgotComponent,
     SysdatasourceComponent,
     SysappComponent,
-    SysappaddComponent,
+    SysappmodifyComponent,
     SysappeditComponent,
     SysdicComponent,
     SysproductComponent,
@@ -151,7 +167,6 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     SyscomponentComponent,
     HomeComponent,
     SysversionComponent,
-    SysroleDialogEditComponent,
     SysannouncementComponent,
     SyscompanyComponent,
     SysprofileComponent,
@@ -162,24 +177,31 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     SysbizcoderuleComponent,
     SyscompanydimComponent,
     SysbizcoderulemodalComponent,
-    SysbizcoderuleaddComponent,
     SysbizcoderuleeditComponent,
     SysdepartmentdimComponent,
     SyscompanyaddComponent,
     SyscompanychangeauditComponent,
     SyscompanymodifyComponent,
     SyslogComponent,
-    SysdepartmentComponent,
-    UploadavatardialogComponent,
-    companytransferdialogComponent,
     SysassignmentComponent,
     SysuserComponent,
     SysusereditComponent,
     SysemployeeComponent,
     SysemployeeeditComponent,
-    SysdepartmentComponent,
     UploadavatardialogComponent,
-    companytransferdialogComponent
+    companytransferdialogComponent,
+    SyswizardComponent,
+    SysdatasourceeditComponent,
+    chooseicondialogComponent,
+    SysbizcoderuledialogComponent,
+    SysroleeditdialogComponent,
+    SysicondialogComponent,
+    SysproducteditComponent,
+    SyswizardComponent,
+    SysdepartmentlistComponent,
+    SysdepartmenteditComponent,
+    DialogListComponent,
+    SysserviceeditComponent
   ],
   providers: [
     LayoutService,
@@ -216,7 +238,13 @@ import { SysappeditComponent } from './components/core/sysappedit.component';
     SyscompanyrelationService,
     SystbvorgcurorgService,
     SyscompanydimService,
-    SysdepartmentService
+    SysdepartmentService,
+    SyswizardService,
+    SysdepartmentService,
+    SysdepartmentrelationService,
+    SystbvdeptcurorgService,
+    SysserviceService,
+    SysiconService
   ]
 })
 export class SystemModule {

@@ -11,10 +11,10 @@ export const AppRouters: Routes = [
         component: LayoutComponent,
         canActivate: [UserService],
         children: [
-             {
+            {
                 path: 'system',//系统
                 loadChildren: './system/index.module#SystemModule'
-            } 
+            }
         ]
     }, {
         path: 'signin',//登录

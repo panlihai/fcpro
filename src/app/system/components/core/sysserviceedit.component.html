@@ -1,0 +1,14 @@
+<fc-layoutcol fcSpans="4,6">
+    <fc-title fccontent1 fcLabel="基本信息" fcBorder="bottom"></fc-title>
+    <fc-text fccontent1 fcLabel="产品名称" [(ngModel)]="productName" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME" [fcDisabled]="true"></fc-text>
+    <fc-text fccontent1 fcLabel="服务编码" [(ngModel)]="ruleCode" [fcDisabled]="true" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME" fcToolTip="按规则自动生成，在编码规则中配置" [fcDisabled]="true"></fc-text>
+    <fc-text fccontent1 fcLabel="服务名称" [(ngModel)]="mainObj.SERVICENAME" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME"></fc-text>
+    <fc-text fccontent1 fcLabel="监听类" [(ngModel)]="mainObj.SERVICECLASS" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME" fcToolTip="java类名称，包含包名"></fc-text>
+</fc-layoutcol>
+<fc-layoutcol>
+    <fc-title fccontent1 fcLabel="其他信息" fcBorder="bottom"></fc-title>
+    <fc-text fccontent1 fcLabel="产品名称" [(ngModel)]="productName" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME" [fcDisabled]="true"></fc-text>
+    <fc-text fccontent1 fcLabel="服务编码" [(ngModel)]="ruleCode" [fcDisabled]="true" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME" fcToolTip="按规则自动生成，在编码规则中配置" [fcDisabled]="true"></fc-text>
+    <fc-text fccontent1 fcLabel="服务名称" [(ngModel)]="mainObj.SERVICENAME" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME"></fc-text>
+    <fc-text fccontent1 fcLabel="监听类" [(ngModel)]="mainObj.SERVICENAME" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME" fcToolTip="java类名称，包含包名"></fc-text>
+</fc-layoutcol>

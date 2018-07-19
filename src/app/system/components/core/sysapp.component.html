@@ -1,0 +1,62 @@
+<!-- 模型和元数据入口 -->
+<fc-layoutpanel class="sys-card-pannel">
+    <div fcheader>
+        <fc-title fcLabel="模型&元数据"></fc-title>
+        <P>
+            说明：FC开发设计平台，快速开发应用模型，此功能实现模型定义，实现数据库表及视图的新增、修改、删除 、同步。
+        </P>
+        <div class="sys-card-fast">
+            <ul class="sys-fast-list">
+                <li>
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
+                <li>
+                    <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>产品简介</li>
+                <li>
+                    <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>产品简介</li>
+            </ul>
+            <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="sysLookUp" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
+        </div>
+    </div>
+    <div nz-row [nzGutter]="8" fccontent>
+        <!-- 新增卡片操作 -->
+        <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
+            <nz-card (click)="listAdd($event);">
+                <ng-template #body>
+                    <fc-icon fcIcon="fc-icon-add" fcFontSize="40" class="sys-card-addicon"></fc-icon>
+                    <p class="sys-card-addtext">新增服务</p>
+                </ng-template>
+            </nz-card>
+        </div>
+        <!-- 产品列表循环 -->
+        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysapp of sysApps">
+            <nz-card (click)="listEdit(sysapp);">
+                <ng-template #body>
+                    <div class="sys-card-content">
+                        <fc-tooltip class="sys-card-help" fcTitle="{{sysapp.DIRECTION}}">
+                            <fc-icon fcIcon="fc-icon-wiki" fcFontSize="22" fccontent></fc-icon>
+                        </fc-tooltip>
+                        <span class="sys-card-mark">
+                            {{sysapp.APPID|slice:0:1}}
+                        </span>
+                        <div class="sys-card-text">
+                            <div class="sys-card-title">
+                                {{sysapp.APPID}}-{{sysapp.APPNAME}}
+                            </div>
+                            <p class="sys-card-smarks">{{sysapp.REMARK}}</p>
+                        </div>
+                    </div>
+                    <div class="sys-card-footer">
+                        <fc-button class="sys-card-btn" fcLabel="属性" (click)="listEdit(sysapp);" [fcBlock]="true">
+                        </fc-button>
+                        <fc-button class="sys-card-btn" fcLabel="工具" (click)="delectOnesysapp(sysapp);" [fcBlock]="true">
+                        </fc-button>
+                        <fc-button class="sys-card-btn" fcLabel="接口" (click)="delectOnesysapp(sysapp);" [fcBlock]="true">
+                        </fc-button>
+                        <fc-button class="sys-card-btn" fcLabel="关系" (click)="delectOnesysapp(sysapp);" [fcBlock]="true">
+                        </fc-button>
+                    </div>
+                </ng-template>
+            </nz-card>
+        </div>
+    </div>
+</fc-layoutpanel>

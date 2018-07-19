@@ -1,0 +1,46 @@
+<!-- 部门设立 -->
+<fc-layoutpanel class="templatefastposition">
+    <fc-layoutrow fcSpan="30" fccontent>
+        <fc-tlbform [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" fccontent1></fc-tlbform>
+        <fc-layoutcol fcSpans="9,1" fccontent2>
+            <fc-layoutpanel fccontent1>
+                <form fccontent>
+                    <fc-layoutpanel fccontent id="id0">
+                        <fc-title fcLabel="基本信息" fcBorder="bottom" fcWidth="96%" fcheader></fc-title>
+                        <fc-layoutcol fcSpans="1,1" fccontent>
+                            <div fccontent1>
+                                <fc-text fcLabel="部门编码" fcPlaceHolder="请输入部门编码" [(ngModel)]="mainObj.SDEPT_CODE" [fcAppid]="appId" fcFieldCode="SDEPT_CODE" name="SYSDEPTMENT.SDEPT_CODE"></fc-text>
+                                <fc-combo fcLabel="业务单元" fcPlaceHolder="请选择业务单元" [(ngModel)]="mainObj.SBUSINESSUNIT" [fcAppid]="appId" fcFieldCode="SBUSINESSUNIT" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="SYSDEPARTMENT.SBUSINESSUNIT"></fc-combo>
+                                <fc-combo fcLabel="部门层级" fcPlaceHolder="请选择层级" [(ngModel)]="mainObj.ILEVEL" (ngModelChange)="event('ILEVEL',$event)" [fcAppid]="appId" fcFieldCode="ILEVEL" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="SYSDEPARTMENT.ILEVEL"></fc-combo>
+                                <fc-text #companyText fcLabel="隶属单位编码" fcPlaceHolder="请选择隶属单位编码" [(ngModel)]="mainObj.SCOMPANY_CODE" (click)="event('SCOMPANY_CODE',companyText)" [fcAppid]="appId" fcFieldCode="SCOMPANY_CODE" name="SYSDEPTMENT.SCOMPANY_CODE" [fcDisabled]="mainObj.ILEVEL?mainObj.ILEVEL!=='0':true"></fc-text>
+                                <fc-combo fcLabel="停用标志" fcPlaceHolder="请选择停用标志" [(ngModel)]="mainObj.BSTOP_FLAG" [fcAppid]="appId" fcFieldCode="BSTOP_FLAG" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="SYSDEPARTMENT.BSTOP_FLAG"></fc-combo>
+                                <fc-date #estDate fcLabel="成立日期" [(ngModel)]="mainObj.SEST_DATE" (ngModelChange)="event('SEST_DATE',$event)" [fcAppid]="appId" fcFieldCode="SEST_DATE" fcFormat="YYYYMMDD" name="SYSDEPARTMENT.SEST_DATE" [hidden]="!mainObj.SCOMPANY_CODE"></fc-date>
+                            </div>
+                            <div fccontent2>
+                                <fc-text fcLabel="部门名称" fcPlaceHolder="请输入部门名称" [(ngModel)]="mainObj.SDEPT_NAME" [fcAppid]="appId" fcFieldCode="SDEPT_NAME" name="SYSDEPTMENT.SDEPT_NAME" name="SYSDEPARTMENT.SDEPARTMENT_NAME"></fc-text>
+                                <fc-combo fcLabel="业务类型" fcPlaceHolder="请选择业务类型" [(ngModel)]="mainObj.SBUSINESSTYPE" [fcAppid]="appId" fcFieldCode="SBUSINESSTYPE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="SYSDEPARTMENT.SBUSINESSTYPE"></fc-combo>
+                                <fc-text #superiorText fcLabel="上级部门编码" fcPlaceHolder="请选择上级部门" [(ngModel)]="mainObj.SUPERIOR" (click)="event('SUPERIOR',superiorText)" [fcAppid]="appId" fcFieldCode="SUPERIOR" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="SYSDEPARTMENT.SUPERIOR" [fcDisabled]="mainObj.ILEVEL?mainObj.ILEVEL==='0':true"></fc-text>
+                                <fc-text #sprincipalValueText fcLabel="部门负责人" fcPlaceHolder="请选择负责人" [(ngModel)]="mainObj.SPRINCIPALVALUE" [fcAppid]="appId" fcFieldCode="SPRINCIPALVALUE" (click)="event('SPRINCIPALVALUE',sprincipalValueText)" name="SYSDEPARTMENT.SPRINCIPALVALUE"></fc-text>
+                                <fc-combo fcLabel="虚拟部门" fcPlaceHolder="请选择是否虚拟部门" [(ngModel)]="mainObj.BIS_VIRTUAL" [fcAppid]="appId" fcFieldCode="BIS_VIRTUAL" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="SYSDEPARTMENT.BIS_VIRTUAL"></fc-combo>
+                                <fc-date fcLabel="生效日期" #beginDate [(ngModel)]="mainObj.SBEGIN_DATE" (ngModelChange)="dateChanged($event,'SBEGIN_DATE')" fcFieldCode="SBEGIN_DATE" [fcAppid]="appId" fcFormat="YYYYMMDD" name="SYSDEPARTMENT.SBEGIN_DATE" [hidden]="!mainObj.SEST_DATE"></fc-date>
+                            </div>
+                        </fc-layoutcol>
+                        <fc-textarea fccontent fcLabel="地址" fcCol="1" fcRows="2" fcPlaceHolder="请输入地址" [fcAppid]="appId" fcFieldCode="SADDRESS" [(ngModel)]="mainObj.SADDRESS" name="SYSDEPARTMENT.SADDRESS"></fc-textarea>
+                        <fc-textarea fccontent fcLabel="部门概况" fcCol="1" fcRows="2" fcPlaceHolder="请输入部门概况" [fcAppid]="appId" fcFieldCode="SDEPT_GENERAL" [(ngModel)]="mainObj.SDEPT_GENERAL" name="SYSDEPARTMENT.SDEPT_GENERAL"></fc-textarea>
+                        <fc-textarea fccontent fcLabel="部门职责" fcCol="1" fcRows="2" fcPlaceHolder="请输入部门职责" [fcAppid]="appId" fcFieldCode="SDUTY" [(ngModel)]="mainObj.SDUTY" name="SYSDEPARTMENT.SDUTY"></fc-textarea>
+                        <fc-textarea fccontent fcLabel="部门历史沿革" fcCol="1" fcRows="2" fcPlaceHolder="请输入部门历史沿革" [fcAppid]="appId" fcFieldCode="SDUTY" [(ngModel)]="mainObj.SHISTORY" name="SYSDEPARTMENT.SHISTORY"></fc-textarea>
+                    </fc-layoutpanel>
+                </form>
+            </fc-layoutpanel>
+            <div class="fastposition-content" style="top:100px;" fccontent2>
+                <div class="aligncenter">
+                    <fc-icon [fcIcon]="'fc-icon-good'" [fcSize]="'large'" fcToolTip="上一条" fcPosition="bottom" [fcColor]="'#A7A7A7'" class="showhand"></fc-icon>
+                    <fc-icon [fcIcon]="'fc-icon-gejo'" [fcSize]="'large'" fcToolTip="下一条" fcPosition="bottom" [fcColor]="'#A7A7A7'" class="showhand"></fc-icon>
+                </div>
+                <div>
+                    <fc-fastposition fccontent [fcLinks]="[{href: 'id0', 'label': '基本信息'}]"></fc-fastposition>
+                </div>
+            </div>
+        </fc-layoutcol>
+    </fc-layoutrow>
+</fc-layoutpanel>

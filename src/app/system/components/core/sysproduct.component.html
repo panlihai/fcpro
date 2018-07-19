@@ -1,0 +1,58 @@
+<!-- 产品入口-产品卡片 -->
+<fc-layoutpanel class="sys-card-pannel">
+    <div fcheader>
+        <fc-title fcLabel="项目&产品"></fc-title>
+        <P>
+            项目&产品：FC基础服务平台的开发者应用模块，平台的核心，应用的入口，PID唯一标识此产品，类似概念如微信公众号；移动应用及桌面应用共享数据的功能。
+        </P>
+        <div class="sys-card-fast">
+            <ul class="sys-fast-list">
+                <li>
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
+                <li>
+                    <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>产品简介</li>
+                <li>
+                    <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>产品简介</li>
+            </ul>
+            <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="sysLookUp" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
+        </div>
+    </div>
+    <div nz-row [nzGutter]="8" fccontent>
+        <!-- 新增卡片操作 -->
+        <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
+            <nz-card (click)="listAdd($event);">
+                <ng-template #body>
+                    <fc-icon fcIcon="fc-icon-add" fcFontSize="40" class="sys-card-addicon"></fc-icon>
+                    <p class="sys-card-addtext">新增产品</p>
+                </ng-template>
+            </nz-card>
+        </div>
+        <!-- 产品列表循环 -->
+        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let product of sysProducts">
+            <nz-card (click)="listEdit(product);">
+                <ng-template #body>
+                    <div class="sys-card-content">
+                        <fc-tooltip class="sys-card-help" fcTitle="{{product.DIRECTION}}">
+                            <fc-icon fcIcon="fc-icon-wiki" fcFontSize="22" fccontent></fc-icon>
+                        </fc-tooltip>
+                        <span class="sys-card-mark">
+                            <fc-icon fcIcon="fc-icon-definition" fcColor="#ffffff"></fc-icon>
+                        </span>
+                        <div class="sys-card-text">
+                            <div class="sys-card-title">
+                                {{product.PID}}-{{product.PNAME}}
+                            </div>
+                            <p class="sys-card-smarks">{{product.DIRECTION}}</p>
+                        </div>
+                    </div>
+                    <div class="sys-card-footer">
+                        <fc-button class="sys-card-btn" fcLabel="编辑" (click)="listEdit(product);" [fcBlock]="true">
+                        </fc-button>
+                        <fc-button class="sys-card-btn" fcLabel="删除" (click)="delectOneProduct(product);" [fcBlock]="true">
+                        </fc-button>
+                    </div>
+                </ng-template>
+            </nz-card>
+        </div>
+    </div>
+</fc-layoutpanel>

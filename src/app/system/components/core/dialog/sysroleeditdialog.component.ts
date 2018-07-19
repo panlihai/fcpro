@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { NzModalSubject } from 'ng-zorro-antd';
+import { SysbizcodedefineService } from '../../../services/sysbizcodedefine.service';
 @Component({
   selector: 'resetpwddialog',
   template: `
@@ -22,7 +23,7 @@ import { NzModalSubject } from 'ng-zorro-antd';
    }
   `]
 })
-export class SysroleDialogEditComponent {
+export class SysroleeditdialogComponent {
   roleName: string = '';
   remark: string = '';
   roleId: string = '';
