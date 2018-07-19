@@ -35,12 +35,16 @@ import { SyscompanymodifyComponent } from './components/core/syscompanymodify.co
 import { SyscompanyaddComponent } from './components/core/syscompanyadd.component';
 import { SysparamComponent } from './components/core/sysparam.component';
 import { SyscompanychangeauditComponent } from './components/core/syscompanychangeaudit.component';
-import { SysdepartmentComponent } from './components/core/sysdepartment.component';
+import { SysdepartmentlistComponent } from './components/core/sysdepartmentlist.component';
+import { SysdepartmenteditComponent } from './components/core/sysdepartmentedit.component';
+import { SysserviceeditComponent } from './components/core/sysserviceEdit.component';
 import { SysicondialogComponent } from './components/core/dialog/sysicondialog.component';
 import { SysproducteditComponent } from './components/core/sysproductedit.component';
 import { SyswizardComponent } from './components/core/syswizard.component';
-import { SysappaddComponent } from './components/core/sysappadd.component';
+import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
+import { SysappmodifyComponent } from './components/core/sysappmodify.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
+
 export const Routers: Routes = [{
     path: 'home',
     component: HomeComponent,
@@ -70,16 +74,20 @@ export const Routers: Routes = [{
     component: SysdatasourceComponent,
     data: { keep: false }
 }, {
+    path: 'sysdatasourceEdit',//数据源-新增
+    component: SysdatasourceeditComponent,
+    data: { keep: false }
+}, {
     path: 'sysappList',//元数据
     component: SysappComponent,
     data: { keep: false }
 }
-, {
-    path: 'sysappAdd',//元数据新增
-    component: SysappaddComponent,
+    , {
+    path: 'sysappModify',//元数据修改
+    component: SysappmodifyComponent,
     data: { keep: false }
 }, {
-    path: 'sysappEdit',//元数据修改
+    path: 'sysappEdit',//元数据编辑
     component: SysappeditComponent,
     data: { keep: false }
 }, {
@@ -205,8 +213,16 @@ export const Routers: Routes = [{
     component: SysparamComponent,
     data: { keep: false }
 }, {
-    path: 'sysdepartment',//部门管理
-    component: SysdepartmentComponent,
+    path: 'sysdepartmentList',//部门管理
+    component: SysdepartmentlistComponent,
+    data: { keep: false }
+}, {
+    path: 'sysdepartmentEdit',//设立部门
+    component: SysdepartmenteditComponent,
+    data: { keep: false }
+}, {
+    path: 'sysserviceEdit',//设立部门
+    component: SysserviceeditComponent,
     data: { keep: false }
 }, {
     path: 'sysuserList',//用户管理

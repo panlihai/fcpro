@@ -1,0 +1,64 @@
+<!-- 数据源入口-数据源卡片 -->
+<fc-layoutpanel class="sys-card-pannel">
+    <div fcheader>
+        <fc-title fcLabel="数据源"></fc-title>
+        <P>
+            服务：FC基础服务平台的功能单元，开发者提供给终端用户的服务；与产品是多对一的关系；服务中包含接口、视图，默认模型 提供跨越设计与开发的体验解决方案。
+        </P>
+        <div class="sys-card-fast">
+            <ul class="sys-fast-list">
+                <li>
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
+                <li>
+                    <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>产品简介</li>
+                <li>
+                    <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>产品文档</li>
+            </ul>
+            <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="sysLookUp" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
+        </div>
+    </div>
+    <div fccontent>
+        <div nz-row [nzGutter]="8">
+            <!-- 新增卡片操作 -->
+            <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
+                <nz-card (click)="navAdd({ refresh: 'Y' });">
+                    <ng-template #body>
+                        <fc-icon fcIcon="fc-icon-add" fcFontSize="40" class="sys-card-addicon"></fc-icon>
+                        <p class="sys-card-addtext">新增服务</p>
+                    </ng-template>
+                </nz-card>
+            </div>
+            <!-- 产品列表循环 -->
+            <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let datasource of sysDatasources">
+                <nz-card (click)="listEdit(datasource);">
+                    <ng-template #body>
+                        <div class="sys-card-content">
+                            <fc-tooltip class="sys-card-help" fcTitle="{{datasource.DIRECTION}}">
+                                <fc-icon fcIcon="fc-icon-wiki" fcFontSize="22" fccontent></fc-icon>
+                            </fc-tooltip>
+                            <span class="sys-card-mark">
+                                {{datasource.PID|slice:0:1}}
+                            </span>
+                            <div class="sys-card-text">
+                                <div class="sys-card-title">
+                                    {{datasource.PID}}-{{datasource.DSNAME}}-{{datasource.DSID}}
+                                </div>
+                                <p class="sys-card-smarks">{{datasource.REMARK}}</p>
+                            </div>
+                        </div>
+                        <div class="sys-card-footer">
+                            <fc-button class="sys-card-btn" fcLabel="预览" (click)="listOneView(datasource);" [fcBlock]="true">
+                            </fc-button>
+                            <fc-button class="sys-card-btn" fcLabel="发布" (click)="publishdatasource(datasource);" [fcBlock]="true">
+                            </fc-button>
+                            <fc-button class="sys-card-btn" fcLabel="编辑" (click)="editdatasource(datasource);" [fcBlock]="true">
+                            </fc-button>
+                            <fc-button class="sys-card-btn" fcLabel="删除" (click)="deleteOnedatasource(datasource);" [fcBlock]="true">
+                            </fc-button>
+                        </div>
+                    </ng-template>
+                </nz-card>
+            </div>
+        </div>
+    </div>
+</fc-layoutpanel>

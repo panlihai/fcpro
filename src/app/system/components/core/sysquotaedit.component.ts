@@ -1,17 +1,9 @@
 import { Component, ViewChild } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import {
-  ParentlistComponent,
-  ParentDetailComponent,
-  ParentEditComponent,
-  FclistdataComponent
-} from "fccomponent";
+import { ParentEditComponent, FclistdataComponent } from "fccomponent";
 import { FCEVENT } from "fccomponent/fc";
 import { Args_QuotaValue, AccessToData, SysquotavalueService, PageStateConfig, ObjectState } from "../../services/sysquotavalue.service";
-import { GridApi, ColumnApi } from "ag-grid";
-import { RowDataTransaction } from "ag-grid/dist/lib/rowModels/inMemory/inMemoryRowModel";
 @Component({
-  selector: "sysquota",
   templateUrl: "./sysquotaedit.component.html",
   styles: [
     `
