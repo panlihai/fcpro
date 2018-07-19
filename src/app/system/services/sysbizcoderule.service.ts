@@ -51,7 +51,10 @@ export class SysbizcoderuleService extends ParentService {
       this.sysbizcodedefineService.updateList([obj1, obj2]),
     ]);
   }
-  // 刷新列表
+  /**
+   *  刷新列表
+   * @param id 
+   */
   listrefleshFun(sendCondition,bizcoderuledifinelist){
       //刷新列表
       let con: any = {
@@ -60,7 +63,10 @@ export class SysbizcoderuleService extends ParentService {
     sendCondition = JSON.stringify(con);
     bizcoderuledifinelist.fcReflesh();
   }
-  // 编码规则方法
+   /**
+   *  编码规则方法
+   * @param id 
+   */
   bizcoderuleFun(mainObj){
     return this.providers.appService.findWithQuery('SYSBIZCODEDEFINE',{SBIZCODE_RULE_ID:mainObj.SBIZCODE_RULE_CODE})
   }

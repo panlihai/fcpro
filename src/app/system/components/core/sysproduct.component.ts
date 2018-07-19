@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SysproductService } from '../../services/sysproduct.service';
 import { FCEVENT } from 'fccomponent/fc';
+import { environment } from '../../../../environments/environment.prod';
 @Component({
   selector: 'sysproduct',
   templateUrl: 'sysproduct.component.html',
@@ -28,28 +29,8 @@ export class SysproductComponent extends ParentlistComponent {
   }
   
   getDefaultQuery() {
-    return {
-      ENABLE:'Y',
-      WHERE:' AND 1=1'
-    }
+    
   }
-  /**
- * 
- * @param eventName 事件名称
- * 选列表中的每行数据把每行数据的字段内容传递给修改页面
- */
-listEvent(event: FCEVENT) {
-  switch (event.eventName) {
-    case "select":
-      if (this.searchObj.WHERE && this.searchObj.WHERE.length !== 0) {
-        this.searchObj.WHERE += " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
-      } else {
-        this.searchObj.WHERE = " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
-      }
-      this.search();
-      break;
-  }
-}
   /**
    * 初始化产品
    */
@@ -62,7 +43,9 @@ listEvent(event: FCEVENT) {
    * 新增产品,跳转到新增产品页面
    */
   addProduct() {
-    this.navRouter('sysproductAdd');
+    // this.navRouter('sysproductEdit');
+    this.router.navigate(["/" + environment.pid.toLocaleLowerCase()  + "/sysproductEdit"], {        
+  })  
   }
   event(eventName: string, context: any): void {
     switch (eventName) {
