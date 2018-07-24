@@ -9,7 +9,7 @@ import { environment } from '../../../../environments/environment.prod';
   templateUrl: 'sysproduct.component.html',
   styles: [`
   .sys-card-btn{
-    width:50%;
+    width:25%;
   }
   `]
 })
@@ -18,6 +18,10 @@ export class SysproductComponent extends ParentlistComponent {
   sysProducts: any[];
   //字母查找
   sysLookUp: any[];
+  //明细操作按钮
+  btnlistOnes: any[];
+  //更多的按钮
+  btnlistMores: any[];
   constructor(public mainService: SysproductService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
@@ -26,10 +30,15 @@ export class SysproductComponent extends ParentlistComponent {
   init(): void {
     this.initPproduct();
     this.sysLookUp = this.mainService.fastLookUp();
+    this.btnlistOnes = this.mainService.appButtons.filter(btn =>
+      btn.BTNTYPE === 'LISTONE'
+    );
+    this.btnlistMores = this.btnlistOnes.splice(3);
+    this.btnlistOnes = this.btnlistOnes.splice(0, 2);
   }
-  
+
   getDefaultQuery() {
-    
+
   }
   /**
    * 初始化产品
@@ -43,8 +52,9 @@ export class SysproductComponent extends ParentlistComponent {
    * 新增产品,跳转到新增产品页面
    */
   addProduct() {
-    this.router.navigate(["/" + environment.pid.toLocaleLowerCase()  + "/sysproductEdit"], {        
-  })  
+    // this.navRouter('sysproductEdit');
+    this.router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/sysproductEdit"], {
+    })
   }
   event(eventName: string, context: any): void {
     switch (eventName) {
@@ -102,10 +112,10 @@ export class SysproductComponent extends ParentlistComponent {
         break;
     }
   }
-   /**
-   * 跳转到编辑页面
-   * @param event 
-   */
+  /**
+  * 跳转到编辑页面
+  * @param event 
+  */
   listEdit(event: FCEVENT) {
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {

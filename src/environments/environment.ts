@@ -15,6 +15,6 @@ export const environment = {
   // wsurl: "ws://10.56.23.218/server/msg",
   // wsurl: "ws://10.56.23.117:8000/server/msg", 
   // wsurl: "ws://192.168.0.117/server/msg",
-  wsurl: "ws://pcorp.cn/server/msg",
+  wsurl: "ws://10.56.23.218/server/msg",
   license:''
 };

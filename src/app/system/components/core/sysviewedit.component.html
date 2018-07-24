@@ -1,0 +1,17 @@
+<fc-layoutpanel class="sys-card-pannel">
+    <fc-layoutcol fccontent fcSpans="6,4">
+        <fc-title fccontent1 fcLabel="基本信息" fcBorder="bottom"></fc-title>
+        <fc-layoutcol fccontent1 fcSpans="9,1">
+            <fc-text fccontent1 fcLabel="视图编码" [(ngModel)]="mainObj.VIEWID" [fcAppid]="appId" fcFieldCode="VIEWID" name="VIEWID"></fc-text>
+            <fc-text fccontent1 fcLabel="视图名称" [(ngModel)]="mainObj.VIEWNAME" [fcAppid]="appId" fcFieldCode="VIEWNAME" name="VIEWNAME"></fc-text>
+            <fc-radio fccontent1 [(ngModel)]="mainObj.CATAGORY" [fcAppid]="appId" fcFieldCode="CATAGORY" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="CATAGORY"></fc-radio>
+            <fc-radio fccontent1 [(ngModel)]="mainObj.ISDEFAULT" [fcAppid]="appId" fcFieldCode="ISDEFAULT" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ISDEFAULT"></fc-radio>
+        </fc-layoutcol>
+    </fc-layoutcol>
+    <fc-layoutcol fccontent fcSpans="6,4">
+        <fc-title fccontent1 fcLabel="元素编辑" fcBorder="bottom"></fc-title>
+    </fc-layoutcol>
+    <fc-layoutcol fccontent fcSpans="3,7">
+
+    </fc-layoutcol>
+</fc-layoutpanel>
