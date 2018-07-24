@@ -36,12 +36,12 @@
         </ul>
     </div>
     <fc-layoutcol fcSpans="7,3" fccontent>
-        <!--进行中的项目  -->
+        <!--进行中的服务  -->
         <div class="sys-card-item" fccontent1>
             <fc-title fcLabel="进行中的项目" fcBorder="bottom"></fc-title>
-            <a class="sys-title-right">全部项目</a>
+            <a class="sys-title-right">全部的服务</a>
             <div nz-row [nzGutter]="8" fccontent>
-                <!-- 进行中的项目列表循环 -->
+                <!-- 进行中的服务列表循环 -->
                 <div nz-col [nzSpan]="8" class="sys-card" *ngFor="let product of sysProducts">
                     <nz-card (click)="onSelect(product);">
                         <ng-template #body>
@@ -95,9 +95,9 @@
                     (chartClick)="chartClicked($event)"></canvas>
             </div>
         </div>
-        <!-- 团队 -->
+        <!-- 项目 -->
         <div class="sys-card-item" fccontent2 style="margin-left: 20px;">
-            <fc-title fcLabel="团队" fcBorder="bottom"></fc-title>
+            <fc-title fcLabel="项目" fcBorder="bottom"></fc-title>
             <ul class="sys-team">
                 <li *ngFor="let item of sysProducts">
                     <img src="assets/img/github.jpg" alt="我的头像" />
