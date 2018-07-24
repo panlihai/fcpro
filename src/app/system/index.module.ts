@@ -98,14 +98,16 @@ import { chooseicondialogComponent } from './components/core/dialog/chooseicondi
 import { SyswizardService } from './services/syswizard.service';
 import { ChartsModule } from 'ng2-charts';
 import { SysappmodifyComponent } from './components/core/sysappmodify.component';
-import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
-import { SysappaddComponent } from './components/core/sysappadd.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysserviceeditComponent } from './components/core/sysserviceedit.component';
 import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
 import { SysinterfaceService } from './services/sysinterface.service';
 import { DialogCardListComponent } from './components/core/dialog/dialogcardlist.component';
+import { SysvieweditComponent } from './components/core/sysviewedit.component';
+import { SysviewelementeditComponent } from './components/core/sysviewelementedit.component';
+import { SysviewService } from './services/sysview.service';
+import { SysviewelementService } from './services/sysviewelement.service';
 
 @NgModule({
   entryComponents: [
@@ -119,8 +121,7 @@ import { DialogCardListComponent } from './components/core/dialog/dialogcardlist
     companytransferdialogComponent,
     SyscompanymodifyComponent,
     SyscompanychangeauditComponent,
-    SysdepartmentComponent,
-    chooseicondialogComponent
+    chooseicondialogComponent,
     SysroleeditdialogComponent,
     SysproducteditComponent,
     DialogCardListComponent
@@ -141,7 +142,6 @@ import { DialogCardListComponent } from './components/core/dialog/dialogcardlist
     FctabModule,
     FcchartModule,
     SpreadSheetsModule,
-    AngularDraggableModule,
     NgZorroAntdModule,
     ChartsModule
   ],
@@ -191,7 +191,7 @@ import { DialogCardListComponent } from './components/core/dialog/dialogcardlist
     UploadavatardialogComponent,
     companytransferdialogComponent,
     SysdatasourceeditComponent,
-    chooseicondialogComponent 
+    chooseicondialogComponent,
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
     SysicondialogComponent,
@@ -202,7 +202,9 @@ import { DialogCardListComponent } from './components/core/dialog/dialogcardlist
     DialogListComponent,
     SysserviceeditComponent,
     SysinterfaceeditComponent,
-    DialogCardListComponent
+    DialogCardListComponent,
+    SysvieweditComponent,
+    SysviewelementeditComponent
   ],
   providers: [
     LayoutService,
@@ -239,12 +241,14 @@ import { DialogCardListComponent } from './components/core/dialog/dialogcardlist
     SyscompanyrelationService,
     SystbvorgcurorgService,
     SysdepartmentService,
-    SyswizardService
+    SyswizardService,
     SysdepartmentrelationService,
     SystbvdeptcurorgService,
     SysserviceService,
     SysiconService,
-    SysinterfaceService
+    SysinterfaceService,
+    SysviewService,
+    SysviewelementService
   ]
 })
 export class SystemModule {

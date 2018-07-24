@@ -1,20 +1,18 @@
-/* 	元数据 */
+/* 	首页主服务 */
 import { Injectable } from '@angular/core';
-import { ParentService, ProvidersService } from 'fccore';
-import { Subject } from 'rxjs';
-import { NzModalService } from 'ng-zorro-antd';
+import { ProvidersService, ParentService } from 'fccore';
 import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
+import { NzModalService } from '../../../../node_modules/ng-zorro-antd';
 @Injectable()
-export class SysinterfaceService extends ParentService {
-    dialogArgsSubject = new Subject();
+export class SysviewelementService extends ParentService {
     constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService) {
-        super(providers, "SYSINTERFACE");
+        super(providers, "SYSVIEWELEMENT");
     }
     /** YM
       *  初始化DefaultObj
       */
-    getDefaultObj() {
+     getDefaultObj() {
         return this.providers.appService.initObjDefaultValue(this.app);
     }
     getBizCodeByAid(resId: string) {
@@ -24,6 +22,6 @@ export class SysinterfaceService extends ParentService {
         return this.sysproductService.findWithQuery({});
     }
 }
-export interface Sysinterface {
+export interface Sysviewelement {
 
 }

@@ -14,6 +14,17 @@ export class SysserviceService extends ParentService {
     constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService) {
         super(providers, "SYSSERVICE");
     }
+    /**
+     * 
+     */
+    /**
+     * 获取路由导航
+     * @param exp List：列表；Edit:编辑:Detail：详情
+     */
+    getRouteUrl(moduleId: string, appId: string, exp: string) {
+
+        return `/${moduleId.toLocaleLowerCase()}/${appId.toLocaleLowerCase()}${exp}`;
+    };
     /** YM
       *  初始化DefaultObj
       */
@@ -71,4 +82,7 @@ export class SysserviceService extends ParentService {
     getSysInterfaces(serviceId) {
         return this.appService.findWithQuery('SYSINTERFACE', { WHERE: `SERVICEID ='${serviceId}'` })
     }
+}
+export interface Sysservice {
+
 }

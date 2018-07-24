@@ -175,8 +175,9 @@ export class SysserviceeditComponent extends ParentEditComponent {
     * 新增产品,跳转到新增产品页面
     */
     addView() {
+        this.router
+        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSVIEW', 'Edit'));
         if (this.staticMainObj === this.mainObj) {
-            this.navRouter('sysviewEdit');
         } else {
             this.messageService.warm('检测到表单信息有更改，请先保存好再进行新增操作');
         }
@@ -185,11 +186,15 @@ export class SysserviceeditComponent extends ParentEditComponent {
     * 新增接口,跳转到新增接口页面
     */
     addInterface() {
-        this.navRouter('sysinterfaceEdit');
+        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'));
+        if (this.staticMainObj === this.mainObj) {
+        } else {
+            this.messageService.warm('检测到表单信息有更改，请先保存好再进行新增操作');
+        }
     }
     preventUnsaved() {
-        this.router.dispose();
         this.router.events.filter(el => el instanceof NavigationStart).subscribe(ev => {
+            //TODO remark: route.config.deActive;
         })
     }
     /** YM
