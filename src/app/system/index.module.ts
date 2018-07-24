@@ -100,6 +100,10 @@ import { SysserviceeditComponent } from './components/core/sysserviceedit.compon
 import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
 import { SysinterfaceService } from './services/sysinterface.service';
 import { DialogCardListComponent } from './components/core/dialog/dialogcardlist.component';
+import { SysvieweditComponent } from './components/core/sysviewedit.component';
+import { SysviewelementeditComponent } from './components/core/sysviewelementedit.component';
+import { SysviewService } from './services/sysview.service';
+import { SysviewelementService } from './services/sysviewelement.service';
 
 
 @NgModule({
@@ -192,7 +196,9 @@ import { DialogCardListComponent } from './components/core/dialog/dialogcardlist
     DialogListComponent,
     SysserviceeditComponent,
     SysinterfaceeditComponent,
-    DialogCardListComponent
+    DialogCardListComponent,
+    SysvieweditComponent,
+    SysviewelementeditComponent
   ],
   providers: [
     LayoutService,
@@ -233,7 +239,9 @@ import { DialogCardListComponent } from './components/core/dialog/dialogcardlist
     SystbvdeptcurorgService,
     SysserviceService,
     SysiconService,
-    SysinterfaceService
+    SysinterfaceService,
+    SysviewService,
+    SysviewelementService
   ]
 })
 export class SystemModule {

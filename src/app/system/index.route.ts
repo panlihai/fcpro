@@ -44,6 +44,8 @@ import { SysappaddComponent } from './components/core/sysappadd.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysserviceeditComponent } from './components/core/sysserviceedit.component';
 import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
+import { SysvieweditComponent } from './components/core/sysviewedit.component';
+import { SysviewelementeditComponent } from './components/core/sysviewelementedit.component';
 
 export const Routers: Routes = [{
     path: 'home',
@@ -205,7 +207,7 @@ export const Routers: Routes = [{
 }, {
     path: 'sysserviceEdit',//设立部门
     component: SysserviceeditComponent,
-    data: { keep: false }
+    data: { keep: false },
 }, {
     path: 'sysuserList',//用户管理
     component: SysuserComponent,
@@ -230,6 +232,14 @@ export const Routers: Routes = [{
 }, {
     path: 'sysinterfaceEdit',//开发向导-卡片
     component: SysinterfaceeditComponent,
+    data: { keep: false }
+}, {
+    path: 'sysviewEdit',//开发向导-卡片
+    component: SysvieweditComponent,
+    data: { keep: false }
+}, {
+    path: 'sysviewelementEdit',//开发向导-卡片
+    component: SysviewelementeditComponent,
     data: { keep: false }
 }, {
     path: '**',

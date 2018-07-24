@@ -1,0 +1,11 @@
+<fc-layoutpanel class="sys-card-pannel">
+    <fc-layoutcol fccontent fcSpans="6,4">
+        <fc-title fccontent1 fcLabel="基本信息" fcBorder="bottom"></fc-title>
+        <fc-layoutcol fccontent1 fcSpans="9,1">
+            <fc-text fccontent1 fcLabel="视图编码" [(ngModel)]="mainObj" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME" [fcDisabled]="true"></fc-text>
+            <fc-text fccontent1 fcLabel="视图编码" [(ngModel)]="mainObj" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME" [fcDisabled]="true"></fc-text>
+            <fc-radio fccontent1 [(ngModel)]="mainObj.ISUSE" [fcAppid]="appId" fcFieldCode="ISUSE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ISUSE"></fc-radio>
+            <fc-radio fccontent1 [(ngModel)]="mainObj.ISUSE" [fcAppid]="appId" fcFieldCode="ISUSE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ISUSE"></fc-radio>
+        </fc-layoutcol>
+    </fc-layoutcol>
+</fc-layoutpanel>
