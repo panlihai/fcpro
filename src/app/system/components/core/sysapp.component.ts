@@ -7,73 +7,112 @@ import { ParentlistComponent } from 'fccomponent';
 import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'sysapp',
-  template: `
-  <fc-layoutcol fcSpans="2,9" style="height:100%;" class="layoutcol-full">
-    <fc-layoutpanel fcFull="true" fccontent2 fcTitle="元数据列表">    
-      <fc-tlblist [fcAppid]="appId" (fcEvent)="tlblistEvent($event)" fcheader></fc-tlblist>
-      <fc-layoutrow fcSpan="40" style="height:90%;" fccontent>
-        <fc-searchlist  [fcAppid]="appId" fccontent1 (fcEvent)="searchlistEvent($event)"></fc-searchlist>
-        <fc-listdata  fccontent2 style="height:100%;" [fcAppid]="appId" [fcOption]="mainService.listOptions" (fcEvent)="listdataEvent($event)" [fcCondition]="condition"></fc-listdata>
-      </fc-layoutrow>
-    </fc-layoutpanel>
-  </fc-layoutcol>  
-  `, 
+  templateUrl: './sysapp.component.html',
   styles: [`
- :host ::ng-deep .fc-layoutcol {
-    height:100%;
-  }
-  :host ::ng-deep .fc-layoutgroup{
-    height: calc(100% - 40px);    
-  }
-  :host ::ng-deep .fc-layoutgroup .fc-content {
-    height:100%;
-  }
-  :host ::ng-deep .fc-layoutpanel .fc-content {
-    height:100%;
-  }
-  :host ::ng-deep .layoutcol-full>div>.fc-content2{
-    height:100%;
-  }
-  .list-search {
-    width:100%;
-  }
-  .list-search:after{
-    content:'';
-    display:block;
-    clear:both;
-  }
-  .list-search-every{
-    width:24%;
-    float:left;
+  .sys-card-btn{
+    width:25%;
   }
   `]
 })
 export class SysappComponent extends ParentlistComponent {
+  //字母查找
+  sysLookUp: any[];
+  //元数据
+  sysApps: any[];
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {
     super(mainService, router, activeRoute);
   }
   init(): void {
+    this.initSysApp();
+    this.sysLookUp = this.mainService.fastLookUp();
   }
   getDefaultQuery() {
     return {
-      ENABLE:'Y',
-      WHERE:' AND 1=1'
+      ENABLE: 'Y',
+      WHERE: ' AND 1=1'
     }
   }
   /**
    * @param eventName 事件名称
-   * @param context 按钮内容
+   * @param context 事件返回参数
    */
   event(eventName: string, context: any): void {
     switch (eventName) {
-        case 'listAdd':
-        this.listAdd(event);
+      case 'lookUpA'://根据字母快速查找
+        break;
+      case 'lookUpB':
+        break;
+      case 'lookUpC':
+        break;
+      case 'lookUpD':
+        break;
+      case 'lookUpE':
+        break;
+      case 'lookUpF':
+        break;
+      case 'lookUpG':
+        break;
+      case 'lookUpH':
+        break;
+      case 'lookUpI':
+        break;
+      case 'lookUpJ':
+        break;
+      case 'lookUpK':
+        break;
+      case 'lookUpL':
+        break;
+      case 'lookUpM':
+        break;
+      case 'lookUpN':
+        break;
+      case 'lookUpO':
+        break;
+      case 'lookUpP':
+        break;
+      case 'lookUpQ':
+        break;
+      case 'lookUpR':
+        break;
+      case 'lookUpS':
+        break;
+      case 'lookUpT':
+        break;
+      case 'lookUpU':
+        break;
+      case 'lookUpV':
+        break;
+      case 'lookUpW':
+        break;
+      case 'lookUpX':
+        break;
+      case 'lookUpY':
+        break;
+      case 'lookUpZ':
         break;
     }
   }
-  listAdd(event){
-    this.router.navigate(["/" + environment.pid.toLocaleLowerCase()  + "/sysappAdd"])  
+  /**
+  * 初始化元数据
+  */
+  initSysApp() {
+    this.mainService.findWithQuery({}).subscribe(result => {
+      if (result.CODE === '0') {
+        this.sysApps = result.DATA;
+      }
+    });
+  }
+  /**
+   * 跳转到编辑页面
+   * @param event 
+   */
+  listEdit(event: FCEVENT) {
+    let selectedObj: any = event;
+    if (selectedObj && selectedObj !== null) {
+      this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysApps));
+      this.navRouter(this.getRouteUrl('Modify'), { ID: selectedObj.ID, refresh: 'Y' });
+    }
   }
 }

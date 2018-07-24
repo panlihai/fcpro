@@ -40,7 +40,8 @@ import { SysdepartmenteditComponent } from './components/core/sysdepartmentedit.
 import { SysicondialogComponent } from './components/core/dialog/sysicondialog.component';
 import { SysproducteditComponent } from './components/core/sysproductedit.component';
 import { SyswizardComponent } from './components/core/syswizard.component';
-import { SysappaddComponent } from './components/core/sysappadd.component';
+import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
+import { SysappmodifyComponent } from './components/core/sysappmodify.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysserviceeditComponent } from './components/core/sysserviceedit.component';
 import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
@@ -74,16 +75,20 @@ export const Routers: Routes = [{
     component: SysdatasourceComponent,
     data: { keep: false }
 }, {
+    path: 'sysdatasourceEdit',//数据源-新增
+    component: SysdatasourceeditComponent,
+    data: { keep: false }
+}, {
     path: 'sysappList',//元数据
     component: SysappComponent,
     data: { keep: false }
 }
     , {
-    path: 'sysappAdd',//元数据新增
-    component: SysappaddComponent,
+    path: 'sysappModify',//元数据修改
+    component: SysappmodifyComponent,
     data: { keep: false }
 }, {
-    path: 'sysappEdit',//元数据修改
+    path: 'sysappEdit',//元数据编辑
     component: SysappeditComponent,
     data: { keep: false }
 }, {

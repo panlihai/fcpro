@@ -51,18 +51,24 @@ export class SysbizcoderuleService extends ParentService {
       this.sysbizcodedefineService.updateList([obj1, obj2]),
     ]);
   }
-  // 刷新列表
-  listrefleshFun(sendCondition, bizcoderuledifinelist) {
-    //刷新列表
-    let con: any = {
+  /**
+   *  刷新列表
+   * @param id 
+   */
+  listrefleshFun(sendCondition,bizcoderuledifinelist){
+      //刷新列表
+      let con: any = {
       ORDER: 'NSERIAL_NUM'
     }
     sendCondition = JSON.stringify(con);
     bizcoderuledifinelist.fcReflesh();
   }
-  // 编码规则方法
-  bizcoderuleFun(mainObj) {
-    return this.providers.appService.findWithQuery('SYSBIZCODEDEFINE', { SBIZCODE_RULE_ID: mainObj.SBIZCODE_RULE_CODE })
+   /**
+   *  编码规则方法
+   * @param id 
+   */
+  bizcoderuleFun(mainObj){
+    return this.providers.appService.findWithQuery('SYSBIZCODEDEFINE',{SBIZCODE_RULE_ID:mainObj.SBIZCODE_RULE_CODE})
   }
   /**
   * 根据产品ID获取服务编码

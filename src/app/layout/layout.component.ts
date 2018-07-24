@@ -45,10 +45,10 @@ import { NzModalService } from 'ng-zorro-antd';
     position: absolute;
   }
   .nav-tab{
-    width:calc(100% - 5px);
+    width:100%;
     position:absolute;
-    top:5px;
-    left:5px;
+    top:0px;
+    left:0px;
     background-color:#ffffff;
     height:42px;
   }
