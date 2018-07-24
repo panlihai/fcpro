@@ -10,11 +10,10 @@ import { FclistdataComponent } from 'fccomponent';
 import { GridApi } from 'ag-grid';
 import { RowDataTransaction } from 'ag-grid/dist/lib/rowModels/inMemory/inMemoryRowModel';
 import { ConfigInterface } from 'ng-zorro-antd/src/modal/nz-modal.service';
-import { DialogListComponent } from '../components/core/dialog/dialogList.component';
+import { DialogListComponent, DialogListArgs } from '../components/core/dialog/dialogList.component';
 @Injectable()
 export class SysdepartmentService extends ParentService {
   updateEmployeeSubject = new Subject();
-  dialogArgsSubject = new Subject();
   constructor(public providers: ProvidersService,
     public sysdeptrelationService: SysdepartmentrelationService,
     public systbvdeptcurorgService: SystbvdeptcurorgService,
@@ -119,11 +118,11 @@ export class SysdepartmentService extends ParentService {
     * 处理列表弹窗数据的业务函数
     * @param Args_Dialog 
     */
-  dialogOk(dialogArgs: DialogArgs) {
-    let gridApi: GridApi = dialogArgs.dialogList._gridApi;
+  dialogOk(dialogListArgs: DialogListArgs) {
+    let gridApi: GridApi = dialogListArgs.dialogList._gridApi;
     let target_gridApi: GridApi = undefined;
-    if (dialogArgs.targetList instanceof FclistdataComponent) {
-      target_gridApi = dialogArgs.targetList._gridApi;
+    if (dialogListArgs.targetList instanceof FclistdataComponent) {
+      target_gridApi = dialogListArgs.targetList._gridApi;
     }
     let selected = gridApi.getSelectedRows();
     let toChange: RowDataTransaction = {};
@@ -152,26 +151,21 @@ export class SysdepartmentService extends ParentService {
   }
   /** YM
   * 打开窗口的函数方法
-  * @param dialogArgs 
+  * @param dialogListArgs 
   */
-  openDialog(dialogArgs: DialogArgs) {
-    if (dialogArgs.beforefuc)
-      dialogArgs.beforefuc();
-    this.nzModal.open({
-      title: dialogArgs.configInterface.title ? dialogArgs.configInterface.title : '',
-      content: dialogArgs.configInterface.content ? dialogArgs.configInterface.content : DialogListComponent,
+  openDialog(dialogListArgs: DialogListArgs) {
+    return this.nzModal.open({
+      title: dialogListArgs.configInterface.title ? dialogListArgs.configInterface.title : '',
+      content: dialogListArgs.configInterface.content ? dialogListArgs.configInterface.content : DialogListComponent,
       onOk() { },
       onCancel() { },
       footer: false,
-      width: dialogArgs.configInterface.width,
-      style: dialogArgs.configInterface.style,
+      width: dialogListArgs.configInterface.width,
+      style: dialogListArgs.configInterface.style,
       componentParams: {
-        options: dialogArgs
+        options: dialogListArgs
       }
-    }).subscribe(dialogArgs => {
-      if (dialogArgs.hasOwnProperty('methodIndex'))
-        this.dialogArgsSubject.next(dialogArgs);
-    });
+    })
   }
   /** YM YM
     *  初始化DefaultObj
@@ -279,42 +273,7 @@ export class SysdepartmentService extends ParentService {
     return this.commonService.createObservableConcat(this.save(mainObj), this.sysdeptrelationService.save(relationObj));
   }
 
-  dialogListOptions = {
-    //皮肤默认为bootstrap风格
-    fcClass: 'ag-blue',
-    //每页显示条数
-    fcPaginationPageSize: 20,
-    fcHeight: 500,
-    //是否启用查询
-    fcEnableSearch: false,
-    //是否启用排序
-    fcEnableSorting: true,
-    //是否启用过滤
-    fcEnableFilter: true,
-    //是否自动设置表头大小
-    fcEnableColResize: true,
-    //是否显示工具栏
-    fcShowToolPanel: false,
-    //是否分页
-    fcPagination: true,
-    //是否显示分组
-    fcRowGroupPanelShow: 'none',//'always',
-    //是否启用状态栏
-    fcEnableStatusBar: true,
-    //是否启用区域选中
-    fcEnableRangeSelection: false,
-    //选中方式
-    fcRowSelection: 'multiple',
-    //是否启用操作列
-    fcEnableAction: false,
-    //选中有checkbox
-    fcCheckboxSelection: true,
-    //是否启用编辑
-    fcEnableEdit: false,
-    //是否自动保存
-    fcAutoSave: false,
-    fcAutoSize: false
-  };
+
   //列表
   fclistdataOption = {
     //皮肤默认为bootstrap风格
@@ -451,19 +410,3 @@ export interface Sysdepartment {
   ILEVEL: number;	//
 }
 
-export interface DialogArgs {
-  [key: string]: any;
-  configInterface?: ConfigInterface,
-  appId?: string,
-  methodIndex?: string,
-  listOption?: listOption,
-  condition?: object,
-  mainfuc?: (args?: any) => any,
-  beforefuc?: (args?: any) => any,
-  afterfuc?: (args?: any) => any,
-  textComponent?: FctextComponent,
-  preSetRowData?: any,
-  selectedRowDataInDialog?: any;
-  dialogList?: FclistdataComponent;
-  targetList?: FclistdataComponent;
-}
