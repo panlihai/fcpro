@@ -1,6 +1,6 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
-import { ParentService, ProvidersService } from 'fccore';
+import { ParentService, ProvidersService, ResponseResult } from 'fccore';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 @Injectable()
@@ -43,7 +43,7 @@ export class SysproductService extends ParentService {
       'BTNTYPE': 'default',
       'ACTCODE': 'lookUpB',
       'BTNNAME': 'B'
-    } , {
+    }, {
       'BTNTYPE': 'default',
       'ACTCODE': 'lookUpC',
       'BTNNAME': 'C'
