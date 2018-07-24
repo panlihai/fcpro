@@ -98,9 +98,7 @@ import { chooseicondialogComponent } from './components/core/dialog/chooseicondi
 import { SyswizardService } from './services/syswizard.service';
 import { ChartsModule } from 'ng2-charts';
 import { SysappmodifyComponent } from './components/core/sysappmodify.component';
-import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
-import { SysappaddComponent } from './components/core/sysappadd.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysserviceeditComponent } from './components/core/sysserviceedit.component';
 import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
@@ -123,8 +121,7 @@ import { SysviewelementService } from './services/sysviewelement.service';
     companytransferdialogComponent,
     SyscompanymodifyComponent,
     SyscompanychangeauditComponent,
-    SysdepartmentComponent,
-    chooseicondialogComponent
+    chooseicondialogComponent,
     SysroleeditdialogComponent,
     SysproducteditComponent,
     DialogCardListComponent
@@ -145,7 +142,6 @@ import { SysviewelementService } from './services/sysviewelement.service';
     FctabModule,
     FcchartModule,
     SpreadSheetsModule,
-    AngularDraggableModule,
     NgZorroAntdModule,
     ChartsModule
   ],
@@ -195,7 +191,7 @@ import { SysviewelementService } from './services/sysviewelement.service';
     UploadavatardialogComponent,
     companytransferdialogComponent,
     SysdatasourceeditComponent,
-    chooseicondialogComponent 
+    chooseicondialogComponent,
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
     SysicondialogComponent,
@@ -245,7 +241,7 @@ import { SysviewelementService } from './services/sysviewelement.service';
     SyscompanyrelationService,
     SystbvorgcurorgService,
     SysdepartmentService,
-    SyswizardService
+    SyswizardService,
     SysdepartmentrelationService,
     SystbvdeptcurorgService,
     SysserviceService,

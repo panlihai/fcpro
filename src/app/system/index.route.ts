@@ -84,8 +84,7 @@ export const Routers: Routes = [{
     path: 'sysappList',//元数据
     component: SysappComponent,
     data: { keep: false }
-}
-    , {
+}, {
     path: 'sysappModify',//元数据修改
     component: SysappmodifyComponent,
     data: { keep: false }
@@ -101,23 +100,19 @@ export const Routers: Routes = [{
     path: 'sysproductList',//软件产品
     component: SysproductComponent,
     data: { keep: false }
-}
-    , {
+}, {
     path: 'sysproductEdit',//软件产品
     component: SysproducteditComponent,
     data: { keep: false }
-}
-    , {
+}, {
     path: 'sysbizcoderuleList',//编码规则
     component: SysbizcoderuleComponent,
     data: { keep: false }
-}
-    , {
+}, {
     path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
     component: SysbizcoderuleeditComponent,
     data: { keep: false }
-}
-    , {
+}, {
     path: 'sysroleauthList',//系统参数
     component: SysroleauthComponent,
     data: { keep: false }
@@ -141,16 +136,14 @@ export const Routers: Routes = [{
     path: 'sysannouncementDetail',//消息公告
     component: SysannouncementComponent,
     data: { keep: false }
-}
-    , {
+}, {
     path: 'sysiconList',//编码规则
     component: SysicondialogComponent,
 }, {
     path: 'sysdepartmentdimList',//部门维度
     component: SysdepartmentdimComponent,
     data: { keep: false }
-}
-    , {
+}, {
     path: 'syscompanydimList',//维度规则
     component: SyscompanydimComponent,
     data: { keep: false }
@@ -217,8 +210,7 @@ export const Routers: Routes = [{
     path: 'sysuserList',//用户管理
     component: SysuserComponent,
     data: { keep: false }
-},
-{
+}, {
     path: 'sysuserEdit',//修改用户
     component: SysusereditComponent,
     data: { keep: false }
