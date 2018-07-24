@@ -153,11 +153,6 @@ export const Routers: Routes = [{
     data: { keep: false }
 }
     , {
-    path: 'sysdepartmentdimList',//部门维度
-    component: SysdepartmentdimComponent,
-    data: { keep: false }
-}
-    , {
     path: 'syscompanydimList',//维度规则
     component: SyscompanydimComponent,
     data: { keep: false }

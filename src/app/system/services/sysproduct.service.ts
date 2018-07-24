@@ -3,9 +3,12 @@ import { Injectable } from '@angular/core';
 import { ParentService, ProvidersService } from 'fccore';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd';
 @Injectable()
 export class SysproductService extends ParentService {
-  constructor(public providers: ProvidersService) {
+  constructor(public providers: ProvidersService,
+    public modalService: NzModalService) {
     super(providers, "SYSPRODUCT");
   }
   doAction(): Observable<any> {
@@ -143,14 +146,23 @@ export class SysproductService extends ParentService {
     }];
     return lookUpList;
   }
-   /**
-     * 获取当前product所有内容
-     * */
-     productAll() {
-      return this.providers.appService.findWithQuery("SYSPRODUCT", {})
-  }
-  	//新增product数据
-	childrensave(obj) {
-    return this.providers.appService.saveObject('SYSPRODUCT', obj)
+    /**
+    *  按钮跳转路由方法封装 查看数据源  查看服务   返回列表 方法
+    * @param event  
+    */ 
+   producticonmodal(content): Observable<any> {
+    return this.modalService.open({
+      title: '字体图标',
+      content: content,
+      width: "60%",
+      onOk() {
+      },
+      onCancel() { },
+      footer: false,
+      componentParams: {
+        options: {
+        }
+      }
+    })
   }
 }

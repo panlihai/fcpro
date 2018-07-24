@@ -43,7 +43,6 @@ export class SysproductComponent extends ParentlistComponent {
    * 新增产品,跳转到新增产品页面
    */
   addProduct() {
-    // this.navRouter('sysproductEdit');
     this.router.navigate(["/" + environment.pid.toLocaleLowerCase()  + "/sysproductEdit"], {        
   })  
   }
@@ -111,7 +110,7 @@ export class SysproductComponent extends ParentlistComponent {
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
       this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysProducts));
-      this.navRouter(this.getRouteUrl('Modify'), { ID: selectedObj.ID, refresh: 'Y' });
+      this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
   }
   /**
