@@ -143,4 +143,14 @@ export class SysproductService extends ParentService {
     }];
     return lookUpList;
   }
+   /**
+     * 获取当前product所有内容
+     * */
+     productAll() {
+      return this.providers.appService.findWithQuery("SYSPRODUCT", {})
+  }
+  	//新增product数据
+	childrensave(obj) {
+    return this.providers.appService.saveObject('SYSPRODUCT', obj)
+  }
 }

@@ -1,7 +1,8 @@
 /* 卡片新增 */
 
-:host ::ng-deep .sys-card-pannel .fc-layoutpanel {
+:global .sys-card-pannel .fc-layoutpanel {
   background: #F0F2F5;
+  padding: 10px;
 }
 
 .sys-card {
@@ -16,6 +17,11 @@
 
 .sys-card-add {
   text-align: center;
+}
+
+.sys-card-add .sys-card-addicon {
+  margin-top: 30px;
+  display: block;
 }
 
 .sys-card-add .sys-card-addtext {
@@ -66,13 +72,11 @@
 
 .sys-card-content .sys-card-help {
   position: absolute;
-  right: 10px;
-  top: 10px;
+    right: -15px;
+    top: -20px;
 }
 
-.sys-card-mark {
-  width: 70px;
-}
+
 
 .sys-card-text {
   flex: 1;
@@ -94,6 +98,7 @@
   width: 30px;
   height: 30px;
   line-height: 30px;
+  color: #ffffff;
   text-align: center;
   border-radius: 50%;
   background: #009DFF;
