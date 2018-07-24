@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentEditComponent, FcdateComponent, FctextComponent } from 'fccomponent';
-import { SysdepartmentService, DialogArgs } from '../../services/sysdepartment.service';
+import { SysdepartmentService } from '../../services/sysdepartment.service';
 import { startOfDay, differenceInCalendarDays } from 'date-fns';
 import { isDate } from 'util';
+import { DialogListArgs, DialogListOptions } from './dialog/dialogList.component';
 @Component({
   selector: 'sysdepartmentedit',
   templateUrl: './sysdepartmentedit.component.html',
@@ -33,18 +34,18 @@ export class SysdepartmenteditComponent extends ParentEditComponent {
     * @param param 
     */
   event(eventName: string, param?: any): void {
-    let dialogArgs: DialogArgs = { appId: null, configInterface: { title: null } };
-    dialogArgs.methodIndex = eventName;
-    if (param instanceof FctextComponent) dialogArgs.textComponent = param;
+    let dialogListArgs: DialogListArgs = { appId: null, configInterface: { title: null } };
+    dialogListArgs.methodIndex = eventName;
+    if (param instanceof FctextComponent) dialogListArgs.textComponent = param;
     switch (eventName) {
       case 'SCOMPANY_CODE':
-        this.showModal(dialogArgs);
+        this.showModal(dialogListArgs);
         break;
       case 'SPRINCIPALVALUE':
-        this.showModal(dialogArgs);
+        this.showModal(dialogListArgs);
         break;
       case 'SUPERIOR':
-        this.showModal(dialogArgs);
+        this.showModal(dialogListArgs);
         break;
       case 'ILEVEL':
         this.checkLevelChange(param);
@@ -62,9 +63,6 @@ export class SysdepartmenteditComponent extends ParentEditComponent {
     */
   init() {
     this.relationObj = this.mainService.getSysdepartmentrelationField();
-    this.mainService.dialogArgsSubject.subscribe(dialogArgs => {
-      this.afterFuctionForDialog(dialogArgs);
-    })
   }
   /** YM
     * 新增前执行函数
@@ -104,51 +102,54 @@ export class SysdepartmenteditComponent extends ParentEditComponent {
   }
   /** YM
     * 弹窗的必要参数构建函数派发
-    * @param dialogArgs 
+    * @param dialogListArgs 
     */
-  buildDialogArgs(dialogArgs: DialogArgs) {
-    dialogArgs.listOption = this.mainService.dialogListOptions;
-    switch (dialogArgs.methodIndex) {
+  buildDialogListArgs(dialogListArgs: DialogListArgs) {
+    dialogListArgs.listOption = DialogListOptions;
+    switch (dialogListArgs.methodIndex) {
       case 'SCOMPANY_CODE':
-        dialogArgs.configInterface.title = '选择部门隶属单位';
-        dialogArgs.appId = 'SYSCOMPANY';
-        dialogArgs.condition = {};
-        dialogArgs.listOption.fcCheckboxSelection = false;
+        dialogListArgs.configInterface.title = '选择部门隶属单位';
+        dialogListArgs.appId = 'SYSCOMPANY';
+        dialogListArgs.condition = {};
+        dialogListArgs.listOption.fcCheckboxSelection = false;
         break;
       case 'SUPERIOR':
-        dialogArgs.configInterface.title = '选择上级部门';
-        dialogArgs.appId = this.appId;
+        dialogListArgs.configInterface.title = '选择上级部门';
+        dialogListArgs.appId = this.appId;
         let ilevel = this.mainService.stringAsNumToMinus(this.mainObj.ILEVEL, 1);
-        dialogArgs.condition = { where: `ILEVEL = '${ilevel}'` };
-        dialogArgs.listOption.fcCheckboxSelection = false;
+        dialogListArgs.condition = { where: `ILEVEL = '${ilevel}'` };
+        dialogListArgs.listOption.fcCheckboxSelection = false;
         break;
       case 'SPRINCIPALVALUE':
-        dialogArgs.configInterface.title = '选择部门负责人';
-        dialogArgs.appId = 'SYSEMPLOYEE';
-        dialogArgs.condition = {};
-        dialogArgs.listOption.fcCheckboxSelection = false;
+        dialogListArgs.configInterface.title = '选择部门负责人';
+        dialogListArgs.appId = 'SYSEMPLOYEE';
+        dialogListArgs.condition = {};
+        dialogListArgs.listOption.fcCheckboxSelection = false;
         break;
     }
-    return dialogArgs;
+    return dialogListArgs;
   }
   /** YM
     * 显示窗口前的判断
-    * @param dialogArgs 
+    * @param dialogListArgs 
     */
-  showModal(dialogArgs: DialogArgs) {
-    if (dialogArgs.textComponent ? !dialogArgs.textComponent.fcDisabled : true) {
-      dialogArgs = this.buildDialogArgs(dialogArgs);
-      dialogArgs.configInterface.width = "80%";
-      this.mainService.openDialog(dialogArgs);
+  showModal(dialogListArgs: DialogListArgs) {
+    if (dialogListArgs.textComponent ? !dialogListArgs.textComponent.fcDisabled : true) {
+      dialogListArgs = this.buildDialogListArgs(dialogListArgs);
+      dialogListArgs.configInterface.width = "80%";
+      this.mainService.openDialog(dialogListArgs).subscribe(dialogListArgs => {
+        if (dialogListArgs.hasOwnProperty('methodIndex'))
+          this.afterFuctionForDialog(dialogListArgs);
+      });;
     }
   }
   /** YM
     * 弹窗确认后的处理函数派发
-    * @param dialogArgs 
+    * @param dialogListArgs 
     */
-  afterFuctionForDialog(dialogArgs: DialogArgs) {
-    let obj = this.mainService.dialogOk(dialogArgs);
-    switch (dialogArgs.methodIndex) {
+  afterFuctionForDialog(dialogListArgs: DialogListArgs) {
+    let obj = this.mainService.dialogOk(dialogListArgs);
+    switch (dialogListArgs.methodIndex) {
       case 'SCOMPANY_CODE':
         this.mainObj.SCOMPANY_CODE = obj.SCOMPANY_CODE;
         this.rangeDate = { begin: startOfDay(obj.SBEGIN_DATE), end: startOfDay(obj.SEND_DATE) };

@@ -29,7 +29,7 @@ export class SysappComponent extends ParentlistComponent {
     super(mainService, router, activeRoute);
   }
   init(): void {
-    this.initSysApp();
+    this.searchByWord();
     this.fastsearchWords = this.mainService.fastSearch();
     this.btnlistOnes = this.mainService.appButtons.filter(btn =>
       btn.BTNTYPE === 'LISTONE'
@@ -48,15 +48,18 @@ export class SysappComponent extends ParentlistComponent {
    * @param context 事件返回参数
    */
   event(eventName: string, event: FCEVENT): void {
-    if(event.param.BUSTYPE==='fastsearch'){
+    if (event.param.BUSTYPE === 'fastsearch') {
       this.searchByWord(event.param);
     }
   }
   /**
   * 初始化元数据
   */
- searchByWord(btn:any) {
-   let valueObj ={WHERE:"AND SUBSTR(APPID,0,1)='"+btn.ACTCODE+"'"};
+  searchByWord(btn?: any) {
+    let valueObj: any = {};
+    if (btn) {
+      valueObj.WHERE = "AND SUBSTR(APPID,0,1)='" + btn.ACTCODE + "'"
+    }
     this.mainService.findWithQuery(valueObj).subscribe(result => {
       if (result.CODE === '0') {
         this.sysApps = result.DATA;
