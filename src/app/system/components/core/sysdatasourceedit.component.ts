@@ -36,6 +36,16 @@ import { chooseicondialogComponent } from './dialog/chooseicondialog.component';
     left:35%;
     top:45px;
   }
+  .sys-radio{
+    margin-left:33% ;
+  }
+  .sys-num{
+    margin-right:9%;
+  }
+  .sys-proicon{
+    display: inline-block;
+    margin-left: 62%;
+  }
   `]
 })
 
