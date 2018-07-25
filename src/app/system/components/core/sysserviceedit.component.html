@@ -2,7 +2,7 @@
     <fc-layoutcol fccontent fcSpans="6,4">
         <fc-title fccontent1 fcLabel="基本信息" fcBorder="bottom"></fc-title>
         <fc-layoutcol fccontent1 fcSpans="9,1">
-            <fc-combo fccontent1 fcLabel="产品名称" [(ngModel)]="mainObj.PID" (ngModelChange)="event('PID',$event)" [fcOption]="pidOption" name="SERVICENAME"></fc-combo>
+            <fc-combo fccontent1 fcLabel="产品名称" [ngModel]="mainObj.PID" (ngModelChange)="event('PID',$event)" [fcOption]="pidOption" name="SERVICENAME"></fc-combo>
             <fc-text fccontent1 fcLabel="服务编码" [(ngModel)]="ruleCode" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME" [fcDisabled]="true"></fc-text>
             <fc-text fccontent1 fcLabel="服务名称" [(ngModel)]="mainObj.SERVICENAME" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME"></fc-text>
             <fc-text fccontent1 fcLabel="监听类" [(ngModel)]="mainObj.SERVICECLASS" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME"></fc-text>

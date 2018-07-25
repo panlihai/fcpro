@@ -28,7 +28,7 @@ export class SysproductService extends ParentService {
     if (!param.hasOwnProperty('P_LISTFILTER')) {
       param.P_LISTFILTER = '';
     }
-    return this.providers.daoService.getFromSystem("ajax/SYSTEM/SYSTEMPRODUCT/SYSPRODUCT/listView", param);
+    return this.providers.daoService.getFromSystem("ajax/SYSTEM/SYSPRODUCT/SYSPRODUCT/listView", param);
   }
   /**
    * 字母快速查询
@@ -143,14 +143,14 @@ export class SysproductService extends ParentService {
     }];
     return lookUpList;
   }
-   /**
-     * 获取当前product所有内容
-     * */
-     productAll() {
-      return this.providers.appService.findWithQuery("SYSPRODUCT", {})
+  /**
+    * 获取当前product所有内容
+    * */
+  productAll() {
+    return this.providers.appService.findWithQuery("SYSPRODUCT", {})
   }
-  	//新增product数据
-	childrensave(obj) {
+  //新增product数据
+  childrensave(obj) {
     return this.providers.appService.saveObject('SYSPRODUCT', obj)
   }
 }

@@ -203,7 +203,7 @@ export const Routers: Routes = [{
     component: SysdepartmenteditComponent,
     data: { keep: false }
 }, {
-    path: 'sysserviceEdit',//设立部门
+    path: 'sysserviceList',//设立部门
     component: SysserviceeditComponent,
     data: { keep: false },
 }, {

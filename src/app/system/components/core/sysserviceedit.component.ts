@@ -30,6 +30,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
     sysViews: any;
     sysInterfaces: any;
     staticMainObj: any;
+    mainObj: any = {};
     constructor(public mainService: SysserviceService,
         public router: Router,
         public activeRoute: ActivatedRoute) {
@@ -47,7 +48,6 @@ export class SysserviceeditComponent extends ParentEditComponent {
      * 组件初始化执行函数
      */
     init(): void {
-        this.getDefaultMainObj();
         this.getPidOption();
         this.handleRouterParam();
         this.getLooksUp();
@@ -71,12 +71,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
                 break;
         }
     }
-    /**
-     * 初始化mainObj的默认值
-     */
-    getDefaultMainObj() {
-        this.mainObj = this.mainService.getDefaultObj();
-    }
+
     /**
      * 初始化产品名称的自定义下拉选项内容
      */
@@ -99,15 +94,15 @@ export class SysserviceeditComponent extends ParentEditComponent {
     handleRouterParam() {
         if (this.routerParam.ID) {
             this.mainService.findWithQuery({ WHERE: `ID = '${this.routerParam.ID}'` }).subscribe(res => {
-                if (res.CODE === '0') {
+                if (res.CODE === '0' && res.DATA.length !== 0) {
                     this.staticMainObj = res.DATA[0];
                     this.mainObj = res.DATA[0];
+                    this.getSysViews(this.mainObj.SERVICEID);
+                    this.getSysInterfaces(this.mainObj.SERVICEID);
                 } else {
                     this.messageService.error('基本信息获取失败');
                 }
             })
-            this.getSysViews(this.mainObj.SERVICEID);
-            this.getSysInterfaces(this.mainObj.SERVICEID);
         }
     }
     /**

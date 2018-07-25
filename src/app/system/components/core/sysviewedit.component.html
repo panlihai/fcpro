@@ -1,4 +1,7 @@
 <fc-layoutpanel class="sys-card-pannel">
+    <fc-title fccontent fcLabel="服务-视图编辑" fcBorder="bottom"></fc-title>
+    <h2 fccontent class="fctitle-h2">视图：FC基础服务平台的功能单元，开发者提供给终端用户的组件界面样式服务；与服务是多对一的关系；支持多个类型的视图，包含栏目视图、查询视图、 卡片视图、自定义视图等</h2>
+    <fc-tlblist fccontent [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
     <fc-layoutcol fccontent fcSpans="6,4">
         <fc-title fccontent1 fcLabel="基本信息" fcBorder="bottom"></fc-title>
         <fc-layoutcol fccontent1 fcSpans="9,1">
@@ -10,8 +13,10 @@
     </fc-layoutcol>
     <fc-layoutcol fccontent fcSpans="6,4">
         <fc-title fccontent1 fcLabel="元素编辑" fcBorder="bottom"></fc-title>
+        <h2>请选择模型，拖拽至属性字段</h2>
     </fc-layoutcol>
     <fc-layoutcol fccontent fcSpans="3,7">
-
+        <fc-chosen fccontent1 [fcShowSearch]="true" fcPlaceHolder="请选择模型，支持多选" [fcOption]="modelOptions"></fc-chosen>
+        <fc-list fccontent2 fcAppid="SYSVIEWELEMENT" fcFieldCode="ELEMENTID" fcLabelCode="ELEMENTNAME" fcValueCode="ELEMENTID"></fc-list>
     </fc-layoutcol>
 </fc-layoutpanel>
