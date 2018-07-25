@@ -6,13 +6,15 @@ import { Router } from '@angular/router';
 import { LayoutService } from './layout.service';
 import { SysappService } from './sysapp.service';
 import { Observable } from 'rxjs';
+import { NzModalService } from 'ng-zorro-antd';
 @Injectable()
 export class SysbizcoderuleService extends ParentService {
   currentModal_navLink: any;
   constructor(public providers: ProvidersService
-    , public sysbizcodedefineService: SysbizcodedefineService,
-    public layoutService: LayoutService,
-    public sysappService: SysappService
+       , public sysbizcodedefineService: SysbizcodedefineService,
+       public layoutService: LayoutService,
+       public sysappService: SysappService,
+       public modalService: NzModalService
   ) {
     super(providers, "SYSBIZCODERULE");
   }
@@ -230,6 +232,36 @@ export class SysbizcoderuleService extends ParentService {
       }
     }
   }
+  /**
+    *  新增规则点击出现模态框事件并且为空方法
+    * @param event 
+    */
+  ruleAddmodal(content,SBIZCODE_RULE_CODE):Observable<any>{
+    return this.modalService.open({
+      title: '新增规则',
+      content: content,
+      width: "76%",
+      onOk() {
+      },
+      onCancel() { },
+      footer: false,
+      componentParams: {
+        options: {
+          SBIZCODE_RULE_CODE: SBIZCODE_RULE_CODE
+        }
+      }
+    })
+  }
+        /**
+       * 编码规则sparname字段根据列表移动方法
+       */
+      compare(property){
+        return function(a, b) {
+            var value1 = a[property];
+            var value2 = b[property];
+            return value1 - value2;
+        }
+      }
 }
 
 export interface Sysbizcoderule {

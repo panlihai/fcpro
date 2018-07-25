@@ -141,6 +141,16 @@ export const Routers: Routes = [{
     path: 'sysiconList',//编码规则
     component: SysicondialogComponent,
 }, {
+    path: 'sysbizcoderuleList',//编码规则
+    component: SysbizcoderuleComponent,
+    data: { keep: false }
+}
+    , {
+    path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
+    component: SysbizcoderuleeditComponent,
+    data: { keep: false }
+}
+    , {
     path: 'sysdepartmentdimList',//部门维度
     component: SysdepartmentdimComponent,
     data: { keep: false }

@@ -4,7 +4,7 @@ import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SysdatasourceService } from '../../services/sysdatasource.service';
 import { FCEVENT } from 'fccomponent/fc';
 import { Sysappbuttons } from 'fccore';
-import { DragulaService } from 'ng2-dragula';
+// import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 (window as any).global = window;
 @Component({
@@ -30,7 +30,8 @@ export class SysdatasourceComponent extends ParentlistComponent {
   constructor(public mainService: SysdatasourceService,
     public router: Router,
     public activeRoute: ActivatedRoute,
-    private dragulaService: DragulaService) {
+    // private dragulaService: DragulaService
+  ) {
     super(mainService, router, activeRoute);
   
   }

@@ -120,7 +120,7 @@ export class SysproductComponent extends ParentlistComponent {
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
       this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysProducts));
-      this.navRouter(this.getRouteUrl('Modify'), { ID: selectedObj.ID, refresh: 'Y' });
+      this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
   }
   /**
