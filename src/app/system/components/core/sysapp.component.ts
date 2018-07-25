@@ -15,14 +15,14 @@ import { environment } from '../../../../environments/environment';
   `]
 })
 export class SysappComponent extends ParentlistComponent {
-  //字母查找
-  fastsearchWords: any[];
   //元数据
   sysApps: any[];
   //明细操作按钮
   btnlistOnes: any[];
   //更多的按钮
   btnlistMores: any[];
+  //字母查找
+  fastsearchWords: any[];
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {

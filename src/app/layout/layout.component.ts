@@ -94,7 +94,9 @@ import { NzModalService } from 'ng-zorro-antd';
   :host ::ng-deep .sys-nav-tabsub .ant-tabs-bar {
       border-bottom:0;
       margin-bottom: 0px;
-      
+  }
+  :host ::ng-deep .sys-nav-tabsub .ant-tabs-ink-bar{
+    height:0;
   }
   :host ::ng-deep .sys-content-wrap .fc-navtab{
     border-bottom:0;
@@ -143,6 +145,7 @@ export class LayoutComponent implements OnInit {
   _layoutSpans: string = "2,9";
   //显示模式
   displayMode: string;
+  _displayMode: string;
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private mainService: LayoutService,
@@ -261,13 +264,13 @@ export class LayoutComponent implements OnInit {
       case 'selectMenu'://下拉菜单
         let obj: any = this._providers.productService.mainObj;
         if (undefined !== obj && '' !== obj && null !== obj) {
-          this.displayMode = obj.DISPLAYMODE;
+          this._displayMode = obj.DISPLAYMODE;
           // 切换布局 有选项卡模式和左侧菜单模式
-          if (this.displayMode === 'TAB') {
-            this.displayMode = 'tab';
+          if (this._displayMode === 'TAB') {
+            this.displayMode = 'TAB';
             this._layoutSpans = "0,1";
-          } else if (this.displayMode === 'MENU') {
-            this.displayMode = 'menu';
+          } else if (this._displayMode === 'MENU') {
+            this.displayMode = 'MENU';
             this._layoutSpans = "2,9";
           }
         }
@@ -295,7 +298,7 @@ export class LayoutComponent implements OnInit {
           // 清除菜单缓存
           this._providers.menuService.removeMenus();
           // 清除tab页面
-          if (this.displayMode === 'MENU') {
+          if (this._displayMode === 'MENU') {
             this.fcnavtab.fcTabs = [];
             this.fcnavtab.fcSelectedIndex = undefined;
           }
