@@ -12,6 +12,9 @@ import { environment } from '../../../../environments/environment';
   .sys-card-btn{
     width:25%;
   }
+  .sys-fast-list {
+    cursor: pointer;
+  }
   `]
 })
 export class SysappComponent extends ParentlistComponent {
@@ -112,7 +115,14 @@ export class SysappComponent extends ParentlistComponent {
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
       this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysApps));
-      this.navRouter(this.getRouteUrl('Modify'), { ID: selectedObj.ID, refresh: 'Y' });
+      this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
+  }
+  /**
+   * 跳转到选择数据源页面
+   * @param event 
+   */
+  quickstart(event: FCEVENT){
+    this.navRouter(this.getRouteUrl('Modify'), event.param);
   }
 }

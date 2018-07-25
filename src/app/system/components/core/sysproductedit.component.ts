@@ -65,7 +65,7 @@ export class SysproducteditComponent extends ParentEditComponent {
     public activeRoute: ActivatedRoute,
     private modal: NzModalSubject,
     public modalService: NzModalService
-    ) {
+  ) {
     super(mainService, router, activeRoute);
   }
   fcUploadOption: { FILETYPE: string; SOURCEID: any; SOURCEAID: string; SOURCEFIELD: string; RESTITLE: string; };
@@ -79,47 +79,47 @@ export class SysproducteditComponent extends ParentEditComponent {
       SOURCEAID: "AR10",
       SOURCEFIELD: "",
       RESTITLE: ""
-      };
+    };
   }
   getDefaultQuery() {
   }
   event(eventName: string, context: any): void {
-   
+
   }
   /**
   * 上传图片
   * @param event  
   */
- fileEvent(event): any {
-  switch (event.eventName) {
-    case "success":
-    this.mainService.providers.msgService.message("上传成功");
-      break;
-    case "failure":
-    this.mainService.providers.msgService.message("上传失败");
-      break;
-  }
-}
-/**
-  *  点击图标弹出列表
-  * @param event  
-  */
- iconEvent(envet){
-  this.modalService.open({
-    title: '字体图标',
-    content: SysicondialogComponent,
-    width: "76%",
-    onOk() {
-     },
-    onCancel() { },
-    footer: false,
-    componentParams: {
-      options: {
-       
-      }
+  fileEvent(event): any {
+    switch (event.eventName) {
+      case "success":
+        this.mainService.providers.msgService.message("上传成功");
+        break;
+      case "failure":
+        this.mainService.providers.msgService.message("上传失败");
+        break;
     }
-  }).subscribe(obj => {
-   
-  });
-}
+  }
+  /**
+    *  点击图标弹出列表
+    * @param event  
+    */
+  iconEvent(envet) {
+    this.modalService.open({
+      title: '字体图标',
+      content: SysicondialogComponent,
+      width: "76%",
+      onOk() {
+      },
+      onCancel() { },
+      footer: false,
+      componentParams: {
+        options: {
+
+        }
+      }
+    }).subscribe(obj => {
+
+    });
+  }
 }

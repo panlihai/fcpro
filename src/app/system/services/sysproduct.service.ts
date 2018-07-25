@@ -28,7 +28,7 @@ export class SysproductService extends ParentService {
     if (!param.hasOwnProperty('P_LISTFILTER')) {
       param.P_LISTFILTER = '';
     }
-    return this.providers.daoService.getFromSystem("ajax/SYSTEM/SYSTEMPRODUCT/SYSPRODUCT/listView", param);
+    return this.providers.daoService.getFromSystem("ajax/SYSTEM/SYSPRODUCT/SYSPRODUCT/listView", param);
   }
   /**
    * 字母快速查询

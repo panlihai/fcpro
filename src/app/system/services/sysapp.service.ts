@@ -2,10 +2,14 @@
 import { Injectable } from '@angular/core';
 import { ParentService, ProvidersService, SysappfieldsService } from 'fccore';
 import { Observable } from 'rxjs/Observable';
+import { SysproductService } from './sysproduct.service';
+import { SysdatasourceService } from './sysdatasource.service';
 @Injectable()
 export class SysappService extends ParentService {
   constructor(public providers: ProvidersService,
-    public sysappFielsService: SysappfieldsService) {
+    public sysappFielsService: SysappfieldsService,
+    public sysproductService: SysproductService,
+    public sysdatasourceService:SysdatasourceService) {
     super(providers, "SYSAPP");
     this.listOptions.fcAutoSave = true;
     this.listOptions.fcEnableEdit = true;
@@ -22,49 +26,10 @@ export class SysappService extends ParentService {
       }
     });
   }
-  /**
-   * 获取所有软件产品的产品名称
-   * @param {page:1,size:20,...}
-   * @description 查詢
-   */
-  getProduct(param: any): Observable<any> {
-    if (!param.hasOwnProperty('P_COUNT')) {
-      param.P_COUNT = 1;
-    }
-    if (!param.hasOwnProperty('MAINAPP')) {
-      param.MAINAPP = '';
-    }
-    if (!param.hasOwnProperty('MAINAPPID')) {
-      param.MAINAPPID = '';
-    }
-    if (!param.hasOwnProperty('P_LISTFILTER')) {
-      param.P_LISTFILTER = '';
-    }
-    return this.providers.daoService.getFromSystem("ajax/SYSTEM/SYSTEMPRODUCT/SYSPRODUCT/listView", param);
-  }
-  /**
-   * 获取所有数据源
-   * @param {page:1,size:20,...}
-   * @description 查詢
-   */
-  getdataSource(param: any): Observable<any> {
-    if (!param.hasOwnProperty('P_COUNT')) {
-      param.P_COUNT = 1;
-    }
-    if (!param.hasOwnProperty('MAINAPP')) {
-      param.MAINAPP = '';
-    }
-    if (!param.hasOwnProperty('MAINAPPID')) {
-      param.MAINAPPID = '';
-    }
-    if (!param.hasOwnProperty('P_LISTFILTER')) {
-      param.P_LISTFILTER = '';
-    }
-    return this.providers.daoService.getFromSystem("ajax/SYSTEM/SYSDATASOURCE/SYSDATASOURCE/listView", param);
     /**
    * 字母快速查询
    */
-  fastLookUp() {
+  fastLookUp(){
     let lookUpList: any[];
     lookUpList = [{
       'BTNTYPE': 'default',
@@ -173,5 +138,20 @@ export class SysappService extends ParentService {
       'BTNNAME': 'Z'
     }];
     return lookUpList;
+  }
+  /**
+   * 获取产品
+   */
+  getproduct(){
+    return this.sysproductService.findWithQuery({});
+  }
+  /**
+   * 获取数据源
+   */
+  getdatasource(){
+    return this.sysdatasourceService.findWithQuery({});
+  }
+  getappAttribute(){
+    return this.providers.appService.findWithQuery('SYSAPPFIELDS',{APPID:'SYSAPP'})
   }
 }

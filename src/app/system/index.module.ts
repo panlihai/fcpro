@@ -101,7 +101,9 @@ import { ChartsModule } from 'ng2-charts';
 import { SysappmodifyComponent } from './components/core/sysappmodify.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
-import { SysappaddComponent } from './components/core/sysappadd.component';
+import { SysmenueditComponent } from './components/core/sysmenuedit.component';
+import { SysmenuComponent } from './components/core/sysmenu.component';
+import { SysmenuService } from './services/sysmenu.service';
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
@@ -201,7 +203,9 @@ import { SysappaddComponent } from './components/core/sysappadd.component';
     SysdepartmentlistComponent,
     SysdepartmenteditComponent,
     DialogListComponent,
-    SysserviceeditComponent
+    SysserviceeditComponent,
+    SysmenuComponent,
+    SysmenueditComponent
   ],
   providers: [
     LayoutService,
@@ -231,6 +235,7 @@ import { SysappaddComponent } from './components/core/sysappadd.component';
     SysquotaService,
     SysassignmentService,
     SysemployeeService,
+    SysmenuService,
     SysbizcoderuleService,
     SyscompanydimService,
     SysbizcodedefineService,

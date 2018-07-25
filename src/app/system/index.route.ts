@@ -44,6 +44,8 @@ import { SyswizardComponent } from './components/core/syswizard.component';
 import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
 import { SysappmodifyComponent } from './components/core/sysappmodify.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
+import { SysmenuComponent } from './components/core/sysmenu.component';
+import { SysmenueditComponent } from './components/core/sysmenuedit.component';
 
 export const Routers: Routes = [{
     path: 'home',
@@ -245,7 +247,15 @@ export const Routers: Routes = [{
     path: 'syswizardList',//开发向导-卡片
     component: SyswizardComponent,
     data: { keep: false }
-}, {
+},{
+    path: 'sysmenuList',//导航栏列表
+    component: SysmenuComponent,
+    data: { keep: false }
+},{
+    path: 'sysmenuEdit',//编辑导航栏
+    component: SysmenueditComponent,
+    data: { keep: false }
+},{
     path: '**',
     redirectTo: 'main',
     pathMatch: 'full'
