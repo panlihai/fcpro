@@ -156,12 +156,11 @@ export class SysproductService extends ParentService {
   childrensave(obj) {
     return this.providers.appService.saveObject('SYSPRODUCT', obj)
   }
-}
-    /**
-    *  按钮跳转路由方法封装 查看数据源  查看服务   返回列表 方法
-    * @param event  
-    */ 
-   producticonmodal(content): Observable<any> {
+  /**
+*  按钮跳转路由方法封装 查看数据源  查看服务   返回列表 方法
+* @param event  
+*/
+  producticonmodal(content): Observable<any> {
     return this.modalService.open({
       title: '字体图标',
       content: content,

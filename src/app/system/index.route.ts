@@ -214,7 +214,7 @@ export const Routers: Routes = [{
     component: SysdepartmenteditComponent,
     data: { keep: false }
 }, {
-    path: 'sysserviceList',//设立部门
+    path: 'sysserviceEdit',//设立部门
     component: SysserviceeditComponent,
     data: { keep: false },
 }, {
