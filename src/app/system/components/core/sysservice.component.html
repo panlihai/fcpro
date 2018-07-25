@@ -1,9 +1,9 @@
-<!-- 模型和元数据入口 -->
+<!-- 服务入口 -->
 <fc-layoutpanel class="sys-card-pannel">
     <div class="sys-card-pannel-header" fcheader>
-        <fc-title fcLabel="模型&元数据" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
+        <fc-title fcLabel="服务" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
-            说明：FC开发设计平台，快速开发应用模型，此功能实现模型定义，实现数据库表及视图的新增、修改、删除 、同步。
+            服务：FC基础服务平台的功能单元，开发者提供给终端用户的服务；与产品是多对一的关系；服务中包含接口、视图，默认模型 提供跨越设计与开发的体验解决方案。
         </P>
         <div class="sys-card-fast">
             <ul class="sys-fast-list">
@@ -14,6 +14,10 @@
                 <li>
                     <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>帮助</li>
             </ul>
+            <div class="sys-fast-select">
+                <fc-combo [fcShowLabel]="false" [(ngModel)]="product" fcPlaceHolder="请选择开发产品" fcAppid="SYSPRODUCT" fcFieldCode="PID" fcLabelCode="PNAME"
+                    fcValueCode="PID" name="SYSPRODUCT.PID"></fc-combo>
+            </div>
             <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="fastsearchWords" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
         </div>
         <img class="sys-card-bg" src="assets/img/system-bg.png" />
@@ -29,8 +33,8 @@
             </nz-card>
         </div>
         <!-- 产品列表循环 -->
-        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysapp of sysApps">
-            <nz-card (click)="listEdit(sysapp);">
+        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysservice of sysServices">
+            <nz-card (click)="listEdit(sysservice);">
                 <ng-template #body>
                     <div class="sys-card-content">
                         <!-- 操作按钮 -->
@@ -54,13 +58,13 @@
                             </div>
                         </div>
                         <span class="sys-card-mark">
-                            {{sysapp.APPID|slice:0:1}}
+                            {{sysservice.APPID|slice:0:1}}
                         </span>
                         <div class="sys-card-text">
                             <div class="sys-card-title">
-                                {{sysapp.APPID}}-{{sysapp.APPNAME}}
+                                {{sysservice.SERVICEID}}-{{sysservice.SERVICENAME}}
                             </div>
-                            <p class="sys-card-smarks">{{sysapp.REMARK}}</p>
+                            <p class="sys-card-smarks">{{sysservice.REMARK}}</p>
                         </div>
                     </div>
                     <div class="sys-card-footer">

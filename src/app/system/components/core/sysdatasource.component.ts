@@ -3,6 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SysdatasourceService } from '../../services/sysdatasource.service';
 import { FCEVENT } from 'fccomponent/fc';
+import { Sysappbuttons } from 'fccore';
+// import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs';
+(window as any).global = window;
 @Component({
   selector: 'sysdatasource',
   templateUrl: './sysdatasource.component.html',
@@ -17,18 +21,33 @@ export class SysdatasourceComponent extends ParentlistComponent {
   sysLookUp: any[];
   //数据源
   sysDatasources: any[];
+  //明细操作按钮
+  btnlistOnes: any[];
+  //更多的按钮
+  btnlistMores: any[];
+  //产品
+  product:string;
   constructor(public mainService: SysdatasourceService,
     public router: Router,
-    public activeRoute: ActivatedRoute) {
+    public activeRoute: ActivatedRoute,
+    // private dragulaService: DragulaService
+  ) {
     super(mainService, router, activeRoute);
+  
   }
   init(): void {
     this.sysLookUp = this.mainService.fastLookUp();
     this.initDatasource();
+    this.btnlistOnes = this.mainService.appButtons.filter(btn =>
+      btn.BTNTYPE === 'LISTONE'
+    );
+    this.btnlistMores = this.btnlistOnes.splice(3);
+    this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+  }
+  getDefaultQuery() {
+
   }
 
-  getDefaultQuery() {
-  }
   /**
    * 主对象的事件
    * @param eventName 事件名 
@@ -36,60 +55,11 @@ export class SysdatasourceComponent extends ParentlistComponent {
    */
   event(eventName: string, context: any): void {
     switch (eventName) {
-      case 'lookUpA'://根据字母快速查找
-        break;
-      case 'lookUpB':
-        break;
-      case 'lookUpC':
-        break;
-      case 'lookUpD':
-        break;
-      case 'lookUpE':
-        break;
-      case 'lookUpF':
-        break;
-      case 'lookUpG':
-        break;
-      case 'lookUpH':
-        break;
-      case 'lookUpI':
-        break;
-      case 'lookUpJ':
-        break;
-      case 'lookUpK':
-        break;
-      case 'lookUpL':
-        break;
-      case 'lookUpM':
-        break;
-      case 'lookUpN':
-        break;
-      case 'lookUpO':
-        break;
-      case 'lookUpP':
-        break;
-      case 'lookUpQ':
-        break;
-      case 'lookUpR':
-        break;
-      case 'lookUpS':
-        break;
-      case 'lookUpT':
-        break;
-      case 'lookUpU':
-        break;
-      case 'lookUpV':
-        break;
-      case 'lookUpW':
-        break;
-      case 'lookUpX':
-        break;
-      case 'lookUpY':
-        break;
-      case 'lookUpZ':
-        break;
+     
     }
   }
+
+
   /**
    * 初始化数据源
    */
@@ -99,9 +69,9 @@ export class SysdatasourceComponent extends ParentlistComponent {
     });
   }
   /**
- * 跳转到编辑页面
- * @param event 
- */
+  * 跳转到编辑页面
+  * @param event 
+  */
   listEdit(event: FCEVENT) {
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {

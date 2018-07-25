@@ -108,14 +108,16 @@ import { SysvieweditComponent } from './components/core/sysviewedit.component';
 import { SysviewelementeditComponent } from './components/core/sysviewelementedit.component';
 import { SysviewService } from './services/sysview.service';
 import { SysviewelementService } from './services/sysviewelement.service';
+import { SysserviceComponent } from './components/core/sysservice.component';
 
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
-    DialogListComponent,
-    UploadavatardialogComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
+    DialogListComponent,
+    DialogListComponent,
+    UploadavatardialogComponent,
     SyslogComponent,
     SysassignmentComponent,
     companytransferdialogComponent,
@@ -124,6 +126,7 @@ import { SysviewelementService } from './services/sysviewelement.service';
     chooseicondialogComponent,
     SysroleeditdialogComponent,
     SysproducteditComponent,
+    SysbizcoderuledialogComponent,
     DialogCardListComponent
   ],
   imports: [
@@ -142,6 +145,8 @@ import { SysviewelementService } from './services/sysviewelement.service';
     FctabModule,
     FcchartModule,
     SpreadSheetsModule,
+    NgZorroAntdModule,
+    ChartsModule,
     NgZorroAntdModule,
     ChartsModule
   ],
@@ -184,13 +189,16 @@ import { SysviewelementService } from './services/sysviewelement.service';
     SyscompanychangeauditComponent,
     SyscompanymodifyComponent,
     SyslogComponent,
+    SysassignmentComponent,
     SysuserComponent,
     SysusereditComponent,
     SysemployeeComponent,
     SysemployeeeditComponent,
     UploadavatardialogComponent,
     companytransferdialogComponent,
+    SyswizardComponent,
     SysdatasourceeditComponent,
+    chooseicondialogComponent, 
     chooseicondialogComponent,
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
@@ -204,7 +212,8 @@ import { SysviewelementService } from './services/sysviewelement.service';
     SysinterfaceeditComponent,
     DialogCardListComponent,
     SysvieweditComponent,
-    SysviewelementeditComponent
+    SysviewelementeditComponent,
+    SysserviceComponent
   ],
   providers: [
     LayoutService,
@@ -240,6 +249,13 @@ import { SysviewelementService } from './services/sysviewelement.service';
     SysdepartmentdimService,
     SyscompanyrelationService,
     SystbvorgcurorgService,
+    SyscompanydimService,
+    SysdepartmentService,
+    SyswizardService,
+    SysdepartmentrelationService,
+    SystbvdeptcurorgService,
+    SysserviceService,
+    SysiconService,
     SysdepartmentService,
     SyswizardService,
     SysdepartmentrelationService,

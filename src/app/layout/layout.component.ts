@@ -76,27 +76,40 @@ import { NzModalService } from 'ng-zorro-antd';
   :host ::ng-deep .logo .icon-logo{
     font-size:22px!important;
   }
-  :host ::ng-deep .sys-navbar-tab .fc-navbar{
+  :host ::ng-deep .sys-navbar .fc-navbar{
     background-color:#001529!important;
   }
-  :host ::ng-deep .content-wrap-tab>div>.fc-content2 {
-    padding: 0px 15px 5px;
+  :host ::ng-deep .sys-content-wrap>div>.fc-content2 {
+    padding: 0px;
+  }
+  :host ::ng-deep .sys-content-wrap .content-main{
+    padding: 0 5px 20px;
+    border-top:0;
   }
   :host ::ng-deep .sys-nav-tabmain .ant-tabs-bar {
       background-color: #ffffff;
       margin-bottom:0;
+      border-bottom:0;
   }
   :host ::ng-deep .sys-nav-tabsub .ant-tabs-bar {
-      border-bottom: 1px solid transparent;
+      border-bottom:0;
       margin-bottom: 0px;
   }
-  :host ::ng-deep .sys-nav-tabmain .ant-tabs-ink-bar {
-      background: transparent;
+  :host ::ng-deep .sys-nav-tabsub .ant-tabs-ink-bar{
+    height:0;
   }
-  :host ::ng-deep .sys-nav-tabsub .ant-tabs-bar {
-      background-color: #F0F2F5;
-      border-bottom: 1px solid transparent;
-      margin-bottom: 0px;
+  :host ::ng-deep .sys-content-wrap .fc-navtab{
+    border-bottom:0;
+  }
+  :host ::ng-deep .sys-content-wrap .sys-nav-tabmain .ant-tabs-nav-scroll,
+  :host ::ng-deep .sys-content-wrap .sys-nav-tabsub .ant-tabs-nav-scroll{
+    text-align:center;
+  }
+  :host ::ng-deep .sys-content-wrap .sys-nav-tabmain .ant-tabs-tab,
+  :host ::ng-deep .sys-content-wrap .sys-nav-tabsub .ant-tabs-tab{
+    padding-left:5px;
+    padding-right:5px;
+    margin-right:15px;
   }
   `]
 })
@@ -131,7 +144,8 @@ export class LayoutComponent implements OnInit {
   //布局比例
   _layoutSpans: string = "2,9";
   //显示模式
-  displaymode: string;
+  displayMode: string;
+  _displayMode: string;
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private mainService: LayoutService,
@@ -248,6 +262,18 @@ export class LayoutComponent implements OnInit {
         break;
       case 'selectDropdown'://下拉菜单
       case 'selectMenu'://下拉菜单
+        let obj: any = this._providers.productService.mainObj;
+        if (undefined !== obj && '' !== obj && null !== obj) {
+          this._displayMode = obj.DISPLAYMODE;
+          // 切换布局 有选项卡模式和左侧菜单模式
+          if (this._displayMode === 'TAB') {
+            this.displayMode = 'TAB';
+            this._layoutSpans = "0,1";
+          } else if (this._displayMode === 'MENU') {
+            this.displayMode = 'MENU';
+            this._layoutSpans = "2,9";
+          }
+        }
         this._menus = event.param.P_CHILDMENUS;
         let menu = this._menus[0];
         if (menu.HASCHILD === 'Y') {
@@ -264,15 +290,6 @@ export class LayoutComponent implements OnInit {
         } else {
           menu.select = true;
         }
-        let displayMode = this._providers.productService.mainObj.DISPLAYMODE;
-        // 切换布局 有选项卡模式和左侧菜单模式
-        if (displayMode === 'TAB') {
-          this.displaymode = 'tab';
-          this._layoutSpans = "0,1";
-        } else if (displayMode === 'MENU') {
-          this.displaymode = 'menu';
-          this._layoutSpans = "2,9";
-        }
         break;
       case 'logout'://登出
         this._providers.userService.logout().subscribe(result => {
@@ -281,8 +298,10 @@ export class LayoutComponent implements OnInit {
           // 清除菜单缓存
           this._providers.menuService.removeMenus();
           // 清除tab页面
-          this.fcnavtab.fcTabs = [];
-          this.fcnavtab.fcSelectedIndex = undefined;
+          if (this._displayMode === 'MENU') {
+            this.fcnavtab.fcTabs = [];
+            this.fcnavtab.fcSelectedIndex = undefined;
+          }
           this._router.navigate(['/signin']);
         })
         break;

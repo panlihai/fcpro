@@ -47,6 +47,7 @@ import { SysserviceeditComponent } from './components/core/sysserviceedit.compon
 import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
 import { SysvieweditComponent } from './components/core/sysviewedit.component';
 import { SysviewelementeditComponent } from './components/core/sysviewelementedit.component';
+import { SysserviceComponent } from './components/core/sysservice.component';
 
 export const Routers: Routes = [{
     path: 'home',
@@ -140,6 +141,16 @@ export const Routers: Routes = [{
     path: 'sysiconList',//编码规则
     component: SysicondialogComponent,
 }, {
+    path: 'sysbizcoderuleList',//编码规则
+    component: SysbizcoderuleComponent,
+    data: { keep: false }
+}
+    , {
+    path: 'sysbizcoderuleEdit',//编码工具栏修改模态框
+    component: SysbizcoderuleeditComponent,
+    data: { keep: false }
+}
+    , {
     path: 'sysdepartmentdimList',//部门维度
     component: SysdepartmentdimComponent,
     data: { keep: false }
@@ -205,6 +216,10 @@ export const Routers: Routes = [{
 }, {
     path: 'sysserviceList',//设立部门
     component: SysserviceeditComponent,
+    data: { keep: false },
+}, {
+    path: 'sysserviceList',//服务
+    component: SysserviceComponent,
     data: { keep: false },
 }, {
     path: 'sysuserList',//用户管理

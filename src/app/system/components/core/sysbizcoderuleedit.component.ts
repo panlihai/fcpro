@@ -12,7 +12,7 @@ import { SysbizcoderuledialogComponent } from './dialog/sysbizcoderuledialog.com
 @Component({
   selector: 'sysbizcoderule',
   template: `  
-  <fc-layoutpanel fcFull="true">
+  <fc-layoutpanel>
   <fc-tlbform fccontent [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" fctoolbar></fc-tlbform>
   <fc-title fccontent fcLabel="基本信息" fcBorder="bottom" ></fc-title>
   <fc-layoutcol fcSpans="1,1" fccontent>
@@ -41,6 +41,7 @@ import { SysbizcoderuledialogComponent } from './dialog/sysbizcoderuledialog.com
   `]
 })
 export class SysbizcoderuleeditComponent extends ParentEditComponent {
+  // a:any;
   //是否是只读状态
   read : boolean;
   //过滤定义属性
@@ -64,9 +65,7 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
       this.sendCondition = '{"ORDER":"NSERIAL_NUM","SBIZCODE_RULE_ID":"' + this.mainObj.SBIZCODE_RULE_CODE + '"}';
       this.mainService.bizcoderuleFun(this.mainObj).subscribe(res=>{
         if(res.CODE === '0'){
-            res.DATA.forEach(ele =>{
-                this.content +=ele.SPARAM_NAME + '-'
-          });
+          this.removebizname(res);
         }else{
           this.messageService.error("请求失败");
         }
@@ -113,32 +112,20 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
 * @param event 
 */
   ruleAdd(envet){
-    this.modalService.open({
-      title: '新增规则',
-      content: SysbizcoderuledialogComponent,
-      width: "76%",
-      onOk() {
-       },
-      onCancel() { },
-      footer: false,
-      componentParams: {
-        options: {
-          SBIZCODE_RULE_CODE: this.mainObj.SBIZCODE_RULE_CODE
+  this.mainService.ruleAddmodal(SysbizcoderuledialogComponent, this.mainObj.SBIZCODE_RULE_CODE)
+  .subscribe(obj => {
+        if(obj.SPARAM_NAME !== undefined){
+          this.content +=   obj.SPARAM_NAME + '-'
         }
-      }
-    }).subscribe(obj => {
-      if(obj.SPARAM_NAME !== undefined){
-        this.content +=   obj.SPARAM_NAME + '-'
-      }
-      // 重新初始化子表列表
-      if (this.sendCondition) {
-        if (this.sendCondition.substring(this.sendCondition.length - 1) === ' ') {
-          this.sendCondition = this.sendCondition.replace(/(\s*$)/g, "");
-        } else {
-          this.sendCondition = this.sendCondition + " ";
+        // 重新初始化子表列表
+        if (this.sendCondition) {
+          if (this.sendCondition.substring(this.sendCondition.length - 1) === ' ') {
+            this.sendCondition = this.sendCondition.replace(/(\s*$)/g, "");
+          } else {
+            this.sendCondition = this.sendCondition + " ";
+          }
         }
-      }
-    });
+      });
   }
    /**
 *   编码规则修改页面子表修改弹窗方法
@@ -171,7 +158,6 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
         }
       }
     }).subscribe(obj => {
-
     });
   }
   /**
@@ -181,7 +167,15 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
  listUp(ev: FCEVENT){
     this.messageService.success("向上移动事件触发成功")
     this.mainService.listUpfun(this.bizcoderuledifinelist,this.sendCondition,ev,this.content)
- }
+    this.content = "";
+    this.mainService.bizcoderuleFun(this.mainObj).subscribe(res=>{
+      if(res.CODE === '0'){
+        this.removebizname(res);
+      }else{
+        this.messageService.error("请求失败");
+      }
+    })
+  }
  /**
 *  子表向下移动调用方法
 * @param event 
@@ -189,6 +183,14 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
   listDown(ev: FCEVENT){
     this.messageService.success("向下移动事件触发成功")
     this.mainService.listDownfun(this.bizcoderuledifinelist,this.sendCondition,ev)
+    this.content = "";
+    this.mainService.bizcoderuleFun(this.mainObj).subscribe(res=>{
+      if(res.CODE === '0'){
+        this.removebizname(res);
+      }else{
+        this.messageService.error("请求失败");
+      }
+    })
  }
  /**
 *  子表置顶调用方法
@@ -197,6 +199,14 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
   listTop(ev: FCEVENT){
     this.messageService.success("置頂事件触发成功")
     this.mainService.listTopfun(this.bizcoderuledifinelist,this.sendCondition,ev)
+    this.content = "";
+    this.mainService.bizcoderuleFun(this.mainObj).subscribe(res=>{
+      if(res.CODE === '0'){
+        this.removebizname(res);
+      }else{
+        this.messageService.error("请求失败");
+      }
+    })
  }
  /**
 *  子表置底调用方法
@@ -205,6 +215,14 @@ export class SysbizcoderuleeditComponent extends ParentEditComponent {
  listBottom(ev: FCEVENT){
   this.messageService.success("置底事件触发成功")
   this.mainService.listBottomfun(this.bizcoderuledifinelist,this.sendCondition,ev)
+  this.content = "";
+  this.mainService.bizcoderuleFun(this.mainObj).subscribe(res=>{
+    if(res.CODE === '0'){
+      this.removebizname(res);
+    }else{
+      this.messageService.error("请求失败");
+    }
+  })
 }
  /**
 * 所属应用fcmodallist方法调用
@@ -219,4 +237,15 @@ modallistEvent(event: FCEVENT) {
       break;
   }
 }
+ /**
+* 根据列表移懂编码规则sparname移动
+* @param event 模态框列表事件句柄
+*/
+  removebizname(res){
+    let a:any;
+    a = res.DATA.sort(this.mainService.compare("NSERIAL_NUM"))
+    a.forEach(ele=>{
+      this.content +=ele.SPARAM_NAME+"-"
+    })
+  }
 }
