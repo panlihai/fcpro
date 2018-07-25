@@ -1,26 +1,26 @@
 <fc-layoutrow>
     <!-- 顶部工具栏 fc-navbar-->
     <fc-navbar fccontent1 [fcTitle]="_projectName" fcFull="true" fcIcon="icon iconfont icon-logo" (fcEvent)="navbarEvent($event)"
-        [fcStatus]="_navbarStatus" [ngClass]="{'sys-navbar':displayMode==='tab'}"></fc-navbar>
-    <fc-layoutcol fccontent2 [fcSpans]="_layoutSpans" fcFull="true" class="content-wrap" [ngClass]="{'sys-content-wrap':displaymode==='tab'}">
+        [fcStatus]="_navbarStatus" [ngClass]="{'sys-navbar':displayMode==='TAB'}"></fc-navbar>
+    <fc-layoutcol fccontent2 [fcSpans]="_layoutSpans" fcFull="true" class="content-wrap" [ngClass]="{'sys-content-wrap':displayMode==='TAB'}">
         <!-- 菜单模式开始****************************************************************************** -->
         <!-- 菜单导航 fc-navmenu-->
-        <fc-navmenu *ngIf="displayMode==='menu'||true" fccontent1 #fcnavmenu fcTheme="blue" [fcOption]="_menuOptions" [fcMenus]="_menus"
+        <fc-navmenu *ngIf="displayMode==='MENU'" fccontent1 #fcnavmenu fcTheme="blue" [fcOption]="_menuOptions" [fcMenus]="_menus"
             [fcSelected]="_navmenuSelected" (fcEvent)="navmenuEvent($event);" fcFull="true">
         </fc-navmenu>
         <!-- 子选项卡导航 -->
-        <fc-navtab *ngIf="displayMode==='menu'" class="nav-tab" #fcnavtab fccontent2 (fcEvent)="navtabEvent($event)" fcShowPagination="true"></fc-navtab>
+        <fc-navtab *ngIf="displayMode==='MENU'" class="nav-tab" #fcnavtab fccontent2 (fcEvent)="navtabEvent($event)" fcShowPagination="true"></fc-navtab>
         <!-- 菜单模式结束****************************************************************************** -->
         <!-- 选项卡模式结束****************************************************************************** -->
         <!-- 父选项卡导航 -->
-        <nz-tabset nzTabPosition="top" *ngIf="displayMode==='tab'" class="sys-nav-tabmain" [nzType]="'line'" fccontent2>
+        <nz-tabset nzTabPosition="top" *ngIf="displayMode==='TAB'" class="sys-nav-tabmain" [nzType]="'line'" fccontent2>
             <nz-tab *ngFor="let menu of  _menus" (nzClick)="selectedtabmain(menu)">
                 <ng-template #nzTabHeading>
                     {{menu.MENUNAME}}
                 </ng-template>
             </nz-tab>
         </nz-tabset>
-        <nz-tabset nzTabPosition="top" *ngIf="displayMode==='tab'&&_childMenus.length!==0" class="sys-nav-tabsub" [nzType]="'line'" fccontent2>
+        <nz-tabset nzTabPosition="top" *ngIf="displayMode==='TAB'&&_childMenus.length!==0" class="sys-nav-tabsub" [nzType]="'line'" fccontent2>
             <nz-tab *ngFor="let menu of  _childMenus" (nzClick)="selectedtabsub(menu)">
                 <ng-template #nzTabHeading>
                     {{menu.MENUNAME}}
