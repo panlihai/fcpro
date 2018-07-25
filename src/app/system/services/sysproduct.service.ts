@@ -1,11 +1,14 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
-import { ParentService, ProvidersService } from 'fccore';
+import { ParentService, ProvidersService, ResponseResult } from 'fccore';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd';
 @Injectable()
 export class SysproductService extends ParentService {
-  constructor(public providers: ProvidersService) {
+  constructor(public providers: ProvidersService,
+    public modalService: NzModalService) {
     super(providers, "SYSPRODUCT");
   }
   doAction(): Observable<any> {
@@ -43,7 +46,7 @@ export class SysproductService extends ParentService {
       'BTNTYPE': 'default',
       'ACTCODE': 'lookUpB',
       'BTNNAME': 'B'
-    } , {
+    }, {
       'BTNTYPE': 'default',
       'ACTCODE': 'lookUpC',
       'BTNNAME': 'C'
@@ -142,5 +145,24 @@ export class SysproductService extends ParentService {
       'BTNNAME': 'Z'
     }];
     return lookUpList;
+  }
+    /**
+    *  按钮跳转路由方法封装 查看数据源  查看服务   返回列表 方法
+    * @param event  
+    */ 
+   producticonmodal(content): Observable<any> {
+    return this.modalService.open({
+      title: '字体图标',
+      content: content,
+      width: "60%",
+      onOk() {
+      },
+      onCancel() { },
+      footer: false,
+      componentParams: {
+        options: {
+        }
+      }
+    })
   }
 }

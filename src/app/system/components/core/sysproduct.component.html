@@ -1,40 +1,55 @@
 <!-- 产品入口-产品卡片 -->
 <fc-layoutpanel class="sys-card-pannel">
-    <div fcheader>
-        <fc-title fcLabel="项目&产品"></fc-title>
-        <P>
-            项目&产品：FC基础服务平台的开发者应用模块，平台的核心，应用的入口，PID唯一标识此产品，类似概念如微信公众号；移动应用及桌面应用共享数据的功能。
+    <div class="sys-card-pannel-header" fcheader>
+        <fc-title fcLabel="项目&产品" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
+        <P class="sys-card-pannel-smarks">
+            项目&产品：FC基础服务平台的开发者项目或产品模块，平台的核心；PID唯一标识此产品，类似概念如微信公众号；移动应用及桌面应用共享数据 的功能；可下载zip包（包含此项目或产品的所有数据，如模型、数据字典、服务的结构及数据等），可导入zip包
         </P>
         <div class="sys-card-fast">
             <ul class="sys-fast-list">
                 <li>
-                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>导入</li>
                 <li>
-                    <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>产品简介</li>
-                <li>
-                    <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>产品简介</li>
+                    <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>帮助</li>
             </ul>
-            <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="sysLookUp" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
         </div>
+        <img class="sys-card-bg" src="assets/img/system-bg.png" />
     </div>
-    <div nz-row [nzGutter]="8" fccontent>
+    <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
-        <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
+        <div nz-col [nzSpan]="8" class="sys-card sys-card-add">
             <nz-card (click)="listAdd($event);">
                 <ng-template #body>
-                    <fc-icon fcIcon="fc-icon-add" fcFontSize="40" class="sys-card-addicon"></fc-icon>
+                    <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增产品</p>
                 </ng-template>
             </nz-card>
         </div>
         <!-- 产品列表循环 -->
-        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let product of sysProducts">
+        <div nz-col [nzSpan]="8" class="sys-card" *ngFor="let product of sysProducts">
             <nz-card (click)="listEdit(product);">
                 <ng-template #body>
                     <div class="sys-card-content">
-                        <fc-tooltip class="sys-card-help" fcTitle="{{product.DIRECTION}}">
-                            <fc-icon fcIcon="fc-icon-wiki" fcFontSize="22" fccontent></fc-icon>
-                        </fc-tooltip>
+                        <!-- 操作按钮 -->
+                        <div class="sys-card-tbl">
+                            <!-- 默认显示两个 -->
+                            <fc-tooltip class="sys-card-tbl-every" fcTitle="{{btn.BTNNAME}}" *ngFor="let btn of btnlistOnes">
+                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE)" fcFontSize="18px" fccontent></fc-icon>
+                            </fc-tooltip>
+                            <!-- 超出2个后显示 -->
+                            <div class="sys-card-tbl-more" *ngIf="btnlistMores.length!==0">
+                                <nz-dropdown>
+                                    <fc-icon fcIcon="fc-icon-bglist" nz-dropdown></fc-icon>
+                                    <ul nz-menu nzSelectable>
+                                        <li nz-menu-item *ngFor="let btn of btnlistMores">
+                                            <fc-tooltip fcTitle="{{btn.BTNNAME}}">
+                                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE)" fcFontSize="18" fccontent></fc-icon>
+                                            </fc-tooltip>
+                                        </li>
+                                    </ul>
+                                </nz-dropdown>
+                            </div>
+                        </div>
                         <span class="sys-card-mark">
                             <fc-icon fcIcon="fc-icon-definition" fcColor="#ffffff"></fc-icon>
                         </span>
@@ -46,10 +61,26 @@
                         </div>
                     </div>
                     <div class="sys-card-footer">
-                        <fc-button class="sys-card-btn" fcLabel="编辑" (click)="listEdit(product);" [fcBlock]="true">
-                        </fc-button>
-                        <fc-button class="sys-card-btn" fcLabel="删除" (click)="delectOneProduct(product);" [fcBlock]="true">
-                        </fc-button>
+                        <div class="sys-card-btn">
+                            <fc-tooltip fcTitle="点赞">
+                                <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
+                            </fc-tooltip>
+                        </div>
+                        <div class="sys-card-btn">
+                            <fc-tooltip fcTitle="下载zip包">
+                                <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
+                            </fc-tooltip>
+                        </div>
+                        <div class="sys-card-btn">
+                            <fc-tooltip fcTitle="评价">
+                                <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
+                            </fc-tooltip>
+                        </div>
+                        <div class="sys-card-btn">
+                            <fc-tooltip fcTitle="统计图">
+                                <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
+                            </fc-tooltip>
+                        </div>
                     </div>
                 </ng-template>
             </nz-card>

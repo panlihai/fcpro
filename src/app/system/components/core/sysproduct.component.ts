@@ -3,12 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SysproductService } from '../../services/sysproduct.service';
 import { FCEVENT } from 'fccomponent/fc';
+import { environment } from '../../../../environments/environment.prod';
 @Component({
   selector: 'sysproduct',
   templateUrl: 'sysproduct.component.html',
   styles: [`
   .sys-card-btn{
-    width:50%;
+    width:25%;
   }
   `]
 })
@@ -17,6 +18,10 @@ export class SysproductComponent extends ParentlistComponent {
   sysProducts: any[];
   //字母查找
   sysLookUp: any[];
+  //明细操作按钮
+  btnlistOnes: any[];
+  //更多的按钮
+  btnlistMores: any[];
   constructor(public mainService: SysproductService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
@@ -25,31 +30,16 @@ export class SysproductComponent extends ParentlistComponent {
   init(): void {
     this.initPproduct();
     this.sysLookUp = this.mainService.fastLookUp();
+    this.btnlistOnes = this.mainService.appButtons.filter(btn =>
+      btn.BTNTYPE === 'LISTONE'
+    );
+    this.btnlistMores = this.btnlistOnes.splice(3);
+    this.btnlistOnes = this.btnlistOnes.splice(0, 2);
   }
-  
+
   getDefaultQuery() {
-    return {
-      ENABLE:'Y',
-      WHERE:' AND 1=1'
-    }
+
   }
-  /**
- * 
- * @param eventName 事件名称
- * 选列表中的每行数据把每行数据的字段内容传递给修改页面
- */
-listEvent(event: FCEVENT) {
-  switch (event.eventName) {
-    case "select":
-      if (this.searchObj.WHERE && this.searchObj.WHERE.length !== 0) {
-        this.searchObj.WHERE += " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
-      } else {
-        this.searchObj.WHERE = " and appid in (select appid from sys_menu where pid='" + event.param.PID + "')";
-      }
-      this.search();
-      break;
-  }
-}
   /**
    * 初始化产品
    */
@@ -62,7 +52,9 @@ listEvent(event: FCEVENT) {
    * 新增产品,跳转到新增产品页面
    */
   addProduct() {
-    this.navRouter('sysproductAdd');
+    // this.navRouter('sysproductEdit');
+    this.router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/sysproductEdit"], {
+    })
   }
   event(eventName: string, context: any): void {
     switch (eventName) {
@@ -120,15 +112,15 @@ listEvent(event: FCEVENT) {
         break;
     }
   }
-   /**
-   * 跳转到编辑页面
-   * @param event 
-   */
+  /**
+  * 跳转到编辑页面
+  * @param event 
+  */
   listEdit(event: FCEVENT) {
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
       this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysProducts));
-      this.navRouter(this.getRouteUrl('Modify'), { ID: selectedObj.ID, refresh: 'Y' });
+      this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
   }
   /**

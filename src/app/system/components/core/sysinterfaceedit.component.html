@@ -1,0 +1,141 @@
+<fc-layoutpanel class="sys-card-pannel">
+    <fc-layoutcol fccontent fcSpans="6,4">
+        <fc-title fccontent1 fcLabel="基本信息" fcBorder="bottom"></fc-title>
+        <fc-combo fccontent1 fcLabel="产品名称" [(ngModel)]="mainObj.PID" [fcOption]="pidOption" name="SERVICENAME"></fc-combo>
+        <fc-text fccontent1 fcLabel="服务编码" [(ngModel)]="ruleCode" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME" [fcDisabled]="true"></fc-text>
+        <fc-text fccontent1 fcLabel="服务名称" [(ngModel)]="mainObj.SERVICENAME" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME"></fc-text>
+        <fc-text fccontent1 fcLabel="监听类" [(ngModel)]="mainObj.SERVICECLASS" [fcAppid]="appId" fcFieldCode="SERVICENAME" name="SERVICENAME"></fc-text>
+    </fc-layoutcol>
+    <fc-layoutcol fccontent fcSpans="6,4">
+        <fc-title fccontent1 fcLabel="其他信息" fcBorder="bottom"></fc-title>
+        <fc-layoutcol fccontent1 fcSpans="1,6">
+            <div fccontent1></div>
+            <fc-layoutcol fccontent2 fcSpans="6,4">
+                <fc-text fccontent1 fcLabel="排序" [(ngModel)]="mainObj.SORT" [fcAppid]="appId" fcFieldCode="SORT" name="SORT"></fc-text>
+                <fc-radio fccontent2 [(ngModel)]="mainObj.ISUSE" [fcAppid]="appId" fcFieldCode="ISUSE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ISUSE"></fc-radio>
+            </fc-layoutcol>
+        </fc-layoutcol>
+        <fc-textarea fccontent1 fcPlaceHolder="请输入备注" [fcAppid]="appId" fcFieldCode='REMARK' [(ngModel)]="mainObj.REMARK" name="REMARK"></fc-textarea>
+        <fc-tlbform fccontent1 fcType="primary" [fcAppid]="appId" fcLayout="center" (fcEvent)="tlbformEvent($event)"></fc-tlbform>
+    </fc-layoutcol>
+</fc-layoutpanel>
+<!-- 视图入口-视图卡片 -->
+<fc-layoutpanel class="sys-card-pannel">
+    <div fcheader>
+        <fc-title fcLabel="视图"></fc-title>
+        <P>
+            视图：FC基础服务平台的功能单元，提供给开发者渲染视图界面的服务；
+        </P>
+        <div class="sys-card-fast">
+            <ul class="sys-fast-list">
+                <li>
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
+                <li>
+                    <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>视图简介</li>
+                <li>
+                    <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>视图简介</li>
+            </ul>
+            <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="sysLookUp" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
+        </div>
+    </div>
+    <div fccontent>
+        <div nz-row [nzGutter]="8">
+            <!-- 新增卡片操作 -->
+            <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
+                <nz-card (click)="addView();">
+                    <ng-template #body>
+                        <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
+                        <p class="sys-card-addtext">新增视图</p>
+                    </ng-template>
+                </nz-card>
+            </div>
+            <!-- 视图列表循环 -->
+            <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let view of sysViews">
+                <nz-card>
+                    <ng-template #body>
+                        <div class="sys-card-content">
+                            <fc-tooltip class="sys-card-help" fcTitle="{{view.DIRECTION}}">
+                                <fc-icon fcIcon="fc-icon-wiki" fcContent></fc-icon>
+                            </fc-tooltip>
+                            <span class="sys-card-mark">
+                                <fc-icon fcIcon="fc-icon-definition" fcColor="#ffffff"></fc-icon>
+                            </span>
+                            <div class="sys-card-text">
+                                <div class="sys-card-title">
+                                    {{view.PID}}-{{view.PNAME}}
+                                </div>
+                                <p class="sys-card-smarks">{{view.DIRECTION}}</p>
+                            </div>
+                        </div>
+                        <div class="sys-card-footer">
+                            <fc-button class="sys-card-btn" fcLabel="编辑" (click)="modifyView($event);" [fcBlock]="true">
+                            </fc-button>
+                            <fc-button class="sys-card-btn" fcLabel="删除" (click)="delectView($event);" [fcBlock]="true">
+                            </fc-button>
+                        </div>
+                    </ng-template>
+                </nz-card>
+            </div>
+        </div>
+    </div>
+</fc-layoutpanel>
+<!-- 接口入口-接口卡片 -->
+<fc-layoutpanel class="sys-card-pannel">
+    <div fcheader>
+        <fc-title fcLabel="接口"></fc-title>
+        <P>
+            接口：FC基础服务平台的功能单元，提供给开发者提供调用接口，自定义接口；
+        </P>
+        <div class="sys-card-fast">
+            <ul class="sys-fast-list">
+                <li>
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
+                <li>
+                    <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>接口简介</li>
+                <li>
+                    <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>接口简介</li>
+            </ul>
+            <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="sysLookUp" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
+        </div>
+    </div>
+    <div fccontent>
+        <div nz-row [nzGutter]="8">
+            <!-- 新增卡片操作 -->
+            <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
+                <nz-card (click)="addInterface();">
+                    <ng-template #body>
+                        <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
+                        <p class="sys-card-addtext">新增接口</p>
+                    </ng-template>
+                </nz-card>
+            </div>
+            <!-- 接口列表循环 -->
+            <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let Interface of sysInterfaces">
+                <nz-card>
+                    <ng-template #body>
+                        <div class="sys-card-content">
+                            <fc-tooltip class="sys-card-help" fcTitle="{{Interface.DIRECTION}}">
+                                <fc-icon fcIcon="fc-icon-wiki" fcContent></fc-icon>
+                            </fc-tooltip>
+                            <span class="sys-card-mark">
+                                <fc-icon fcIcon="fc-icon-definition" fcColor="#ffffff"></fc-icon>
+                            </span>
+                            <div class="sys-card-text">
+                                <div class="sys-card-title">
+                                    {{Interface.PID}}-{{Interface.PNAME}}
+                                </div>
+                                <p class="sys-card-smarks">{{Interface.DIRECTION}}</p>
+                            </div>
+                        </div>
+                        <div class="sys-card-footer">
+                            <fc-button class="sys-card-btn" fcLabel="编辑" (click)="modifyInterface($event);" [fcBlock]="true">
+                            </fc-button>
+                            <fc-button class="sys-card-btn" fcLabel="删除" (click)="delectInterface($event);" [fcBlock]="true">
+                            </fc-button>
+                        </div>
+                    </ng-template>
+                </nz-card>
+            </div>
+        </div>
+    </div>
+</fc-layoutpanel>

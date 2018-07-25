@@ -87,7 +87,6 @@ import { SystbvdeptcurorgService } from './services/systbvdeptcurorg.service';
 import { DialogListComponent } from './components/core/dialog/dialogList.component';
 import { SysdepartmenteditComponent } from './components/core/sysdepartmentedit.component';
 import { SysserviceService } from './services/sysservice.service';
-import { SysserviceeditComponent } from './components/core/sysserviceEdit.component';
 import { SysroleeditdialogComponent } from './components/core/dialog/sysroleeditdialog.component';
 import { SysbizcoderuledialogComponent } from './components/core/dialog/sysbizcoderuledialog.component';
 import { SysiconService } from './services/sysicon.service';
@@ -99,32 +98,53 @@ import { chooseicondialogComponent } from './components/core/dialog/chooseicondi
 import { SyswizardService } from './services/syswizard.service';
 import { ChartsModule } from 'ng2-charts';
 import { SysappmodifyComponent } from './components/core/sysappmodify.component';
-import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
+<<<<<<< HEAD
 import { SysmenueditComponent } from './components/core/sysmenuedit.component';
 import { SysmenuComponent } from './components/core/sysmenu.component';
 import { SysmenuService } from './services/sysmenu.service';
+=======
+import { SysappeditComponent } from './components/core/sysappedit.component';
+import { SysserviceeditComponent } from './components/core/sysserviceedit.component';
+import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
+import { SysinterfaceService } from './services/sysinterface.service';
+import { DialogCardListComponent } from './components/core/dialog/dialogcardlist.component';
+import { SysvieweditComponent } from './components/core/sysviewedit.component';
+import { SysviewelementeditComponent } from './components/core/sysviewelementedit.component';
+import { SysviewService } from './services/sysview.service';
+import { SysviewelementService } from './services/sysviewelement.service';
+import { SysserviceComponent } from './components/core/sysservice.component';
+
+>>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
     DialogListComponent,
+<<<<<<< HEAD
     SysquotalistComponent,
     SysquotaEditComponent,
+=======
+    DialogListComponent,
+>>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
     UploadavatardialogComponent,
-    SysquotalistComponent,
-    SysquotaEditComponent,
     SyslogComponent,
     SysassignmentComponent,
-    UploadavatardialogComponent,
     companytransferdialogComponent,
     SyscompanymodifyComponent,
     SyscompanychangeauditComponent,
     chooseicondialogComponent,
+<<<<<<< HEAD
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
     SysproducteditComponent
+=======
+    SysroleeditdialogComponent,
+    SysproducteditComponent,
+    SysbizcoderuledialogComponent,
+    DialogCardListComponent
+>>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
   ],
   imports: [
     CommonModule,
@@ -142,9 +162,16 @@ import { SysmenuService } from './services/sysmenu.service';
     FctabModule,
     FcchartModule,
     SpreadSheetsModule,
+<<<<<<< HEAD
     NgZorroAntdModule,
     ChartsModule,
     NgZorroAntdModule
+=======
+    NgZorroAntdModule,
+    ChartsModule,
+    NgZorroAntdModule,
+    ChartsModule
+>>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
   ],
   exports: [
   ],
@@ -194,6 +221,10 @@ import { SysmenuService } from './services/sysmenu.service';
     companytransferdialogComponent,
     SyswizardComponent,
     SysdatasourceeditComponent,
+<<<<<<< HEAD
+=======
+    chooseicondialogComponent, 
+>>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
     chooseicondialogComponent,
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
@@ -204,8 +235,16 @@ import { SysmenuService } from './services/sysmenu.service';
     SysdepartmenteditComponent,
     DialogListComponent,
     SysserviceeditComponent,
+<<<<<<< HEAD
     SysmenuComponent,
     SysmenueditComponent
+=======
+    SysinterfaceeditComponent,
+    DialogCardListComponent,
+    SysvieweditComponent,
+    SysviewelementeditComponent,
+    SysserviceComponent
+>>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
   ],
   providers: [
     LayoutService,
@@ -245,11 +284,26 @@ import { SysmenuService } from './services/sysmenu.service';
     SyscompanydimService,
     SysdepartmentService,
     SyswizardService,
-    SysdepartmentService,
+<<<<<<< HEAD
+=======
     SysdepartmentrelationService,
     SystbvdeptcurorgService,
     SysserviceService,
+    SysiconService,
+>>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
+    SysdepartmentService,
+    SyswizardService,
+    SysdepartmentrelationService,
+    SystbvdeptcurorgService,
+    SysserviceService,
+<<<<<<< HEAD
     SysiconService
+=======
+    SysiconService,
+    SysinterfaceService,
+    SysviewService,
+    SysviewelementService
+>>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
   ]
 })
 export class SystemModule {

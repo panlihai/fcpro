@@ -14,16 +14,41 @@ import { chooseicondialogComponent } from './dialog/chooseicondialog.component';
   .edit-footer-btn{
     text-align:center;
   }
-  .choose-icon{
-    display:flex;
-    justify-content:flex-start;
+  .sys-choose-icon{
+    position:relative;
+    height:100px;
   }
-  .choose-icon .fc-icon{
-    widt:25%;
-    display:block;
+  .sys-choose-icon .sys-choose-icon-box{
+    width: 100px;
+    height: 100px;
+    line-height: 90px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: 1px dashed #ebedf0;
+    position: absolute;
+    left: 26%;
+    top: 2px;
+    text-align: center;
+  }
+  .sys-choose-icon fc-button{
+    position:absolute;
+    left:35%;
+    top:45px;
+  }
+  .sys-radio{
+    margin-left:33% ;
+  }
+  .sys-num{
+    margin-right:9%;
+  }
+  .sys-proicon{
+    display: inline-block;
+    margin-left: 62%;
   }
   `]
 })
+
 export class SysdatasourceeditComponent extends ParentEditComponent {
   //数据源图标
   dataSourceIcon: string;
@@ -76,5 +101,11 @@ export class SysdatasourceeditComponent extends ParentEditComponent {
    */
   cardSaveBack() {
 
+  }
+  /**
+   * 返回列表
+   */
+  backToList() {
+    this.navRouter('sysdatasourceList');
   }
 }
