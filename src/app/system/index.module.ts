@@ -108,6 +108,7 @@ import { SysvieweditComponent } from './components/core/sysviewedit.component';
 import { SysviewelementeditComponent } from './components/core/sysviewelementedit.component';
 import { SysviewService } from './services/sysview.service';
 import { SysviewelementService } from './services/sysviewelement.service';
+import { SysserviceComponent } from './components/core/sysservice.component';
 
 @NgModule({
   entryComponents: [
@@ -208,12 +209,11 @@ import { SysviewelementService } from './services/sysviewelement.service';
     SysdepartmenteditComponent,
     DialogListComponent,
     SysserviceeditComponent,
-    SysserviceeditComponent,
-    SysserviceeditComponent,
     SysinterfaceeditComponent,
     DialogCardListComponent,
     SysvieweditComponent,
-    SysviewelementeditComponent
+    SysviewelementeditComponent,
+    SysserviceComponent
   ],
   providers: [
     LayoutService,

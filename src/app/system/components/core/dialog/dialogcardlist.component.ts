@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NzModalSubject } from 'ng-zorro-antd';
-import { ProvidersService } from '../../../../../../node_modules/fccore';
-import { FCEVENT } from '../../../../../../node_modules/fccomponent/fc';
+import { ProvidersService } from 'fccore';
+import { FCEVENT } from 'fccomponent/fc';
 @Component({
     template: `
     <!-- 视图入口-视图卡片 -->

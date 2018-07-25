@@ -47,6 +47,7 @@ import { SysserviceeditComponent } from './components/core/sysserviceedit.compon
 import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
 import { SysvieweditComponent } from './components/core/sysviewedit.component';
 import { SysviewelementeditComponent } from './components/core/sysviewelementedit.component';
+import { SysserviceComponent } from './components/core/sysservice.component';
 
 export const Routers: Routes = [{
     path: 'home',
@@ -215,6 +216,10 @@ export const Routers: Routes = [{
 }, {
     path: 'sysserviceEdit',//设立部门
     component: SysserviceeditComponent,
+    data: { keep: false },
+}, {
+    path: 'sysserviceList',//服务
+    component: SysserviceComponent,
     data: { keep: false },
 }, {
     path: 'sysuserList',//用户管理

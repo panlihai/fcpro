@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ProvidersService, ParentService } from 'fccore';
 import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
-import { NzModalService } from '../../../../node_modules/ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd';
 @Injectable()
 export class SysviewelementService extends ParentService {
     constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService) {
