@@ -1,12 +1,8 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
 import { ParentService, ProvidersService } from 'fccore';
-import { Subject } from 'rxjs';
 import { NzModalService } from 'ng-zorro-antd';
 import { DialogListArgs, DialogListComponent } from '../components/core/dialog/dialogList.component';
-import { GridApi } from 'ag-grid/dist/lib/gridApi';
-import { FclistdataComponent } from 'fccomponent';
-import { RowDataTransaction } from 'ag-grid/dist/lib/rowModels/inMemory/inMemoryRowModel';
 import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
 @Injectable()
@@ -44,7 +40,7 @@ export class SysserviceService extends ParentService {
       *  初始化DefaultObj
       */
     getDefaultObj() {
-        return this.providers.appService.initObjDefaultValue(this.app);
+        return this.appService.initObjDefaultValue(this.app);
     }
     /** YM
      * 根据

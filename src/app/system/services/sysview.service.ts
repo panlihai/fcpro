@@ -13,7 +13,7 @@ export class SysviewService extends ParentService {
       *  初始化DefaultObj
       */
      getDefaultObj() {
-        return this.providers.appService.initObjDefaultValue(this.app);
+        return this.appService.initObjDefaultValue(this.app);
     }
     getBizCodeByAid(resId: string) {
         return this.sysbizcoderuleService.getBizCodeByAid(this.moduleId, resId);

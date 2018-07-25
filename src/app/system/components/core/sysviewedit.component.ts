@@ -20,11 +20,15 @@ import { SysviewService } from '../../services/sysview.service';
           position:relative;
           right:95%;
       }
+      .fctitle-h2{
+        margin: 1% 0% 1% 3%;
+      }
 `]
 })
 export class SysvieweditComponent extends ParentEditComponent {
     productName: any;
     pidOption: any;
+    modelOptions: any;
     constructor(public mainService: SysviewService,
         public router: Router,
         public activeRoute: ActivatedRoute) {
