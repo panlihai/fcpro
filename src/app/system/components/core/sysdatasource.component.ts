@@ -30,17 +30,20 @@ export class SysdatasourceComponent extends ParentlistComponent {
   constructor(public mainService: SysdatasourceService,
     public router: Router,
     public activeRoute: ActivatedRoute,
-    // private dragulaService: DragulaService
   ) {
     super(mainService, router, activeRoute);
 
   }
   init(): void {
+    //初始化数据源
     this.initDatasource();
+    //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
     this.btnlistOnes = this.mainService.appButtons.filter(btn =>
       btn.BTNTYPE === 'LISTONE'
     );
+    //更多的按钮
     this.btnlistMores = this.btnlistOnes.splice(3);
+    //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
   }
   getDefaultQuery() {
@@ -63,7 +66,8 @@ export class SysdatasourceComponent extends ParentlistComponent {
    * 初始化数据源
    */
   initDatasource() {
-    this.mainService.findWithQuery({  }).subscribe(result => {
+    //根据后端接口查询数据
+    this.mainService.findWithQuery({}).subscribe(result => {
       this.sysDatasources = result.P_LISTVALUE;
     });
   }
@@ -72,9 +76,12 @@ export class SysdatasourceComponent extends ParentlistComponent {
   * @param event 
   */
   listEdit(event: FCEVENT) {
+    //选中的对象
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
+      //把卡片的数据放入缓存中
       this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysDatasources));
+      //把id带入到编辑页面
       this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
   }
@@ -86,11 +93,20 @@ export class SysdatasourceComponent extends ParentlistComponent {
     switch (event.ACTCODE) {
       case 'listOneDelete'://明细删除
         this.listOneDelete();
+        //阻止冒泡
+        event.stopPropagation();
+        event.preventDefault();
         break;
       case 'listOneEdit'://明细修改
         this.listEdit(item);
+        //阻止冒泡
+        event.stopPropagation();
+        event.preventDefault();
         break;
       case 'listOneHelp'://明细帮助
+        //阻止冒泡
+        event.stopPropagation();
+        event.preventDefault();
         break;
     }
   }
@@ -113,6 +129,7 @@ export class SysdatasourceComponent extends ParentlistComponent {
    */
   thumbUp() {
     this.messageService.message("点赞功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }
@@ -121,6 +138,7 @@ export class SysdatasourceComponent extends ParentlistComponent {
    */
   download() {
     this.messageService.message("下载功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }
@@ -129,6 +147,7 @@ export class SysdatasourceComponent extends ParentlistComponent {
    */
   evaluate() {
     this.messageService.message("评论功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }
@@ -137,6 +156,7 @@ export class SysdatasourceComponent extends ParentlistComponent {
    */
   count() {
     this.messageService.message("统计功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }

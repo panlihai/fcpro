@@ -12,6 +12,10 @@ import { environment } from '../../../../environments/environment';
   .sys-card-btn{
     width:25%;
   }
+  .sys-fast-select{
+    width:30%;
+    width:30%;
+  }
   `]
 })
 export class SysappComponent extends ParentlistComponent {
@@ -23,22 +27,32 @@ export class SysappComponent extends ParentlistComponent {
   btnlistMores: any[];
   //字母查找
   fastsearchWords: any[];
+  //数据源
+  datasource: string;
+  //产品
+  product: string;
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {
     super(mainService, router, activeRoute);
   }
   init(): void {
+    //根据首字母过滤
     this.searchByWord();
+    //26个字母name,方法名,BUSTYPE为'fastsearch' 
     this.fastsearchWords = this.mainService.fastSearch();
+    //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
     this.btnlistOnes = this.mainService.appButtons.filter(btn =>
       btn.BTNTYPE === 'LISTONE'
     );
+    //更多的按钮
     this.btnlistMores = this.btnlistOnes.splice(3);
+    //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
   }
   getDefaultQuery() {
     return {
+      //默认查询启用的
       ENABLE: 'Y',
       WHERE: ' AND 1=1'
     }
@@ -51,6 +65,7 @@ export class SysappComponent extends ParentlistComponent {
    */
   event(eventName: string, event: FCEVENT): void {
     this.searchWord.push(event.param.ACTCODE);
+    //当页面按钮的类型为fastsearch时
     if (event.param.BUSTYPE === 'fastsearch' &&
       (event.param.ACTCODE !== this.searchWord[this.searchWord.length - 1] || this.searchWord.length === 1)) {
       this.searchByWord(event.param);
@@ -62,10 +77,14 @@ export class SysappComponent extends ParentlistComponent {
   * 初始化元数据
   */
   searchByWord(btn?: any) {
+    //查询数据的对象
     let valueObj: any = {};
+    //如果点击了首字母搜索的按钮,则根据APPID的首字母查询
     if (btn) {
+      //从0开始截取第一个字符
       valueObj.WHERE = "AND SUBSTR(APPID,0,1)='" + btn.ACTCODE + "'"
     }
+    //根据首字母查询数据,如果没有点击按钮或者再次点击按钮,则查询所有的数据
     this.mainService.findWithQuery(valueObj).subscribe(result => {
       if (result.CODE === '0') {
         this.sysApps = result.DATA;
@@ -77,9 +96,12 @@ export class SysappComponent extends ParentlistComponent {
    * @param event 
    */
   listEdit(event: FCEVENT) {
+    //选中的对象
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
+      //把卡片的数据放入缓存中
       this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysApps));
+      //把id带入到编辑页面
       this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
   }
@@ -91,17 +113,20 @@ export class SysappComponent extends ParentlistComponent {
     switch (event.ACTCODE) {
       case 'listOneDelete'://明细删除
         this.listOneDelete();
+        //阻止冒泡
         event.stopPropagation();
         event.preventDefault();
         break;
       case 'listOneEdit'://明细修改
         this.listEdit(item);
+        //阻止冒泡
         event.stopPropagation();
         event.preventDefault();
         break;
       case 'listOneHelp'://明细帮助
-      event.stopPropagation();
-      event.preventDefault();
+        //阻止冒泡
+        event.stopPropagation();
+        event.preventDefault();
         break;
     }
   }
@@ -124,6 +149,7 @@ export class SysappComponent extends ParentlistComponent {
    */
   thumbUp() {
     this.messageService.message("点赞功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }
@@ -132,6 +158,7 @@ export class SysappComponent extends ParentlistComponent {
    */
   download() {
     this.messageService.message("下载功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }
@@ -140,6 +167,7 @@ export class SysappComponent extends ParentlistComponent {
    */
   evaluate() {
     this.messageService.message("评论功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }
@@ -148,6 +176,7 @@ export class SysappComponent extends ParentlistComponent {
    */
   count() {
     this.messageService.message("统计功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }

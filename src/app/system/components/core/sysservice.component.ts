@@ -25,12 +25,17 @@ export class SysserviceComponent extends ParentlistComponent {
     super(mainService, router, activeRoute);
   }
   init(): void {
+    //根据首字母过滤
     this.searchByWord();
+    //26个字母name,方法名,BUSTYPE为'fastsearch'
     this.fastsearchWords = this.mainService.fastSearch();
+    //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
     this.btnlistOnes = this.mainService.appButtons.filter(btn =>
       btn.BTNTYPE === 'LISTONE'
     );
+    //更多的按钮
     this.btnlistMores = this.btnlistOnes.splice(3);
+    //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
   }
   getDefaultQuery() {
@@ -40,6 +45,7 @@ export class SysserviceComponent extends ParentlistComponent {
 * @param context 事件返回参数
 */
   event(eventName: string, event: FCEVENT): void {
+    //当页面按钮的类型为fastsearch时
     if (event.param.BUSTYPE === 'fastsearch') {
       this.searchByWord(event.param);
     }
@@ -48,10 +54,14 @@ export class SysserviceComponent extends ParentlistComponent {
   * 初始化元数据
   */
   searchByWord(btn?: any) {
+    //查询数据的对象
     let valueObj: any = {};
+    //如果点击了首字母搜索的按钮,则根据APPID的首字母查询
     if (btn) {
+      //从0开始截取第一个字符
       valueObj.WHERE = "AND SUBSTR(SERVICEID,0,1)='" + btn.ACTCODE + "'"
     }
+    //根据首字母查询数据,如果没有点击按钮或者再次点击按钮,则查询所有的数据
     this.mainService.findWithQuery(valueObj).subscribe(result => {
       if (result.CODE === '0') {
         this.sysServices = result.DATA;
@@ -66,11 +76,20 @@ export class SysserviceComponent extends ParentlistComponent {
     switch (event.ACTCODE) {
       case 'listOneDelete'://明细删除
         this.listOneDelete();
+        //阻止冒泡
+        event.stopPropagation();
+        event.preventDefault();
         break;
       case 'listOneEdit'://明细修改
         this.listEdit(item);
+        //阻止冒泡
+        event.stopPropagation();
+        event.preventDefault();
         break;
       case 'listOneHelp'://明细帮助
+        //阻止冒泡
+        event.stopPropagation();
+        event.preventDefault();
         break;
     }
   }
@@ -93,6 +112,7 @@ export class SysserviceComponent extends ParentlistComponent {
    */
   thumbUp() {
     this.messageService.message("点赞功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }
@@ -101,6 +121,7 @@ export class SysserviceComponent extends ParentlistComponent {
    */
   download() {
     this.messageService.message("下载功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }
@@ -109,6 +130,7 @@ export class SysserviceComponent extends ParentlistComponent {
    */
   evaluate() {
     this.messageService.message("评论功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }
@@ -117,6 +139,7 @@ export class SysserviceComponent extends ParentlistComponent {
    */
   count() {
     this.messageService.message("统计功能正在开发中，敬请期待！");
+    //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
   }
