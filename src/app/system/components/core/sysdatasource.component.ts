@@ -26,14 +26,14 @@ export class SysdatasourceComponent extends ParentlistComponent {
   //更多的按钮
   btnlistMores: any[];
   //产品
-  product:string;
+  product: string;
   constructor(public mainService: SysdatasourceService,
     public router: Router,
     public activeRoute: ActivatedRoute,
     // private dragulaService: DragulaService
   ) {
     super(mainService, router, activeRoute);
-  
+
   }
   init(): void {
     this.sysLookUp = this.mainService.fastLookUp();
@@ -55,7 +55,7 @@ export class SysdatasourceComponent extends ParentlistComponent {
    */
   event(eventName: string, context: any): void {
     switch (eventName) {
-     
+
     }
   }
 
@@ -64,7 +64,7 @@ export class SysdatasourceComponent extends ParentlistComponent {
    * 初始化数据源
    */
   initDatasource() {
-    this.mainService.findWithQuery({}).subscribe(result => {
+    this.mainService.findWithQuery({  }).subscribe(result => {
       this.sysDatasources = result.P_LISTVALUE;
     });
   }
@@ -78,5 +78,67 @@ export class SysdatasourceComponent extends ParentlistComponent {
       this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysDatasources));
       this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
+  }
+  /**
+   * 按钮明细
+   * @param event 
+   */
+  btnCardEvent(event: any, item: any) {
+    switch (event.ACTCODE) {
+      case 'listOneDelete'://明细删除
+        this.listOneDelete();
+        break;
+      case 'listOneEdit'://明细修改
+        this.listEdit(item);
+        break;
+      case 'listOneHelp'://明细帮助
+        break;
+    }
+  }
+  /**
+   * 单条删除
+   */
+  listOneDelete() {
+    this.messageService.confirm('请确认该数据源没有在其它地方使用后再删除!', () => {
+
+    }, () => { })
+  }
+  /**
+   * 导入
+   */
+  import() {
+
+  }
+  /**
+   * 点赞
+   */
+  thumbUp() {
+    this.messageService.message("点赞功能正在开发中，敬请期待！");
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
+   * 下载
+   */
+  download() {
+    this.messageService.message("下载功能正在开发中，敬请期待！");
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
+   * 评论
+   */
+  evaluate() {
+    this.messageService.message("评论功能正在开发中，敬请期待！");
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
+   * 统计
+   */
+  count() {
+    this.messageService.message("统计功能正在开发中，敬请期待！");
+    event.stopPropagation();
+    event.preventDefault();
   }
 }

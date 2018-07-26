@@ -31,7 +31,19 @@ export class SysproductService extends ParentService {
     if (!param.hasOwnProperty('P_LISTFILTER')) {
       param.P_LISTFILTER = '';
     }
-    return this.providers.daoService.getFromSystem("ajax/SYSTEM/SYSTEMPRODUCT/SYSPRODUCT/listView", param);
+    if (!param.hasOwnProperty('TOKEN')) {
+      param.TOKEN = this.userInfo.TOKEN;
+    }
+    if (!param.hasOwnProperty('LAT')) {
+      param.LAT = 0;
+    }
+    if (!param.hasOwnProperty('LNG')) {
+      param.LNG = 0;
+    }
+    if (!param.hasOwnProperty('TIMESTAMP')) {
+      param.TIMESTAMP = this.commonService.getTimestamp();
+    }
+    return this.providers.daoService.getFromSystem("ajax/SYSTEM/SYSPRODUCT/SYSPRODUCT/listView", param);
   }
   /**
    * 字母快速查询
@@ -146,11 +158,11 @@ export class SysproductService extends ParentService {
     }];
     return lookUpList;
   }
-    /**
-    *  按钮跳转路由方法封装 查看数据源  查看服务   返回列表 方法
-    * @param event  
-    */ 
-   producticonmodal(content): Observable<any> {
+  /**
+  *  按钮跳转路由方法封装 查看数据源  查看服务   返回列表 方法
+  * @param event  
+  */
+  producticonmodal(content): Observable<any> {
     return this.modalService.open({
       title: '字体图标',
       content: content,
@@ -164,5 +176,14 @@ export class SysproductService extends ParentService {
         }
       }
     })
+  }
+  /**
+   * 
+   * @param id 
+   */
+  deleteProduct(id: string) {
+    this.messageService.confirm('是否确认删除本产品？', () => {
+
+    }, () => { });
   }
 }

@@ -12,8 +12,9 @@ import { ColumnApi } from 'ag-grid';
   selector: 'syswizard',
   templateUrl: './syswizard.component.html',
   styles: [`
-  .sys-card{
+  .sys-wizard-card{
     position:relative;
+    margin-bottom:10px;
   }
   .sys-card-footer{
     padding:5px 20px;
@@ -21,11 +22,13 @@ import { ColumnApi } from 'ag-grid';
   .sys-title-right{
     position:absolute;
     right:10px;
-    top:2px;
+    top:5px;
   }
   .sys-basic-info{
     display:flex;
     justify-content:space-between;
+    padding:15px;
+    box-sizing:border-box;
   }
   .sys-info-user{
     display:flex;
@@ -63,6 +66,7 @@ import { ColumnApi } from 'ag-grid';
   .sys-team{
     display:flex;
     flex-wrap:wrap;
+    padding-left:10px;
   }
   .sys-team>li{
     width:50%;
@@ -76,6 +80,21 @@ import { ColumnApi } from 'ag-grid';
     border-radius:50%;
     margin-right:10px;
   }
+  :host ::ng-deep .sys-wizard .fc-title{
+    border-color: #ebedf0;
+    margin-top: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  :host ::ng-deep .fc-content2>.sys-wizard-content2 {
+    padding-left:10px;
+  }
+  :host ::ng-deep  .sys-wizard-card>.ant-card>.ant-card-body{
+    padding:0;
+  }
+  .ant-card-bordered{
+
+  }
   `]
 })
 export class SyswizardComponent extends ParentlistComponent {
@@ -87,7 +106,7 @@ export class SyswizardComponent extends ParentlistComponent {
   //navLink 标签
   navLinks: any;
   //产品数据
-  sysProducts: any[];
+  sysServices: any[];
   constructor(public mainService: SyswizardService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -96,7 +115,7 @@ export class SyswizardComponent extends ParentlistComponent {
     super(mainService, router, activeRoute);
   }
   init() {
-    this.initPproduct();
+    this.initServices();
     //快速导航
     this.initNavLink();
   }
@@ -109,9 +128,11 @@ export class SyswizardComponent extends ParentlistComponent {
   /**
   * 初始化产品
   */
-  initPproduct() {
-    this.mainService.findProduct({}).subscribe(result => {
-      this.sysProducts = result.P_LISTVALUE;
+ initServices() {
+    this.mainService.findService({}).subscribe(result => {
+      if(result.CODE==='0'){
+        this.sysServices = result.DATA;
+      }
     });
   }
   // 访问指数

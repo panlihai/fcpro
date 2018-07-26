@@ -43,13 +43,19 @@ export class SysappComponent extends ParentlistComponent {
       WHERE: ' AND 1=1'
     }
   }
+  //点击的首字母查询
+  searchWord: any[] = [];
   /**
    * @param eventName 事件名称
    * @param context 事件返回参数
    */
   event(eventName: string, event: FCEVENT): void {
-    if (event.param.BUSTYPE === 'fastsearch') {
+    this.searchWord.push(event.param.ACTCODE);
+    if (event.param.BUSTYPE === 'fastsearch' &&
+      (event.param.ACTCODE !== this.searchWord[this.searchWord.length - 1] || this.searchWord.length === 1)) {
       this.searchByWord(event.param);
+    } else {
+      this.searchByWord();
     }
   }
   /**
@@ -74,7 +80,75 @@ export class SysappComponent extends ParentlistComponent {
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
       this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysApps));
-      this.navRouter(this.getRouteUrl('Modify'), { ID: selectedObj.ID, refresh: 'Y' });
+      this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
+  }
+  /**
+   * 按钮明细
+   * @param event 
+   */
+  btnCardEvent(event: any, item: any) {
+    switch (event.ACTCODE) {
+      case 'listOneDelete'://明细删除
+        this.listOneDelete();
+        event.stopPropagation();
+        event.preventDefault();
+        break;
+      case 'listOneEdit'://明细修改
+        this.listEdit(item);
+        event.stopPropagation();
+        event.preventDefault();
+        break;
+      case 'listOneHelp'://明细帮助
+      event.stopPropagation();
+      event.preventDefault();
+        break;
+    }
+  }
+  /**
+   * 单条删除
+   */
+  listOneDelete() {
+    this.messageService.confirm('请确认该元数据没有在其它地方使用后再删除!', () => {
+
+    }, () => { })
+  }
+  /**
+   * 导入
+   */
+  import() {
+
+  }
+  /**
+   * 点赞
+   */
+  thumbUp() {
+    this.messageService.message("点赞功能正在开发中，敬请期待！");
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
+   * 下载
+   */
+  download() {
+    this.messageService.message("下载功能正在开发中，敬请期待！");
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
+   * 评论
+   */
+  evaluate() {
+    this.messageService.message("评论功能正在开发中，敬请期待！");
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
+   * 统计
+   */
+  count() {
+    this.messageService.message("统计功能正在开发中，敬请期待！");
+    event.stopPropagation();
+    event.preventDefault();
   }
 }

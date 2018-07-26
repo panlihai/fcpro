@@ -83,8 +83,8 @@ import { NzModalService } from 'ng-zorro-antd';
     padding: 0px;
   }
   :host ::ng-deep .sys-content-wrap .content-main{
-    padding: 0 5px 20px;
-    border-top:0;
+    padding: 0px 5px 20px;
+    border-top: 0;
   }
   :host ::ng-deep .sys-nav-tabmain .ant-tabs-bar {
       background-color: #ffffff;
@@ -306,7 +306,7 @@ export class LayoutComponent implements OnInit {
         })
         break;
       case 'editUser'://修改密码
-        this.mainService.navToByMenuId(this._router, 'sysprofileList');
+        this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/sysprofileList"]);
         break;
     }
   }
