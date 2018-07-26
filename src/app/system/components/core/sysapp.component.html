@@ -14,14 +14,16 @@
                 <li>
                     <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>帮助</li>
             </ul>
-            <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="fastsearchWords" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
             <div class="sys-fast-select">
                 <fc-combo [fcShowLabel]="false" [(ngModel)]="product" fcPlaceHolder="请选择产品" fcAppid="SYSPRODUCT" fcFieldCode="PID" fcLabelCode="PNAME"
                     fcValueCode="PID" name="SYSPRODUCT.PID"></fc-combo>
             </div>
             <div class="sys-fast-select">
-                <fc-combo [fcShowLabel]="false" [(ngModel)]="datasource" fcPlaceHolder="请选择数据源" fcAppid="SYSPRODUCT" fcFieldCode="DSID" fcLabelCode="DSNAME"
-                    fcValueCode="DSID" name="SYSDATASOURCE.DSID"></fc-combo>
+                <fc-combo [fcShowLabel]="false" [(ngModel)]="datasource" fcPlaceHolder="请选择数据源" fcAppid="SYSDATASOURCE" fcFieldCode="DSID"
+                    fcLabelCode="DSNAME" fcValueCode="DSID" name="SYSDATASOURCE.DSID"></fc-combo>
+            </div>
+            <div class="sys-fast-byword">
+                <span *ngFor="let item of fastsearchWords" [ngClass]="{'active':searchWord===item.ACTCODE}" (click)="fastSearch(item)">{{item.BTNNAME}}</span>
             </div>
         </div>
         <img class="sys-card-bg" src="assets/img/system-bg.png" />

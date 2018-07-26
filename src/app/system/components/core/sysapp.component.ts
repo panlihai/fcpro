@@ -13,8 +13,7 @@ import { environment } from '../../../../environments/environment';
     width:25%;
   }
   .sys-fast-select{
-    width:30%;
-    width:30%;
+    width:15%;
   }
   `]
 })
@@ -31,6 +30,8 @@ export class SysappComponent extends ParentlistComponent {
   datasource: string;
   //产品
   product: string;
+  //点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
+  searchWord: string = '';
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {
@@ -57,20 +58,24 @@ export class SysappComponent extends ParentlistComponent {
       WHERE: ' AND 1=1'
     }
   }
-  //点击的首字母查询
-  searchWord: any[] = [];
   /**
    * @param eventName 事件名称
    * @param context 事件返回参数
    */
   event(eventName: string, event: FCEVENT): void {
-    this.searchWord.push(event.param.ACTCODE);
+
+  }
+  fastSearch(item: any) {
     //当页面按钮的类型为fastsearch时
-    if (event.param.BUSTYPE === 'fastsearch' &&
-      (event.param.ACTCODE !== this.searchWord[this.searchWord.length - 1] || this.searchWord.length === 1)) {
-      this.searchByWord(event.param);
-    } else {
-      this.searchByWord();
+    if (item.BUSTYPE === 'fastsearch') {
+      // 点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
+      if (this.searchWord === item.ACTCODE) {
+        this.searchWord = '';
+        this.searchByWord();
+      } else {
+        this.searchWord = item.ACTCODE;
+        this.searchByWord(item);
+      }
     }
   }
   /**
