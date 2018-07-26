@@ -33,7 +33,7 @@ import { ObjStatus } from 'fccore';
             <fc-radio  fccontent  [(ngModel)]="mainObj.DISPLAYMODE" fcLabel="模式" [fcAppid]="appId" fcFieldCode="DISPLAYMODE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="DISPLAYMODE"></fc-radio>            
             </div>
             <div fccontent2 class="sys-num">
-            <fc-text fccontent [(ngModel)]="mainObj.SORT"  fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-text>            
+            <fc-long fccontent [(ngModel)]="mainObj.SORT"  fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>            
             </div>
           </fc-layoutcol>         
           <fc-text fccontent1  [(ngModel)]="mainObj.PARENTPID" fcPlaceHolder="依赖产品输入"  name="PARENTPID"  fcLabel="依赖产品"></fc-text>

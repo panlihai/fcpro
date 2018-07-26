@@ -25,6 +25,14 @@
             <fc-text fccontent1 fcLabel="数据源名称" [fcAppid]="appId" fcFieldCode="DSID" [(ngModel)]="mainObj.DSID" [fcReadonly]="true" name="SYSDATASOURCE.DSID"></fc-text>
             <fc-long fccontent1 fcLabel="排序" [fcAppid]="appId" fcFieldCode="SORT" [(ngModel)]="mainObj.SORT" name="SYSDATASOURCE.SORT"></fc-long>
             <fc-radio fccontent1 fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" [(ngModel)]="mainObj.ENABLE" name="SYSDATASOURCE.ENABLE"></fc-radio>
+            <!-- <fc-layoutcol fccontent1  fcSpans="1,1" >
+                <div fccontent1 class="sys-radio">
+                    <fc-radio fccontent fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" [(ngModel)]="mainObj.ENABLE" name="SYSDATASOURCE.ENABLE"></fc-radio>            
+                </div>
+                <div fccontent2 class="sys-num">
+                <fc-long fccontent [(ngModel)]="mainObj.SORT"  fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>            
+                </div>
+            </fc-layoutcol>   -->
             <fc-textarea fccontent1 fcLabel="备注" [fcAppid]="appId" fcFieldCode="REMARK" [(ngModel)]="mainObj.REMARK" name="SYSDATASOURCE.REMARK"></fc-textarea>
         </fc-layoutcol>
         <!-- 数据源信息 -->
@@ -38,18 +46,30 @@
         </fc-layoutcol>
         <!-- 其它信息 -->
         <fc-layoutcol fcSpans="1,1">
-            <fc-title fccontent1 fcLabel="其它信息" [fcHasLine]="false"></fc-title>
+            <fc-title fccontent1 fcLabel="其它信息" [fcHasLine]="false"></fc-title> -->
             <div class="sys-choose-icon" fccontent1>
                 <fc-label fcLabel="数据源图标"></fc-label>
-                <div class="sys-choose-icon-box">
-                    <fc-icon fcIcon="fc-icon-wiki" fcFontSize="30px"></fc-icon>
+                 <div class="sys-choose-icon-box">
+                    <!-- <fc-icon fcIcon="fc-icon-wiki" fcFontSize="30px"></fc-icon> -->
+                    <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcFontSize="30px"></fc-icon>
+                    <span *ngIf = "visible">选择图片</span>
+                </div>        
+            </div> 
+            <!-- <div fccontent2>
+                <fc-tlbform fccontent [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" fcLayout="center"></fc-tlbform>
+                <div fccontent>
+                   <div class="sys-buttondiv" *ngIf = "buttonvisible"></div>
                 </div>
-                <fc-button fcLabel="选择图标" (click)="chooseIcon();">
-                </fc-button>
-            </div>
+            </div>  -->
         </fc-layoutcol>
         <div class="edit-footer-btn">
-            <fc-tlbform [fcAppid]="appId" fcLayout="center"></fc-tlbform>
+            <fc-tlbform fccontent [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" fcLayout="center"></fc-tlbform>
         </div>
+        <!-- <div fccontent>
+            <fc-tlbform fccontent [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" fcLayout="center"></fc-tlbform>
+            <div fccontent>
+               <div class="sys-buttondiv" *ngIf = "buttonvisible"></div>
+            </div> -->
+        <!-- </div>  -->
     </div>
 </fc-layoutpanel>
