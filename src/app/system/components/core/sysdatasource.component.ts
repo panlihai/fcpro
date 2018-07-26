@@ -36,7 +36,6 @@ export class SysdatasourceComponent extends ParentlistComponent {
 
   }
   init(): void {
-    this.sysLookUp = this.mainService.fastLookUp();
     this.initDatasource();
     this.btnlistOnes = this.mainService.appButtons.filter(btn =>
       btn.BTNTYPE === 'LISTONE'

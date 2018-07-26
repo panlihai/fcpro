@@ -29,7 +29,6 @@ export class SysproductComponent extends ParentlistComponent {
   }
   init(): void {
     this.initPproduct();
-    this.sysLookUp = this.mainService.fastLookUp();
     this.btnlistOnes = this.mainService.appButtons.filter(btn =>
       btn.BTNTYPE === 'LISTONE'
     );
