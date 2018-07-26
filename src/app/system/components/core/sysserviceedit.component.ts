@@ -50,7 +50,6 @@ export class SysserviceeditComponent extends ParentEditComponent {
         this.getDefaultMainObj();
         this.getPidOption();
         this.handleRouterParam();
-        this.getLooksUp();
         this.preventUnsaved();
     }
     /**

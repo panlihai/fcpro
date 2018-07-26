@@ -65,6 +65,10 @@ export class SysappComponent extends ParentlistComponent {
   event(eventName: string, event: FCEVENT): void {
 
   }
+  /**
+    * 快速查询
+    * @param item 
+    */
   fastSearch(item: any) {
     //当页面按钮的类型为fastsearch时
     if (item.BUSTYPE === 'fastsearch') {
