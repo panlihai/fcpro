@@ -136,12 +136,6 @@ export class SysserviceeditComponent extends ParentEditComponent {
             }
         });
     }
-    /**
-     * 初始化获取字母快速查询按钮数据
-     */
-    getLooksUp() {
-        this.sysLookUp = this.mainService.getLooksUp();
-    }
     /** YM
      * 根据PID获取服务编码并赋值.
      * @param pid 
