@@ -19,6 +19,8 @@ export class SysserviceComponent extends ParentlistComponent {
   fastsearchWords: any[];
   //服务
   sysServices: any[];
+  //点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
+  searchWord: string = '';
   constructor(public mainService: SysserviceService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
@@ -48,6 +50,23 @@ export class SysserviceComponent extends ParentlistComponent {
     //当页面按钮的类型为fastsearch时
     if (event.param.BUSTYPE === 'fastsearch') {
       this.searchByWord(event.param);
+    }
+  }
+  /**
+   * 快速查询
+   * @param item 
+   */
+  fastSearch(item: any) {
+    //当页面按钮的类型为fastsearch时
+    if (item.BUSTYPE === 'fastsearch') {
+      // 点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
+      if (this.searchWord === item.ACTCODE) {
+        this.searchWord = '';
+        this.searchByWord();
+      } else {
+        this.searchWord = item.ACTCODE;
+        this.searchByWord(item);
+      }
     }
   }
   /**
