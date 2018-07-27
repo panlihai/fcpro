@@ -31,135 +31,24 @@ export class SysproductService extends ParentService {
     if (!param.hasOwnProperty('P_LISTFILTER')) {
       param.P_LISTFILTER = '';
     }
+    if (!param.hasOwnProperty('TOKEN')) {
+      param.TOKEN = this.userInfo.TOKEN;
+    }
+    if (!param.hasOwnProperty('LAT')) {
+      param.LAT = 0;
+    }
+    if (!param.hasOwnProperty('LNG')) {
+      param.LNG = 0;
+    }
+    if (!param.hasOwnProperty('TIMESTAMP')) {
+      param.TIMESTAMP = this.commonService.getTimestamp();
+    }
     return this.providers.daoService.getFromSystem("ajax/SYSTEM/SYSPRODUCT/SYSPRODUCT/listView", param);
   }
   /**
-   * 字母快速查询
-   */
-  fastLookUp() {
-    let lookUpList: any[];
-    lookUpList = [{
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpA',
-      'BTNNAME': 'A'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpB',
-      'BTNNAME': 'B'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpC',
-      'BTNNAME': 'C'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpD',
-      'BTNNAME': 'D'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpE',
-      'BTNNAME': 'E'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpF',
-      'BTNNAME': 'F'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpG',
-      'BTNNAME': 'G'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpH',
-      'BTNNAME': 'H'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpI',
-      'BTNNAME': 'I'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpJ',
-      'BTNNAME': 'J'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpK',
-      'BTNNAME': 'K'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpL',
-      'BTNNAME': 'L'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpM',
-      'BTNNAME': 'M'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpN',
-      'BTNNAME': 'N'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpO',
-      'BTNNAME': 'O'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpP',
-      'BTNNAME': 'P'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpQ',
-      'BTNNAME': 'Q'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpR',
-      'BTNNAME': 'R'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpS',
-      'BTNNAME': 'S'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpT',
-      'BTNNAME': 'T'
-    }, {
-      'BTNTYPE': 'default',
-
-      'ACTCODE': 'lookUpA',
-      'BTNNAME': 'U'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpV',
-      'BTNNAME': 'V'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpW',
-      'BTNNAME': 'W'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpX',
-      'BTNNAME': 'X'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpY',
-      'BTNNAME': 'Y'
-    }, {
-      'BTNTYPE': 'default',
-      'ACTCODE': 'lookUpZ',
-      'BTNNAME': 'Z'
-    }];
-    return lookUpList;
-  }
-  /**
-    * 获取当前product所有内容
-    * */
-  productAll() {
-    return this.providers.appService.findWithQuery("SYSPRODUCT", {})
-  }
-  //新增product数据
-  childrensave(obj) {
-    return this.providers.appService.saveObject('SYSPRODUCT', obj)
-  }
-  /**
-*  按钮跳转路由方法封装 查看数据源  查看服务   返回列表 方法
-* @param event  
-*/
+  *  按钮跳转路由方法封装 查看数据源  查看服务   返回列表 方法
+  * @param event  
+  */
   producticonmodal(content): Observable<any> {
     return this.modalService.open({
       title: '字体图标',
@@ -174,5 +63,14 @@ export class SysproductService extends ParentService {
         }
       }
     })
+  }
+  /**
+   * 
+   * @param id 
+   */
+  deleteProduct(id: string) {
+    this.messageService.confirm('是否确认删除本产品？', () => {
+
+    }, () => { });
   }
 }

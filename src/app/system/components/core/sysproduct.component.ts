@@ -28,12 +28,15 @@ export class SysproductComponent extends ParentlistComponent {
     super(mainService, router, activeRoute);
   }
   init(): void {
+    // 初始化产品
     this.initPproduct();
-    this.sysLookUp = this.mainService.fastLookUp();
+    //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
     this.btnlistOnes = this.mainService.appButtons.filter(btn =>
       btn.BTNTYPE === 'LISTONE'
     );
-    this.btnlistMores = this.btnlistOnes.splice(3);
+    //更多的按钮
+    this.btnlistMores = this.btnlistOnes.splice(2);
+    //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
   }
 
@@ -44,72 +47,18 @@ export class SysproductComponent extends ParentlistComponent {
    * 初始化产品
    */
   initPproduct() {
+    //根据后端接口查询所有的产品,才能查询出所有的产品,如果是SYSPRODUCT的LISTINFO接口,只能查询到当前的产品
     this.mainService.findWithQuery({}).subscribe(result => {
       this.sysProducts = result.P_LISTVALUE;
     });
   }
   /**
-   * 新增产品,跳转到新增产品页面
+   * 
+   * @param eventName 
+   * @param context 
    */
-  addProduct() {
-    // this.navRouter('sysproductEdit');
-    this.router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/sysproductEdit"], {
-    })
-  }
   event(eventName: string, context: any): void {
     switch (eventName) {
-      case 'lookUpA'://根据字母快速查找
-        break;
-      case 'lookUpB':
-        break;
-      case 'lookUpC':
-        break;
-      case 'lookUpD':
-        break;
-      case 'lookUpE':
-        break;
-      case 'lookUpF':
-        break;
-      case 'lookUpG':
-        break;
-      case 'lookUpH':
-        break;
-      case 'lookUpI':
-        break;
-      case 'lookUpJ':
-        break;
-      case 'lookUpK':
-        break;
-      case 'lookUpL':
-        break;
-      case 'lookUpM':
-        break;
-      case 'lookUpN':
-        break;
-      case 'lookUpO':
-        break;
-      case 'lookUpP':
-        break;
-      case 'lookUpQ':
-        break;
-      case 'lookUpR':
-        break;
-      case 'lookUpS':
-        break;
-      case 'lookUpT':
-        break;
-      case 'lookUpU':
-        break;
-      case 'lookUpV':
-        break;
-      case 'lookUpW':
-        break;
-      case 'lookUpX':
-        break;
-      case 'lookUpY':
-        break;
-      case 'lookUpZ':
-        break;
     }
   }
   /**
@@ -117,19 +66,87 @@ export class SysproductComponent extends ParentlistComponent {
   * @param event 
   */
   listEdit(event: FCEVENT) {
+    //选中的对象
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
+      //把卡片的数据放入缓存中
       this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysProducts));
+      //把id带入到编辑页面
       this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
   }
   /**
-   * 删除一条记录
+   * 按钮明细
    * @param event 
    */
-  delectOneProduct(event: FCEVENT) {
-    let ev: any = {};
-    ev.param = event;
-    this.listOneDelete(ev);
+  btnCardEvent(event: any, item: any) {
+    switch (event.ACTCODE) {
+      case 'listOneDelete'://明细删除
+        this.listOneDelete();
+        //阻止冒泡
+        event.stopPropagation();
+        event.preventDefault();
+        break;
+      case 'listOneEdit'://明细修改
+        this.listEdit(item);
+        //阻止冒泡
+        event.stopPropagation();
+        event.preventDefault();
+        break;
+      case 'listOneHelp'://明细帮助
+        //阻止冒泡
+        event.stopPropagation();
+        event.preventDefault();
+        break;
+    }
+  }
+  /**
+   * 单条删除
+   */
+  listOneDelete() {
+    this.messageService.confirm('请确认产品没有在其它地方使用后再删除!', () => {
+    }, () => { })
+  }
+  /**
+   * 导入
+   */
+  import() {
+
+  }
+  /**
+   * 点赞
+   */
+  thumbUp() {
+    this.messageService.message("点赞功能正在开发中，敬请期待！");
+    //阻止冒泡
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
+   * 下载
+   */
+  download() {
+    this.messageService.message("下载功能正在开发中，敬请期待！");
+    //阻止冒泡
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
+   * 评论
+   */
+  evaluate() {
+    this.messageService.message("评论功能正在开发中，敬请期待！");
+    //阻止冒泡
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
+   * 统计
+   */
+  count() {
+    this.messageService.message("统计功能正在开发中，敬请期待！");
+    //阻止冒泡
+    event.stopPropagation();
+    event.preventDefault();
   }
 }
