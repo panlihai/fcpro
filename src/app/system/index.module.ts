@@ -127,7 +127,8 @@ import { SysserviceComponent } from './components/core/sysservice.component';
     SysroleeditdialogComponent,
     SysproducteditComponent,
     SysbizcoderuledialogComponent,
-    DialogCardListComponent
+    DialogCardListComponent,
+    SysviewelementeditComponent
   ],
   imports: [
     CommonModule,
@@ -198,7 +199,7 @@ import { SysserviceComponent } from './components/core/sysservice.component';
     companytransferdialogComponent,
     SyswizardComponent,
     SysdatasourceeditComponent,
-    chooseicondialogComponent, 
+    chooseicondialogComponent,
     chooseicondialogComponent,
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,

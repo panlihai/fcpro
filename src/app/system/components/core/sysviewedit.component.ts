@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { ParentEditComponent } from 'fccomponent';
 import { SysviewService } from '../../services/sysview.service';
 @Component({
@@ -23,12 +23,27 @@ import { SysviewService } from '../../services/sysview.service';
       .fctitle-h2{
         margin: 1% 0% 1% 3%;
       }
+      .btnAdd-dragable-area{
+        width: 10%;
+        line-height: 30px;
+        text-align: center;
+        border: 2px #ddd dashed;
+        border-radius: 4px;
+      }
+      .btnAdd-dragable-area:hover{
+       cursor:pointer;
+       border-color:dodgerblue;
+       transition: 1s;
+      }
+
 `]
 })
 export class SysvieweditComponent extends ParentEditComponent {
     productName: any;
     pidOption: any;
     modelOptions: any;
+    fastsearchWords: any[];
+    staticMainObj: any;
     constructor(public mainService: SysviewService,
         public router: Router,
         public activeRoute: ActivatedRoute) {
@@ -46,7 +61,29 @@ export class SysvieweditComponent extends ParentEditComponent {
      * 组件初始化执行函数
      */
     init(): void {
-
+        this.handleRouterParam();
+        this.preventUnsaved();
+    }
+    /** YM
+    * 处理路由传参的情况
+    * @param pid 
+    */
+    handleRouterParam() {
+        if (this.routerParam.ID) {
+            this.mainService.findWithQuery({ WHERE: `ID = '${this.routerParam.ID}'` }).subscribe(res => {
+                if (res.CODE === '0' && res.DATA.length !== 0) {
+                    this.staticMainObj = res.DATA[0];
+                    this.mainObj = res.DATA[0];
+                } else {
+                    this.messageService.error('基本信息获取失败');
+                }
+            })
+        }
+    }
+    preventUnsaved() {
+        this.router.events.filter(el => el instanceof NavigationStart).subscribe(ev => {
+            //TODO remark: route.config.deActive;
+        })
     }
     /**
      * html事件收集及派发函数
@@ -55,7 +92,8 @@ export class SysvieweditComponent extends ParentEditComponent {
      */
     event(eventName: string, context: any): void {
         switch (eventName) {
-            case '':
+            case 'addViewElement':
+                // this.mainService.openDialog();
                 break;
         }
     }

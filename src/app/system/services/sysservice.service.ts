@@ -5,35 +5,23 @@ import { NzModalService } from 'ng-zorro-antd';
 import { DialogListArgs, DialogListComponent } from '../components/core/dialog/dialogList.component';
 import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
+import { SysappService } from './sysapp.service';
 @Injectable()
 export class SysserviceService extends ParentService {
-    constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService) {
+    constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService, private sysappservice: SysappService) {
         super(providers, "SYSSERVICE");
     }
     /**
      * 字母快速查询
      */
     fastSearch() {
-        let str = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-        let list = [];
-        str.forEach(item => {
-            list.push({
-                'BUSTYPE': 'fastsearch',
-                'ACTCODE': item,
-                'BTNNAME': item
-            });
-        });
-        return list;
+        return this.sysappservice.fastSearch()
     }
-    /**
-     * 
-     */
     /**
      * 获取路由导航
      * @param exp List：列表；Edit:编辑:Detail：详情
      */
     getRouteUrl(moduleId: string, appId: string, exp: string) {
-
         return `/${moduleId.toLocaleLowerCase()}/${appId.toLocaleLowerCase()}${exp}`;
     };
     /** YM

@@ -8,15 +8,12 @@
         <div class="sys-card-fast">
             <ul class="sys-fast-list">
                 <li>
-                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
-                <li>
                     <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>导入</li>
                 <li>
                     <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>帮助</li>
             </ul>
             <div class="sys-fast-select">
-                <fc-combo [fcShowLabel]="false" [(ngModel)]="product" fcPlaceHolder="请选择开发产品" fcAppid="SYSPRODUCT" fcFieldCode="PID" fcLabelCode="PNAME"
-                    fcValueCode="PID" name="SYSPRODUCT.PID"></fc-combo>
+                <fc-combo [fcShowLabel]="false" [(ngModel)]="product" fcPlaceHolder="请选择开发产品" fcAppid="SYSPRODUCT" fcFieldCode="PID" fcLabelCode="PNAME" fcValueCode="PID" name="SYSPRODUCT.PID"></fc-combo>
             </div>
             <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="fastsearchWords" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
         </div>
@@ -58,7 +55,7 @@
                             </div>
                         </div>
                         <span class="sys-card-mark">
-                            {{sysservice.APPID|slice:0:1}}
+                            {{sysservice.SERVICEID|slice:0:1}}
                         </span>
                         <div class="sys-card-text">
                             <div class="sys-card-title">

@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParentEditComponent } from 'fccomponent';
 import { SysviewelementService } from '../../services/sysviewelement.service';
 @Component({
-    selector: 'Sysviewelementedit',
-    templateUrl: 'Sysviewelementedit.component.html',
+    selector: 'sysviewelementedit',
+    templateUrl: 'sysviewelementedit.component.html',
     styles: [`
     .sys-card-btn{
         width:50%;
@@ -20,11 +20,15 @@ import { SysviewelementService } from '../../services/sysviewelement.service';
           position:relative;
           right:95%;
       }
+      :host ::ng-deep .fc-tlbform {
+           padding:20px 0 60px 0;
+      }
 `]
 })
 export class SysviewelementeditComponent extends ParentEditComponent {
     productName: any;
     pidOption: any;
+    mainObj: any = {};
     constructor(public mainService: SysviewelementService,
         public router: Router,
         public activeRoute: ActivatedRoute) {

@@ -1,22 +1,36 @@
 <fc-layoutpanel class="sys-card-pannel">
-    <fc-title fccontent fcLabel="服务-视图编辑" fcBorder="bottom"></fc-title>
-    <h2 fccontent class="fctitle-h2">视图：FC基础服务平台的功能单元，开发者提供给终端用户的组件界面样式服务；与服务是多对一的关系；支持多个类型的视图，包含栏目视图、查询视图、 卡片视图、自定义视图等</h2>
-    <fc-tlblist fccontent [fcAppid]="appId" (fcEvent)="tlblistEvent($event)"></fc-tlblist>
-    <fc-layoutcol fccontent fcSpans="6,4">
-        <fc-title fccontent1 fcLabel="基本信息" fcBorder="bottom"></fc-title>
-        <fc-layoutcol fccontent1 fcSpans="9,1">
-            <fc-text fccontent1 fcLabel="视图编码" [(ngModel)]="mainObj.VIEWID" [fcAppid]="appId" fcFieldCode="VIEWID" name="VIEWID"></fc-text>
-            <fc-text fccontent1 fcLabel="视图名称" [(ngModel)]="mainObj.VIEWNAME" [fcAppid]="appId" fcFieldCode="VIEWNAME" name="VIEWNAME"></fc-text>
-            <fc-radio fccontent1 [(ngModel)]="mainObj.CATAGORY" [fcAppid]="appId" fcFieldCode="CATAGORY" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="CATAGORY"></fc-radio>
-            <fc-radio fccontent1 [(ngModel)]="mainObj.ISDEFAULT" [fcAppid]="appId" fcFieldCode="ISDEFAULT" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ISDEFAULT"></fc-radio>
+    <div class="sys-card-pannel-header" fcheader>
+        <fc-title fcLabel="服务-视图编辑" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
+        <P class="sys-card-pannel-smarks">
+            视图：FC基础服务平台的功能单元，开发者提供给终端用户的组件界面样式服务；与服务是多对一的关系；支持多个类型的视图，包含栏目视图、查询视图、 卡片视图、自定义视图等
+        </P>
+        <div class="sys-card-fast">
+            <ul class="sys-fast-list">
+                <li class="sys-icon-btn">
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>返回服务</li>
+            </ul>
+        </div>
+        <img class="sys-card-bg" src="assets/img/system-bg.png" />
+    </div>
+    <div class="sys-card-pannel-edit" fccontent>
+        <fc-layoutcol fcSpans="6,4">
+            <fc-title fccontent1 fcLabel="基本信息" [fcHasLine]="false"></fc-title>
+            <fc-layoutcol fccontent1 fcSpans="9,1">
+                <fc-text fccontent1 fcLabel="视图编码" [(ngModel)]="mainObj.VIEWID" [fcAppid]="appId" fcFieldCode="VIEWID" name="VIEWID"></fc-text>
+                <fc-text fccontent1 fcLabel="视图名称" [(ngModel)]="mainObj.VIEWNAME" [fcAppid]="appId" fcFieldCode="VIEWNAME" name="VIEWNAME"></fc-text>
+                <fc-radio fccontent1 [(ngModel)]="mainObj.CATAGORY" [fcAppid]="appId" fcFieldCode="CATAGORY" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="CATAGORY"></fc-radio>
+                <fc-radio fccontent1 [(ngModel)]="mainObj.ISDEFAULT" [fcAppid]="appId" fcFieldCode="ISDEFAULT" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ISDEFAULT"></fc-radio>
+            </fc-layoutcol>
         </fc-layoutcol>
-    </fc-layoutcol>
-    <fc-layoutcol fccontent fcSpans="6,4">
-        <fc-title fccontent1 fcLabel="元素编辑" fcBorder="bottom"></fc-title>
-        <h2>请选择模型，拖拽至属性字段</h2>
-    </fc-layoutcol>
-    <fc-layoutcol fccontent fcSpans="3,7">
-        <fc-chosen fccontent1 [fcShowSearch]="true" fcPlaceHolder="请选择模型，支持多选" [fcOption]="modelOptions"></fc-chosen>
-        <fc-list fccontent2 fcAppid="SYSVIEWELEMENT" fcFieldCode="ELEMENTID" fcLabelCode="ELEMENTNAME" fcValueCode="ELEMENTID"></fc-list>
-    </fc-layoutcol>
+        <fc-tlbform fcLayout="center" fcType="primary" [fcAppid]="appId" (fcEvent)="tlbformEvent($event)"></fc-tlbform>
+        <fc-layoutcol fcSpans="6,4">
+            <fc-title fccontent1 fcLabel="元素编辑" [fcHasLine]="false"></fc-title>
+            <h2>请选择模型，拖拽至属性字段</h2>
+        </fc-layoutcol>
+        <fc-layoutcol fcSpans="3,7">
+            <fc-chosen fccontent1 [fcShowSearch]="true" fcPlaceHolder="请选择模型，支持多选" fcAppid="SYSAPP" fcFieldCode="APPID" fcLabelCode="APPNAME" fcValueCode="APPID"></fc-chosen>
+            <div fccontent2 class="btnAdd-dragable-area" (click)="event('addViewElement')">+ 添加</div>
+            <fc-list fccontent2 fcAppid="SYSVIEWELEMENT" fcFieldCode="ELEMENTID" fcLabelCode="ELEMENTNAME" fcValueCode="ELEMENTID"></fc-list>
+        </fc-layoutcol>
+    </div>
 </fc-layoutpanel>

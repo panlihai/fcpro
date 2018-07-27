@@ -350,6 +350,10 @@ video {
   :global .left-tree-hassearch>.fc-layoutrow>.fc-layoutrowcell2{
     overflow: auto!important;
   }
+  :global .sys-icon-btn:hover{
+    cursor:pointer;
+    color:blue;
+  }
   /* 超出部分出现滚动条 */
   .template-beyoundscroll>.fc-layoutrow>.fc-layoutrowcell2{
       overflow: auto;

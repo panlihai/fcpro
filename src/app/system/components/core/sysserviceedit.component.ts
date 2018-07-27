@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, NavigationStart, RouterEvent } from '@angular/r
 import { ParentEditComponent, FctextComponent } from 'fccomponent';
 import { SysserviceService } from '../../services/sysservice.service';
 import { DialogCardListComponent, DialogCardListArgs } from './dialog/dialogcardlist.component';
+import { FCEVENT } from '../../../../../node_modules/fccomponent/fc';
 @Component({
     selector: 'sysserviceedit',
     templateUrl: 'sysserviceedit.component.html',
@@ -17,20 +18,19 @@ import { DialogCardListComponent, DialogCardListArgs } from './dialog/dialogcard
           height:42px;
       }
       .last-btn{
-          height:42px;
-          position:relative;
-          right:95%;
+        position: relative;
+        right: 95%;
+        padding: 3%;
       }
             `]
 })
 export class SysserviceeditComponent extends ParentEditComponent {
     productName: any;
     pidOption: any;
-    sysLookUp: any[];
+    fastsearchWords: any[];
     sysViews: any;
     sysInterfaces: any;
     staticMainObj: any;
-    mainObj: any = {};
     constructor(public mainService: SysserviceService,
         public router: Router,
         public activeRoute: ActivatedRoute) {
@@ -48,10 +48,13 @@ export class SysserviceeditComponent extends ParentEditComponent {
      * 组件初始化执行函数
      */
     init(): void {
+        this.fastSearch();
         this.getPidOption();
         this.handleRouterParam();
-        this.getLooksUp();
         this.preventUnsaved();
+    }
+    getDefaultObj() {
+        this.mainObj = this.mainService.getDefaultObj();
     }
     /**
      * html事件收集及派发函数
@@ -59,6 +62,18 @@ export class SysserviceeditComponent extends ParentEditComponent {
      * @param context 
      */
     event(eventName: string, context: any): void {
+        if (context.param.BUSTYPE === 'fastsearch') {
+            let appid: any = '';
+            switch (eventName) {
+                case 'SYSVIEW':
+                    appid = eventName;
+                    break;
+                case 'SYSINTERFACE':
+                    appid = eventName;
+                    break;
+            }
+            this.searchByWord(appid, context.param);
+        }
         let dialogCardListArgs: DialogCardListArgs = { appId: null, configInterface: { title: null } };
         dialogCardListArgs.methodIndex = eventName;
         if (context instanceof FctextComponent) dialogCardListArgs.textComponent = context;
@@ -71,7 +86,27 @@ export class SysserviceeditComponent extends ParentEditComponent {
                 break;
         }
     }
-
+    /**
+    * 初始化元数据
+    */
+    searchByWord(appid, btn?: any) {
+        let valueObj: any = {};
+        if (btn) {
+            valueObj.WHERE = "AND SUBSTR(SERVICEID,0,1)='" + btn.ACTCODE + "'"
+        }
+        this.appService.findWithQuery(appid, {}).subscribe(result => {
+            if (result.CODE === '0') {
+                switch (appid) {
+                    case 'SYSVIEW':
+                        this.sysViews = result.DATA;
+                        break;
+                    case 'SYSINTERFACE':
+                        this.sysInterfaces = result.DATA
+                        break;
+                }
+            }
+        });
+    }
     /**
      * 初始化产品名称的自定义下拉选项内容
      */
@@ -134,8 +169,8 @@ export class SysserviceeditComponent extends ParentEditComponent {
     /**
      * 初始化获取字母快速查询按钮数据
      */
-    getLooksUp() {
-        this.sysLookUp = this.mainService.getLooksUp();
+    fastSearch() {
+        this.fastsearchWords = this.mainService.fastSearch();
     }
     /** YM
      * 根据PID获取服务编码并赋值.
@@ -194,7 +229,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
     }
     /** YM
       * 显示窗口前的判断
-      * @param dialogCardListArgs 
+      * @param dialogCardListArgs  
       */
     showModal(dialogCardListArgs: DialogCardListArgs) {
         if (dialogCardListArgs.textComponent ? dialogCardListArgs.textComponent.fcDisabled : true) {
