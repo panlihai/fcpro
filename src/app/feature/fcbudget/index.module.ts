@@ -17,7 +17,7 @@ import { BgsettingupService } from './services/bgsettingup.service';
 import { ChooseattrdialogComponent } from './components/dialog/chooseattrdialog.component';
 import { BgprojectattributeComponent } from './components/bgprojectattribute.component';
 import { AddcolattrvaluedialogComponent } from './components/dialog/addcolattrvaluedialog.component';
-import { BgtransfordialogComponent } from './components/dialog/Bgtransfordialog.component';
+import { BgtransfordialogComponent } from './components/dialog/bgtransfordialog.component';
 import { AddrowattrvaluedialogComponent } from './components/dialog/addrowattrvaluedialog.component';
 @NgModule({
   // 弹窗记得在这里引入

@@ -8,7 +8,9 @@ import { NzModalSubject } from 'ng-zorro-antd';
    选择属性
     `,
   styles: [`
-   
+   :host ::ng-deep .templatetablist .ant-col-22 {
+     margin-left:4%;
+   }
   `]
 })
 export class AddcolattrvaluedialogComponent {
