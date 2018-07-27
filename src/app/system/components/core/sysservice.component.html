@@ -18,7 +18,7 @@
                 <fc-combo [fcShowLabel]="false" [(ngModel)]="product" fcPlaceHolder="请选择开发产品" fcAppid="SYSPRODUCT" fcFieldCode="PID" fcLabelCode="PNAME"
                     fcValueCode="PID" name="SYSPRODUCT.PID"></fc-combo>
             </div>
-            <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="fastsearchWords" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
+            <fc-tlblist class="sys-fast-byword" fcSize="small" [fcButtons]="fastsearchWords" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
         </div>
         <img class="sys-card-bg" src="assets/img/system-bg.png" />
     </div>
@@ -41,7 +41,7 @@
                         <div class="sys-card-tbl">
                             <!-- 默认显示两个 -->
                             <fc-tooltip class="sys-card-tbl-every" fcTitle="{{btn.BTNNAME}}" *ngFor="let btn of btnlistOnes">
-                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE)" fcFontSize="18px" fccontent></fc-icon>
+                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn,product)" fcFontSize="18px" fccontent></fc-icon>
                             </fc-tooltip>
                             <!-- 超出2个后显示 -->
                             <div class="sys-card-tbl-more" *ngIf="btnlistMores.length!==0">
@@ -50,7 +50,7 @@
                                     <ul nz-menu nzSelectable>
                                         <li nz-menu-item *ngFor="let btn of btnlistMores">
                                             <fc-tooltip fcTitle="{{btn.BTNNAME}}">
-                                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE)" fcFontSize="18px" fccontent></fc-icon>
+                                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn,product)" fcFontSize="18px" fccontent></fc-icon>
                                             </fc-tooltip>
                                         </li>
                                     </ul>
@@ -68,16 +68,16 @@
                         </div>
                     </div>
                     <div class="sys-card-footer">
-                        <fc-tooltip class="sys-card-btn" fcTitle="点赞">
+                        <fc-tooltip class="sys-card-btn" (click)="thumbUp()" fcTitle="点赞">
                             <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="下载zip">
+                        <fc-tooltip class="sys-card-btn" (click)="download()" fcTitle="下载zip">
                             <fc-icon fcIcon="fc-icon-get" fcFontSize="30px" fccontent></fc-icon>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="评价">
+                        <fc-tooltip class="sys-card-btn" (click)="evaluate()" fcTitle="评价">
                             <fc-icon fcIcon="fc-icon-chat" fcFontSize="30px" fccontent></fc-icon>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="统计图">
+                        <fc-tooltip class="sys-card-btn" (click)="count()" fcTitle="统计图">
                             <fc-icon fcIcon="fc-icon-bgdimensionality" fcFontSize="30px" fccontent></fc-icon>
                         </fc-tooltip>
                     </div>

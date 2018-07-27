@@ -4,11 +4,13 @@ import { Observable } from 'rxjs/Observable';
 import { ProvidersService, ParentService } from 'fccore';
 import { SysproductService } from './sysproduct.service';
 import { SysnavlinkService, NavLinkFunctionName, Args_NavLink } from './sysnavlink.service';
+import { SysserviceService } from './sysservice.service';
 @Injectable()
 export class SyswizardService extends ParentService {
     constructor(public providers: ProvidersService,
         public sysproductService: SysproductService,
         public sysnavlinkService: SysnavlinkService,
+        public sysserviceService: SysserviceService,
     ) {
         super(providers, "SYSPRODUCT");
     }
@@ -16,8 +18,8 @@ export class SyswizardService extends ParentService {
      * 获取产品项目
      * @param param 
      */
-    findProduct(param: any): Observable<any> {
-        return this.sysproductService.findWithQuery(param);
+    findService(param: any): Observable<any> {
+        return this.sysserviceService.findWithQuery(param);
     }
     /**
    * YM
