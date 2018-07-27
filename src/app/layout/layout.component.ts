@@ -83,8 +83,8 @@ import { NzModalService } from 'ng-zorro-antd';
     padding: 0px;
   }
   :host ::ng-deep .sys-content-wrap .content-main{
-    padding: 0 5px 20px;
-    border-top:0;
+    padding: 0px 5px 20px;
+    border-top: 0;
   }
   :host ::ng-deep .sys-nav-tabmain .ant-tabs-bar {
       background-color: #ffffff;
@@ -215,6 +215,15 @@ export class LayoutComponent implements OnInit {
       });
   }
   ngOnInit() {
+    //如果是产品是tab的显示模式,默认选中第一个导航
+    let productObj = this._providers.productService.mainObj;
+    if (undefined !== productObj && null !== productObj && '' !== productObj) {
+      if (productObj.DISPLAYMODE === 'TAB') {
+        if (this._menus && this._menus.length !== 0) {
+          this.selectedtabmain(this._menus[0]);
+        }
+      }
+    }
     this.getMessage();
     if (this.fcnavtab) {
       this.fcnavtab.fcTabs = [];
@@ -306,7 +315,7 @@ export class LayoutComponent implements OnInit {
         })
         break;
       case 'editUser'://修改密码
-        this.mainService.navToByMenuId(this._router, 'sysprofileList');
+        this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/sysprofileList"]);
         break;
     }
   }
@@ -318,6 +327,7 @@ export class LayoutComponent implements OnInit {
     this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/" + menu.ROUTER]);
     if (menu.P_CHILDMENUS && menu.P_CHILDMENUS.length !== 0) {
       this._childMenus = menu.P_CHILDMENUS;
+      this.selectedtabsub(this._childMenus[0]);
     } else {
       this._childMenus.length = 0;
     }
@@ -327,7 +337,7 @@ export class LayoutComponent implements OnInit {
    * @param menu 
    */
   selectedtabsub(menu: any) {
-    this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/" + menu.ROUTER]);
+    this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/" + menu.ROUTER], { queryParams: { refresh: 'Y' } });
   }
 
 
