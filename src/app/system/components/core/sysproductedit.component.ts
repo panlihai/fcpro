@@ -1,4 +1,4 @@
- 
+
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, ParentlistComponent, ParentEditComponent } from 'fccomponent';
@@ -9,61 +9,7 @@ import { environment } from '../../../../environments/environment.prod';
 import { ObjStatus } from 'fccore';
 @Component({
   selector: 'sysproductedit',
-  template: `
-  <fc-layoutpanel fcFull="true" class="sysproductEdit">
-        <div fcheader fccontent>
-        <fc-title fcLabel="项目&产品" fcHasLine="false"></fc-title>
-        <P>
-            项目&产品：编辑产品内容：包含产品基本信息，产品图标，产品的立项文档等；支持增加此产品的数据源、服务等
-        </P>
-        <div class="sys-card-fast">
-            <ul class="sys-fast-list">
-                <li><span  (click)="sqllistEvent($event)">查看数据源</span></li>
-                <li><span  (click)="servicelistEvent($event);">查看服务</span></li>
-                <li><span  (click)="backlistEvent($event);">返回列表</span></li>
-            </ul>
-        </div>
-      </div>
-      <fc-title fccontent fcLabel="基本信息" fcHasLine="false"></fc-title>
-      <fc-layoutcol fcSpans="7,3" fccontent>
-          <fc-text fccontent1 [fcAppid]="appId" fcFieldCode="PID" [(ngModel)]="mainObj.PID"  [fcReadonly] = "read"  fcLabel="产品Id" name="PID" fcPlaceHolder="产品编码，全局唯一" [fcValid]="mainValid.PID"></fc-text>
-          <fc-text fccontent1  [fcAppid]="appId" fcFieldCode="PNAME" [(ngModel)]="mainObj.PNAME"  name="PNAME"  fcLabel="产品名称" fcPlaceHolder="请输入中文" [fcValid]="mainValid.PNAME"></fc-text>
-          <fc-layoutcol fccontent1  fcSpans="1,1" >
-            <div fccontent1 class="sys-radio">
-            <fc-radio  fccontent  [(ngModel)]="mainObj.DISPLAYMODE" fcLabel="模式" [fcAppid]="appId" fcFieldCode="DISPLAYMODE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="DISPLAYMODE"></fc-radio>            
-            </div>
-            <div fccontent2 class="sys-num">
-            <fc-long fccontent [(ngModel)]="mainObj.SORT"  fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>            
-            </div>
-          </fc-layoutcol>         
-          <fc-text fccontent1  [(ngModel)]="mainObj.PARENTPID" fcPlaceHolder="依赖产品输入"  name="PARENTPID"  fcLabel="依赖产品"></fc-text>
-          <fc-textarea fccontent1 fcPlaceHolder="请输入备注"  [(ngModel)]="mainObj.DIRECTION" fcLabel="备注（可选）" name="DIRECTION"></fc-textarea>
-      </fc-layoutcol>
-      <fc-title fccontent fcLabel="其他信息" fcHasLine="false"></fc-title>
-      <div fccontent>
-          <fc-layoutcol fcSpans="2,8" fccontent>
-              <span class="sys-proicon" fccontent1>产品图标</span>
-              <span fccontent2 class="sys-fciconlayout"  (click)="iconEvent($event)">
-                  <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcSize="large"></fc-icon>
-                  <span *ngIf = "visible">选择图片</span>
-              </span>
-          </fc-layoutcol>
-      </div>
-      <div fccontent>  
-          <fc-layoutcol fcSpans="2,8" fccontent>
-              <span class="sys-proicon" fccontent1>产品文档</span>
-              <fc-upload fccontent2 class="upload-content" fcListType="picture-card" (fcEvent)="event('fileEvent',$event)" [fcOption]="fcUploadOption">
-              </fc-upload>
-          </fc-layoutcol>
-      </div>
-      <div fccontent>
-          <fc-tlbform fccontent [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" fcLayout="center"></fc-tlbform>
-          <div fccontent>
-             <div class="sys-buttondiv" *ngIf = "buttonvisible"></div>
-          </div>
-      </div> 
-</fc-layoutpanel>
-  `,
+  templateUrl: 'sysproductedit.component.html',
   styles: [`
   :host ::ng-deep .fc-full{
     overflow: scroll;
@@ -100,19 +46,31 @@ import { ObjStatus } from 'fccore';
   :host ::ng-deep .fc-icon-large{
     font-size:53px;
   }
-  .sys-buttondiv{
-    background: #fff;
-    display: inline-block;
-    width: 14%;
-    height: 135px;
-    z-index: 999;
+  .sys-deleticon{
+    background: #108ee9;
+    width: 14px;
+    text-align: center;
     position: absolute;
-    left: 47%;
-    bottom: -34%;
+    bottom: 81%;
+    left: 10.5%;
+    z-index:999;
+    cursor: pointer;
+  }
+  .sys-totip{
+    margin-left:26%
+  }
+  .sys-tab{
+    margin-left: 26%;
+    width: 100%;
+  }
+  .sys-button{
+    text-align:center;display: flex;justify-content: center;
   }
   `]
 })
 export class SysproducteditComponent extends ParentEditComponent {
+  value: any;
+  label: any;
   constructor(public mainService: SysproductService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -122,20 +80,25 @@ export class SysproducteditComponent extends ParentEditComponent {
     super(mainService, router, activeRoute);
   }
   //是否是只读状态
-  read : boolean;
-  disableds :any;
+  read: boolean;
+  disableds: any;
+  //依赖产品是否显示
+  relyproduct: boolean;
   //图标属性显示字还是图标
   visible: boolean;
-  //按钮只显示保存还是全部显示
-  buttonvisible: boolean;
+  topbutton: boolean;
+  //依赖产品下拉属性
+  scomDataItemOptions: any;
+  FIELDCODE: string;
+  productany:any;
   //上传属性
   fcUploadOption: { FILETYPE: string; SOURCEID: any; SOURCEAID: string; SOURCEFIELD: string; RESTITLE: string; };
   addNew(mainObj: any): boolean {
     return true;
   }
-   /**
-   * 保存前验证
-   */
+  /**
+  * 保存前验证
+  */
   beforeSave(): boolean {
     this.productdisableds();
     return true;
@@ -158,6 +121,19 @@ export class SysproducteditComponent extends ParentEditComponent {
     this.productIcon()
     //初始化设置按钮是否为禁用状态 无效果
     this.productdisableds();
+    //初始化设置依赖产品是否显示
+    this.relayfun()
+    //过滤fcproduct ENABLE 把PID-PNAME
+    this.mainService.findWithQuery({ WHERE: `ENABLE='Y'` }).subscribe(result => {
+      this.scomDataItemOptions=[];
+      result.P_LISTVALUE.forEach(el => {
+        let obj :any = {};
+        obj.label = el.PID+'-'+el.PNAME;
+        obj.value = el.PID+'-'+el.PNAME;
+        obj.disabled = false;
+        this.scomDataItemOptions.push(obj)
+      });
+    });
   }
   getDefaultQuery() {
   }
@@ -168,17 +144,37 @@ export class SysproducteditComponent extends ParentEditComponent {
         //调用上传方法
         this.fileEvent(context);
         break;
-      //数据源事件
-      case 'cardSql':
-      this.mainService.providers.msgService.message("数据源管理事件");
-       this.navRouter('/system/sysdatasourceEdit',{refresh:'Y',PID:this.mainObj.PID})
-        break;
-      //服务按钮事件  
-      case 'cardService':
-      this.mainService.providers.msgService.message("服务事件");
-      this.navRouter('/system/sysserviceEdit',{refresh:'Y',PID:this.mainObj.PID})
-        break;
     }
+  }
+  /**
+  * 保存
+  * @param event  
+  */
+  emitDataOutside(){
+    this.mainService.save(this.mainObj).subscribe(result => {
+      if (result.CODE === '0') {
+          this.messageService.message('保存成功！');
+          this.afterSave();
+          this.objStatus = ObjStatus.SAVED;
+          this.mainObj = result.DATA[0];
+      } else {
+          this.messageService.message('保存失败！');
+      }
+  });
+  }
+  /**
+  * +数据源
+  * @param event  
+  */
+  cardSql(){
+    this.navRouter('/system/sysdatasourceEdit', { refresh: 'Y', PID: this.mainObj.PID })
+  }
+   /**
+  * +服务
+  * @param event  
+  */
+  cardService(){
+    this.navRouter('/system/sysserviceEdit', { refresh: 'Y', PID: this.mainObj.PID })
   }
   /**
   * 上传图片文档方法
@@ -199,60 +195,98 @@ export class SysproducteditComponent extends ParentEditComponent {
     * @param event  
     */
   iconEvent(envet) {
-  this.mainService.producticonmodal(SysicondialogComponent).subscribe(obj => {
+    this.mainService.producticonmodal(SysicondialogComponent).subscribe(obj => {
       if (obj.DICVALUE !== undefined) {
         this.mainObj.ICON = obj.DICVALUE
         this.visible = false;
       }
     })
   }
-    /**
-    *  点击查看数据源跳转至数据源管理
+  /**
+    *  点击图标弹出列表
     * @param event  
     */
-  sqllistEvent(event){
-    this.navRouter('/system/sysdatasourceList',{refresh:'Y',PID:this.mainObj.PID})
+  deleticonEvent() {
+    this.mainObj.ICON = "";
+    this.visible = true;
+    event.stopPropagation()
   }
-      /**
-    *  点击服务事件跳转至服务首页务管理
-    * @param event  
-    */
-  servicelistEvent(event){
-    this.navRouter('/system/sysserviceList',{refresh:'Y',PID:this.mainObj.PID})
+  /**
+  *  点击查看数据源跳转至数据源管理
+  * @param event  
+  */
+  sqllistEvent(event) {
+    this.navRouter('/system/sysdatasourceList', { refresh: 'Y', PID: this.mainObj.PID })
   }
-    /**
-    *  点击返回列表跳转至首页
-    * @param event  
-    */
-  backlistEvent(event){
-    this.navRouter('/system/sysproductList',{refresh:'Y',PID:this.mainObj.PID})
+  /**
+*  点击服务事件跳转至服务首页务管理
+* @param event  
+*/
+  servicelistEvent(event) {
+    this.navRouter('/system/sysserviceList', { refresh: 'Y', PID: this.mainObj.PID })
   }
-    /**
-    *  ICON如果等于空visible显示（文字请选择图片）
-    * ICON如果不等于空visible不显示（文字请选择图片不显示）
-    * @param event  
-    */
-   productIcon(){
+  /**
+*  点击模型数据源事件跳转至模型数据源列表页面
+* @param event  
+*/
+  applistEvent(event) {
+    this.navRouter('/system/sysappList', { refresh: 'Y', PID: this.mainObj.PID })
+  }
+  /**
+  *  点击返回列表跳转至首页
+  * @param event  
+  */
+  backlistEvent(event) {
+    this.navRouter('/system/sysproductList', { refresh: 'Y', PID: this.mainObj.PID })
+  }
+  /**
+  *  ICON如果等于空visible显示（文字请选择图片）
+  * ICON如果不等于空visible不显示（文字请选择图片不显示）
+  * @param event  
+  */
+  productIcon() {
     if (this.mainObj.ICON === "") {
       this.visible = true;
     } else {
       this.visible = false;
     }
-   }
+  }
   /**
     *  PID有值时禁用为关闭
     * PID无值时禁用为开启
     * @param event  
     */
-  productdisableds(){
-  if(this.mainObj.PID !== ""){
-      // this.disableds = '{}';
+  productdisableds() {
+    if (this.mainObj.PID !== "") {
       this.read = true;
-      this.buttonvisible = false;
-    }else{
+      this.topbutton = true;
+    } else {
       this.read = false;
-      // this.disableds ='{"BTNCARDSQLBACK":"true","BTNCARDSERVICEBACK":"true"}'
-      this.buttonvisible = true;
+      this.topbutton = false;
     }
   }
+  /**
+    *  可继承是=时显示依赖产品text否则隐藏
+    * @param event  
+    */
+  relayfun() {
+    if (this.mainObj.ENABLE === 'Y') {
+      this.relyproduct = true;
+    } else {
+      this.relyproduct = false;
+    }
+  }
+       /**
+* 组件事件收集
+* @param type 字符串命名
+* @param ev 事件传过来的参数
+*/
+componentEvents(type: string, ev: any) {
+  switch (type) {
+    case 'ruleaddEvent':
+      // this.productany = ev
+      this.mainObj.PARENTPID = ev;
+      break;
+  }
+}
 }

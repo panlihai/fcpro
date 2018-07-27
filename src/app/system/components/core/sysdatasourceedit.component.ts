@@ -4,6 +4,8 @@ import { ParentComponent, ParentlistComponent, ParentEditComponent } from 'fccom
 import { SysdatasourceService } from '../../services/sysdatasource.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { chooseicondialogComponent } from './dialog/chooseicondialog.component';
+import { SysicondialogComponent } from './dialog/sysicondialog.component';
+import { ObjStatus } from 'fccore';
 @Component({
   selector: 'sysdatasource',
   templateUrl: './sysdatasourceedit.component.html',
@@ -37,7 +39,7 @@ import { chooseicondialogComponent } from './dialog/chooseicondialog.component';
     top:45px;
   }
   .sys-radio{
-    margin-left:33% ;
+    margin-left:-11% ;
   }
   .sys-num{
     margin-right:9%;
@@ -46,12 +48,53 @@ import { chooseicondialogComponent } from './dialog/chooseicondialog.component';
     display: inline-block;
     margin-left: 62%;
   }
+  .sys-sqlaaid{
+    display: inline-block;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    background: #fafafa;
+    width: 15%;
+    text-align: center;
+    height: 23px;
+    line-height: 23px;
+    border-radius:2px;
+  }
+  :host ::ng-deep .sys-buttonpid .ant-form-item-control nz-input {
+    width: 76%;
+    margin-left: 24%;
+  }
+  .sys-deleticon{
+    background: #108ee9;
+    width: 14px;
+    text-align: center;
+    position: absolute;
+    top: 3%;
+    left: 42%;
+    z-index: 999;
+    cursor: pointer;
+  }
+  .sys-tab{
+    margin-left:26%;
+  }
+  .sys-fast-list>li{
+    cursor:pointer;
+  }
+  .sys-button{
+    display: flex;
+    justify-content: center;
+    padding-top:20px;
+    padding-bottom:40px;
+  }
   `]
 })
-
 export class SysdatasourceeditComponent extends ParentEditComponent {
-  //数据源图标
-  dataSourceIcon: string;
+  topbutton: boolean;
+  scomDataItemOptions: any;
+  //any下拉
+  datasouceany :any;
+  //图标属性显示字还是图标
+  visible: boolean;
   constructor(public mainService: SysdatasourceService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -59,7 +102,38 @@ export class SysdatasourceeditComponent extends ParentEditComponent {
     super(mainService, router, activeRoute);
   }
   init(): void {
+      //选择图片是否显示调用方法
+     this.productIcon()
+     //顶部按钮是否显示
+     this.productdisableds();
+     //下拉框显示自己想要动态传入的label和value值 
+     this.mainService.dataall().subscribe(result => {
+      this.scomDataItemOptions=[];
+      result.P_LISTVALUE.forEach(el => {
+        let obj :any = {};
+        obj.label = el.PID+'-'+el.PNAME;
+        obj.value = el.PID;
+        obj.disabled = false;
+        this.scomDataItemOptions.push(obj)
+      });
+    });
   }
+    /**
+  * 保存前验证
+  */
+ beforeSave(): boolean {
+  //  数据源ID等于PID+DSID
+  // this.mainObj.DSID = this.mainObj.PID + this.mainObj.DSID 
+  this.productdisableds()
+  this.productIcon();
+  return true;
+}
+afterSave() {
+   // 数据源ID等于PID+DSID
+  // this.mainObj.DSID = this.mainObj.PID + this.mainObj.DSID 
+  this.productdisableds();
+  this.productIcon();
+}
   /**
    * 主对象的事件
    * @param eventName 事件名 
@@ -67,45 +141,126 @@ export class SysdatasourceeditComponent extends ParentEditComponent {
    */
   event(eventName: string, context: any): void {
     switch (eventName) {
-
     }
   }
   addNew(mainObj: any): boolean {
     return true;
   }
   /**
-   * 选择图标
-   */
-  chooseIcon() {
-    this.modal.open({
-      title: '选择图标',
-      content: chooseicondialogComponent,
-      onOk() { },
-      onCancel() { },
-      footer: false,
-      componentParams: {
-        options: {}
-      }
-    }).subscribe(obj => {
-
-    });
+  * 保存
+  * @param event  
+  */
+ emitDataOutside(){
+  this.mainService.save(this.mainObj).subscribe(result => {
+    if (result.CODE === '0') {
+        this.messageService.message('保存成功！');
+        this.afterSave();
+        this.objStatus = ObjStatus.SAVED;
+        this.mainObj = result.DATA[0];
+    } else {
+        this.messageService.message('保存失败！');
+    }
+});
+}
+/**
+  * 跳转至模型路由
+  * @param event  
+  */
+  btnCardAddModel(){
+    this.navRouter('/system/sysappEdit', { refresh: 'Y', PID: this.mainObj.PID ,DSID:this.mainObj.DSID})
   }
   /**
-   * 新增模型
-   */
-  addModel() {
-
+    *  点击图标弹出列表
+    * @param event  
+    */
+   iconEvent(envet) {
+    this.mainService.producticonmodal(SysicondialogComponent).subscribe(obj => {
+        if (obj.DICVALUE !== undefined) {
+          this.mainObj.ICON = obj.DICVALUE
+          this.visible = false;
+        }
+      })
+    }
+     /**
+    *  点击图标弹出列表
+    * @param event  
+    */
+  deleticonEvent(){
+    this.mainObj.ICON = "";
+    this.visible = true;
+    event.stopPropagation()
   }
   /**
-   * 保存返回
-   */
-  cardSaveBack() {
-
+    * DSID有值时禁用为关闭
+    * DSID无值时禁用为开启
+    * @param event  
+    */
+   productdisableds() {
+    if (this.mainObj.DSID !== "") {
+       //  数据源ID等于PID+DSID
+      this.mainObj.DSID = this.mainObj.PID + this.mainObj.DSID 
+      this.topbutton = true;
+      //数据源id  调用PID 和DSID比较方法，比较后修改页面 数据源ID文本框显示 PID和DSID不相等字段
+      this.strfun();
+    } else {
+       //  数据源ID等于PID+DSID
+       this.mainObj.DSID = this.mainObj.PID + this.mainObj.DSID 
+      this.topbutton = false;
+    }
   }
+        /**
+    *  ICON如果等于空visible显示（文字请选择图片）
+    * ICON如果不等于空visible不显示（文字请选择图片不显示）
+    * @param event  
+    */
+   productIcon(){
+    if (this.mainObj.ICON === "") {
+      this.visible = true;
+    } else {
+      this.visible = false;
+    }
+   }
   /**
    * 返回列表
    */
   backToList() {
-    this.navRouter('sysdatasourceList');
+    this.navRouter('/system/sysdatasourceList');
+  }
+    /**
+*  点击服务事件跳转至服务首页务管理
+* @param event  
+*/
+servicelistEvent(event) {
+  this.navRouter('/system/sysserviceList', { refresh: 'Y', PID: this.mainObj.PID ,DSID:this.mainObj.DSID})
+}
+  /**
+*  点击模型数据源事件跳转至模型数据源列表页面
+* @param event  
+*/
+applistEvent(event) {
+  this.navRouter('/system/sysappList', { refresh: 'Y', PID: this.mainObj.PID,DSID:this.mainObj.DSID })
+}
+     /**
+* 组件事件收集
+* @param type 字符串命名
+* @param ev 事件传过来的参数
+*/
+componentEvents(type: string, ev: any) {
+  switch (type) {
+    case 'ruleaddEvent':
+    //   this.datasouceany = ev
+    //  this.mainObj.PID = this.datasouceany; 
+    this.mainObj.PID = ev;
+      break;
+    case 'ruletypeEvent':
+     this.mainObj.DSTYPE = ev;
+    break;  
+  }
+}
+ /**
+* PID和DSID比较方法
+*/
+  strfun(){
+    [this.mainObj.PID,this.mainObj.DSID] = (this.mainObj.PID+this.mainObj.DSID).replace(/(.+)(.+)\1/, '$2\n').split('\n')
   }
 }
