@@ -32,6 +32,34 @@ export class SysappComponent extends ParentlistComponent {
   product: string;
   //点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
   searchWord: string = '';
+  EventUtil: any = {
+    //添加事件处理程序
+    addHandler: (element, type, handler) => {
+      if (element.addEventListener) {
+        element.addEventListener(type, handler, false);
+      } else if (element.attachEvent) {
+        element.attachEvent("on" + type, handler);
+      } else {
+        element["on" + type] = handler;
+      }
+    },
+    //获取事件对象
+    getEvent: (event) => {
+      return event ? event : window.event;
+    },
+    //获取事件的目标
+    getTarget: (event) => {
+      return event.target || event.srcElement;
+    },
+    //取消默认事件
+    preventDefault: (event) => {
+      if (event.preventDefault) {
+        event.preventDefault();
+      } else {
+        event.returnValue = false;
+      }
+    }
+  }
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {
@@ -65,6 +93,44 @@ export class SysappComponent extends ParentlistComponent {
   event(eventName: string, event: FCEVENT): void {
 
   }
+  /**
+   * 事件规定在何处放置被拖动的数据
+   * @param ev 
+   */
+  allowDrop(ev) {
+    ev.preventDefault();
+  }
+  /**
+   * dragstart规定当元素被拖动时，会发生什么。drag规定了被拖动的数据
+   * @param ev 
+   */
+  drag(ev) {
+    ev = this.EventUtil.getEvent(ev);
+    let target = this.EventUtil.getTarget(ev);
+    //方法设置被拖数据的数据类型和值,数据类型是 "Text"，值是可拖动元素的 id ("drag1")
+    ev.dataTransfer.setData("Text", ev.target.id);
+  }
+  /**
+   * 当放置被拖数据时，会发生 drop 事件。
+   * @param ev 
+   */
+  drop(ev) {
+    ev = this.EventUtil.getEvent(ev);
+    var target = this.EventUtil.getTarget(ev);
+    ev.preventDefault();
+    let data = ev.dataTransfer.getData("Text");
+    ev.target.appendChild(document.getElementById(data));
+  }
+  dragenter(ev) {
+    ev= this.EventUtil.getEvent(ev);
+    var target = this.EventUtil.getTarget(ev);
+    //重要！重写dragenter事件的默认行为，使其可以触发drop事件
+    this.EventUtil.preventDefault(ev);
+    //dropEffect事件和effectAllowed事件搭配使用
+    ev.dataTransfer.dropEffect = 'copyMove';
+    target.className = 'hover';
+  }
+
   /**
     * 快速查询
     * @param item 
