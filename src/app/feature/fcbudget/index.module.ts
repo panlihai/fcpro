@@ -17,7 +17,7 @@ import { BgsettingupService } from './services/bgsettingup.service';
 import { ChooseattrdialogComponent } from './components/dialog/chooseattrdialog.component';
 import { BgprojectattributeComponent } from './components/bgprojectattribute.component';
 import { AddcolattrvaluedialogComponent } from './components/dialog/addcolattrvaluedialog.component';
-import { BgtransfordialogComponent } from './components/dialog/Bgtransfordialog.component';
+import { BgtransfordialogComponent } from './components/dialog/bgtransfordialog.component';
 import { AddrowattrvaluedialogComponent } from './components/dialog/addrowattrvaluedialog.component';
 import { AddaffiliationdialogComponent } from './components/dialog/addaffiliationdialog.component';
 @NgModule({

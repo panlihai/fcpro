@@ -1,5 +1,87 @@
-<!-- 项目属性 -->
-项目属性
-<fc-button fcLabel="新增属性关系" (click)="addPropertyrelationDialog();"></fc-button>
-<fc-button fcLabel="选择属性" (click)="chooseAttrDialog();"></fc-button>
-<fc-button fcLabel="新增从属关系" (click)="addAffiliationDialog();"></fc-button>
+<fc-layoutpanel [fcFull]="true" class="templatetreetablist">
+    <fc-layoutcol fccontent fcSpans="2,7">
+        <fc-combo fcPlaceHolder="请选择" [fcShowLabel]="false" [(ngModel)]="rowType2" [fcOption]="anyOptions_2" fcLabelCode='DESC' fcValueCode='VALUE' (ngModelChange)="componentEvents('fontSize',$event)"></fc-combo>
+        <fc-tree fccontent1 [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" (fcEvent)="treeEvent($event)" #classTree></fc-tree>
+        <fc-tabmain fccontent2 [fcTabs]="pageTabs"   [(fcSelectedIndex)]="_selectedIndex" >
+            <!-- tab1标签开始 -->
+            <fc-layoutrow fccontent1 fcSpan="42">
+                <fc-layoutcol fccontent1>
+                    <fc-text fccontent1 [(ngModel)]="mainObj.SVERSION_CODE" fcFieldCode='SVERSION_CODE' name="SVERSION_CODE" fcPlaceHolder="请输入项目代码" fcLabel="项目代码"></fc-text>
+                    <fc-text fccontent2 [(ngModel)]="mainObj.SVERSION_CODE" fcFieldCode='SVERSION_CODE' name="SVERSION_CODE" fcPlaceHolder="请输入项目名称" fcLabel="项目名称"></fc-text>
+                </fc-layoutcol>
+                <fc-layoutcol fccontent2 fcSpans="2,9">
+                    <fc-button fccontent1 fcLabel="复制项目属性" (click)="event('copyProjectAttr')"></fc-button>
+                    <h2 fccontent2> 说明：复制项目属性时，将项目属性关系，属性从属关系和属性值从属关系一起复制；</h2>
+                </fc-layoutcol>
+            </fc-layoutrow>
+            <fc-layoutcol fccontent1>
+                <fc-layoutgroup fccontent1 fcTitle="属性列表">
+                    <fc-layoutcol fccontent>
+                        <fc-combo fccontent1 fcPlaceHolder="请选择" fcLabel="属性个数" [(ngModel)]="rowType2" [fcOption]="anyOptions_2" fcLabelCode='DESC' fcValueCode='VALUE' (ngModelChange)="componentEvents('fontSize',$event)"></fc-combo>
+                        <fc-button fccontent2 fcLabel="选择属性" (click)="event('selectAttr')"></fc-button>
+                    </fc-layoutcol>
+                    <div fccontent style="height:360px;">
+                        <fc-listdata fccontent1 [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
+                    </div>
+                </fc-layoutgroup>
+            </fc-layoutcol>
+            <div fccontent1>
+                <fc-button  fcLabel="新增属性关系" (click)="event('addAttr')"></fc-button>
+                <fc-button  fcLabel="属性从属关系" (click)="event('tab2')"></fc-button>
+                <fc-button  fcLabel="属性值从属关系" (click)="event('tab3')"></fc-button>
+            </div>
+            <fc-layoutgroup fccontent1 fcTitle="属性关系">
+                <div fccontent style="height:360px;">
+                    <fc-listdata fccontent1 [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
+                </div>
+                <div fccontent style="padding:2% 0 4% 0">
+                    <fc-text fccontent [(ngModel)]="mainObj.SVERSION_CODE" fcFieldCode='SVERSION_CODE' name="SVERSION_CODE" fcPlaceHolder="请输入项目属性组合" fcLabel="项目属性组合"></fc-text>
+                </div>
+            </fc-layoutgroup>
+            <!-- tab1标签结束 -->
+            <!-- tab2标签开始 -->
+            <fc-layoutcol fccontent2  fcSpans="20,2">
+                <fc-layoutcol fccontent1  fcSpans="1,1">
+                    <div fccontent1>
+                        <fc-any [fcLabel]="'主属性::'" name="textname"></fc-any>
+                        <fc-any [fcLabel]="'从属属性:'" name="textname"></fc-any>
+                    </div>
+                    <div fccontent2>
+                        <fc-text [fcLabel]="'排序号:'" name="textinner1"></fc-text>
+                        <div fccontent style="margin-left:79%;">
+                           <fc-button fcLabel="添加" (click)="save();"></fc-button>                            
+                        </div>
+                    </div>
+                </fc-layoutcol>
+                <div fccontent1 style="height:360px;">
+                    <fc-listdata [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
+                </div>
+                <div fccontent1 class="bgattab">
+                    <fc-button fcLabel="确定" (click)="save();"></fc-button>
+                    <fc-button fcLabel="取消" (click)="back();"></fc-button>
+                </div>
+            </fc-layoutcol>
+            <!-- tab标签结束  -->
+            <!-- tab3标签开始 -->
+            <div fccontent3 >
+                <div fccontent style="text-align:left;">
+                    <fc-button fcLabel="新增从属关系" (click)="bgprojectadd();"></fc-button>
+                    <fc-button fcLabel="返回" (click)="back();"></fc-button>
+                </div>
+                <fc-layoutcol fccontent2  fcSpans="1,1">
+                    <fc-layoutgroup fccontent1 fcTitle="主属性">
+                        <div fccontent style="height:250px;">
+                            <fc-listdata  [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
+                        </div>
+                    </fc-layoutgroup>
+                    <fc-layoutgroup fccontent2 fcTitle="从属属性">
+                        <div fccontent style="height:400px;">
+                            <fc-listdata  [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
+                        </div>
+                    </fc-layoutgroup>
+                </fc-layoutcol>
+            </div>
+            <!-- tab3标签结束 -->
+        </fc-tabmain>
+    </fc-layoutcol>
+</fc-layoutpanel>

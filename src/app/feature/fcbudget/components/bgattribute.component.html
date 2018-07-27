@@ -1,1 +1,50 @@
 <!-- 预算属性 -->
+<!-- 选项卡列表模板 -->
+<fc-layoutpanel class="templatetablist" [fcFull]="true">
+    <fc-layoutcol fcSpans="1,20" fccontent>
+        <fc-layoutcol fcSpans="20,1" fccontent2>
+                <fc-layoutrow fcSpan="36" fccontent1>
+                        <fc-button fccontent1 fcLabel="新增属性" (click)="bgattributeadd();"></fc-button>
+                        <fc-tabmain fccontent2  [(fcSelectedIndex)]="_selectedIndex" [fcTabs]="tabmain" class="template-tab-full">
+                            <fc-layoutrow fccontent1 fcSpan="10">
+                                <div fccontent2 style="height:411px;">
+                                    <fc-listdata  [fcAppid]="appId" [fcOption]="fcListdataOptions" [fcCondition]="listDataCustomCondition"
+                                    (fcEvent)="event($event.eventName,$event)"></fc-listdata>
+                                </div> 
+                            </fc-layoutrow>
+                            <form fccontent2>
+                                <fc-layoutcol fcSpans="1,1" fccontent>
+                                    <div fccontent1>
+                                        <fc-text [fcLabel]="'属性编码'" name="textname"></fc-text>
+                                        <fc-text [fcLabel]="'属性名称'" [(ngModel)]="addonbefore" name="textinner1"></fc-text>
+                                        <fc-textarea [fcLabel]="'属性描述'" name="textareaname" [fcRows]="'2'"></fc-textarea>
+                                        <fc-text [fcLabel]="'属性名称'" [(ngModel)]="addonbefore" name="textout1"></fc-text>                            
+                                    </div>
+                                </fc-layoutcol>
+                                <fc-layoutcol fcSpans="1,1" fccontent>
+                                    <div fccontent1 class="bgattab">
+                                        <fc-button fcLabel="保存" (click)="save();"></fc-button>
+                                        <fc-button fcLabel="取消" (click)="back();"></fc-button>
+                                    </div>
+                                </fc-layoutcol>
+                            </form>
+                            <div fccontent3>
+                                <fc-layoutcol fcSpans="1,1" fccontent>
+                                    <div fccontent1 style="margin-bottom:10px;">
+                                        <fc-button fccontent fcLabel="新增" (click)="bgattributeadd();"></fc-button>
+                                        <fc-button fccontent fcLabel="保存" (click)="bgattributeadd();"></fc-button>
+                                        <fc-button fccontent fcLabel="导入Excel" (click)="bgattributeadd();"></fc-button>
+                                        <fc-button fccontent fcLabel="导出Excel" (click)="bgattributeadd();"></fc-button>
+                                        <fc-button fccontent fcLabel="返回" (click)="bgattributeadd();"></fc-button>
+                                    </div>
+                                    <div fccontent1 style="height:300px;">
+                                            <fc-listdata [fcAppid]="appId" [fcOption]="fcListdataOptions" [fcCondition]="listDataCustomCondition"
+                                            (fcEvent)="event($event.eventName,$event)"></fc-listdata>
+                                    </div>
+                                </fc-layoutcol>
+                            </div>
+                        </fc-tabmain>
+                    </fc-layoutrow>
+        </fc-layoutcol>
+    </fc-layoutcol>
+</fc-layoutpanel>
