@@ -6,8 +6,10 @@ import { NzModalSubject } from 'ng-zorro-antd';
   selector: 'chooseattrdialog',
   template: `
   <fc-layoutpanel>
-    <fc-text fccontent [(ngModel)]="mainObj.SVERSION_CODE" fcFieldCode='SVERSION_CODE' name="SVERSION_CODE" fcPlaceHolder="请输入项目代码" fcLabel="项目代码"></fc-text>
-    <fc-button fccontent fcLabel="查询" (click)="event('search')"></fc-button>
+    <fc-layoutcol fccontent fcSpans="20,2">
+      <fc-text fccontent1 [(ngModel)]="seachCode"  fcPlaceHolder="请输入项目代码" fcLabel="项目代码"></fc-text>
+      <fc-button fccontent2 fcLabel="查询" (click)="event('search')"></fc-button>
+    </fc-layoutcol>
     <div fccontent style="height:400px">
       <fc-listdata #listdata1 [fcAppid]="componentParam.appId1" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event,listdata1)"></fc-listdata>
     </div>
@@ -25,6 +27,7 @@ import { NzModalSubject } from 'ng-zorro-antd';
 })
 export class ChooseattrdialogComponent {
   componentParam: any = {};
+  seachCode: any = '';
   @Input()
   set options(param: any) {
     this.componentParam = param;

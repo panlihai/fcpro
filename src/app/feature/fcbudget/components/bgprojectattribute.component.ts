@@ -7,7 +7,7 @@ import { BgprojectattributeService } from '../services/bgprojectattribute.servic
 import { ChooseattrdialogComponent } from './dialog/chooseattrdialog.component';
 import { NzModalService } from 'ng-zorro-antd';
 import { CopyprojectattrComponent } from './dialog/copyprojectattr.component';
-import { chooseicondialogComponent } from '../../../system/components/core/dialog/chooseicondialog.component';
+import { AddaffiliationdialogComponent } from './dialog/addaffiliationdialog.component';
 @Component({
   selector: 'bgprojectattribute',
   templateUrl: './bgprojectattribute.component.html',
@@ -18,6 +18,7 @@ export class BgprojectattributeComponent extends ParentlistComponent {
   mainObj: any = {};
   treeOptions: TreeOptions;
   treeSelectObj: any = {};
+  _selectedIndex: number;
   pageTabs = [
     { name: '项目属性', icon: '', disabled: false },
     { name: '属性从属关系', icon: '', disabled: false },
@@ -41,30 +42,35 @@ export class BgprojectattributeComponent extends ParentlistComponent {
     }
   }
   /**
-   * @param eventName 事件名称
-   * @param context 事件返回参数
+   * @params eventName 事件名称
+   * @params context 事件返回参数
    */
   event(eventName: string, event: FCEVENT): void {
-    let param: { [key: string]: any } = {};
+    let params: { [key: string]: any } = {};
     switch (eventName) {
       case 'copyProjectAttr':
-        param.title = '复制项目属性';
-        param.content = CopyprojectattrComponent;
-        param.componentParams = { appId1: this.appId, appId2: this.appId };
-        this.showModal(param);
+        params.title = '复制项目属性';
+        params.content = CopyprojectattrComponent;
+        params.componentparamss = { params: { appId1: this.appId, appId2: this.appId } };
+        this.showModal(params);
         break;
       case 'addAttr':
-        param.title = '新增项目属性';
-        param.content = BgtransfordialogComponent;
-        param.componentParams = {};
-        this.showModal(param);
+        params.title = '新增项目属性';
+        params.content = BgtransfordialogComponent;
+        params.componentparamss = { params: { appId1: this.appId, appId2: this.appId } };
+        this.showModal(params);
         break;
       case 'selectAttr':
-        param.title = '选择属性';
-        param.content = chooseicondialogComponent;
-        param.componentParams = {};
-        this.showModal(param);
+        params.title = '选择属性';
+        params.content = ChooseattrdialogComponent;
+        params.componentparamss = { param: { appId1: this.appId, appId2: this.appId } };
+        this.showModal(params);
         break;
+      case 'addRelation':
+        params.title = '添加从属关系';
+        params.content = AddaffiliationdialogComponent;
+        params.componentparamss = { param: { appId1: this.appId, appId2: this.appId } };
+        this.showModal(params);
     }
   }
   /**
