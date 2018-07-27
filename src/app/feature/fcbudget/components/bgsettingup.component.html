@@ -1,3 +1,53 @@
 <!-- 编制设置 -->
-<fc-button fcLabel="添加行属性" (click)="addRowAttrValueDialog();"></fc-button>
-<fc-button fcLabel="添加列属性" (click)="addColAttrValueDialog();"></fc-button>
+<fc-layoutpanel class="templatetablist" class="start-setting-wrap" [fcFull]="true">
+    <fc-layoutrow fcSpan="0" fccontent>
+        <fc-tabmain fccontent2 [fcTabs]="tabmain" [fcSelectedIndex]="selectedIndex" class="template-tab-full">
+            <fc-layoutcol class="start-setting-col" fcSpans="3,10" fccontent1>
+                <fc-layoutrow fcSpan="35" class="tree-wrap" fccontent1 fccontent1>
+                    <fc-any [fcShowLabel]="false" [(ngModel)]="anyValue" [fcOption]="anyOptions" fccontent1 class="treesearch-width"></fc-any>
+                    <fc-tree [(ngModel)]="treeSelectObj" [fcOption]="mainService.treeOptions" #tree fccontent2></fc-tree>
+                </fc-layoutrow>
+                <form class="start-setting" fccontent2>
+                    <fc-layoutcol fcSpans="1,1">
+                        <fc-text fccontent1 fcLabel="项目名称" name="name1"></fc-text>
+                        <fc-text fccontent1 fcLabel="工作量单位" name="name2"></fc-text>
+                        <fc-text fccontent2 fcLabel="项目代码" name="name3"></fc-text>
+                        <fc-text fccontent2 fcLabel="工作量单位" name="name4"></fc-text>
+                    </fc-layoutcol>
+                    <fc-layoutcol fcSpans="1,0">
+                        <fc-text class="col-1-full" fccontent1 fcLabel="项目属性组" name="name5"></fc-text>
+                    </fc-layoutcol>
+                    <fc-layoutcol fcSpans="1,1">
+                        <fc-combo fccontent1 fcLabel="工作量显示" name="name6"></fc-combo>
+                    </fc-layoutcol>
+                    <div class="start-setting-list">
+                        <div class="spacer"></div>
+                        <fc-listdata [fcAppid]="appId"></fc-listdata>
+                    </div>
+                    <div style="text-align: center;margin-top: 30px;">
+                        <fc-button fcLabel="开始编制" fcType="primary" (click)="startSetting('1');"></fc-button>
+                    </div>
+                </form>
+            </fc-layoutcol>
+            <fc-layoutrow fccontent2 fcSpan="50">
+                <form fccontent1 class="list-search" name="searchForm" #searchForm>
+                    <div class="list-search-every">
+                        <fc-combo [fcLabel]="'表头属性1'" name="comboname1"></fc-combo>
+                    </div>
+                    <div class="list-search-every">
+                        <fc-combo [fcLabel]="'表头属性2'" name="comboname2"></fc-combo>
+                    </div>
+                    <div class="list-search-every list-search-button" style="width:40%;">
+                        <fc-button fcLabel="添加行属性值" (click)="addRowAttrValueDialog();" fcType="primary" name="addrow"></fc-button>
+                        <fc-button fcLabel="添加列属性值" (click)="addColAttrValueDialog();" fcType="primary" name="addcol"></fc-button>
+                        <fc-button fcLabel="保存" fcType="primary" name="save"></fc-button>
+                        <fc-button fcLabel="返回" fcType="primary" name="back" (click)="startSetting('0');"></fc-button>
+                    </div>
+                </form>
+                <div style="height: 100%;" fccontent2>
+                    这是放spreadjs,宽高100%
+                </div>
+            </fc-layoutrow>
+        </fc-tabmain>
+    </fc-layoutrow>
+</fc-layoutpanel>
