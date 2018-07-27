@@ -62,9 +62,9 @@ export class SysserviceService extends ParentService {
     /** YM
      * 获取字母快速查询的按钮数据
      */
-    getLooksUp() {
+   /*  getLooksUp() {
         return this.sysproductService.fastLookUp();
-    }
+    } */
     /** YM
   * 打开窗口的函数方法
   * @param dialogArgs 
