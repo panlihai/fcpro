@@ -58,13 +58,13 @@ import { FCEVENT } from 'fccomponent/fc';
     height: 100%;
   }
   :host ::ng-deep .systransfer .fc-content1 {
-    padding-left: 90px;
+    padding-left: 95px;
   }
   :host ::ng-deep .systransfer .fc-layoutcol{
     padding-top: 25px;
   }
   :host ::ng-deep .ant-transfer-operation{
-    margin:0px 42px;
+    margin:0px 45px;
   }
   .sys-fast-list {
     cursor: pointer;

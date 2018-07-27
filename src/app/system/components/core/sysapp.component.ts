@@ -32,13 +32,18 @@ export class SysappComponent extends ParentlistComponent {
     super(mainService, router, activeRoute);
   }
   init(): void {
-    this.searchByWord();
-    this.fastsearchWords = this.mainService.fastSearch();
-    this.btnlistOnes = this.mainService.appButtons.filter(btn =>
-      btn.BTNTYPE === 'LISTONE'
-    );
+    this.btnlistOnes = this.mainService.appButtons.filter(btn => btn.BTNTYPE === 'LISTONE');
     this.btnlistMores = this.btnlistOnes.splice(3);
-    this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+    this.btnlistOnes = this.btnlistOnes.splice(0, 2); 
+    this.fastsearchWords = this.mainService.fastSearch();
+  }
+  ngOnInit() {
+    this.mainService.findWithQuery({}).subscribe(result => {
+      if (result.CODE === '0') {
+        this.sysApps = result.DATA;
+      }
+    });
+    this.searchByWord();
   }
   getDefaultQuery() {
     return {
@@ -59,10 +64,12 @@ export class SysappComponent extends ParentlistComponent {
   * 初始化元数据
   */
   searchByWord(btn?: any) {
+
     let valueObj: any = {};
     if (btn) {
       valueObj.WHERE = "AND SUBSTR(APPID,0,1)='" + btn.ACTCODE + "'"
     }
+
     this.mainService.findWithQuery(valueObj).subscribe(result => {
       if (result.CODE === '0') {
         this.sysApps = result.DATA;
@@ -84,7 +91,7 @@ export class SysappComponent extends ParentlistComponent {
    * 跳转到选择数据源页面
    * @param event 
    */
-  quickstart(event: FCEVENT){
+  quickstart(event: FCEVENT) {
     this.navRouter(this.getRouteUrl('Modify'), event.param);
   }
 }

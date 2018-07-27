@@ -99,11 +99,9 @@ import { SyswizardService } from './services/syswizard.service';
 import { ChartsModule } from 'ng2-charts';
 import { SysappmodifyComponent } from './components/core/sysappmodify.component';
 import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
-<<<<<<< HEAD
 import { SysmenueditComponent } from './components/core/sysmenuedit.component';
 import { SysmenuComponent } from './components/core/sysmenu.component';
 import { SysmenuService } from './services/sysmenu.service';
-=======
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysserviceeditComponent } from './components/core/sysserviceedit.component';
 import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
@@ -115,19 +113,15 @@ import { SysviewService } from './services/sysview.service';
 import { SysviewelementService } from './services/sysviewelement.service';
 import { SysserviceComponent } from './components/core/sysservice.component';
 
->>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
 @NgModule({
   entryComponents: [
     BasicpersoneldialogComponent,
     SysquotalistComponent,
     SysquotaEditComponent,
     DialogListComponent,
-<<<<<<< HEAD
     SysquotalistComponent,
     SysquotaEditComponent,
-=======
     DialogListComponent,
->>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
     UploadavatardialogComponent,
     SyslogComponent,
     SysassignmentComponent,
@@ -135,16 +129,13 @@ import { SysserviceComponent } from './components/core/sysservice.component';
     SyscompanymodifyComponent,
     SyscompanychangeauditComponent,
     chooseicondialogComponent,
-<<<<<<< HEAD
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
-    SysproducteditComponent
-=======
+    SysproducteditComponent,
     SysroleeditdialogComponent,
     SysproducteditComponent,
     SysbizcoderuledialogComponent,
     DialogCardListComponent
->>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
   ],
   imports: [
     CommonModule,
@@ -162,16 +153,13 @@ import { SysserviceComponent } from './components/core/sysservice.component';
     FctabModule,
     FcchartModule,
     SpreadSheetsModule,
-<<<<<<< HEAD
     NgZorroAntdModule,
     ChartsModule,
-    NgZorroAntdModule
-=======
+    NgZorroAntdModule,
     NgZorroAntdModule,
     ChartsModule,
     NgZorroAntdModule,
     ChartsModule
->>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
   ],
   exports: [
   ],
@@ -221,10 +209,7 @@ import { SysserviceComponent } from './components/core/sysservice.component';
     companytransferdialogComponent,
     SyswizardComponent,
     SysdatasourceeditComponent,
-<<<<<<< HEAD
-=======
     chooseicondialogComponent, 
->>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
     chooseicondialogComponent,
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
@@ -235,16 +220,13 @@ import { SysserviceComponent } from './components/core/sysservice.component';
     SysdepartmenteditComponent,
     DialogListComponent,
     SysserviceeditComponent,
-<<<<<<< HEAD
     SysmenuComponent,
-    SysmenueditComponent
-=======
+    SysmenueditComponent,
     SysinterfaceeditComponent,
     DialogCardListComponent,
     SysvieweditComponent,
     SysviewelementeditComponent,
     SysserviceComponent
->>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
   ],
   providers: [
     LayoutService,
@@ -284,26 +266,19 @@ import { SysserviceComponent } from './components/core/sysservice.component';
     SyscompanydimService,
     SysdepartmentService,
     SyswizardService,
-<<<<<<< HEAD
-=======
     SysdepartmentrelationService,
     SystbvdeptcurorgService,
     SysserviceService,
     SysiconService,
->>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
     SysdepartmentService,
     SyswizardService,
     SysdepartmentrelationService,
     SystbvdeptcurorgService,
     SysserviceService,
-<<<<<<< HEAD
-    SysiconService
-=======
     SysiconService,
     SysinterfaceService,
     SysviewService,
     SysviewelementService
->>>>>>> d5bff9bf678690658ec03a4b8cc6aa294276aa15
   ]
 })
 export class SystemModule {

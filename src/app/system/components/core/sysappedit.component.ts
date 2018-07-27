@@ -5,109 +5,83 @@ import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ParentEditComponent } from 'fccomponent/parentedit.component';
 @Component({
   selector: 'sysappedit',
-  template: `
-  <fc-layoutpanel>
-    <div fcheader>
-      <fc-title fcLabel="模型&元数据"></fc-title>
-      <P>
-          说明：FC开发设计平台，快速开发应用模型，此功能实现模型定义，实现数据库表及视图的新增、修改、删除 、同步。
-      </P>
-      <div class="sys-card-fast">
-          <ul class="sys-fast-list">
-              <li>
-                  <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始
-              </li>
-              <li>
-                  <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>产品简介
-              </li>
-              <li>
-                  <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>产品文档
-              </li>
-              <li (click)="backList($event)">
-                  <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>返回列表
-              </li>
-          </ul>
-      </div>
-    </div>
-    <fc-title fcLabel="基本信息" fccontent></fc-title>
-    <fc-layoutcol fccontent fcSpans="1,1">
-        <fc-text  fcLabel="APP名称" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.APPID"></fc-text>
-        <fc-text  fcLabel="APP中文名称" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.APPNAME"></fc-text>
-        <fc-text  fcLabel="主表" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.MAINTABLE"></fc-text>
-        <fc-text  fcLabel="过滤条件" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.APPFILTER"></fc-text>
-        <fc-text  fcLabel="来源类型" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.SOURCETYPE"></fc-text>
-        <fc-text  fcLabel="分页大小" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.PAGESIZE"></fc-text>
-        <fc-text fcLabel="排序" fccontent1 [fcAppid]="appId" [(ngModel)]="mainObj.SORTBY"></fc-text> 
-        <fc-text  fcLabel="监听类" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.SERVICECLASS"></fc-text>
-        <fc-text fcLabel="帮助" fccontent1 [fcAppid]="appId" [(ngModel)]="mainObj.HELP"></fc-text> 
-        <fc-radio  fcLabel="APP类型" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.APPTYPE" fcFieldCode="APPTYPE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-radio>
-        <fc-radio fcLabel="是否启用" [fcAppid]="appId" fccontent1 fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-radio> 
-        <fc-radio  fcLabel="模块" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.APPMODEL" fcFieldCode="APPMODEL" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-radio>
-        <fc-radio  fcLabel="数据源" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.DATASOURCE" fcFieldCode="DATASOURCE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-radio>
-        <fc-radio  fcLabel="表类型" fccontent1 [fcAppid]="appId"  [(ngModel)]="mainObj.TABLETYPE" fcFieldCode="TABLETYPE" fcLabelCode="DICDESC" fcValueCode="DICVALUE"></fc-radio>
-        <fc-tlbform [fcAppid]="appId" (fcEvent)="tlbformEvent($event)" fccontent1 class="sysappeditSave"></fc-tlbform>
-    </fc-layoutcol>
-    <fc-title fcLabel="元数据属性" fccontent></fc-title>
-    <div nz-row [nzGutter]="8" fccontent>
-      <!-- 新增卡片操作 -->
-      <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-          <nz-card (click)="listAdd($event);">
-              <ng-template #body>
-                  <fc-icon fcIcon="fc-icon-add" fcFontSize="40" class="sys-card-addicon"></fc-icon>
-                  <p class="sys-card-addtext">新增</p>
-              </ng-template>
-          </nz-card>
-      </div>
-      <!-- 产品列表循环 -->
-      <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysappattribute of sysAppattributes">
-          <nz-card (click)="listEdit(sysapp);">
-              <ng-template #body>
-                  <div class="sys-card-content">
-                      <fc-tooltip class="sys-card-help" fcTitle="{{sysappattribute.DIRECTION}}">
-                            <fc-icon fcIcon="fc-icon-wiki" fcFontSize="22" fccontent></fc-icon>
-                      </fc-tooltip>
-                      <span class="sys-card-mark">
-                          {{sysappattribute.APPID|slice:0:1}}
-                      </span>
-                      <div class="sys-card-text">
-                          <div class="sys-card-title">
-                              {{sysappattribute.FIELDCODE}}-{{sysappattribute.FIELDNAME}}
-                          </div>
-                          <p class="sys-card-smarks">{{sysappattribute.HELP}}</p>
-                      </div>
-                  </div>
-                  <div class="sys-card-footer">
-                      <fc-button class="sys-card-btn" fcLabel="属性" (click)="listEdit(sysapp);" [fcBlock]="true">
-                      </fc-button>
-                      <fc-button class="sys-card-btn" fcLabel="工具" (click)="delectOnesysapp(sysapp);" [fcBlock]="true">
-                      </fc-button>
-                      <fc-button class="sys-card-btn" fcLabel="接口" (click)="delectOnesysapp(sysapp);" [fcBlock]="true">
-                      </fc-button>
-                      <fc-button class="sys-card-btn" fcLabel="关系" (click)="delectOnesysapp(sysapp);" [fcBlock]="true">
-                      </fc-button>
-                  </div>
-              </ng-template>
-          </nz-card>
-      </div>
-    </div>
-    <fc-title fcLabel="元数据方法" fccontent></fc-title>
-  </fc-layoutpanel>
-  `,
+  templateUrl: `sysappedit.component.html`,
   styles: [`
   .sys-card-btn{
-    width:25%;
+    width:50%;
   }
-  .sys-fast-list {
-    cursor: pointer;
+  :host ::ng-deep .fc-layoutpanel {
+      padding:10px;
   }
-  :host ::ng-deep .sysappeditSave .fc-left{
-    text-align: center;
+  .place-div{
+      height:42px;
   }
+  .last-btn{
+      height:42px;
+      position:relative;
+      right:95%;
+  }
+  .instructions{
+    width:100%;
+    margin-left:25%;
+    display:block;
+    color:#938e8e;
+  }
+  :host ::ng-deep .basicTlb .fc-tlbform{
+    margin-top:20px;
+  }
+  :host ::ng-deep .noinstructions .ant-form-item-control {
+    padding-bottom: 10px;
+  }
+  .sys-card-pannel .fc-content .sys-card-pannel-edit .noBottomLine .fc-layoutcol {
+    padding: 0px;
+    border-bottom:none;
+  }
+  .butType{
+    font-size:16px;
+    font-weigth:700;
+  }
+  .clearFloat{
+    overflow:hidden;
+  }
+  .attributeLeft{
+    float:left;
+    width:30%;
+  }
+  .attributeRight{
+    float:left;
+    width:60%;
+  }
+  .addAttribute {
+    width: 70%;
+    height: 30px;    
+    border: 1px dashed #d9d9d9;
+    color:#d9d9d9;
+    border-radius: 5px;
+    line-height: 25px;
+    padding-left: 10px;
+}
   `]
 })
 export class SysappeditComponent extends ParentEditComponent {
   //元数据属性
-  sysAppattributes:any;
+  sysAppattributes: any;
+  //字母查找
+  fastsearchWords: any[];
+  //明细操作按钮
+  btnlistOnes: any[];
+  //更多的按钮
+  btnlistMores: any[];
+  //产品下拉选项
+  productOption: any[];
+  //数据源下拉选项
+  datasourceOption: any[];
+  //模型事件
+  sysEvents: any;
+  //模型接口
+  sysInterfaces: any;
+  //模型关系
+  sysLinks: any;
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -116,19 +90,59 @@ export class SysappeditComponent extends ParentEditComponent {
     super(mainService, router, activeRoute);
   }
   init(): void {
-    //初始化元数据属性
-    this.mainService.getappAttribute().subscribe(res=>{
-      if(res.CODE==='0'){
-        this.sysAppattributes=res.DATA;
-      }else{
-        this.messageService.error("元数据属性获取失败")
-      }
-    })
+    //初始化字母查找
+    this.fastsearchWords = this.mainService.fastSearch();
+    //初始化按钮
+    this.btnlistOnes = this.mainService.appButtons.filter(btn =>
+      btn.BTNTYPE === 'LISTONE'
+    );
+    this.btnlistMores = this.btnlistOnes.splice(3);
+    this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+    //初始化产品
+    this.getproduct();
+    //初始化数据源
+    this.getdatasource();
+    //初始化模型事件、接口、模型关系
+    if (this.mainObj.APPID !== "") {
+      this.getSysEvents(this.mainObj.APPID);
+      this.getSysInterfaces(this.mainObj.APPID);
+      this.getSysLinks(this.mainObj.APPID)
+    }
   }
   addNew(mainObj: any): boolean {
     return true;
   }
   event(eventName: string, param: any): void {
+    switch(eventName){
+      case 'addList':
+      break;
+    }
+  }
+  /**
+  * 获取软件产品的产品名称
+  */
+  getproduct() {
+    this.mainService.getproduct().subscribe(res => {
+      this.productOption = [];
+      res.P_LISTVALUE.forEach(element => {
+        //将获得的产品名称添加到下拉框中
+        this.productOption.push({ icon: '', label: element.PNAME, value: element.PID });
+      });
+      return this.productOption;
+    })
+  }
+  /**
+  * 获取数据源
+  */
+  getdatasource() {
+    this.mainService.getdatasource().subscribe(result => {
+      this.datasourceOption = [];
+      result.P_LISTVALUE.forEach(element => {
+        //将获得的数据源名称添加到下拉框中
+        this.datasourceOption.push({ icon: '', label: element.DSNAME, value: element.PID });
+      });
+      return this.datasourceOption;
+    })
   }
   /**
   * 返回列表
@@ -136,5 +150,59 @@ export class SysappeditComponent extends ParentEditComponent {
   */
   backList(event) {
     this.navRouter(this.getRouteUrl('List'), event.param);
+  }
+  /** YM
+  * 处理路由传参的情况
+  * @param pid 
+  */
+  handleRouterParam() {
+    if (this.routerParam.ID) {
+      this.mainService.findWithQuery({ WHERE: `ID = '${this.routerParam.ID}'` }).subscribe(res => {
+        if (res.CODE === '0') {
+          this.mainObj = res.DATA[0];
+        } else {
+          this.messageService.error('基本信息获取失败');
+        }
+      })
+    }
+  }
+  /**
+   * 获取模型事件-数据
+   * @param appid 
+   */
+  getSysEvents(appid) {
+    this.mainService.getSysEvents(appid).subscribe(res => {
+      if (res.CODE === '0') {
+        this.sysEvents = res.DATA;
+      } else {
+        this.messageService.error('模型事件获取失败');
+      }
+    });
+  }
+  /**
+   * 获取模型接口-数据
+   * @param appid 
+   */
+  getSysInterfaces(appid) {
+    this.mainService.getSysInterfaces(appid).subscribe(res => {
+      if (res.CODE === '0') {
+        this.sysInterfaces = res.DATA;
+      } else {
+        this.messageService.error('模型接口获取失败');
+      }
+    });
+  }
+  /**
+   * 获取模型关系-数据
+   * @param appid 
+   */
+  getSysLinks(appid) {
+    this.mainService.getSysLinks(appid).subscribe(res => {
+      if (res.CODE === '0') {
+        this.sysLinks = res.DATA;
+      } else {
+        this.messageService.error('模型关系获取失败');
+      }
+    });
   }
 }
