@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, NavigationStart, RouterEvent } from '@angular/r
 import { ParentEditComponent, FctextComponent } from 'fccomponent';
 import { SysserviceService } from '../../services/sysservice.service';
 import { DialogCardListComponent, DialogCardListArgs } from './dialog/dialogcardlist.component';
-import { FCEVENT } from '../../../../../node_modules/fccomponent/fc';
+import { FCEVENT } from 'fccomponent/fc';
 @Component({
     selector: 'sysserviceedit',
     templateUrl: 'sysserviceedit.component.html',

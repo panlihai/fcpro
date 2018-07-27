@@ -89,6 +89,7 @@ export class SysserviceComponent extends ParentlistComponent {
   }
   listEdit(sysservice: any) {
     this.navRouter(this.getRouteUrl('Edit'), { ID: sysservice.ID });
+  }
   /**
    * 按钮明细
    * @param event 
