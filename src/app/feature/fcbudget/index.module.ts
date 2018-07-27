@@ -19,13 +19,15 @@ import { BgprojectattributeComponent } from './components/bgprojectattribute.com
 import { AddcolattrvaluedialogComponent } from './components/dialog/addcolattrvaluedialog.component';
 import { BgtransfordialogComponent } from './components/dialog/Bgtransfordialog.component';
 import { AddrowattrvaluedialogComponent } from './components/dialog/addrowattrvaluedialog.component';
+import { AddaffiliationdialogComponent } from './components/dialog/addaffiliationdialog.component';
 @NgModule({
   // 弹窗记得在这里引入
   entryComponents: [
     BgtransfordialogComponent,
     ChooseattrdialogComponent,
     AddcolattrvaluedialogComponent,
-    AddrowattrvaluedialogComponent
+    AddrowattrvaluedialogComponent,
+    AddaffiliationdialogComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +55,8 @@ import { AddrowattrvaluedialogComponent } from './components/dialog/addrowattrva
     ChooseattrdialogComponent,
     BgtransfordialogComponent,
     AddcolattrvaluedialogComponent,
-    AddrowattrvaluedialogComponent
+    AddrowattrvaluedialogComponent,
+    AddaffiliationdialogComponent
   ],
   providers: [
     BgattributeService,

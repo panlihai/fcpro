@@ -265,7 +265,6 @@ export class SysproducteditComponent extends ParentEditComponent {
       this.topbutton = false;
     }
   }
-}
   /**
     *  可继承是=时显示依赖产品text否则隐藏
     * @param event  

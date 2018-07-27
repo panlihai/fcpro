@@ -7,6 +7,7 @@ import { NzModalService } from 'ng-zorro-antd';
 import { BgattributeService } from '../services/bgattribute.service';
 import { BgtransfordialogComponent } from './dialog/Bgtransfordialog.component';
 import { ChooseattrdialogComponent } from './dialog/chooseattrdialog.component';
+import { AddaffiliationdialogComponent } from './dialog/addaffiliationdialog.component';
 @Component({
   selector: 'bgprojectattribute',
   templateUrl: './bgprojectattribute.component.html',
@@ -70,4 +71,22 @@ export class BgprojectattributeComponent extends ParentlistComponent {
       // result为弹窗返回的值
     });
   }
+   /**
+  * 新增从属关系
+  */
+ addAffiliationDialog() {
+  this.modal.open({
+    title: '新增从属关系',
+    content: AddaffiliationdialogComponent,
+    onOk() { },
+    onCancel() { },
+    footer: false,
+    componentParams: {
+      //  把options对象传值给弹窗
+      options: {}
+    }
+  }).subscribe(result => {
+    // result为弹窗返回的值
+  });
+}
 }

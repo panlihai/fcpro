@@ -66,7 +66,7 @@
         <div class="attributeLeft">1</div>
         <div class="attributeRight">
             <div class="addAttribute">+添加</div>
-            <fc-list fcAppid="SYSASSIGNMENT" [fcFieldCode]="'TASKNAME'" fcIcon="fc-icon-picture" fcSubTitleCode="CREATETIME" fcStatusCode='STATUS'
+            <fc-list fcAppid="SYSAPPFIELDS" [fcFieldCode]="'FIELDCODE'" [fcCondition]="condition"  fcIcon="fc-icon-picture" fcSubTitleCode="FIELDNAME" fcStatusCode='FIELDNAME'
                 [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}" (fcEvent)="visitlistEvent($event)">
             </fc-list>
         </div>

@@ -60,6 +60,7 @@ import { ParentEditComponent } from 'fccomponent/parentedit.component';
     border-radius: 5px;
     line-height: 25px;
     padding-left: 10px;
+    margin-bottom:10px;
 }
   `]
 })
@@ -82,6 +83,8 @@ export class SysappeditComponent extends ParentEditComponent {
   sysInterfaces: any;
   //模型关系
   sysLinks: any;
+  //属性列表过滤
+  condition: any;
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -108,14 +111,19 @@ export class SysappeditComponent extends ParentEditComponent {
       this.getSysInterfaces(this.mainObj.APPID);
       this.getSysLinks(this.mainObj.APPID)
     }
+    //根据条件过滤出对应的属性列表
+    let con: any = {
+      WHERE: "APPID=" + "'" + this.mainObj.APPID+"'",
+    }
+    this.condition = JSON.stringify(con);
   }
   addNew(mainObj: any): boolean {
     return true;
   }
   event(eventName: string, param: any): void {
-    switch(eventName){
+    switch (eventName) {
       case 'addList':
-      break;
+        break;
     }
   }
   /**
