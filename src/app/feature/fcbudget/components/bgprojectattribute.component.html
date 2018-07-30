@@ -2,7 +2,8 @@
     <fc-layoutcol fccontent fcSpans="2,7">
         <fc-combo fcPlaceHolder="请选择" [fcShowLabel]="false" [(ngModel)]="rowType2" [fcOption]="anyOptions_2" fcLabelCode='DESC' fcValueCode='VALUE' (ngModelChange)="componentEvents('fontSize',$event)"></fc-combo>
         <fc-tree fccontent1 [(ngModel)]="treeSelectObj" [fcOption]="treeOptions" (fcEvent)="treeEvent($event)" #classTree></fc-tree>
-        <fc-tabmain fccontent2 [fcTabs]="pageTabs" [fcSelectedIndex]="selectedIndex">
+        <fc-tabmain fccontent2 [fcTabs]="pageTabs"   [(fcSelectedIndex)]="_selectedIndex" >
+            <!-- tab1标签开始 -->
             <fc-layoutrow fccontent1 fcSpan="42">
                 <fc-layoutcol fccontent1>
                     <fc-text fccontent1 [(ngModel)]="mainObj.SVERSION_CODE" fcFieldCode='SVERSION_CODE' name="SVERSION_CODE" fcPlaceHolder="请输入项目代码" fcLabel="项目代码"></fc-text>

@@ -8,10 +8,18 @@ import { ChooseattrdialogComponent } from './dialog/chooseattrdialog.component';
 import { NzModalService } from 'ng-zorro-antd';
 import { CopyprojectattrComponent } from './dialog/copyprojectattr.component';
 import { AddaffiliationdialogComponent } from './dialog/addaffiliationdialog.component';
+import { chooseicondialogComponent } from '../../../system/components/core/dialog/chooseicondialog.component';
 @Component({
   selector: 'bgprojectattribute',
   templateUrl: './bgprojectattribute.component.html',
   styles: [`
+  .bgattab{
+    text-align: center; 
+  }
+  :host ::ng-deep .bgattab .ant-btn {
+    margin-right: 2%;
+    margin-top:5px;
+}
   `]
 })
 export class BgprojectattributeComponent extends ParentlistComponent {
@@ -71,6 +79,7 @@ export class BgprojectattributeComponent extends ParentlistComponent {
         params.content = AddaffiliationdialogComponent;
         params.componentparamss = { param: { appId1: this.appId, appId2: this.appId } };
         this.showModal(params);
+        break;
     }
   }
   /**
