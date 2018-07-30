@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SysappService } from '../../services/sysapp.service';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ParentEditComponent } from 'fccomponent/parentedit.component';
+import { FCEVENT } from 'fccomponent/fc';
 @Component({
   selector: 'sysappedit',
   templateUrl: `sysappedit.component.html`,
@@ -47,6 +48,14 @@ import { ParentEditComponent } from 'fccomponent/parentedit.component';
   .attributeLeft{
     float:left;
     width:30%;
+    padding: 0px 40px 0px 40px;
+    display:none;
+  }
+  .displayMode{
+    display:block;
+  }
+  .widthCovered{
+    width:100%;
   }
   .attributeRight{
     float:left;
@@ -62,6 +71,27 @@ import { ParentEditComponent } from 'fccomponent/parentedit.component';
     padding-left: 10px;
     margin-bottom:10px;
 }
+  .sys-fast-list {
+    cursor: pointer;
+  }
+  :host ::ng-deep .angular-tree-component {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 79%;
+  }
+  .showSelectModel {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+  }
+  .SelectModelTop {
+    height: 28px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    line-height: 28px;
+    text-align: center;
+  }
   `]
 })
 export class SysappeditComponent extends ParentEditComponent {
@@ -85,6 +115,14 @@ export class SysappeditComponent extends ParentEditComponent {
   sysLinks: any;
   //属性列表过滤
   condition: any;
+  //模型配置
+  modelOption: any = [];
+  //DSID
+  DSID: string;
+  //从现有模型中选择属性
+  displayMode: boolean = false;
+  //物理表以及属性、事件、接口、关系显示
+  isShow:boolean;
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -105,15 +143,17 @@ export class SysappeditComponent extends ParentEditComponent {
     this.getproduct();
     //初始化数据源
     this.getdatasource();
-    //初始化模型事件、接口、模型关系
+    //当为编辑页面时初始化模型事件、接口、模型关系
     if (this.mainObj.APPID !== "") {
+      this.show();
       this.getSysEvents(this.mainObj.APPID);
       this.getSysInterfaces(this.mainObj.APPID);
       this.getSysLinks(this.mainObj.APPID)
     }
     //根据条件过滤出对应的属性列表
     let con: any = {
-      WHERE: "APPID=" + "'" + this.mainObj.APPID+"'",
+      WHERE: "APPID=" + "'" + this.mainObj.APPID + "'",
+      PAGESIZE: 9999
     }
     this.condition = JSON.stringify(con);
   }
@@ -124,6 +164,7 @@ export class SysappeditComponent extends ParentEditComponent {
     switch (eventName) {
       case 'addList':
         break;
+
     }
   }
   /**
@@ -147,10 +188,25 @@ export class SysappeditComponent extends ParentEditComponent {
       this.datasourceOption = [];
       result.P_LISTVALUE.forEach(element => {
         //将获得的数据源名称添加到下拉框中
-        this.datasourceOption.push({ icon: '', label: element.DSNAME, value: element.PID });
+        this.datasourceOption.push({ icon: '', label: element.DSNAME, value: element.DSID });
       });
       return this.datasourceOption;
     })
+  }
+  /**
+  * 物理表以及属性、事件、接口、关系显示
+  */
+  show(){
+    this.isShow=true;
+  }
+  /**
+  * 保存之后
+  */
+  afterSave() {
+    //保存之后保持在本页面
+    this.navRouter(this.getRouteUrl('Edit'));
+    //新增页面物理表以及属性、事件、接口、关系显示
+    this.show();
   }
   /**
   * 返回列表
@@ -212,5 +268,34 @@ export class SysappeditComponent extends ParentEditComponent {
         this.messageService.error('模型关系获取失败');
       }
     });
+  }
+  /**
+   * 从现有模型中选择属性
+   * @param  DATASOURCE(数据源)
+   */
+  selectAttribute(DATASOURCE) {
+    this.displayMode = true;
+    //根据数据源获取模型字段配置
+    this.mainService.getModelOption(this.mainObj.DATASOURCE).subscribe(res => {
+      if (res.CODE === '0') {
+        this.modelOption = [];
+        res.DATA.forEach(element => {
+          this.modelOption.push({ icon: '', label: element.APPNAME, value: element.MAINTABLE });
+        });
+      }
+    });
+    /* this.datasourceOption.forEach(ele => {
+      if (ele.value === DATASOURCE) {
+        this.DSID = ele.value;
+      }
+    }) */
+  }
+  /**
+   * 选择模型
+   * @param  value
+   */
+  modelEvents(value) {
+
+    this.mainService.getModelField(value);
   }
 }

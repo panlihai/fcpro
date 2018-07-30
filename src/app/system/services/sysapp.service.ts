@@ -4,6 +4,7 @@ import { ParentService, ProvidersService, SysappfieldsService } from 'fccore';
 import { Observable } from 'rxjs/Observable';
 import { SysproductService } from './sysproduct.service';
 import { SysdatasourceService } from './sysdatasource.service';
+import { TreeOptions } from 'fccomponent';
 @Injectable()
 export class SysappService extends ParentService {
   constructor(public providers: ProvidersService,
@@ -16,6 +17,33 @@ export class SysappService extends ParentService {
     this.listOptions.fcShowToolPanel = false;
     this.listOptions.fcPagination = false;
   }
+   //树配置
+   treeOptions: TreeOptions = {
+    //元数据id
+    fcAppid: "SYSMENU",//元数据id
+    //树结构节点显示内容
+    fcLabel: ':{MENUNAME}::{MENUID}',//支持:{参数名称}
+    // 关联父节点字段名称
+    fcParentCode: 'PARENT',
+    // 当前节点字段名称
+    fcChildCode: 'MENUID',
+    // 叶子节点字段名称
+    fcLeafCode: 'HASCHILD',
+    // 根节点条件
+    fcTopWhere: "PARENT is null or PARENT=''",
+    // 展开条件
+    fcExpWhere: "PARENT=':{MENUID}'",
+    // 排序字段
+    fcOrderby: "",
+    // 模式 false为单选，true为多选
+    fcMode: true,
+    // 展开子节点
+    fcOpenChild: false,
+    // 是否显示线条
+    fcShowLine: true,
+    //是否可拖拽
+    fcAllowDrag: true
+};
   modifyAppFieldsName() {
     let ob = this.providers.daoService.getFromApi(this.getResourceUrl("modifyFieldsName"), {});
     ob.subscribe(result => {
@@ -80,5 +108,19 @@ export class SysappService extends ParentService {
    */
   getSysLinks(appid) {
     return this.appService.findWithQuery('SYSAPPLINKS', {MAINAPP:appid})
+  }
+   /**
+   * 获取模型配置
+   * @param dsid 
+   */
+  getModelOption(dsid){
+    return this.providers.daoService.getBase("http://192.168.0.253:8080/server/api/SYSTEM/SYSMODEL/findTableViewByDsid?LAT=0&LNG=0&TIMESTAMP=0&DSID="+dsid+"&PRODUCTID=SYSTEM", {});
+  }
+  /**
+   * 获取模型字段
+   * @param tableName 
+   */
+  getModelField(tableName){
+    return this.providers.daoService.getBase("http://192.168.0.253:8080/server/api/SYSTEM/SYSMODEL/findFieldByTablenames?LAT=0&LNG=0&TIMESTAMP=0&TABLENAMES="+tableName+"&DSID=&PRDUCTID=SYSTEM", {});
   }
 }

@@ -114,7 +114,7 @@ export class SysappmodifyComponent extends ParentEditComponent {
       this.datasourceOption = [];
       result.P_LISTVALUE.forEach(element => {
         //将获得的数据源名称添加到下拉框中
-        this.datasourceOption.push({ icon: '', label: element.DSNAME, value: element.PID });
+        this.datasourceOption.push({ icon: '', label: element.DSNAME, value: element.DSID });
       });
       return this.datasourceOption;
     })

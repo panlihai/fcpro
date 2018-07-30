@@ -8,6 +8,7 @@ import { ProvidersService, Sysmenu } from 'fccore';
 import { environment } from '../../../../environments/environment';
 import { element } from 'protractor';
 import { SysmenuService } from '../../services/sysmenu.service';
+import { MenueditdialogComponent } from './dialog/menueditdialog.component';
 @Component({
     selector: 'sysmenu',
     template: `
@@ -45,7 +46,7 @@ import { SysmenuService } from '../../services/sysmenu.service';
             <ul fccontent1 *ngFor="let sysmenu of sysmenus; let i = index" class="firstMenu">
                 <li class="clearFloat">
                     <div class="sysmenu-first">
-                        <span class="sysmenu" [ngClass]="{'menutype-app':sysmenu.MENUTYPE==='APP'}">{{sysmenu.MENUNAME}}</span>
+                        <span class="sysmenu" [ngClass]="{'menutype-app':sysmenu.MENUTYPE==='APP'}" (click)="menuEdit(sysmenu)">{{sysmenu.MENUNAME}}</span>
                         <div class="arrow">
                             <i class="anticon anticon-arrow-up" (click)="changeSort(sysmenus[i],sysmenus[i-1],i,sysmenus)" *ngIf="i!==0"></i>
                             <i class="anticon anticon-arrow-down" (click)="changeSort(sysmenus[i+1],sysmenus[i],i+1,sysmenus)" *ngIf="i!==sysmenus.length-1"></i>
@@ -55,7 +56,7 @@ import { SysmenuService } from '../../services/sysmenu.service';
                     <fc-icon fcIcon="fc-icon-left" *ngIf="sysmenu.P_CHILDMENUS!==null&&sysmenu.P_CHILDMENUS!==undefined&&sysmenu.isOpened===true" class="closeIcon" (click)="close(sysmenu)" fcSize="small" fcToolTip="收起" fcPosition="bottom"></fc-icon>
                     <ul class="floatLeft" *ngIf="sysmenu.P_CHILDMENUS!==null&&sysmenu.P_CHILDMENUS!==undefined&&sysmenu.P_CHILDMENUS.length!==0&&sysmenu.isOpened===true">
                         <div  class="syssecondMenu" *ngFor="let sysscondMenu of sysmenu.P_CHILDMENUS; let i = index">
-                            <li [ngClass]="{'menutype-app':sysscondMenu.MENUTYPE==='APP'}">
+                            <li [ngClass]="{'menutype-app':sysscondMenu.MENUTYPE==='APP'}" (click)="menuEdit(sysscondMenu)">
                                 {{sysscondMenu.MENUNAME}}
                             </li>
                             <span [ngClass]="{'dragsecondMenu':sysscondMenu.MENUTYPE==='MENU'}"></span> 
@@ -65,7 +66,7 @@ import { SysmenuService } from '../../services/sysmenu.service';
                             </div>  
                             <ul *ngIf="sysscondMenu.P_CHILDMENUS!==null&&sysscondMenu.P_CHILDMENUS!==undefined&&sysscondMenu.P_CHILDMENUS.length!==0&&sysscondMenu.isOpened===true">
                                 <div class="thirdMenu" *ngFor="let systhridMenu of sysscondMenu.P_CHILDMENUS; let i = index">
-                                    <li [ngClass]="{'menutype-app':systhridMenu.MENUTYPE==='APP'}">
+                                    <li [ngClass]="{'menutype-app':systhridMenu.MENUTYPE==='APP'}" (click)="menuEdit(systhridMenu)">
                                         {{systhridMenu.MENUNAME}}
                                     </li>
                                     <span [ngClass]="{'dragsecondMenu':systhridMenu.MENUTYPE==='MENU'}"></span> 
@@ -287,6 +288,7 @@ export class SysmenuComponent extends ParentlistComponent {
         public router: Router,
         private _providers: ProvidersService,
         private modalService: NzModalService,
+        private modal: NzModalService,
         public activeRoute: ActivatedRoute) {
         super(mainService, router, activeRoute);
     }
@@ -323,8 +325,8 @@ export class SysmenuComponent extends ParentlistComponent {
             result.filter(item => item.PID === pid).forEach(item => {
                 //一级菜单
                 this.sysmenus = Object.assign([], this.sysmenus, item.P_CHILDMENUS);
-                this.sysmenus.forEach(element=>{
-                    element.isOpened=false;
+                this.sysmenus.forEach(element => {
+                    element.isOpened = false;
                 })
             })
         })
@@ -377,5 +379,33 @@ export class SysmenuComponent extends ParentlistComponent {
             }
         })
     }
-
+    /**
+    * 打开导航编辑弹窗
+    * @param sysmenu
+    */
+    menuEdit(sysmenu: any) {
+        this.modal.open({
+            title: '编辑导航项',
+            content: MenueditdialogComponent,
+            width: '60%',
+            onOk() { },
+            onCancel() { },
+            footer: false,
+            componentParams: {
+                //  把options对象传值给弹窗
+                options: {
+                    MENUID:sysmenu.MENUID,
+                    MENUNAME:sysmenu.MENUNAME,
+                    ROUTER:sysmenu.ROUTER,
+                    MENUTYPE:sysmenu.MENUTYPE,
+                    SORT:sysmenu.SORT,
+                    ENABLE:sysmenu.ENABLE,
+                    REMARK:sysmenu.REMARK,
+                    HASCHILD:sysmenu.HASCHILD
+                  }
+            }
+        }).subscribe(result => {
+            // result为弹窗返回的值
+        });
+    }
 }

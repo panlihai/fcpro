@@ -7,7 +7,7 @@
             <ul class="sys-fast-list">
                 <li>
                     <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
-                <li (click)="seeAll($event)">
+                <li (click)="seeAll($event)" *ngIf="isShow===true">
                     <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>创建物理表</li>
                 <li (click)="backList($event)">
                     <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>查看所有</li>
@@ -45,7 +45,7 @@
     </div>
 </fc-layoutpanel>
 <!-- 模型-属性入口-->
-<fc-layoutpanel class="sys-card-pannel">
+<fc-layoutpanel class="sys-card-pannel" *ngIf="isShow===true">
     <div class="sys-card-pannel-header" fcheader>
         <fc-title fcLabel="模型-属性" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
@@ -53,7 +53,7 @@
         </P>
         <div class="sys-card-fast">
             <ul class="sys-fast-list">
-                <li>
+                <li (click)="selectAttribute(mainObj.DATASOURCE)">
                     <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>从现有模型中选择属性
                 </li>
                 <li>
@@ -63,17 +63,45 @@
         </div>
     </div>
     <div fccontent class="clearFloat">
-        <div class="attributeLeft">1</div>
-        <div class="attributeRight">
+        <div class="attributeLeft" [ngClass]="{'displayMode':displayMode===true}">
+            <div>请选择模型，拖拽至属性字段</div>
+            <fc-chosen [fcShowLabel]="false" PlaceHolder="请选择模型，支持多选" [fcOption]="modelOption" [(ngModel)]="modelValue" (ngModelChange)="modelEvents($event)">
+            </fc-chosen>
+            <div class="showSelectModel">
+                <div class="SelectModelTop">备选模型&字段</div>
+                <ul>
+                    <li>
+                        <fc-icon fcIcon="fc-icon-fall" fcSize="small"></fc-icon>
+                        <span>T:</span>
+                        <span>元数据-SYSAPP</span>
+                        <ul>
+                            <li>1APPID-元数据编码</li>
+                            <li>2APPID-元数据编码</li>
+                            <li>3APPID-元数据编码</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>T:</span>
+                        <span>元数据-SYSAPP</span>
+                        <ul>
+                            <li>1APPID-元数据编码</li>
+                            <li>2APPID-元数据编码</li>
+                            <li>3APPID-元数据编码</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="widthCovered" [ngClass]="{'attributeRight':displayMode===true}">
             <div class="addAttribute">+添加</div>
-            <fc-list fcAppid="SYSAPPFIELDS" [fcFieldCode]="'FIELDCODE'" [fcCondition]="condition"  fcIcon="fc-icon-picture" fcSubTitleCode="FIELDNAME" fcStatusCode='FIELDNAME'
-                [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}" (fcEvent)="visitlistEvent($event)">
+            <fc-list fcAppid="SYSAPPFIELDS" [fcFieldCode]="'FIELDCODE'" [fcCondition]="condition" fcIcon="fc-icon-picture" fcSubTitleCode="FIELDNAME"
+                fcStatusCode='FIELDNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}">
             </fc-list>
         </div>
     </div>
 </fc-layoutpanel>
 <!-- 模型-事件入口-卡片-->
-<fc-layoutpanel class="sys-card-pannel">
+<fc-layoutpanel class="sys-card-pannel" *ngIf="isShow===true">
     <div class="sys-card-pannel-header" fcheader>
         <fc-title fcLabel="模型-事件" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
@@ -155,7 +183,7 @@
     </div>
 </fc-layoutpanel>
 <!-- 模型接口入口-模型接口卡片 -->
-<fc-layoutpanel class="sys-card-pannel">
+<fc-layoutpanel class="sys-card-pannel" *ngIf="isShow===true">
     <div class="sys-card-pannel-header" fcheader>
         <fc-title fcLabel="模型接口注册" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
@@ -234,7 +262,7 @@
     </div>
 </fc-layoutpanel>
 <!-- 与其他模型关系 -->
-<fc-layoutpanel class="sys-card-pannel">
+<fc-layoutpanel class="sys-card-pannel" *ngIf="isShow===true">
     <div class="sys-card-pannel-header" fcheader>
         <fc-title fcLabel="与其它模型关系" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
