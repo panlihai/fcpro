@@ -65,19 +65,17 @@
     <div fccontent class="clearFloat">
         <div class="attributeLeft" [ngClass]="{'displayMode':displayMode===true}">
             <div>请选择模型，拖拽至属性字段</div>
-            <fc-chosen [fcShowLabel]="false" PlaceHolder="请选择模型，支持多选" [fcOption]="modelOption" [(ngModel)]="modelValue" (ngModelChange)="modelEvents($event)">
-            </fc-chosen>
+            <fc-many [fcShowLabel]="false" PlaceHolder="请选择模型，支持多选" [fcOption]="modelOption" [(ngModel)]="modelValue" fcLabelCode="APPNAME" fcValueCode="TABLENAME" (ngModelChange)="modelEvents($event)">
+            </fc-many>
             <div class="showSelectModel">
                 <div class="SelectModelTop">备选模型&字段</div>
-                <ul>
+                <ul *ngFor="let item of models">
                     <li>
                         <fc-icon fcIcon="fc-icon-fall" fcSize="small"></fc-icon>
-                        <span>T:</span>
-                        <span>元数据-SYSAPP</span>
+                        <span>{{item.TABLETYPE==='TABLE'?'T':'V'}}</span>
+                        <span>{{item.APPNAME}}-{{item.MAINTABLE}}</span>
                         <ul>
-                            <li>1APPID-元数据编码</li>
-                            <li>2APPID-元数据编码</li>
-                            <li>3APPID-元数据编码</li>
+                            <li *ngFor="let field of item.fields">{{field.FIELDCODE}}-{{field.FIELDNAME}}</li>
                         </ul>
                     </li>
                 </ul>
@@ -191,7 +189,7 @@
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="listAdd($event);">
+            <nz-card (click)="addModelInterface($event);">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增模型接口</p>

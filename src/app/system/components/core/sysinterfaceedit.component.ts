@@ -12,11 +12,36 @@ import { SysinterfaceService } from '../../services/sysinterface.service';
       :host ::ng-deep .fc-layoutpanel {
           padding:10px;
       }
+      .sys-card-pannel .fc-content .sys-card-pannel-edit .noBottomLine .fc-layoutcol {
+        padding: 0px;
+        border-bottom:none;
+      }
+      .sys-card-pannel .fc-content .sys-card-pannel-edit .noPadding .fc-layoutcol {
+        padding: 0px;
+      }
+      :host ::ng-deep .sys-card-pannel .fc-content .sys-card-pannel-edit .noPadding .fc-layoutcol {
+        padding: 0px;
+      }
+      :host ::ng-deep .basicTlb .fc-tlbform{
+        margin-top:20px;
+      }
+      .instructionsOther{
+        margin-left: 140px;
+      }
+      .instructions {
+        margin-left: 210px;
+    }
+    .information{
+        background-color:#fff;
+        padding-bottom:10px;
+    }
 `]
 })
 export class SysinterfaceeditComponent extends ParentEditComponent {
-    productName: any;
-    pidOption: any;
+    //产品
+    pidOption;
+    //参数数据
+    parameters: any;
     constructor(public mainService: SysinterfaceService,
         public router: Router,
         public activeRoute: ActivatedRoute) {
@@ -35,8 +60,11 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
      */
     init(): void {
         this.initDefaultMainObj();
+        //初始化产品名称的自定义下拉选项内容
         this.initPidOption();
         this.checkPid();
+        //获取参数配置数据
+        /* this.getParameters(); */
     }
     /**
      * html事件收集及派发函数
@@ -98,12 +126,24 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
         this.navRouter(this.getRouteUrl('Edit'), { PID: this.mainObj.PID });
     }
     /**
-  * 新增产品,跳转到新增产品页面
-  */
-    addView() {
-        this.navRouter('sysviewEdit');
+    * 获取参数配置数据
+    */
+    getParameters(){
+        this.mainService.getParameters().subscribe(res=>{
+            if(res.CODE==='0'){
+                console.log(res.DATA);
+            }else{
+                this.mainService.providers.msgService.error('获取参数配置失败');
+            }
+        })
     }
-    addInterface() {
-        this.navRouter('sysinterfaceEdit');
-    }
+    
+    /**
+    * 新增产品,新增参数弹窗
+    */
+    
+    /**
+    * 新增产品,新增返回值弹窗
+    */
+    
 }

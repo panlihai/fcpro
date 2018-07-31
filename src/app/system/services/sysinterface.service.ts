@@ -23,6 +23,12 @@ export class SysinterfaceService extends ParentService {
     getAllProduct() {
         return this.sysproductService.findWithQuery({});
     }
+    /** 
+    *  获取参数配置数据
+    */
+    getParameters() {
+        return this.findWithQuery('SYSINTERFACEPARAM')
+    }
 }
 export interface Sysinterface {
 

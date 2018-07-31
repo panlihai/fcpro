@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { SysproductService } from './sysproduct.service';
 import { SysdatasourceService } from './sysdatasource.service';
 import { TreeOptions } from 'fccomponent';
+import { element } from 'protractor';
 @Injectable()
 export class SysappService extends ParentService {
   constructor(public providers: ProvidersService,
@@ -113,14 +114,16 @@ export class SysappService extends ParentService {
    * 获取模型配置
    * @param dsid 
    */
-  getModelOption(dsid){
-    return this.providers.daoService.getBase("http://192.168.0.253:8080/server/api/SYSTEM/SYSMODEL/findTableViewByDsid?LAT=0&LNG=0&TIMESTAMP=0&DSID="+dsid+"&PRODUCTID=SYSTEM", {});
+  getModelOption(dsid:string,pid:string){
+    return this.providers.daoService.getFromApi(this.commonService.getUrlBy(this.moduleId,'SYSMODEL',"findTableViewByDsid"),{DSID:dsid,PRODUCTID:pid})
+    
   }
   /**
    * 获取模型字段
-   * @param tableName 
+   * @param tableNames
+   * @param dsid 
    */
-  getModelField(tableName){
-    return this.providers.daoService.getBase("http://192.168.0.253:8080/server/api/SYSTEM/SYSMODEL/findFieldByTablenames?LAT=0&LNG=0&TIMESTAMP=0&TABLENAMES="+tableName+"&DSID=&PRDUCTID=SYSTEM", {});
-  }
+  getModelField(tableNames:string,dsid:string,pid:string){ 
+    return this.providers.daoService.getFromApi(this.commonService.getUrlBy(this.moduleId,'SYSMODEL',"findFieldByTablenames"),{DSID:dsid,PRODUCTID:'SYSTEM',TABLENAMES:tableNames})
+ }
 }

@@ -257,7 +257,7 @@ export const Routers: Routes = [
         component: SysmenueditComponent,
         data: { keep: false }
     }, {
-        path: 'sysinterfaceEdit',//开发向导-卡片
+        path: 'sysinterfaceEdit',//编辑接口
         component: SysinterfaceeditComponent,
         data: { keep: false }
     }, {

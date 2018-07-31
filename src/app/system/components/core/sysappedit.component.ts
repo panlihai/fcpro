@@ -122,7 +122,9 @@ export class SysappeditComponent extends ParentEditComponent {
   //从现有模型中选择属性
   displayMode: boolean = false;
   //物理表以及属性、事件、接口、关系显示
-  isShow:boolean;
+  isShow: boolean;
+  //当前选中的模型
+  models: any = [];
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -196,8 +198,8 @@ export class SysappeditComponent extends ParentEditComponent {
   /**
   * 物理表以及属性、事件、接口、关系显示
   */
-  show(){
-    this.isShow=true;
+  show() {
+    this.isShow = true;
   }
   /**
   * 保存之后
@@ -276,32 +278,42 @@ export class SysappeditComponent extends ParentEditComponent {
   selectAttribute(DATASOURCE) {
     //显示左侧模型
     this.displayMode = true;
-    //根据数据源获取模型字段配置
-    this.mainService.getModelOption(this.mainObj.DATASOURCE).subscribe(res => {
+    //根据数据源获取模型配置
+    this.mainService.getModelOption(this.mainObj.DATASOURCE, this.mainObj.APPMODEL).subscribe(res => {
       if (res.CODE === '0') {
-        this.modelOption = [];
-        res.DATA.forEach(element => {
-          this.modelOption.push({ icon: '', label: element.APPNAME, value: element.MAINTABLE });
-        });
+        this.modelOption = res.DATA;
       }
     });
     //根据当前多选框内的数据
-    this.datasourceOption.forEach(ele => {
-      if (ele.value === DATASOURCE) {
-        this.DSID = ele.value;
-      }
-    })
+    /*  this.datasourceOption.forEach(ele => {
+       if (ele.value === DATASOURCE) {
+         this.DSID = ele.value;
+       }
+     }) */
   }
   /**
    * 选择模型
-   * @param  value
+   * @param  tableObjs
    */
-  modelEvents(value) {
-
-    this.mainService.getModelField(value);
+  modelEvents(tableObjs: any[]) {
+    let tables = '';
+    tableObjs.forEach(element => {
+      tables += element.MAINTABLE + ","
+    });
+    tables = tables.substr(tables.length - 1, 1);
+    this.mainService.getModelField(tables, this.mainObj.DATASOURCE, this.mainObj.APPMODEL).subscribe(res => {
+      if (res.CODE === '0') {
+        let tableFields = {};
+        tableObjs.forEach(table => {
+          let tableFields: any = Object.assign({}, table);
+          tableFields.fields = res.DATA[table.TABLENAME];
+          this.models.push(tableFields);
+        })
+      }
+    });
   }
   /** 
-   *编辑属性
+   *列表里面编辑属性
    */
   attributeEditEvent(ev: FCEVENT) {
     switch (ev.eventName) {
@@ -309,10 +321,16 @@ export class SysappeditComponent extends ParentEditComponent {
         break;
     }
   }
-   /** 
-   *新增属性
-   */
-  addAttributeAdd(){
+  /** 
+  *列表里面新增属性
+  */
+  addAttributeAdd() {
 
+  }
+  /** 
+   *新增模型接口卡片
+   */
+  addModelInterface() {
+    this.navRouter('/system/sysinterfaceEdit', { refresh: 'Y', PID: this.mainObj.PID })
   }
 }
