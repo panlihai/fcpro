@@ -185,10 +185,6 @@ export class SysproducteditComponent extends ParentEditComponent implements Afte
       case 'backlistEvent':
         this.navRouter('/system/sysproductList', { refresh: 'Y', PID: this.mainObj.PID })
         break;
-      // @param  事件传过来的参数
-      case 'ruleaddEvent':
-        this.mainObj.PARENTPID = param;
-        break;
     }
   }
   /**
@@ -261,6 +257,19 @@ export class SysproducteditComponent extends ParentEditComponent implements Afte
       this.relyproduct = true;
     } else {
       this.relyproduct = false;
+    }
+  }
+     /**
+* 组件事件收集
+* @param type 字符串命名
+* @param ev 事件传过来的参数
+*/
+componentEvents(type: string, ev: any) {
+    switch (type) {
+      case 'ruleaddEvent':
+      this.mainObj.PARENTPID = ev;
+      console.log(this.mainObj.PARENTPID)
+        break;
     }
   }
 }

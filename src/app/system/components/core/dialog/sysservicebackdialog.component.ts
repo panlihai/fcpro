@@ -21,7 +21,7 @@ import { SysintfreqparamService } from '../../../services/sysintfreqparam.servic
                      <fc-text [fcLabel]="'参数编码'" fcPlaceHolder="请选择默认模型" [(ngModel)]="mainObj.PARAMNAME" name="PARAMNAME"></fc-text>
                      <div fccontent1 class="sys-tab">默认模型</div>
                      <fc-radio [(ngModel)]="mainObj.VALUETYPE" fcLabel="值类型" [fcAppid]="appId" fcFieldCode="VALUETYPE" fcLabelCode="DICDESC"
-                     fcValueCode="DICVALUE" name="VALUETYPE" (ngModelChange)="event('valuetypeEvent')"></fc-radio>
+                     fcValueCode="DICVALUE" name="VALUETYPE" (ngModelChange)="componentEvents('valuetypeEvent',$event)"></fc-radio>
                      <div fccontent1 class="sys-tab">默认为启用</div>
                  </div>
                  <fc-textarea fccontent1 fcLabel="备注"  [(ngModel)]="mainObj.REMARK"  fcPlaceHolder="填写帮助内容" name="REMARK"></fc-textarea>
@@ -110,4 +110,17 @@ export class SysservicebackdialogComponent extends ParentEditComponent   {
       break;
   }
   } 
+       /**
+* 组件事件收集
+* @param type 字符串命名
+* @param ev 事件传过来的参数
+*/
+componentEvents(type: string, ev: any) {
+  switch (type) {
+   //值类型
+   case 'valuetypeEvent':
+   this.mainObj.VALUETYPE = ev
+   break;
+  }
+}
 }

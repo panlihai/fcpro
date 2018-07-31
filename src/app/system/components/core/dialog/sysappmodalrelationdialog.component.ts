@@ -23,7 +23,7 @@ import { SysicondialogComponent } from './sysicondialog.component';
                      name="LINKNAME"></fc-text>
                      <div class="sys-tab">与其关系名称，中文，如，元数据的属性</div>
                      <fc-any  fcLabel="子模型名称"  [fcOption]="scomDataItemOptions"   fcPlaceHolder="请输入中文" 
-                     [(ngModel)]="mainObj.ITEMAPP" (ngModelChange)="event('ruletypeEvent')" name="ITEMAPP"></fc-any>
+                     [(ngModel)]="mainObj.ITEMAPP" (ngModelChange)="componentEvents('ruletypeEvent',$event)" name="ITEMAPP"></fc-any>
                      <div class="sys-tab">被关联的模型名称</div>
                      <fc-text [fcLabel]="'关联条件'" fcPlaceHolder="请输入sql条件，带and"   [(ngModel)]="mainObj.LINKFILTER" 
                      name="	LINKFILTER"></fc-text>
@@ -33,7 +33,7 @@ import { SysicondialogComponent } from './sysicondialog.component';
              <fc-layoutcol fcSpans="1,1" fccontent>
                 <div fccontent1 style="margin-left:34%;">
                 <fc-radio [(ngModel)]="mainObj.ENABLE" fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC"
-                fcValueCode="DICVALUE" name="ENABLE"  (ngModelChange)="event('enableEvent')"></fc-radio>
+                fcValueCode="DICVALUE" name="ENABLE"  (ngModelChange)=" componentEvents('enableEvent',$event)"></fc-radio>
                 </div>
                 <div fccontent2>
                     <fc-long  fcFieldCode="SORTBY" [(ngModel)]="mainObj.SORTBY" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORTBY"></fc-long>
@@ -51,10 +51,10 @@ import { SysicondialogComponent } from './sysicondialog.component';
                 </div>
                 <div fccontent1 style="margin-top:5px;">
                     <fc-radio [(ngModel)]="mainObj.VIEWPOSITION" fcLabel="相对位置" [fcAppid]="appId" fcFieldCode="VIEWPOSITION" fcLabelCode="DICDESC"
-                    fcValueCode="DICVALUE" name="VIEWPOSITION"  (ngModelChange)="event('viewpositionEvent')"></fc-radio>
+                    fcValueCode="DICVALUE" name="VIEWPOSITION"  (ngModelChange)="componentEvents('viewpositionEvent',$event)"></fc-radio>
                     <div class="sys-tab">与主模型的相对位置，并排，并列，并列后并排的相对位置</div>
                     <fc-radio [(ngModel)]="mainObj.ENABLECACHE" fcLabel="关联缓存" [fcAppid]="appId" fcFieldCode="ENABLECACHE" fcLabelCode="DICDESC"
-                    fcValueCode="DICVALUE" name="ENABLECACHE"  (ngModelChange)="event('enablecacheEvent')"></fc-radio>
+                    fcValueCode="DICVALUE" name="ENABLECACHE"  (ngModelChange)="componentEvents('enablecacheEvent',$event)"></fc-radio>
                 </div>
                 <fc-textarea fccontent1 fcLabel="备注" [(ngModel)]="mainObj.REMARK" name="REMARK"></fc-textarea>
                 <div fccontent1 class="sys-tab">请输入少于200字</div>
@@ -196,4 +196,27 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent  {
       this.visible = false;
     }
    }
+          /**
+* 组件事件收集
+* @param type 字符串命名
+* @param ev 事件传过来的参数
+*/
+componentEvents(type: string, ev: any) {
+  switch (type) {
+    case 'ruletypeEvent':
+    this.mainObj.APPID = ev;
+    break;
+    case 'enableEvent':
+    this.mainObj.ENABLE = ev;
+    break;
+     //相对位置单选按钮
+     case 'viewpositionEvent':
+     this.mainObj.VIEWPOSITION = param;
+     break;
+      //关系缓存单选按钮
+     case 'enablecacheEvent':
+     this.mainObj.ENABLECACHE = param;
+     break;
+  }
+}
 }
