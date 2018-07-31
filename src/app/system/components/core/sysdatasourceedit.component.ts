@@ -6,6 +6,9 @@ import { NzModalService } from 'ng-zorro-antd';
 import { chooseicondialogComponent } from './dialog/chooseicondialog.component';
 import { SysicondialogComponent } from './dialog/sysicondialog.component';
 import { ObjStatus } from 'fccore';
+import { SysappmodaleventdialogComponent } from './dialog/sysappmodaleventdialog.component';
+import { SysappmodalrelationdialogComponent } from './dialog/sysappmodalrelationdialog.component';
+import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.component';
 @Component({
   selector: 'sysdatasource',
   templateUrl: './sysdatasourceedit.component.html',
@@ -70,7 +73,7 @@ import { ObjStatus } from 'fccore';
     text-align: center;
     position: absolute;
     top: 3%;
-    left: 42%;
+    left: 47.5%;
     z-index: 999;
     cursor: pointer;
   }
@@ -174,7 +177,7 @@ afterSave() {
     * @param event  
     */
    iconEvent(envet) {
-    this.mainService.producticonmodal(SysicondialogComponent).subscribe(obj => {
+    this.mainService.producticonmodal('字体图标',SysicondialogComponent).subscribe(obj => {
         if (obj.DICVALUE !== undefined) {
           this.mainObj.ICON = obj.DICVALUE
           this.visible = false;
@@ -248,8 +251,6 @@ applistEvent(event) {
 componentEvents(type: string, ev: any) {
   switch (type) {
     case 'ruleaddEvent':
-    //   this.datasouceany = ev
-    //  this.mainObj.PID = this.datasouceany; 
     this.mainObj.PID = ev;
       break;
     case 'ruletypeEvent':
@@ -263,4 +264,13 @@ componentEvents(type: string, ev: any) {
   strfun(){
     [this.mainObj.PID,this.mainObj.DSID] = (this.mainObj.PID+this.mainObj.DSID).replace(/(.+)(.+)\1/, '$2\n').split('\n')
   }
+  testmodal(){
+    this.mainService.producticonmodal('模型事件',SysappmodaleventdialogComponent)
+  }  
+  testmodal2(){
+    this.mainService.producticonmodal('模型关系',SysappmodalrelationdialogComponent)
+  } 
+  testmodal3(){
+    this.mainService.producticonmodal('参数配置',SysservicemodaldialogComponent)
+  }   
 }

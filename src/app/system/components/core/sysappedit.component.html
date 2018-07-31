@@ -107,7 +107,7 @@
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="listAdd($event);">
+            <nz-card (click)="addModelEvent($event);">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增模型事件</p>
@@ -189,7 +189,7 @@
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="addModelInterface($event);">
+            <nz-card (click)="addModelInterface();">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增模型接口</p>
@@ -268,7 +268,7 @@
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="listAdd($event);">
+            <nz-card (click)="addModelRelation();">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增模型关系</p>

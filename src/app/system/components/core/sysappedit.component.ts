@@ -4,6 +4,7 @@ import { SysappService } from '../../services/sysapp.service';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ParentEditComponent } from 'fccomponent/parentedit.component';
 import { FCEVENT } from 'fccomponent/fc';
+import { SysappmodaleventdialogComponent } from './dialog/sysappmodaleventdialog.component';
 @Component({
   selector: 'sysappedit',
   templateUrl: `sysappedit.component.html`,
@@ -328,9 +329,34 @@ export class SysappeditComponent extends ParentEditComponent {
 
   }
   /** 
+   *新增模型事件卡片
+   *@param event 
+   */
+  addModelEvent(event:FCEVENT) {
+    this.modal.open({
+      title: '模型的事件',
+      content: SysappmodaleventdialogComponent,
+      onOk() { },
+      onCancel() { },
+      footer: false,
+      componentParams: {
+        //  把options对象传值给弹窗
+        options: event
+      }
+    }).subscribe(result => {
+      // result为弹窗返回的值
+    });
+  }
+  /** 
    *新增模型接口卡片
    */
   addModelInterface() {
     this.navRouter('/system/sysinterfaceEdit', { refresh: 'Y', PID: this.mainObj.PID })
+  }
+  /** 
+   *新增模型关系卡片
+   */
+  addModelRelation() {
+
   }
 }

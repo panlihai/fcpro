@@ -114,6 +114,12 @@ import { SysviewelementService } from './services/sysviewelement.service';
 import { SysserviceComponent } from './components/core/sysservice.component';
 import { SysappmodaleventdialogComponent } from './components/core/dialog/sysappmodaleventdialog.component';
 import { MenueditdialogComponent } from './components/core/dialog/menueditdialog.component';
+import { SysappmodalrelationdialogComponent } from './components/core/dialog/sysappmodalrelationdialog.component';
+import { SysappbuttonsService } from './services/sysappbuttons.service';
+import { SysapplinksService } from './services/sysapplinks.service';
+import { SysservicemodaldialogComponent } from './components/core/dialog/sysservicemodaldialog.component';
+import { SysintfreqparamService } from './services/sysintfreqparam.service';
+import { SysservicebackdialogComponent } from './components/core/dialog/sysservicebackdialog.component';
 
 @NgModule({
   entryComponents: [
@@ -139,7 +145,10 @@ import { MenueditdialogComponent } from './components/core/dialog/menueditdialog
     SysbizcoderuledialogComponent,
     DialogCardListComponent,
     SysappmodaleventdialogComponent,
-    MenueditdialogComponent
+    MenueditdialogComponent,
+    SysappmodalrelationdialogComponent,
+    SysservicemodaldialogComponent,
+    SysservicebackdialogComponent
   ],
   imports: [
     CommonModule,
@@ -232,7 +241,10 @@ import { MenueditdialogComponent } from './components/core/dialog/menueditdialog
     SysviewelementeditComponent,
     SysserviceComponent,
     SysappmodaleventdialogComponent,
-    MenueditdialogComponent
+    MenueditdialogComponent,
+    SysappmodalrelationdialogComponent,
+    SysservicemodaldialogComponent,
+    SysservicebackdialogComponent
   ],
   providers: [
     LayoutService,
@@ -284,7 +296,10 @@ import { MenueditdialogComponent } from './components/core/dialog/menueditdialog
     SysiconService,
     SysinterfaceService,
     SysviewService,
-    SysviewelementService
+    SysviewelementService,
+    SysappbuttonsService,
+    SysapplinksService,
+    SysintfreqparamService
   ]
 })
 export class SystemModule {
