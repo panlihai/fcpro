@@ -140,7 +140,8 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
   }
   @Input()
   set options(option: any) {
-    this.content = option.APPID + option.APPNAME;
+    //CONTENT值换成子要显示出来的英文-中文字段
+    this.content = option.APPID + option.BTNNAME;
     this.mainObj.APPID = this.options.APPID;
   }
   event(eventName: string, param: any): void {

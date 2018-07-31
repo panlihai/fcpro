@@ -114,6 +114,7 @@ import { SysicondialogComponent } from './sysicondialog.component';
   `]
 })
 export class SysappmodalrelationdialogComponent extends ParentEditComponent  {
+  content:any;
     //图标属性显示字还是图标
    visible: boolean;
      //依赖产品下拉属性
@@ -143,7 +144,9 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent  {
     }
     @Input()
     set options(option: any) {
-      this.mainObj.MAINAPP= option
+      //CONTENT值换成子要显示出来的英文-中文字段
+      this.content = option.MAINAPP + option.APPNAME;
+      this.mainObj.MAINAPP = this.options.APPID;
     }
     event(eventName: string, param: any): void {
         switch (eventName) {
