@@ -117,17 +117,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class SysappmodaleventdialogComponent extends ParentEditComponent {
   //图标属性显示字还是图标
   visible: boolean;
-  constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService,
-    public router: Router,
-    public activeRoute: ActivatedRoute) {
-    super(mainService, router, activeRoute);
-  }
-  init(): void {
-    //初始化加载图标判断是否有图标
-    this.productIcon()
-  }
-  addNew(mainObj: any): boolean {
-    return true;
+  mainObj={
+     APPPID:'',
+      BTNCODE:'',
+      BTNNAME:'',
+      ACTCODE:'',
+      ENABLE:'',
+      SORT:'',
+      BTNICON: '',
+      BTNTYPE :'',
+      ALLOWTYPE :'',
+      HELP :'',
+      ALOWTYPE:''
   }
   @Input()
   set options(option: any) {
@@ -142,6 +143,19 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
       this.mainObj.ALLOWTYPE = option.ALLOWTYPE,
       this.mainObj.HELP = option.HELP
   }
+  constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService,
+    public router: Router,
+    public activeRoute: ActivatedRoute) {
+    super(mainService, router, activeRoute);
+  }
+  init(): void {
+    //初始化加载图标判断是否有图标
+   /*  this.productIcon() */
+  }
+  addNew(mainObj: any): boolean {
+    return true;
+  }
+  
   event(eventName: string, param: any): void {
     switch (eventName) {
       //图标弹窗
@@ -170,7 +184,7 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
         this.mainObj.BTNTYPE = param;
         break;
       case 'allowtypeEvent':
-        this.mainObj.ALOWTYPE = param;
+        this.mainObj.ALLOWTYPE = param;
         break;
     }
   }

@@ -336,6 +336,7 @@ export class SysappeditComponent extends ParentEditComponent {
     this.modal.open({
       title: '模型的事件',
       content: SysappmodaleventdialogComponent,
+      width:'90%',
       onOk() { },
       onCancel() { },
       footer: false,
@@ -343,9 +344,7 @@ export class SysappeditComponent extends ParentEditComponent {
         //  把options对象传值给弹窗
         options: event
       }
-    }).subscribe(result => {
-      // result为弹窗返回的值
-    });
+    })
   }
   /** 
    *新增模型接口卡片

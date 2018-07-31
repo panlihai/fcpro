@@ -116,7 +116,7 @@
         </div>
         <!-- 模型事件循环 -->
         <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let event of sysEvents">
-            <nz-card (click)="listEdit(event);">
+            <nz-card (click)="editModelEvent(event);">
                 <ng-template #body>
                     <div class="sys-card-content">
                         <!-- 操作按钮 -->
