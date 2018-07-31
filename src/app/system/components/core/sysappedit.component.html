@@ -80,22 +80,13 @@
                             <li>3APPID-元数据编码</li>
                         </ul>
                     </li>
-                    <li>
-                        <span>T:</span>
-                        <span>元数据-SYSAPP</span>
-                        <ul>
-                            <li>1APPID-元数据编码</li>
-                            <li>2APPID-元数据编码</li>
-                            <li>3APPID-元数据编码</li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
         </div>
         <div class="widthCovered" [ngClass]="{'attributeRight':displayMode===true}">
-            <div class="addAttribute">+添加</div>
+            <div class="addAttribute" (click)="addAttributeAdd()">+添加</div>
             <fc-list fcAppid="SYSAPPFIELDS" [fcFieldCode]="'FIELDCODE'" [fcCondition]="condition" fcIcon="fc-icon-picture" fcSubTitleCode="FIELDNAME"
-                fcStatusCode='FIELDNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}">
+                fcStatusCode='FIELDNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}" (fcEvent)="attributeEditEvent($event)">
             </fc-list>
         </div>
     </div>

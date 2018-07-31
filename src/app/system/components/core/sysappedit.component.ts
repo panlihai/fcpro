@@ -274,6 +274,7 @@ export class SysappeditComponent extends ParentEditComponent {
    * @param  DATASOURCE(数据源)
    */
   selectAttribute(DATASOURCE) {
+    //显示左侧模型
     this.displayMode = true;
     //根据数据源获取模型字段配置
     this.mainService.getModelOption(this.mainObj.DATASOURCE).subscribe(res => {
@@ -284,11 +285,12 @@ export class SysappeditComponent extends ParentEditComponent {
         });
       }
     });
-    /* this.datasourceOption.forEach(ele => {
+    //根据当前多选框内的数据
+    this.datasourceOption.forEach(ele => {
       if (ele.value === DATASOURCE) {
         this.DSID = ele.value;
       }
-    }) */
+    })
   }
   /**
    * 选择模型
@@ -297,5 +299,20 @@ export class SysappeditComponent extends ParentEditComponent {
   modelEvents(value) {
 
     this.mainService.getModelField(value);
+  }
+  /** 
+   *编辑属性
+   */
+  attributeEditEvent(ev: FCEVENT) {
+    switch (ev.eventName) {
+      case "listEdit":
+        break;
+    }
+  }
+   /** 
+   *新增属性
+   */
+  addAttributeAdd(){
+
   }
 }
