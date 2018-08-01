@@ -6,20 +6,23 @@ import { SysproductService } from './sysproduct.service';
 import { SysdatasourceService } from './sysdatasource.service';
 import { TreeOptions } from 'fccomponent';
 import { element } from 'protractor';
+import { SysappmodaleventdialogComponent } from '../components/core/dialog/sysappmodaleventdialog.component';
+import { NzModalSubject, NzModalService } from 'ng-zorro-antd';
 @Injectable()
 export class SysappService extends ParentService {
   constructor(public providers: ProvidersService,
     public sysappFielsService: SysappfieldsService,
     public sysproductService: SysproductService,
-    public sysdatasourceService: SysdatasourceService) {
+    public sysdatasourceService: SysdatasourceService,
+    private modal: NzModalService, ) {
     super(providers, "SYSAPP");
     this.listOptions.fcAutoSave = true;
     this.listOptions.fcEnableEdit = true;
     this.listOptions.fcShowToolPanel = false;
     this.listOptions.fcPagination = false;
   }
-   //树配置
-   treeOptions: TreeOptions = {
+  //树配置
+  treeOptions: TreeOptions = {
     //元数据id
     fcAppid: "SYSMENU",//元数据id
     //树结构节点显示内容
@@ -44,7 +47,7 @@ export class SysappService extends ParentService {
     fcShowLine: true,
     //是否可拖拽
     fcAllowDrag: true
-};
+  };
   modifyAppFieldsName() {
     let ob = this.providers.daoService.getFromApi(this.getResourceUrl("modifyFieldsName"), {});
     ob.subscribe(result => {
@@ -87,43 +90,63 @@ export class SysappService extends ParentService {
   * @param appid 
   */
   getSysAttributes(appid) {
-    return this.appService.findWithQuery('SYSAPPFIELDS', {APPID:appid});
+    return this.appService.findWithQuery('SYSAPPFIELDS', { APPID: appid });
   }
   /**
   * 根据appid获取模型事件数据
   * @param appid 
   */
- getSysEvents(appid) {
-    return this.appService.findWithQuery('SYSAPPBUTTONS', {APPID:appid});
+  getSysEvents(appid) {
+    return this.appService.findWithQuery('SYSAPPBUTTONS', { APPID: appid });
   }
   /**
    * 根据appid获取模型接口数据
    * @param appid 
    */
   getSysInterfaces(appid) {
-    return this.appService.findWithQuery('SYSINTERFACE', {APPID:appid})
+    return this.appService.findWithQuery('SYSINTERFACE', { APPID: appid })
   }
   /**
    * 根据appid获取与其它模型关系数据
    * @param appid 
    */
   getSysLinks(appid) {
-    return this.appService.findWithQuery('SYSAPPLINKS', {MAINAPP:appid})
+    return this.appService.findWithQuery('SYSAPPLINKS', { MAINAPP: appid })
   }
-   /**
-   * 获取模型配置
-   * @param dsid 
-   */
-  getModelOption(dsid:string,pid:string){
-    return this.providers.daoService.getFromApi(this.commonService.getUrlBy(this.moduleId,'SYSMODEL',"findTableViewByDsid"),{DSID:dsid,PRODUCTID:pid})
-    
+  /**
+  * 获取模型配置
+  * @param dsid 
+  */
+  getModelOption(dsid: string, pid: string) {
+    return this.providers.daoService.getFromApi(this.commonService.getUrlBy(this.moduleId, 'SYSMODEL', "findTableViewByDsid"), { DSID: dsid, PRODUCTID: pid })
+
   }
   /**
    * 获取模型字段
    * @param tableNames
    * @param dsid 
    */
-  getModelField(tableNames:string,dsid:string,pid:string){ 
-    return this.providers.daoService.getFromApi(this.commonService.getUrlBy(this.moduleId,'SYSMODEL',"findFieldByTablenames"),{DSID:dsid,PRODUCTID:'SYSTEM',TABLENAMES:tableNames})
- }
+  getModelField(tableNames: string, dsid: string, pid: string) {
+    return this.providers.daoService.getFromApi(this.commonService.getUrlBy(this.moduleId, 'SYSMODEL', "findFieldByTablenames"), { DSID: dsid, PRODUCTID: 'SYSTEM', TABLENAMES: tableNames })
+  }
+  /** 
+    *弹窗事件
+    *@param event 
+    *@param title
+    *@param content 
+    */
+   WindowEvent(param: any, title, content) {
+    return this.modal.open({
+      title: title,
+      content: content,
+      width: '60%',
+      onOk() { },
+      onCancel() { },
+      footer: false,
+      componentParams: {
+        //把options对象传值给弹窗
+        options: param,
+      }
+    })
+  }
 }

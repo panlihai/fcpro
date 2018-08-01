@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentEditComponent } from 'fccomponent';
 import { SysinterfaceService } from '../../services/sysinterface.service';
+import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.component';
+import { SysservicebackdialogComponent } from './dialog/sysservicebackdialog.component';
 @Component({
     selector: 'sysinterfaceedit',
     templateUrl: 'sysinterfaceedit.component.html',
@@ -128,22 +130,26 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
     /**
     * 获取参数配置数据
     */
-    getParameters(){
-        this.mainService.getParameters().subscribe(res=>{
-            if(res.CODE==='0'){
+    getParameters() {
+        this.mainService.getParameters().subscribe(res => {
+            if (res.CODE === '0') {
                 console.log(res.DATA);
-            }else{
+            } else {
                 this.mainService.providers.msgService.error('获取参数配置失败');
             }
         })
     }
-    
+
     /**
-    * 新增产品,新增参数弹窗
+    * 新增参数配置
     */
-    
+    addParameter() {
+        this.mainService.addWindow('参数配置-编辑', SysservicemodaldialogComponent);
+    }
     /**
-    * 新增产品,新增返回值弹窗
-    */
-    
+   * 新增返回值
+   */
+    addReturnValue() {
+        this.mainService.addWindow('返回值配置-编辑', SysservicebackdialogComponent);
+    }
 }

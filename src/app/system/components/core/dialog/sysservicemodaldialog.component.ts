@@ -22,13 +22,13 @@ import { SysintfreqparamService } from '../../../services/sysintfreqparam.servic
                      <fc-text [fcLabel]="'参数编码'" fcPlaceHolder="请选择默认模型" [(ngModel)]="mainObj.PARAMNAME" name="PARAMNAME"></fc-text>
                      <div fccontent1 class="sys-tab">默认模型</div>
                      <fc-radio [(ngModel)]="mainObj.PARAMTYPE" fcLabel="参数类型" [fcAppid]="appId" fcFieldCode="PARAMTYPE" fcLabelCode="DICDESC"
-                     fcValueCode="DICVALUE" name="PARAMTYPE"  (ngModelChange)="event('paramtypeEvent')"></fc-radio>
+                     fcValueCode="DICVALUE" name="PARAMTYPE"  (ngModelChange)="componentEvents('paramtypeEvent',$event)"></fc-radio>
                      <div fccontent1 class="sys-tab">条件参数：自动作为条件；头部参数及数据参数：接口内部代码获取，统一在paramBean中获取</div>
                      <fc-radio [(ngModel)]="mainObj.VALUETYPE" fcLabel="值类型" [fcAppid]="appId" fcFieldCode="VALUETYPE" fcLabelCode="DICDESC"
-                     fcValueCode="DICVALUE" name="VALUETYPE" (ngModelChange)="event('valuetypeEvent')"></fc-radio>
+                     fcValueCode="DICVALUE" name="VALUETYPE" (ngModelChange)="componentEvents('valuetypeEvent',$event)"></fc-radio>
                      <div fccontent1 class="sys-tab">默认为启用</div>
                      <fc-radio [(ngModel)]="mainObj.ISNULL" fcLabel="是否必填" [fcAppid]="appId" fcFieldCode="ISNULL" fcLabelCode="DICDESC"
-                     fcValueCode="DICVALUE" name="ISNULL" (ngModelChange)="event('isnullEvent')"></fc-radio>
+                     fcValueCode="DICVALUE" name="ISNULL" (ngModelChange)="componentEvents('isnullEvent',$event)"></fc-radio>
                      <div fccontent1 class="sys-tab">默认为可以为空字符串</div>
                  </div>
                  <fc-textarea fccontent1 fcLabel="备注"  [(ngModel)]="mainObj.REMARK"  fcPlaceHolder="填写帮助内容" name="REMARK"></fc-textarea>
@@ -125,4 +125,25 @@ export class SysservicemodaldialogComponent extends ParentEditComponent   {
         break;
     }
   } 
+         /**
+* 组件事件收集
+* @param type 字符串命名
+* @param ev 事件传过来的参数
+*/
+componentEvents(type: string, ev: any) {
+  switch (type) {
+   //参数类型
+   case 'paramtypeEvent':
+   this.mainObj.PARAMTYPE = ev
+   break;
+   //值类型
+   case 'valuetypeEvent':
+   this.mainObj.VALUETYPE = ev
+   break;
+   //是否必填
+   case 'isnullEvent':
+   this.mainObj.ISNULL = ev
+   break;
+  }
+}
 }

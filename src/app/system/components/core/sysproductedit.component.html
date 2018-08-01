@@ -28,7 +28,7 @@
           <div fccontent1  *ngIf = "relyproduct">
               <!-- <fc-text  fccontent [(ngModel)]="mainObj.PARENTPID" fcPlaceHolder="依赖产品输入"  name="PARENTPID"  fcLabel="依赖产品"></fc-text>           -->
               <fc-combo fccontent fcLabel="依赖产品输入"  [fcOption]="scomDataItemOptions"  [(ngModel)]="mainObj.PARENTPID"
-                name="PARENTPID"  (ngModelChange)="event('ruleaddEvent')" ></fc-combo>
+                name="PARENTPID"  (ngModelChange)="componentEvents('ruleaddEvent',$event)" ></fc-combo>
             <div fccontent class="sys-totip">可以依赖产品继承菜单</div>
           </div>        
           <fc-layoutcol fccontent1  fcSpans="1,1" >

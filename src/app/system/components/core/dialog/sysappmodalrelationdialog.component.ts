@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { NzModalSubject, NzModalService } from 'ng-zorro-antd';
 import { SysbizcodedefineService } from '../../../services/sysbizcodedefine.service';
 import { forEach } from '@angular/router/src/utils/collection';
@@ -18,12 +18,12 @@ import { SysicondialogComponent } from './sysicondialog.component';
              <fc-title fcLabel="基本信息" fcWidth="96%" fcheader  [fcHasLine]="false"></fc-title>
              <fc-layoutcol fcSpans="1,0" fccontent>
                  <div fccontent1>
-                    <fc-text [fcLabel]="'主模型名称'" fcReadonly="true" [(ngModel)]="mainObj.MAINAPP" name="MAINAPP"></fc-text>
+                    <fc-text [fcLabel]="'主模型名称'" fcReadonly="true" [(ngModel)]="content" name="MAINAPP"></fc-text>
                      <fc-text [fcLabel]="'关系名称'" fcPlaceHolder="请输入关系的中文描述"   [(ngModel)]="mainObj.LINKNAME" 
                      name="LINKNAME"></fc-text>
                      <div class="sys-tab">与其关系名称，中文，如，元数据的属性</div>
                      <fc-any  fcLabel="子模型名称"  [fcOption]="scomDataItemOptions"   fcPlaceHolder="请输入中文" 
-                     [(ngModel)]="mainObj.ITEMAPP" (ngModelChange)="event('ruletypeEvent')" name="ITEMAPP"></fc-any>
+                     [(ngModel)]="mainObj.ITEMAPP" (ngModelChange)="componentEvents('ruletypeEvent',$event)" name="ITEMAPP"></fc-any>
                      <div class="sys-tab">被关联的模型名称</div>
                      <fc-text [fcLabel]="'关联条件'" fcPlaceHolder="请输入sql条件，带and"   [(ngModel)]="mainObj.LINKFILTER" 
                      name="	LINKFILTER"></fc-text>
@@ -33,7 +33,7 @@ import { SysicondialogComponent } from './sysicondialog.component';
              <fc-layoutcol fcSpans="1,1" fccontent>
                 <div fccontent1 style="margin-left:34%;">
                 <fc-radio [(ngModel)]="mainObj.ENABLE" fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC"
-                fcValueCode="DICVALUE" name="ENABLE"  (ngModelChange)="event('enableEvent')"></fc-radio>
+                fcValueCode="DICVALUE" name="ENABLE"  (ngModelChange)=" componentEvents('enableEvent',$event)"></fc-radio>
                 </div>
                 <div fccontent2>
                     <fc-long  fcFieldCode="SORTBY" [(ngModel)]="mainObj.SORTBY" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORTBY"></fc-long>
@@ -51,10 +51,10 @@ import { SysicondialogComponent } from './sysicondialog.component';
                 </div>
                 <div fccontent1 style="margin-top:5px;">
                     <fc-radio [(ngModel)]="mainObj.VIEWPOSITION" fcLabel="相对位置" [fcAppid]="appId" fcFieldCode="VIEWPOSITION" fcLabelCode="DICDESC"
-                    fcValueCode="DICVALUE" name="VIEWPOSITION"  (ngModelChange)="event('viewpositionEvent')"></fc-radio>
+                    fcValueCode="DICVALUE" name="VIEWPOSITION"  (ngModelChange)="componentEvents('viewpositionEvent',$event)"></fc-radio>
                     <div class="sys-tab">与主模型的相对位置，并排，并列，并列后并排的相对位置</div>
                     <fc-radio [(ngModel)]="mainObj.ENABLECACHE" fcLabel="关联缓存" [fcAppid]="appId" fcFieldCode="ENABLECACHE" fcLabelCode="DICDESC"
-                    fcValueCode="DICVALUE" name="ENABLECACHE"  (ngModelChange)="event('enablecacheEvent')"></fc-radio>
+                    fcValueCode="DICVALUE" name="ENABLECACHE"  (ngModelChange)="componentEvents('enablecacheEvent',$event)"></fc-radio>
                 </div>
                 <fc-textarea fccontent1 fcLabel="备注" [(ngModel)]="mainObj.REMARK" name="REMARK"></fc-textarea>
                 <div fccontent1 class="sys-tab">请输入少于200字</div>
@@ -113,87 +113,96 @@ import { SysicondialogComponent } from './sysicondialog.component';
   }
   `]
 })
-export class SysappmodalrelationdialogComponent extends ParentEditComponent  {
-    //图标属性显示字还是图标
-   visible: boolean;
-     //依赖产品下拉属性
-   scomDataItemOptions: any;
-    constructor(private modal: NzModalSubject,
-        public mainService: SysapplinksService,
-        public router: Router,
-        public activeRoute: ActivatedRoute) {
-       super(mainService, router, activeRoute);
-     }
-    init(): void {
-       //初始化加载图标判断是否有图标
-       this.productIcon()
-       this.mainService.applinksall().subscribe(result =>{
-        this.scomDataItemOptions=[];
-            result.DATA.forEach(el =>{
-            let obj : any = {};
-            obj.label = el.APPID+'-'+el.APPNAME;
-            obj.value = el.APPID+'-'+el.APPNAME;
-            obj.disabled = false;
-            this.scomDataItemOptions.push(obj)   
-        } )
-       }) 
+export class SysappmodalrelationdialogComponent extends ParentEditComponent{
+  //图标属性显示字还是图标
+  visible: boolean;
+  //依赖产品下拉属性
+  scomDataItemOptions: any;
+  content:any;
+  @Input()
+  set options(option: any) {
+    this.mainObj = option;
+    this.content = option.MAINAPP + "-" + option.LINKNAME;
+  }
+  constructor(private modal: NzModalSubject,
+    public mainService: SysapplinksService,
+    public router: Router,
+    public activeRoute: ActivatedRoute) {
+    super(mainService, router, activeRoute);
+  }
+  init(): void {
+    //初始化加载图标判断是否有图标
+    this.mainService.applinksall().subscribe(result => {
+      this.scomDataItemOptions = [];
+      result.DATA.forEach(el => {
+        let obj: any = {};
+        obj.label = el.APPID + '-' + el.APPNAME;
+        obj.value = el.APPID + '-' + el.APPNAME;
+        obj.disabled = false;
+        this.scomDataItemOptions.push(obj)
+      })
+    })
+    // this.productIcon();
+  }
+  addNew(mainObj: any): boolean {
+    return true;
+  }
+  event(eventName: string, param: any): void {
+    switch (eventName) {
+      //图标弹窗
+      case 'iconEvent':
+        this.mainService.producticonmodal('字体图标', SysicondialogComponent).subscribe(obj => {
+          if (obj.DICVALUE !== undefined) {
+            this.mainObj.ICON = obj.DICVALUE
+            this.visible = false;
+          }
+        })
+        break;
+      //保存按钮
+      case 'emitDataOutside':
+        this.cardSave(param);
+        break;
+      //删除字体图标X
+      case 'deleticonEvent':
+        this.mainObj.ICON = "";
+        this.visible = true;
+        event.stopPropagation()
+        break;
     }
-    addNew(mainObj: any): boolean {
-        return true;
-    }
-    @Input()
-    set options(option: any) {
-      this.mainObj.MAINAPP= option
-    }
-    event(eventName: string, param: any): void {
-        switch (eventName) {
-          //图标弹窗
-          case 'iconEvent':
-          this.mainService.producticonmodal('字体图标',SysicondialogComponent).subscribe(obj => {
-            if (obj.DICVALUE !== undefined) {
-                this.mainObj.ICON = obj.DICVALUE
-                this.visible = false;
-              }
-            })
-          break;
-          //保存按钮
-          case 'emitDataOutside':
-          this.cardSave(param);
-          break;
-          //删除字体图标X
-          case 'deleticonEvent':
-          this.mainObj.ICON = "";
-          this.visible = true;
-          event.stopPropagation()
-          break;
-          //子表模型下拉数据
-          case 'ruletypeEvent':
-          this.mainObj.APPID = param;
-          break;
-           //是否启用单选按钮
-          case 'enableEvent':
-          this.mainObj.ENABLE = param;
-          break;
-           //相对位置单选按钮
-          case 'viewpositionEvent':
-          this.mainObj.VIEWPOSITION = param;
-          break;
-           //关系缓存单选按钮
-          case 'enablecacheEvent':
-          this.mainObj.ENABLECACHE = param;
-          break;
-        }
-      }
-     /**
-  *  ICON如果等于空visible显示（文字请选择图片）
-  * ICON如果不等于空visible不显示（文字请选择图片不显示）
-  * @param event  
-  */
-   productIcon(){
+  }
+  /**
+*  ICON如果等于空visible显示（文字请选择图片）
+* ICON如果不等于空visible不显示（文字请选择图片不显示）
+* @param event  
+*/
+  productIcon() {
     if (this.mainObj.ICON === "") {
       this.visible = true;
     } else {
       this.visible = false;
     }
-   }
+  }
+  /**
+* 组件事件收集
+* @param type 字符串命名
+* @param ev 事件传过来的参数
+*/
+  componentEvents(type: string, ev: any) {
+    switch (type) {
+      case 'ruletypeEvent':
+        this.mainObj.MAINAPP = ev;
+        break;
+      case 'enableEvent':
+        this.mainObj.ENABLE = ev;
+        break;
+      //相对位置单选按钮
+      case 'viewpositionEvent':
+        this.mainObj.VIEWPOSITION = ev;
+        break;
+      //关系缓存单选按钮
+      case 'enablecacheEvent':
+        this.mainObj.ENABLECACHE = ev;
+        break;
+    }
+  }
 }

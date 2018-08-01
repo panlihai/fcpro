@@ -5,6 +5,8 @@ import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ParentEditComponent } from 'fccomponent/parentedit.component';
 import { FCEVENT } from 'fccomponent/fc';
 import { SysappmodaleventdialogComponent } from './dialog/sysappmodaleventdialog.component';
+import { SysappmodalrelationdialogComponent } from './dialog/sysappmodalrelationdialog.component';
+import { SysattributeEditdialogComponent } from './dialog/sysattributeEditdialog.component';
 @Component({
   selector: 'sysappedit',
   templateUrl: `sysappedit.component.html`,
@@ -63,7 +65,7 @@ import { SysappmodaleventdialogComponent } from './dialog/sysappmodaleventdialog
     width:60%;
   }
   .addAttribute {
-    width: 70%;
+    width: 100%;
     height: 30px;    
     border: 1px dashed #d9d9d9;
     color:#d9d9d9;
@@ -233,50 +235,11 @@ export class SysappeditComponent extends ParentEditComponent {
       })
     }
   }
-  /**
-   * 获取模型事件-数据
-   * @param appid 
-   */
-  getSysEvents(appid) {
-    this.mainService.getSysEvents(appid).subscribe(res => {
-      if (res.CODE === '0') {
-        this.sysEvents = res.DATA;
-      } else {
-        this.messageService.error('模型事件获取失败');
-      }
-    });
-  }
-  /**
-   * 获取模型接口-数据
-   * @param appid 
-   */
-  getSysInterfaces(appid) {
-    this.mainService.getSysInterfaces(appid).subscribe(res => {
-      if (res.CODE === '0') {
-        this.sysInterfaces = res.DATA;
-      } else {
-        this.messageService.error('模型接口获取失败');
-      }
-    });
-  }
-  /**
-   * 获取模型关系-数据
-   * @param appid 
-   */
-  getSysLinks(appid) {
-    this.mainService.getSysLinks(appid).subscribe(res => {
-      if (res.CODE === '0') {
-        this.sysLinks = res.DATA;
-      } else {
-        this.messageService.error('模型关系获取失败');
-      }
-    });
-  }
-  /**
+  /**模型-属性
    * 从现有模型中选择属性
    * @param  DATASOURCE(数据源)
    */
-  selectAttribute(DATASOURCE) {
+  selectAttribute(DATASOURCE:any) {
     //显示左侧模型
     this.displayMode = true;
     //根据数据源获取模型配置
@@ -285,14 +248,8 @@ export class SysappeditComponent extends ParentEditComponent {
         this.modelOption = res.DATA;
       }
     });
-    //根据当前多选框内的数据
-    /*  this.datasourceOption.forEach(ele => {
-       if (ele.value === DATASOURCE) {
-         this.DSID = ele.value;
-       }
-     }) */
   }
-  /**
+  /**模型-属性
    * 选择模型
    * @param  tableObjs
    */
@@ -314,37 +271,65 @@ export class SysappeditComponent extends ParentEditComponent {
     });
   }
   /** 
+  * 模型-属性
+  *列表里面新增属性
+  *@param  ev
+  */
+  addAttributeAdd(ev) {
+    this.mainService.WindowEvent(ev, '属性-编辑', SysattributeEditdialogComponent);
+  }
+  /** 
+   * 模型-属性
    *列表里面编辑属性
+   *@param  ev
    */
   attributeEditEvent(ev: FCEVENT) {
     switch (ev.eventName) {
       case "listEdit":
+      this.mainService.WindowEvent(ev.param, '属性-编辑', SysattributeEditdialogComponent);
         break;
     }
   }
-  /** 
-  *列表里面新增属性
-  */
-  addAttributeAdd() {
-
+  /**
+   * 获取模型事件-数据
+   * @param appid 
+   */
+  getSysEvents(appid) {
+    this.mainService.getSysEvents(appid).subscribe(res => {
+      if (res.CODE === '0') {
+        this.sysEvents = res.DATA;
+      } else {
+        this.messageService.error('模型事件获取失败');
+      }
+    });
   }
   /** 
    *新增模型事件卡片
+   * 
+   */
+  addModelEvent(event: FCEVENT) {
+    this.mainService.WindowEvent(event, '模型事件', SysappmodaleventdialogComponent);
+  }
+  
+  /** 
+   *编辑模型事件卡片
    *@param event 
    */
-  addModelEvent(event:FCEVENT) {
-    this.modal.open({
-      title: '模型的事件',
-      content: SysappmodaleventdialogComponent,
-      width:'90%',
-      onOk() { },
-      onCancel() { },
-      footer: false,
-      componentParams: {
-        //  把options对象传值给弹窗
-        options: event
+  editModelEvent(event:Object) {
+    this.mainService.WindowEvent(event, '模型事件', SysappmodaleventdialogComponent);
+  }
+  /**
+   * 获取模型接口-数据
+   * @param appid 
+   */
+  getSysInterfaces(appid) {
+    this.mainService.getSysInterfaces(appid).subscribe(res => {
+      if (res.CODE === '0') {
+        this.sysInterfaces = res.DATA;
+      } else {
+        this.messageService.error('模型接口获取失败');
       }
-    })
+    });
   }
   /** 
    *新增模型接口卡片
@@ -352,10 +337,31 @@ export class SysappeditComponent extends ParentEditComponent {
   addModelInterface() {
     this.navRouter('/system/sysinterfaceEdit', { refresh: 'Y', PID: this.mainObj.PID })
   }
+  /**
+   * 获取模型关系-数据
+   * @param appid 
+   */
+  getSysLinks(appid) {
+    this.mainService.getSysLinks(appid).subscribe(res => {
+      if (res.CODE === '0') {
+        this.sysLinks = res.DATA;
+      } else {
+        this.messageService.error('模型关系获取失败');
+      }
+    });
+  }
   /** 
    *新增模型关系卡片
+   *@param event 
    */
-  addModelRelation() {
-
+  addModelRelation(event: FCEVENT) {
+    this.mainService.WindowEvent(event, '模型关系', SysappmodalrelationdialogComponent);
+  }
+  /** 
+   *编辑模型关系卡片
+   *@param event 
+   */
+  editModelRelation(event:Object) {
+    this.mainService.WindowEvent(event, '模型关系', SysappmodalrelationdialogComponent);
   }
 }

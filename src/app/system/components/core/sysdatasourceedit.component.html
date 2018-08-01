@@ -12,11 +12,11 @@
                     </P>
                     <div class="sys-card-fast">
                         <ul class="sys-fast-list">
-                            <li  (click)="servicelistEvent($event)"  *ngIf = "topbutton">
+                            <li  (click)="event('servicelistEvent')"  *ngIf = "topbutton">
                                     <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>查看服务</li>
-                            <li (click)="applistEvent($event)" *ngIf = "topbutton">
+                            <li (click)="event('applistEvent')" *ngIf = "topbutton">
                                     <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"  ></fc-icon>查看模型</li>
-                            <li  (click)="backToList($event)">
+                            <li  (click)="event('backToList')">
                                 <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>返回列表</li>
                             <li  (click)="testmodal($event)">
                                     <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>模型元数据事件</li>  
@@ -54,7 +54,7 @@
                     <!-- 数据源信息 -->
                     <fc-layoutcol fcSpans="1,1">
                         <fc-title fccontent1  fcLabel="数据源信息" [fcHasLine]="false"></fc-title>
-                        <fc-any fccontent1 fcLabel="数据源类型"  (ngModelChange)="componentEvents('ruletypeEvent',$event)" [fcAppid]="appId" fcFieldCode="DSTYPE" [(ngModel)]="mainObj.DSTYPE" fcLabelCode="DICDESC"
+                        <fc-any fccontent1 fcLabel="数据源类型"  (ngModelChange)="event('ruletypeEvent')" [fcAppid]="appId" fcFieldCode="DSTYPE" [(ngModel)]="mainObj.DSTYPE" fcLabelCode="DICDESC"
                             fcValueCode="DICVALUE" name="SYSPRODUCT.DSTYPE"></fc-any>
                         <div fccontent1 class="sys-tab">仅限关系型数据库</div>    
                         <fc-text fccontent1 fcLabel="请url" [fcAppid]="appId" fcFieldCode="URL" [(ngModel)]="mainObj.URL" name="SYSDATASOURCE.URL"></fc-text>
@@ -68,22 +68,22 @@
                         <fc-title fccontent1 fcLabel="其它信息" [fcHasLine]="false"></fc-title>
                         <div class="sys-choose-icon" fccontent1>
                             <fc-label fcLabel="数据源图标"></fc-label>
-                            <div class="sys-choose-icon-box"  (click)="iconEvent($event)">
+                            <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
                                     <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcSize="large"></fc-icon>
                                     <span *ngIf = "visible">选择字体图标</span>
                             </div>
-                            <span class="sys-deleticon"  (click)="deleticonEvent($event)">x</span>
+                            <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                         </div>
                     </fc-layoutcol>
                     <fc-layoutcol fcSpans="1,0">
                         <div fccontent1 style="padding-top:20px;padding-bottom:20px ; text-align:center;">
                                 <div fccontent class="sys-button">
                                         <span fccontent>
-                                                <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
+                                                <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
                                                 </fc-button>
                                         </span>
                                         <span fccontent  *ngIf = "topbutton">
-                                            <fc-button [fcType]="'default'" fcLabel="+模型"  (click)="btnCardAddModel($event)">
+                                            <fc-button [fcType]="'default'" fcLabel="+模型"  (click)="event('btnCardAddModel')">
                                             </fc-button>
                                         </span>
                                 </div> 

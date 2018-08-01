@@ -72,7 +72,7 @@
         <div nz-row [nzGutter]="8">
             <!-- 新增卡片操作 -->
             <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-                <nz-card (click)="addView();">
+                <nz-card (click)="addParameter();">
                     <ng-template #body>
                         <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
                         <p class="sys-card-addtext">新增参数</p>
@@ -81,7 +81,7 @@
             </div>
             <!-- 视图列表循环 -->
             <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let parameter of parameters">
-                <nz-card>
+                <nz-card (click)="editParameter(parameter)">
                     <ng-template #body>
                         <div class="sys-card-content">
                             <fc-tooltip class="sys-card-help" fcTitle="{{view.DIRECTION}}">
@@ -121,7 +121,7 @@
         <div nz-row [nzGutter]="8">
             <!-- 新增卡片操作 -->
             <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-                <nz-card (click)="addInterface();">
+                <nz-card (click)="addReturnValue();">
                     <ng-template #body>
                         <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
                         <p class="sys-card-addtext">新增返回值定义</p>
@@ -130,7 +130,7 @@
             </div>
             <!-- 接口列表循环 -->
             <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let Interface of sysInterfaces">
-                <nz-card>
+                <nz-card (click)="editReturnValue();">
                     <ng-template #body>
                         <div class="sys-card-content">
                             <fc-tooltip class="sys-card-help" fcTitle="{{Interface.DIRECTION}}">
