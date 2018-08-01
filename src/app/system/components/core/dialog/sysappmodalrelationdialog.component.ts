@@ -46,8 +46,8 @@ import { SysicondialogComponent } from './sysicondialog.component';
                     <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
                         <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcSize="large"></fc-icon>
                         <span *ngIf = "visible">选择字体图标</span>
+                        <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                     </div>
-                    <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                 </div>
                 <div fccontent1 style="margin-top:5px;">
                     <fc-radio [(ngModel)]="mainObj.VIEWPOSITION" fcLabel="相对位置" [fcAppid]="appId" fcFieldCode="VIEWPOSITION" fcLabelCode="DICDESC"
@@ -81,10 +81,15 @@ import { SysicondialogComponent } from './sysicondialog.component';
     width: 14px;
     text-align: center;
     position: absolute;
-    top: 3%;
-    left: 37.7%;
     z-index: 999;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    heihgt: 20px;
+    height: 14px;
+    right: 0px;
+    top: 0px;
   }
   .sys-choose-icon{
     position:relative;
@@ -114,7 +119,7 @@ import { SysicondialogComponent } from './sysicondialog.component';
   `]
 })
 export class SysappmodalrelationdialogComponent extends ParentEditComponent  {
-  content:any;
+   content:any;
     //图标属性显示字还是图标
    visible: boolean;
      //依赖产品下拉属性
@@ -145,8 +150,8 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent  {
     @Input()
     set options(option: any) {
       //CONTENT值换成子要显示出来的英文-中文字段
-      this.content = option.MAINAPP + option.APPNAME;
-      this.mainObj.MAINAPP = this.options.APPID;
+      // this.content = option.MAINAPP + option.APPNAME;
+      // this.mainObj.MAINAPP = this.options.APPID;
     }
     event(eventName: string, param: any): void {
         switch (eventName) {
@@ -214,11 +219,11 @@ componentEvents(type: string, ev: any) {
     break;
      //相对位置单选按钮
      case 'viewpositionEvent':
-     this.mainObj.VIEWPOSITION = param;
+     this.mainObj.VIEWPOSITION = ev;
      break;
       //关系缓存单选按钮
      case 'enablecacheEvent':
-     this.mainObj.ENABLECACHE = param;
+     this.mainObj.ENABLECACHE = ev;
      break;
   }
 }

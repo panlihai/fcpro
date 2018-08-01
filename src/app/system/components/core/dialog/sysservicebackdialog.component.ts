@@ -93,11 +93,11 @@ export class SysservicebackdialogComponent extends ParentEditComponent   {
  @Input()
  set options(option: any) {
     //CONTENT值换成子要显示出来的英文-中文字段
-    this.content = option.PID + option.APPNAME;
-    this.mainObj.PID = this.options.PID;
-    //接口名称英文-中文
-    this.IMPLID = option.PID + option.APPNAME;
-    this.mainObj.IMPLID = this.options.IMPLID;
+    // this.content = option.PID + option.APPNAME;
+    // this.mainObj.PID = this.options.PID;
+    // //接口名称英文-中文
+    // this.IMPLID = option.PID + option.APPNAME;
+    // this.mainObj.IMPLID = this.options.IMPLID;
  }
   init(): void {
   }

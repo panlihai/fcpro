@@ -165,7 +165,7 @@ export class SysroleComponent extends ParentlistComponent {
           title: '编辑角色信息',
           content: SysroleeditdialogComponent,
           onOk() { },
-          onCancel() { },
+          onCancel() {},
           footer: false,
           componentParams: {
             options: { ID: event.param.ID, REMARK: event.param.REMARK, ROLENAME: event.param.ROLENAME, ROLEID: event.param.ROLEID }

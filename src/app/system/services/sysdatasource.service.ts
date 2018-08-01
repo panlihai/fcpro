@@ -53,4 +53,11 @@ export class SysdatasourceService extends ParentService {
   dataall(){
     return this.sysproductService.findWithQuery({})
   }
+  /**
+    *  获取APPLINKS所有数据
+    * @param event  
+    */ 
+   datasourcesall(){
+    return this.providers.appService.findWithQuery('SYSDATASOURCE',{})
+  } 
 }

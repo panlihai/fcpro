@@ -20,7 +20,8 @@ import { ObjStatus } from 'fccore';
     margin-left: 62%;
   }
   .sys-fciconlayout{
-    width: 12%;
+    width: 100px;
+    height:100px;
     height: 89px;
     display: inline-flex;
     align-items: center;
@@ -49,10 +50,11 @@ import { ObjStatus } from 'fccore';
   .sys-deleticon{
     background: #108ee9;
     width: 14px;
+    height: 14px;
     text-align: center;
     position: absolute;
-    bottom: 81%;
-    left: 10.5%;
+    bottom: 84%;
+    left: 8.5%;
     z-index:999;
     cursor: pointer;
   }
@@ -108,7 +110,7 @@ export class SysproducteditComponent extends ParentEditComponent implements Afte
       result.P_LISTVALUE.forEach(el => {
         let obj: any = {};
         obj.label = el.PID + '-' + el.PNAME;
-        obj.value = el.PID + '-' + el.PNAME;
+        obj.value = el.PID;
         obj.disabled = false;
         this.scomDataItemOptions.push(obj)
       });

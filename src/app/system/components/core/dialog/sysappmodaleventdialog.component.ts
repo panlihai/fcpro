@@ -46,8 +46,8 @@ import { Router, ActivatedRoute } from '@angular/router';
                     <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
                         <fc-icon [fcIcon]="mainObj.BTNICON"  [(ngModel)]="mainObj.BTNICON" fcSize="large"></fc-icon>
                         <span *ngIf = "visible">选择字体图标</span>
+                        <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                     </div>
-                    <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                 </div>
                 <div fccontent1 style="margin-top:5px;">
                     <fc-radio  [fcAppid]="appId" fcFieldCode="BTNTYPE" [fcValid]="mainValid.BTNTYPE" [(ngModel)]="mainObj.BTNTYPE" fcLabel="事件发生场景"
@@ -64,7 +64,7 @@ import { Router, ActivatedRoute } from '@angular/router';
      </div>
     </div>
     <div class="customize-footer">
-        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
+        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
         </fc-button>
     </div>
   </div>
@@ -82,10 +82,15 @@ import { Router, ActivatedRoute } from '@angular/router';
     width: 14px;
     text-align: center;
     position: absolute;
-    top: 3%;
-    left: 37.7%;
     z-index: 999;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    heihgt: 20px;
+    height: 14px;
+    right: 0px;
+    top: 0px;
   }
   .sys-choose-icon{
     position:relative;
@@ -114,35 +119,44 @@ import { Router, ActivatedRoute } from '@angular/router';
   }
   `]
 })
-export class SysappmodaleventdialogComponent extends ParentEditComponent {
+export class SysappmodaleventdialogComponent {
+  constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService) {
+  }
+  mainObj:any = {
+    APPPID:'',
+    BTNCODE:'',
+    BTNNAME:'',
+    ACTCODE:'',
+    ENABLE:'',
+    SORT:'',
+    BTNICON:'',
+    BTNTYPE:'',
+    ALLOWTYPE:'',
+    HELP:'',
+    ID:''
+  }
   //模型名称字段
   content: any;
   //图标属性显示字还是图标
   visible: boolean;
-  constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService,
-    public router: Router,
-    public activeRoute: ActivatedRoute) {
-    super(mainService, router, activeRoute);
-  }
-  init(): void {
-    //初始化加载图标判断是否有图标
-    this.productIcon()
-  }
-  addNew(mainObj: any): boolean {
-    return true;
-  }
-  /**
-* 保存前验证
-*/
-  beforeSave(): boolean {
-    this.mainObj.APPID = this.options.APPID;
-    return true;
-  }
+  // init(): void {
+  //   //初始化加载图标判断是否有图标
+  //   this.productIcon()
+  // }
   @Input()
   set options(option: any) {
     //CONTENT值换成子要显示出来的英文-中文字段
-    this.content = option.APPID + option.BTNNAME;
-    this.mainObj.APPID = this.options.APPID;
+    this.mainObj.APPPID = this.options.APPID,
+    this.mainObj.BTNCODE = this.options.BTNCODE,
+    this.mainObj.BTNNAME =  this.options.BTNNAME,
+    this.mainObj.ACTCODE = this.options.ACTCODE,
+    this.mainObj.ENABLE = this.options.ENABLE,
+    this.mainObj.SORT =this.options.SORT,
+    this.mainObj.BTNICON = this.options.BTNICON,
+    this.mainObj.BTNTYPE = this.options.BTNTYPE,
+    this.mainObj.ALLOWTYPE = this.options.ALLOWTYPE,
+    this.mainObj.HELP = this.mainObj.HELP,
+    this.mainObj.ID = this.options.ID
   }
   event(eventName: string, param: any): void {
     switch (eventName) {
@@ -155,24 +169,11 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
           }
         })
         break;
-      //保存按钮
-      case 'emitDataOutside':
-        this.cardSave(param);
-        break;
       //删除字体图标X
       case 'deleticonEvent':
         this.mainObj.BTNICON = "";
         this.visible = true;
         event.stopPropagation()
-        break;
-      case 'enableEvent':
-        this.mainObj.ENABLE = param;
-        break;
-      case 'btntypeEvent':
-        this.mainObj.BTNTYPE = param;
-        break;
-      case 'allowtypeEvent':
-        this.mainObj.ALOWTYPE = param;
         break;
     }
   }
@@ -202,8 +203,13 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
         this.mainObj.BTNTYPE = ev;
         break;
       case 'allowtypeEvent':
-        this.mainObj.ALOWTYPE = ev;
+        this.mainObj.ALLOWTYPE = ev;
         break;
     }
+  }
+  emitDataOutside(ev){
+     //保存到appbuttons表中
+    this.mainService.childrensave(this.mainObj)
+    this.modal.destroy();
   }
 }
