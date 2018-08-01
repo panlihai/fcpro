@@ -7,10 +7,10 @@
         </P>
         <div class="sys-card-fast">
             <ul class="sys-fast-list">
-                <li><span  (click)="sqllistEvent($event)" *ngIf = "topbutton">查看数据源</span></li>
-                <li><span  (click)="servicelistEvent($event);" *ngIf = "topbutton">查看服务</span></li>
-                <li><span  (click)="applistEvent($event);" *ngIf = "topbutton">查看模型</span></li>
-                <li><span  (click)="backlistEvent($event);">返回列表</span></li>
+                <li><span  (click)="event('sqllistEvent')" *ngIf = "topbutton">查看数据源</span></li>
+                <li><span  (click)="event('servicelistEvent');" *ngIf = "topbutton">查看服务</span></li>
+                <li><span  (click)="event('applistEvent')" *ngIf = "topbutton">查看模型</span></li>
+                <li><span  (click)="event('backlistEvent')">返回列表</span></li>
             </ul>
         </div>
       </div>
@@ -37,7 +37,7 @@
                <div fccontent class="sys-totip">实现菜单可继承</div>
             </div>
             <div fccontent2 class="sys-num">
-               <fc-text fccontent [(ngModel)]="mainObj.SORT"  fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-text>            
+               <fc-long fccontent [fcAppid]="appId" fcFieldCode="SORT" [fcValid]="mainValid.SORT" [(ngModel)]="mainObj.SORT" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>
             </div>
         </fc-layoutcol> 
           <fc-textarea fccontent1 fcPlaceHolder="请输入备注"  [(ngModel)]="mainObj.DIRECTION" fcLabel="备注" name="DIRECTION"></fc-textarea>
@@ -46,10 +46,10 @@
       <div fccontent>
           <fc-layoutcol fcSpans="2,8" fccontent>
                 <span class="sys-proicon" fccontent1>产品图标</span>
-                <span fccontent2 class="sys-fciconlayout"  (click)="iconEvent($event)">
+                <span fccontent2 class="sys-fciconlayout"  (click)="event('iconEvent')">
                     <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcSize="large"></fc-icon>
                     <span *ngIf = "visible">选择字体图标</span>
-                    <span class="sys-deleticon"  (click)="deleticonEvent($event)">x</span>
+                    <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                 </span>
           </fc-layoutcol>
       </div>
@@ -62,15 +62,15 @@
       </div>
       <div fccontent class="sys-button">
             <span>
-                    <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
+                    <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
                     </fc-button>
             </span>
             <span  *ngIf = "topbutton">
-                <fc-button [fcType]="'default'" fcLabel="+数据源"  (click)="cardSql($event)">
+                <fc-button [fcType]="'default'" fcLabel="+数据源"  (click)="event('cardSql')">
                 </fc-button>
             </span>
             <span *ngIf = "topbutton">
-                <fc-button [fcType]="'default'" fcLabel="+服务"  (click)="cardService($event)">
+                <fc-button [fcType]="'default'" fcLabel="+服务"  (click)="event('cardService')">
                 </fc-button>
             </span> 
       </div> 

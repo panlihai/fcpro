@@ -1,183 +1,209 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { NzModalSubject, NzModalService } from 'ng-zorro-antd';
-import { SysbizcodedefineService } from '../../../services/sysbizcodedefine.service';
 import { forEach } from '@angular/router/src/utils/collection';
+import { SysappbuttonsService } from '../../../services/sysappbuttons.service';
+import { SysicondialogComponent } from './sysicondialog.component';
+import { ParentEditComponent } from 'fccomponent';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'sysappmodaleventdialog',
   template: `
-  <fc-layoutpanel class="sys-card-pannel">
-  <div class="sys-card-pannel-header" fcheader>
-      <fc-title fcLabel="数据源" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
-      <P class="sys-card-pannel-smarks">
-          数据源：<fc-layoutpanel class="sys-card-pannel">
-          <div class="sys-card-pannel-header" fcheader>
-              <fc-title fcLabel="数据源" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
-              <P class="sys-card-pannel-smarks">
-                  数据源：描述与模型的事件，呈现方式体现在按钮上，与属性及关系构成模型
-              </P>
-              <div class="sys-card-fast">
-                  <ul class="sys-fast-list">
-                      <li  (click)="handleCancel($event)"  *ngIf = "topbutton">
-                              <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>关闭</li>
-                  </ul>
-              </div>
-              <img class="sys-card-bg" src="assets/img/system-bg.png" />
-          </div>
-          <div class="sys-card-pannel-edit" fccontent>
-              <!-- 基本信息 -->
-              <fc-layoutcol fcSpans="1,1">
-                  <fc-title fccontent1 fcLabel="基本信息" [fcHasLine]="false"></fc-title>
-                   <fc-combo fccontent1 fcLabel="产品名称"  [fcOption]="scomDataItemOptions"  [(ngModel)]="mainObj.PID"
-                   name="PID"  (ngModelChange)="componentEvents('ruleaddEvent',$event)" ></fc-combo>
-                  <div fccontent1 class="sys-buttonpid">
-                      <div fccontent class="sys-sqlaaid">{{mainObj.PID}}</div>
-                      <fc-text fccontent fcLabel="数据源id" [fcAppid]="appId" fcFieldCode="DSID" [fcValid]="mainValid.DSID"  [(ngModel)]="mainObj.DSID" name="SYSDATASOURCE.DSID"></fc-text>                    
-                  </div>
-                  <fc-text fccontent1 fcLabel="数据源名称"  [fcAppid]="appId" fcFieldCode="DSNAME" [fcValid]="mainValid.DSNAME" [(ngModel)]="mainObj.DSNAME"  name="SYSDATASOURCE.DSNAME"></fc-text>
-                  <div fccontent1 class="sys-tab">中文，配合id识别不同数据源</div>
-                  <fc-layoutcol fccontent1 fcSpans="1,1">
-                      <div fccontent1 class="sys-radio">
-                          <fc-radio fccontent1 [(ngModel)]="mainObj.ENABLE" fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC"
-                              fcValueCode="DICVALUE" name="ENABLE"></fc-radio>
-                      </div>
-                      <div fccontent2 class="sys-num">
-                          <fc-long fccontent [(ngModel)]="mainObj.SORT" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>
-                      </div>
-                  </fc-layoutcol>
-                  <fc-textarea fccontent1 fcLabel="备注"  [(ngModel)]="mainObj.REMARK" name="SYSDATASOURCE.REMARK"></fc-textarea>
-                  <div fccontent1 class="sys-tab">请输入少于200字</div>
-              </fc-layoutcol>
-              <!-- 数据源信息 -->
-              <fc-layoutcol fcSpans="1,1">
-                  <fc-title fccontent1  fcLabel="数据源信息" [fcHasLine]="false"></fc-title>
-                  <fc-any fccontent1 fcLabel="数据源类型"  (ngModelChange)="componentEvents('ruletypeEvent',$event)" [fcAppid]="appId" fcFieldCode="DSTYPE" [(ngModel)]="mainObj.DSTYPE" fcLabelCode="DICDESC"
-                      fcValueCode="DICVALUE" name="SYSPRODUCT.DSTYPE"></fc-any>
-                  <div fccontent1 class="sys-tab">仅限关系型数据库</div>    
-                  <fc-text fccontent1 fcLabel="请url" [fcAppid]="appId" fcFieldCode="URL" [(ngModel)]="mainObj.URL" name="SYSDATASOURCE.URL"></fc-text>
-                  <div fccontent1 class="sys-tab">如：jdbc:oracle:thin:@127.0.0.1:1521:orcl</div>  
-                  <fc-text fccontent1 fcLabel="数据源用户名" [fcAppid]="appId" fcFieldCode="USERNAME" [(ngModel)]="mainObj.USERNAME" name="SYSDATASOURCE.USERNAME"></fc-text>
-                  <fc-text fccontent1 fcLabel="数据源密码" [fcAppid]="appId" fcFieldCode="PASSWORD" [(ngModel)]="mainObj.PASSWORD" name="SYSDATASOURCE.PASSWORD"></fc-text>
-                  <div fccontent1 class="sys-tab">点击查看密码将记录日志，填写查看人的用户名密码查看；</div> 
-              </fc-layoutcol>
-              <!-- 其它信息 -->
-              <fc-layoutcol fcSpans="1,1">
-                  <fc-title fccontent1 fcLabel="其它信息" [fcHasLine]="false"></fc-title>
-                  <div class="sys-choose-icon" fccontent1>
-                      <fc-label fcLabel="数据源图标"></fc-label>
-                      <div class="sys-choose-icon-box"  (click)="iconEvent($event)">
-                              <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcSize="large"></fc-icon>
-                              <span *ngIf = "visible">选择字体图标</span>
-                      </div>
-                      <span class="sys-deleticon"  (click)="deleticonEvent($event)">x</span>
-                  </div>
-              </fc-layoutcol>
-              <fc-layoutcol fcSpans="1,0">
-                  <div fccontent1 style="padding-top:20px;padding-bottom:20px ; text-align:center;">
-                          <div fccontent class="sys-button">
-                                  <span fccontent>
-                                          <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
-                                          </fc-button>
-                                  </span>
-                                  <span fccontent  *ngIf = "topbutton">
-                                      <fc-button [fcType]="'default'" fcLabel="+模型"  (click)="btnCardAddModel($event)">
-                                      </fc-button>
-                                  </span>
-                          </div> 
-                      
-                   </div>
-              </fc-layoutcol>
-          </div>
-      </fc-layoutpanel>
-      </P>
-      <div class="sys-card-fast">
-          <ul class="sys-fast-list">
-              <li  (click)="servicelistEvent($event)"  *ngIf = "topbutton">
-                      <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>查看服务</li>
-              <li (click)="applistEvent($event)" *ngIf = "topbutton">
-                      <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"  ></fc-icon>查看模型</li>
-              <li  (click)="backToList($event)">
-                  <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>返回列表</li>
-          </ul>
-      </div>
-      <img class="sys-card-bg" src="assets/img/system-bg.png" />
+  <div>
+    <div class="bg-dialog-content">
+         <div>事件：描述与模型的事件，呈现方式体现在按钮上，与属性及关系构成模型</div>
+         <div class="sys-topclose">关闭</div>
+         <div fccontent>
+         <fc-layoutpanel fccontent id="id0">
+             <fc-title fcLabel="基本信息" fcWidth="96%" fcheader  [fcHasLine]="false"></fc-title>
+             <fc-layoutcol fcSpans="1,0" fccontent>
+                 <div fccontent1>
+                     <fc-text [fcLabel]="'模型名称'" fcReadonly="true" [(ngModel)]="content"
+                     name="APPPID"></fc-text>
+                    <fc-text [fcLabel]="'事件编码'" [fcAppid]="appId" fcFieldCode="BTNCODE" [fcValid]="mainValid.BTNCODE" fcPlaceHolder="按编码规则自动生成"   [(ngModel)]="mainObj.BTNCODE" 
+                     name="BTNCODE"></fc-text>
+                     <div class="sys-tab">与其关系名称，中文，如，元数据的属性</div>
+                     <fc-text [fcLabel]="'事件名称'" [fcAppid]="appId" fcFieldCode="BTNNAME" [fcValid]="mainValid.BTNNAME"  fcPlaceHolder="请输入中文"  [(ngModel)]="mainObj.BTNNAME" 
+                     name="BTNNAME"></fc-text>
+                     <div class="sys-tab">被关联的模型名称</div>
+                     <fc-text [fcLabel]="'操作代码'"  [fcAppid]="appId" fcFieldCode="ACTCODE" [fcValid]="mainValid.ACTCODE"   fcPlaceHolder="请输入编码如addCard" [(ngModel)]="mainObj.ACTCODE"
+                     name="ACTCODE"></fc-text>
+                     <div class="sys-tab">前端操作的事件编码</div>
+                 </div>
+             </fc-layoutcol>
+             <fc-layoutcol fcSpans="1,1" fccontent>
+                 <div fccontent1 style="margin-left:34%;">
+                    <fc-radio [(ngModel)]="mainObj.ENABLE" fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC"
+                    fcValueCode="DICVALUE" name="ENABLE"  (ngModelChange)="componentEvents('enableEvent',$event)"></fc-radio>
+                 </div>
+                 <div fccontent2>
+                     <fc-long  [fcAppid]="appId" fcFieldCode="SORT" [fcValid]="mainValid.SORT" [(ngModel)]="mainObj.SORT" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>
+                 </div>
+             </fc-layoutcol>
+            <fc-layoutcol fcSpans="1,0" fccontent>
+                <fc-title fcLabel="其他信息" fcWidth="96%" [fcHasLine]="false" fccontent1></fc-title>
+                 <div class="sys-choose-icon" fccontent1>
+                    <fc-label fcLabel="数据源图标"></fc-label>
+                    <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
+                        <fc-icon [fcIcon]="mainObj.BTNICON"  [(ngModel)]="mainObj.BTNICON" fcSize="large"></fc-icon>
+                        <span *ngIf = "visible">选择字体图标</span>
+                    </div>
+                    <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
+                </div>
+                <div fccontent1 style="margin-top:5px;">
+                    <fc-radio  [fcAppid]="appId" fcFieldCode="BTNTYPE" [fcValid]="mainValid.BTNTYPE" [(ngModel)]="mainObj.BTNTYPE" fcLabel="事件发生场景"
+                     fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="BTNTYPE"  (ngModelChange)="componentEvents('btntypeEvent',$event)"></fc-radio>                  
+                    <div class="sys-tab">此事件在模型卡片场景，列表场景，工具栏场景的事件类型</div>
+                    <fc-radio  [fcAppid]="appId" fcFieldCode="ALLOWTYPE" [fcValid]="mainValid.ALLOWTYPE" [(ngModel)]="mainObj.ALLOWTYPE" fcLabel="许可类型"
+                    fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ALLOWTYPE"  (ngModelChange)="componentEvents('allowtypeEvent',$event)"></fc-radio>  
+                    <div class="sys-tab">开放的事件无需授权，许可按钮需要授权</div>
+                </div>
+                <fc-textarea fccontent1 [(ngModel)]="mainObj.HELP" fcLabel="帮助"  name="HELP"></fc-textarea>
+                <div fccontent1 class="sys-tab">请输入少于200字</div>
+            </fc-layoutcol>
+         </fc-layoutpanel>
+     </div>
+    </div>
+    <div class="customize-footer">
+        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
+        </fc-button>
+    </div>
   </div>
-  <div class="sys-card-pannel-edit" fccontent>
-      <!-- 基本信息 -->
-      <fc-layoutcol fcSpans="1,0">
-          <fc-title fccontent1 fcLabel="基本信息" [fcHasLine]="false"></fc-title>
-           <fc-combo fccontent1 fcLabel="模型名称"  [fcOption]="scomDataItemOptions"  [(ngModel)]="mainObj.PID"
-           name="PID"  (ngModelChange)="componentEvents('ruleaddEvent',$event)" ></fc-combo>
-          <div fccontent1 class="sys-buttonpid">
-              <div fccontent class="sys-sqlaaid">{{mainObj.PID}}</div>
-              <fc-text fccontent fcLabel="事件编码" fcPlaceHolder="按编码规则自动生成" [fcAppid]="appId" fcFieldCode="DSID" [fcValid]="mainValid.DSID"  [(ngModel)]="mainObj.DSID" name="SYSDATASOURCE.DSID"></fc-text>                    
-          </div>
-          <div fccontent1 class="sys-tab">与其关系名称,中文，如，元数据的属性</div>
-          <fc-text fccontent1 fcLabel="事件名称"  fcPlaceHolder="请输入中文"  [fcAppid]="appId" fcFieldCode="DSNAME" [fcValid]="mainValid.DSNAME" [(ngModel)]="mainObj.DSNAME"  name="SYSDATASOURCE.DSNAME"></fc-text>
-          <div fccontent1 class="sys-tab">被关联的模型名称</div>
-          <fc-text fccontent1 fcLabel="操作代码"  fcPlaceHolder="请输入编码如addCard"  [fcAppid]="appId" fcFieldCode="DSNAME" [fcValid]="mainValid.DSNAME" [(ngModel)]="mainObj.DSNAME"  name="SYSDATASOURCE.DSNAME"></fc-text>
-          <div fccontent1 class="sys-tab">前端操作的事件编码</div>
-          <fc-layoutcol fccontent1 fcSpans="1,1">
-              <div fccontent1 class="sys-radio">
-                  <fc-radio fccontent1 [(ngModel)]="mainObj.ENABLE" fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC"
-                  fcValueCode="DICVALUE" name="ENABLE"></fc-radio>
-              </div>
-              <div fccontent2 class="sys-num">
-                  <fc-long fccontent [(ngModel)]="mainObj.SORT" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>
-              </div>
-          </fc-layoutcol>
-      </fc-layoutcol>
-      <!-- 其它信息 -->
-      <fc-layoutcol fcSpans="1,1">
-          <fc-title fccontent1 fcLabel="其它信息" [fcHasLine]="false"></fc-title>
-          <div class="sys-choose-icon" fccontent1>
-              <fc-label fcLabel="数据源图标"></fc-label>
-              <div class="sys-choose-icon-box"  (click)="iconEvent($event)">
-                      <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcSize="large"></fc-icon>
-                      <span *ngIf = "visible">选择字体图标</span>
-              </div>
-              <span class="sys-deleticon"  (click)="deleticonEvent($event)">x</span>
-          </div>
-      </fc-layoutcol>
-      <fc-layoutcol fcSpans="1,0">
-          <div fccontent1 style="padding-top:20px;padding-bottom:20px ; text-align:center;">
-                  <div fccontent class="sys-button">
-                          <span fccontent>
-                                  <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
-                                  </fc-button>
-                          </span>
-                          <span fccontent  *ngIf = "topbutton">
-                              <fc-button [fcType]="'default'" fcLabel="+模型"  (click)="btnCardAddModel($event)">
-                              </fc-button>
-                          </span>
-                  </div> 
-              
-           </div>
-      </fc-layoutcol>
-  </div>
-</fc-layoutpanel>
     `,
   styles: [`
+  .bg-dialog-content{
+      height:450px;
+      overflow: scroll;
+  }
    .customize-footer{
-     text-align:right;
+     text-align:center;
    }
-   .sys-tab{
-    margin-left:26%;
+  .sys-deleticon{
+    background: #108ee9;
+    width: 14px;
+    text-align: center;
+    position: absolute;
+    top: 3%;
+    left: 37.7%;
+    z-index: 999;
+    cursor: pointer;
+  }
+  .sys-choose-icon{
+    position:relative;
+    height:100px;
+  }
+  .sys-choose-icon .sys-choose-icon-box{
+    width: 100px;
+    height: 100px;
+    line-height: 90px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: 1px dashed #ebedf0;
+    position: absolute;
+    left: 26%;
+    top: 2px;
+    text-align: center;
+  }
+  .sys-topclose{
+    color: #108ee9;
+    margin-top: 8px;
+    margin-left: 19px;
+  }
+  .sys-tab{
+      margin-left:26%;
   }
   `]
 })
-export class SysappmodaleventdialogComponent  {
-  constructor(private modal: NzModalSubject, public mainService: SysbizcodedefineService) {
+export class SysappmodaleventdialogComponent extends ParentEditComponent {
+  //模型名称字段
+  content: any;
+  //图标属性显示字还是图标
+  visible: boolean;
+  constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService,
+    public router: Router,
+    public activeRoute: ActivatedRoute) {
+    super(mainService, router, activeRoute);
+  }
+  init(): void {
+    //初始化加载图标判断是否有图标
+    this.productIcon()
+  }
+  addNew(mainObj: any): boolean {
+    return true;
+  }
+  /**
+* 保存前验证
+*/
+  beforeSave(): boolean {
+    this.mainObj.APPID = this.options.APPID;
+    return true;
   }
   @Input()
   set options(option: any) {
+    //CONTENT值换成子要显示出来的英文-中文字段
+    this.content = option.APPID + option.BTNNAME;
+    this.mainObj.APPID = this.options.APPID;
   }
-  
-//确定按钮
-emitDataOutside(ev){
-  
-}
-// 取消按钮
-handleCancel(e) {
-  this.modal.destroy();
-}
+  event(eventName: string, param: any): void {
+    switch (eventName) {
+      //图标弹窗
+      case 'iconEvent':
+        this.mainService.producticonmodal('字体图标', SysicondialogComponent).subscribe(obj => {
+          if (obj.DICVALUE !== undefined) {
+            this.mainObj.BTNICON = obj.DICVALUE
+            this.visible = false;
+          }
+        })
+        break;
+      //保存按钮
+      case 'emitDataOutside':
+        this.cardSave(param);
+        break;
+      //删除字体图标X
+      case 'deleticonEvent':
+        this.mainObj.BTNICON = "";
+        this.visible = true;
+        event.stopPropagation()
+        break;
+      case 'enableEvent':
+        this.mainObj.ENABLE = param;
+        break;
+      case 'btntypeEvent':
+        this.mainObj.BTNTYPE = param;
+        break;
+      case 'allowtypeEvent':
+        this.mainObj.ALOWTYPE = param;
+        break;
+    }
+  }
+  /**
+  *  ICON如果等于空visible显示（文字请选择图片）
+  * ICON如果不等于空visible不显示（文字请选择图片不显示）
+  * @param event  
+  */
+  productIcon() {
+    if (this.mainObj.BTNICON === "") {
+      this.visible = true;
+    } else {
+      this.visible = false;
+    }
+  }
+  /**
+* 组件事件收集
+* @param type 字符串命名
+* @param ev 事件传过来的参数
+*/
+  componentEvents(type: string, ev: any) {
+    switch (type) {
+      case 'enableEvent':
+        this.mainObj.ENABLE = ev;
+        break;
+      case 'btntypeEvent':
+        this.mainObj.BTNTYPE = ev;
+        break;
+      case 'allowtypeEvent':
+        this.mainObj.ALOWTYPE = ev;
+        break;
+    }
+  }
 }

@@ -116,6 +116,12 @@ import { SysappfieldgroupComponent } from './components/core/dialog/sysappfieldg
 import { SysfuncComponent } from './components/core/sysfunc.component';
 import { SysfuncService } from './services/sysfunc.service';
 import { SysfunceditComponent } from './components/core/sysfuncedit.component';
+import { SysappmodalrelationdialogComponent } from './components/core/dialog/sysappmodalrelationdialog.component';
+import { SysappbuttonsService } from './services/sysappbuttons.service';
+import { SysapplinksService } from './services/sysapplinks.service';
+import { SysservicemodaldialogComponent } from './components/core/dialog/sysservicemodaldialog.component';
+import { SysintfreqparamService } from './services/sysintfreqparam.service';
+import { SysservicebackdialogComponent } from './components/core/dialog/sysservicebackdialog.component';
 
 @NgModule({
   entryComponents: [
@@ -141,6 +147,9 @@ import { SysfunceditComponent } from './components/core/sysfuncedit.component';
     SysappfieldgroupComponent,
     SysfuncComponent,
     SysfunceditComponent
+    SysappmodalrelationdialogComponent,
+    SysservicemodaldialogComponent,
+    SysservicebackdialogComponent
   ],
   imports: [
     CommonModule,
@@ -231,6 +240,9 @@ import { SysfunceditComponent } from './components/core/sysfuncedit.component';
     SysappfieldgroupComponent,
     SysfuncComponent,
     SysfunceditComponent,
+    SysappmodalrelationdialogComponent,
+    SysservicemodaldialogComponent,
+    SysservicebackdialogComponent
   ],
   providers: [
     LayoutService,
@@ -286,6 +298,9 @@ import { SysfunceditComponent } from './components/core/sysfuncedit.component';
     DeactivateGuard,
     SysappfieldgroupService,
     SysfuncService
+    SysappbuttonsService,
+    SysapplinksService,
+    SysintfreqparamService
   ]
 })
 export class SystemModule {

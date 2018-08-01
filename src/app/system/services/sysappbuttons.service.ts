@@ -5,32 +5,12 @@ import { Observable } from 'rxjs/Observable';
 import { NzModalService } from 'ng-zorro-antd';
 import { SysproductService } from './sysproduct.service';
 @Injectable()
-export class SysdatasourceService extends ParentService {
+export class SysappbuttonsService extends ParentService {
   constructor(public providers: ProvidersService,
-    public sysproductService: SysproductService,
     public modalService: NzModalService) {
-    super(providers, "SYSDATASOURCE");
+    super(providers, "SYSAPPBUTTONS");
   }
-  /**
-   * @param {page:1,size:20,...}
-   * @description 查詢
-   */
-  findWithQuery(param: any): Observable<any> {
-    if (!param.hasOwnProperty('P_COUNT')) {
-      param.P_COUNT = 1;
-    }
-    if (!param.hasOwnProperty('MAINAPP')) {
-      param.MAINAPP = '';
-    }
-    if (!param.hasOwnProperty('MAINAPPID')) {
-      param.MAINAPPID = '';
-    }
-    if (!param.hasOwnProperty('P_LISTFILTER')) {
-      param.P_LISTFILTER = '';
-    }
-    return this.providers.daoService.getFromSystem("ajax/SYSTEM/SYSDATASOURCE/SYSDATASOURCE/listView", param);
-  }
-   /**
+    /**
     *  按钮跳转路由方法封装 查看数据源  查看服务   返回列表 方法
     * @param event  
     */ 
@@ -39,7 +19,6 @@ export class SysdatasourceService extends ParentService {
       title: title,
       content: content,
       width: "60%",
-      zIndex: 999,
       onOk() {
       },
       onCancel() { },
@@ -50,7 +29,15 @@ export class SysdatasourceService extends ParentService {
       }
     })
   }
-  dataall(){
-    return this.sysproductService.findWithQuery({})
-  }
+}
+export interface Sysappbuttons {
+  APPPID: string;
+  BTNCODE:string;
+  BTNNAME:string;
+  ACTCODE:string;
+  ENABLE:string;
+  SORT:string;
+  BTNICON:string;
+  BTNTYPE:string;
+  ALLOWTYPE:string;
 }
