@@ -62,13 +62,6 @@ export class SysserviceService extends ParentService {
         })
     }
     /**
-     * 根据服务ID获取视图数据
-     * @param serviceId 
-     */
-    getSysViews(serviceId) {
-        return this.appService.findWithQuery('SYSVIEW', { WHERE: `SERVICEID ='${serviceId}'` });
-    }
-    /**
      * 根据服务ID获取接口数据
      * @param serviceId 
      */

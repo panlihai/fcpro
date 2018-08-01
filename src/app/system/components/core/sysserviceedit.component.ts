@@ -1,9 +1,8 @@
-import { Component, ComponentRef, ElementRef, Renderer2 } from '@angular/core';
-import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ParentEditComponent, FctextComponent } from 'fccomponent';
 import { SysserviceService } from '../../services/sysservice.service';
 import { DialogCardListComponent, DialogCardListArgs } from './dialog/dialogcardlist.component';
-import { Renderer3, ProceduralRenderer3 } from '@angular/core/src/render3/renderer';
 @Component({
     selector: 'sysserviceedit',
     templateUrl: 'sysserviceedit.component.html',
@@ -137,26 +136,12 @@ export class SysserviceeditComponent extends ParentEditComponent {
                     for (let attr in this.mainObj) {
                         this.staticMainObj[attr] = this.mainObj[attr];
                     }
-                    this.getSysViews(this.mainObj.SERVICEID);
                     this.getSysInterfaces(this.mainObj.SERVICEID);
                 } else {
                     this.messageService.error('基本信息获取失败');
                 }
             })
         }
-    }
-    /**
-     * 获取服务-视图数据
-     * @param serviceId 
-     */
-    getSysViews(serviceId) {
-        this.mainService.getSysViews(serviceId).subscribe(res => {
-            if (res.CODE === '0') {
-                this.sysViews = res.DATA;
-            } else {
-                this.messageService.error('视图数据获取失败');
-            }
-        });
     }
     /**
      * 获取服务-接口数据

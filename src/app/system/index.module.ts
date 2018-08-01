@@ -146,7 +146,7 @@ import { SysservicebackdialogComponent } from './components/core/dialog/sysservi
     SysviewelementeditComponent,
     SysappfieldgroupComponent,
     SysfuncComponent,
-    SysfunceditComponent
+    SysfunceditComponent,
     SysappmodalrelationdialogComponent,
     SysservicemodaldialogComponent,
     SysservicebackdialogComponent
@@ -297,7 +297,7 @@ import { SysservicebackdialogComponent } from './components/core/dialog/sysservi
     IsFormValueChanged,
     DeactivateGuard,
     SysappfieldgroupService,
-    SysfuncService
+    SysfuncService,
     SysappbuttonsService,
     SysapplinksService,
     SysintfreqparamService

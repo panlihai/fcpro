@@ -113,113 +113,113 @@ import { SysicondialogComponent } from './sysicondialog.component';
   }
   `]
 })
-export class SysappmodalrelationdialogComponent extends ParentEditComponent  {
-  content:any;
-    //图标属性显示字还是图标
-   visible: boolean;
-     //依赖产品下拉属性
-   scomDataItemOptions: any;
-    constructor(private modal: NzModalSubject,
-        public mainService: SysapplinksService,
-        public router: Router,
-        public activeRoute: ActivatedRoute) {
-       super(mainService, router, activeRoute);
-     }
-    init(): void {
-       //初始化加载图标判断是否有图标
-       this.productIcon()
-       this.mainService.applinksall().subscribe(result =>{
-        this.scomDataItemOptions=[];
-            result.DATA.forEach(el =>{
-            let obj : any = {};
-            obj.label = el.APPID+'-'+el.APPNAME;
-            obj.value = el.APPID+'-'+el.APPNAME;
-            obj.disabled = false;
-            this.scomDataItemOptions.push(obj)   
-        } )
-       }) 
+export class SysappmodalrelationdialogComponent extends ParentEditComponent {
+  content: any;
+  //图标属性显示字还是图标
+  visible: boolean;
+  //依赖产品下拉属性
+  scomDataItemOptions: any;
+  constructor(private modal: NzModalSubject,
+    public mainService: SysapplinksService,
+    public router: Router,
+    public activeRoute: ActivatedRoute) {
+    super(mainService, router, activeRoute);
+  }
+  init(): void {
+    //初始化加载图标判断是否有图标
+    this.productIcon()
+    this.mainService.applinksall().subscribe(result => {
+      this.scomDataItemOptions = [];
+      result.DATA.forEach(el => {
+        let obj: any = {};
+        obj.label = el.APPID + '-' + el.APPNAME;
+        obj.value = el.APPID + '-' + el.APPNAME;
+        obj.disabled = false;
+        this.scomDataItemOptions.push(obj)
+      })
+    })
+  }
+  addNew(mainObj: any): boolean {
+    return true;
+  }
+  @Input()
+  set options(option: any) {
+    //CONTENT值换成子要显示出来的英文-中文字段
+    this.content = option.MAINAPP + option.APPNAME;
+    this.mainObj.MAINAPP = this.options.APPID;
+  }
+  event(eventName: string, param: any): void {
+    switch (eventName) {
+      //图标弹窗
+      case 'iconEvent':
+        this.mainService.producticonmodal('字体图标', SysicondialogComponent).subscribe(obj => {
+          if (obj.DICVALUE !== undefined) {
+            this.mainObj.ICON = obj.DICVALUE
+            this.visible = false;
+          }
+        })
+        break;
+      //保存按钮
+      case 'emitDataOutside':
+        this.cardSave(param);
+        break;
+      //删除字体图标X
+      case 'deleticonEvent':
+        this.mainObj.ICON = "";
+        this.visible = true;
+        event.stopPropagation()
+        break;
+      //子表模型下拉数据
+      case 'ruletypeEvent':
+        this.mainObj.APPID = param;
+        break;
+      //是否启用单选按钮
+      case 'enableEvent':
+        this.mainObj.ENABLE = param;
+        break;
+      //相对位置单选按钮
+      case 'viewpositionEvent':
+        this.mainObj.VIEWPOSITION = param;
+        break;
+      //关系缓存单选按钮
+      case 'enablecacheEvent':
+        this.mainObj.ENABLECACHE = param;
+        break;
     }
-    addNew(mainObj: any): boolean {
-        return true;
-    }
-    @Input()
-    set options(option: any) {
-      //CONTENT值换成子要显示出来的英文-中文字段
-      this.content = option.MAINAPP + option.APPNAME;
-      this.mainObj.MAINAPP = this.options.APPID;
-    }
-    event(eventName: string, param: any): void {
-        switch (eventName) {
-          //图标弹窗
-          case 'iconEvent':
-          this.mainService.producticonmodal('字体图标',SysicondialogComponent).subscribe(obj => {
-            if (obj.DICVALUE !== undefined) {
-                this.mainObj.ICON = obj.DICVALUE
-                this.visible = false;
-              }
-            })
-          break;
-          //保存按钮
-          case 'emitDataOutside':
-          this.cardSave(param);
-          break;
-          //删除字体图标X
-          case 'deleticonEvent':
-          this.mainObj.ICON = "";
-          this.visible = true;
-          event.stopPropagation()
-          break;
-          //子表模型下拉数据
-          case 'ruletypeEvent':
-          this.mainObj.APPID = param;
-          break;
-           //是否启用单选按钮
-          case 'enableEvent':
-          this.mainObj.ENABLE = param;
-          break;
-           //相对位置单选按钮
-          case 'viewpositionEvent':
-          this.mainObj.VIEWPOSITION = param;
-          break;
-           //关系缓存单选按钮
-          case 'enablecacheEvent':
-          this.mainObj.ENABLECACHE = param;
-          break;
-        }
-      }
-     /**
-  *  ICON如果等于空visible显示（文字请选择图片）
-  * ICON如果不等于空visible不显示（文字请选择图片不显示）
-  * @param event  
-  */
-   productIcon(){
+  }
+  /**
+*  ICON如果等于空visible显示（文字请选择图片）
+* ICON如果不等于空visible不显示（文字请选择图片不显示）
+* @param event  
+*/
+  productIcon() {
     if (this.mainObj.ICON === "") {
       this.visible = true;
     } else {
       this.visible = false;
     }
-   }
-          /**
+  }
+  /**
 * 组件事件收集
 * @param type 字符串命名
 * @param ev 事件传过来的参数
 */
-componentEvents(type: string, ev: any) {
-  switch (type) {
-    case 'ruletypeEvent':
-    this.mainObj.APPID = ev;
-    break;
-    case 'enableEvent':
-    this.mainObj.ENABLE = ev;
-    break;
-     //相对位置单选按钮
-     case 'viewpositionEvent':
-     this.mainObj.VIEWPOSITION = param;
-     break;
+  componentEvents(type: string, ev: any) {
+    switch (type) {
+      case 'ruletypeEvent':
+        this.mainObj.APPID = ev;
+        break;
+      case 'enableEvent':
+        this.mainObj.ENABLE = ev;
+        break;
+      //相对位置单选按钮
+      case 'viewpositionEvent':
+        this.mainObj.VIEWPOSITION = ev;
+        break;
       //关系缓存单选按钮
-     case 'enablecacheEvent':
-     this.mainObj.ENABLECACHE = param;
-     break;
+      case 'enablecacheEvent':
+        this.mainObj.ENABLECACHE = ev;
+        break;
+    }
   }
-}
 }
