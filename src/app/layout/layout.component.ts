@@ -26,12 +26,13 @@ import { NzModalService } from 'ng-zorro-antd';
   }
   :host ::ng-deep .content-main{
     width: 100%;
-    height:100%;
+    height:96%;
     padding: 5px;
     overflow-x: hidden;
     overflow-y: auto;
     box-sizing: border-box;
     border-top: 5px solid #F0F2F5;
+    background-color:#fff;
   }
   :host ::ng-deep router-outlet + * {
     width: 100%;

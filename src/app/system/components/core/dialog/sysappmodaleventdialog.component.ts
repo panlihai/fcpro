@@ -119,9 +119,17 @@ import { Router, ActivatedRoute } from '@angular/router';
   }
   `]
 })
-export class SysappmodaleventdialogComponent {
-  constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService) {
+export class SysappmodaleventdialogComponent  extends ParentEditComponent{
+  // readonly:boolean;
+  //模型名称字段
+  content: any;
+  constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService,
+    public router: Router,
+    public activeRoute: ActivatedRoute) {
+    super(mainService, router, activeRoute);
   }
+  //图标属性显示字还是图标
+  visible: boolean = true;
   mainObj:any = {
     APPPID:'',
     BTNCODE:'',
@@ -135,28 +143,28 @@ export class SysappmodaleventdialogComponent {
     HELP:'',
     ID:''
   }
-  //模型名称字段
-  content: any;
-  //图标属性显示字还是图标
-  visible: boolean;
-  // init(): void {
-  //   //初始化加载图标判断是否有图标
-  //   this.productIcon()
-  // }
   @Input()
   set options(option: any) {
-    //CONTENT值换成子要显示出来的英文-中文字段
-    this.mainObj.APPPID = this.options.APPID,
-    this.mainObj.BTNCODE = this.options.BTNCODE,
-    this.mainObj.BTNNAME =  this.options.BTNNAME,
-    this.mainObj.ACTCODE = this.options.ACTCODE,
-    this.mainObj.ENABLE = this.options.ENABLE,
-    this.mainObj.SORT =this.options.SORT,
-    this.mainObj.BTNICON = this.options.BTNICON,
-    this.mainObj.BTNTYPE = this.options.BTNTYPE,
-    this.mainObj.ALLOWTYPE = this.options.ALLOWTYPE,
-    this.mainObj.HELP = this.mainObj.HELP,
-    this.mainObj.ID = this.options.ID
+    this.mainObj=option;
+    if (this.mainObj.APPID === undefined) {
+      this.content = '';
+      // this.readonly = false;
+    } else {
+      this.content = option.APPID + "-" + option.BTNNAME;
+      // this.readonly = true;
+    }
+    this.productIcon();
+  }
+  addNew(mainObj: any): boolean {
+    return true;
+  }
+  init(): void {
+  }
+  /**
+* 保存前验证
+*/
+  beforeSave(): boolean {
+    return true;
   }
   event(eventName: string, param: any): void {
     switch (eventName) {
@@ -183,10 +191,20 @@ export class SysappmodaleventdialogComponent {
   * @param event  
   */
   productIcon() {
-    if (this.mainObj.BTNICON === "") {
-      this.visible = true;
+     //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
+     if (this.mainObj.BTNICON === null) {
+      // this.visible = true;
+      // this.visible = this.visible
+        if (this.mainObj.BTNICON === null) {
+          // this.visible = true;
+          this.visible = this.visible
+        } else {
+          // this.visible = false;
+          this.visible = !this.visible
+        }
     } else {
-      this.visible = false;
+      // this.visible = false;
+      this.visible = this.visible
     }
   }
   /**
@@ -207,9 +225,14 @@ export class SysappmodaleventdialogComponent {
         break;
     }
   }
-  emitDataOutside(ev){
-     //保存到appbuttons表中
-    this.mainService.childrensave(this.mainObj)
-    this.modal.destroy();
+  //确定按钮
+emitDataOutside(ev){
+  if(this.mainObj.ID === undefined){
+    //新增模态框数据新增到子表中  
+    this.mainService.childrensave(this.mainObj)   
+  }else{
+    //修改子表数据
+    this.mainService.childrenupdate(this.mainObj)
   }
+}
 }

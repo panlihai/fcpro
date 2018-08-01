@@ -97,14 +97,24 @@ export class SysservicemodaldialogComponent extends ParentEditComponent   {
     public activeRoute: ActivatedRoute) {
    super(mainService, router, activeRoute);
  }
+ mainObj:any = {
+    PID:'',
+    IMPLID:'',
+    PARAMNAME:'',
+    PARAMTYPE:'',
+    VALUETYPE:'',
+    ISNULL:'',
+    REMARK:''
+  }
  @Input()
  set options(option: any) {
-     //CONTENT值换成子要显示出来的英文-中文字段
-    //  this.content = option.PID + option.APPNAME;
-    //  this.mainObj.PID = this.options.PID;
-    //  //接口名称英文-中文
-    //  this.IMPLID = option.PID + option.APPNAME;
-    //  this.mainObj.IMPLID = this.options.IMPLID;
+  this.mainObj=option;
+  //CONTENT值换成子要显示出来的英文-中文字段
+  //  this.content = option.PID + option.APPNAME;
+  //  this.mainObj.PID = this.options.PID;
+  //  //接口名称英文-中文
+  //  this.IMPLID = option.PID + option.APPNAME;
+  //  this.mainObj.IMPLID = this.options.IMPLID;
  }
   init(): void {
   }
@@ -152,4 +162,14 @@ componentEvents(type: string, ev: any) {
    break;
   }
 }
+  //确定按钮
+  emitDataOutside(ev){
+    if(this.mainObj.ID === undefined){
+      //新增模态框数据新增到子表中  
+      this.mainService.childrensave(this.mainObj)   
+    }else{
+      //修改子表数据
+      this.mainService.childrenupdate(this.mainObj)
+    }
+  }
 }

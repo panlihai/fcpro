@@ -99,6 +99,9 @@ import { SyswizardService } from './services/syswizard.service';
 import { ChartsModule } from 'ng2-charts';
 import { SysappmodifyComponent } from './components/core/sysappmodify.component';
 import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
+import { SysmenueditComponent } from './components/core/sysmenuedit.component';
+import { SysmenuComponent } from './components/core/sysmenu.component';
+import { SysmenuService } from './services/sysmenu.service';
 import { SysappeditComponent } from './components/core/sysappedit.component';
 import { SysserviceeditComponent } from './components/core/sysserviceedit.component';
 import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
@@ -110,12 +113,15 @@ import { SysviewService } from './services/sysview.service';
 import { SysviewelementService } from './services/sysviewelement.service';
 import { SysserviceComponent } from './components/core/sysservice.component';
 import { SysappmodaleventdialogComponent } from './components/core/dialog/sysappmodaleventdialog.component';
+import { MenueditdialogComponent } from './components/core/dialog/menueditdialog.component';
 import { SysappmodalrelationdialogComponent } from './components/core/dialog/sysappmodalrelationdialog.component';
 import { SysappbuttonsService } from './services/sysappbuttons.service';
 import { SysapplinksService } from './services/sysapplinks.service';
 import { SysservicemodaldialogComponent } from './components/core/dialog/sysservicemodaldialog.component';
 import { SysintfreqparamService } from './services/sysintfreqparam.service';
 import { SysservicebackdialogComponent } from './components/core/dialog/sysservicebackdialog.component';
+import { SysattributeEditdialogComponent } from './components/core/dialog/sysattributeEditdialog.component';
+import { SysattributeService } from './services/sysattribute.service';
 
 @NgModule({
   entryComponents: [
@@ -123,6 +129,8 @@ import { SysservicebackdialogComponent } from './components/core/dialog/sysservi
     SysquotalistComponent,
     SysquotaEditComponent,
     DialogListComponent,
+    SysquotalistComponent,
+    SysquotaEditComponent,
     DialogListComponent,
     UploadavatardialogComponent,
     SyslogComponent,
@@ -131,14 +139,19 @@ import { SysservicebackdialogComponent } from './components/core/dialog/sysservi
     SyscompanymodifyComponent,
     SyscompanychangeauditComponent,
     chooseicondialogComponent,
+    SysbizcoderuledialogComponent,
+    SysroleeditdialogComponent,
+    SysproducteditComponent,
     SysroleeditdialogComponent,
     SysproducteditComponent,
     SysbizcoderuledialogComponent,
     DialogCardListComponent,
     SysappmodaleventdialogComponent,
+    MenueditdialogComponent,
     SysappmodalrelationdialogComponent,
     SysservicemodaldialogComponent,
-    SysservicebackdialogComponent
+    SysservicebackdialogComponent,
+    SysattributeEditdialogComponent
   ],
   imports: [
     CommonModule,
@@ -156,6 +169,9 @@ import { SysservicebackdialogComponent } from './components/core/dialog/sysservi
     FctabModule,
     FcchartModule,
     SpreadSheetsModule,
+    NgZorroAntdModule,
+    ChartsModule,
+    NgZorroAntdModule,
     NgZorroAntdModule,
     ChartsModule,
     NgZorroAntdModule,
@@ -220,15 +236,19 @@ import { SysservicebackdialogComponent } from './components/core/dialog/sysservi
     SysdepartmenteditComponent,
     DialogListComponent,
     SysserviceeditComponent,
+    SysmenuComponent,
+    SysmenueditComponent,
     SysinterfaceeditComponent,
     DialogCardListComponent,
     SysvieweditComponent,
     SysviewelementeditComponent,
     SysserviceComponent,
     SysappmodaleventdialogComponent,
+    MenueditdialogComponent,
     SysappmodalrelationdialogComponent,
     SysservicemodaldialogComponent,
-    SysservicebackdialogComponent
+    SysservicebackdialogComponent,
+    SysattributeEditdialogComponent
   ],
   providers: [
     LayoutService,
@@ -258,6 +278,7 @@ import { SysservicebackdialogComponent } from './components/core/dialog/sysservi
     SysquotaService,
     SysassignmentService,
     SysemployeeService,
+    SysmenuService,
     SysbizcoderuleService,
     SyscompanydimService,
     SysbizcodedefineService,
@@ -282,7 +303,8 @@ import { SysservicebackdialogComponent } from './components/core/dialog/sysservi
     SysviewelementService,
     SysappbuttonsService,
     SysapplinksService,
-    SysintfreqparamService
+    SysintfreqparamService,
+    SysattributeService,
   ]
 })
 export class SystemModule {

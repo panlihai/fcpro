@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { NzModalSubject, NzModalService } from 'ng-zorro-antd';
 import { SysbizcodedefineService } from '../../../services/sysbizcodedefine.service';
 import { forEach } from '@angular/router/src/utils/collection';
@@ -18,7 +18,7 @@ import { SysicondialogComponent } from './sysicondialog.component';
              <fc-title fcLabel="基本信息" fcWidth="96%" fcheader  [fcHasLine]="false"></fc-title>
              <fc-layoutcol fcSpans="1,0" fccontent>
                  <div fccontent1>
-                    <fc-text [fcLabel]="'主模型名称'" fcReadonly="true" [(ngModel)]="mainObj.MAINAPP" name="MAINAPP"></fc-text>
+                    <fc-text [fcLabel]="'主模型名称'" fcReadonly="true" [(ngModel)]="content" name="MAINAPP"></fc-text>
                      <fc-text [fcLabel]="'关系名称'" fcPlaceHolder="请输入关系的中文描述"   [(ngModel)]="mainObj.LINKNAME" 
                      name="LINKNAME"></fc-text>
                      <div class="sys-tab">与其关系名称，中文，如，元数据的属性</div>
@@ -63,7 +63,7 @@ import { SysicondialogComponent } from './sysicondialog.component';
      </div>
     </div>
     <div class="customize-footer">
-        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
+        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
         </fc-button>
     </div>
   </div>
@@ -118,113 +118,127 @@ import { SysicondialogComponent } from './sysicondialog.component';
   }
   `]
 })
-export class SysappmodalrelationdialogComponent extends ParentEditComponent  {
-   content:any;
-    //图标属性显示字还是图标
-   visible: boolean;
-     //依赖产品下拉属性
-   scomDataItemOptions: any;
-    constructor(private modal: NzModalSubject,
-        public mainService: SysapplinksService,
-        public router: Router,
-        public activeRoute: ActivatedRoute) {
-       super(mainService, router, activeRoute);
-     }
-    init(): void {
-       //初始化加载图标判断是否有图标
-       this.productIcon()
-       this.mainService.applinksall().subscribe(result =>{
-        this.scomDataItemOptions=[];
-            result.DATA.forEach(el =>{
-            let obj : any = {};
-            obj.label = el.APPID+'-'+el.APPNAME;
-            obj.value = el.APPID+'-'+el.APPNAME;
-            obj.disabled = false;
-            this.scomDataItemOptions.push(obj)   
-        } )
-       }) 
+export class SysappmodalrelationdialogComponent extends ParentEditComponent{
+  //图标属性显示字还是图标
+  visible: boolean = true;
+  //依赖产品下拉属性
+  scomDataItemOptions: any;
+  content:any;
+  mainObj:any = {
+    MAINAPP:'',
+    LINKNAME:'',
+    ITEMAPP:'',
+    LINKFILTER:'',
+    ENABLE:'',
+    SORTBY:'',
+    ICON:'',
+    VIEWPOSITION:'',
+    ENABLECACHE:'',
+    REMARK:''
+  }
+  @Input()
+  set options(option: any) {
+    this.mainObj = option;
+    this.content = option.MAINAPP + "-" + option.LINKNAME;
+    //初始化加载图标判断是否有图标
+    this.productIcon();
+  }
+  constructor(private modal: NzModalSubject,
+    public mainService: SysapplinksService,
+    public router: Router,
+    public activeRoute: ActivatedRoute) {
+    super(mainService, router, activeRoute);
+  }
+  init(): void {
+    //初始化加载图标判断是否有图标
+    this.mainService.applinksall().subscribe(result => {
+      this.scomDataItemOptions = [];
+      result.DATA.forEach(el => {
+        let obj: any = {};
+        obj.label = el.APPID + '-' + el.APPNAME;
+        obj.value = el.APPID + '-' + el.APPNAME;
+        obj.disabled = false;
+        this.scomDataItemOptions.push(obj)
+      })
+    })
+    // this.productIcon();
+  }
+  addNew(mainObj: any): boolean {
+    return true;
+  }
+  event(eventName: string, param: any): void {
+    switch (eventName) {
+      //图标弹窗
+      case 'iconEvent':
+        this.mainService.producticonmodal('字体图标', SysicondialogComponent).subscribe(obj => {
+          if (obj.DICVALUE !== undefined) {
+            this.mainObj.ICON = obj.DICVALUE
+            this.visible = false;
+          }
+        })
+        break;
+      //删除字体图标X
+      case 'deleticonEvent':
+        this.mainObj.ICON = "";
+        this.visible = true;
+        event.stopPropagation()
+        break;
     }
-    addNew(mainObj: any): boolean {
-        return true;
-    }
-    @Input()
-    set options(option: any) {
-      //CONTENT值换成子要显示出来的英文-中文字段
-      // this.content = option.MAINAPP + option.APPNAME;
-      // this.mainObj.MAINAPP = this.options.APPID;
-    }
-    event(eventName: string, param: any): void {
-        switch (eventName) {
-          //图标弹窗
-          case 'iconEvent':
-          this.mainService.producticonmodal('字体图标',SysicondialogComponent).subscribe(obj => {
-            if (obj.DICVALUE !== undefined) {
-                this.mainObj.ICON = obj.DICVALUE
-                this.visible = false;
-              }
-            })
-          break;
-          //保存按钮
-          case 'emitDataOutside':
-          this.cardSave(param);
-          break;
-          //删除字体图标X
-          case 'deleticonEvent':
-          this.mainObj.ICON = "";
-          this.visible = true;
-          event.stopPropagation()
-          break;
-          //子表模型下拉数据
-          case 'ruletypeEvent':
-          this.mainObj.APPID = param;
-          break;
-           //是否启用单选按钮
-          case 'enableEvent':
-          this.mainObj.ENABLE = param;
-          break;
-           //相对位置单选按钮
-          case 'viewpositionEvent':
-          this.mainObj.VIEWPOSITION = param;
-          break;
-           //关系缓存单选按钮
-          case 'enablecacheEvent':
-          this.mainObj.ENABLECACHE = param;
-          break;
-        }
-      }
-     /**
+  }
+   /**
   *  ICON如果等于空visible显示（文字请选择图片）
   * ICON如果不等于空visible不显示（文字请选择图片不显示）
   * @param event  
   */
-   productIcon(){
-    if (this.mainObj.ICON === "") {
-      this.visible = true;
-    } else {
-      this.visible = false;
-    }
-   }
-          /**
+ productIcon() {
+  //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
+  if (this.mainObj.ICON === null) {
+   // this.visible = true;
+   // this.visible = this.visible
+     if (this.mainObj.ICON === null) {
+       // this.visible = true;
+       this.visible = this.visible
+     } else {
+       // this.visible = false;
+       this.visible = !this.visible
+     }
+ } else {
+   // this.visible = false;
+   this.visible = this.visible
+ }
+}
+  
+  /**
 * 组件事件收集
 * @param type 字符串命名
 * @param ev 事件传过来的参数
 */
-componentEvents(type: string, ev: any) {
-  switch (type) {
-    case 'ruletypeEvent':
-    this.mainObj.APPID = ev;
-    break;
-    case 'enableEvent':
-    this.mainObj.ENABLE = ev;
-    break;
-     //相对位置单选按钮
-     case 'viewpositionEvent':
-     this.mainObj.VIEWPOSITION = ev;
-     break;
+  componentEvents(type: string, ev: any) {
+    switch (type) {
+      case 'ruletypeEvent':
+        this.mainObj.MAINAPP = ev;
+        break;
+      case 'enableEvent':
+        this.mainObj.ENABLE = ev;
+        break;
+      //相对位置单选按钮
+      case 'viewpositionEvent':
+        this.mainObj.VIEWPOSITION = ev;
+        break;
       //关系缓存单选按钮
-     case 'enablecacheEvent':
-     this.mainObj.ENABLECACHE = ev;
-     break;
+      case 'enablecacheEvent':
+        this.mainObj.ENABLECACHE = ev;
+        break;
+    }
+  }
+    //确定按钮
+emitDataOutside(ev){
+  if(this.mainObj.ID === undefined){
+    //新增模态框数据新增到子表中  
+    this.mainService.childrensave(this.mainObj)   
+  }else{
+    //修改子表数据
+    this.mainService.childrenupdate(this.mainObj)
   }
 }
 }

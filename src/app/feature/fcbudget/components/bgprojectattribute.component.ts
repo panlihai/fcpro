@@ -5,6 +5,7 @@ import { BgtransfordialogComponent } from './dialog/bgtransfordialog.component';
 import { FCEVENT } from 'fccomponent/fc';
 import { BgprojectattributeService } from '../services/bgprojectattribute.service';
 import { ChooseattrdialogComponent } from './dialog/chooseattrdialog.component';
+import { AddaffiliationdialogComponent } from './dialog/addaffiliationdialog.component';
 import { NzModalService } from 'ng-zorro-antd';
 import { CopyprojectattrComponent } from './dialog/copyprojectattr.component';
 import { chooseicondialogComponent } from '../../../system/components/core/dialog/chooseicondialog.component';
@@ -110,8 +111,25 @@ export class BgprojectattributeComponent extends ParentlistComponent {
     });
   }
    /**
+  * 新增从属关系
+  */
+ addAffiliationDialog() {
+  this.modal.open({
+    title: '新增从属关系',
+    content: AddaffiliationdialogComponent,
+    onOk() { },
+    onCancel() { },
+    footer: false,
+    componentParams: {
+      //  把options对象传值给弹窗
+      options: {}
+    }
+  }).subscribe(result => {
+    // result为弹窗返回的值
+  });
+}/* 
  *   属性值从属关系返回
- */
+ */ 
   back(){
     this._selectedIndex = 0
   }
