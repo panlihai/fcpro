@@ -2,7 +2,7 @@
 import { Component, Input } from '@angular/core';
 import 'rxjs/add/operator/filter';
 import { NzModalSubject } from 'ng-zorro-antd';
-import { TreeOptions } from '../../../../../../node_modules/fccomponent';
+import { TreeOptions } from 'fccomponent';
 @Component({
     selector: 'copyattrdialog',
     template: `

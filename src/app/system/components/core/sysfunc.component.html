@@ -1,9 +1,9 @@
-<!-- 服务入口 -->
+<!-- 功能入口 -->
 <fc-layoutpanel class="sys-card-pannel">
     <div class="sys-card-pannel-header" fcheader>
-        <fc-title fcLabel="服务" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
+        <fc-title fcLabel="功能" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
-            服务：FC基础服务平台的功能单元，开发者提供给终端用户的服务；与产品是多对一的关系；服务中包含接口、视图，默认模型 提供跨越设计与开发的体验解决方案。
+            功能：FC基础功能平台的功能单元，开发者提供给终端用户的功能；与产品是多对一的关系；功能中包含接口、视图，默认模型 提供跨越设计与开发的体验解决方案。
         </P>
         <div class="sys-card-fast">
             <ul class="sys-fast-list">
@@ -27,13 +27,13 @@
             <nz-card (click)="listAdd($event);">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
-                    <p class="sys-card-addtext">新增服务</p>
+                    <p class="sys-card-addtext">新增功能</p>
                 </ng-template>
             </nz-card>
         </div>
         <!-- 产品列表循环 -->
-        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysservice of sysServices">
-            <nz-card (click)="listEdit(sysservice);">
+        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysfunc of sysFuncs">
+            <nz-card (click)="listEdit(sysfunc);">
                 <ng-template #body>
                     <div class="sys-card-content">
                         <!-- 操作按钮 -->
@@ -57,13 +57,13 @@
                             </div>
                         </div>
                         <span class="sys-card-mark">
-                            {{sysservice.SERVICEID|slice:0:1}}
+                            {{sysfunc.FUNCID|slice:0:1}}
                         </span>
                         <div class="sys-card-text">
                             <div class="sys-card-title">
-                                {{sysservice.SERVICEID}}-{{sysservice.SERVICENAME}}
+                                {{sysfunc.FUNCID}}-{{sysfunc.FUNCNAME}}
                             </div>
-                            <p class="sys-card-smarks">{{sysservice.REMARK}}</p>
+                            <p class="sys-card-smarks">{{sysfunc.REMARK}}</p>
                         </div>
                     </div>
                     <div class="sys-card-footer">

@@ -4,6 +4,7 @@ import { ProvidersService, ParentService } from 'fccore';
 import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
 import { NzModalService } from 'ng-zorro-antd';
+import { SysviewelementeditComponent } from '../components/core/sysviewelementedit.component';
 @Injectable()
 export class SysviewService extends ParentService {
     constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService) {
@@ -47,16 +48,16 @@ export class SysviewService extends ParentService {
      * 打开窗口的函数方法
      * @param dialogArgs 
      */
-    openDialog(dialogArgs) {
+    openViewElementDialog(mainObj?: any) {
         return this.nzModal.open({
-            content: dialogArgs.DialogListComponent,
+            content: SysviewelementeditComponent,
             onOk() { },
             onCancel() { },
             footer: false,
-            width: dialogArgs.configInterface.width,
-            style: dialogArgs.configInterface.style,
+            width: '95%',
+            zIndex: 995,
             componentParams: {
-                options: dialogArgs
+                params: mainObj
             }
         })
     }

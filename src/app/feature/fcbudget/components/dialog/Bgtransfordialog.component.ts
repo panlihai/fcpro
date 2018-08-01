@@ -2,7 +2,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import 'rxjs/add/operator/filter';
 import { NzModalSubject } from 'ng-zorro-antd';
-import { FclistdataComponent } from '../../../../../../node_modules/fccomponent';
+import { FclistdataComponent } from 'fccomponent';
 @Component({
   selector: 'bgtransfordialog',
   template: `

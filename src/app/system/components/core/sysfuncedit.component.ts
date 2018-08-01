@@ -4,9 +4,10 @@ import { ParentEditComponent, FctextComponent } from 'fccomponent';
 import { SysserviceService } from '../../services/sysservice.service';
 import { DialogCardListComponent, DialogCardListArgs } from './dialog/dialogcardlist.component';
 import { Renderer3, ProceduralRenderer3 } from '@angular/core/src/render3/renderer';
+import { SysfuncService } from '../../services/sysfunc.service';
 @Component({
-    selector: 'sysserviceedit',
-    templateUrl: 'sysserviceedit.component.html',
+    selector: 'sysfuncedit',
+    templateUrl: 'sysfuncedit.component.html',
     styles: [`
     .sys-card-btn{
         width:50%;
@@ -24,15 +25,15 @@ import { Renderer3, ProceduralRenderer3 } from '@angular/core/src/render3/render
       }
             `],
 })
-export class SysserviceeditComponent extends ParentEditComponent {
+export class SysfunceditComponent extends ParentEditComponent {
     productName: any;
     pidOption: any;
     fastsearchWords: any[];
     sysViews: any;
-    sysInterfaces: any;
+    sysBtns: any;
     staticMainObj: any = {};
     mainObj: any = {};
-    constructor(public mainService: SysserviceService,
+    constructor(public mainService: SysfuncService,
         public router: Router,
         public activeRoute: ActivatedRoute,
     ) {
@@ -63,7 +64,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
      * @param context 
      */
     event(eventName: string, context: any): void {
-        if (context && context.param && context.param.BUSTYPE ? context.param.BUSTYPE === 'fastsearch' : false) {
+        if (context && context.param.BUSTYPE === 'fastsearch') {
             let appid: any = '';
             switch (eventName) {
                 case 'SYSVIEW':
@@ -102,7 +103,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
                         this.sysViews = result.DATA;
                         break;
                     case 'SYSINTERFACE':
-                        this.sysInterfaces = result.DATA
+                        this.sysBtns = result.DATA
                         break;
                 }
             }
@@ -138,7 +139,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
                         this.staticMainObj[attr] = this.mainObj[attr];
                     }
                     this.getSysViews(this.mainObj.SERVICEID);
-                    this.getSysInterfaces(this.mainObj.SERVICEID);
+                    this.getsysBtns(this.mainObj.SERVICEID);
                 } else {
                     this.messageService.error('基本信息获取失败');
                 }
@@ -149,8 +150,8 @@ export class SysserviceeditComponent extends ParentEditComponent {
      * 获取服务-视图数据
      * @param serviceId 
      */
-    getSysViews(serviceId) {
-        this.mainService.getSysViews(serviceId).subscribe(res => {
+    getSysViews(id) {
+        this.mainService.getSysViews(id).subscribe(res => {
             if (res.CODE === '0') {
                 this.sysViews = res.DATA;
             } else {
@@ -162,10 +163,10 @@ export class SysserviceeditComponent extends ParentEditComponent {
      * 获取服务-接口数据
      * @param serviceId 
      */
-    getSysInterfaces(serviceId) {
-        this.mainService.getSysInterfaces(serviceId).subscribe(res => {
+    getsysBtns(id) {
+        this.mainService.getsysBtns(id).subscribe(res => {
             if (res.CODE === '0') {
-                this.sysInterfaces = res.DATA;
+                this.sysBtns = res.DATA;
             } else {
                 this.messageService.error('接口数据获取失败');
             }
@@ -192,6 +193,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
      * 实现继承与父类的beforeSave函数，对cardSave函数进行功能扩展;
      */
     beforeSave() {
+        this.router;
         // this.mainObj = this.mainService.beforeSave(this.mainObj);
         return true;
     }

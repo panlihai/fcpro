@@ -93,7 +93,7 @@ export class SysvieweditComponent extends ParentEditComponent {
     event(eventName: string, context: any): void {
         switch (eventName) {
             case 'addViewElement':
-                // this.mainService.openDialog();
+                this.mainService.openViewElementDialog();
                 break;
         }
     }

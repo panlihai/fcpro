@@ -110,6 +110,12 @@ import { SysviewService } from './services/sysview.service';
 import { SysviewelementService } from './services/sysviewelement.service';
 import { SysserviceComponent } from './components/core/sysservice.component';
 import { SysappmodaleventdialogComponent } from './components/core/dialog/sysappmodaleventdialog.component';
+import { IsFormValueChanged, DeactivateGuard } from './routeconfig/deactivateguard';
+import { SysappfieldgroupService } from './services/sysappfieldgroup.service';
+import { SysappfieldgroupComponent } from './components/core/dialog/sysappfieldgroup.component';
+import { SysfuncComponent } from './components/core/sysfunc.component';
+import { SysfuncService } from './services/sysfunc.service';
+import { SysfunceditComponent } from './components/core/sysfuncedit.component';
 
 @NgModule({
   entryComponents: [
@@ -129,8 +135,12 @@ import { SysappmodaleventdialogComponent } from './components/core/dialog/sysapp
     SysproducteditComponent,
     SysbizcoderuledialogComponent,
     DialogCardListComponent,
-    SysviewelementeditComponent
-    SysappmodaleventdialogComponent
+    SysviewelementeditComponent,
+    SysappmodaleventdialogComponent,
+    SysviewelementeditComponent,
+    SysappfieldgroupComponent,
+    SysfuncComponent,
+    SysfunceditComponent
   ],
   imports: [
     CommonModule,
@@ -217,7 +227,10 @@ import { SysappmodaleventdialogComponent } from './components/core/dialog/sysapp
     SysvieweditComponent,
     SysviewelementeditComponent,
     SysserviceComponent,
-    SysappmodaleventdialogComponent
+    SysappmodaleventdialogComponent,
+    SysappfieldgroupComponent,
+    SysfuncComponent,
+    SysfunceditComponent,
   ],
   providers: [
     LayoutService,
@@ -268,7 +281,11 @@ import { SysappmodaleventdialogComponent } from './components/core/dialog/sysapp
     SysiconService,
     SysinterfaceService,
     SysviewService,
-    SysviewelementService
+    SysviewelementService,
+    IsFormValueChanged,
+    DeactivateGuard,
+    SysappfieldgroupService,
+    SysfuncService
   ]
 })
 export class SystemModule {
