@@ -1,1 +1,40 @@
 <!-- 预算公式 -->
+<fc-layoutpanel>
+    <fc-layoutcol fccontent fcSpans="3,7">
+        <fc-layoutrow fccontent1 fcSpan="130" fcFull="true" class="formulaLeft">
+            <fc-layoutpanel fccontent1>
+                <fc-layoutcol fccontent fcSpans="7,3" class="leftButton">
+                    <fc-combo fcLabel="预算分类" fccontent1></fc-combo>
+                    <fc-text fcLabel="项目名称" fccontent1>
+                    </fc-text>
+                    <fc-text fcLabel="项目代码" fccontent1>
+                    </fc-text>
+                    <fc-button fcLabel="查询" fcType="primary" (click)="search()" fccontent2></fc-button>
+                    <fc-button fcLabel="重置" fcType="default" (click)="reset()" fccontent2></fc-button>
+                </fc-layoutcol>
+            </fc-layoutpanel>
+            <fc-layoutpanel fccontent2>
+                <fc-listdata fcAppid="SYSMESSAGE" fccontent class="formulaLeftList"></fc-listdata>
+            </fc-layoutpanel>
+        </fc-layoutrow>
+        <fc-layoutrow fccontent2 fcSpan="50" fcFull="true" class="formulaRight">
+            <fc-layoutpanel fccontent1>
+                <fc-layoutcol fcSpans="1,9" fccontent>
+                    <div class="floatLeft" fccontent1>
+                        子项目列表
+                    </div>
+                    <div class="floatLeftButton" fccontent2>
+                        <fc-button fcLabel="新增子项目" fcType="default"></fc-button>
+                        <fc-button fcLabel="批量新增子项目" fcType="default"></fc-button>
+                    </div>
+                </fc-layoutcol>
+            </fc-layoutpanel>
+            <fc-layoutpanel fccontent2>
+                <fc-listdata fcAppid="SYSMESSAGE" fccontent class="formulaRightList"></fc-listdata>
+                <div class="save" fccontent>
+                    <fc-button fcLabel="保存" fcType="default" fccontent></fc-button>
+                </div>
+            </fc-layoutpanel>
+        </fc-layoutrow>
+    </fc-layoutcol>
+</fc-layoutpanel>

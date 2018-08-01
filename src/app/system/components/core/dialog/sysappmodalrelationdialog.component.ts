@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { NzModalSubject, NzModalService } from 'ng-zorro-antd';
 import { SysbizcodedefineService } from '../../../services/sysbizcodedefine.service';
 import { forEach } from '@angular/router/src/utils/collection';
@@ -18,7 +18,7 @@ import { SysicondialogComponent } from './sysicondialog.component';
              <fc-title fcLabel="基本信息" fcWidth="96%" fcheader  [fcHasLine]="false"></fc-title>
              <fc-layoutcol fcSpans="1,0" fccontent>
                  <div fccontent1>
-                    <fc-text [fcLabel]="'主模型名称'" fcReadonly="true" [(ngModel)]="mainObj.MAINAPP" name="MAINAPP"></fc-text>
+                    <fc-text [fcLabel]="'主模型名称'" fcReadonly="true" [(ngModel)]="content" name="MAINAPP"></fc-text>
                      <fc-text [fcLabel]="'关系名称'" fcPlaceHolder="请输入关系的中文描述"   [(ngModel)]="mainObj.LINKNAME" 
                      name="LINKNAME"></fc-text>
                      <div class="sys-tab">与其关系名称，中文，如，元数据的属性</div>
@@ -114,11 +114,16 @@ import { SysicondialogComponent } from './sysicondialog.component';
   `]
 })
 export class SysappmodalrelationdialogComponent extends ParentEditComponent {
-  content: any;
   //图标属性显示字还是图标
   visible: boolean;
   //依赖产品下拉属性
   scomDataItemOptions: any;
+  content: any;
+  @Input()
+  set options(option: any) {
+    this.mainObj = option;
+    this.content = option.MAINAPP + "-" + option.LINKNAME;
+  }
   constructor(private modal: NzModalSubject,
     public mainService: SysapplinksService,
     public router: Router,
@@ -127,7 +132,6 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
   }
   init(): void {
     //初始化加载图标判断是否有图标
-    this.productIcon()
     this.mainService.applinksall().subscribe(result => {
       this.scomDataItemOptions = [];
       result.DATA.forEach(el => {
@@ -138,15 +142,10 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
         this.scomDataItemOptions.push(obj)
       })
     })
+    // this.productIcon();
   }
   addNew(mainObj: any): boolean {
     return true;
-  }
-  @Input()
-  set options(option: any) {
-    //CONTENT值换成子要显示出来的英文-中文字段
-    this.content = option.MAINAPP + option.APPNAME;
-    this.mainObj.MAINAPP = this.options.APPID;
   }
   event(eventName: string, param: any): void {
     switch (eventName) {
@@ -168,22 +167,6 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
         this.mainObj.ICON = "";
         this.visible = true;
         event.stopPropagation()
-        break;
-      //子表模型下拉数据
-      case 'ruletypeEvent':
-        this.mainObj.APPID = param;
-        break;
-      //是否启用单选按钮
-      case 'enableEvent':
-        this.mainObj.ENABLE = param;
-        break;
-      //相对位置单选按钮
-      case 'viewpositionEvent':
-        this.mainObj.VIEWPOSITION = param;
-        break;
-      //关系缓存单选按钮
-      case 'enablecacheEvent':
-        this.mainObj.ENABLECACHE = param;
         break;
     }
   }
@@ -207,7 +190,7 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
   componentEvents(type: string, ev: any) {
     switch (type) {
       case 'ruletypeEvent':
-        this.mainObj.APPID = ev;
+        this.mainObj.MAINAPP = ev;
         break;
       case 'enableEvent':
         this.mainObj.ENABLE = ev;

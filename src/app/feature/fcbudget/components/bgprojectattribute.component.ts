@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentComponent, TreeOptions, ParentlistComponent } from 'fccomponent';
+import { TreeOptions, ParentlistComponent } from 'fccomponent';
 import { BgtransfordialogComponent } from './dialog/bgtransfordialog.component';
 import { FCEVENT } from 'fccomponent/fc';
 import { BgprojectattributeService } from '../services/bgprojectattribute.service';
@@ -8,7 +8,6 @@ import { ChooseattrdialogComponent } from './dialog/chooseattrdialog.component';
 import { NzModalService } from 'ng-zorro-antd';
 import { CopyprojectattrComponent } from './dialog/copyprojectattr.component';
 import { AddaffiliationdialogComponent } from './dialog/addaffiliationdialog.component';
-import { chooseicondialogComponent } from '../../../system/components/core/dialog/chooseicondialog.component';
 @Component({
   selector: 'bgprojectattribute',
   templateUrl: './bgprojectattribute.component.html',
@@ -108,6 +107,29 @@ export class BgprojectattributeComponent extends ParentlistComponent {
     }).subscribe(result => {
       // result为弹窗返回的值
     });
+  }
+  /**
+ * 新增从属关系
+ */
+  addAffiliationDialog() {
+    this.modal.open({
+      title: '新增从属关系',
+      content: AddaffiliationdialogComponent,
+      onOk() { },
+      onCancel() { },
+      footer: false,
+      componentParams: {
+        //  把options对象传值给弹窗
+        options: {}
+      }
+    }).subscribe(result => {
+      // result为弹窗返回的值
+    });
+  }/* 
+ *   属性值从属关系返回
+ */
+  back() {
+    this._selectedIndex = 0
   }
   addNew(mainObj: any): boolean {
     return true;

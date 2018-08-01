@@ -8,7 +8,11 @@ import { SysproductService } from './sysproduct.service';
 @Injectable()
 export class SysinterfaceService extends ParentService {
     dialogArgsSubject = new Subject();
-    constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService) {
+    constructor(public providers: ProvidersService,
+        private nzModal: NzModalService,
+        private sysbizcoderuleService: SysbizcoderuleService,
+        private sysproductService: SysproductService,
+        private modal: NzModalService, ) {
         super(providers, "SYSINTERFACE");
     }
     /** YM
@@ -22,6 +26,29 @@ export class SysinterfaceService extends ParentService {
     }
     getAllProduct() {
         return this.sysproductService.findWithQuery({});
+    }
+    /** 
+    *  获取参数配置数据
+    */
+    getParameters() {
+        return this.findWithQuery('SYSINTERFACEPARAM')
+    }
+    /** 
+   *新增弹窗事件
+   *@param title 
+   *@param content
+   */
+    addWindow(title, content) {
+        return this.modal.open({
+            title: title,
+            content: content,
+            width: '60%',
+            onOk() { },
+            onCancel() { },
+            footer: false,
+            componentParams: {
+            }
+        })
     }
 }
 export interface Sysinterface {

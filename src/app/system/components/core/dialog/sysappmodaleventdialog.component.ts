@@ -45,7 +45,7 @@ import { Router, ActivatedRoute } from '@angular/router';
                     <fc-label fcLabel="数据源图标"></fc-label>
                     <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
                         <fc-icon [fcIcon]="mainObj.BTNICON"  [(ngModel)]="mainObj.BTNICON" fcSize="large"></fc-icon>
-                        <span *ngIf = "visible">选择字体图标</span>
+                        <span *ngIf = "visible===true">选择字体图标</span>
                     </div>
                     <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                 </div>
@@ -115,10 +115,19 @@ import { Router, ActivatedRoute } from '@angular/router';
   `]
 })
 export class SysappmodaleventdialogComponent extends ParentEditComponent {
-  //模型名称字段
-  content: any;
   //图标属性显示字还是图标
   visible: boolean;
+  @Input()
+  set options(option: any) {
+    this.mainObj=option;
+    if (this.mainObj.APPID === undefined) {
+      this.content = '';
+    } else {
+      this.content = option.APPID + "-" + option.BTNNAME;
+    }
+  }
+  //模型名称字段
+  content: any;
   constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
@@ -126,23 +135,17 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
   }
   init(): void {
     //初始化加载图标判断是否有图标
-    this.productIcon()
+    //this.productIcon();
   }
   addNew(mainObj: any): boolean {
     return true;
   }
+
   /**
 * 保存前验证
 */
   beforeSave(): boolean {
-    this.mainObj.APPID = this.options.APPID;
     return true;
-  }
-  @Input()
-  set options(option: any) {
-    //CONTENT值换成子要显示出来的英文-中文字段
-    this.content = option.APPID + option.BTNNAME;
-    this.mainObj.APPID = this.options.APPID;
   }
   event(eventName: string, param: any): void {
     switch (eventName) {
@@ -164,15 +167,6 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
         this.mainObj.BTNICON = "";
         this.visible = true;
         event.stopPropagation()
-        break;
-      case 'enableEvent':
-        this.mainObj.ENABLE = param;
-        break;
-      case 'btntypeEvent':
-        this.mainObj.BTNTYPE = param;
-        break;
-      case 'allowtypeEvent':
-        this.mainObj.ALOWTYPE = param;
         break;
     }
   }
