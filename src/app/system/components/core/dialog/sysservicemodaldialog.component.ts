@@ -16,8 +16,8 @@ import { SysintfreqparamService } from '../../../services/sysintfreqparam.servic
              <fc-title fcLabel="基本信息" fcWidth="96%" fcheader  [fcHasLine]="false"></fc-title>
              <fc-layoutcol fcSpans="1,0" fccontent>
                  <div fccontent1>
-                     <fc-text [fcLabel]="'服务名称'" fcReadonly="true" [(ngModel)]="mainObj.PID" name="PID"></fc-text>
-                     <fc-text [fcLabel]="'接口名称'" fcReadonly="true"  [(ngModel)]="mainObj.IMPLID"  name="IMPLID"></fc-text>
+                     <fc-text [fcLabel]="'服务名称'" fcReadonly="true" [(ngModel)]="content" name="PID"></fc-text>
+                     <fc-text [fcLabel]="'接口名称'" fcReadonly="true"  [(ngModel)]="IMPLID"  name="IMPLID"></fc-text>
                      <div class="sys-tab">被关联的模型名称</div>
                      <fc-text [fcLabel]="'参数编码'" fcPlaceHolder="请选择默认模型" [(ngModel)]="mainObj.PARAMNAME" name="PARAMNAME"></fc-text>
                      <div fccontent1 class="sys-tab">默认模型</div>
@@ -89,6 +89,8 @@ import { SysintfreqparamService } from '../../../services/sysintfreqparam.servic
   `]
 })
 export class SysservicemodaldialogComponent extends ParentEditComponent   {
+  IMPLID:any;
+  content:any;
   constructor(private modal: NzModalSubject,
     public mainService: SysintfreqparamService,
     public router: Router,
@@ -97,8 +99,12 @@ export class SysservicemodaldialogComponent extends ParentEditComponent   {
  }
  @Input()
  set options(option: any) {
-    this.mainObj.PID= option
-    this.mainObj.IMPLID= option
+     //CONTENT值换成子要显示出来的英文-中文字段
+     this.content = option.PID + option.APPNAME;
+     this.mainObj.PID = this.options.PID;
+     //接口名称英文-中文
+     this.IMPLID = option.PID + option.APPNAME;
+     this.mainObj.IMPLID = this.options.IMPLID;
  }
   init(): void {
   }
