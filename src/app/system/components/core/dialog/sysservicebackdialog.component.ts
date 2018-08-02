@@ -31,7 +31,7 @@ import { SysintfreqparamService } from '../../../services/sysintfreqparam.servic
      </form>
     </div>
     <div class="customize-footer">
-        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
+        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
         </fc-button>
     </div>
   </div>
@@ -90,31 +90,29 @@ export class SysservicebackdialogComponent extends ParentEditComponent   {
     public activeRoute: ActivatedRoute) {
    super(mainService, router, activeRoute);
  }
+  mainObj:any = {
+    PID:'',
+    IMPLID:'',
+    PARAMNAME:'',
+    VALUETYPE:'',
+    REMARK:''
+  }
  @Input()
  set options(option: any) {
+    this.mainObj=option;
     //CONTENT值换成子要显示出来的英文-中文字段
-    this.content = option.PID + option.APPNAME;
-    this.mainObj.PID = this.options.PID;
-    //接口名称英文-中文
-    this.IMPLID = option.PID + option.APPNAME;
-    this.mainObj.IMPLID = this.options.IMPLID;
+    // this.content = option.PID + option.APPNAME;
+    // this.mainObj.PID = this.options.PID;
+    // //接口名称英文-中文
+    // this.IMPLID = option.PID + option.APPNAME;
+    // this.mainObj.IMPLID = this.options.IMPLID;
  }
   init(): void {
   }
   addNew(mainObj: any): boolean {
     return true;
   }
-  event(eventName: string, param: any): void {
-    switch (eventName){
-      //保存按钮
-      case 'emitDataOutside':
-      this.cardSave(param);
-      break;
-      //值类型
-      case 'valuetypeEvent':
-      this.mainObj.VALUETYPE = param
-      break;
-  }
+  event(eventName: string, param: any): void {    
   } 
        /**
 * 组件事件收集
@@ -129,4 +127,14 @@ componentEvents(type: string, ev: any) {
    break;
   }
 }
+  //确定按钮
+  emitDataOutside(ev){
+    if(this.mainObj.ID === undefined){
+      //新增模态框数据新增到子表中  
+      this.mainService.childrensave(this.mainObj)   
+    }else{
+      //修改子表数据
+      this.mainService.childrenupdate(this.mainObj)
+    }
+  }
 }

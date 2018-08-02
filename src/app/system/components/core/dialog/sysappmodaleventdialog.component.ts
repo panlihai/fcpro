@@ -48,9 +48,9 @@ import { Router, ActivatedRoute } from '@angular/router';
                     <fc-label fcLabel="图标"></fc-label>
                     <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
                         <fc-icon [fcIcon]="mainObj.BTNICON"  [(ngModel)]="mainObj.BTNICON" fcSize="large"></fc-icon>
-                        <span *ngIf = "visible===true">选择字体图标</span>
+                        <span *ngIf = "visible">选择字体图标</span>
+                        <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                     </div>
-                    <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                 </div>
                 <div fccontent1 style="margin-top:5px;" *ngIf="showDown===false">
                     <fc-radio  [fcAppid]="appId" fcFieldCode="BTNTYPE" [fcValid]="mainValid.BTNTYPE" [(ngModel)]="mainObj.BTNTYPE" fcLabel="事件发生场景" fcFieldCode="BTNTYPE"
@@ -84,10 +84,15 @@ import { Router, ActivatedRoute } from '@angular/router';
     width: 14px;
     text-align: center;
     position: absolute;
-    top: 3%;
-    left: 37.7%;
     z-index: 999;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    heihgt: 20px;
+    height: 14px;
+    right: 0px;
+    top: 0px;
   }
   .sys-choose-icon{
     position:relative;
@@ -140,7 +145,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 }
   `]
 })
-export class SysappmodaleventdialogComponent extends ParentEditComponent {
+export class SysappmodaleventdialogComponent  extends ParentEditComponent{
   //图标属性显示字还是图标
   visible: boolean;
   //显示展开收起图标,初始收起
@@ -202,7 +207,6 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
   addNew(mainObj: any): boolean {
     return true;
   }
-
   /**
   * 保存前验证
   */
@@ -235,10 +239,20 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
   * @param event  
   */
   productIcon() {
-    if (this.mainObj.BTNICON === "") {
-      this.visible = true;
+     //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
+     if (this.mainObj.BTNICON === null) {
+      // this.visible = true;
+      // this.visible = this.visible
+        if (this.mainObj.BTNICON === null) {
+          // this.visible = true;
+          this.visible = this.visible
+        } else {
+          // this.visible = false;
+          this.visible = !this.visible
+        }
     } else {
-      this.visible = false;
+      // this.visible = false;
+      this.visible = this.visible
     }
   }
   /**

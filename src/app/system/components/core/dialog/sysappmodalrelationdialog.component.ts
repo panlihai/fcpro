@@ -83,10 +83,15 @@ import { SysicondialogComponent } from './sysicondialog.component';
     width: 14px;
     text-align: center;
     position: absolute;
-    top: 3%;
-    left: 37.7%;
     z-index: 999;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    heihgt: 20px;
+    height: 14px;
+    right: 0px;
+    top: 0px;
   }
   .sys-choose-icon{
     position:relative;
@@ -138,7 +143,7 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent{
   //显示展开收起图标,初始收起
   showDown: boolean;
   //图标属性显示字还是图标
-  visible: boolean;
+  visible: boolean = true;
   //依赖产品下拉属性
   scomDataItemOptions: any;
   //模型名称
@@ -230,10 +235,6 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent{
           }
         })
         break;
-      //保存按钮
-      case 'emitDataOutside':
-        this.cardSave(param);
-        break;
       //删除字体图标X
       case 'deleticonEvent':
         this.mainObj.ICON = "";
@@ -242,18 +243,29 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent{
         break;
     }
   }
-  /**
-*  ICON如果等于空visible显示（文字请选择图片）
-* ICON如果不等于空visible不显示（文字请选择图片不显示）
-* @param event  
-*/
-  productIcon() {
-    if (this.mainObj.ICON === "") {
-      this.visible = true;
-    } else {
-      this.visible = false;
-    }
-  }
+   /**
+  *  ICON如果等于空visible显示（文字请选择图片）
+  * ICON如果不等于空visible不显示（文字请选择图片不显示）
+  * @param event  
+  */
+ productIcon() {
+  //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
+  if (this.mainObj.ICON === null) {
+   // this.visible = true;
+   // this.visible = this.visible
+     if (this.mainObj.ICON === null) {
+       // this.visible = true;
+       this.visible = this.visible
+     } else {
+       // this.visible = false;
+       this.visible = !this.visible
+     }
+ } else {
+   // this.visible = false;
+   this.visible = this.visible
+ }
+}
+  
   /**
 * 组件事件收集
 * @param type 字符串命名
