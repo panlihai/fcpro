@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { NzModalService } from 'ng-zorro-antd';
 import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
+import { SysserviceService } from './sysservice.service';
 @Injectable()
 export class SysinterfaceService extends ParentService {
     dialogArgsSubject = new Subject();
@@ -12,6 +13,7 @@ export class SysinterfaceService extends ParentService {
         private nzModal: NzModalService,
         private sysbizcoderuleService: SysbizcoderuleService,
         private sysproductService: SysproductService,
+        private sysserviceService: SysserviceService,
         private modal: NzModalService, ) {
         super(providers, "SYSINTERFACE");
     }
@@ -32,6 +34,9 @@ export class SysinterfaceService extends ParentService {
     */
     getParameters() {
         return this.findWithQuery('SYSINTERFACEPARAM')
+    }
+    getServiceById(id) {
+        return this.sysserviceService.findWithQuery({ ID: id });
     }
     /** 
    *新增弹窗事件

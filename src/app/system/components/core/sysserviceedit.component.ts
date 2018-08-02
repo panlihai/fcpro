@@ -200,7 +200,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
     * 新增接口,跳转到新增接口页面
     */
     addInterface() {
-        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'));
+        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'), { ID: this.mainObj.ID, from: this.appId });
     }
     /** YM
       * 显示窗口前的判断

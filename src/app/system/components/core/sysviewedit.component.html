@@ -28,9 +28,27 @@
             <h2>请选择模型，拖拽至属性字段</h2>
         </fc-layoutcol>
         <fc-layoutcol fcSpans="3,7">
-            <fc-chosen fccontent1 [fcShowSearch]="true" fcPlaceHolder="请选择模型，支持多选" fcAppid="SYSAPP" fcFieldCode="APPID" fcLabelCode="APPNAME" fcValueCode="APPID"></fc-chosen>
+            <fc-many fccontent1 [ngModel]="undefined" (ngModelChange)="event('selectApp',$event)" [fcShowSearch]="searchBoolean" [fcShowLabel]="false" fcPlaceHolder="请选择模型，支持多选" [fcOption]="sysApps" fcLabelCode="APPNAME" fcValueCode="APPID"></fc-many>
             <div fccontent2 class="btnAdd-dragable-area" (click)="event('addViewElement')">+ 添加</div>
-            <fc-list fccontent2 fcAppid="SYSVIEWELEMENT" fcFieldCode="ELEMENTID" fcLabelCode="ELEMENTNAME" fcValueCode="ELEMENTID"></fc-list>
+            <div fccontent1 class="selectList-area">
+                <div class="selectList-title-area">备选模型&字段</div>
+                <div class="selectList-content-area">
+                    <ul *ngFor="let app of selectedApps">
+                        <li>
+                            <fc-icon fcIcon="fc-icon-fall" fcSize="small"></fc-icon>
+                            <span>{{app.TABLETYPE==='TABLE'?'T':'V'}}:</span>
+                            <span>{{app.APPNAME}}-{{app.MAINTABLE}}</span>
+                            <span *ngIf="app.APPID===this.mainObj.DEFAULTAPPID">（默认模型）</span>
+                            <ul>
+                                <li *ngFor="let field of app.P_APPFIELDS">{{field.FIELDCODE}}-{{field.FIELDNAME}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div fccontent2 class="selectList-list-area">
+                <fc-list fcAppid="SYSVIEWELEMENT" fcLabelCode="ELEMENTNAME" fcValueCode="ELEMENTID" [fcCondition]="condition" fcIcon="fc-icon-picture" fcSubTitleCode="HELP" fcStatusCode='ELEMENTNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}" (fcEvent)="event('selectElementToEdit',$event)">></fc-list>
+            </div>
         </fc-layoutcol>
     </div>
 </fc-layoutpanel>

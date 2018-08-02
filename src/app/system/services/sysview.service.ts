@@ -5,9 +5,10 @@ import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { SysviewelementeditComponent } from '../components/core/sysviewelementedit.component';
+import { SysappService } from './sysapp.service';
 @Injectable()
 export class SysviewService extends ParentService {
-    constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService) {
+    constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService, private sysappService: SysappService) {
         super(providers, "SYSVIEW");
     }
     /**
@@ -60,6 +61,12 @@ export class SysviewService extends ParentService {
                 params: mainObj
             }
         })
+    }
+    getSysApps() {
+        return this.sysappService.findWithQuery({});
+    }
+    getAppFieldsByApp() {
+        
     }
 }
 export interface Sysview {

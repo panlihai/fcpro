@@ -44,6 +44,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
     pidOption;
     //参数数据
     parameters: any;
+    staticMainObj: any;
     constructor(public mainService: SysinterfaceService,
         public router: Router,
         public activeRoute: ActivatedRoute) {
@@ -65,8 +66,49 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
         //初始化产品名称的自定义下拉选项内容
         this.initPidOption();
         this.checkPid();
+        this.handleRouterParam();
         //获取参数配置数据
         /* this.getParameters(); */
+    }
+    /** YM
+    * 处理路由传参的情况
+    * @param pid 
+    */
+    handleRouterParam() {
+        if (this.routerParam.ID) {
+            if (this.routerParam.from) {
+                this.initEditObj(this.routerParam);
+            } else {
+                this.messageService.error("缺少必要路由参数");
+            }
+        }
+    }
+    initEditObj(param: any) {
+        switch (param.from) {
+            case 'SYSSERVICE':
+                this.mainService.getServiceById(param.ID).subscribe(res => {
+                    if (res.CODE === '0' && res.DATA.length !== 0) {
+                        for (let attr in res.DATA[0]) {
+                            if (attr === 'PID' || attr === 'SERVICENAME') {
+                                this.mainObj[attr] = res.DATA[0][attr];
+                            }
+                            if (attr === 'SERVICEID') {
+                                this.mainObj['APPID'] = res.DATA[0][attr];
+                            }
+                        }
+                        for (let attr in this.mainObj) {
+                            this.staticMainObj[attr] = this.mainObj[attr];
+                        }
+                        // this.getSysInterfaces(this.mainObj.SERVICEID);
+                    } else {
+                        this.messageService.error('基本信息获取失败');
+                    }
+                })
+                break;
+            case 'SYSAPP':
+                // this.mainService.getAppById(param.ID);
+                break;
+        }
     }
     /**
      * html事件收集及派发函数

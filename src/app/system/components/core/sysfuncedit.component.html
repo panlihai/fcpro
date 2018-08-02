@@ -17,11 +17,10 @@
         <fc-title fccontent fcLabel="基本信息" [fcHasLine]="false"></fc-title>
         <fc-layoutcol fccontent>
             <fc-text fccontent1 fcLabel="功能编码" [(ngModel)]="mainObj.FUNCID" [fcAppid]="appId" fcFieldCode="FUNCID" name="FUNCID" [fcDisabled]="true"></fc-text>
-            <fc-combo fccontent2 fcLabel="产品名称" [(ngModel)]="mainObj.PID" fcFieldCode="FUNCID" (ngModelChange)="event('PID',$event)" [fcOption]="pidOption" name="PID"></fc-combo>
+            <fc-combo fccontent2 fcLabel="产品名称" [(ngModel)]="mainObj.PID" (ngModelChange)="event('PID',$event)" [fcOption]="pidOption" name="PID"></fc-combo>
             <fc-text fccontent1 fcLabel="功能名称" [(ngModel)]="mainObj.FUNCNAME" [fcAppid]="appId" fcFieldCode="FUNCNAME" name="FUNCNAME"></fc-text>
             <fc-text fccontent2 fcLabel="功能类型" [(ngModel)]="mainObj.FUNCTYPE" [fcAppid]="appId" fcFieldCode="FUNCTYPE" name="FUNCTYPE" [fcDisabled]="true"></fc-text>
-            <fc-text fccontent1 fcLabel="监听类" [(ngModel)]="mainObj.SERVICECLASS" [fcAppid]="appId" fcFieldCode="SERVICECLASS" name="SERVICECLASS"></fc-text>
-            <fc-text fccontent2 fcLabel="功能URL" [(ngModel)]="mainObj.FUNCURL" [fcAppid]="appId" fcFieldCode="FUNCURL" name="FUNCURL" [fcDisabled]="true"></fc-text>
+            <fc-text fccontent1 fcLabel="功能URL" [(ngModel)]="mainObj.FUNCURL" [fcAppid]="appId" fcFieldCode="FUNCURL" name="FUNCURL" [fcDisabled]="true"></fc-text>
         </fc-layoutcol>
         <fc-title fccontent fcLabel="其他信息" [fcHasLine]="false"></fc-title>
         <fc-layoutcol fccontent>

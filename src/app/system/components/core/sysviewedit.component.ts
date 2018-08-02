@@ -24,8 +24,10 @@ import { SysviewService } from '../../services/sysview.service';
         margin: 1% 0% 1% 3%;
       }
       .btnAdd-dragable-area{
-        width: 10%;
-        line-height: 30px;
+        width: 95%;
+        position:relative;
+        left:5%;
+        line-height: 25px;
         text-align: center;
         border: 2px #ddd dashed;
         border-radius: 4px;
@@ -35,7 +37,28 @@ import { SysviewService } from '../../services/sysview.service';
        border-color:dodgerblue;
        transition: 1s;
       }
+      .selectList-title-area {
+        height: 28px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        line-height: 28px;
+        text-align: center;
+      }
+      .selectList-area, .selectList-list-area {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px;
+        margin-top: 5px;
+        height:535px;
+        overflow:auto;
+      }
+      .selectList-content-area{
 
+      }
+      .selectList-list-area {
+        position:relative;
+        left:5%;
+      }
 `]
 })
 export class SysvieweditComponent extends ParentEditComponent {
@@ -44,6 +67,10 @@ export class SysvieweditComponent extends ParentEditComponent {
     modelOptions: any;
     fastsearchWords: any[];
     staticMainObj: any;
+    condition: any;
+    sysApps: any;
+    searchBoolean: boolean = true;
+    selectedApps: any = [];
     constructor(public mainService: SysviewService,
         public router: Router,
         public activeRoute: ActivatedRoute) {
@@ -63,6 +90,7 @@ export class SysvieweditComponent extends ParentEditComponent {
     init(): void {
         this.handleRouterParam();
         this.preventUnsaved();
+        this.initSysApps();
     }
     /** YM
     * 处理路由传参的情况
@@ -88,13 +116,19 @@ export class SysvieweditComponent extends ParentEditComponent {
     /**
      * html事件收集及派发函数
      * @param eventName 
-     * @param context 
+     * @param param 
      */
-    event(eventName: string, context: any): void {
+    event(eventName: string, param: any): void {
         switch (eventName) {
             case 'addViewElement':
                 this.mainService.openViewElementDialog();
                 break;
+            case 'selectElementToEdit':
+                break;
+            case 'selectApp':
+                this.handleSelectApp(param)
+                break;
+
         }
     }
     /**
@@ -131,5 +165,16 @@ export class SysvieweditComponent extends ParentEditComponent {
     addView() {
     }
     addInterface() {
+    }
+    initSysApps() {
+        this.mainService.getSysApps().subscribe(res => {
+            if (res.CODE === '0') {
+                this.sysApps = res.DATA
+            }
+        });
+    }
+    handleSelectApp(param: any) {
+        this.sysApps = param;
+        this.mainService.getAppFieldsByApp();
     }
 }
