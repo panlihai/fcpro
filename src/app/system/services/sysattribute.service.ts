@@ -10,6 +10,13 @@ export class SysattributeService extends ParentService {
         private modal: NzModalService, ) {
         super(providers, "SYSAPPFIELDS");
     }
+    /** 
+   * 获取分组下拉数据
+   * @param dialogArgs 
+   */
+    getGroup() {
+        return this.providers.appService.findWithQuery('SYSAPPFLDGROUP',{})
+    }
     /** YM
    * 打开窗口的函数方法
    * @param dialogArgs 
