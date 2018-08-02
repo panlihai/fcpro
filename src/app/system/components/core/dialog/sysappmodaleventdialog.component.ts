@@ -18,7 +18,7 @@ import { Router, ActivatedRoute } from '@angular/router';
              <fc-layoutcol fcSpans="1,0" fccontent>
                  <div fccontent1>
                      <fc-text [fcLabel]="'模型名称'" fcReadonly="true" [(ngModel)]="content"
-                     name="APPPID"></fc-text>
+                     name="APPID"></fc-text>
                     <fc-text [fcLabel]="'事件编码'" [fcAppid]="appId" fcFieldCode="BTNCODE" [fcValid]="mainValid.BTNCODE" fcPlaceHolder="按编码规则自动生成"   [(ngModel)]="mainObj.BTNCODE" 
                      name="BTNCODE"></fc-text>
                      <div class="sys-tab">与其关系名称，中文，如，元数据的属性</div>
@@ -43,10 +43,10 @@ import { Router, ActivatedRoute } from '@angular/router';
                 <fc-title fcLabel="其他信息" fcWidth="96%" [fcHasLine]="false" fccontent1></fc-title>
                  <div class="sys-choose-icon" fccontent1>
                     <fc-label fcLabel="数据源图标"></fc-label>
-                    <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
+                    <div class="sys-choose-icon-box"  (click)="componentEvents('iconEvent',$event)">
                         <fc-icon [fcIcon]="mainObj.BTNICON"  [(ngModel)]="mainObj.BTNICON" fcSize="large"></fc-icon>
                         <span *ngIf = "visible">选择字体图标</span>
-                        <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
+                        <span class="sys-deleticon"  (click)="componentEvents('deleticonEvent',$event)">x</span>
                     </div>
                 </div>
                 <div fccontent1 style="margin-top:5px;">
@@ -149,71 +149,36 @@ export class SysappmodaleventdialogComponent  extends ParentEditComponent{
     if (this.mainObj.APPID === undefined) {
       this.content = '';
       // this.readonly = false;
+      this.content = ''
     } else {
-      this.content = option.APPID + "-" + option.BTNNAME;
+      this.content = option.APPID + "-" + option.APPNAME;
       // this.readonly = true;
     }
+    // this.mainObj.APPID = this.options.APPID,
     this.productIcon();
   }
-  addNew(mainObj: any): boolean {
-    return true;
-  }
-  init(): void {
-  }
-  /**
-* 保存前验证
-*/
-  beforeSave(): boolean {
-    return true;
-  }
-  event(eventName: string, param: any): void {
-    switch (eventName) {
-      //图标弹窗
-      case 'iconEvent':
-        this.mainService.producticonmodal('字体图标', SysicondialogComponent).subscribe(obj => {
-          if (obj.DICVALUE !== undefined) {
-            this.mainObj.BTNICON = obj.DICVALUE
-            this.visible = false;
-          }
-        })
-        break;
-      //删除字体图标X
-      case 'deleticonEvent':
-        this.mainObj.BTNICON = "";
-        this.visible = true;
-        event.stopPropagation()
-        break;
-    }
-  }
-  /**
-  *  ICON如果等于空visible显示（文字请选择图片）
-  * ICON如果不等于空visible不显示（文字请选择图片不显示）
-  * @param event  
+    /**
+  * 组件事件收集
+  * @param type 字符串命名
+  * @param ev 事件传过来的参数
   */
-  productIcon() {
-     //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
-     if (this.mainObj.BTNICON === null) {
-      // this.visible = true;
-      // this.visible = this.visible
-        if (this.mainObj.BTNICON === null) {
-          // this.visible = true;
-          this.visible = this.visible
-        } else {
-          // this.visible = false;
-          this.visible = !this.visible
-        }
-    } else {
-      // this.visible = false;
-      this.visible = this.visible
-    }
-  }
-  /**
-* 组件事件收集
-* @param type 字符串命名
-* @param ev 事件传过来的参数
-*/
   componentEvents(type: string, ev: any) {
     switch (type) {
+      //图标弹窗
+      case 'iconEvent':
+      this.mainService.producticonmodal('字体图标', SysicondialogComponent).subscribe(obj => {
+        if (obj.DICVALUE !== undefined) {
+          this.mainObj.BTNICON = obj.DICVALUE
+          this.visible = false;
+        }
+      })
+      break;
+      //删除字体图标X
+      case 'deleticonEvent':
+      this.mainObj.BTNICON = "";
+      this.visible = true;
+      event.stopPropagation()
+      break;  
       case 'enableEvent':
         this.mainObj.ENABLE = ev;
         break;
@@ -225,14 +190,43 @@ export class SysappmodaleventdialogComponent  extends ParentEditComponent{
         break;
     }
   }
-  //确定按钮
-emitDataOutside(ev){
-  if(this.mainObj.ID === undefined){
-    //新增模态框数据新增到子表中  
-    this.mainService.childrensave(this.mainObj)   
-  }else{
-    //修改子表数据
-    this.mainService.childrenupdate(this.mainObj)
+    //确定按钮
+  emitDataOutside(ev){
+    if(this.mainObj.ID === undefined){
+      //新增模态框数据新增到子表中  
+      this.mainService.childrensave(this.mainObj)   
+    }else{
+      //修改子表数据
+      this.mainService.childrenupdate(this.mainObj)
+    }
   }
+    /**
+  *  ICON如果等于空visible显示（文字请选择图片）
+  * ICON如果不等于空visible不显示（文字请选择图片不显示）
+  * @param event  
+  */
+ productIcon() {
+  //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
+  if (this.mainObj.BTNICON === null) {
+   // this.visible = true;
+   // this.visible = this.visible
+     if (this.mainObj.BTNICON === null) {
+       // this.visible = true;
+       this.visible = this.visible
+     } else {
+       // this.visible = false;
+       this.visible = !this.visible
+     }
+ } else {
+   // this.visible = false;
+   this.visible = this.visible
+ }
+}
+  addNew(mainObj: any): boolean {
+    return true;
+  }
+  init(): void {
+  }
+event(eventName: string, param: any): void {
 }
 }

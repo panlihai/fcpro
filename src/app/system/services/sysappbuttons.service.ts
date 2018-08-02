@@ -19,6 +19,7 @@ export class SysappbuttonsService extends ParentService {
       title: title,
       content: content,
       width: "60%",
+      zIndex: 999,
       onOk() {
       },
       onCancel() { },
