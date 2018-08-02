@@ -106,9 +106,11 @@ export class SysappComponent extends ParentlistComponent {
    */
   drag(ev) {
     ev = this.EventUtil.getEvent(ev);
+    ev.dataTransfer.dropEffect = 'copy';
     let target = this.EventUtil.getTarget(ev);
     //方法设置被拖数据的数据类型和值,数据类型是 "Text"，值是可拖动元素的 id ("drag1")
     ev.dataTransfer.setData("Text", ev.target.id);
+    ev.dataTransfer.effectAllowed = 'copy';
   }
   /**
    * 当放置被拖数据时，会发生 drop 事件。
@@ -122,12 +124,12 @@ export class SysappComponent extends ParentlistComponent {
     ev.target.appendChild(document.getElementById(data));
   }
   dragenter(ev) {
-    ev= this.EventUtil.getEvent(ev);
+    ev = this.EventUtil.getEvent(ev);
     var target = this.EventUtil.getTarget(ev);
     //重要！重写dragenter事件的默认行为，使其可以触发drop事件
     this.EventUtil.preventDefault(ev);
     //dropEffect事件和effectAllowed事件搭配使用
-    ev.dataTransfer.dropEffect = 'copyMove';
+    ev.dataTransfer.dropEffect = 'copy';
     target.className = 'hover';
   }
 

@@ -109,6 +109,8 @@ import { SysviewelementeditComponent } from './components/core/sysviewelementedi
 import { SysviewService } from './services/sysview.service';
 import { SysviewelementService } from './services/sysviewelement.service';
 import { SysserviceComponent } from './components/core/sysservice.component';
+// 拖拽指令
+import { fcDragDirective } from '../directive/drag.directive';
 
 @NgModule({
   entryComponents: [
@@ -148,7 +150,7 @@ import { SysserviceComponent } from './components/core/sysservice.component';
     NgZorroAntdModule,
     ChartsModule,
     NgZorroAntdModule,
-    ChartsModule
+    ChartsModule,
   ],
   exports: [
   ],
@@ -213,7 +215,8 @@ import { SysserviceComponent } from './components/core/sysservice.component';
     DialogCardListComponent,
     SysvieweditComponent,
     SysviewelementeditComponent,
-    SysserviceComponent
+    SysserviceComponent,
+    fcDragDirective
   ],
   providers: [
     LayoutService,

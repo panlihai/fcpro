@@ -66,8 +66,8 @@ export class SysdatasourceComponent extends ParentlistComponent {
    * 初始化数据源
    */
   initDatasource() {
-    //根据后端接口查询数据
-    this.mainService.findWithQuery({}).subscribe(result => {
+    //根据后端接口查询数据源
+    this.mainService.findWithQuery({ PID: this.product }).subscribe(result => {
       this.sysDatasources = result.P_LISTVALUE;
     });
   }
@@ -109,6 +109,14 @@ export class SysdatasourceComponent extends ParentlistComponent {
         event.preventDefault();
         break;
     }
+  }
+  /**
+   * 选择产品
+   * @param event 
+   */
+  changeProduct(event: any) {
+    this.product = event;
+    this.initDatasource();
   }
   /**
    * 单条删除

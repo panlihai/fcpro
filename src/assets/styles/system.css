@@ -35,7 +35,7 @@
   right: 10px;
   top: 0;
   width: auto;
-  height: 60%;
+  height: 60px;
 }
 
 .sys-card-add {
@@ -94,47 +94,22 @@
   padding: 4px 5px;
   font-size: 12px;
   background-color: #ffffff;
-  border-top: 1px solid #ebedf0;
-  border-bottom: 1px solid #ebedf0;
   cursor: pointer;
   position: relative;
 }
-
-.sys-fast-byword span::after {
-  content: '';
-  display: none;
-  width: 1px;
-  height: 100%;
-  background: #009dff;
-  right: 0;
-  bottom: 0;
-  position: absolute;
-}
-
 .sys-fast-byword span:first-child {
-  border-left: 1px solid #ebedf0;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 
 .sys-fast-byword span:last-child {
-  border-right: 1px solid #ebedf0;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
 .sys-fast-byword span.active,.sys-fast-byword span:hover {
-  border-top: 1px solid #009DFF;
-  border-bottom: 1px solid #009DFF;
-  border-left: 1px solid #009DFF;
-  border-right: 1px solid #009DFF;
   color: #009dff;
 }
-
-.sys-fast-byword span:hover::after, .sys-fast-byword span.active::after {
-  display: block;
-}
-
 .sys-fast-list li {
   float: left;
   color: #009DFF;

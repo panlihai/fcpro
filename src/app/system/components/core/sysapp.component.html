@@ -1,11 +1,14 @@
 <!-- 模型和元数据入口 -->
 <fc-layoutpanel class="sys-card-pannel">
     <div class="sys-card-pannel-header" fcheader>
-        <div id="div1" (drop)="drop($event)" (dragover)="allowDrop($event)" style="width:198px; height:66px;padding:10px;border:1px solid #aaaaaa;"></div>
-        <br />
+        <!-- <div id="div1" (drop)="drop($event)" (dragover)="allowDrop($event)" (dragenter)="dragenter($event)" style="width:198px; height:66px;padding:10px;border:1px solid #aaaaaa;"></div>
+        <br /> -->
+        <!-- <div style="width: 100px;height: 100px;background: red;position: fixed;left:0;top: 0;" fcDrag>
+
+        </div> -->
         <!-- 设置元素为可拖拽 -->
-        <img id="drag1" [draggable]="true" (dragstart)="drag($event)" (dragenter)="dragenter($event)" src="assets/img/system-bg.png"
-            width="70" height="50" />
+        <!-- <img id="drag1" [draggable]="true" (dragstart)="drag($event)" src="assets/img/system-bg.png" width="70"
+            height="50" /> -->
         <fc-title fcLabel="模型&元数据" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
             说明：FC开发设计平台，快速开发应用模型，此功能实现模型定义，实现数据库表及视图的新增、修改、删除 、同步。
