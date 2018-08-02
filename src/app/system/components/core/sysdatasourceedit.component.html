@@ -18,11 +18,11 @@
                                     <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"  ></fc-icon>查看模型</li>
                             <li  (click)="event('backToList')">
                                 <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>返回列表</li>
-                            <li  (click)="testmodal()">
+                            <li  (click)="testmodal($event);">
                                     <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>模型元数据事件</li>  
-                            <li  (click)="testmodal2()">
+                            <li  (click)="testmodal2($event);">
                                 <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>模型元数据关系</li>  
-                            <li  (click)="testmodal3()">
+                            <li  (click)="testmodal3($event);">
                                 <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>参数编辑</li>       
                         </ul>
                     </div>
@@ -71,8 +71,8 @@
                             <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
                                     <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcSize="large"></fc-icon>
                                     <span *ngIf = "visible">选择字体图标</span>
+                                    <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                             </div>
-                            <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                         </div>
                     </fc-layoutcol>
                     <fc-layoutcol fcSpans="1,0">

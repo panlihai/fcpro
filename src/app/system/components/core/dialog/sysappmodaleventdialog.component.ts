@@ -45,9 +45,9 @@ import { Router, ActivatedRoute } from '@angular/router';
                     <fc-label fcLabel="数据源图标"></fc-label>
                     <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
                         <fc-icon [fcIcon]="mainObj.BTNICON"  [(ngModel)]="mainObj.BTNICON" fcSize="large"></fc-icon>
-                        <span *ngIf = "visible===true">选择字体图标</span>
+                        <span *ngIf = "visible">选择字体图标</span>
+                        <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                     </div>
-                    <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                 </div>
                 <div fccontent1 style="margin-top:5px;">
                     <fc-radio  [fcAppid]="appId" fcFieldCode="BTNTYPE" [fcValid]="mainValid.BTNTYPE" [(ngModel)]="mainObj.BTNTYPE" fcLabel="事件发生场景"
@@ -64,7 +64,7 @@ import { Router, ActivatedRoute } from '@angular/router';
      </div>
     </div>
     <div class="customize-footer">
-        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
+        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
         </fc-button>
     </div>
   </div>
@@ -82,10 +82,15 @@ import { Router, ActivatedRoute } from '@angular/router';
     width: 14px;
     text-align: center;
     position: absolute;
-    top: 3%;
-    left: 37.7%;
     z-index: 999;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    heihgt: 20px;
+    height: 14px;
+    right: 0px;
+    top: 0px;
   }
   .sys-choose-icon{
     position:relative;
@@ -114,18 +119,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   }
   `]
 })
-export class SysappmodaleventdialogComponent extends ParentEditComponent {
-  //图标属性显示字还是图标
-  visible: boolean;
-  @Input()
-  set options(option: any) {
-    this.mainObj=option;
-    if (this.mainObj.APPID === undefined) {
-      this.content = '';
-    } else {
-      this.content = option.APPID + "-" + option.BTNNAME;
-    }
-  }
+export class SysappmodaleventdialogComponent  extends ParentEditComponent{
+  // readonly:boolean;
   //模型名称字段
   content: any;
   constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService,
@@ -133,14 +128,38 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
     public activeRoute: ActivatedRoute) {
     super(mainService, router, activeRoute);
   }
-  init(): void {
-    //初始化加载图标判断是否有图标
-    //this.productIcon();
+  //图标属性显示字还是图标
+  visible: boolean = true;
+  mainObj:any = {
+    APPPID:'',
+    BTNCODE:'',
+    BTNNAME:'',
+    ACTCODE:'',
+    ENABLE:'',
+    SORT:'',
+    BTNICON:'',
+    BTNTYPE:'',
+    ALLOWTYPE:'',
+    HELP:'',
+    ID:''
+  }
+  @Input()
+  set options(option: any) {
+    this.mainObj=option;
+    if (this.mainObj.APPID === undefined) {
+      this.content = '';
+      // this.readonly = false;
+    } else {
+      this.content = option.APPID + "-" + option.BTNNAME;
+      // this.readonly = true;
+    }
+    this.productIcon();
   }
   addNew(mainObj: any): boolean {
     return true;
   }
-
+  init(): void {
+  }
   /**
 * 保存前验证
 */
@@ -158,10 +177,6 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
           }
         })
         break;
-      //保存按钮
-      case 'emitDataOutside':
-        this.cardSave(param);
-        break;
       //删除字体图标X
       case 'deleticonEvent':
         this.mainObj.BTNICON = "";
@@ -176,10 +191,20 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
   * @param event  
   */
   productIcon() {
-    if (this.mainObj.BTNICON === "") {
-      this.visible = true;
+     //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
+     if (this.mainObj.BTNICON === null) {
+      // this.visible = true;
+      // this.visible = this.visible
+        if (this.mainObj.BTNICON === null) {
+          // this.visible = true;
+          this.visible = this.visible
+        } else {
+          // this.visible = false;
+          this.visible = !this.visible
+        }
     } else {
-      this.visible = false;
+      // this.visible = false;
+      this.visible = this.visible
     }
   }
   /**
@@ -196,8 +221,18 @@ export class SysappmodaleventdialogComponent extends ParentEditComponent {
         this.mainObj.BTNTYPE = ev;
         break;
       case 'allowtypeEvent':
-        this.mainObj.ALOWTYPE = ev;
+        this.mainObj.ALLOWTYPE = ev;
         break;
     }
   }
+  //确定按钮
+emitDataOutside(ev){
+  if(this.mainObj.ID === undefined){
+    //新增模态框数据新增到子表中  
+    this.mainService.childrensave(this.mainObj)   
+  }else{
+    //修改子表数据
+    this.mainService.childrenupdate(this.mainObj)
+  }
+}
 }

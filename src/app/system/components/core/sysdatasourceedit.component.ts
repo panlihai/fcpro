@@ -72,10 +72,15 @@ import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.c
     width: 14px;
     text-align: center;
     position: absolute;
-    top: 3%;
-    left: 47.5%;
     z-index: 999;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    heihgt: 20px;
+    height: 14px;
+    right: 0px;
+    top: 0px;
   }
   .sys-tab{
     margin-left:26%;
@@ -113,11 +118,11 @@ export class SysdatasourceeditComponent extends ParentEditComponent {
      //顶部按钮是否显示
      this.productdisableds();
      //下拉框显示自己想要动态传入的label和value值 
-     this.mainService.dataall().subscribe(result => {
+     this.mainService.findWithQuery({ WHERE: `and ENABLE='Y' and PID != '${this.mainObj.PID}'` }).subscribe(result => {
       this.scomDataItemOptions=[];
       result.P_LISTVALUE.forEach(el => {
         let obj :any = {};
-        obj.label = el.PID+'-'+el.PNAME;
+        obj.label = el.PID+'-'+el.DSNAME;
         obj.value = el.PID;
         obj.disabled = false;
         this.scomDataItemOptions.push(obj)

@@ -46,8 +46,8 @@ import { SysicondialogComponent } from './sysicondialog.component';
                     <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
                         <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcSize="large"></fc-icon>
                         <span *ngIf = "visible">选择字体图标</span>
+                        <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                     </div>
-                    <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                 </div>
                 <div fccontent1 style="margin-top:5px;">
                     <fc-radio [(ngModel)]="mainObj.VIEWPOSITION" fcLabel="相对位置" [fcAppid]="appId" fcFieldCode="VIEWPOSITION" fcLabelCode="DICDESC"
@@ -63,7 +63,7 @@ import { SysicondialogComponent } from './sysicondialog.component';
      </div>
     </div>
     <div class="customize-footer">
-        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
+        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
         </fc-button>
     </div>
   </div>
@@ -81,10 +81,15 @@ import { SysicondialogComponent } from './sysicondialog.component';
     width: 14px;
     text-align: center;
     position: absolute;
-    top: 3%;
-    left: 37.7%;
     z-index: 999;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    heihgt: 20px;
+    height: 14px;
+    right: 0px;
+    top: 0px;
   }
   .sys-choose-icon{
     position:relative;
@@ -115,14 +120,28 @@ import { SysicondialogComponent } from './sysicondialog.component';
 })
 export class SysappmodalrelationdialogComponent extends ParentEditComponent {
   //图标属性显示字还是图标
-  visible: boolean;
+  visible: boolean = true;
   //依赖产品下拉属性
   scomDataItemOptions: any;
-  content: any;
+  content:any;
+  mainObj:any = {
+    MAINAPP:'',
+    LINKNAME:'',
+    ITEMAPP:'',
+    LINKFILTER:'',
+    ENABLE:'',
+    SORTBY:'',
+    ICON:'',
+    VIEWPOSITION:'',
+    ENABLECACHE:'',
+    REMARK:''
+  }
   @Input()
   set options(option: any) {
     this.mainObj = option;
     this.content = option.MAINAPP + "-" + option.LINKNAME;
+    //初始化加载图标判断是否有图标
+    this.productIcon();
   }
   constructor(private modal: NzModalSubject,
     public mainService: SysapplinksService,
@@ -158,10 +177,6 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
           }
         })
         break;
-      //保存按钮
-      case 'emitDataOutside':
-        this.cardSave(param);
-        break;
       //删除字体图标X
       case 'deleticonEvent':
         this.mainObj.ICON = "";
@@ -170,18 +185,29 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
         break;
     }
   }
-  /**
-*  ICON如果等于空visible显示（文字请选择图片）
-* ICON如果不等于空visible不显示（文字请选择图片不显示）
-* @param event  
-*/
-  productIcon() {
-    if (this.mainObj.ICON === "") {
-      this.visible = true;
-    } else {
-      this.visible = false;
-    }
-  }
+   /**
+  *  ICON如果等于空visible显示（文字请选择图片）
+  * ICON如果不等于空visible不显示（文字请选择图片不显示）
+  * @param event  
+  */
+ productIcon() {
+  //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
+  if (this.mainObj.ICON === null) {
+   // this.visible = true;
+   // this.visible = this.visible
+     if (this.mainObj.ICON === null) {
+       // this.visible = true;
+       this.visible = this.visible
+     } else {
+       // this.visible = false;
+       this.visible = !this.visible
+     }
+ } else {
+   // this.visible = false;
+   this.visible = this.visible
+ }
+}
+  
   /**
 * 组件事件收集
 * @param type 字符串命名
@@ -205,4 +231,14 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
         break;
     }
   }
+    //确定按钮
+emitDataOutside(ev){
+  if(this.mainObj.ID === undefined){
+    //新增模态框数据新增到子表中  
+    this.mainService.childrensave(this.mainObj)   
+  }else{
+    //修改子表数据
+    this.mainService.childrenupdate(this.mainObj)
+  }
+}
 }
