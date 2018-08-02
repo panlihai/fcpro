@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, ParentlistComponent, ParentEditComponent } from 'fccomponent';
 import { SysproductService } from '../../services/sysproduct.service';
@@ -20,7 +20,8 @@ import { ObjStatus } from 'fccore';
     margin-left: 62%;
   }
   .sys-fciconlayout{
-    width: 12%;
+    width: 100px;
+    height:100px;
     height: 89px;
     display: inline-flex;
     align-items: center;
@@ -49,10 +50,11 @@ import { ObjStatus } from 'fccore';
   .sys-deleticon{
     background: #108ee9;
     width: 14px;
+    height: 14px;
     text-align: center;
     position: absolute;
-    bottom: 81%;
-    left: 10.5%;
+    bottom: 84%;
+    left: 8.5%;
     z-index:999;
     cursor: pointer;
   }
@@ -68,7 +70,7 @@ import { ObjStatus } from 'fccore';
   }
   `]
 })
-export class SysproducteditComponent extends ParentEditComponent {
+export class SysproducteditComponent extends ParentEditComponent implements AfterViewInit {
   value: any;
   label: any;
   constructor(public mainService: SysproductService,
@@ -90,11 +92,29 @@ export class SysproducteditComponent extends ParentEditComponent {
   //依赖产品下拉属性
   scomDataItemOptions: any;
   FIELDCODE: string;
-  productany:any;
+  productany: any;
   //上传属性
   fcUploadOption: { FILETYPE: string; SOURCEID: any; SOURCEAID: string; SOURCEFIELD: string; RESTITLE: string; };
   addNew(mainObj: any): boolean {
     return true;
+  }
+  /**
+   * 生命周期钩子 视图渲染完毕在执行
+   * @param event  
+   */
+  ngAfterViewInit() {
+    this.mainObj;
+    //过滤fcproduct ENABLE 把PID-PNAME
+    this.mainService.findWithQuery({ WHERE: `and ENABLE='Y' and PID != '${this.mainObj.PID}'` }).subscribe(result => {
+      this.scomDataItemOptions = [];
+      result.P_LISTVALUE.forEach(el => {
+        let obj: any = {};
+        obj.label = el.PID + '-' + el.PNAME;
+        obj.value = el.PID;
+        obj.disabled = false;
+        this.scomDataItemOptions.push(obj)
+      });
+    });
   }
   /**
   * 保存前验证
@@ -115,66 +135,59 @@ export class SysproducteditComponent extends ParentEditComponent {
       SOURCEFIELD: "",
       RESTITLE: ""
     };
-    //初始化模式为标签
-    this.mainObj.DISPLAYMODE = "TAB"
     //选择图片是否显示调用方法
     this.productIcon()
     //初始化设置按钮是否为禁用状态 无效果
     this.productdisableds();
     //初始化设置依赖产品是否显示
     this.relayfun()
-    //过滤fcproduct ENABLE 把PID-PNAME
-    this.mainService.findWithQuery({ WHERE: `ENABLE='Y'` }).subscribe(result => {
-      this.scomDataItemOptions=[];
-      result.P_LISTVALUE.forEach(el => {
-        let obj :any = {};
-        obj.label = el.PID+'-'+el.PNAME;
-        obj.value = el.PID+'-'+el.PNAME;
-        obj.disabled = false;
-        this.scomDataItemOptions.push(obj)
-      });
-    });
   }
   getDefaultQuery() {
   }
-  event(eventName: string, context: any): void {
+  event(eventName: string, param: any): void {
     switch (eventName) {
       //fc-upload上传事件
       case 'fileEvent':
         //调用上传方法
-        this.fileEvent(context);
+        this.fileEvent(param);
+        break;
+      //保存按钮
+      case 'emitDataOutside':
+        this.cardSave(param);
+        break;
+      //+数据源事件
+      case 'cardSql':
+        this.navRouter('/system/sysdatasourceEdit', { refresh: 'Y', PID: this.mainObj.PID })
+        break;
+      //点击出现字体图标事件    
+      case 'iconEvent':
+        this.iconEvent();
+        break;
+      //点击删除图标事件  
+      case 'deleticonEvent':
+        this.deleticonEvent()
+        break;
+      //+服务按钮事件
+      case 'cardService':
+        this.navRouter('/system/sysserviceEdit', { refresh: 'Y', PID: this.mainObj.PID })
+        break;
+      // 点击查看数据源跳转至数据源管理
+      case 'sqllistEvent':
+        this.navRouter('/system/sysdatasourceList', { refresh: 'Y', PID: this.mainObj.PID })
+        break;
+      //点击服务事件跳转至服务首页务管理
+      case 'servicelistEvent':
+        this.navRouter('/system/sysserviceList', { refresh: 'Y', PID: this.mainObj.PID })
+        break;
+      //点击模型数据源事件跳转至模型数据源列表页面
+      case 'applistEvent':
+        this.navRouter('/system/sysappList', { refresh: 'Y', PID: this.mainObj.PID })
+        break;
+      //点击返回列表跳转至首页
+      case 'backlistEvent':
+        this.navRouter('/system/sysproductList', { refresh: 'Y', PID: this.mainObj.PID })
         break;
     }
-  }
-  /**
-  * 保存
-  * @param event  
-  */
-  emitDataOutside(){
-    this.mainService.save(this.mainObj).subscribe(result => {
-      if (result.CODE === '0') {
-          this.messageService.message('保存成功！');
-          this.afterSave();
-          this.objStatus = ObjStatus.SAVED;
-          this.mainObj = result.DATA[0];
-      } else {
-          this.messageService.message('保存失败！');
-      }
-  });
-  }
-  /**
-  * +数据源
-  * @param event  
-  */
-  cardSql(){
-    this.navRouter('/system/sysdatasourceEdit', { refresh: 'Y', PID: this.mainObj.PID })
-  }
-   /**
-  * +服务
-  * @param event  
-  */
-  cardService(){
-    this.navRouter('/system/sysserviceEdit', { refresh: 'Y', PID: this.mainObj.PID })
   }
   /**
   * 上传图片文档方法
@@ -191,10 +204,10 @@ export class SysproducteditComponent extends ParentEditComponent {
     }
   }
   /**
-    *  点击图标弹出列表
+    *  点击图标弹出列表方法
     * @param event  
     */
-  iconEvent(envet) {
+  iconEvent() {
     this.mainService.producticonmodal(SysicondialogComponent).subscribe(obj => {
       if (obj.DICVALUE !== undefined) {
         this.mainObj.ICON = obj.DICVALUE
@@ -210,34 +223,6 @@ export class SysproducteditComponent extends ParentEditComponent {
     this.mainObj.ICON = "";
     this.visible = true;
     event.stopPropagation()
-  }
-  /**
-  *  点击查看数据源跳转至数据源管理
-  * @param event  
-  */
-  sqllistEvent(event) {
-    this.navRouter('/system/sysdatasourceList', { refresh: 'Y', PID: this.mainObj.PID })
-  }
-  /**
-*  点击服务事件跳转至服务首页务管理
-* @param event  
-*/
-  servicelistEvent(event) {
-    this.navRouter('/system/sysserviceList', { refresh: 'Y', PID: this.mainObj.PID })
-  }
-  /**
-*  点击模型数据源事件跳转至模型数据源列表页面
-* @param event  
-*/
-  applistEvent(event) {
-    this.navRouter('/system/sysappList', { refresh: 'Y', PID: this.mainObj.PID })
-  }
-  /**
-  *  点击返回列表跳转至首页
-  * @param event  
-  */
-  backlistEvent(event) {
-    this.navRouter('/system/sysproductList', { refresh: 'Y', PID: this.mainObj.PID })
   }
   /**
   *  ICON如果等于空visible显示（文字请选择图片）
@@ -266,7 +251,7 @@ export class SysproducteditComponent extends ParentEditComponent {
     }
   }
   /**
-    *  可继承是=时显示依赖产品text否则隐藏
+    *  可继承时显示依赖产品text否则隐藏
     * @param event  
     */
   relayfun() {
@@ -276,17 +261,17 @@ export class SysproducteditComponent extends ParentEditComponent {
       this.relyproduct = false;
     }
   }
-       /**
+     /**
 * 组件事件收集
 * @param type 字符串命名
 * @param ev 事件传过来的参数
 */
 componentEvents(type: string, ev: any) {
-  switch (type) {
-    case 'ruleaddEvent':
-      // this.productany = ev
+    switch (type) {
+      case 'ruleaddEvent':
       this.mainObj.PARENTPID = ev;
-      break;
+      console.log(this.mainObj.PARENTPID)
+        break;
+    }
   }
-}
 }

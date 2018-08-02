@@ -15,8 +15,8 @@
         </P>
         <div class="sys-card-fast">
             <ul class="sys-fast-list">
-                <li>
-                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
+                <li (click)="quickstart($event)">
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF" ></fc-icon>快速开始</li>
                 <li>
                     <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>导入</li>
                 <li>
@@ -42,7 +42,7 @@
             <nz-card (click)="listAdd($event);">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
-                    <p class="sys-card-addtext">新增服务</p>
+                    <p class="sys-card-addtext">新增</p>
                 </ng-template>
             </nz-card>
         </div>

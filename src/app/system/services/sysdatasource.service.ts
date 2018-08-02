@@ -34,11 +34,12 @@ export class SysdatasourceService extends ParentService {
     *  按钮跳转路由方法封装 查看数据源  查看服务   返回列表 方法
     * @param event  
     */ 
-   producticonmodal(content): Observable<any> {
+   producticonmodal(title,content): Observable<any> {
     return this.modalService.open({
-      title: '字体图标',
+      title: title,
       content: content,
       width: "60%",
+      zIndex: 999,
       onOk() {
       },
       onCancel() { },
@@ -52,4 +53,11 @@ export class SysdatasourceService extends ParentService {
   dataall(){
     return this.sysproductService.findWithQuery({})
   }
+  /**
+    *  获取APPLINKS所有数据
+    * @param event  
+    */ 
+   datasourcesall(){
+    return this.providers.appService.findWithQuery('SYSDATASOURCE',{})
+  } 
 }

@@ -57,6 +57,8 @@ import { NzModalSubject } from 'ng-zorro-antd';
   </div>
   `,
   styles: [`
+   :host ::ng-deep .templatetablist .ant-col-22 {
+     margin-left:4%;}
   .bg-dialog-left{
     position:relative;
     padding-right:70px;

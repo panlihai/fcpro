@@ -6,6 +6,9 @@ import { NzModalService } from 'ng-zorro-antd';
 import { chooseicondialogComponent } from './dialog/chooseicondialog.component';
 import { SysicondialogComponent } from './dialog/sysicondialog.component';
 import { ObjStatus } from 'fccore';
+import { SysappmodaleventdialogComponent } from './dialog/sysappmodaleventdialog.component';
+import { SysappmodalrelationdialogComponent } from './dialog/sysappmodalrelationdialog.component';
+import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.component';
 @Component({
   selector: 'sysdatasource',
   templateUrl: './sysdatasourceedit.component.html',
@@ -69,10 +72,15 @@ import { ObjStatus } from 'fccore';
     width: 14px;
     text-align: center;
     position: absolute;
-    top: 3%;
-    left: 42%;
     z-index: 999;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    heihgt: 20px;
+    height: 14px;
+    right: 0px;
+    top: 0px;
   }
   .sys-tab{
     margin-left:26%;
@@ -89,6 +97,9 @@ import { ObjStatus } from 'fccore';
   `]
 })
 export class SysdatasourceeditComponent extends ParentEditComponent {
+  addNew(mainObj: any): boolean {
+    return true;
+  }
   topbutton: boolean;
   scomDataItemOptions: any;
   //any下拉
@@ -107,11 +118,11 @@ export class SysdatasourceeditComponent extends ParentEditComponent {
      //顶部按钮是否显示
      this.productdisableds();
      //下拉框显示自己想要动态传入的label和value值 
-     this.mainService.dataall().subscribe(result => {
+     this.mainService.findWithQuery({ WHERE: `and ENABLE='Y' and PID != '${this.mainObj.PID}'` }).subscribe(result => {
       this.scomDataItemOptions=[];
       result.P_LISTVALUE.forEach(el => {
         let obj :any = {};
-        obj.label = el.PID+'-'+el.PNAME;
+        obj.label = el.PID+'-'+el.DSNAME;
         obj.value = el.PID;
         obj.disabled = false;
         this.scomDataItemOptions.push(obj)
@@ -139,42 +150,52 @@ afterSave() {
    * @param eventName 事件名 
    * @param context 返回参数
    */
-  event(eventName: string, context: any): void {
+  event(eventName: string, param: any): void {
     switch (eventName) {
+       //保存按钮
+       case 'emitDataOutside':
+       this.cardSave(param);
+       break;
+       //跳转至模型路由
+       case 'btnCardAddModel':
+       this.navRouter('/system/sysappEdit', { refresh: 'Y', PID: this.mainObj.PID ,DSID:this.mainObj.DSID})  
+       break;
+       //点击出现字体图标事件    
+       case 'iconEvent':
+       this.iconEvent();
+       break;
+        //点击删除图标事件  
+      case 'deleticonEvent':
+      this.deleticonEvent()
+      break;
+      //返回列表
+      case 'backToList':
+      this.navRouter('/system/sysdatasourceList');
+      break;
+      //点击服务事件跳转至服务首页务管理
+      case 'servicelistEvent':
+       this.navRouter('/system/sysserviceList', { refresh: 'Y', PID: this.mainObj.PID ,DSID:this.mainObj.DSID})      
+      break;
+      //点击模型数据源事件跳转至模型数据源列表页面
+      case 'applistEvent':
+      this.navRouter('/system/sysappList', { refresh: 'Y', PID: this.mainObj.PID,DSID:this.mainObj.DSID })      
+      break;
+      //PID下拉框选中值
+      case 'ruleaddEvent':
+      this.mainObj.PID = param;
+      break;
+      //数据源信息下拉框
+      case 'ruletypeEvent':
+      this.mainObj.DSTYPE = param;
+      break;
     }
-  }
-  addNew(mainObj: any): boolean {
-    return true;
-  }
-  /**
-  * 保存
-  * @param event  
-  */
- emitDataOutside(){
-  this.mainService.save(this.mainObj).subscribe(result => {
-    if (result.CODE === '0') {
-        this.messageService.message('保存成功！');
-        this.afterSave();
-        this.objStatus = ObjStatus.SAVED;
-        this.mainObj = result.DATA[0];
-    } else {
-        this.messageService.message('保存失败！');
-    }
-});
-}
-/**
-  * 跳转至模型路由
-  * @param event  
-  */
-  btnCardAddModel(){
-    this.navRouter('/system/sysappEdit', { refresh: 'Y', PID: this.mainObj.PID ,DSID:this.mainObj.DSID})
   }
   /**
     *  点击图标弹出列表
     * @param event  
     */
-   iconEvent(envet) {
-    this.mainService.producticonmodal(SysicondialogComponent).subscribe(obj => {
+   iconEvent() {
+      this.mainService.producticonmodal('字体图标',SysicondialogComponent).subscribe(obj => {
         if (obj.DICVALUE !== undefined) {
           this.mainObj.ICON = obj.DICVALUE
           this.visible = false;
@@ -220,27 +241,7 @@ afterSave() {
       this.visible = false;
     }
    }
-  /**
-   * 返回列表
-   */
-  backToList() {
-    this.navRouter('/system/sysdatasourceList');
-  }
-    /**
-*  点击服务事件跳转至服务首页务管理
-* @param event  
-*/
-servicelistEvent(event) {
-  this.navRouter('/system/sysserviceList', { refresh: 'Y', PID: this.mainObj.PID ,DSID:this.mainObj.DSID})
-}
-  /**
-*  点击模型数据源事件跳转至模型数据源列表页面
-* @param event  
-*/
-applistEvent(event) {
-  this.navRouter('/system/sysappList', { refresh: 'Y', PID: this.mainObj.PID,DSID:this.mainObj.DSID })
-}
-     /**
+        /**
 * 组件事件收集
 * @param type 字符串命名
 * @param ev 事件传过来的参数
@@ -248,13 +249,11 @@ applistEvent(event) {
 componentEvents(type: string, ev: any) {
   switch (type) {
     case 'ruleaddEvent':
-    //   this.datasouceany = ev
-    //  this.mainObj.PID = this.datasouceany; 
     this.mainObj.PID = ev;
       break;
-    case 'ruletypeEvent':
-     this.mainObj.DSTYPE = ev;
-    break;  
+      case 'ruletypeEvent':
+      this.mainObj.DSTYPE = ev;
+      break;
   }
 }
  /**
@@ -263,4 +262,16 @@ componentEvents(type: string, ev: any) {
   strfun(){
     [this.mainObj.PID,this.mainObj.DSID] = (this.mainObj.PID+this.mainObj.DSID).replace(/(.+)(.+)\1/, '$2\n').split('\n')
   }
+   /**
+* 测试代码
+*/
+  testmodal(){
+    this.mainService.producticonmodal('模型事件',SysappmodaleventdialogComponent)
+  }  
+  testmodal2(){
+    this.mainService.producticonmodal('模型关系',SysappmodalrelationdialogComponent)
+  } 
+  testmodal3(){
+    this.mainService.producticonmodal('参数配置',SysservicemodaldialogComponent)
+  }   
 }

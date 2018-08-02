@@ -12,6 +12,8 @@ import { environment } from '../../../../environments/environment';
   .sys-card-btn{
     width:25%;
   }
+  .sys-fast-list {
+    cursor: pointer;
   .sys-fast-select{
     width:15%;
   }
@@ -66,6 +68,18 @@ export class SysappComponent extends ParentlistComponent {
     super(mainService, router, activeRoute);
   }
   init(): void {
+    this.btnlistOnes = this.mainService.appButtons.filter(btn => btn.BTNTYPE === 'LISTONE');
+    this.btnlistMores = this.btnlistOnes.splice(3);
+    this.btnlistOnes = this.btnlistOnes.splice(0, 2); 
+    this.fastsearchWords = this.mainService.fastSearch();
+  }
+  ngOnInit() {
+    this.mainService.findWithQuery({}).subscribe(result => {
+      if (result.CODE === '0') {
+        this.sysApps = result.DATA;
+      }
+    });
+    this.searchByWord();
     //根据首字母过滤
     this.searchByWord();
     //26个字母name,方法名,BUSTYPE为'fastsearch' 
@@ -154,6 +168,7 @@ export class SysappComponent extends ParentlistComponent {
   * 初始化元数据
   */
   searchByWord(btn?: any) {
+
     //查询数据的对象
     let valueObj: any = {};
     //如果点击了首字母搜索的按钮,则根据APPID的首字母查询
@@ -183,9 +198,15 @@ export class SysappComponent extends ParentlistComponent {
     }
   }
   /**
-   * 按钮明细
+   * 跳转到选择数据源页面
    * @param event 
    */
+  quickstart(event: FCEVENT) {
+    this.navRouter(this.getRouteUrl('Modify'), event.param);
+  }
+   /* * 按钮明细
+   * @param event 
+   */ 
   btnCardEvent(event: any, item: any) {
     switch (event.ACTCODE) {
       case 'listOneDelete'://明细删除

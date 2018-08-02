@@ -43,6 +43,8 @@ import { SyswizardComponent } from './components/core/syswizard.component';
 import { SysdatasourceeditComponent } from './components/core/sysdatasourceedit.component';
 import { SysappmodifyComponent } from './components/core/sysappmodify.component';
 import { SysappeditComponent } from './components/core/sysappedit.component';
+import { SysmenuComponent } from './components/core/sysmenu.component';
+import { SysmenueditComponent } from './components/core/sysmenuedit.component';
 import { SysserviceeditComponent } from './components/core/sysserviceedit.component';
 import { SysinterfaceeditComponent } from './components/core/sysinterfaceedit.component';
 import { SysvieweditComponent } from './components/core/sysviewedit.component';
@@ -57,7 +59,7 @@ export const Routers: Routes = [
     }, {
         path: '',//
         loadChildren: '../feature/fcbudget/index.module#BudgetModule',
-        data:{ module:'fcbudget'}
+        data: { module: 'fcbudget' }
     }, {
         path: 'error',//错误
         component: ErrorComponent,
@@ -247,7 +249,15 @@ export const Routers: Routes = [
         component: SyswizardComponent,
         data: { keep: false }
     }, {
-        path: 'sysinterfaceEdit',//开发向导-卡片
+        path: 'sysmenuList',//导航栏列表
+        component: SysmenuComponent,
+        data: { keep: false }
+    }, {
+        path: 'sysmenuEdit',//编辑导航栏
+        component: SysmenueditComponent,
+        data: { keep: false }
+    }, {
+        path: 'sysinterfaceEdit',//编辑接口
         component: SysinterfaceeditComponent,
         data: { keep: false }
     }, {
