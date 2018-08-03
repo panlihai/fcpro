@@ -110,7 +110,7 @@ export class SyscompanyService extends ParentService {
    * @param mainObj 单位基本信息对象
    * @param relationObj 单位隶属关系对象
    */
-  saveOrUpdateCompany(mainObj: any, rId?:string,dimCode?: string, parentCode?: string): Observable<any> {
+  saveOrUpdateCompany(mainObj: any, rId?: string, dimCode?: string, parentCode?: string): Observable<any> {
     let relationObj: any = {};
     //单位是否启用
     mainObj.BSTOP_FLAG = '0';
@@ -134,7 +134,7 @@ export class SyscompanyService extends ParentService {
       mainObj.SEST_DATE = '';
     }
     relationObj = {
-      ID:rId,
+      ID: rId,
       SBEGIN_DATE: mainObj.SBEGIN_DATE,//生效日期
       SEND_DATE: mainObj.SEND_DATE,//失效日期
       SDIM_CODE: dimCode,//维度代码

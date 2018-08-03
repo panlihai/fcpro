@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, ComponentRef, ElementRef, Renderer2 } from '@angular/core';
+import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { ParentEditComponent, FctextComponent } from 'fccomponent';
 import { SysserviceService } from '../../services/sysservice.service';
 import { DialogCardListComponent, DialogCardListArgs } from './dialog/dialogcardlist.component';
-import { NzModalService } from '../../../../../node_modules/ng-zorro-antd';
+import { Renderer3, ProceduralRenderer3 } from '@angular/core/src/render3/renderer';
+import { SysfuncService } from '../../services/sysfunc.service';
 @Component({
-    selector: 'sysserviceedit',
-    templateUrl: 'sysserviceedit.component.html',
+    selector: 'sysfuncedit',
+    templateUrl: 'sysfuncedit.component.html',
     styles: [`
     .sys-card-btn{
         width:50%;
@@ -24,24 +25,21 @@ import { NzModalService } from '../../../../../node_modules/ng-zorro-antd';
       }
             `],
 })
-export class SysserviceeditComponent extends ParentEditComponent {
+export class SysfunceditComponent extends ParentEditComponent {
     productName: any;
     pidOption: any;
     fastsearchWords: any[];
     sysViews: any;
-    sysInterfaces: any;
+    sysBtns: any;
     staticMainObj: any = {};
     mainObj: any = {};
-    btnlistOnes: any;
-    btnlistMores: any;
-    searchWord: any;
-    constructor(public mainService: SysserviceService,
+    constructor(public mainService: SysfuncService,
         public router: Router,
         public activeRoute: ActivatedRoute,
-        private nzModal: NzModalService
     ) {
         super(mainService, router, activeRoute);
     }
+
     /**
      * 新增之前执行的函数
      * @param mainObj 
@@ -53,25 +51,9 @@ export class SysserviceeditComponent extends ParentEditComponent {
      * 组件初始化执行函数
      */
     init(): void {
-        //根据首字母过滤
-        // this.searchByWord();
-        this.getCardListBtn();
-        this.initFastSeachWords();
+        this.fastSearch();
         this.getPidOption();
         this.handleRouterParam();
-    }
-    /**
-     * 初始化卡片按钮
-     */
-    getCardListBtn() {
-        //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
-        this.btnlistOnes = this.mainService.appButtons.filter(btn =>
-            btn.BTNTYPE === 'LISTONE'
-        );
-        //更多的按钮
-        this.btnlistMores = this.btnlistOnes.splice(3);
-        //截取前两个按钮
-        this.btnlistOnes = this.btnlistOnes.splice(0, 2);
     }
     getDefaultObj() {
         this.mainObj = this.mainService.getDefaultObj();
@@ -79,45 +61,53 @@ export class SysserviceeditComponent extends ParentEditComponent {
     /**
      * html事件收集及派发函数
      * @param eventName 
-     * @param params 
+     * @param context 
      */
-    event(eventName: string, params?: any): void {
-        event.stopPropagation();
-        // if (params && params.param && params.param.BUSTYPE ? params.param.BUSTYPE === 'fastsearch' : false) {
-        //     this.searchByWord(params.param);
-        // }
+    event(eventName: string, context: any): void {
+        if (context && context.param.BUSTYPE === 'fastsearch') {
+            let appid: any = '';
+            switch (eventName) {
+                case 'SYSVIEW':
+                    appid = eventName;
+                    break;
+                case 'SYSINTERFACE':
+                    appid = eventName;
+                    break;
+            }
+            this.searchByWord(appid, context.param);
+        }
         let dialogCardListArgs: DialogCardListArgs = { appId: null, configInterface: { title: null } };
         dialogCardListArgs.methodIndex = eventName;
-        if (params instanceof FctextComponent) dialogCardListArgs.textComponent = params;
+        if (context instanceof FctextComponent) dialogCardListArgs.textComponent = context;
         switch (eventName) {
             case 'PID':
-                this.getServiceId(params)
+                this.getServiceId(context)
                 break;
             case 'DEFAULTAPPID':
                 this.showModal(dialogCardListArgs);
                 break;
-            case 'editInterface':
-                this.editInterface(params);
-                break;
-            case 'BTNLISTONEEDIT':
-                this.editInterface(params);
-                break;
-            case 'BTNLISTONEDELETE':
-                this.deleteSysInterface(params.ID);
-                break;
         }
     }
-    /**YM
-     * 确认删除接口？
-     * @param id 
-     */
-    deleteSysInterface(id) {
-        this.nzModal.confirm({
-            title: '操作提示',
-            content: '确认删除吗？',
-            onOk: () => { this.mainService.delteSysInterface(id) },
-            onCancel: () => { }
-        })
+    /**
+    * 初始化元数据
+    */
+    searchByWord(appid, btn?: any) {
+        let valueObj: any = {};
+        if (btn) {
+            valueObj.WHERE = "AND SUBSTR(SERVICEID,0,1)='" + btn.ACTCODE + "'"
+        }
+        this.appService.findWithQuery(appid, {}).subscribe(result => {
+            if (result.CODE === '0') {
+                switch (appid) {
+                    case 'SYSVIEW':
+                        this.sysViews = result.DATA;
+                        break;
+                    case 'SYSINTERFACE':
+                        this.sysBtns = result.DATA
+                        break;
+                }
+            }
+        });
     }
     /**
      * 初始化产品名称的自定义下拉选项内容
@@ -148,7 +138,8 @@ export class SysserviceeditComponent extends ParentEditComponent {
                     for (let attr in this.mainObj) {
                         this.staticMainObj[attr] = this.mainObj[attr];
                     }
-                    this.getSysInterfaces({ WHERE: `APPID = '${this.mainObj.SERVICEID}'` });
+                    this.getSysViews(this.mainObj.SERVICEID);
+                    this.getsysBtns(this.mainObj.SERVICEID);
                 } else {
                     this.messageService.error('基本信息获取失败');
                 }
@@ -156,13 +147,26 @@ export class SysserviceeditComponent extends ParentEditComponent {
         }
     }
     /**
+     * 获取服务-视图数据
+     * @param serviceId 
+     */
+    getSysViews(id) {
+        this.mainService.getSysViews(id).subscribe(res => {
+            if (res.CODE === '0') {
+                this.sysViews = res.DATA;
+            } else {
+                this.messageService.error('视图数据获取失败');
+            }
+        });
+    }
+    /**
      * 获取服务-接口数据
      * @param serviceId 
      */
-    getSysInterfaces(serviceId) {
-        this.mainService.getSysInterfaces(serviceId).subscribe(res => {
+    getsysBtns(id) {
+        this.mainService.getsysBtns(id).subscribe(res => {
             if (res.CODE === '0') {
-                this.sysInterfaces = res.DATA;
+                this.sysBtns = res.DATA;
             } else {
                 this.messageService.error('接口数据获取失败');
             }
@@ -171,8 +175,8 @@ export class SysserviceeditComponent extends ParentEditComponent {
     /**
      * 初始化获取字母快速查询按钮数据
      */
-    initFastSeachWords() {
-        this.fastsearchWords = this.mainService.initFastSeachWords();
+    fastSearch() {
+        this.fastsearchWords = this.mainService.fastSearch();
     }
     /** YM
      * 根据PID获取服务编码并赋值.
@@ -189,6 +193,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
      * 实现继承与父类的beforeSave函数，对cardSave函数进行功能扩展;
      */
     beforeSave() {
+        this.router;
         // this.mainObj = this.mainService.beforeSave(this.mainObj);
         return true;
     }
@@ -211,8 +216,8 @@ export class SysserviceeditComponent extends ParentEditComponent {
     /**
     * 新增接口,跳转到新增接口页面
     */
-    editInterface(params?: any) {
-        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'), { ID: this.mainObj.ID, interfaceId: params ? params.ID : undefined, from: this.appId });
+    addInterface() {
+        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'));
     }
     /** YM
       * 显示窗口前的判断
@@ -261,39 +266,4 @@ export class SysserviceeditComponent extends ParentEditComponent {
     backToList() {
         this.navRouter(this.getRouteUrl('List'));
     }
-    //     /**
-    //  * 快速查询
-    //  * @param item 
-    //  */
-    // fastSearch(item: any) {
-    //     //当页面按钮的类型为fastsearch时
-    //     if (item.BUSTYPE === 'fastsearch') {
-    //         // 点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
-    //         if (this.searchWord === item.ACTCODE) {
-    //             this.searchWord = '';
-    //             this.searchByWord();
-    //         } else {
-    //             this.searchWord = item.ACTCODE;
-    //             this.searchByWord(item);
-    //         }
-    //     }
-    // }
-    // /**
-    //   * 初始化元数据
-    //   */
-    // searchByWord(btn?: any) {
-    //     //查询数据的对象
-    //     let valueObj: any = {};
-    //     //如果点击了首字母搜索的按钮,则根据APPID的首字母查询
-    //     if (btn) {
-    //         //从0开始截取第一个字符
-    //         valueObj.WHERE = ` AND SUBSTR(APPID, 0, 1) = '${btn.ACTCODE}' AND PID = '${this.mainObj.PID}}'`
-    //     }
-    //     //根据首字母查询数据,如果没有点击按钮或者再次点击按钮,则查询所有的数据
-    //     this.mainService.getSysInterfaces(valueObj).subscribe(result => {
-    //         if (result.CODE === '0') {
-    //             this.sysInterfaces = result.DATA;
-    //         }
-    //     });
-    // }
 }

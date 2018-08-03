@@ -110,7 +110,8 @@ export class BgsettingupComponent extends ParentlistComponent {
     this.modal.open({
       title: '添加行属性值',
       content: AddrowattrvaluedialogComponent,
-      width:'90%',
+      width: '90%',
+      wrapClassName: 'dialog1',
       onOk() { },
       onCancel() { },
       footer: false,
@@ -129,7 +130,8 @@ export class BgsettingupComponent extends ParentlistComponent {
     this.modal.open({
       title: '添加列属性值',
       content: AddcolattrvaluedialogComponent,
-      width:'90%',
+      width: '90%',
+      wrapClassName: 'dialog1',
       onOk() { },
       onCancel() { },
       footer: false,
@@ -147,4 +149,33 @@ export class BgsettingupComponent extends ParentlistComponent {
   startSetting(index: string) {
     this.selectedIndex = index;
   }
+  //调用
 }
+class Pen {
+  div: any ;
+  constructor() {
+    document.onmousedown = this.down.bind(this);
+  }
+  down() {
+    document.onmousemove = this.move.bind(this);
+    document.onmouseup = this.up.bind(this);
+  }
+  move(e) {
+    let ev = e || event;
+    this.div=document.getElementsByClassName(".dialog1");
+    if (this.div.length !== 0) {
+      if (this.div[0]) {
+        this.div[0].style.position = "absolute";
+        this.div[0].style.left = e.clientX + "px";
+        this.div[0].style.right = e.clientY + "px";
+      }
+    }
+    console.log(1);
+  }
+  up() {
+    document.onmousemove = null;
+    document.onmouseup = null;
+  }
+}
+
+new Pen();

@@ -86,6 +86,9 @@ import { NzModalSubject } from 'ng-zorro-antd';
     height:30px;
     margin-bottom:5px;
   }
+  .bg-dialog-list3-filter .bg-dialog-filter{
+    width:calc(100% - 64px);
+  }
   .bg-dialog-list3-list{
     height:calc(100% - 30px);
   }

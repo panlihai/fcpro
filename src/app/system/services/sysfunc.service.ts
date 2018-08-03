@@ -1,36 +1,23 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
-import { ParentService, ProvidersService, SysinterfaceService } from 'fccore';
+import { ParentService, ProvidersService } from 'fccore';
 import { NzModalService } from 'ng-zorro-antd';
 import { DialogListArgs, DialogListComponent } from '../components/core/dialog/dialogList.component';
 import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
 import { SysappService } from './sysapp.service';
 @Injectable()
-export class SysserviceService extends ParentService {
-    constructor(
-        public providers: ProvidersService,
-        private nzModal: NzModalService,
-        private sysbizcoderuleService: SysbizcoderuleService,
-        private sysproductService: SysproductService,
-        private sysappService: SysappService,
-        private sysinterfaceService: SysinterfaceService,
-    ) {
-        super(providers, "SYSSERVICE");
-    }
-    /**
-     * 获取产品
-     */
-    getproduct() {
-        return this.sysproductService.findWithQuery({});
+export class SysfuncService extends ParentService {
+    constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService, private sysappservice: SysappService) {
+        super(providers, "SYSFUNC");
     }
     /**
      * 字母快速查询
      */
-    initFastSeachWords() {
-        return this.sysappService.fastSearch()
+    fastSearch() {
+        return this.sysappservice.fastSearch()
     }
-    /** YM
+    /**
      * 获取路由导航
      * @param exp List：列表；Edit:编辑:Detail：详情
      */
@@ -75,20 +62,20 @@ export class SysserviceService extends ParentService {
         })
     }
     /**
-     * 根据服务ID获取接口数据
-     * @param condition 
+     * 根据服务ID获取视图数据
+     * @param serviceId 
      */
-    getSysInterfaces(condition) {
-        return this.sysinterfaceService.findWithQuery(condition);
+    getSysViews(id) {
+        return this.appService.findWithQuery('SYSVIEW', { WHERE: `SERVICEID ='${id}'` });
     }
     /**
-     * 删除接口
-     * @param id 
+     * 根据服务ID获取接口数据
+     * @param serviceId 
      */
-    delteSysInterface(id) {
-        return this.sysinterfaceService.delete(id);
+    getsysBtns(id) {
+        return this.appService.findWithQuery('SYSAPPBUTTONS', { WHERE: `APPID ='${id}'` })
     }
 }
-export interface Sysservice {
+export interface Sysfunc {
 
 }

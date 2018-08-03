@@ -112,7 +112,15 @@ import { SysviewelementeditComponent } from './components/core/sysviewelementedi
 import { SysviewService } from './services/sysview.service';
 import { SysviewelementService } from './services/sysviewelement.service';
 import { SysserviceComponent } from './components/core/sysservice.component';
+// 拖拽指令
+import { fcDragDirective } from '../directive/drag.directive';
 import { SysappmodaleventdialogComponent } from './components/core/dialog/sysappmodaleventdialog.component';
+import { IsFormValueChanged, DeactivateGuard } from './routeconfig/deactivateguard';
+import { SysappfieldgroupService } from './services/sysappfieldgroup.service';
+import { SysappfieldgroupComponent } from './components/core/dialog/sysappfieldgroup.component';
+import { SysfuncComponent } from './components/core/sysfunc.component';
+import { SysfuncService } from './services/sysfunc.service';
+import { SysfunceditComponent } from './components/core/sysfuncedit.component';
 import { MenueditdialogComponent } from './components/core/dialog/menueditdialog.component';
 import { SysappmodalrelationdialogComponent } from './components/core/dialog/sysappmodalrelationdialog.component';
 import { SysappbuttonsService } from './services/sysappbuttons.service';
@@ -122,6 +130,7 @@ import { SysintfreqparamService } from './services/sysintfreqparam.service';
 import { SysservicebackdialogComponent } from './components/core/dialog/sysservicebackdialog.component';
 import { SysattributeEditdialogComponent } from './components/core/dialog/sysattributeEditdialog.component';
 import { SysattributeService } from './services/sysattribute.service';
+import { SysintfresparamService } from './services/sysintfresparam.service';
 
 @NgModule({
   entryComponents: [
@@ -146,7 +155,12 @@ import { SysattributeService } from './services/sysattribute.service';
     SysproducteditComponent,
     SysbizcoderuledialogComponent,
     DialogCardListComponent,
+    SysviewelementeditComponent,
     SysappmodaleventdialogComponent,
+    SysviewelementeditComponent,
+    SysappfieldgroupComponent,
+    SysfuncComponent,
+    SysfunceditComponent,
     MenueditdialogComponent,
     SysappmodalrelationdialogComponent,
     SysservicemodaldialogComponent,
@@ -169,11 +183,6 @@ import { SysattributeService } from './services/sysattribute.service';
     FctabModule,
     FcchartModule,
     SpreadSheetsModule,
-    NgZorroAntdModule,
-    ChartsModule,
-    NgZorroAntdModule,
-    NgZorroAntdModule,
-    ChartsModule,
     NgZorroAntdModule,
     ChartsModule
   ],
@@ -225,7 +234,7 @@ import { SysattributeService } from './services/sysattribute.service';
     companytransferdialogComponent,
     SyswizardComponent,
     SysdatasourceeditComponent,
-    chooseicondialogComponent, 
+    chooseicondialogComponent,
     chooseicondialogComponent,
     SysbizcoderuledialogComponent,
     SysroleeditdialogComponent,
@@ -243,12 +252,16 @@ import { SysattributeService } from './services/sysattribute.service';
     SysvieweditComponent,
     SysviewelementeditComponent,
     SysserviceComponent,
+    fcDragDirective,
     SysappmodaleventdialogComponent,
+    SysappfieldgroupComponent,
+    SysfuncComponent,
+    SysfunceditComponent,
     MenueditdialogComponent,
     SysappmodalrelationdialogComponent,
     SysservicemodaldialogComponent,
     SysservicebackdialogComponent,
-    SysattributeEditdialogComponent
+    SysattributeEditdialogComponent,
   ],
   providers: [
     LayoutService,
@@ -301,10 +314,15 @@ import { SysattributeService } from './services/sysattribute.service';
     SysinterfaceService,
     SysviewService,
     SysviewelementService,
+    IsFormValueChanged,
+    DeactivateGuard,
+    SysappfieldgroupService,
+    SysfuncService,
     SysappbuttonsService,
     SysapplinksService,
     SysintfreqparamService,
     SysattributeService,
+    SysintfresparamService
   ]
 })
 export class SystemModule {

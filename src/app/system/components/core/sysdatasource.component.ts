@@ -20,13 +20,17 @@ export class SysdatasourceComponent extends ParentlistComponent {
   //字母查找
   sysLookUp: any[];
   //数据源
-  sysDatasources: any[];
+  pageList: any[];
   //明细操作按钮
   btnlistOnes: any[];
   //更多的按钮
   btnlistMores: any[];
   //产品
   product: string;
+  //产品下拉
+  productOptions: any[] = [];
+  //没有任何内容
+  noResult: boolean;
   constructor(public mainService: SysdatasourceService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -36,7 +40,7 @@ export class SysdatasourceComponent extends ParentlistComponent {
   }
   init(): void {
     //初始化数据源
-    this.initDatasource();
+    this.initData(this.product);
     //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
     this.btnlistOnes = this.mainService.appButtons.filter(btn =>
       btn.BTNTYPE === 'LISTONE'
@@ -45,6 +49,18 @@ export class SysdatasourceComponent extends ParentlistComponent {
     this.btnlistMores = this.btnlistOnes.splice(3);
     //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+  }
+  ngOnInit() {
+    //产品下拉
+    this.mainService.getproduct().subscribe(result => {
+      this.productOptions = result.P_LISTVALUE;
+      if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
+        result.P_LISTVALUE.forEach(item => {
+          //转换成下拉识别的对象
+          this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })
+        });
+      }
+    })
   }
   getDefaultQuery() {
 
@@ -65,10 +81,10 @@ export class SysdatasourceComponent extends ParentlistComponent {
   /**
    * 初始化数据源
    */
-  initDatasource() {
-    //根据后端接口查询数据
-    this.mainService.findWithQuery({}).subscribe(result => {
-      this.sysDatasources = result.P_LISTVALUE;
+  initData(product: string) {
+    //根据后端接口查询数据源
+    this.mainService.findWithQuery({ PID: this.product }).subscribe(result => {
+      this.pageList = result.P_LISTVALUE;
     });
   }
   /**
@@ -80,7 +96,7 @@ export class SysdatasourceComponent extends ParentlistComponent {
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
       //把卡片的数据放入缓存中
-      this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysDatasources));
+      this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.pageList));
       //把id带入到编辑页面
       this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
@@ -109,6 +125,13 @@ export class SysdatasourceComponent extends ParentlistComponent {
         event.preventDefault();
         break;
     }
+  }
+  /**
+    * 选择产品
+    * @param event 
+    */
+  chooseProduct(event: any) {
+    this.initData(event);
   }
   /**
    * 单条删除

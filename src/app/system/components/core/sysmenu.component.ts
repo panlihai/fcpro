@@ -12,10 +12,10 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
 @Component({
     selector: 'sysmenu',
     template: `
-  <fc-layoutpanel>
-    <div fcheader>
-      <fc-title fcLabel="导航"></fc-title>
-      <P>
+  <fc-layoutpanel class="sys-card-pannel">
+    <div class="sys-card-pannel-header" fcheader>
+      <fc-title fcLabel="导航" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
+      <P class="sys-card-pannel-smarks">
           说明：导航栏功能，提供终端用户获取功能、设置导航的层级关系。
       </P>
       <div class="sys-card-fast">
@@ -37,6 +37,13 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
       </div>
     </div>
     <fc-layoutcol fcSpans="1,0" fccontent>
+        <div *ngIf="noResult" class="sys-noresult" fccontent1>
+            <fc-icon fcIcon="fc-icon-bgsearch" fcColor="#BDC5D1" fcFontSize="30px"></fc-icon>
+            <span class="noResult-title">没有任何内容</span>
+            <span class="noResult-smarks">
+                请选择产品!
+            </span>
+        </div>
         <fc-layoutcol fcSpans="7,3" fccontent1 class="navMenu">
             <div fccontent1 class="sys-menus" *ngIf="sysmenus.length!==0">
                 <div>一级导航</div>
@@ -284,6 +291,8 @@ export class SysmenuComponent extends ParentlistComponent {
     secondMenusText: boolean = false;
     //三级导航文字显示
     thirdMenusText: boolean = false;
+    //没有任何内容
+    noResult: boolean;
     constructor(public mainService: SysmenuService,
         public router: Router,
         private _providers: ProvidersService,
@@ -313,6 +322,8 @@ export class SysmenuComponent extends ParentlistComponent {
             });
             if (this.routerParam.PID !== undefined && this.routerParam.PID !== '') {
                 this.selectProduct(this.routerParam.PID);
+            } else {
+                this.noResult = true;
             }
         })
     }
@@ -338,6 +349,8 @@ export class SysmenuComponent extends ParentlistComponent {
     selectProduct(value) {
         this.pid = value;
         this.getMenu(this.pid);
+        //暂无数据不显示
+        this.noResult = false;
     }
     /**
     * 展开菜单
@@ -394,15 +407,15 @@ export class SysmenuComponent extends ParentlistComponent {
             componentParams: {
                 //  把options对象传值给弹窗
                 options: {
-                    MENUID:sysmenu.MENUID,
-                    MENUNAME:sysmenu.MENUNAME,
-                    ROUTER:sysmenu.ROUTER,
-                    MENUTYPE:sysmenu.MENUTYPE,
-                    SORT:sysmenu.SORT,
-                    ENABLE:sysmenu.ENABLE,
-                    REMARK:sysmenu.REMARK,
-                    HASCHILD:sysmenu.HASCHILD
-                  }
+                    MENUID: sysmenu.MENUID,
+                    MENUNAME: sysmenu.MENUNAME,
+                    ROUTER: sysmenu.ROUTER,
+                    MENUTYPE: sysmenu.MENUTYPE,
+                    SORT: sysmenu.SORT,
+                    ENABLE: sysmenu.ENABLE,
+                    REMARK: sysmenu.REMARK,
+                    HASCHILD: sysmenu.HASCHILD
+                }
             }
         }).subscribe(result => {
             // result为弹窗返回的值

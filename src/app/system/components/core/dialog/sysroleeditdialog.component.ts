@@ -30,10 +30,10 @@ export class SysroleeditdialogComponent {
   id: string;
   @Input()
   set options(option: any) {
-    this.roleName = option.ROLENAME;
-    this.remark = option.REMARK;
-    this.id = option.ID;
-    this.roleId = option.ROLEID;
+      this.roleName = option.ROLENAME;
+      this.remark = option.REMARK;
+      this.id = option.ID;
+      this.roleId = option.ROLEID;
   }
   ok() {
     let param: any = { ROLENAME: this.roleName, REMARK: this.remark, ROLEID: this.roleId };
