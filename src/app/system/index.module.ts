@@ -122,6 +122,8 @@ import { SysintfreqparamService } from './services/sysintfreqparam.service';
 import { SysservicebackdialogComponent } from './components/core/dialog/sysservicebackdialog.component';
 import { SysattributeEditdialogComponent } from './components/core/dialog/sysattributeEditdialog.component';
 import { SysattributeService } from './services/sysattribute.service';
+import { SysaddGroupdialogComponent } from './components/core/dialog/sysaddGroupdialog.component';
+import { SysaddGroupService } from './services/sysaddGroup.service';
 
 @NgModule({
   entryComponents: [
@@ -151,7 +153,8 @@ import { SysattributeService } from './services/sysattribute.service';
     SysappmodalrelationdialogComponent,
     SysservicemodaldialogComponent,
     SysservicebackdialogComponent,
-    SysattributeEditdialogComponent
+    SysattributeEditdialogComponent,
+    SysaddGroupdialogComponent
   ],
   imports: [
     CommonModule,
@@ -248,7 +251,8 @@ import { SysattributeService } from './services/sysattribute.service';
     SysappmodalrelationdialogComponent,
     SysservicemodaldialogComponent,
     SysservicebackdialogComponent,
-    SysattributeEditdialogComponent
+    SysattributeEditdialogComponent,
+    SysaddGroupdialogComponent
   ],
   providers: [
     LayoutService,
@@ -305,6 +309,7 @@ import { SysattributeService } from './services/sysattribute.service';
     SysapplinksService,
     SysintfreqparamService,
     SysattributeService,
+    SysaddGroupService
   ]
 })
 export class SystemModule {
