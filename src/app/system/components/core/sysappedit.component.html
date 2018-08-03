@@ -107,7 +107,7 @@
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="addModelEvent($event);">
+            <nz-card (click)="addModelEvent(mainObj.APPID+'-'+mainObj.APPNAME);">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增模型事件</p>
@@ -116,7 +116,7 @@
         </div>
         <!-- 模型事件循环 -->
         <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let event of sysEvents">
-            <nz-card (click)="editModelEvent(event);">
+            <nz-card (click)="editModelEvent(event,mainObj.APPID+'-'+mainObj.APPNAME);">
                 <ng-template #body>
                     <div class="sys-card-content">
                         <!-- 操作按钮 -->
@@ -268,7 +268,7 @@
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="addModelRelation($event);">
+            <nz-card (click)="addModelRelation(mainObj.APPID+'-'+mainObj.APPNAME);">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增模型关系</p>
@@ -277,7 +277,7 @@
         </div>
         <!-- 模型事件循环 -->
         <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let link of sysLinks">
-            <nz-card (click)="editModelRelation(event);">
+            <nz-card (click)="editModelRelation(link,mainObj.APPID+'-'+mainObj.APPNAME);">
                 <ng-template #body>
                     <div class="sys-card-content">
                         <!-- 操作按钮 -->
