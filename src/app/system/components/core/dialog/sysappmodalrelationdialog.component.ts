@@ -138,8 +138,8 @@ import { SysicondialogComponent } from './sysicondialog.component';
     padding-left: 250px;
   }
   `]
-
-export class SysappmodalrelationdialogComponent extends ParentEditComponent{
+})
+export class SysappmodalrelationdialogComponent extends ParentEditComponent {
   //显示展开收起图标,初始收起
   showDown: boolean;
   //图标属性显示字还是图标
@@ -150,30 +150,30 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent{
   content: string;
   //声明对象
   mainObj = {
-    MAINAPP:'',
-    LINKNAME:'',
-    ITEMAPP:'',
-    LINKFILTER:'',
-    ENABLE:'',
-    SORTBY:'',
-    ICON:'',
-    VIEWPOSITION:'',
-    ENABLECACHE:'',
-    REMARK:''
+    MAINAPP: '',
+    LINKNAME: '',
+    ITEMAPP: '',
+    LINKFILTER: '',
+    ENABLE: '',
+    SORTBY: '',
+    ICON: '',
+    VIEWPOSITION: '',
+    ENABLECACHE: '',
+    REMARK: ''
 
   }
   //中间对象
   obj = {
-    MAINAPP:'',
-    LINKNAME:'',
-    ITEMAPP:'',
-    LINKFILTER:'',
-    ENABLE:'',
-    SORTBY:'',
-    ICON:'',
-    VIEWPOSITION:'',
-    ENABLECACHE:'',
-    REMARK:''
+    MAINAPP: '',
+    LINKNAME: '',
+    ITEMAPP: '',
+    LINKFILTER: '',
+    ENABLE: '',
+    SORTBY: '',
+    ICON: '',
+    VIEWPOSITION: '',
+    ENABLECACHE: '',
+    REMARK: ''
   };
   @Input()
   set options(option: any) {
@@ -210,7 +210,7 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent{
       })
     })
     // this.productIcon();
-    
+
     this.showDown = true;
   }
   addNew(mainObj: any): boolean {
@@ -219,11 +219,11 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent{
   /**
   * 保存前验证
   */
- beforeSave():boolean{
-  this.mainObj.MAINAPP=this.content.split('-')[0];
-  this.mainObj.SORTBY+="";
-  return true;
-}
+  beforeSave(): boolean {
+    this.mainObj.MAINAPP = this.content.split('-')[0];
+    this.mainObj.SORTBY += "";
+    return true;
+  }
   event(eventName: string, param: any): void {
     switch (eventName) {
       //图标弹窗
@@ -243,34 +243,34 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent{
         break;
     }
   }
-   /**
+  /**
   *  ICON如果等于空visible显示（文字请选择图片）
   * ICON如果不等于空visible不显示（文字请选择图片不显示）
   * @param event  
   */
- productIcon() {
-  //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
-  if (this.mainObj.ICON === null) {
-   // this.visible = true;
-   // this.visible = this.visible
-     if (this.mainObj.ICON === null) {
-       // this.visible = true;
-       this.visible = this.visible
-     } else {
-       // this.visible = false;
-       this.visible = !this.visible
-     }
- } else {
-   // this.visible = false;
-   this.visible = this.visible
- }
-}
-  
+  productIcon() {
+    //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
+    if (this.mainObj.ICON === null) {
+      // this.visible = true;
+      // this.visible = this.visible
+      if (this.mainObj.ICON === null) {
+        // this.visible = true;
+        this.visible = this.visible
+      } else {
+        // this.visible = false;
+        this.visible = !this.visible
+      }
+    } else {
+      // this.visible = false;
+      this.visible = this.visible
+    }
+  }
+
   /**
-* 组件事件收集
-* @param type 字符串命名
-* @param ev 事件传过来的参数
-*/
+  * 组件事件收集
+  * @param type 字符串命名
+  * @param ev 事件传过来的参数
+  */
   componentEvents(type: string, ev: any) {
     switch (type) {
       case 'enableEvent':
@@ -284,22 +284,22 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent{
       case 'enablecacheEvent':
         this.mainObj.ENABLECACHE = ev;
         break;
-         //关系缓存单选按钮
+      //关系缓存单选按钮
       case 'ruletypeEvent':
-      this.mainObj.ITEMAPP = ev.value;
-      break;
+        this.mainObj.ITEMAPP = ev.value;
+        break;
     }
   }
-   /**
+  /**
   * 展开其他信息
   */
- open() {
-  this.showDown = false;
-}
-/**
-* 收起其他信息
-*/
-close() {
-  this.showDown = true;
-}
+  open() {
+    this.showDown = false;
+  }
+  /**
+  * 收起其他信息
+  */
+  close() {
+    this.showDown = true;
+  }
 }
