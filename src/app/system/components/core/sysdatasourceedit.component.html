@@ -17,13 +17,7 @@
                             <li (click)="event('applistEvent')" *ngIf = "topbutton">
                                     <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"  ></fc-icon>查看模型</li>
                             <li  (click)="event('backToList')">
-                                <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>返回列表</li>
-                            <li  (click)="testmodal($event);">
-                                    <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>模型元数据事件</li>  
-                            <li  (click)="testmodal2($event);">
-                                <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>模型元数据关系</li>  
-                            <li  (click)="testmodal3($event);">
-                                <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>参数编辑</li>       
+                                <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>返回列表</li>     
                         </ul>
                     </div>
                 </div>
@@ -39,7 +33,7 @@
                         </div>
                         <fc-text fccontent1 fcLabel="数据源名称"  [fcAppid]="appId" fcFieldCode="DSNAME" [fcValid]="mainValid.DSNAME" [(ngModel)]="mainObj.DSNAME"  name="SYSDATASOURCE.DSNAME"></fc-text>
                         <div fccontent1 class="sys-tab">中文，配合id识别不同数据源</div>
-                        <fc-layoutcol fccontent1 fcSpans="1,1">
+                        <fc-layoutcol fccontent1 fcSpans="1,1"  class="noBottomLine">
                             <div fccontent1 class="sys-radio">
                                 <fc-radio fccontent1 [(ngModel)]="mainObj.ENABLE" fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC"
                                     fcValueCode="DICVALUE" name="ENABLE"></fc-radio>
@@ -52,7 +46,7 @@
                         <div fccontent1 class="sys-tab">请输入少于200字</div>
                     </fc-layoutcol>
                     <!-- 数据源信息 -->
-                    <fc-layoutcol fcSpans="1,1">
+                    <fc-layoutcol fcSpans="7,3">
                         <fc-title fccontent1  fcLabel="数据源信息" [fcHasLine]="false"></fc-title>
                         <fc-any fccontent1 fcLabel="数据源类型"  (ngModelChange)="event('ruletypeEvent')" [fcAppid]="appId" fcFieldCode="DSTYPE" [(ngModel)]="mainObj.DSTYPE" fcLabelCode="DICDESC"
                             fcValueCode="DICVALUE" name="SYSPRODUCT.DSTYPE"></fc-any>
@@ -64,7 +58,7 @@
                         <div fccontent1 class="sys-tab">点击查看密码将记录日志，填写查看人的用户名密码查看；</div> 
                     </fc-layoutcol>
                     <!-- 其它信息 -->
-                    <fc-layoutcol fcSpans="1,1">
+                    <fc-layoutcol fcSpans="7,3">
                         <fc-title fccontent1 fcLabel="其它信息" [fcHasLine]="false"></fc-title>
                         <div class="sys-choose-icon" fccontent1>
                             <fc-label fcLabel="数据源图标"></fc-label>

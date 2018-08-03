@@ -8,6 +8,7 @@ import { TreeOptions } from 'fccomponent';
 import { element } from 'protractor';
 import { SysappmodaleventdialogComponent } from '../components/core/dialog/sysappmodaleventdialog.component';
 import { NzModalSubject, NzModalService } from 'ng-zorro-antd';
+import { Stream } from 'stream';
 @Injectable()
 export class SysappService extends ParentService {
   constructor(public providers: ProvidersService,
@@ -140,12 +141,36 @@ export class SysappService extends ParentService {
       title: title,
       content: content,
       width: '60%',
+      zIndex:100,
       onOk() { },
       onCancel() { },
       footer: false,
       componentParams: {
         //把options对象传值给弹窗
         options: param,
+      }
+    })
+  }
+  /** 
+    *编辑弹窗事件
+    *@param event 
+    *@param title
+    *@param str
+    *@param content 
+    */
+  WindowEditEvent(param: any, str:string,title, content){
+    return this.modal.open({
+      title: title,
+      content: content,
+      width: '60%',
+      zIndex:100,
+      onOk() { },
+      onCancel() { },
+      footer: false,
+      componentParams: {
+        //把options对象传值给弹窗
+        options: param,
+        strs:str
       }
     })
   }

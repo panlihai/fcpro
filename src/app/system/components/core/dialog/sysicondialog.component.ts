@@ -24,6 +24,7 @@ import { $ } from 'protractor';
   .sys-iconall{
     height: 300px;
     overflow: scroll;
+    margin-left:10%;
   }
   .sys-fciconlayout{
     width: 12%;

@@ -42,7 +42,7 @@ import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.c
     top:45px;
   }
   .sys-radio{
-    margin-left:-11% ;
+    margin-left:34% ;
   }
   .sys-num{
     margin-right:9%;
@@ -93,6 +93,10 @@ import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.c
     justify-content: center;
     padding-top:20px;
     padding-bottom:40px;
+  }
+  .sys-card-pannel .fc-content .sys-card-pannel-edit .noBottomLine .fc-layoutcol {
+    padding: 0px;
+    border-bottom:none;
   }
   `]
 })
@@ -262,16 +266,4 @@ componentEvents(type: string, ev: any) {
   strfun(){
     [this.mainObj.PID,this.mainObj.DSID] = (this.mainObj.PID+this.mainObj.DSID).replace(/(.+)(.+)\1/, '$2\n').split('\n')
   }
-   /**
-* 测试代码
-*/
-  testmodal(){
-    this.mainService.producticonmodal('模型事件',SysappmodaleventdialogComponent)
-  }  
-  testmodal2(){
-    this.mainService.producticonmodal('模型关系',SysappmodalrelationdialogComponent)
-  } 
-  testmodal3(){
-    this.mainService.producticonmodal('参数配置',SysservicemodaldialogComponent)
-  }   
 }

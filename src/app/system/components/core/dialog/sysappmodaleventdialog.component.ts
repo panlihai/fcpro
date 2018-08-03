@@ -10,15 +10,16 @@ import { Router, ActivatedRoute } from '@angular/router';
   template: `
   <div>
     <div class="bg-dialog-content">
-         <div>事件：描述与模型的事件，呈现方式体现在按钮上，与属性及关系构成模型</div>
-         <div class="sys-topclose">关闭</div>
+         <div class="topClose">
+            <div>事件：描述与模型的事件，呈现方式体现在按钮上，与属性及关系构成模型</div>
+         </div>
          <div fccontent>
          <fc-layoutpanel fccontent id="id0">
-             <fc-title fcLabel="基本信息" fcWidth="96%" fcheader  [fcHasLine]="false"></fc-title>
+             <fc-title fcLabel="基本信息" fcWidth="96%" fcheader [fcHasLine]="false"></fc-title>
              <fc-layoutcol fcSpans="1,0" fccontent>
                  <div fccontent1>
                      <fc-text [fcLabel]="'模型名称'" fcReadonly="true" [(ngModel)]="content"
-                     name="APPID"></fc-text>
+                     name="APPPID"></fc-text>
                     <fc-text [fcLabel]="'事件编码'" [fcAppid]="appId" fcFieldCode="BTNCODE" [fcValid]="mainValid.BTNCODE" fcPlaceHolder="按编码规则自动生成"   [(ngModel)]="mainObj.BTNCODE" 
                      name="BTNCODE"></fc-text>
                      <div class="sys-tab">与其关系名称，中文，如，元数据的属性</div>
@@ -32,40 +33,41 @@ import { Router, ActivatedRoute } from '@angular/router';
              </fc-layoutcol>
              <fc-layoutcol fcSpans="1,1" fccontent>
                  <div fccontent1 style="margin-left:34%;">
-                    <fc-radio [(ngModel)]="mainObj.ENABLE" fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC"
-                    fcValueCode="DICVALUE" name="ENABLE"  (ngModelChange)="componentEvents('enableEvent',$event)"></fc-radio>
+                      <fc-long  [fcAppid]="appId" fcFieldCode="SORT" [fcValid]="mainValid.SORT" [(ngModel)]="mainObj.SORT" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>
                  </div>
                  <div fccontent2>
-                     <fc-long  [fcAppid]="appId" fcFieldCode="SORT" [fcValid]="mainValid.SORT" [(ngModel)]="mainObj.SORT" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>
+                      <fc-radio [(ngModel)]="mainObj.ENABLE" fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC"
+                      fcValueCode="DICVALUE" name="ENABLE"  (ngModelChange)="componentEvents('enableEvent',$event)"></fc-radio>
                  </div>
              </fc-layoutcol>
-            <fc-layoutcol fcSpans="1,0" fccontent>
-                <fc-title fcLabel="其他信息" fcWidth="96%" [fcHasLine]="false" fccontent1></fc-title>
-                 <div class="sys-choose-icon" fccontent1>
-                    <fc-label fcLabel="数据源图标"></fc-label>
-                    <div class="sys-choose-icon-box"  (click)="componentEvents('iconEvent',$event)">
+            <fc-layoutcol fcSpans="1,0" fccontent class="otherMessage">
+                <i class="sys-title-arrow" *ngIf="showDown===true" (click)="open($event)" fccontent1>∧</i>
+                <i class="sys-title-arrow" *ngIf="showDown===false" (click)="close($event)" fccontent1>∨</i>
+                <fc-title fcLabel="其他信息" fcWidth="96%" [fcHasLine]="false" *ngIf="showDown===false" fccontent1></fc-title>
+                <div class="sys-choose-icon" fccontent1 *ngIf="showDown===false">
+                    <fc-label fcLabel="图标"></fc-label>
+                    <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
                         <fc-icon [fcIcon]="mainObj.BTNICON"  [(ngModel)]="mainObj.BTNICON" fcSize="large"></fc-icon>
                         <span *ngIf = "visible">选择字体图标</span>
-                        <span class="sys-deleticon"  (click)="componentEvents('deleticonEvent',$event)">x</span>
+                        <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                     </div>
                 </div>
-                <div fccontent1 style="margin-top:5px;">
-                    <fc-radio  [fcAppid]="appId" fcFieldCode="BTNTYPE" [fcValid]="mainValid.BTNTYPE" [(ngModel)]="mainObj.BTNTYPE" fcLabel="事件发生场景"
+                <div fccontent1 style="margin-top:5px;" *ngIf="showDown===false">
+                    <fc-radio  [fcAppid]="appId" fcFieldCode="BTNTYPE" [fcValid]="mainValid.BTNTYPE" [(ngModel)]="mainObj.BTNTYPE" fcLabel="事件发生场景" fcFieldCode="BTNTYPE"
                      fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="BTNTYPE"  (ngModelChange)="componentEvents('btntypeEvent',$event)"></fc-radio>                  
                     <div class="sys-tab">此事件在模型卡片场景，列表场景，工具栏场景的事件类型</div>
-                    <fc-radio  [fcAppid]="appId" fcFieldCode="ALLOWTYPE" [fcValid]="mainValid.ALLOWTYPE" [(ngModel)]="mainObj.ALLOWTYPE" fcLabel="许可类型"
+                    <fc-radio  [fcAppid]="appId" fcFieldCode="ALLOWTYPE" [fcValid]="mainValid.ALLOWTYPE" [(ngModel)]="mainObj.ALLOWTYPE" fcLabel="许可类型" fcFieldCode="ALLOWTYPE"
                     fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ALLOWTYPE"  (ngModelChange)="componentEvents('allowtypeEvent',$event)"></fc-radio>  
                     <div class="sys-tab">开放的事件无需授权，许可按钮需要授权</div>
                 </div>
-                <fc-textarea fccontent1 [(ngModel)]="mainObj.HELP" fcLabel="帮助"  name="HELP"></fc-textarea>
-                <div fccontent1 class="sys-tab">请输入少于200字</div>
+                <fc-textarea fccontent1 [(ngModel)]="mainObj.HELP" fcLabel="帮助(可选)"  name="HELP" fcPlaceHolder="请输入备注" *ngIf="showDown===false"></fc-textarea>
+                <div fccontent1 class="sys-tab" *ngIf="showDown===false" class="helpBottom">请输入少于200字</div>
             </fc-layoutcol>
          </fc-layoutpanel>
      </div>
     </div>
     <div class="customize-footer">
-        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
-        </fc-button>
+        <fc-tlbform fccontent1 fcType="primary" [fcAppid]="appId" fcLayout="center" (fcEvent)="tlbformEvent($event)" class="basicTlb"></fc-tlbform>
     </div>
   </div>
     `,
@@ -117,68 +119,141 @@ import { Router, ActivatedRoute } from '@angular/router';
   .sys-tab{
       margin-left:26%;
   }
+  .anticon {
+    margin-right: 20px;
+    display: block;
+    text-align: right;
+ }
+ .sys-title-arrow{
+  font-size: 20px;
+  font-style: inherit;
+  flex: 0.2;
+  display:block;
+  text-align: right;
+  padding-right: 20px;
+  border-top: 1px solid #ccc;
+}
+.sys-title-arrow:hover{
+  cursor:pointer;
+}
+.topClose{
+  border-bottom:1px solid #ccc;
+}
+.helpBottom{
+  border-bottom:1px solid #ccc;
+  padding-left: 250px;
+}
   `]
 })
 export class SysappmodaleventdialogComponent  extends ParentEditComponent{
-  // readonly:boolean;
-  //模型名称字段
-  content: any;
+  //图标属性显示字还是图标
+  visible: boolean = true;
+  //显示展开收起图标,初始收起
+  showDown: boolean;
+  //模型名称
+  content: string;
+  //声明对象
+  mainObj = {
+    APPID: '',
+    BTNCODE: '',
+    BTNNAME: '',
+    ACTCODE: '',
+    SORT: '',
+    ENABLE: '',
+    BTNICON: '',
+    BTNTYPE: '',
+    ALLOWTYPE: '',
+    HELP: ''
+  }
+  //中间对象
+  obj = {
+    APPID: '',
+    BTNCODE: '',
+    BTNNAME: '',
+    ACTCODE: '',
+    SORT: '',
+    ENABLE: '',
+    BTNICON: '',
+    BTNTYPE: '',
+    ALLOWTYPE: '',
+    HELP: ''
+  };
+  @Input()
+  set options(option: any) {
+    this.obj = option;
+    //新增弹窗
+    if (this.obj.APPID === undefined) {
+      this.content = option;
+    }
+    this.productIcon();
+  }
+  @Input()
+  set strs(str: any) {
+    //编辑的弹窗
+    if (str != undefined && str != null && str != '') {
+      this.content = str;
+      this.mainObj = this.obj;
+    }
+    this.productIcon();
+  }
   constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
     super(mainService, router, activeRoute);
   }
-  //图标属性显示字还是图标
-  visible: boolean = true;
-  mainObj:any = {
-    APPPID:'',
-    BTNCODE:'',
-    BTNNAME:'',
-    ACTCODE:'',
-    ENABLE:'',
-    SORT:'',
-    BTNICON:'',
-    BTNTYPE:'',
-    ALLOWTYPE:'',
-    HELP:'',
-    ID:''
+  init(): void {
+    this.showDown = true;
   }
-  @Input()
-  set options(option: any) {
-    this.mainObj=option;
-    if (this.mainObj.APPID === undefined) {
-      this.content = '';
-      // this.readonly = false;
-      this.content = ''
-    } else {
-      this.content = option.APPID + "-" + option.APPNAME;
-      // this.readonly = true;
-    }
-    // this.mainObj.APPID = this.options.APPID,
-    this.productIcon();
+  addNew(mainObj: any): boolean {
+    return true;
   }
-    /**
-  * 组件事件收集
-  * @param type 字符串命名
-  * @param ev 事件传过来的参数
+  /**
+  * 保存前验证
   */
-  componentEvents(type: string, ev: any) {
-    switch (type) {
+  beforeSave():boolean{
+    this.mainObj.APPID=this.content.split('-')[0];
+    return true;
+  }
+  event(eventName: string, param: any): void {
+    switch (eventName) {
       //图标弹窗
       case 'iconEvent':
-      this.mainService.producticonmodal('字体图标', SysicondialogComponent).subscribe(obj => {
-        if (obj.DICVALUE !== undefined) {
-          this.mainObj.BTNICON = obj.DICVALUE
-          this.visible = false;
-        }
-      })
-      break;
+        this.mainService.producticonmodal('字体图标', SysicondialogComponent).subscribe(obj => {
+          if (obj.DICVALUE !== undefined) {
+            this.mainObj.BTNICON = obj.DICVALUE
+            this.visible = false;
+          }
+        })
+        break;
       //删除字体图标X
       case 'deleticonEvent':
-      this.mainObj.BTNICON = "";
-      this.visible = true;
-      event.stopPropagation()
-      break;  
+        this.mainObj.BTNICON = "";
+        this.visible = true;
+        event.stopPropagation()
+        break;
+    }
+  }
+  /**
+  *  ICON如果等于空visible显示（文字请选择图片）
+  * ICON如果不等于空visible不显示（文字请选择图片不显示）
+  * @param event  
+  */
+  productIcon() {
+     //第一次判断是新增还是修改页面如果是新增页面提示显示如果
+     //是修改页面判断图标是否为空如果为空显示否则不显示提示
+     if (this.mainObj.BTNICON === "" || this.mainObj.BTNICON === null) {
+        this.visible = this.visible
+    } else {
+      this.visible = !this.visible
+    }
+  }
+  /**
+* 组件事件收集
+* @param type 字符串命名
+* @param ev 事件传过来的参数
+*/
+  componentEvents(type: string, ev: any) {
+    switch (type) {
       case 'enableEvent':
         this.mainObj.ENABLE = ev;
         break;
@@ -190,43 +265,16 @@ export class SysappmodaleventdialogComponent  extends ParentEditComponent{
         break;
     }
   }
-    //确定按钮
-  emitDataOutside(ev){
-    if(this.mainObj.ID === undefined){
-      //新增模态框数据新增到子表中  
-      this.mainService.childrensave(this.mainObj)   
-    }else{
-      //修改子表数据
-      this.mainService.childrenupdate(this.mainObj)
-    }
-  }
-    /**
-  *  ICON如果等于空visible显示（文字请选择图片）
-  * ICON如果不等于空visible不显示（文字请选择图片不显示）
-  * @param event  
+  /**
+  * 展开其他信息
   */
- productIcon() {
-  //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
-  if (this.mainObj.BTNICON === null) {
-   // this.visible = true;
-   // this.visible = this.visible
-     if (this.mainObj.BTNICON === null) {
-       // this.visible = true;
-       this.visible = this.visible
-     } else {
-       // this.visible = false;
-       this.visible = !this.visible
-     }
- } else {
-   // this.visible = false;
-   this.visible = this.visible
- }
-}
-  addNew(mainObj: any): boolean {
-    return true;
+  open() {
+    this.showDown = false;
   }
-  init(): void {
+  /**
+  * 收起其他信息
+  */
+  close() {
+    this.showDown = true;
   }
-event(eventName: string, param: any): void {
-}
 }
