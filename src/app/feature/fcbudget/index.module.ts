@@ -14,20 +14,22 @@ import { BgattributeService } from './services/bgattribute.service';
 import { BgformulaService } from './services/bgformula.service';
 import { BgprojectattributeService } from './services/bgprojectattribute.service';
 import { BgsettingupService } from './services/bgsettingup.service';
-import { ChooseattrdialogComponent } from './components/dialog/chooseattrdialog.component';
 import { BgprojectattributeComponent } from './components/bgprojectattribute.component';
 import { AddcolattrvaluedialogComponent } from './components/dialog/addcolattrvaluedialog.component';
 import { BgtransfordialogComponent } from './components/dialog/bgtransfordialog.component';
 import { AddrowattrvaluedialogComponent } from './components/dialog/addrowattrvaluedialog.component';
+import { CopyprojectattrComponent } from './components/dialog/copyprojectattr.component';
 import { AddaffiliationdialogComponent } from './components/dialog/addaffiliationdialog.component';
+import { ChooseattrdialogComponent } from './components/dialog/chooseattrdialog.component';
 @NgModule({
   // 弹窗记得在这里引入
   entryComponents: [
     BgtransfordialogComponent,
-    ChooseattrdialogComponent,
     AddcolattrvaluedialogComponent,
     AddrowattrvaluedialogComponent,
-    AddaffiliationdialogComponent
+    CopyprojectattrComponent,
+    AddaffiliationdialogComponent,
+    ChooseattrdialogComponent
   ],
   imports: [
     CommonModule,
@@ -52,11 +54,12 @@ import { AddaffiliationdialogComponent } from './components/dialog/addaffiliatio
     BgformulaComponent,
     BgsettingupComponent,
     BgprojectattributeComponent,
-    ChooseattrdialogComponent,
     BgtransfordialogComponent,
     AddcolattrvaluedialogComponent,
     AddrowattrvaluedialogComponent,
-    AddaffiliationdialogComponent
+    CopyprojectattrComponent,
+    AddaffiliationdialogComponent,
+    ChooseattrdialogComponent
   ],
   providers: [
     BgattributeService,

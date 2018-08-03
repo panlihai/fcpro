@@ -43,7 +43,12 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
     //产品
     pidOption;
     //参数数据
-    parameters: any;
+    requestParams: any;
+    responseParams: any;
+    staticMainObj: any = {};
+    fromName: any;
+    btnlistOnes: any;
+    btnlistMores: any;
     constructor(public mainService: SysinterfaceService,
         public router: Router,
         public activeRoute: ActivatedRoute) {
@@ -64,28 +69,152 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
         this.initDefaultMainObj();
         //初始化产品名称的自定义下拉选项内容
         this.initPidOption();
-        this.checkPid();
+        this.handleRouterParam();
+        this.getCardListBtn();
         //获取参数配置数据
         /* this.getParameters(); */
     }
+    /** YM
+    * 处理路由传参的情况
+    * @param pid 
+    */
+    handleRouterParam() {
+        if (this.routerParam.ID) {
+            if (this.routerParam.from) {
+                this.initEditObj(this.routerParam);
+            } else {
+                this.messageService.error("缺少必要路由参数");
+            }
+        }
+    }
     /**
+     * 初始化卡片按钮
+     */
+    getCardListBtn() {
+        //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
+        this.btnlistOnes = this.mainService.appButtons.filter(btn =>
+            btn.BTNTYPE === 'LISTONE'
+        );
+        //更多的按钮
+        this.btnlistMores = this.btnlistOnes.splice(3);
+        //截取前两个按钮
+        this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+    }
+    /** YM
+     * 初始化编辑数据
+     * @param param 
+     */
+    initEditObj(param: any) {
+        switch (param.from) {
+            case 'SYSSERVICE':
+                this.mainService.getServiceById(param.ID).subscribe(res => {
+                    if (res.CODE === '0' && res.DATA.length !== 0) {
+                        for (let attr in res.DATA[0]) {
+                            if (attr === 'PID') {
+                                this.mainObj[attr] = res.DATA[0][attr];
+                            }
+                            if (attr === 'SERVICENAME') {
+                                this.mainObj['FROMNAME'] = res.DATA[0][attr];
+                                this.fromName = '服务名称'
+                            }
+                            if (attr === 'SERVICEID') {
+                                this.mainObj['APPID'] = res.DATA[0][attr];
+                            }
+                        }
+                        this.mainObj.FROMNAME = `${this.mainObj.APPID}-${this.mainObj.FROMNAME}`;
+                        for (let attr in this.mainObj) {
+                            this.staticMainObj[attr] = this.mainObj[attr];
+                        }
+                    } else {
+                        this.messageService.error('从服务获取基本信息失败');
+                    }
+                })
+                if (param.interfaceId) {
+                    this.mainService.findWithQuery({ ID: param.interfaceId }).subscribe(res => {
+                        if (res.CODE === '0' && res.DATA.length !== 0) {
+                            for (let attr in res.DATA[0]) {
+                                this.mainObj[attr] = res.DATA[0][attr];
+                            }
+                            for (let attr in this.mainObj) {
+                                this.staticMainObj[attr] = this.mainObj[attr];
+                            }
+                            this.initInterfaceParam();
+                        } else {
+                            this.messageService.error('从接口获取基本信息失败');
+                        }
+                    })
+                }
+                break;
+            case 'SYSAPP':
+                // this.mainService.getAppById(param.ID);
+                break;
+        }
+
+    }
+    /** YM
      * html事件收集及派发函数
      * @param eventName 
      * @param context 
      */
-    event(eventName: string, context: any): void {
+    event(eventName: string, context?: any): void {
         switch (eventName) {
-            case '':
+            case 'editRequestParam':
+                this.editRequestParam(context);
+                event.stopPropagation();
+                event.preventDefault();
+                break;
+            case 'editResponseParam':
+                this.editResponseParam(context);
+                event.stopPropagation();
+                event.preventDefault();
+                break;
+            case 'deleteRequestParam':
+                // this.editRequestParam();
+                event.stopPropagation();
+                event.preventDefault();
+                break;
+            case 'deleteResponseParam':
+                // this.deleteRequestParam();
+                event.stopPropagation();
+                event.preventDefault();
+                break;
+            case 'backTo':
+                this.cardBack();
                 break;
         }
     }
-    /**
+    cardBack() {
+        switch (this.fromName) {
+            case '服务名称':
+                this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSSERVICE', 'Edit'), { ID: this.routerParam.ID });
+                break;
+            case '模型编码':
+
+                break;
+        }
+    }
+    /**YM
+     * 初始化参数列表数据
+     */
+    initInterfaceParam() {
+        this.mainService.getInterfaceReqParams(this.mainObj.IMPLID, this.mainObj.PID).subscribe(res => {
+            if (res.CODE === '0') {
+                this.requestParams = res.DATA;
+            }
+        });
+        this.mainService.getInterfaceResParams(this.mainObj.IMPLID, this.mainObj.PID).subscribe(res => {
+            if (res.CODE === '0') {
+                this.responseParams = res.DATA;
+            }
+        });
+    }
+    /** YM
      * 初始化mainObj的默认值
      */
     initDefaultMainObj() {
         this.mainObj = this.mainService.getDefaultObj();
     }
-    /**
+    /** YM
      * 初始化产品名称的自定义下拉选项内容
      */
     initPidOption() {
@@ -93,21 +222,13 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
         this.mainService.getAllProduct().subscribe(res => {
             if (res.P_LISTVALUE)
                 res.P_LISTVALUE.forEach(el => {
-                    let option = { label: el.PNAME, value: el.PID, disabled: false };
+                    let option = { label: `${el.PID}+${el.PNAME}`, value: el.PID, disabled: false };
                     this.pidOption.push(option);
                 });
             else this.messageService.error("在取出产品名称相关数据时出错");
         })
     }
-    /** YM
-     * 检测是否存在PID信息，如果存在则赋值
-     * @param pid 
-     */
-    checkPid() {
-        if (this.routerParam.PID) {
-            this.mainObj.PID = this.routerParam.PID;
-        }
-    }
+
     /** YM
      * 根据PID获取服务编码并赋值.
      * @param pid 
@@ -121,6 +242,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
             });
         }
     }
+
     /**
      * 实现继承与父类的afterSave函数，对cardSave函数进行功能扩展;
      */
@@ -143,13 +265,22 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
     /**
     * 新增参数配置
     */
-    addParameter() {
-        this.mainService.addWindow('参数配置-编辑', SysservicemodaldialogComponent);
+    editRequestParam(context?: any) {
+        if (context) {
+            context.FROMNAME = this.mainObj.FROMNAME;
+            context.INTERFACENAME = `${this.mainObj.REQWAY}-${this.mainObj.IMPLNAME}`;
+        }
+        this.mainService.openWindow('参数配置-编辑', SysservicemodaldialogComponent, context);
     }
     /**
    * 新增返回值
    */
-    addReturnValue() {
-        this.mainService.addWindow('返回值配置-编辑', SysservicebackdialogComponent);
+    editResponseParam(context?) {
+        if (context) {
+            context.FROMNAME = this.mainObj.FROMNAME;
+            context.INTERFACENAME = `${this.mainObj.REQWAY}-${this.mainObj.IMPLNAME}`;
+        }
+        this.mainService.openWindow('返回值配置-编辑', SysservicebackdialogComponent, context);
     }
+
 }

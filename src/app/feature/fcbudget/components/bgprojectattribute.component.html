@@ -25,58 +25,53 @@
                     </div>
                 </fc-layoutgroup>
             </fc-layoutcol>
-            <div fccontent1>
-                <fc-button  fcLabel="新增属性关系" (click)="event('addAttr')"></fc-button>
-                <fc-button  fcLabel="属性从属关系" (click)="event('tab2')"></fc-button>
-                <fc-button  fcLabel="属性值从属关系" (click)="event('tab3')"></fc-button>
-            </div>
+            <fc-button fccontent1 fcLabel="属性关系" (click)="event('addAttr')"></fc-button>
             <fc-layoutgroup fccontent1 fcTitle="属性关系">
                 <div fccontent style="height:360px;">
-                    <fc-listdata fccontent1 [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
+                    <fc-listdata fccontent1 [fcAppid]="appId" [fcOption]="fcOption2" (fcEvent)="listdataEvent($event)"></fc-listdata>
                 </div>
                 <div fccontent style="padding:2% 0 4% 0">
                     <fc-text fccontent [(ngModel)]="mainObj.SVERSION_CODE" fcFieldCode='SVERSION_CODE' name="SVERSION_CODE" fcPlaceHolder="请输入项目属性组合" fcLabel="项目属性组合"></fc-text>
                 </div>
             </fc-layoutgroup>
-            <!-- tab1标签结束 -->
             <!-- tab2标签开始 -->
-            <fc-layoutcol fccontent2  fcSpans="20,2">
-                <fc-layoutcol fccontent1  fcSpans="1,1">
+            <fc-layoutcol fccontent2 fcSpans="20,2">
+                <fc-layoutcol fccontent1 fcSpans="1,1">
                     <div fccontent1>
-                        <fc-any [fcLabel]="'主属性::'" name="textname"></fc-any>
-                        <fc-any [fcLabel]="'从属属性:'" name="textname"></fc-any>
+                        <fc-any fcLabel="主属性" name="textname"></fc-any>
+                        <fc-any fcLabel="从属属性" name="textname"></fc-any>
                     </div>
                     <div fccontent2>
-                        <fc-text [fcLabel]="'排序号:'" name="textinner1"></fc-text>
+                        <fc-text fcLabel="排序号" name="textinner1"></fc-text>
                         <div fccontent style="margin-left:79%;">
-                           <fc-button fcLabel="添加" (click)="save();"></fc-button>                            
+                            <fc-button fcLabel="添加" (click)="save();"></fc-button>
                         </div>
                     </div>
                 </fc-layoutcol>
                 <div fccontent1 style="height:360px;">
                     <fc-listdata [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
                 </div>
-                <div fccontent1 class="bgattab">
-                    <fc-button fcLabel="确定" (click)="save();"></fc-button>
-                    <fc-button fcLabel="取消" (click)="back();"></fc-button>
+                <div fccontent1 style="display: flex;justify-content: center;">
+                    <fc-button fcType="primary" fcLabel="确定" (click)="event('confirm')"></fc-button>
+                    <fc-button fcLabel="取消" (click)="event('cancel')"></fc-button>
                 </div>
             </fc-layoutcol>
             <!-- tab标签结束  -->
             <!-- tab3标签开始 -->
-            <div fccontent3 >
+            <div fccontent3>
                 <div fccontent style="text-align:left;">
-                    <fc-button fcLabel="新增从属关系" (click)="bgprojectadd();"></fc-button>
+                    <fc-button fcLabel="新增从属关系" (click)="event('addRelation');"></fc-button>
                     <fc-button fcLabel="返回" (click)="back();"></fc-button>
                 </div>
-                <fc-layoutcol fccontent2  fcSpans="1,1">
+                <fc-layoutcol fccontent2 fcSpans="1,1">
                     <fc-layoutgroup fccontent1 fcTitle="主属性">
                         <div fccontent style="height:250px;">
-                            <fc-listdata  [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
+                            <fc-listdata [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
                         </div>
                     </fc-layoutgroup>
                     <fc-layoutgroup fccontent2 fcTitle="从属属性">
                         <div fccontent style="height:400px;">
-                            <fc-listdata  [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
+                            <fc-listdata [fcAppid]="appId" [fcOption]="fcOption1" (fcEvent)="listdataEvent($event)"></fc-listdata>
                         </div>
                     </fc-layoutgroup>
                 </fc-layoutcol>

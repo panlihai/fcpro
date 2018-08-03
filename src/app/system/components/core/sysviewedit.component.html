@@ -1,17 +1,54 @@
 <fc-layoutpanel class="sys-card-pannel">
-    <fc-layoutcol fccontent fcSpans="6,4">
-        <fc-title fccontent1 fcLabel="基本信息" fcBorder="bottom"></fc-title>
-        <fc-layoutcol fccontent1 fcSpans="9,1">
-            <fc-text fccontent1 fcLabel="视图编码" [(ngModel)]="mainObj.VIEWID" [fcAppid]="appId" fcFieldCode="VIEWID" name="VIEWID"></fc-text>
-            <fc-text fccontent1 fcLabel="视图名称" [(ngModel)]="mainObj.VIEWNAME" [fcAppid]="appId" fcFieldCode="VIEWNAME" name="VIEWNAME"></fc-text>
-            <fc-radio fccontent1 [(ngModel)]="mainObj.CATAGORY" [fcAppid]="appId" fcFieldCode="CATAGORY" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="CATAGORY"></fc-radio>
-            <fc-radio fccontent1 [(ngModel)]="mainObj.ISDEFAULT" [fcAppid]="appId" fcFieldCode="ISDEFAULT" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ISDEFAULT"></fc-radio>
+    <div class="sys-card-pannel-header" fcheader>
+        <fc-title fcLabel="功能-视图编辑" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
+        <P class="sys-card-pannel-smarks">
+            视图：FC基础服务平台的功能单元，开发者提供给终端用户的组件界面样式服务；与功能是多对一的关系；支持多个类型的视图，包含栏目视图、查询视图、 卡片视图、自定义视图等
+        </P>
+        <div class="sys-card-fast">
+            <ul class="sys-fast-list">
+                <li class="sys-icon-btn">
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>返回功能</li>
+            </ul>
+        </div>
+        <img class="sys-card-bg" src="assets/img/system-bg.png" />
+    </div>
+    <div class="sys-card-pannel-edit" fccontent>
+        <fc-layoutcol fcSpans="6,4">
+            <fc-title fccontent1 fcLabel="基本信息" [fcHasLine]="false"></fc-title>
+            <fc-layoutcol fccontent1 fcSpans="9,1">
+                <fc-text fccontent1 fcLabel="视图编码" [(ngModel)]="mainObj.VIEWID" [fcAppid]="appId" fcFieldCode="VIEWID" name="VIEWID"></fc-text>
+                <fc-text fccontent1 fcLabel="视图名称" [(ngModel)]="mainObj.VIEWNAME" [fcAppid]="appId" fcFieldCode="VIEWNAME" name="VIEWNAME"></fc-text>
+                <fc-radio fccontent1 [(ngModel)]="mainObj.CATAGORY" [fcAppid]="appId" fcFieldCode="CATAGORY" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="CATAGORY"></fc-radio>
+                <fc-radio fccontent1 [(ngModel)]="mainObj.ISDEFAULT" [fcAppid]="appId" fcFieldCode="ISDEFAULT" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ISDEFAULT"></fc-radio>
+            </fc-layoutcol>
         </fc-layoutcol>
-    </fc-layoutcol>
-    <fc-layoutcol fccontent fcSpans="6,4">
-        <fc-title fccontent1 fcLabel="元素编辑" fcBorder="bottom"></fc-title>
-    </fc-layoutcol>
-    <fc-layoutcol fccontent fcSpans="3,7">
-
-    </fc-layoutcol>
+        <fc-tlbform fcLayout="center" fcType="primary" [fcAppid]="appId" (fcEvent)="tlbformEvent($event)"></fc-tlbform>
+        <fc-layoutcol fcSpans="6,4">
+            <fc-title fccontent1 fcLabel="元素编辑" [fcHasLine]="false"></fc-title>
+            <h2>请选择模型，拖拽至属性字段</h2>
+        </fc-layoutcol>
+        <fc-layoutcol fcSpans="3,7">
+            <fc-many fccontent1 [ngModel]="undefined" (ngModelChange)="event('selectApp',$event)" [fcShowSearch]="searchBoolean" [fcShowLabel]="false" fcPlaceHolder="请选择模型，支持多选" [fcOption]="sysApps" fcLabelCode="APPNAME" fcValueCode="APPID"></fc-many>
+            <div fccontent2 class="btnAdd-dragable-area" (click)="event('addViewElement')">+ 添加</div>
+            <div fccontent1 class="selectList-area">
+                <div class="selectList-title-area">备选模型&字段</div>
+                <div class="selectList-content-area">
+                    <ul *ngFor="let app of selectedApps">
+                        <li>
+                            <fc-icon fcIcon="fc-icon-fall" fcSize="small"></fc-icon>
+                            <span>{{app.TABLETYPE==='TABLE'?'T':'V'}}:</span>
+                            <span>{{app.APPNAME}}-{{app.MAINTABLE}}</span>
+                            <span *ngIf="app.APPID===this.mainObj.DEFAULTAPPID">（默认模型）</span>
+                            <ul>
+                                <li *ngFor="let field of app.P_APPFIELDS">{{field.FIELDCODE}}-{{field.FIELDNAME}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div fccontent2 class="selectList-list-area">
+                <fc-list fcAppid="SYSVIEWELEMENT" fcLabelCode="ELEMENTNAME" fcValueCode="ELEMENTID" [fcCondition]="condition" fcIcon="fc-icon-picture" fcSubTitleCode="HELP" fcStatusCode='ELEMENTNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}" (fcEvent)="event('selectElementToEdit',$event)">></fc-list>
+            </div>
+        </fc-layoutcol>
+    </div>
 </fc-layoutpanel>
