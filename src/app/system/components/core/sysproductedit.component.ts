@@ -105,9 +105,6 @@ import { ObjStatus } from 'fccore';
     padding: 0px;
     border-bottom:none;
   }
-  :host ::ng-deep .ant-upload{
-    padding:0px;
-  }
   `]
 })
 export class SysproducteditComponent extends ParentEditComponent implements AfterViewInit {

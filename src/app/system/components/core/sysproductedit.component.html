@@ -58,7 +58,7 @@
                         <div class="sys-choose-icon" fccontent1>
                             <fc-label fcLabel="产品文档"></fc-label>
                             <div class="sys-choose-icon-upload"  (click)="event('iconEvent')">
-                                <fc-upload fccontent class="upload-content" fcListType="picture-card" (fcEvent)="event('fileEvent',$event)" [fcOption]="fcUploadOption">
+                                <fc-upload fccontent class="upload-content" (fcEvent)="event('fileEvent',$event)" [fcOption]="fcUploadOption">
                                 </fc-upload>
                             </div>
                         </div>
