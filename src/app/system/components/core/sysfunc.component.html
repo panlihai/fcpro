@@ -1,35 +1,19 @@
-<!-- 模型和元数据入口 -->
+<!-- 功能入口 -->
 <fc-layoutpanel class="sys-card-pannel">
     <div class="sys-card-pannel-header" fcheader>
-        <!-- <div id="div1" (drop)="drop($event)" (dragover)="allowDrop($event)" (dragenter)="dragenter($event)" style="width:198px; height:66px;padding:10px;border:1px solid #aaaaaa;"></div>
-        <br /> -->
-        <!-- <div style="width: 100px;height: 100px;background: red;position: fixed;left:0;top: 0;" fcDrag>
-
-        </div> -->
-        <!-- 设置元素为可拖拽 -->
-        <!-- <img id="drag1" [draggable]="true" (dragstart)="drag($event)" src="assets/img/system-bg.png" width="70"
-            height="50" /> -->
-        <fc-title fcLabel="模型&元数据" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
+        <fc-title fcLabel="功能" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
-            说明：FC开发设计平台，快速开发应用模型，此功能实现模型定义，实现数据库表及视图的新增、修改、删除 、同步。
+            功能：FC基础功能平台的功能单元，开发者提供给终端用户的功能；与产品是多对一的关系；功能中包含接口、视图，默认模型 提供跨越设计与开发的体验解决方案。
         </P>
         <div class="sys-card-fast">
             <ul class="sys-fast-list">
-                <li (click)="quickstart($event)">
-                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
-                <li>
+                <li class="sys-icon-btn">
                     <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>导入</li>
-                <li>
+                <li class="sys-icon-btn">
                     <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>帮助</li>
             </ul>
-            <div class="sys-fast-select" style="margin-right: 10px;">
-                <!-- 选择产品 -->
-                <fc-combo style="width: 45%;display: inline-block;" [fcShowLabel]="false" [fcOption]="productOptions" [(ngModel)]="product"
-                    fcPlaceHolder="请选择产品" fcAppid="SYSPRODUCT" (ngModelChange)="chooseProduct($event)" name="SYSPRODUCT.PID"></fc-combo>
-                <!-- 选择数据源，没有选择产品时，数据源下拉为空 -->
-                <fc-combo style="width: 45%;display:inline-block;" [fcShowLabel]="false" [(ngModel)]="datasource" fcPlaceHolder="请选择数据源"
-                    (ngModelChange)="chooseDatasource($event)" [fcDisabled]="product===undefined||product===null||product===''"
-                    fcAppid="SYSDATASOURCE" fcFieldCode="DSID" fcLabelCode="DSNAME" fcValueCode="DSID" name="SYSDATASOURCE.DSID"></fc-combo>
+            <div class="sys-fast-select">
+                <fc-combo [fcShowLabel]="false" [(ngModel)]="product" fcPlaceHolder="请选择开发产品" fcAppid="SYSPRODUCT" fcFieldCode="PID" fcLabelCode="PNAME" fcValueCode="PID" name="SYSPRODUCT.PID"></fc-combo>
             </div>
             <div class="sys-fast-byword">
                 <span *ngFor="let item of fastsearchWords" [ngClass]="{'active':searchWord===item.ACTCODE}" (click)="fastSearch(item)">{{item.BTNNAME}}</span>
@@ -38,32 +22,25 @@
         <img class="sys-card-bg" src="assets/img/system-bg.png" />
     </div>
     <div nz-row [nzGutter]="10" fccontent>
-        <div *ngIf="noResult" class="sys-noresult">
-            <fc-icon fcIcon="fc-icon-bgsearch" fcColor="#BDC5D1" fcFontSize="30px"></fc-icon>
-            <span class="noResult-title">没有任何数据</span>
-            <span class="noResult-smarks">
-                请选择产品和数据源过滤元数据!
-            </span>
-        </div>
         <!-- 新增卡片操作 -->
-        <div nz-col [nzSpan]="6" class="sys-card sys-card-add" *ngIf="pageList&&pageList.length!==0">
+        <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
             <nz-card (click)="listAdd($event);">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
-                    <p class="sys-card-addtext">新增</p>
+                    <p class="sys-card-addtext">新增功能</p>
                 </ng-template>
             </nz-card>
         </div>
         <!-- 产品列表循环 -->
-        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysapp of pageList">
-            <nz-card (click)="listEdit(sysapp);">
+        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysfunc of sysFuncs">
+            <nz-card (click)="listEdit(sysfunc);">
                 <ng-template #body>
                     <div class="sys-card-content">
                         <!-- 操作按钮 -->
                         <div class="sys-card-tbl">
                             <!-- 默认显示两个 -->
                             <fc-tooltip class="sys-card-tbl-every" fcTitle="{{btn.BTNNAME}}" *ngFor="let btn of btnlistOnes">
-                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn,sysapp)" fcFontSize="18px" fccontent></fc-icon>
+                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn,product)" fcFontSize="18px" fccontent></fc-icon>
                             </fc-tooltip>
                             <!-- 超出2个后显示 -->
                             <div class="sys-card-tbl-more" *ngIf="btnlistMores.length!==0">
@@ -72,7 +49,7 @@
                                     <ul nz-menu nzSelectable>
                                         <li nz-menu-item *ngFor="let btn of btnlistMores">
                                             <fc-tooltip fcTitle="{{btn.BTNNAME}}">
-                                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn,sysapp)" fcFontSize="18px" fccontent></fc-icon>
+                                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn,product)" fcFontSize="18px" fccontent></fc-icon>
                                             </fc-tooltip>
                                         </li>
                                     </ul>
@@ -80,13 +57,13 @@
                             </div>
                         </div>
                         <span class="sys-card-mark">
-                            {{sysapp.APPID|slice:0:1}}
+                            {{sysfunc.FUNCID|slice:0:1}}
                         </span>
                         <div class="sys-card-text">
                             <div class="sys-card-title">
-                                {{sysapp.APPID}}-{{sysapp.APPNAME}}
+                                {{sysfunc.FUNCID}}-{{sysfunc.FUNCNAME}}
                             </div>
-                            <p class="sys-card-smarks">{{sysapp.REMARK}}</p>
+                            <p class="sys-card-smarks">{{sysfunc.REMARK}}</p>
                         </div>
                     </div>
                     <div class="sys-card-footer">

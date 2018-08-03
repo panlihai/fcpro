@@ -87,6 +87,7 @@ import { NzModalService } from 'ng-zorro-antd';
     padding: 0px 5px 20px;
     border-top: 0;
     height:calc(100% - 65px);
+    background-color:#F0F2F5;
   }
   :host ::ng-deep .sys-nav-tabmain .ant-tabs-bar {
       background-color: #ffffff;
