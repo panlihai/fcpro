@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentlistComponent } from 'fccomponent';
-import { SysserviceService } from '../../services/sysservice.service';
 import { FCEVENT } from 'fccomponent/fc';
+import { SysserviceService } from '../../services/sysservice.service';
 @Component({
   selector: 'sysservice',
   templateUrl: './sysservice.component.html',
@@ -11,6 +11,8 @@ import { FCEVENT } from 'fccomponent/fc';
             `]
 })
 export class SysserviceComponent extends ParentlistComponent {
+  //数据集
+  pageList: any[];
   //明细操作按钮
   btnlistOnes: any[];
   //更多的按钮
@@ -21,14 +23,18 @@ export class SysserviceComponent extends ParentlistComponent {
   sysServices: any[];
   //点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
   searchWord: string = '';
+  //没有任何内容
+  noResult: boolean;
+  //产品
+  product: string;
+  //产品下拉
+  productOptions: any[] = [];
   constructor(public mainService: SysserviceService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
     super(mainService, router, activeRoute);
   }
   init(): void {
-    //根据首字母过滤
-    this.searchByWord();
     //26个字母name,方法名,BUSTYPE为'fastsearch'
     this.fastsearchWords = this.mainService.initFastSeachWords();
     //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
@@ -39,6 +45,18 @@ export class SysserviceComponent extends ParentlistComponent {
     this.btnlistMores = this.btnlistOnes.splice(3);
     //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+    //初始化数据
+    this.initData(this.product);
+     //产品下拉
+     this.mainService.getproduct().subscribe(result => {
+      this.productOptions = result.P_LISTVALUE;
+      if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
+        result.P_LISTVALUE.forEach(item => {
+          //转换成下拉识别的对象
+          this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })
+        });
+      }
+    })
   }
   getDefaultQuery() {
   }
@@ -83,7 +101,7 @@ export class SysserviceComponent extends ParentlistComponent {
     //根据首字母查询数据,如果没有点击按钮或者再次点击按钮,则查询所有的数据
     this.mainService.findWithQuery(valueObj).subscribe(result => {
       if (result.CODE === '0') {
-        this.sysServices = result.DATA;
+        this.pageList = result.DATA;
       }
     });
   }
@@ -114,6 +132,32 @@ export class SysserviceComponent extends ParentlistComponent {
         event.preventDefault();
         break;
     }
+  }
+  /**
+    * 初始化数据，根据产品、数据源过滤元数据
+    * @param product 
+    * @param datasource 
+    */
+  initData(product: string) {
+    this.mainService.findWithQuery({ PID: product })
+      .subscribe(result => {
+        if (result.CODE === '0') {
+          this.pageList = result.DATA;
+          //当没有数据时，显示文字提示
+          if (this.pageList.length === 0) {
+            this.noResult = true;
+          } else {
+            this.noResult = false;
+          }
+        }
+      });
+  }
+  /**
+  * 选择产品
+  * @param event 
+  */
+  chooseProduct(event: any) {
+    this.initData(event);
   }
   /**
    * 单条删除

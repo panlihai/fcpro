@@ -112,6 +112,8 @@ import { SysviewelementeditComponent } from './components/core/sysviewelementedi
 import { SysviewService } from './services/sysview.service';
 import { SysviewelementService } from './services/sysviewelement.service';
 import { SysserviceComponent } from './components/core/sysservice.component';
+// 拖拽指令
+import { fcDragDirective } from '../directive/drag.directive';
 import { SysappmodaleventdialogComponent } from './components/core/dialog/sysappmodaleventdialog.component';
 import { IsFormValueChanged, DeactivateGuard } from './routeconfig/deactivateguard';
 import { SysappfieldgroupService } from './services/sysappfieldgroup.service';
@@ -182,11 +184,6 @@ import { SysintfresparamService } from './services/sysintfresparam.service';
     FcchartModule,
     SpreadSheetsModule,
     NgZorroAntdModule,
-    ChartsModule,
-    NgZorroAntdModule,
-    NgZorroAntdModule,
-    ChartsModule,
-    NgZorroAntdModule,
     ChartsModule
   ],
   exports: [
@@ -255,6 +252,7 @@ import { SysintfresparamService } from './services/sysintfresparam.service';
     SysvieweditComponent,
     SysviewelementeditComponent,
     SysserviceComponent,
+    fcDragDirective,
     SysappmodaleventdialogComponent,
     SysappfieldgroupComponent,
     SysfuncComponent,
