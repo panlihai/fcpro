@@ -138,7 +138,7 @@ import { SysicondialogComponent } from './sysicondialog.component';
     padding-left: 250px;
   }
   `]
-
+})
 export class SysappmodalrelationdialogComponent extends ParentEditComponent{
   //显示展开收起图标,初始收起
   showDown: boolean;
