@@ -6,6 +6,8 @@ import { NzModalService } from 'ng-zorro-antd';
 import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
 import { SysserviceService } from './sysservice.service';
+import { SysintfreqparamService } from './sysintfreqparam.service';
+import { SysintfresparamService } from './sysintfresparam.service';
 @Injectable()
 export class SysinterfaceService extends ParentService {
     dialogArgsSubject = new Subject();
@@ -14,6 +16,8 @@ export class SysinterfaceService extends ParentService {
         private sysbizcoderuleService: SysbizcoderuleService,
         private sysproductService: SysproductService,
         private sysserviceService: SysserviceService,
+        private sysintfreqparamService: SysintfreqparamService,
+        private sysintfresparamService: SysintfresparamService,
         private modal: NzModalService, ) {
         super(providers, "SYSINTERFACE");
     }
@@ -38,12 +42,29 @@ export class SysinterfaceService extends ParentService {
     getServiceById(id) {
         return this.sysserviceService.findWithQuery({ ID: id });
     }
+    getInterfaceReqParams(implid, pid) {
+        return this.sysintfreqparamService.findWithQuery({ IMPLID: implid, PID: pid })
+    }
+    getInterfaceResParams(implid, pid) {
+        return this.sysintfresparamService.findWithQuery({ IMPLID: implid, PID: pid })
+    }
+    /** YM
+    * 获取路由导航
+    * @param exp List：列表；Edit:编辑:Detail：详情
+    */
+    getRouteUrl(moduleId: string, appId: string, exp: string) {
+        return `/${moduleId.toLocaleLowerCase()}/${appId.toLocaleLowerCase()}${exp}`;
+    };
+    deleteInterfaceReqParams() {
+
+    }
+
     /** 
    *新增弹窗事件
    *@param title 
    *@param content
    */
-    addWindow(title, content) {
+    openWindow(title, content, param?) {
         return this.modal.open({
             title: title,
             content: content,
@@ -52,6 +73,7 @@ export class SysinterfaceService extends ParentService {
             onCancel() { },
             footer: false,
             componentParams: {
+                param
             }
         })
     }

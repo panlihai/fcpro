@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NzModalSubject } from 'ng-zorro-antd';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProvidersService } from 'fccore';
-import { ParentEditComponent } from '../../../../../../node_modules/fccomponent';
+import { ParentEditComponent } from 'fccomponent';
 import { SysappfieldgroupService } from '../../../services/sysappfieldgroup.service';
 import { DialogCardListArgs } from './dialogcardlist.component';
 @Component({

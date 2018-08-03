@@ -37,22 +37,11 @@
         <P class="sys-card-pannel-smarks">
             接口：FC基础服务平台的功能单元，提供给开发者提供调用接口，自定义接口；
         </P>
-        <div class="sys-card-fast">
-            <ul class="sys-fast-list">
-                <li>
-                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>快速开始</li>
-                <li>
-                    <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>接口简介</li>
-                <li>
-                    <fc-icon fcIcon="fc-icon-update" fcColor="#009DFF"></fc-icon>接口简介</li>
-            </ul>
-            <fc-tlblist class="sys-fast-tlblist" fcSize="small" [fcButtons]="fastsearchWords" (fcEvent)="tlblistEvent($event);"></fc-tlblist>
-        </div>
     </div>
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="addInterface();">
+            <nz-card (click)="event('editInterface');">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增接口</p>
@@ -61,14 +50,14 @@
         </div>
         <!-- 接口列表循环 -->
         <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysInterface of sysInterfaces">
-            <nz-card (click)="listEdit(sysInterface);">
+            <nz-card (click)="event('editInterface',sysInterface);">
                 <ng-template #body>
                     <div class="sys-card-content">
                         <!-- 操作按钮 -->
                         <div class="sys-card-tbl">
                             <!-- 默认显示两个 -->
                             <fc-tooltip class="sys-card-tbl-every" fcTitle="{{btn.BTNNAME}}" *ngFor="let btn of btnlistOnes">
-                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE,sysInterface)" fcFontSize="18px" fccontent></fc-icon>
+                                <fc-icon [fcIcon]="btn.BTNICON" (click)="event(btn.BTNCODE,sysInterface)" fcFontSize="18px" fccontent></fc-icon>
                             </fc-tooltip>
                             <!-- 超出2个后显示 -->
                             <div class="sys-card-tbl-more" *ngIf="btnlistMores.length!==0">
@@ -77,7 +66,7 @@
                                     <ul nz-menu nzSelectable>
                                         <li nz-menu-item *ngFor="let btn of btnlistMores">
                                             <fc-tooltip fcTitle="{{btn.BTNNAME}}">
-                                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE)" fcFontSize="18px" fccontent></fc-icon>
+                                                <fc-icon [fcIcon]="btn.BTNICON" (click)="event(btn.BTNCODE,sysInterface)" fcFontSize="18px" fccontent></fc-icon>
                                             </fc-tooltip>
                                         </li>
                                     </ul>
@@ -89,7 +78,7 @@
                         </span>
                         <div class="sys-card-text">
                             <div class="sys-card-title">
-                                {{sysInterface.APPID}}-{{sysInterface.IMPLNAME}}
+                                {{sysInterface.REQTYPE}}-{{sysInterface.IMPLNAME}}
                             </div>
                             <p class="sys-card-smarks">{{sysInterface.REMARK}}</p>
                         </div>

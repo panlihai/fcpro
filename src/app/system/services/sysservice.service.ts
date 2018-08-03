@@ -1,6 +1,6 @@
 /* 	元数据 */
 import { Injectable } from '@angular/core';
-import { ParentService, ProvidersService } from 'fccore';
+import { ParentService, ProvidersService, SysinterfaceService } from 'fccore';
 import { NzModalService } from 'ng-zorro-antd';
 import { DialogListArgs, DialogListComponent } from '../components/core/dialog/dialogList.component';
 import { SysbizcoderuleService } from './sysbizcoderule.service';
@@ -8,16 +8,23 @@ import { SysproductService } from './sysproduct.service';
 import { SysappService } from './sysapp.service';
 @Injectable()
 export class SysserviceService extends ParentService {
-    constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService, private sysappservice: SysappService) {
+    constructor(
+        public providers: ProvidersService,
+        private nzModal: NzModalService,
+        private sysbizcoderuleService: SysbizcoderuleService,
+        private sysproductService: SysproductService,
+        private sysappService: SysappService,
+        private sysinterfaceService: SysinterfaceService,
+    ) {
         super(providers, "SYSSERVICE");
     }
     /**
      * 字母快速查询
      */
-    fastSearch() {
-        return this.sysappservice.fastSearch()
+    initFastSeachWords() {
+        return this.sysappService.fastSearch()
     }
-    /**
+    /** YM
      * 获取路由导航
      * @param exp List：列表；Edit:编辑:Detail：详情
      */
@@ -63,10 +70,17 @@ export class SysserviceService extends ParentService {
     }
     /**
      * 根据服务ID获取接口数据
-     * @param serviceId 
+     * @param condition 
      */
-    getSysInterfaces(serviceId) {
-        return this.appService.findWithQuery('SYSINTERFACE', { WHERE: `SERVICEID ='${serviceId}'` })
+    getSysInterfaces(condition) {
+        return this.sysinterfaceService.findWithQuery(condition);
+    }
+    /**
+     * 删除接口
+     * @param id 
+     */
+    delteSysInterface(id) {
+        return this.sysinterfaceService.delete(id);
     }
 }
 export interface Sysservice {

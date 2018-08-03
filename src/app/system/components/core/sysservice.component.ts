@@ -30,7 +30,7 @@ export class SysserviceComponent extends ParentlistComponent {
     //根据首字母过滤
     this.searchByWord();
     //26个字母name,方法名,BUSTYPE为'fastsearch'
-    this.fastsearchWords = this.mainService.fastSearch();
+    this.fastsearchWords = this.mainService.initFastSeachWords();
     //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
     this.btnlistOnes = this.mainService.appButtons.filter(btn =>
       btn.BTNTYPE === 'LISTONE'

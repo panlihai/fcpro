@@ -118,12 +118,6 @@ export class SysviewelementeditComponent extends ParentEditComponent {
     initPidOption() {
     }
     /** YM
-     * 检测是否存在PID信息，如果存在则赋值
-     * @param pid 
-     */
-    checkPid() {
-    }
-    /** YM
      * 根据PID获取服务编码并赋值.
      * @param pid 
      */
