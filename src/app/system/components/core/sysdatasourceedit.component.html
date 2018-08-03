@@ -59,7 +59,7 @@
             <div class="sys-choose-icon" fccontent1>
                 <fc-label fcLabel="数据源图标"></fc-label>
                 <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
-                        <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcSize="large"></fc-icon>
+                        <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON" fcFontSize="30px"></fc-icon>
                         <span *ngIf = "visible">选择字体图标</span>
                         <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
                 </div>

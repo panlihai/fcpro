@@ -33,6 +33,7 @@ import { $ } from 'protractor';
     align-items: center; 
     justify-content: center;
     flex-direction: column;
+    cursor:pointer;
   }
   .sys-iconzi{
     display: inline-flex; 

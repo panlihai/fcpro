@@ -35,6 +35,7 @@ import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.c
     left: 26%;
     top: 2px;
     text-align: center;
+    border-radius: 7px;
   }
   .sys-choose-icon fc-button{
     position:absolute;
@@ -72,7 +73,6 @@ import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.c
     width: 14px;
     text-align: center;
     position: absolute;
-    z-index: 999;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -81,6 +81,7 @@ import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.c
     height: 14px;
     right: 0px;
     top: 0px;
+    border-radius: 4px
   }
   .sys-tab{
     margin-left:26%;
