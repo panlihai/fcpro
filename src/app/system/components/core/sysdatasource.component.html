@@ -15,14 +15,21 @@
                 </li>
             </ul>
             <div class="sys-fast-select">
-                <fc-combo [fcShowLabel]="false" [(ngModel)]="product" (ngModelChange)="changeProduct($event)" fcPlaceHolder="请选择产品" fcAppid="SYSPRODUCT"
-                    fcFieldCode="PID" fcLabelCode="PNAME" fcValueCode="PID" name="SYSPRODUCT.PID"></fc-combo>
+                <fc-combo [fcShowLabel]="false" [fcOption]="productOptions" [(ngModel)]="product" fcPlaceHolder="请选择产品" fcAppid="SYSPRODUCT"
+                    (ngModelChange)="chooseProduct($event)" name="SYSPRODUCT.PID" name="SYSPRODUCT.PID"></fc-combo>
             </div>
         </div>
         <img class="sys-card-bg" src="assets/img/system-bg.png" />
     </div>
     <div fccontent>
-        <div nz-row [nzGutter]="10">
+        <div *ngIf="noResult" class="sys-noresult">
+            <fc-icon fcIcon="fc-icon-bgsearch" fcColor="#BDC5D1" fcFontSize="30px"></fc-icon>
+            <span class="noResult-title">没有任何数据</span>
+            <span class="noResult-smarks">
+                请选择产品!
+            </span>
+        </div>
+        <div nz-row [nzGutter]="10" *ngIf="pageList&&pageList.length!==0">
             <!-- 新增卡片操作 -->
             <div nz-col [nzSpan]="8" class="sys-card sys-card-add">
                 <nz-card (click)="navAdd({ refresh: 'Y' });">
@@ -33,7 +40,7 @@
                 </nz-card>
             </div>
             <!-- 产品列表循环 -->
-            <div nz-col [nzSpan]="8" class="sys-card" *ngFor="let datasource of sysDatasources">
+            <div nz-col [nzSpan]="8" class="sys-card" *ngFor="let datasource of pageList">
                 <nz-card (click)="listEdit(datasource);">
                     <ng-template #body>
                         <div class="sys-card-content">
@@ -83,9 +90,6 @@
                         </div>
                     </ng-template>
                 </nz-card>
-            </div>
-            <div *ngIf="sysDatasources&&sysDatasources.length===0">
-                没有选择任何产品！
             </div>
         </div>
     </div>

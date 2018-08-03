@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router';
-import { SysappService } from '../../services/sysapp.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { FCEVENT } from 'fccomponent/fc';
 import { ParentlistComponent } from 'fccomponent';
-import { environment } from '../../../../environments/environment';
+import { SysappService } from '../../services/sysapp.service';
 @Component({
   selector: 'sysapp',
   templateUrl: './sysapp.component.html',
@@ -14,14 +13,13 @@ import { environment } from '../../../../environments/environment';
   }
   .sys-fast-list {
     cursor: pointer;
-  .sys-fast-select{
-    width:15%;
   }
+ 
   `]
 })
 export class SysappComponent extends ParentlistComponent {
   //元数据
-  sysApps: any[];
+  pageList: any[];
   //明细操作按钮
   btnlistOnes: any[];
   //更多的按钮
@@ -34,6 +32,10 @@ export class SysappComponent extends ParentlistComponent {
   product: string;
   //点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
   searchWord: string = '';
+  //没有任何内容
+  noResult: boolean;
+  //产品下拉
+  productOptions: any[] = [];
   EventUtil: any = {
     //添加事件处理程序
     addHandler: (element, type, handler) => {
@@ -70,18 +72,18 @@ export class SysappComponent extends ParentlistComponent {
   init(): void {
     this.btnlistOnes = this.mainService.appButtons.filter(btn => btn.BTNTYPE === 'LISTONE');
     this.btnlistMores = this.btnlistOnes.splice(3);
-    this.btnlistOnes = this.btnlistOnes.splice(0, 2); 
+    this.btnlistOnes = this.btnlistOnes.splice(0, 2);
     this.fastsearchWords = this.mainService.fastSearch();
   }
   ngOnInit() {
-    this.mainService.findWithQuery({}).subscribe(result => {
-      if (result.CODE === '0') {
-        this.sysApps = result.DATA;
-      }
-    });
-    this.searchByWord();
-    //根据首字母过滤
-    this.searchByWord();
+    //初始化数据
+    if (this.product !== undefined && this.product !== null && this.product !== ''
+      && this.datasource !== undefined && this.datasource !== null && this.datasource !== '') {
+      this.initData(this.product, this.datasource);
+    } else {
+      //默认没有查询到数据
+      this.noResult = true;
+    }
     //26个字母name,方法名,BUSTYPE为'fastsearch' 
     this.fastsearchWords = this.mainService.fastSearch();
     //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
@@ -92,6 +94,16 @@ export class SysappComponent extends ParentlistComponent {
     this.btnlistMores = this.btnlistOnes.splice(3);
     //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+    //产品下拉
+    this.mainService.getproduct().subscribe(result => {
+      this.productOptions = result.P_LISTVALUE;
+      if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
+        result.P_LISTVALUE.forEach(item => {
+          //转换成下拉识别的对象
+          this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })
+        });
+      }
+    })
   }
   getDefaultQuery() {
     return {
@@ -106,6 +118,25 @@ export class SysappComponent extends ParentlistComponent {
    */
   event(eventName: string, event: FCEVENT): void {
 
+  }
+  /**
+   * 初始化数据，根据产品、数据源过滤元数据
+   * @param product 
+   * @param datasource 
+   */
+  initData(product: string, datasource: string) {
+    this.mainService.findWithQuery({ APPMODEL: product, DATASOURCE: datasource })
+      .subscribe(result => {
+        if (result.CODE === '0') {
+          this.pageList = result.DATA;
+          //当没有数据时，显示文字提示
+          if (this.pageList.length === 0) {
+            this.noResult = true;
+          } else {
+            this.noResult = false;
+          }
+        }
+      });
   }
   /**
    * 事件规定在何处放置被拖动的数据
@@ -174,12 +205,12 @@ export class SysappComponent extends ParentlistComponent {
     //如果点击了首字母搜索的按钮,则根据APPID的首字母查询
     if (btn) {
       //从0开始截取第一个字符
-      valueObj.WHERE = "AND SUBSTR(APPID,0,1)='" + btn.ACTCODE + "'"
+      valueObj.WHERE = "AND SUBSTR(APPID,0,1)='" + btn.ACTCODE + "' " + "AND APPMODEL='" + this.product + "' " + "AND DATASOURCE='" + this.datasource + "'"
     }
     //根据首字母查询数据,如果没有点击按钮或者再次点击按钮,则查询所有的数据
     this.mainService.findWithQuery(valueObj).subscribe(result => {
       if (result.CODE === '0') {
-        this.sysApps = result.DATA;
+        this.pageList = result.DATA;
       }
     });
   }
@@ -192,7 +223,7 @@ export class SysappComponent extends ParentlistComponent {
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
       //把卡片的数据放入缓存中
-      this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.sysApps));
+      this.cacheService.setS(this.appId + "DATA", this.commonService.cloneArray(this.pageList));
       //把id带入到编辑页面
       this.navRouter(this.getRouteUrl('Edit'), { ID: selectedObj.ID, refresh: 'Y' });
     }
@@ -204,9 +235,9 @@ export class SysappComponent extends ParentlistComponent {
   quickstart(event: FCEVENT) {
     this.navRouter(this.getRouteUrl('Modify'), event.param);
   }
-   /* * 按钮明细
-   * @param event 
-   */ 
+  /* * 按钮明细
+  * @param event 
+  */
   btnCardEvent(event: any, item: any) {
     switch (event.ACTCODE) {
       case 'listOneDelete'://明细删除
@@ -235,6 +266,21 @@ export class SysappComponent extends ParentlistComponent {
     this.messageService.confirm('请确认该元数据没有在其它地方使用后再删除!', () => {
 
     }, () => { })
+  }
+  /**
+   * 选择产品
+   * @param event 
+   */
+  chooseProduct(event: any) {
+    this.initData(event, this.datasource);
+    let a = this.product;
+  }
+  /**
+   * 选择数据源
+   * @param event 
+   */
+  chooseDatasource(event: any) {
+    this.initData(this.product, event);
   }
   /**
    * 导入

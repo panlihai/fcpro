@@ -15,6 +15,12 @@ export class SysserviceService extends ParentService {
         super(providers, "SYSSERVICE");
     }
     /**
+     * 获取产品
+     */
+    getproduct() {
+        return this.sysproductService.findWithQuery({});
+    }
+    /**
      * 字母快速查询
      */
     fastSearch() {
