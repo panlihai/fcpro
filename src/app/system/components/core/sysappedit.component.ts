@@ -307,7 +307,7 @@ export class SysappeditComponent extends ParentEditComponent {
    *新增模型事件卡片
    * 
    */
-  addModelEvent(event: FCEVENT) {
+  addModelEvent(event:string) {
     this.mainService.WindowEvent(event, '模型事件', SysappmodaleventdialogComponent);
   }
   
@@ -315,8 +315,8 @@ export class SysappeditComponent extends ParentEditComponent {
    *编辑模型事件卡片
    *@param event 
    */
-  editModelEvent(event:Object) {
-    this.mainService.WindowEvent(event, '模型事件', SysappmodaleventdialogComponent);
+  editModelEvent(event:Object,str:string) {
+    this.mainService.WindowEditEvent(event,str, '模型事件', SysappmodaleventdialogComponent);
   }
   /**
    * 获取模型接口-数据
@@ -354,14 +354,14 @@ export class SysappeditComponent extends ParentEditComponent {
    *新增模型关系卡片
    *@param event 
    */
-  addModelRelation(event: FCEVENT) {
+  addModelRelation(event:string) {
     this.mainService.WindowEvent(event, '模型关系', SysappmodalrelationdialogComponent);
   }
   /** 
    *编辑模型关系卡片
    *@param event 
    */
-  editModelRelation(event:Object) {
-    this.mainService.WindowEvent(event, '模型关系', SysappmodalrelationdialogComponent);
+  editModelRelation(event:Object,str:string) {
+    this.mainService.WindowEditEvent(event, str,'模型关系', SysappmodalrelationdialogComponent);
   }
 }

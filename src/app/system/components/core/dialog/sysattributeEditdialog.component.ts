@@ -48,13 +48,15 @@ import { DialogCardListArgs, DialogCardListComponent } from './dialogcardlist.co
                 <fc-text fccontent1 fcLabel="输入规则" [(ngModel)]="mainObj.INPUTLIMIT" [fcAppid]="appId" fcFieldCode="INPUTLIMIT" name="INPUTLIMIT"></fc-text>
             </fc-layoutcol>
             <fc-layoutcol fccontent2 fcSpans="9,1" class="noBottom">
-                <fc-combo fccontent1 fcLabel="编码规则" [fcShowSearch]="true" [(ngModel)]="mainObj.AUTOCODE" [fcAppid]="appId" fcFieldCode="AUTOCODE" fcLabelCode="DICNAME" fcValueCode="DICID" name="AUTOCODE"></fc-combo>
+                <fc-combo fccontent1 fcLabel="编码规则" [fcShowSearch]="true" [(ngModel)]="mainObj.AUTOCODE" [fcAppid]="appId" fcFieldCode="AUTOCODE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="AUTOCODE"></fc-combo>
                 <fc-combo fccontent1 fcLabel="输入组件" [fcShowSearch]="true" [(ngModel)]="mainObj.INPUTTYPE" [fcAppid]="appId" fcFieldCode="INPUTTYPE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="INPUTTYPE"></fc-combo>
                 <fc-radio fccontent1 fcLabel="可编辑" [(ngModel)]="mainObj.ENABLEWRITE" [fcAppid]="appId" fcFieldCode="ENABLEWRITE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ENABLEWRITE"></fc-radio>
             </fc-layoutcol>
         </fc-layoutcol>
         <div class="sys-title-container">
             <fc-title class="sys-flex-title" fcLabel="输出配置" [fcHasLine]="false"></fc-title>
+            <i class="sys-title-arrow" (click)="event('outputCloseChange')" *ngIf="outputClose">∧</i>
+            <i class="sys-title-arrow" (click)="event('outputCloseChange')" *ngIf="!outputClose">∨</i>
         </div>
         <fc-layoutcol *ngIf="outputClose">
             <fc-layoutcol fccontent1 fcSpans="9,1" class="noBottom">
@@ -65,11 +67,11 @@ import { DialogCardListArgs, DialogCardListComponent } from './dialogcardlist.co
                 <fc-text fccontent1 fcLabel="列最长显示" [(ngModel)]="mainObj.LISTMAXLEN" [fcAppid]="appId" fcFieldCode="LISTMAXLEN" name="LISTMAXLEN"></fc-text>
             </fc-layoutcol>
             <fc-layoutcol fccontent2 fcSpans="9,1" class="noBottom">
-                <fc-text fccontent1 fcLabel="显示前缀" [(ngModel)]="mainObj.VIEWPREFIX" [fcAppid]="appId" fcFieldCode="VIEWPREFIX" name="VIEWPREFIX"></fc-text>
-                <fc-text fccontent1 fcLabel="显示格式" [(ngModel)]="mainObj.VIEWFORMAT" [fcAppid]="appId" fcFieldCode="VIEWFORMAT" name="VIEWFORMAT"></fc-text>
-                <fc-text fccontent1 fcLabel="显示后缀" [(ngModel)]="mainObj.VIEWSUFFIX" [fcAppid]="appId" fcFieldCode="VIEWSUFFIX" name="VIEWSUFFIX"></fc-text>
-                <fc-text fccontent1 fcLabel="文本提示" [(ngModel)]="mainObj.PLACEHOLDER" [fcAppid]="appId" fcFieldCode="PLACEHOLDER" name="PLACEHOLDER"></fc-text>
-                <fc-combo fccontent1 fcLabel="分组" [(ngModel)]="mainObj.GRPCODE" [fcAppid]="appId" fcFieldCode="GRPCODE" fcLabelCode="" fcValueCode="" name="GRPCODE"></fc-combo>
+                <fc-text fccontent1 fcLabel="显示前缀" [(ngModel)]="mainObj.VIEWPREFIX" [fcAppid]="appId" fcFieldCode="VIEWPREFIX" name="VIEWPREFIX"></fc-text>         
+                <fc-text fccontent1 fcLabel="显示格式" [(ngModel)]="mainObj.VIEWFORMAT" [fcAppid]="appId" fcFieldCode="VIEWFORMAT" name="VIEWFORMAT"></fc-text>       
+                <fc-text fccontent1 fcLabel="显示后缀" [(ngModel)]="mainObj.VIEWSUFFIX" [fcAppid]="appId" fcFieldCode="VIEWSUFFIX" name="VIEWSUFFIX"></fc-text>    
+                <fc-text fccontent1 fcLabel="文本提示" [(ngModel)]="mainObj.PLACEHOLDER" [fcAppid]="appId" fcFieldCode="PLACEHOLDER" name="PLACEHOLDER"></fc-text>              
+                <fc-combo fccontent1 fcLabel="分组" [(ngModel)]="mainObj.GRPCODE" [fcAppid]="'SYSAPPFLDGROUP'" name="GRPCODE" [fcOption]="groupOption"></fc-combo>
                 <div class="place-div" fccontent2></div>
                 <div class="place-div" fccontent2></div>
                 <div class="place-div" fccontent2></div>
@@ -81,15 +83,17 @@ import { DialogCardListArgs, DialogCardListComponent } from './dialogcardlist.co
         </fc-layoutcol>
         <div class="sys-title-container">
             <fc-title class="sys-flex-title" fcLabel="其他信息" [fcHasLine]="false"></fc-title>
-            <i class="sys-title-arrow" (click)="event('inputCloseChange')" *ngIf="inputClose">∧</i>
-            <i class="sys-title-arrow" (click)="event('inputCloseChange')" *ngIf="!inputClose">∨</i>
+            <i class="sys-title-arrow" (click)="event('otherCloseChange')" *ngIf="otherClose">∧</i>
+            <i class="sys-title-arrow" (click)="event('otherCloseChange')" *ngIf="!otherClose">∨</i>
         </div>
-        <fc-layoutcol class="noBottom">
+        <fc-layoutcol *ngIf="otherClose">
             <fc-layoutcol fccontent1 fcSpans="9,1" class="noBottom">
-                <fc-textarea fccontent1 fcLabel="帮助" [fcAppid]="appId" fcFieldCode='HELP' [(ngModel)]="mainObj.HELP" name="HELP"></fc-textarea>
+                <fc-textarea fccontent1 fcLabel="帮助" [fcAppid]="appId" fcFieldCode='HELP' [(ngModel)]="mainObj.HELP" name="HELP" fcPlaceHolder="请输入帮助信息，详细描述该属性具有什么特性"></fc-textarea>
             </fc-layoutcol>
         </fc-layoutcol>
-        <fc-tlbform fcLayout="center" fcType="primary" [fcAppid]="appId" (fcEvent)="tlbformEvent($event)"></fc-tlbform>
+        <div class="saveButton">
+          <fc-button fcLabel="保存" fcType="primary" (click)="save()"></fc-button>
+        </div>
     </div>
 </fc-layoutpanel>
     `,
@@ -134,6 +138,10 @@ import { DialogCardListArgs, DialogCardListComponent } from './dialogcardlist.co
   :host ::ng-deep .sys-card-pannel .fc-content .sys-card-pannel-edit .noPadding .fc-layoutcol {
     padding: 0px;
   }
+  .saveButton{
+    width:100%;
+    text-align:center;
+  }
   `]
 })
 export class SysattributeEditdialogComponent extends ParentEditComponent {
@@ -141,8 +149,12 @@ export class SysattributeEditdialogComponent extends ParentEditComponent {
   pidOption: any;
   mainObj: any;
   fieldOption: any;
+  //收起显示
   inputClose: boolean = false;
   outputClose: boolean = false;
+  otherClose: boolean = false;
+  //分组配置
+  groupOption: any;
   @Input()
   set options(option: any) {
     if (option) {
@@ -159,6 +171,15 @@ export class SysattributeEditdialogComponent extends ParentEditComponent {
   * 组件初始化执行函数
   */
   init(): void {
+    //初始化分组配置
+    this.groupOption = this.mainService.getGroup().subscribe(res => {
+      if (res.CODE === '0') {
+        this.groupOption = [];
+        res.DATA.forEach(element => {
+          this.groupOption.push({ icon: '', label: element.GRPNAME, value: element.GRPCODE });
+        });
+      }
+    })
   }
   /**
   * 新增之前执行的函数
@@ -194,6 +215,9 @@ export class SysattributeEditdialogComponent extends ParentEditComponent {
         break;
       case 'outputCloseChange':
         this.outputClose = !this.outputClose;
+        break;
+      case 'otherCloseChange':
+        this.otherClose = !this.otherClose;
         break;
     }
   }
@@ -293,5 +317,11 @@ export class SysattributeEditdialogComponent extends ParentEditComponent {
     fcCombo._id = 'fc-text'
     fcCombo.innerValue = undefined;
     fcCombo._selectOptions = null;
+  }
+  /**
+   * 保存 
+   */
+  save(){
+
   }
 }
