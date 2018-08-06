@@ -196,6 +196,7 @@
 :global .sys-card-pannel .fc-content .sys-card-pannel-edit {
   background: #ffffff;
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 :global .sys-card-pannel .fc-content .sys-card-pannel-edit .fc-title {

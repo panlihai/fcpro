@@ -15,7 +15,7 @@
         </div>
         <img class="sys-card-bg" src="assets/img/system-bg.png" />
     </div>
-    <div class="sys-card-pannel-edit" fccontent>
+    <div class="sys-card-pannel-edit sys-app" fccontent>
         <fc-title fcLabel="基本信息" class="sys-card-pannel-title" [fcHasLine]="false" fccontent></fc-title>
         <fc-layoutcol fcSpans="1,1">
             <fc-combo fccontent1 [fcLabel]="'产品'" [fcOption]="productOption" [(ngModel)]="mainObj.APPMODEL" [fcAppid]="appId" fcPlaceHolder="请选择产品">
@@ -82,9 +82,9 @@
             </div>
         </div>
         <div class="widthCovered" [ngClass]="{'attributeRight':displayMode===true}">
-            <div class="addAttribute" (click)="addAttributeAdd($event)">+添加</div>
+            <div class="addAttribute" (click)="addAttributeAdd(mainObj.APPID+'-模型')">+添加</div>
             <fc-list fcAppid="SYSAPPFIELDS" [fcFieldCode]="'FIELDCODE'" [fcCondition]="condition" fcIcon="fc-icon-picture" fcSubTitleCode="FIELDNAME"
-                fcStatusCode='FIELDNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}" (fcEvent)="attributeEditEvent($event)">
+                fcStatusCode='FIELDNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}" (fcEvent)="attributeEditEvent($event,mainObj.APPID+'-模型')">
             </fc-list>
         </div>
     </div>
@@ -198,7 +198,7 @@
         </div>
         <!-- 模型事件循环 -->
         <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let interface of sysInterfaces">
-            <nz-card (click)="listEdit(event);">
+            <nz-card (click)="editModelInterface(interface);">
                 <ng-template #body>
                     <div class="sys-card-content">
                         <!-- 操作按钮 -->
