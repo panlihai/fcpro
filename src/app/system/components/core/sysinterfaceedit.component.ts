@@ -55,7 +55,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
         super(mainService, router, activeRoute);
     }
 
-    /**
+    /**  
      * 新增之前执行的函数
      * @param mainObj 
      */
@@ -66,7 +66,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
      * 组件初始化执行函数
      */
     init(): void {
-        this.initDefaultMainObj();
+        // this.initDefaultMainObj();
         //初始化产品名称的自定义下拉选项内容
         this.initPidOption();
         this.handleRouterParam();
@@ -261,7 +261,12 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
             }
         })
     }
-
+    /**
+    * 返回模型页面
+    */
+    backModel(){
+        this.navRouter('/system/sysappEdit', { refresh: 'Y', ID: this.mainObj.ID })
+    }
     /**
     * 新增参数配置
     */

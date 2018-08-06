@@ -38,7 +38,7 @@ import { FCEVENT } from 'fccomponent/fc';
       <nz-transfer fccontent1
           [nzDataSource]="list"
           [nzTitles]="['所有表及视图', '选中的表或视图']"
-          [nzListStyle]="{'width.px': 250, 'height.px': 400}"
+          [nzListStyle]="{'width.px': 280, 'height.px': 400}"
           (nzSelectChange)="select($event)"
           (nzChange)="change($event)">
           <ng-template #render let-item>
@@ -58,13 +58,13 @@ import { FCEVENT } from 'fccomponent/fc';
     height: 100%;
   }
   :host ::ng-deep .systransfer .fc-content1 {
-    padding-left: 95px;
+    padding-left: 105px;
   }
   :host ::ng-deep .systransfer .fc-layoutcol{
     padding-top: 25px;
   }
   :host ::ng-deep .ant-transfer-operation{
-    margin:0px 45px;
+    margin:0px 52px;
   }
   .sys-fast-list {
     cursor: pointer;

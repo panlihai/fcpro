@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { ParentService, ProvidersService } from 'fccore';
 import { NzModalService } from 'ng-zorro-antd';
 import { DialogListArgs, DialogListComponent } from '../components/core/dialog/dialogList.component';
+import { AddaffiliationdialogComponent } from '../../feature/fcbudget/components/dialog/addaffiliationdialog.component';
+import { SysaddGroupdialogComponent } from '../components/core/dialog/sysaddGroupdialog.component';
 @Injectable()
 export class SysattributeService extends ParentService {
     constructor(public providers: ProvidersService,
@@ -15,7 +17,7 @@ export class SysattributeService extends ParentService {
    * @param dialogArgs 
    */
     getGroup() {
-        return this.providers.appService.findWithQuery('SYSAPPFLDGROUP',{})
+        return this.providers.appService.findWithQuery('SYSAPPFLDGROUP', {})
     }
     /** YM
    * 打开窗口的函数方法
@@ -42,6 +44,26 @@ export class SysattributeService extends ParentService {
             arr.push({ label: el.FIELDNAME, value: el.FIELDCODE });
         })
         return arr;
+    }
+    /**
+    * 打开添加分组弹窗
+    * @param content 
+    */
+    addGroup(content) {
+       return  this.modal.open({
+                title: '添加分组',
+                content: SysaddGroupdialogComponent,
+                width:'30%',
+                onOk() { },
+                onCancel() { },
+                footer: false,
+                componentParams: {
+                    options: {
+                        APPID:content.split('-')[0]
+                      }
+                }
+            }).subscribe(result => {
+            });
     }
 }
 export interface Sysattribute {
