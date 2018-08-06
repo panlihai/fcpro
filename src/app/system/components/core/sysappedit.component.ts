@@ -95,6 +95,12 @@ import { SysattributeEditdialogComponent } from './dialog/sysattributeEditdialog
     line-height: 28px;
     text-align: center;
   }
+  :host ::ng-deep .widthCovered .fc-list{
+    height:250px;
+  }
+  :host ::ng-deep .sys-app .fc-title-in {
+    margin-right: 33%;
+  }
   `]
 })
 export class SysappeditComponent extends ParentEditComponent {
@@ -208,9 +214,16 @@ export class SysappeditComponent extends ParentEditComponent {
   * 保存之后
   */
   afterSave() {
-    //保存之后保持在本页面
-    this.navRouter(this.getRouteUrl('Edit'));
-    //新增页面物理表以及属性、事件、接口、关系显示
+    //保存之后获取本信息ID,并且进入对应ID页面
+    this.mainService.getID(this.mainObj.APPID,this.mainObj.APPNAME).subscribe(res=>{
+      if(res.CODE==='0'){
+        this.mainObj.ID=res.DATA[0].ID;
+        if(this.mainObj.ID!==''){
+          this.navRouter(this.getRouteUrl('Edit'),{ ID: this.mainObj.ID, refresh: 'Y' });
+        }
+      }
+    })
+    //新增页面保存之后物理表以及属性、事件、接口、关系显示
     this.show();
   }
   /**
@@ -275,18 +288,19 @@ export class SysappeditComponent extends ParentEditComponent {
   *列表里面新增属性
   *@param  ev
   */
-  addAttributeAdd(ev) {
+  addAttributeAdd(ev:string) {
     this.mainService.WindowEvent(ev, '属性-编辑', SysattributeEditdialogComponent);
   }
   /** 
    * 模型-属性
    *列表里面编辑属性
    *@param  ev
+   @param  str
    */
-  attributeEditEvent(ev: FCEVENT) {
+  attributeEditEvent(ev: FCEVENT,str:string) {
     switch (ev.eventName) {
       case "listEdit":
-      this.mainService.WindowEvent(ev.param, '属性-编辑', SysattributeEditdialogComponent);
+      this.mainService.WindowEditEvent(ev.param,str, '属性-编辑', SysattributeEditdialogComponent);
         break;
     }
   }
@@ -335,7 +349,21 @@ export class SysappeditComponent extends ParentEditComponent {
    *新增模型接口卡片
    */
   addModelInterface() {
-    this.navRouter('/system/sysinterfaceEdit', { refresh: 'Y', PID: this.mainObj.PID })
+    this.navRouter('/system/sysinterfaceEdit', { refresh: 'Y', ID: this.mainObj.ID })
+  }
+  /** 
+   *编辑模型接口卡片
+   *@param interface 
+   */
+  editModelInterface(event:any) {
+    //选中的对象
+    let selectedObj: any = event;
+    if (selectedObj && selectedObj !== null) {
+      //把卡片的数据放入缓存中
+      this.cacheService.setS('SYSINTERFACE' + "DATA", this.commonService.cloneArray(this.sysInterfaces));
+      //把id带入到编辑页面
+      this.navRouter('/system/sysinterfaceEdit', { ID: selectedObj.ID, refresh: 'Y' });
+    }
   }
   /**
    * 获取模型关系-数据

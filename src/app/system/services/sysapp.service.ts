@@ -87,6 +87,14 @@ export class SysappService extends ParentService {
     return this.sysdatasourceService.findWithQuery({});
   }
   /**
+  * 根据appid和appname获取当前元数据的ID
+  * @param appid 
+  * @param appname 
+  */
+  getID(appid,appname){
+    return this.findWithQuery({ APPID: appid,APPNAME: appname })
+  }
+  /**
   * 根据appid获取模型属性数据
   * @param appid 
   */
@@ -162,7 +170,7 @@ export class SysappService extends ParentService {
     return this.modal.open({
       title: title,
       content: content,
-      width: '60%',
+      width: '70%',
       zIndex:100,
       onOk() { },
       onCancel() { },
