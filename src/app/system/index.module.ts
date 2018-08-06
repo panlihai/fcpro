@@ -157,7 +157,6 @@ import { SysaddGroupService } from './services/sysaddGroup.service';
     SysproducteditComponent,
     SysbizcoderuledialogComponent,
     DialogCardListComponent,
-    SysviewelementeditComponent,
     SysappmodaleventdialogComponent,
     SysviewelementeditComponent,
     SysappfieldgroupComponent,

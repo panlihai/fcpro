@@ -19,7 +19,7 @@ export class SysapplinksService extends ParentService {
     return this.modalService.open({
       title: title,
       content: content,
-      width: "60%",
+      width: "50%",
       zIndex:999,
       onOk() {
       },

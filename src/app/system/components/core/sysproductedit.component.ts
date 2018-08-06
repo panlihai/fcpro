@@ -11,62 +11,99 @@ import { ObjStatus } from 'fccore';
   selector: 'sysproductedit',
   templateUrl: 'sysproductedit.component.html',
   styles: [`
-  :host ::ng-deep .fc-full{
-    overflow: scroll;
-    height: 92% !important;
+  .sys-card-btn{
+    width:25%;
+  }
+  .edit-footer-btn{
+    text-align:center;
+  }
+  .sys-choose-icon{
+    position:relative;
+    height:100px;
+    margin-bottom:15px;
+    margin-left: 2%;
+  }
+  .sys-choose-icon .sys-choose-icon-box{
+    width: 100px;
+    height: 100px;
+    line-height: 90px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: 1px dashed #ebedf0;
+    position: absolute;
+    left: 26%;
+    top: 2px;
+    text-align: center;
+  }
+  .sys-choose-icon fc-button{
+    position:absolute;
+    left:35%;
+    top:45px;
+  }
+  .sys-radio{
+    margin-left:34% ;
+  }
+  .sys-num{
+    margin-right:9%;
   }
   .sys-proicon{
     display: inline-block;
     margin-left: 62%;
   }
-  .sys-fciconlayout{
-    width: 100px;
-    height:100px;
-    height: 89px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #fbfbfb;
-    margin-bottom: 9px;
-}
-  .sys-productbutton{
-    text-align : center;
+  .sys-sqlaaid{
+    display: inline-block;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    background: #fafafa;
+    width: 15%;
+    text-align: center;
+    height: 23px;
+    line-height: 23px;
+    border-radius:2px;
   }
-  :host ::ng-deep .content-main{
-    height:calc(100%-42px);
-  }
-  .sys-radio{
-    margin-left:33% ;
-  }
-  .sys-num{
-    margin-right:9%;
-  }
-  .sys-fast-list>li >span{
-    cursor:pointer;
-  }
-  :host ::ng-deep .fc-icon-large{
-    font-size:53px;
+  :host ::ng-deep .sys-buttonpid .ant-form-item-control nz-input {
+    width: 76%;
+    margin-left: 24%;
   }
   .sys-deleticon{
     background: #108ee9;
     width: 14px;
-    height: 14px;
     text-align: center;
     position: absolute;
-    bottom: 84%;
-    left: 8.5%;
-    z-index:999;
+    z-index: 999;
     cursor: pointer;
-  }
-  .sys-totip{
-    margin-left:26%
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    heihgt: 20px;
+    height: 14px;
+    right: 0px;
+    top: 0px;
   }
   .sys-tab{
-    margin-left: 26%;
-    width: 100%;
+    margin-left:26%;
+  }
+  .sys-fast-list>li{
+    cursor:pointer;
   }
   .sys-button{
-    text-align:center;display: flex;justify-content: center;
+    display: flex;
+    justify-content: center;
+    padding-top:20px;
+    padding-bottom:40px;
+  }
+
+  .sys-choose-icon .sys-choose-icon-upload{
+    line-height: 22px;
+    position: absolute;
+    left: 26%;
+    top: 2px;
+  }
+  .sys-card-pannel .fc-content .sys-card-pannel-edit .noBottomLine .fc-layoutcol {
+    padding: 0px;
+    border-bottom:none;
   }
   `]
 })
