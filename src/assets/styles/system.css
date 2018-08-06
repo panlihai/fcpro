@@ -238,3 +238,14 @@
   color: #BDC5D1;
   display: block;
 }
+
+/* 弹窗整体向上移动*/
+:global .ant-modal-content {
+  position: relative;
+  background-color: #fff;
+  border: 0;
+  border-radius: 4px;
+  background-clip: padding-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  top: -34px;
+}
