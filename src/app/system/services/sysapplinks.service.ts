@@ -58,6 +58,9 @@ export class SysapplinksService extends ParentService {
       }
     })
   }
+  initObjDefaultValue(app){
+    return this.appService.initObjDefaultValue(app);
+  }
 }
 export interface Sysapplinks {
  

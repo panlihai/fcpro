@@ -60,6 +60,20 @@ export class SysappService extends ParentService {
     });
   }
   /**
+   * 获取所有的表及视图
+   * @param param 
+   */
+  findWithQuery(param:any):Observable<any>{
+    return this.appService.findWithQuery("SYSAPP",param);
+  }
+  /**
+   * 
+   * @param appId 
+   */
+  findAppFieldsByAppid(appId:string):Observable<any>{
+    return this.appService.findWithQuery("SYSAPPFIELDS",{APPID:appId,ORDER:"SORT"});
+  }
+  /**
  * 字母快速查询
  */
   fastSearch() {
@@ -91,8 +105,8 @@ export class SysappService extends ParentService {
   * @param appid 
   * @param appname 
   */
-  getID(appid,appname){
-    return this.findWithQuery({ APPID: appid,APPNAME: appname })
+  getID(appid, appname) {
+    return this.findWithQuery({ APPID: appid, APPNAME: appname })
   }
   /**
   * 根据appid获取模型属性数据
@@ -144,42 +158,26 @@ export class SysappService extends ParentService {
     *@param title
     *@param content 
     */
-   WindowEvent(param: any, title, content) {
+  WindowEvent(obj: any, title, content) {
     return this.modal.open({
       title: title,
       content: content,
       width: '60%',
-      zIndex:100,
+      zIndex: 100,
       onOk() { },
       onCancel() { },
       footer: false,
       componentParams: {
         //把options对象传值给弹窗
-        options: param,
+        options: obj,
       }
     })
   }
   /** 
-    *编辑弹窗事件
-    *@param event 
-    *@param title
-    *@param str
-    *@param content 
-    */
-  WindowEditEvent(param: any, str:string,title, content){
-    return this.modal.open({
-      title: title,
-      content: content,
-      width: '70%',
-      zIndex:100,
-      onOk() { },
-      onCancel() { },
-      footer: false,
-      componentParams: {
-        //把options对象传值给弹窗
-        options: param,
-        strs:str
-      }
-    })
-  }
+  * 获取路由导航
+  * @param exp List：列表；Edit:编辑:Detail：详情
+  */
+  getRouteUrl(moduleId: string, appId: string, exp: string) {
+    return `/${moduleId.toLocaleLowerCase()}/${appId.toLocaleLowerCase()}${exp}`;
+  };
 }

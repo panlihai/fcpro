@@ -36,6 +36,9 @@ export class SysappbuttonsService extends ParentService {
   saveEvent(mainObj) {
     return this.update(mainObj);
   }
+  initObjDefaultValue(app){
+    return this.appService.initObjDefaultValue(app);
+  }
 }
 export interface Sysappbuttons {
   APPPID: string;

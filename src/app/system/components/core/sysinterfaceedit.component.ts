@@ -44,6 +44,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
     pidOption;
     //参数数据
     requestParams: any;
+    //返回值数据
     responseParams: any;
     staticMainObj: any = {};
     fromName: any;
@@ -66,13 +67,13 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
      * 组件初始化执行函数
      */
     init(): void {
-        // this.initDefaultMainObj();
+        this.initDefaultMainObj();
         //初始化产品名称的自定义下拉选项内容
         this.initPidOption();
         this.handleRouterParam();
         this.getCardListBtn();
         //获取参数配置数据
-        /* this.getParameters(); */
+        // this.getParameters(); 
     }
     /** YM
     * 处理路由传参的情况
@@ -106,6 +107,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
      */
     initEditObj(param: any) {
         switch (param.from) {
+            //服务接口
             case 'SYSSERVICE':
                 this.mainService.getServiceById(param.ID).subscribe(res => {
                     if (res.CODE === '0' && res.DATA.length !== 0) {
@@ -145,8 +147,68 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
                     })
                 }
                 break;
-            case 'SYSAPP':
-                // this.mainService.getAppById(param.ID);
+            //模型接口
+            case 'SYSAPP':               
+                if (param.interfaceId) {
+                    this.mainService.getById(param.interfaceId).subscribe(res => {
+                        if (res.CODE === '0' && res.DATA.length !== 0) {
+                            for (let attr in res.DATA[0]) {
+                                if (attr === 'PID') {
+                                    this.mainObj[attr] = res.DATA[0][attr];
+                                }
+                                if (attr === 'IMPLNAME') {
+                                    this.mainObj['FROMNAME'] = res.DATA[0][attr];
+                                    this.fromName = '模型编码'
+                                }
+                                if (attr === 'APPID') {
+                                    this.mainObj['APPID'] = res.DATA[0][attr];
+                                }
+                            }
+                            this.mainObj.FROMNAME = `${this.mainObj.APPID}-${this.mainObj.FROMNAME}`;
+                            for (let attr in this.mainObj) {
+                                this.staticMainObj[attr] = this.mainObj[attr];
+                            }
+                        } else {
+                            this.messageService.error('从服务获取基本信息失败');
+                        }
+                    })
+                    this.mainService.findWithQuery({ ID: param.interfaceId }).subscribe(res => {
+                        if (res.CODE === '0' && res.DATA.length !== 0) {
+                            for (let attr in res.DATA[0]) {
+                                this.mainObj[attr] = res.DATA[0][attr];
+                            }
+                            for (let attr in this.mainObj) {
+                                this.staticMainObj[attr] = this.mainObj[attr];
+                            }
+                            this.initInterfaceParam();
+                        } else {
+                            this.messageService.error('从接口获取基本信息失败');
+                        }
+                    })
+                }else{
+                    this.mainService.getAppById(param.ID).subscribe(res => {
+                        if (res.CODE === '0' && res.DATA.length !== 0) {
+                            for (let attr in res.DATA[0]) {
+                                if (attr === 'PID') {
+                                    this.mainObj[attr] = res.DATA[0][attr];
+                                }
+                                if (attr === 'APPNAME') {
+                                    this.mainObj['FROMNAME'] = res.DATA[0][attr];
+                                    this.fromName = '模型编码'
+                                }
+                                if (attr === 'APPID') {
+                                    this.mainObj['APPID'] = res.DATA[0][attr];
+                                }
+                            }
+                            this.mainObj.FROMNAME = `${this.mainObj.APPID}-${this.mainObj.FROMNAME}`;
+                            for (let attr in this.mainObj) {
+                                this.staticMainObj[attr] = this.mainObj[attr];
+                            }
+                        } else {
+                            this.messageService.error('从服务获取基本信息失败');
+                        }
+                    })
+                }
                 break;
         }
 
@@ -189,7 +251,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
                 this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSSERVICE', 'Edit'), { ID: this.routerParam.ID });
                 break;
             case '模型编码':
-
+                this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSAPP', 'Edit'), { ID: this.routerParam.ID });
                 break;
         }
     }
@@ -264,7 +326,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
     /**
     * 返回模型页面
     */
-    backModel(){
+    backModel() {
         this.navRouter('/system/sysappEdit', { refresh: 'Y', ID: this.mainObj.ID })
     }
     /**

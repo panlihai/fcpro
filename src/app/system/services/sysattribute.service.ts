@@ -50,20 +50,23 @@ export class SysattributeService extends ParentService {
     * @param content 
     */
     addGroup(content) {
-       return  this.modal.open({
-                title: '添加分组',
-                content: SysaddGroupdialogComponent,
-                width:'30%',
-                onOk() { },
-                onCancel() { },
-                footer: false,
-                componentParams: {
-                    options: {
-                        APPID:content.split('-')[0]
-                      }
+        return this.modal.open({
+            title: '添加分组',
+            content: SysaddGroupdialogComponent,
+            width: '30%',
+            onOk() { },
+            onCancel() { },
+            footer: false,
+            componentParams: {
+                options: {
+                    APPID: content.split('-')[0]
                 }
-            }).subscribe(result => {
-            });
+            }
+        }).subscribe(result => {
+        });
+    }
+    initObjDefaultValue(app) {
+        return this.appService.initObjDefaultValue(app);
     }
 }
 export interface Sysattribute {

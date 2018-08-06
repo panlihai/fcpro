@@ -53,19 +53,39 @@
         </P>
         <div class="sys-card-fast">
             <ul class="sys-fast-list">
-                <li (click)="selectAttribute(mainObj.DATASOURCE)">
-                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>从现有模型中选择属性
+                <li (click)="selectAttributeByModel(mainObj.DATASOURCE)">
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>从模型中导入
                 </li>
-                <li>
-                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>从模型表中导入属性
+                <li (click)="selectAttributeByTable(mainObj.DATASOURCE)">
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>从表中导入
                 </li>
             </ul>
         </div>
     </div>
     <div fccontent class="clearFloat">
-        <div class="attributeLeft" [ngClass]="{'displayMode':displayMode===true}">
+        <div class="attributeLeft" *ngIf="displayModel===true">
             <div>请选择模型，拖拽至属性字段</div>
-            <fc-many [fcShowLabel]="false" PlaceHolder="请选择模型，支持多选" [fcOption]="modelOption" [(ngModel)]="modelValue" fcLabelCode="APPNAME" fcValueCode="TABLENAME" (ngModelChange)="modelEvents($event)">
+            <fc-many [fcShowLabel]="false" fcPlaceHolder="请选择模型，支持多选" [fcOption]="modelOption" fcLabelCode="APPNAME" [(ngModel)]="manyValue"
+                fcValueCode="TABLENAME" (ngModelChange)="tableEvents($event)">
+            </fc-many>
+            <div class="showSelectModel">
+                <div class="SelectModelTop">备选模型&字段</div>
+                <ul *ngFor="let select of selects">
+                    <li>
+                        <fc-icon fcIcon="fc-icon-fall" fcSize="small"></fc-icon>
+                        <!-- <span>{{item.TABLETYPE==='TABLE'?'T':'V'}}</span> --> 
+                        <span>{{select.APPNAME}}-{{select.APPID}}</span>
+                        <ul>
+                            <li *ngFor="let item of select.items">{{item.APPID}}-{{item.FIELDNAME}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="attributeLeft" *ngIf="displayTable===true">
+            <div>请选择模型，拖拽至属性字段</div>
+            <fc-many [fcShowLabel]="false" fcPlaceHolder="请选择模型，支持多选" [fcOption]="tableOption" fcLabelCode="APPNAME" [(ngModel)]="manyValue"
+                fcValueCode="TABLENAME" (ngModelChange)="modelEvents($event)">
             </fc-many>
             <div class="showSelectModel">
                 <div class="SelectModelTop">备选模型&字段</div>
@@ -81,10 +101,11 @@
                 </ul>
             </div>
         </div>
-        <div class="widthCovered" [ngClass]="{'attributeRight':displayMode===true}">
-            <div class="addAttribute" (click)="addAttributeAdd(mainObj.APPID+'-模型')">+添加</div>
+        <div class="widthCovered" [ngClass]="{'attributeRight':displayModel===true||displayTable===true}">
+            <div class="addAttribute" (click)="attributeAddEvent(null,mainObj.APPID+'-模型')">+添加</div>
             <fc-list fcAppid="SYSAPPFIELDS" [fcFieldCode]="'FIELDCODE'" [fcCondition]="condition" fcIcon="fc-icon-picture" fcSubTitleCode="FIELDNAME"
-                fcStatusCode='FIELDNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}" (fcEvent)="attributeEditEvent($event,mainObj.APPID+'-模型')">
+                fcStatusCode='FIELDNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}"
+                (fcEvent)="attributeEditEvent($event,mainObj.APPID+'-模型')">
             </fc-list>
         </div>
     </div>
@@ -107,7 +128,7 @@
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="addModelEvent(mainObj.APPID+'-'+mainObj.APPNAME);">
+            <nz-card (click)="editModelEvent(null,mainObj.APPID+'-'+mainObj.APPNAME);">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增模型事件</p>
@@ -268,7 +289,7 @@
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="addModelRelation(mainObj.APPID+'-'+mainObj.APPNAME);">
+            <nz-card (click)="editModelRelation(null,mainObj.APPID+'-'+mainObj.APPNAME);">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增模型关系</p>

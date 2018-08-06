@@ -180,19 +180,13 @@ export class SysappmodaleventdialogComponent  extends ParentEditComponent{
   };
   @Input()
   set options(option: any) {
-    this.obj = option;
-    //新增弹窗
-    if (this.obj.APPID === undefined) {
-      this.content = option;
+    if(option.event===null){
+      this.mainObj=this.mainService.initObjDefaultValue(this.mainApp);
     }
-  }
-  @Input()
-  set strs(str: any) {
-    //编辑的弹窗
-    if (str != undefined && str != null && str != '') {
-      this.content = str;
-      this.mainObj = this.obj;
+    if (option.event!==null) {
+      this.mainObj=option.event;
     }
+    this.content = option.str;
   }
   constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService,
     public router: Router,
