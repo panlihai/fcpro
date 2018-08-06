@@ -41,7 +41,7 @@ import { SysservicebackdialogComponent } from './dialog/sysservicebackdialog.com
 })
 export class SysinterfaceeditComponent extends ParentEditComponent {
     //产品
-    pidOption;
+    pidOption: any;
     //参数数据
     requestParams: any;
     responseParams: any;

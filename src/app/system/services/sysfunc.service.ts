@@ -12,6 +12,12 @@ export class SysfuncService extends ParentService {
         super(providers, "SYSFUNC");
     }
     /**
+     * 获取产品
+     */
+    getproduct() {
+        return this.sysproductService.findWithQuery({});
+    }
+    /**
      * 字母快速查询
      */
     fastSearch() {

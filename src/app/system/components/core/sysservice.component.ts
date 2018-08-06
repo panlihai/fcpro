@@ -28,7 +28,7 @@ export class SysserviceComponent extends ParentlistComponent {
   //产品
   product: string;
   //产品下拉
-  productOptions: any[] = [];
+  productOptions: any = [];
   constructor(public mainService: SysserviceService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
@@ -47,10 +47,10 @@ export class SysserviceComponent extends ParentlistComponent {
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
     //初始化数据
     this.initData(this.product);
-     //产品下拉
-     this.mainService.getproduct().subscribe(result => {
-      this.productOptions = result.P_LISTVALUE;
+    //产品下拉
+    this.mainService.getproduct().subscribe(result => {
       if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
+        this.productOptions = [];
         result.P_LISTVALUE.forEach(item => {
           //转换成下拉识别的对象
           this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })
@@ -96,7 +96,7 @@ export class SysserviceComponent extends ParentlistComponent {
     //如果点击了首字母搜索的按钮,则根据APPID的首字母查询
     if (btn) {
       //从0开始截取第一个字符
-      valueObj.WHERE = "AND SUBSTR(SERVICEID,0,1)='" + btn.ACTCODE + "'"
+      valueObj.WHERE = `AND SUBSTR(SERVICEID,0,1)='${btn.ACTCODE}' AND PID='${this.product}'`
     }
     //根据首字母查询数据,如果没有点击按钮或者再次点击按钮,则查询所有的数据
     this.mainService.findWithQuery(valueObj).subscribe(result => {

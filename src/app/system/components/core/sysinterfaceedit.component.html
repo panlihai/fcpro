@@ -18,7 +18,7 @@
     <div class="information" fccontent>
         <fc-title fcLabel="基本信息" class="sys-card-pannel-title" [fcHasLine]="false" fccontent></fc-title>
         <fc-layoutcol fccontent fcSpans="1,1" class="noBottomLine">
-            <fc-combo fccontent1 fcLabel="产品名称" [(ngModel)]="mainObj.PID" [fcOption]="pidOption" name="SERVICENAME" [fcDisabled]="true"></fc-combo>
+            <fc-combo fccontent1 fcLabel="产品名称" [(ngModel)]="mainObj.PID" [fcOption]="pidOption" [fcDisabled]="true"></fc-combo>
             <fc-text fccontent2 [fcLabel]="fromName" [(ngModel)]="mainObj.FROMNAME" name="FROMNAME" [fcDisabled]="true"></fc-text>
             <fc-text fccontent1 fcLabel="接口名称" [(ngModel)]="mainObj.IMPLNAME" [fcAppid]="appId" fcFieldCode="IMPLNAME" name="IMPLNAME"></fc-text>
             <fc-text fccontent2 fcLabel="请求URL" [(ngModel)]="mainObj.REQURL" [fcAppid]="appId" fcFieldCode="REQURL" name="REQURL"></fc-text>

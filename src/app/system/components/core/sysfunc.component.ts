@@ -17,6 +17,7 @@ export class SysfuncComponent extends ParentlistComponent {
   btnlistMores: any[];
   //字母查找
   fastsearchWords: any[];
+  productOptions: any;
   //服务
   sysFuncs: any[];
   //点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
@@ -39,6 +40,16 @@ export class SysfuncComponent extends ParentlistComponent {
     this.btnlistMores = this.btnlistOnes.splice(3);
     //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+    //产品下拉
+    this.mainService.getproduct().subscribe(result => {
+      if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
+        this.productOptions = []
+        result.P_LISTVALUE.forEach(item => {
+          //转换成下拉识别的对象
+          this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })
+        });
+      }
+    })
   }
   getDefaultQuery() {
   }

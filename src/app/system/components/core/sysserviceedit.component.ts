@@ -83,9 +83,6 @@ export class SysserviceeditComponent extends ParentEditComponent {
      */
     event(eventName: string, params?: any): void {
         event.stopPropagation();
-        // if (params && params.param && params.param.BUSTYPE ? params.param.BUSTYPE === 'fastsearch' : false) {
-        //     this.searchByWord(params.param);
-        // }
         let dialogCardListArgs: DialogCardListArgs = { appId: null, configInterface: { title: null } };
         dialogCardListArgs.methodIndex = eventName;
         if (params instanceof FctextComponent) dialogCardListArgs.textComponent = params;
@@ -201,12 +198,6 @@ export class SysserviceeditComponent extends ParentEditComponent {
                 this.navRouter(this.getRouteUrl('Edit'), { ID: res.DATA[0].ID });
             }
         });
-    }
-    /**
-    * 新增产品,跳转到新增产品页面
-    */
-    addView() {
-        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSVIEW', 'Edit'));
     }
     /**
     * 新增接口,跳转到新增接口页面

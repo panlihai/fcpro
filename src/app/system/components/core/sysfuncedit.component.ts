@@ -59,53 +59,24 @@ export class SysfunceditComponent extends ParentEditComponent {
     /**
      * html事件收集及派发函数
      * @param eventName 
-     * @param context 
+     * @param param 
      */
-    event(eventName: string, context: any): void {
-        if (context && context.param.BUSTYPE === 'fastsearch') {
-            let appid: any = '';
-            switch (eventName) {
-                case 'SYSVIEW':
-                    appid = eventName;
-                    break;
-                case 'SYSINTERFACE':
-                    appid = eventName;
-                    break;
-            }
-            this.searchByWord(appid, context.param);
-        }
+    event(eventName: string, param?: any): void {
+        event.stopPropagation();
         let dialogCardListArgs: DialogCardListArgs = { appId: null, configInterface: { title: null } };
         dialogCardListArgs.methodIndex = eventName;
-        if (context instanceof FctextComponent) dialogCardListArgs.textComponent = context;
+        if (param instanceof FctextComponent) dialogCardListArgs.textComponent = param;
         switch (eventName) {
-            case 'PID':
-                this.getServiceId(context)
-                break;
             case 'DEFAULTAPPID':
                 this.showModal(dialogCardListArgs);
                 break;
+            case 'editView':
+                this.editView(param);
+                break;
+            case 'editBtn':
+                this.editBtn(param);
+                break;
         }
-    }
-    /**
-    * 初始化元数据
-    */
-    searchByWord(appid, btn?: any) {
-        let valueObj: any = {};
-        if (btn) {
-            valueObj.WHERE = "AND SUBSTR(SERVICEID,0,1)='" + btn.ACTCODE + "'"
-        }
-        this.appService.findWithQuery(appid, {}).subscribe(result => {
-            if (result.CODE === '0') {
-                switch (appid) {
-                    case 'SYSVIEW':
-                        this.sysViews = result.DATA;
-                        break;
-                    case 'SYSINTERFACE':
-                        this.sysBtns = result.DATA
-                        break;
-                }
-            }
-        });
     }
     /**
      * 初始化产品名称的自定义下拉选项内容
@@ -158,7 +129,7 @@ export class SysfunceditComponent extends ParentEditComponent {
         });
     }
     /**
-     * 获取服务-接口数据
+     * 获取功能-按钮事件数据
      * @param serviceId 
      */
     getsysBtns(id) {
@@ -166,18 +137,7 @@ export class SysfunceditComponent extends ParentEditComponent {
             if (res.CODE === '0') {
                 this.sysBtns = res.DATA;
             } else {
-                this.messageService.error('接口数据获取失败');
-            }
-        });
-    }
-    /** YM
-     * 根据PID获取服务编码并赋值.
-     * @param pid 
-     */
-    getServiceId(pid: string) {
-        this.mainService.getBizCodeByAid(pid).subscribe(res => {
-            if (res.CODE === '0') {
-                this.mainObj.SERVICEID = res.DATA[0];
+                this.messageService.error('按钮事件数据获取失败');
             }
         });
     }
@@ -185,7 +145,6 @@ export class SysfunceditComponent extends ParentEditComponent {
      * 实现继承与父类的beforeSave函数，对cardSave函数进行功能扩展;
      */
     beforeSave() {
-        this.router;
         // this.mainObj = this.mainService.beforeSave(this.mainObj);
         return true;
     }
@@ -193,23 +152,23 @@ export class SysfunceditComponent extends ParentEditComponent {
      * 实现继承与父类的afterSave函数，对cardSave函数进行功能扩展;
      */
     afterSave() {
-        this.mainService.findWithQuery({ WHERE: `SERVICEID = '${this.mainObj.SERVICEID}'` }).subscribe(res => {
+        this.mainService.findWithQuery({ WHERE: `FUNCID = '${this.mainObj.FUNCID}'` }).subscribe(res => {
             if (res.CODE === '0') {
                 this.navRouter(this.getRouteUrl('Edit'), { ID: res.DATA[0].ID });
             }
         });
     }
-    /**
+    /** YM
     * 新增产品,跳转到新增产品页面
     */
-    addView() {
-        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSVIEW', 'Edit'));
+    editView(param?: any) {
+        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSVIEW', 'Edit'), { ID: param.ID });
     }
-    /**
+    /** YM
     * 新增接口,跳转到新增接口页面
     */
-    addInterface() {
-        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'));
+    editBtn(param?: any) {
+        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSAPPBUTTONS', 'Edit'), { ID: param.ID });
     }
     /** YM
       * 显示窗口前的判断

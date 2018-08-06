@@ -24,7 +24,6 @@ import { SysviewService } from '../../services/sysview.service';
         margin: 1% 0% 1% 3%;
       }
       .btnAdd-dragable-area{
-        width: 95%;
         position:relative;
         left:5%;
         line-height: 25px;
@@ -128,8 +127,13 @@ export class SysvieweditComponent extends ParentEditComponent {
             case 'selectApp':
                 this.handleSelectApp(param)
                 break;
-
+            case 'backToFuncEdit':
+                this.backToFuncEdit()
+                break;
         }
+    }
+    backToFuncEdit() {
+        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSFUNC', 'Edit'));
     }
     /**
      * 初始化mainObj的默认值
