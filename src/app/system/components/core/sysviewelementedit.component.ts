@@ -47,15 +47,18 @@ import { SysappfieldgroupComponent } from './dialog/sysappfieldgroup.component';
 export class SysviewelementeditComponent extends ParentEditComponent {
     productName: any;
     pidOption: any;
-    mainObj: any;
+    // mainObj: any={};
     fieldOption: any;
     inputClose: boolean = false;
     outputClose: boolean = false;
     @Input()
-    set param(mainObj: any) {
-        if (mainObj)
-            this.mainObj = mainObj
+    set options(option: any) {
+        this.mainObj = option
     }
+    // set param(mainObj: any) {
+    //     if (mainObj)
+    //         this.mainObj = mainObj
+    // }
     constructor(public mainService: SysviewelementService,
         public router: Router,
         public activeRoute: ActivatedRoute,

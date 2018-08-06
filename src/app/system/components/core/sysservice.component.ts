@@ -50,6 +50,7 @@ export class SysserviceComponent extends ParentlistComponent {
      //产品下拉
      this.mainService.getproduct().subscribe(result => {
       if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
+        this.productOptions = [];
         result.P_LISTVALUE.forEach(item => {
           //转换成下拉识别的对象
           this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })

@@ -35,7 +35,8 @@ export class SysappComponent extends ParentlistComponent {
   //没有任何内容
   noResult: boolean;
   //产品下拉
-  productOptions: any[] = [];
+  productOptions: any[];
+  //拖拽的event
   EventUtil: any = {
     //添加事件处理程序
     addHandler: (element, type, handler) => {
@@ -74,6 +75,16 @@ export class SysappComponent extends ParentlistComponent {
     this.btnlistMores = this.btnlistOnes.splice(3);
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
     this.fastsearchWords = this.mainService.fastSearch();
+    //产品下拉
+    this.mainService.getproduct().subscribe(result => {
+      if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
+        this.productOptions = [];
+        result.P_LISTVALUE.forEach(item => {
+          //转换成下拉识别的对象
+          this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })
+        });
+      }
+    })
   }
   ngOnInit() {
     //初始化数据
@@ -83,7 +94,7 @@ export class SysappComponent extends ParentlistComponent {
     } else {
       //默认没有查询到数据
       this.noResult = true;
-    } 
+    }
     //26个字母name,方法名,BUSTYPE为'fastsearch' 
     this.fastsearchWords = this.mainService.fastSearch();
     //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
@@ -94,15 +105,6 @@ export class SysappComponent extends ParentlistComponent {
     this.btnlistMores = this.btnlistOnes.splice(3);
     //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
-    //产品下拉
-    this.mainService.getproduct().subscribe(result => {
-      if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
-        result.P_LISTVALUE.forEach(item => {
-          //转换成下拉识别的对象
-          this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })
-        });
-      }
-    })
   }
   getDefaultQuery() {
     return {
@@ -137,45 +139,6 @@ export class SysappComponent extends ParentlistComponent {
         }
       });
   }
-  /**
-   * 事件规定在何处放置被拖动的数据
-   * @param ev 
-   */
-  allowDrop(ev) {
-    ev.preventDefault();
-  }
-  /**
-   * dragstart规定当元素被拖动时，会发生什么。drag规定了被拖动的数据
-   * @param ev 
-   */
-  drag(ev) {
-    ev = this.EventUtil.getEvent(ev);
-    ev.dataTransfer.dropEffect = 'copy';
-    let target = this.EventUtil.getTarget(ev);
-    //方法设置被拖数据的数据类型和值,数据类型是 "Text"，值是可拖动元素的 id ("drag1")
-    ev.dataTransfer.setData("Text", ev.target.id);
-    ev.dataTransfer.effectAllowed = 'copy';
-  }
-  /**
-   * 当放置被拖数据时，会发生 drop 事件。
-   * @param ev 
-   */
-  drop(ev) {
-    ev = this.EventUtil.getEvent(ev);
-    var target = this.EventUtil.getTarget(ev);
-    ev.preventDefault();
-    let data = ev.dataTransfer.getData("Text");
-    ev.target.appendChild(document.getElementById(data));
-  }
-  dragenter(ev) {
-    ev = this.EventUtil.getEvent(ev);
-    var target = this.EventUtil.getTarget(ev);
-    //重要！重写dragenter事件的默认行为，使其可以触发drop事件
-    this.EventUtil.preventDefault(ev);
-    //dropEffect事件和effectAllowed事件搭配使用
-    ev.dataTransfer.dropEffect = 'copy';
-    target.className = 'hover';
-  }
 
   /**
     * 快速查询
@@ -198,7 +161,6 @@ export class SysappComponent extends ParentlistComponent {
   * 初始化元数据
   */
   searchByWord(btn?: any) {
-
     //查询数据的对象
     let valueObj: any = {};
     //如果点击了首字母搜索的按钮,则根据APPID的首字母查询
@@ -263,7 +225,6 @@ export class SysappComponent extends ParentlistComponent {
    */
   listOneDelete() {
     this.messageService.confirm('请确认该元数据没有在其它地方使用后再删除!', () => {
-
     }, () => { })
   }
   /**
