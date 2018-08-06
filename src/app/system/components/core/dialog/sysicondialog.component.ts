@@ -7,7 +7,7 @@ import { $ } from 'protractor';
 @Component({
   selector: 'icondialog',
   template: `
-    <div>
+    <div class="sys-allicon"> 
       <div class="sys-iconall">
           <div *ngFor="let icon of icons" 
                 class="sys-fciconlayout" (click) = "iconsave(icon.DICVALUE)">
@@ -18,9 +18,13 @@ import { $ } from 'protractor';
     </div>
     `,
   styles: [`
+  .sys-allicon{
+    z-index:999;
+  }
   .sys-iconall{
     height: 300px;
     overflow: scroll;
+    margin-left:10%;
   }
   .sys-fciconlayout{
     width: 12%;
@@ -29,6 +33,9 @@ import { $ } from 'protractor';
     align-items: center; 
     justify-content: center;
     flex-direction: column;
+    cursor:pointer;
+    background:#fff;
+    transition:background 1s;
   }
   .sys-iconzi{
     display: inline-flex; 

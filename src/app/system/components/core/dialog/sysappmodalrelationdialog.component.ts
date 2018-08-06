@@ -12,7 +12,14 @@ import { SysicondialogComponent } from './sysicondialog.component';
   <div>
   <div class="bg-dialog-content">
        <div class="topClose">
-          <div>事件：描述与模型的事件，呈现方式体现在按钮上，与属性及关系构成模型</div>
+          <div>关系：描述模型与模型之间，数据与数据之间的联系，与属性、事件构成模型</div>
+          <div class="sys-card-fast">
+          <ul class="sys-fast-list">
+              <li class="sys-icon-btn"  (click)="event('closetop')">
+                  <fc-icon fcIcon="fc-icon-close" fcColor="#009DFF"></fc-icon>关闭
+              </li>
+          </ul>
+      </div>
        </div>
        <div fccontent>
        <fc-layoutpanel fccontent id="id0">
@@ -20,14 +27,14 @@ import { SysicondialogComponent } from './sysicondialog.component';
            <fc-layoutcol fcSpans="1,0" fccontent>
                <div fccontent1>
                     <fc-text [fcLabel]="'主模型名称'" fcReadonly="true" [(ngModel)]="content" name="MAINAPP"></fc-text>
-                    <fc-text [fcLabel]="'关系名称'" fcPlaceHolder="请输入关系的中文描述"   [(ngModel)]="mainObj.LINKNAME" 
+                    <fc-text [fcLabel]="'关系名称'" [fcAppid]="appId" fcFieldCode="LINKNAME" [fcValid]="mainValid.LINKNAME" fcPlaceHolder="请输入关系的中文描述"   [(ngModel)]="mainObj.LINKNAME" 
                     name="LINKNAME"></fc-text>
                     <div class="sys-tab">与其关系名称，中文，如，元数据的属性</div>
-                    <fc-any  fcLabel="子模型名称"  [fcOption]="scomDataItemOptions"   fcPlaceHolder="请输入中文" 
+                    <fc-any  fcLabel="子模型名称"  [fcAppid]="appId" fcFieldCode="ITEMAPP" [fcValid]="mainValid.ITEMAPP"   [fcOption]="scomDataItemOptions"   fcPlaceHolder="请输入中文" 
                     [(ngModel)]="mainObj.ITEMAPP" (ngModelChange)="componentEvents('ruletypeEvent',$event)" name="ITEMAPP"></fc-any>
                     <div class="sys-tab">被关联的模型名称</div>
-                    <fc-text [fcLabel]="'关联条件'" fcPlaceHolder="请输入sql条件，带and"   [(ngModel)]="mainObj.LINKFILTER" 
-                    name="	LINKFILTER"></fc-text>
+                    <fc-text [fcLabel]="'关联条件'" [fcAppid]="appId" fcFieldCode="LINKFILTER" [fcValid]="mainValid.LINKFILTER"  fcPlaceHolder="请输入sql条件，带and"   [(ngModel)]="mainObj.LINKFILTER" 
+                    name="LINKFILTER"></fc-text>
                     <div class="sys-tab">与主模型通过sql条件构成一对一或一对多关系或主外键关系</div>
                </div>
            </fc-layoutcol>
@@ -40,10 +47,12 @@ import { SysicondialogComponent } from './sysicondialog.component';
                     fcValueCode="DICVALUE" name="ENABLE"  (ngModelChange)="componentEvents('enableEvent',$event)"></fc-radio>
                </div>
            </fc-layoutcol>
-          <fc-layoutcol fcSpans="1,0" fccontent class="otherMessage">
+           <div class="sys-title-container" fccontent>
+              <fc-title class="sys-flex-title" fcLabel="其他信息" [fcHasLine]="false"></fc-title>
               <i class="sys-title-arrow" *ngIf="showDown===true" (click)="open($event)" fccontent1>∨</i>
               <i class="sys-title-arrow" *ngIf="showDown===false" (click)="close($event)" fccontent1>∧</i>
-              <fc-title fcLabel="其他信息" fcWidth="96%" [fcHasLine]="false" *ngIf="showDown===false" fccontent1></fc-title>
+          </div>
+          <fc-layoutcol fcSpans="1,0" fccontent class="otherMessage">
               <div class="sys-choose-icon" fccontent1 *ngIf="showDown===false">
                   <fc-label fcLabel="数据源图标"></fc-label>
                   <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
@@ -124,8 +133,6 @@ import { SysicondialogComponent } from './sysicondialog.component';
     flex: 0.2;
     display:block;
     text-align: right;
-    padding-right: 20px;
-    border-top: 1px solid #ccc;
   }
   .sys-title-arrow:hover{
     cursor:pointer;
@@ -136,6 +143,16 @@ import { SysicondialogComponent } from './sysicondialog.component';
   .helpBottom{
     border-bottom:1px solid #ccc;
     padding-left: 250px;
+  }
+  .sys-title-container{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    padding-right: 20px;
+    border-top: 1px solid #ccc;
+  }
+  .sys-flex-title{
+      flex:0.8;
   }
   `]
 })
@@ -182,6 +199,7 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
     if (this.obj.MAINAPP === undefined) {
       this.content = option;
     }
+    this.productIcon();
   }
   @Input()
   set strs(str: any) {
@@ -190,6 +208,7 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
       this.content = str;
       this.mainObj = this.obj;
     }
+    this.productIcon();
   }
   constructor(private modal: NzModalSubject,
     public mainService: SysapplinksService,
@@ -241,6 +260,8 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
         this.visible = true;
         event.stopPropagation()
         break;
+      case 'closetop':
+        this.modal.destroy();  
     }
   }
   /**
@@ -248,24 +269,15 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
   * ICON如果不等于空visible不显示（文字请选择图片不显示）
   * @param event  
   */
-  productIcon() {
-    //第一次判断如果是事件触发，则提示显示否则不显示，当不是事件触发时判断BTNICON是否是空
-    if (this.mainObj.ICON === null) {
-      // this.visible = true;
-      // this.visible = this.visible
-      if (this.mainObj.ICON === null) {
-        // this.visible = true;
-        this.visible = this.visible
-      } else {
-        // this.visible = false;
-        this.visible = !this.visible
-      }
-    } else {
-      // this.visible = false;
-      this.visible = this.visible
-    }
-  }
-
+ productIcon() {
+  //第一次判断是新增还是修改页面如果是新增页面提示显示如果
+  //是修改页面判断图标是否为空如果为空显示否则不显示提示
+  if (this.mainObj.ICON === "" || this.mainObj.ICON === null) {
+     this.visible = this.visible
+ } else {
+  this.visible = !this.visible
+ }
+}
   /**
   * 组件事件收集
   * @param type 字符串命名
@@ -296,6 +308,7 @@ export class SysappmodalrelationdialogComponent extends ParentEditComponent {
   open() {
     this.showDown = false;
   }
+
   /**
   * 收起其他信息
   */

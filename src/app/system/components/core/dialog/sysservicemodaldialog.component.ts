@@ -44,8 +44,7 @@ import { SysintfreqparamService } from '../../../services/sysintfreqparam.servic
      </form>
     </div>
     <div class="customize-footer">
-        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
-        </fc-button>
+          <fc-tlbform fccontent1 fcType="primary" [fcAppid]="appId" fcLayout="center" (fcEvent)="tlbformEvent($event)" class="basicTlb"></fc-tlbform>
     </div>
   </div>
     `,
