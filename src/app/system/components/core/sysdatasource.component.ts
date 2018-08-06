@@ -53,7 +53,6 @@ export class SysdatasourceComponent extends ParentlistComponent {
   ngOnInit() {
     //产品下拉
     this.mainService.getproduct().subscribe(result => {
-      this.productOptions = result.P_LISTVALUE;
       if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
         result.P_LISTVALUE.forEach(item => {
           //转换成下拉识别的对象

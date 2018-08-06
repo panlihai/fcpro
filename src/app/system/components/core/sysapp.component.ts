@@ -83,7 +83,7 @@ export class SysappComponent extends ParentlistComponent {
     } else {
       //默认没有查询到数据
       this.noResult = true;
-    }
+    } 
     //26个字母name,方法名,BUSTYPE为'fastsearch' 
     this.fastsearchWords = this.mainService.fastSearch();
     //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
@@ -96,7 +96,6 @@ export class SysappComponent extends ParentlistComponent {
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
     //产品下拉
     this.mainService.getproduct().subscribe(result => {
-      this.productOptions = result.P_LISTVALUE;
       if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
         result.P_LISTVALUE.forEach(item => {
           //转换成下拉识别的对象
