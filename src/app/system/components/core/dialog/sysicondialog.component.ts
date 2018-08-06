@@ -34,6 +34,8 @@ import { $ } from 'protractor';
     justify-content: center;
     flex-direction: column;
     cursor:pointer;
+    background:#fff;
+    transition:background 1s;
   }
   .sys-iconzi{
     display: inline-flex; 

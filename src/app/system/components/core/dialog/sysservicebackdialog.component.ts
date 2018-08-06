@@ -36,8 +36,7 @@ import { SysintfresparamService } from '../../../services/sysintfresparam.servic
      </form>
     </div>
     <div class="customize-footer">
-        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside($event)">
-        </fc-button>
+         <fc-tlbform fccontent1 fcType="primary" [fcAppid]="appId" fcLayout="center" (fcEvent)="tlbformEvent($event)" class="basicTlb"></fc-tlbform>
     </div>
   </div>
     `,

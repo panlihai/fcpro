@@ -96,7 +96,7 @@ import { ObjStatus } from 'fccore';
   }
 
   .sys-choose-icon .sys-choose-icon-upload{
-    line-height: 90px;
+    line-height: 22px;
     position: absolute;
     left: 26%;
     top: 2px;

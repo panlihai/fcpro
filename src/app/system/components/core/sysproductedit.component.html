@@ -3,86 +3,83 @@
     <div class="sys-card-pannel-header" fcheader>
         <fc-title fcLabel="项目&产品" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
-            <fc-layoutpanel class="sys-card-pannel">
-                <div class="sys-card-pannel-header" fcheader>
-                    <fc-title fcLabel="数据源" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
-                    <P class="sys-card-pannel-smarks">
-                        项目&产品：编辑产品内容：包含产品基本信息，产品图标，产品的立项文档等；支持增加此产品的数据源、服务等
-                    </P>
-                    <div class="sys-card-fast">
-                        <ul class="sys-fast-list">
-                            <li><span  (click)="event('sqllistEvent')" *ngIf = "topbutton">查看数据源</span></li>
-                            <li><span  (click)="event('servicelistEvent');" *ngIf = "topbutton">查看服务</span></li>
-                            <li><span  (click)="event('applistEvent')" *ngIf = "topbutton">查看模型</span></li>
-                            <li><span  (click)="event('backlistEvent')">返回列表</span></li>
-                        </ul>
-                    </div>
+            项目&产品：编辑产品内容：包含产品基本信息，产品图标，产品的立项文档等；支持增加此产品的数据源、服务等
+        <div class="sys-card-fast">
+            <ul class="sys-fast-list">
+                <li  (click)="event('sqllistEvent')" *ngIf = "topbutton">
+                        <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>查看数据源</li>
+                <li  (click)="event('servicelistEvent');" *ngIf = "topbutton">
+                        <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"  ></fc-icon>查看服务</li>
+                <li  (click)="event('applistEvent')"  *ngIf = "topbutton">
+                    <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"  ></fc-icon>查看模型</li>        
+                <li  (click)="event('backToList')">
+                    <fc-icon fcIcon="fc-icon-backtrack" fcColor="#009DFF"></fc-icon>返回列表</li>   
+            </ul>
+        </div>
+        <img class="sys-card-bg" src="assets/img/system-bg.png" />
+    </div>
+    <div class="sys-card-pannel-edit" fccontent>
+        <!-- 基本信息 -->
+        <fc-layoutcol fcSpans="7,3">
+            <fc-title fccontent1 fcLabel="基本信息" [fcHasLine]="false"></fc-title>
+            <fc-text fccontent1 [fcAppid]="appId" fcFieldCode="PID" [(ngModel)]="mainObj.PID"  [fcReadonly] = "read"  fcLabel="产品Id" name="PID" fcPlaceHolder="产品编码，全局唯一" [fcValid]="mainValid.PID"></fc-text>
+            <div fccontent1 class="sys-tab">英文字符</div>
+            <fc-text fccontent1  [fcAppid]="appId" fcFieldCode="PNAME" [(ngModel)]="mainObj.PNAME"  name="PNAME"  fcLabel="产品名称" fcPlaceHolder="请输入中文" [fcValid]="mainValid.PNAME"></fc-text>
+            <fc-radio  fccontent1  [(ngModel)]="mainObj.DISPLAYMODE" fcLabel="导航模式" [fcAppid]="appId" fcFieldCode="DISPLAYMODE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="DISPLAYMODE"></fc-radio>            
+            <div fccontent1 class="sys-tab">菜单：传统菜单方式；标签：tab标签方式渲染；</div>
+            <div fccontent1  *ngIf = "relyproduct">
+                <!-- <fc-text  fccontent [(ngModel)]="mainObj.PARENTPID" fcPlaceHolder="依赖产品输入"  name="PARENTPID"  fcLabel="依赖产品"></fc-text>           -->
+                <fc-combo fccontent fcLabel="依赖产品输入"  [fcOption]="scomDataItemOptions"  [(ngModel)]="mainObj.PARENTPID"
+                  name="PARENTPID"  (ngModelChange)="componentEvents('ruleaddEvent',$event)" ></fc-combo>
+              <div fccontent class="sys-tab">可以依赖产品继承菜单</div>
+            </div>        
+            <fc-layoutcol fccontent1  fcSpans="1,1" class="noBottomLine">
+                <div fccontent1 class="sys-radio">
+                   <fc-radio  fccontent  [(ngModel)]="mainObj.ENABLE" fcLabel="是否可继承" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ENABLE"></fc-radio>            
+                   <div fccontent class="sys-tab">实现菜单可继承</div>
                 </div>
-                <div class="sys-card-pannel-edit" fccontent>
-                    <!-- 基本信息 -->
-                    <fc-layoutcol fcSpans="7,3">
-                        <fc-title fccontent1 fcLabel="基本信息" [fcHasLine]="false"></fc-title>
-                        <fc-text fccontent1 [fcAppid]="appId" fcFieldCode="PID" [(ngModel)]="mainObj.PID"  [fcReadonly] = "read"  fcLabel="产品Id" name="PID" fcPlaceHolder="产品编码，全局唯一" [fcValid]="mainValid.PID"></fc-text>
-                        <div fccontent1 class="sys-tab">英文字符</div>
-                        <fc-text fccontent1  [fcAppid]="appId" fcFieldCode="PNAME" [(ngModel)]="mainObj.PNAME"  name="PNAME"  fcLabel="产品名称" fcPlaceHolder="请输入中文" [fcValid]="mainValid.PNAME"></fc-text>
-                        <fc-radio  fccontent1  [(ngModel)]="mainObj.DISPLAYMODE" fcLabel="导航模式" [fcAppid]="appId" fcFieldCode="DISPLAYMODE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="DISPLAYMODE"></fc-radio>            
-                        <div fccontent1 class="sys-tab">菜单：传统菜单方式；标签：tab标签方式渲染；</div>
-                        <div fccontent1  *ngIf = "relyproduct">
-                            <!-- <fc-text  fccontent [(ngModel)]="mainObj.PARENTPID" fcPlaceHolder="依赖产品输入"  name="PARENTPID"  fcLabel="依赖产品"></fc-text>           -->
-                            <fc-combo fccontent fcLabel="依赖产品输入"  [fcOption]="scomDataItemOptions"  [(ngModel)]="mainObj.PARENTPID"
-                              name="PARENTPID"  (ngModelChange)="componentEvents('ruleaddEvent',$event)" ></fc-combo>
-                          <div fccontent class="sys-tab">可以依赖产品继承菜单</div>
-                        </div>        
-                        <fc-layoutcol fccontent1  fcSpans="1,1" class="noBottomLine">
-                            <div fccontent1 class="sys-radio">
-                               <fc-radio  fccontent  [(ngModel)]="mainObj.ENABLE" fcLabel="是否可继承" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ENABLE"></fc-radio>            
-                               <div fccontent class="sys-tab">实现菜单可继承</div>
-                            </div>
-                            <div fccontent2 class="sys-num">
-                               <fc-long fccontent [fcAppid]="appId" fcFieldCode="SORT" [fcValid]="mainValid.SORT" [(ngModel)]="mainObj.SORT" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>
-                            </div>
-                        </fc-layoutcol> 
-                        <fc-textarea fccontent1 fcPlaceHolder="请输入备注"  [(ngModel)]="mainObj.DIRECTION" fcLabel="备注" name="DIRECTION"></fc-textarea>
-                    </fc-layoutcol>
-                    <!-- 其它信息 -->
-                    <fc-layoutcol fcSpans="7,3">
-                        <fc-title fccontent1 fcLabel="其它信息" [fcHasLine]="false"></fc-title>
-                        <div class="sys-choose-icon" fccontent1>
-                            <fc-label fcLabel="数据源图标"></fc-label>
-                            <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
-                                    <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON"  fcFontSize="30px"></fc-icon>
-                                    <span *ngIf = "visible">选择字体图标</span>
-                                    <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
-                            </div>
-                        </div>
-                        <div class="sys-choose-icon" fccontent1>
-                            <fc-label fcLabel="产品文档"></fc-label>
-                            <div class="sys-choose-icon-upload"  (click)="event('iconEvent')">
-                                <fc-upload fccontent class="upload-content" (fcEvent)="event('fileEvent',$event)" [fcOption]="fcUploadOption">
-                                </fc-upload>
-                            </div>
-                        </div>
-                    </fc-layoutcol>
-                    <fc-layoutcol fcSpans="1,0">
-                        <div fccontent1 style="padding-top:20px;padding-bottom:20px ; text-align:center;">
-                                <div fccontent class="sys-button">
-                                    <span>
-                                        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
-                                        </fc-button>
-                                    </span>
-                                    <span  *ngIf = "topbutton">
-                                        <fc-button [fcType]="'default'" fcLabel="+数据源"  (click)="event('cardSql')">
-                                        </fc-button>
-                                    </span>
-                                    <span *ngIf = "topbutton">
-                                        <fc-button [fcType]="'default'" fcLabel="+服务"  (click)="event('cardService')">
-                                        </fc-button>
-                                    </span> 
-                                </div> 
-                            </div>
-                    </fc-layoutcol>
+                <div fccontent2 class="sys-num">
+                   <fc-long fccontent [fcAppid]="appId" fcFieldCode="SORT" [fcValid]="mainValid.SORT" [(ngModel)]="mainObj.SORT" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>
                 </div>
-            </fc-layoutpanel>
-        </P>
-    </div>   
+            </fc-layoutcol> 
+            <fc-textarea fccontent1 fcPlaceHolder="请输入备注"  [(ngModel)]="mainObj.DIRECTION" fcLabel="备注" name="DIRECTION"></fc-textarea>
+        </fc-layoutcol>
+        <!-- 其它信息 -->
+        <fc-layoutcol fcSpans="7,3">
+            <fc-title fccontent1 fcLabel="其它信息" [fcHasLine]="false"></fc-title>
+            <div class="sys-choose-icon" fccontent1>
+                <fc-label fcLabel="数据源图标"></fc-label>
+                <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
+                        <fc-icon [fcIcon]="mainObj.ICON"  [(ngModel)]="mainObj.ICON"  fcFontSize="30px"></fc-icon>
+                        <span *ngIf = "visible">选择字体图标</span>
+                        <span class="sys-deleticon"  (click)="event('deleticonEvent')">x</span>
+                </div>
+            </div>
+            <div class="sys-choose-icon" fccontent1>
+                <fc-label fcLabel="产品文档"></fc-label>
+                <div class="sys-choose-icon-upload"  (click)="event('iconEvent')">
+                    <fc-upload fccontent class="upload-content" (fcEvent)="event('fileEvent',$event)" [fcOption]="fcUploadOption">
+                    </fc-upload>
+                </div>
+            </div>
+        </fc-layoutcol>
+        <fc-layoutcol fcSpans="1,0">
+            <div fccontent1 style="padding-top:20px;padding-bottom:20px ; text-align:center;">
+                    <div fccontent class="sys-button">
+                        <span>
+                            <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
+                            </fc-button>
+                        </span>
+                        <span  *ngIf = "topbutton">
+                            <fc-button [fcType]="'default'" fcLabel="+数据源"  (click)="event('cardSql')">
+                            </fc-button>
+                        </span>
+                        <span *ngIf = "topbutton">
+                            <fc-button [fcType]="'default'" fcLabel="+服务"  (click)="event('cardService')">
+                            </fc-button>
+                        </span> 
+                    </div> 
+                </div>
+        </fc-layoutcol>
+    </div> 
 </fc-layoutpanel>

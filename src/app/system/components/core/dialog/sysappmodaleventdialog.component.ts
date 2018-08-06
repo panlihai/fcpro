@@ -12,6 +12,13 @@ import { Router, ActivatedRoute } from '@angular/router';
     <div class="bg-dialog-content">
          <div class="topClose">
             <div>事件：描述与模型的事件，呈现方式体现在按钮上，与属性及关系构成模型</div>
+            <div class="sys-card-fast">
+                <ul class="sys-fast-list">
+                    <li class="sys-icon-btn"  (click)="event('closetop')">
+                        <fc-icon fcIcon="fc-icon-close" fcColor="#009DFF"></fc-icon>关闭
+                    </li>
+                </ul>
+            </div>
          </div>
          <div fccontent>
          <fc-layoutpanel fccontent id="id0">
@@ -40,10 +47,12 @@ import { Router, ActivatedRoute } from '@angular/router';
                       fcValueCode="DICVALUE" name="ENABLE"  (ngModelChange)="componentEvents('enableEvent',$event)"></fc-radio>
                  </div>
              </fc-layoutcol>
+             <div class="sys-title-container" fccontent>
+                <fc-title class="sys-flex-title" fcLabel="其他信息" [fcHasLine]="false"></fc-title>
+                <i class="sys-title-arrow" *ngIf="showDown===true" (click)="open($event)" fccontent1>∨</i>
+                <i class="sys-title-arrow" *ngIf="showDown===false" (click)="close($event)" fccontent1>∧</i>
+            </div>
             <fc-layoutcol fcSpans="1,0" fccontent class="otherMessage">
-                <i class="sys-title-arrow" *ngIf="showDown===true" (click)="open($event)" fccontent1>∧</i>
-                <i class="sys-title-arrow" *ngIf="showDown===false" (click)="close($event)" fccontent1>∨</i>
-                <fc-title fcLabel="其他信息" fcWidth="96%" [fcHasLine]="false" *ngIf="showDown===false" fccontent1></fc-title>
                 <div class="sys-choose-icon" fccontent1 *ngIf="showDown===false">
                     <fc-label fcLabel="图标"></fc-label>
                     <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
@@ -130,8 +139,6 @@ import { Router, ActivatedRoute } from '@angular/router';
   flex: 0.2;
   display:block;
   text-align: right;
-  padding-right: 20px;
-  border-top: 1px solid #ccc;
 }
 .sys-title-arrow:hover{
   cursor:pointer;
@@ -143,6 +150,16 @@ import { Router, ActivatedRoute } from '@angular/router';
   border-bottom:1px solid #ccc;
   padding-left: 250px;
 }
+.sys-title-container{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  padding-right: 20px;
+  border-top: 1px solid #ccc;
+}
+.sys-flex-title{
+  flex:0.8;
+} 
   `]
 })
 export class SysappmodaleventdialogComponent  extends ParentEditComponent{
@@ -231,6 +248,8 @@ export class SysappmodaleventdialogComponent  extends ParentEditComponent{
         this.visible = true;
         event.stopPropagation()
         break;
+      case 'closetop':
+      this.modal.destroy();
     }
   }
   /**
