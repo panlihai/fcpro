@@ -1,14 +1,6 @@
 <!-- 模型和元数据入口 -->
 <fc-layoutpanel class="sys-card-pannel">
     <div class="sys-card-pannel-header" fcheader>
-        <!-- <div id="div1" (drop)="drop($event)" (dragover)="allowDrop($event)" (dragenter)="dragenter($event)" style="width:198px; height:66px;padding:10px;border:1px solid #aaaaaa;"></div>
-        <br /> -->
-        <!-- <div style="width: 100px;height: 100px;background: red;position: fixed;left:0;top: 0;" fcDrag>
-
-        </div> -->
-        <!-- 设置元素为可拖拽 -->
-        <!-- <img id="drag1" [draggable]="true" (dragstart)="drag($event)" src="assets/img/system-bg.png" width="70"
-            height="50" /> -->
         <fc-title fcLabel="模型&元数据" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
             说明：FC开发设计平台，快速开发应用模型，此功能实现模型定义，实现数据库表及视图的新增、修改、删除 、同步。
@@ -24,8 +16,10 @@
             </ul>
             <div class="sys-fast-select" style="margin-right: 10px;">
                 <!-- 选择产品 -->
-                <fc-combo style="width: 45%;display: inline-block;" [fcShowLabel]="false" [fcOption]="productOptions" [(ngModel)]="product"
-                    fcPlaceHolder="请选择产品" fcAppid="SYSPRODUCT" (ngModelChange)="chooseProduct($event)" name="SYSPRODUCT.PID"></fc-combo>
+                <fc-combo style="width: 45%;display: inline-block;" [fcShowLabel]="false" 
+                    [fcOption]="productOptions" [(ngModel)]="product"
+                    fcPlaceHolder="请选择产品"  (ngModelChange)="chooseProduct($event)"
+                     name="SYSPRODUCT.PID"></fc-combo>
                 <!-- 选择数据源，没有选择产品时，数据源下拉为空 -->
                 <fc-combo style="width: 45%;display:inline-block;" [fcShowLabel]="false" [(ngModel)]="datasource" fcPlaceHolder="请选择数据源"
                     (ngModelChange)="chooseDatasource($event)" [fcDisabled]="product===undefined||product===null||product===''"
@@ -46,7 +40,7 @@
             </span>
         </div>
         <!-- 新增卡片操作 -->
-        <div nz-col [nzSpan]="6" class="sys-card sys-card-add" *ngIf="pageList&&pageList.length!==0">
+        <div nz-col [nzSpan]="4" class="sys-card sys-card-add" *ngIf="pageList&&pageList.length!==0">
             <nz-card (click)="listAdd($event);">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="16px" class="sys-card-addicon"></fc-icon>
@@ -55,7 +49,7 @@
             </nz-card>
         </div>
         <!-- 产品列表循环 -->
-        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysapp of pageList">
+        <div nz-col [nzSpan]="4" class="sys-card" *ngFor="let sysapp of pageList">
             <nz-card (click)="listEdit(sysapp);">
                 <ng-template #body>
                     <div class="sys-card-content">

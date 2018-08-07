@@ -58,7 +58,7 @@ export class SysviewService extends ParentService {
             width: '95%',
             zIndex: 995,
             componentParams: {
-                params: mainObj
+                options: mainObj
             }
         })
     }
