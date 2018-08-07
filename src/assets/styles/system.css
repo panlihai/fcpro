@@ -214,7 +214,10 @@
   padding: 0px;
   border-bottom: none;
 }
-
+:global .sys-card-pannel .fc-content .sys-card-pannel-edit .notitleLine .fc-layoutcol{
+  border-bottom: none;
+  margin-bottom: -12px;
+}
 :global .sys-card-pannel .ant-input, :global .sys-card-pannel .ant-select-selection, :global .sys-card-pannel .ant-input-number {
   border-color: #ebedf0!important;
 }
