@@ -29,6 +29,12 @@ export class SysserviceComponent extends ParentlistComponent {
   product: string;
   //产品下拉
   productOptions: any[] = [];
+  //分页总数
+  pageTotal: number;
+  //分页索引
+  pageNum: number;
+  //分页大小
+  pageSize: number;
   constructor(public mainService: SysserviceService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
@@ -45,10 +51,14 @@ export class SysserviceComponent extends ParentlistComponent {
     this.btnlistMores = this.btnlistOnes.splice(3);
     //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+    //初始化分页
+    this.pageNum = 1;
+    this.pageSize = 20;
+    this.pageTotal = 0;
     //初始化数据
     this.initData(this.product);
-     //产品下拉
-     this.mainService.getproduct().subscribe(result => {
+    //产品下拉
+    this.mainService.getproduct().subscribe(result => {
       if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
         this.productOptions = [];
         result.P_LISTVALUE.forEach(item => {
@@ -97,6 +107,8 @@ export class SysserviceComponent extends ParentlistComponent {
     if (btn) {
       //从0开始截取第一个字符
       valueObj.WHERE = "AND SUBSTR(SERVICEID,0,1)='" + btn.ACTCODE + "'"
+    } else {
+      valueObj.WHERE = "AND PID='" + this.product + "'" + "AND PAGESIZE='" + this.pageSize + "'" + "AND PAGENUM='" + this.pageNum + "'"
     }
     //根据首字母查询数据,如果没有点击按钮或者再次点击按钮,则查询所有的数据
     this.mainService.findWithQuery(valueObj).subscribe(result => {
@@ -109,27 +121,31 @@ export class SysserviceComponent extends ParentlistComponent {
     this.navRouter(this.getRouteUrl('Edit'), { ID: sysservice.ID });
   }
   /**
+   * 阻止冒泡
+   */
+  stopPropagation(event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
    * 按钮明细
    * @param event 
    */
-  btnCardEvent(event: any, item: any) {
-    switch (event.ACTCODE) {
+  btnCardEvent(event: any, btn: any, item: any) {
+    switch (btn.ACTCODE) {
       case 'listOneDelete'://明细删除
         this.listOneDelete();
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneEdit'://明细修改
         this.listEdit(item);
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneHelp'://明细帮助
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
     }
   }
@@ -139,10 +155,11 @@ export class SysserviceComponent extends ParentlistComponent {
     * @param datasource 
     */
   initData(product: string) {
-    this.mainService.findWithQuery({ PID: product })
+    this.mainService.findWithQuery({ PID: product, PAGESIZE: this.pageSize, PAGENUM: this.pageNum })
       .subscribe(result => {
         if (result.CODE === '0') {
           this.pageList = result.DATA;
+          this.pageTotal = result.TOTALSIZE;
           //当没有数据时，显示文字提示
           if (this.pageList.length === 0) {
             this.noResult = true;
@@ -166,6 +183,32 @@ export class SysserviceComponent extends ParentlistComponent {
     this.messageService.confirm('请确认该服务没有在其它地方使用后再删除!', () => {
 
     }, () => { })
+  }
+  /**
+ * 分页事件
+ * @param event 
+ */
+  fcpaginationEvent(event: FCEVENT) {
+    //查询数据的对象
+    let valueObj: any = {};
+    switch (event.eventName) {
+      case 'pageSizeChange'://每页显示多少条
+        valueObj.WHERE = "AND PAGESIZE='" + event.param + "' " + "AND PAGENUM='" + this.pageNum + "' " + "AND PID='" + this.product + "'"
+        this.mainService.findWithQuery(valueObj).subscribe(result => {
+          if (result.CODE === '0') {
+            this.pageList = result.DATA;
+          }
+        });
+        break;
+      case 'jumpPage'://跳转到第几页
+        valueObj.WHERE = "AND PAGESIZE='" + event.param + "' " + "AND PAGENUM='" + this.pageNum + "' " + "AND PID='" + this.product + "'"
+        this.mainService.findWithQuery(valueObj).subscribe(result => {
+          if (result.CODE === '0') {
+            this.pageList = result.DATA;
+          }
+        });
+        break;
+    }
   }
   /**
    * 导入

@@ -228,11 +228,11 @@ export class LayoutComponent implements OnInit {
       }
     }
     this.getMessage();
+    //把弹出确认框变量存入到服务里
+    MessageService.confirmModal = this.confirmmodal;
     if (this.fcnavtab) {
       this.fcnavtab.fcTabs = [];
       this.fcnavtab.fcSelectedIndex = 0;
-      //把弹出确认框变量存入到服务里
-      MessageService.confirmModal = this.confirmmodal;
       if (this.fcnavtab.fcTabs.length === 0) {
         this.fcnavtab.fcTabs.push({
           id: '0', index: 0, enabled: true, name: '首页', close: false, icon: 'fc-icon-home', refresh: 'Y', content:

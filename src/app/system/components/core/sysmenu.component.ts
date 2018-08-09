@@ -21,7 +21,9 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
       <div class="sys-card-fast">
           <ul class="sys-fast-list">
               <li>
-                  <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>导入
+                <nz-upload [(nzFileList)]="fileList" (click)="import()" style="cursor: pointer;">
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>导入
+                </nz-upload>
               </li>
               <li>
                   <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>导出

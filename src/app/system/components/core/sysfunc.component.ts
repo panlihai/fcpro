@@ -18,15 +18,31 @@ export class SysfuncComponent extends ParentlistComponent {
   //字母查找
   fastsearchWords: any[];
   //服务
-  sysFuncs: any[];
+  pageList: any[];
   //点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
   searchWord: string = '';
+  //没有任何内容
+  noResult: boolean;
+  //分页总数
+  pageTotal: number;
+  //分页索引
+  pageNum: number;
+  //分页大小
+  pageSize: number;
+  //产品
+  product: string;
+  //产品下拉
+  productOptions: any[];
   constructor(public mainService: SysfuncService,
     public router: Router,
     public activeRoute: ActivatedRoute) {
     super(mainService, router, activeRoute);
   }
   init(): void {
+    //初始化分页
+    this.pageNum = 1;
+    this.pageSize = 20;
+    this.pageTotal = 0;
     //根据首字母过滤
     this.searchByWord();
     //26个字母name,方法名,BUSTYPE为'fastsearch'
@@ -39,6 +55,16 @@ export class SysfuncComponent extends ParentlistComponent {
     this.btnlistMores = this.btnlistOnes.splice(3);
     //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+    //产品下拉
+    this.mainService.getProduct().subscribe(result => {
+      this.productOptions = [];
+      if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
+        result.P_LISTVALUE.forEach(item => {
+          //转换成下拉识别的对象
+          this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })
+        });
+      }
+    })
   }
   getDefaultQuery() {
   }
@@ -78,12 +104,22 @@ export class SysfuncComponent extends ParentlistComponent {
     //如果点击了首字母搜索的按钮,则根据APPID的首字母查询
     if (btn) {
       //从0开始截取第一个字符
-      valueObj.WHERE = "AND SUBSTR(FUNCID,0,1)='" + btn.ACTCODE + "'"
+      valueObj.WHERE = "AND SUBSTR(FUNCID,0,1)='" + btn.ACTCODE + "' " + "AND PID='" + this.product + "'"
+    } else {
+      valueObj.WHERE = "AND PID='" + this.product + "' " + "AND PAGESIZE='" + this.pageSize + "' " + "AND PAGENUM='" + this.pageNum + "' "
     }
     //根据首字母查询数据,如果没有点击按钮或者再次点击按钮,则查询所有的数据
     this.mainService.findWithQuery(valueObj).subscribe(result => {
       if (result.CODE === '0') {
-        this.sysFuncs = result.DATA;
+        this.pageList = result.DATA;
+        this.pageTotal = result.TOTALSIZE;
+        if (this.pageList.length === 0) {
+          this.noResult = true;
+        } else {
+          this.noResult = false;
+        }
+      } else {
+        this.noResult = true;
       }
     });
   }
@@ -91,27 +127,58 @@ export class SysfuncComponent extends ParentlistComponent {
     this.navRouter(this.getRouteUrl('Edit'), { ID: sysfunc.ID });
   }
   /**
+   * 初始化数据，根据产品、数据源过滤元数据
+   * @param product 
+   * @param datasource 
+   */
+  initData(product: string) {
+    this.mainService.findWithQuery({ PID: product, PAGESIZE: this.pageSize, PAGENUM: this.pageNum })
+      .subscribe(result => {
+        if (result.CODE === '0') {
+          this.pageList = result.DATA;
+          this.pageTotal = result.TOTALSIZE;
+          //当没有数据时，显示文字提示
+          if (this.pageList.length === 0) {
+            this.noResult = true;
+          } else {
+            this.noResult = false;
+          }
+        }
+      });
+  }
+  /**
+* 选择产品
+* @param event 
+*/
+  chooseProduct(event: any) {
+    this.initData(event);
+  }
+  /**
+   * 阻止冒泡
+   */
+  stopPropagation(event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
    * 按钮明细
    * @param event 
    */
-  btnCardEvent(event: any, item: any) {
-    switch (event.ACTCODE) {
+  btnCardEvent(event: any, btn: any, item: any) {
+    switch (btn.ACTCODE) {
       case 'listOneDelete'://明细删除
         this.listOneDelete();
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneEdit'://明细修改
         this.listEdit(item);
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneHelp'://明细帮助
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
     }
   }
@@ -122,6 +189,32 @@ export class SysfuncComponent extends ParentlistComponent {
     this.messageService.confirm('请确认该服务没有在其它地方使用后再删除!', () => {
 
     }, () => { })
+  }
+  /**
+  * 分页事件
+  * @param event 
+  */
+  fcpaginationEvent(event: FCEVENT) {
+    //查询数据的对象
+    let valueObj: any = {};
+    switch (event.eventName) {
+      case 'pageSizeChange'://每页显示多少条
+        valueObj.WHERE = "AND PAGESIZE='" + event.param + "' " + "AND PAGENUM='" + this.pageNum + "' " + "AND PID='" + this.product + "'"
+        this.mainService.findWithQuery(valueObj).subscribe(result => {
+          if (result.CODE === '0') {
+            this.pageList = result.DATA;
+          }
+        });
+        break;
+      case 'jumpPage'://跳转到第几页
+        valueObj.WHERE = "AND PAGESIZE='" + event.param + "' " + "AND PAGENUM='" + this.pageNum + "' " + "AND PID='" + this.product + "'"
+        this.mainService.findWithQuery(valueObj).subscribe(result => {
+          if (result.CODE === '0') {
+            this.pageList = result.DATA;
+          }
+        });
+        break;
+    }
   }
   /**
    * 导入

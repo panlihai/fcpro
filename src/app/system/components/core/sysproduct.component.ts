@@ -4,6 +4,7 @@ import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SysproductService } from '../../services/sysproduct.service';
 import { FCEVENT } from 'fccomponent/fc';
 import { environment } from '../../../../environments/environment.prod';
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'sysproduct',
   templateUrl: 'sysproduct.component.html',
@@ -24,7 +25,8 @@ export class SysproductComponent extends ParentlistComponent {
   btnlistMores: any[];
   constructor(public mainService: SysproductService,
     public router: Router,
-    public activeRoute: ActivatedRoute) {
+    public activeRoute: ActivatedRoute,
+    public nzMessageService: NzMessageService) {
     super(mainService, router, activeRoute);
   }
   init(): void {
@@ -76,27 +78,31 @@ export class SysproductComponent extends ParentlistComponent {
     }
   }
   /**
+   * 阻止冒泡
+   */
+  stopPropagation(event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
    * 按钮明细
    * @param event 
    */
-  btnCardEvent(event: any, item: any) {
-    switch (event.ACTCODE) {
+  btnCardEvent(event: any, btn: any, item: any) {
+    switch (btn.ACTCODE) {
       case 'listOneDelete'://明细删除
         this.listOneDelete();
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneEdit'://明细修改
         this.listEdit(item);
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneHelp'://明细帮助
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
     }
   }
@@ -105,7 +111,9 @@ export class SysproductComponent extends ParentlistComponent {
    */
   listOneDelete() {
     this.messageService.confirm('请确认产品没有在其它地方使用后再删除!', () => {
-    }, () => { })
+    }, () => {
+
+    })
   }
   /**
    * 导入
@@ -140,6 +148,7 @@ export class SysproductComponent extends ParentlistComponent {
     event.stopPropagation();
     event.preventDefault();
   }
+
   /**
    * 统计
    */
@@ -148,5 +157,19 @@ export class SysproductComponent extends ParentlistComponent {
     //阻止冒泡
     event.stopPropagation();
     event.preventDefault();
+  }
+  /**
+  * 上传
+  * @param event  
+  */
+  fcuploadEvent(event): any {
+    switch (event.eventName) {
+      case "success":
+        this.mainService.providers.msgService.message("上传成功");
+        break;
+      case "failure":
+        this.mainService.providers.msgService.message("上传失败");
+        break;
+    }
   }
 }

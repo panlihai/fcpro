@@ -6,10 +6,21 @@ import { DialogListArgs, DialogListComponent } from '../components/core/dialog/d
 import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
 import { SysappService } from './sysapp.service';
+import { Observable } from 'rxjs';
 @Injectable()
 export class SysfuncService extends ParentService {
-    constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService, private sysappservice: SysappService) {
+    constructor(public providers: ProvidersService, 
+        private nzModal: NzModalService, 
+        private sysbizcoderuleService: SysbizcoderuleService, 
+        private sysproductService: SysproductService,
+         private sysappservice: SysappService) {
         super(providers, "SYSFUNC");
+    }
+    /**
+     * 获取产品
+     */
+    getProduct():Observable<any>{
+     return   this.sysproductService.findWithQuery({});
     }
     /**
      * 字母快速查询
