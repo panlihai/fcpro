@@ -35,6 +35,7 @@ import { ObjStatus } from 'fccore';
     left: 26%;
     top: 2px;
     text-align: center;
+    border-radius: 7px;
   }
   .sys-choose-icon fc-button{
     position:absolute;
@@ -81,6 +82,7 @@ import { ObjStatus } from 'fccore';
     height: 14px;
     right: 0px;
     top: 0px;
+    border-radius: 4px
   }
   .sys-tab{
     margin-left:26%;
@@ -105,9 +107,13 @@ import { ObjStatus } from 'fccore';
     padding: 0px;
     border-bottom:none;
   }
+  .sys-card-pannel .fc-content .sys-card-pannel-edit .notitleLine .fc-layoutcol {
+    border:none;
+  }
   `]
 })
 export class SysproducteditComponent extends ParentEditComponent implements AfterViewInit {
+  staticMainObj: any = {};
   value: any;
   label: any;
   constructor(public mainService: SysproductService,
@@ -158,10 +164,20 @@ export class SysproducteditComponent extends ParentEditComponent implements Afte
   */
   beforeSave(): boolean {
     this.productdisableds();
+    this.productIcon();
     return true;
   }
+  /**
+     * 实现继承与父类的afterSave函数，对cardSave函数进行功能扩展;
+     */
   afterSave() {
+    this.productIcon();
     this.productdisableds();
+    this.mainService.findWithQuery({ WHERE: `PNAME = '${this.mainObj.PNAME}'` }).subscribe(res => {
+        if (res.CODE === '0') {
+            this.navRouter(this.getRouteUrl('Edit'), { ID: res.DATA[0].ID });
+        }
+    });
   }
   init(): void {
     //上传图片资源和地址
@@ -178,6 +194,7 @@ export class SysproducteditComponent extends ParentEditComponent implements Afte
     this.productdisableds();
     //初始化设置依赖产品是否显示
     this.relayfun()
+    this.handleRouterParam();
   }
   getDefaultQuery() {
   }
@@ -187,10 +204,6 @@ export class SysproducteditComponent extends ParentEditComponent implements Afte
       case 'fileEvent':
         //调用上传方法
         this.fileEvent(param);
-        break;
-      //保存按钮
-      case 'emitDataOutside':
-        this.cardSave(param);
         break;
       //+数据源事件
       case 'cardSql':
@@ -226,6 +239,15 @@ export class SysproducteditComponent extends ParentEditComponent implements Afte
         break;
     }
   }
+    /**
+* 组件事件收集
+* @param type 
+* @param ev  保存按钮
+*/
+emitDataOutside() {
+  this.cardSave(this.mainObj);
+}
+   
   /**
   * 上传图片文档方法
   * @param event  
@@ -271,6 +293,7 @@ export class SysproducteditComponent extends ParentEditComponent implements Afte
       this.visible = true;
     } else {
       this.visible = false;
+      this.mainObj.ICON = this.mainObj.ICON;
     }
   }
   /**
@@ -298,17 +321,42 @@ export class SysproducteditComponent extends ParentEditComponent implements Afte
       this.relyproduct = false;
     }
   }
-     /**
+  /**
 * 组件事件收集
 * @param type 字符串命名
 * @param ev 事件传过来的参数
 */
-componentEvents(type: string, ev: any) {
+  componentEvents(type: string, ev: any) {
     switch (type) {
       case 'ruleaddEvent':
-      this.mainObj.PARENTPID = ev;
-      console.log(this.mainObj.PARENTPID)
+        this.mainObj.PARENTPID = ev;
         break;
+     case 'displaymode':
+        this.mainObj.DISPLAYMODE = ev;
+     break;
+     case 'enableEvent':
+        this.mainObj.ENABLE = ev;
+     break;
     }
+  }
+ /** YM
+     * 处理路由传参的情况
+     * @param pid 
+     */
+    handleRouterParam() {
+      if (this.routerParam.ID) {
+          this.mainService.findWithQuery({ WHERE: `ID = '${this.routerParam.ID}'` }).subscribe(res => {
+              if (res.CODE === '0' && res.DATA.length !== 0) {
+                  for (let attr in res.DATA[0]) {
+                      this.mainObj[attr] = res.DATA[0][attr];
+                  }
+                  for (let attr in this.mainObj) {
+                      this.staticMainObj[attr] = this.mainObj[attr];
+                  }
+              } else {
+                  this.messageService.error('基本信息获取失败');
+              }
+          })
+      }
   }
 }

@@ -28,7 +28,6 @@ import { SysfuncService } from '../../services/sysfunc.service';
 export class SysfunceditComponent extends ParentEditComponent {
     productName: any;
     pidOption: any;
-    fastsearchWords: any[];
     sysViews: any;
     sysBtns: any;
     staticMainObj: any = {};
@@ -51,7 +50,6 @@ export class SysfunceditComponent extends ParentEditComponent {
      * 组件初始化执行函数
      */
     init(): void {
-        this.fastSearch();
         this.getPidOption();
         this.handleRouterParam();
     }
@@ -171,12 +169,6 @@ export class SysfunceditComponent extends ParentEditComponent {
                 this.messageService.error('接口数据获取失败');
             }
         });
-    }
-    /**
-     * 初始化获取字母快速查询按钮数据
-     */
-    fastSearch() {
-        this.fastsearchWords = this.mainService.fastSearch();
     }
     /** YM
      * 根据PID获取服务编码并赋值.
