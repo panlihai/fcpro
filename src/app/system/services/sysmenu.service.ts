@@ -62,6 +62,13 @@ export class SysmenuService extends ParentService {
 			}
 		})
 	}
+	/**
+     * 获取数据默认的数据值
+     * @param app
+     */
+	initObjDefaultValue(app) {
+		return this.appService.initObjDefaultValue(app);
+	}
 }
 export interface Sysmenu {
 	ID: string;//UUID字符型	

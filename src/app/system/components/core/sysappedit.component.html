@@ -73,7 +73,7 @@
                 <ul *ngFor="let select of selects">
                     <li>
                         <fc-icon fcIcon="fc-icon-fall" fcSize="small"></fc-icon>
-                        <!-- <span>{{item.TABLETYPE==='TABLE'?'T':'V'}}</span> --> 
+                        <!-- <span>{{item.TABLETYPE==='TABLE'?'T':'V'}}</span> -->
                         <span>{{select.APPNAME}}-{{select.APPID}}</span>
                         <ul>
                             <li *ngFor="let item of select.items">{{item.APPID}}-{{item.FIELDNAME}}</li>
@@ -84,9 +84,8 @@
         </div>
         <div class="attributeLeft" *ngIf="displayTable===true">
             <div>请选择模型，拖拽至属性字段</div>
-            <fc-many [fcShowLabel]="false" fcPlaceHolder="请选择模型，支持多选" [fcOption]="tableOption" fcLabelCode="APPNAME" [(ngModel)]="manyValue"
-                fcValueCode="TABLENAME" (ngModelChange)="modelEvents($event)">
-            </fc-many>
+            <fc-many [fcShowLabel]="false" fcPlaceHolder="请选择模型，支持多选" [fcOption]="tableOption" fcLabelCode="APPNAME" fcValueCode="APPID" [(ngModel)]="manyValue"
+            fcValueCode="TABLENAME" (ngModelChange)="modelEvents($event)"></fc-many>
             <div class="showSelectModel">
                 <div class="SelectModelTop">备选模型&字段</div>
                 <ul *ngFor="let item of models">

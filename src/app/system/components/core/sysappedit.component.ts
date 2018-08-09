@@ -127,14 +127,17 @@ export class SysappeditComponent extends ParentEditComponent {
   tableOption: any = [];
   //DSID
   DSID: string;
-  //从现有模型中选择属性
+  //从模型中导入
   displayModel: boolean = false;
+  //从表中导入
+  displayTable: boolean = false;
   //物理表以及属性、事件、接口、关系显示
   isShow: boolean;
-  //当前选中的模型
+  //自定义下拉中选中的模型
   models: any = [];
-  displayTable: boolean = false;
+  //自定义下拉数据的字段
   items: any = [];
+  //选中的下拉数据对应的模型
   selects: any = [];
   constructor(public mainService: SysappService,
     public router: Router,
@@ -177,7 +180,6 @@ export class SysappeditComponent extends ParentEditComponent {
     switch (eventName) {
       case 'addList':
         break;
-
     }
   }
   /**
@@ -207,12 +209,6 @@ export class SysappeditComponent extends ParentEditComponent {
     })
   }
   /**
-  * 物理表以及属性、事件、接口、关系显示
-  */
-  show() {
-    this.isShow = true;
-  }
-  /**
   * 保存之后
   */
   afterSave() {
@@ -224,6 +220,12 @@ export class SysappeditComponent extends ParentEditComponent {
     })
     //新增页面保存之后物理表以及属性、事件、接口、关系显示
     this.show();
+  }
+  /**
+  * 物理表以及属性、事件、接口、关系显示
+  */
+  show() {
+    this.isShow = true;
   }
   /**
   * 返回列表
@@ -248,34 +250,34 @@ export class SysappeditComponent extends ParentEditComponent {
     }
   }
   /**模型-属性
-   * 从模型中选择属性
+   * 从模型中导入
    * @param  DATASOURCE(数据源)
    */
   selectAttributeByModel(param) {
-    //显示左侧模型
+    //显示左侧部分
     this.displayModel = true;
     this.displayTable = false;
-    //根据数据源获取模型配置
+    //获取自定义下拉中的数据
     this.mainService.findWithQuery(param).subscribe(res => {
       if (res.CODE === '0') {
         this.modelOption = res.DATA;
       }
     });
   }
-  /**从模型中选择属性
-   * 选择模型
-   * @param  tableObjs
+  /**
+   * 自定义下拉选择模型
+   * @param  modelObjs
    */
-  tableEvents(tableObjs: any[]) {
+  tableEvents(modelObjs: any[]) {
     let tables = '';
-    tableObjs.forEach(element => {
+    modelObjs.forEach(element => {
       tables += element.APPID
     });
     // tables = tables.substr(tables.length - 1, 1);
     /* this.mainService.getModelField(tables, this.mainObj.DATASOURCE, this.mainObj.APPMODEL).subscribe(res => {
       if (res.CODE === '0') {
         let tableFields = {};
-        tableObjs.forEach(table => {
+        modelObjs.forEach(table => {
           let tableFields: any = Object.assign({}, table);
           tableFields.fields = res.DATA[table.TABLENAME];
           this.models.push(tableFields);
@@ -284,7 +286,7 @@ export class SysappeditComponent extends ParentEditComponent {
     }); */
     this.mainService.findAppFieldsByAppid(tables).subscribe(res => {
       if (res.CODE === '0') {
-        tableObjs.forEach(table => {
+        modelObjs.forEach(table => {
           let tableFields: any = Object.assign({}, table);
           tableFields.items = res.DATA;
           this.selects.push(tableFields);
@@ -293,22 +295,22 @@ export class SysappeditComponent extends ParentEditComponent {
     });
   }
   /**模型-属性
-   * 从表中选择属性
+   * 从表中导入
    * @param  DATASOURCE(数据源)
    */
   selectAttributeByTable(DATASOURCE: any) {
     //显示左侧模型
     this.displayTable = true;
     this.displayModel = false;
-    //根据数据源获取模型配置
+    //获取自定义下拉数据
     this.mainService.getModelOption(this.mainObj.DATASOURCE, this.mainObj.APPMODEL).subscribe(res => {
       if (res.CODE === '0') {
         this.tableOption = res.DATA;
       }
     });
   }
-  /**模型-属性
-   * 选择模型
+  /**
+   * 选择自定义下拉模型
    * @param  tableObjs
    */
   modelEvents(tableObjs: any[]) {
@@ -328,10 +330,9 @@ export class SysappeditComponent extends ParentEditComponent {
       }
     });
   }
-
   /** 
    * 模型-属性
-   *列表里面新增属性
+   *列表里面新增属性-弹窗
    *@param  ev
    @param  str
    */
@@ -344,7 +345,7 @@ export class SysappeditComponent extends ParentEditComponent {
   }
   /** 
    * 模型-属性
-   *列表里面编辑属性
+   *列表里面编辑属性-弹窗
    *@param  ev
    @param  str
    */
@@ -373,7 +374,7 @@ export class SysappeditComponent extends ParentEditComponent {
     });
   }
   /** 
-   *编辑模型事件卡片
+   *新增或编辑模型事件卡片-弹窗
    *@param event 
    */
   editModelEvent(event?: Object, str?: string) {
@@ -400,7 +401,7 @@ export class SysappeditComponent extends ParentEditComponent {
    *新增模型接口卡片
    */
   addModelInterface() {
-    this.navRouter('/system/sysinterfaceEdit', { refresh: 'Y', ID: this.mainObj.ID, from: this.appId })
+    this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'),{ refresh: 'Y', ID: this.mainObj.ID, from: this.appId })
   }
   /** 
    *编辑模型接口卡片
@@ -430,7 +431,7 @@ export class SysappeditComponent extends ParentEditComponent {
     });
   }
   /** 
-   *编辑模型关系卡片
+   *新增或编辑模型关系卡片
    *@param event 
    */
   editModelRelation(event?: Object, str?: string) {

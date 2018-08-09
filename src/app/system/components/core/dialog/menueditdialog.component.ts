@@ -77,12 +77,11 @@ export class MenueditdialogComponent {
     }
     @Input()
     set options(option: any) {
-      this.mainObj.MENUID=option.MENUID,
-      this.mainObj.MENUNAME=option.MENUNAME,
-      this.mainObj.ROUTER=option.ROUTER,
-      this.mainObj.MENUTYPE=option.MENUTYPE,
-      this.mainObj.SORT=option.SORT,
-      this.mainObj.ENABLE=option.ENABLE,
-      this.mainObj.HASCHILD=option.HASCHILD
+      if(option==={}){
+        this.mainObj=this.mainService.initObjDefaultValue(option);
+      }
+      if (option!=={}) {
+        this.mainObj=option;
+      }
     }
 }

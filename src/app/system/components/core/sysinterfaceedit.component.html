@@ -139,24 +139,26 @@
             返回值定义：FC基础服务平台的功能单位，提供给开发者提供调用接口后返回给调用者的值的配置；
         </P>
     </div>
-    <div fccontent>
-        <div nz-row [nzGutter]="8">
-            <!-- 新增卡片操作 -->
-            <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-                <nz-card (click)="event('editResponseParam')">
-                    <ng-template #body>
-                        <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
-                        <p class="sys-card-addtext">新增返回值定义</p>
-                    </ng-template>
-                </nz-card>
-            </div>
-            <!-- 接口列表循环 -->
-            <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let responseParam of responseParams">
-                <nz-card (click)="event('editResponseParam',responseParam)">
-                    <ng-template #body>
-                        <div class="sys-card-content">
-                            <fc-tooltip class="sys-card-help" fcTitle="{{responseParam.REMARK}}">
-                                <fc-icon fcIcon="fc-icon-wiki" fcContent></fc-icon>
+    <div nz-row [nzGutter]="10" fccontent>
+        <!-- 新增卡片操作 -->
+        <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
+            <nz-card (click)="event('editResponseParam',{});">
+                <ng-template #body>
+                    <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
+                    <p class="sys-card-addtext">新增返回值定义</p>
+                </ng-template>
+            </nz-card>
+        </div>
+        <!-- 参数列表循环 -->
+        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let responseParam of responseParams">
+            <nz-card (click)="event('editResponseParam',responseParam);">
+                <ng-template #body>
+                    <div class="sys-card-content">
+                        <!-- 操作按钮 -->
+                        <div class="sys-card-tbl">
+                            <!-- 默认显示两个 -->
+                            <fc-tooltip class="sys-card-tbl-every" fcTitle="{{btn.BTNNAME}}" *ngFor="let btn of btnlistOnes">
+                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE,requestParam)" fcFontSize="18px" fccontent></fc-icon>
                             </fc-tooltip>
                             <!-- 超出2个后显示 -->
                             <div class="sys-card-tbl-more" *ngIf="btnlistMores.length!==0">

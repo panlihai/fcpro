@@ -14,7 +14,6 @@ import { SysappService } from '../../services/sysapp.service';
   .sys-fast-list {
     cursor: pointer;
   }
- 
   `]
 })
 export class SysappComponent extends ParentlistComponent {
@@ -139,7 +138,6 @@ export class SysappComponent extends ParentlistComponent {
         }
       });
   }
-
   /**
     * 快速查询
     * @param item 

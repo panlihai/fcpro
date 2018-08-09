@@ -63,15 +63,15 @@ export class SysappService extends ParentService {
    * 获取所有的表及视图
    * @param param 
    */
-  findWithQuery(param:any):Observable<any>{
-    return this.appService.findWithQuery("SYSAPP",param);
+  findWithQuery(param: any): Observable<any> {
+    return this.appService.findWithQuery("SYSAPP", param);
   }
   /**
    * 
    * @param appId 
    */
-  findAppFieldsByAppid(appId:string):Observable<any>{
-    return this.appService.findWithQuery("SYSAPPFIELDS",{APPID:appId,ORDER:"SORT"});
+  findAppFieldsByAppid(appId: string): Observable<any> {
+    return this.appService.findWithQuery("SYSAPPFIELDS", { APPID: appId, ORDER: "SORT" });
   }
   /**
  * 字母快速查询
@@ -151,6 +151,13 @@ export class SysappService extends ParentService {
    */
   getModelField(tableNames: string, dsid: string, pid: string) {
     return this.providers.daoService.getFromApi(this.commonService.getUrlBy(this.moduleId, 'SYSMODEL', "findFieldByTablenames"), { DSID: dsid, PRODUCTID: 'SYSTEM', TABLENAMES: tableNames })
+  }
+   /**
+   * 一键生成
+   * @param data
+   */
+  generate(data:any[]){
+
   }
   /** 
     *弹窗事件

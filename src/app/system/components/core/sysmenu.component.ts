@@ -59,19 +59,19 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
                             <i class="anticon anticon-arrow-down" (click)="changeSort(sysmenus[i+1],sysmenus[i],i+1,sysmenus)" *ngIf="i!==sysmenus.length-1"></i>
                         </div>    
                     </div> 
-                    <fc-icon fcIcon="fc-icon-right" *ngIf="sysmenu.P_CHILDMENUS!==null&&sysmenu.P_CHILDMENUS!==undefined&&sysmenu.isOpened===false" class="openIcon" (click)="open(sysmenu)" fcSize="small" fcToolTip="展开" fcPosition="bottom"></fc-icon>
-                    <fc-icon fcIcon="fc-icon-left" *ngIf="sysmenu.P_CHILDMENUS!==null&&sysmenu.P_CHILDMENUS!==undefined&&sysmenu.isOpened===true" class="closeIcon" (click)="close(sysmenu)" fcSize="small" fcToolTip="收起" fcPosition="bottom"></fc-icon>
-                    <ul class="floatLeft" *ngIf="sysmenu.P_CHILDMENUS!==null&&sysmenu.P_CHILDMENUS!==undefined&&sysmenu.P_CHILDMENUS.length!==0&&sysmenu.isOpened===true">
+                    <fc-icon fcIcon="fc-icon-right" *ngIf="sysmenu.P_CHILDMENUS!==null&&sysmenu.P_CHILDMENUS!==undefined&&sysmenu.P_CHILDMENUS.length!==0&&sysmenu.isOpened===false" class="openIcon" (click)="open(sysmenu)" fcSize="small" fcToolTip="展开" fcPosition="bottom"></fc-icon>
+                    <fc-icon fcIcon="fc-icon-left" *ngIf="sysmenu.P_CHILDMENUS!==null&&sysmenu.P_CHILDMENUS!==undefined&&sysmenu.P_CHILDMENUS.length!==0&&sysmenu.isOpened===true" class="closeIcon" (click)="close(sysmenu)" fcSize="small" fcToolTip="收起" fcPosition="bottom"></fc-icon>
+                    <ul class="floatLeft" *ngIf="sysmenu.P_CHILDMENUS!==null&&sysmenu.P_CHILDMENUS!==undefined&&sysmenu.isOpened===true">
                         <div  class="syssecondMenu" *ngFor="let sysscondMenu of sysmenu.P_CHILDMENUS; let i = index">
                             <li [ngClass]="{'menutype-app':sysscondMenu.MENUTYPE==='APP'}" (click)="menuEdit(sysscondMenu)">
                                 {{sysscondMenu.MENUNAME}}
                             </li>
-                            <span [ngClass]="{'dragsecondMenu':sysscondMenu.MENUTYPE==='MENU'}"></span> 
+                            <span [ngClass]="{'dragsecondMenuNL':sysscondMenu.MENUTYPE==='MENU'}"></span> 
                             <div class="arrow">
                                 <i class="anticon anticon-arrow-up" *ngIf="i!==0" (click)="changeSort(sysmenu.P_CHILDMENUS[i],sysmenu.P_CHILDMENUS[i-1],i,sysmenu.P_CHILDMENUS)"></i>
                                 <i class="anticon anticon-arrow-down" *ngIf="i!==sysmenu.P_CHILDMENUS.length-1" (click)="changeSort(sysmenu.P_CHILDMENUS[i+1],sysmenu.P_CHILDMENUS[i],i+1,sysmenu.P_CHILDMENUS)"></i>
                             </div>  
-                            <ul *ngIf="sysscondMenu.P_CHILDMENUS!==null&&sysscondMenu.P_CHILDMENUS!==undefined&&sysscondMenu.P_CHILDMENUS.length!==0&&sysscondMenu.isOpened===true">
+                            <ul *ngIf="sysscondMenu.P_CHILDMENUS!==null&&sysscondMenu.P_CHILDMENUS!==undefined&&sysscondMenu.isOpened===true">
                                 <div class="thirdMenu" *ngFor="let systhridMenu of sysscondMenu.P_CHILDMENUS; let i = index">
                                     <li [ngClass]="{'menutype-app':systhridMenu.MENUTYPE==='APP'}" (click)="menuEdit(systhridMenu)">
                                         {{systhridMenu.MENUNAME}}
@@ -84,21 +84,21 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
                                 </div>  
                                 <span class="dragAreasecond"></span>               
                             </ul> 
-                            <fc-icon fcIcon="fc-icon-right" *ngIf="sysscondMenu.P_CHILDMENUS!==null&&sysscondMenu.P_CHILDMENUS!==undefined&&sysscondMenu.isOpened===false" class="secondopenIcon" (click)="open(sysscondMenu)" fcSize="small" fcToolTip="展开" fcPosition="bottom"></fc-icon>
-                            <fc-icon fcIcon="fc-icon-left" *ngIf="sysscondMenu.P_CHILDMENUS!==null&&sysscondMenu.P_CHILDMENUS!==undefined&&sysscondMenu.isOpened===true" class="secondcloseIcon" (click)="close(sysscondMenu)" fcSize="small" fcToolTip="收起" fcPosition="bottom"></fc-icon> 
+                            <fc-icon fcIcon="fc-icon-right" *ngIf="sysscondMenu.P_CHILDMENUS!==null&&sysscondMenu.P_CHILDMENUS!==undefined&&sysscondMenu.P_CHILDMENUS.legth!==0&&sysscondMenu.isOpened===false" class="secondopenIcon" (click)="open(sysscondMenu)" fcSize="small" fcToolTip="展开" fcPosition="bottom"></fc-icon>
+                            <fc-icon fcIcon="fc-icon-left" *ngIf="sysscondMenu.P_CHILDMENUS!==null&&sysscondMenu.P_CHILDMENUS!==undefined&&sysscondMenu.P_CHILDMENUS.legth!==0&&sysscondMenu.isOpened===true" class="secondcloseIcon" (click)="close(sysscondMenu)" fcSize="small" fcToolTip="收起" fcPosition="bottom"></fc-icon> 
                         </div> 
-                        <span class="dragAreasecond" (drop)="drop($event)" (dragover)="dragover($event)"></span>                                  
+                        <span class="dragAreasecondSL" (drop)="dropSecond($event,sysmenu.P_CHILDMENUS)" (dragover)="dragoverSecond($event)"></span>                              
                     </ul>
                 </li>
             </ul>
-            <span class="dragAreafirst" (drop)="drop($event)" (dragover)="dragover($event)" fccontent1 *ngIf="sysmenus.length!==0"></span>
+            <span class="dragAreafirst" (drop)="dropFirst($event)" (dragover)="dragoverFirst($event)" fccontent1 *ngIf="sysmenus.length!==0"></span>
             <div fccontent2 *ngIf="sysmenus.length!==0" class="functionMenu">
                 <span>功能</span>
-                <fc-button [fcType]="'primary'" id="functionMenu" [draggable]="true" (dragstart)="dragstart($event)" fcLabel="+" fcSize="large"></fc-button>
+                <fc-button [fcType]="'primary'" id="functionMenu" [draggable]="true" (dragstart)="dragstart($event)" fcLabel="+" fcSize="large" (click)="menuEdit(null)"></fc-button>
             </div>
             <div fccontent2 class="menuButton" *ngIf="sysmenus.length!==0">
                 <span>菜单</span>
-                <fc-button [fcType]="'default'" id="menuButton" [draggable]="true" (dragstart)="dragstart($event)" fcLabel="+" fcSize="default"></fc-button>
+                <fc-button [fcType]="'default'" id="menuButton" [draggable]="true" (dragstart)="dragstart($event)" fcLabel="+" fcSize="default" (click)="menuEdit(null)"></fc-button>
             </div>
         </fc-layoutcol>
     </fc-layoutcol>
@@ -111,7 +111,7 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     .sysmenu{
         width: 150px;
         height: 30px;
-        background-color: #F0F2F5;
+        background-color: #fff;
         line-height: 30px;
         text-align: center;
         border-radius: 5px;
@@ -135,7 +135,7 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     .syssecondMenu{
         width: 150px;
         height: 30px;
-        background-color: #F0F2F5;
+        background-color: #fff;
         line-height: 30px;
         text-align: center;
         border-radius: 5px;
@@ -163,23 +163,30 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
         position: absolute;
         width: 100%;
         height: 30px;
-        border: 2px dashed #9d9d9d;
+        background-color: #c5c7cc;
+        border: 2px dashed #F0F2F5;
         border-radius: 3px;
         width: 150px;
         margin-bottom: 40px;
     }
-    .dragAreasecond{
+    .funcStyle{
+        background-color: #49a9ee;
+        border: 1px solid #49a9ee;
+    }
+    .dragAreasecondSL{
         position: absolute;
         width: 150px;
         height: 30px;
-        border: 2px dashed #9d9d9d;
+        background-color: #c5c7cc;
+        border: 2px dashed #F0F2F5;
         border-radius: 3px;
     }
-    .dragsecondMenu{
+    .dragsecondMenuNL{
         position: absolute;
         width: 150px;
         height: 30px;
-        border: 2px dashed #9d9d9d;
+        background-color: #c5c7cc;
+        border: 2px dashed #F0F2F5;
         border-radius: 3px;
         top: 0px;
         left: 200px;
@@ -225,8 +232,7 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     .menuButton{
         margin-top:20px;
         position: fixed;
-        top: 295px;
-        right: 44px;
+        top: 52%;
     }
     .menuButton span{
         font-weight: bold;
@@ -238,11 +244,11 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     .functionMenu{
         margin-top:30px;
         position: fixed;
-        top: 245px;
-        right: 44px;
+        top: 45%
     }
-    .functionMenu span{
-        font-weight: bold;
+    :host ::ng-deep .functionMenu .ant-input {
+        background: #49a9ee;
+        color: #fff;
     }
     .arrow{
         text-align: center;
@@ -300,6 +306,10 @@ export class SysmenuComponent extends ParentlistComponent {
     thirdMenusText: boolean = false;
     //没有任何内容
     noResult: boolean;
+    //新增加的功能
+    functionValue: string;
+    //新增加的菜单
+    menuValue: string;
     constructor(public mainService: SysmenuService,
         public router: Router,
         private _providers: ProvidersService,
@@ -342,7 +352,7 @@ export class SysmenuComponent extends ParentlistComponent {
         this.mainService.getMenu().subscribe((result: any[]) => {
             result.filter(item => item.PID === pid).forEach(item => {
                 //一级菜单
-                this.sysmenus = Object.assign([], this.sysmenus, item.P_CHILDMENUS);
+                this.sysmenus = this.sysmenus.concat(item.P_CHILDMENUS);
                 this.sysmenus.forEach(element => {
                     element.isOpened = false;
                 })
@@ -404,6 +414,10 @@ export class SysmenuComponent extends ParentlistComponent {
     * @param sysmenu
     */
     menuEdit(sysmenu: any) {
+        let obj={};
+        if(sysmenu!==null){
+            obj=sysmenu;
+        }
         this.modal.open({
             title: '编辑导航项',
             content: MenueditdialogComponent,
@@ -413,19 +427,19 @@ export class SysmenuComponent extends ParentlistComponent {
             footer: false,
             componentParams: {
                 //  把options对象传值给弹窗
-                options: {
-                    MENUID: sysmenu.MENUID,
-                    MENUNAME: sysmenu.MENUNAME,
-                    ROUTER: sysmenu.ROUTER,
-                    MENUTYPE: sysmenu.MENUTYPE,
-                    SORT: sysmenu.SORT,
-                    ENABLE: sysmenu.ENABLE,
-                    REMARK: sysmenu.REMARK,
-                    HASCHILD: sysmenu.HASCHILD
-                }
+                // options: {
+                //     MENUID: sysmenu.MENUID,
+                //     MENUNAME: sysmenu.MENUNAME,
+                //     ROUTER: sysmenu.ROUTER,
+                //     MENUTYPE: sysmenu.MENUTYPE,
+                //     SORT: sysmenu.SORT,
+                //     ENABLE: sysmenu.ENABLE,
+                //     REMARK: sysmenu.REMARK,
+                //     HASCHILD: sysmenu.HASCHILD
+                // }
+                options:obj
             }
         }).subscribe(result => {
-            // result为弹窗返回的值
         });
     }
     /**
@@ -438,7 +452,10 @@ export class SysmenuComponent extends ParentlistComponent {
         //存入数据
         ev.dataTransfer.setData("Text", ev.target.id);
     }
-    dragover(ev) {//拖拽目标身上的效果
+    /**
+     * 将菜单和功能拖拽到一级菜单
+     */
+    dragoverFirst(ev) {//拖拽目标身上的效果
         ev.preventDefault();
         // Set the dropEffect to move
         ev.dataTransfer.dropEffect = "copy"
@@ -447,7 +464,7 @@ export class SysmenuComponent extends ParentlistComponent {
      * 当放置被拖数据时，会发生 drop 事件。
      * @param ev 
      */
-    drop(ev) {
+    dropFirst(ev) {
         ev.preventDefault();
         //获取目标id并新增dom
         let data = ev.dataTransfer.getData("Text");
@@ -456,16 +473,109 @@ export class SysmenuComponent extends ParentlistComponent {
         //复制目标
         let item = document.getElementById(data).cloneNode();
         ev.target.appendChild(item);
-        //移动目标
-        // ev.target.appendChild(document.getElementById(data));
+        if (data === 'functionMenuId') {//拖拽功能
+            let obj = {
+                ENABLE: "Y",
+                HASCHILD: "N",
+                MENUICON: "",
+                MENUID: "",
+                MENUNAME: this.functionValue,
+                MENUTYPE: "APP",
+                PARENT: "SYSCOMP",
+                PID: "SYSTEM",
+                WXMENU: "N"
+            }
+            //完成前端页面的效果
+            this.sysmenus = this.sysmenus.concat(obj);
+            //功能输入框置空
+            this.functionValue = '';
+            //实现数据库的存储
+            // this.mainService.addMenu(obj).subscribe(result=>{
+            //     if(result.CODE==='0'){
+
+            //     }else{
+            //         this.mainService.providers.msgService.error('添加菜单失败');
+            //     }
+            // })
+        } else if (data === 'menuButtonId') {//拖拽菜单
+            let obj = {
+                ENABLE: "Y",
+                HASCHILD: "Y",
+                MENUICON: "",
+                MENUID: "",
+                MENUNAME: this.menuValue,
+                MENUTYPE: "MENU",
+                PARENT: "SYSCOMP",
+                PID: "SYSTEM",
+                P_CHILDMENUS: [],
+                WXMENU: "N",
+                REMARK: '',
+                isOpened: true,
+            }
+            //完成前端页面的效果
+            this.sysmenus = this.sysmenus.concat(obj);
+            //菜单输入框置空
+            this.menuValue = '';
+        }
         //拖拽后抛出事件
         this.messageService.message('拖拽成功');
     }
     /**
-     * 
+    * 将菜单和功能拖拽到二级菜单
+    */
+    dragoverSecond(ev) {//拖拽目标身上的效果
+        ev.preventDefault();
+        // Set the dropEffect to move
+        ev.dataTransfer.dropEffect = "copy"
+    }
+    /**
+     * 当放置被拖数据时，会发生 drop 事件。
      * @param ev 
      */
-    dragenter(ev) {
-
+    dropSecond(ev, P_CHILDMENUS) {
+        ev.preventDefault();
+        //获取目标id并新增dom
+        let data = ev.dataTransfer.getData("Text");
+        //复制目标
+        let item = document.getElementById(data).cloneNode();
+        ev.target.appendChild(item);
+        if (data === 'functionMenuId') {//拖拽功能
+            let obj = {
+                ENABLE: "Y",
+                HASCHILD: "N",
+                MENUID: "",
+                MENUNAME: this.functionValue,
+                MENUTYPE: "APP",
+                PARENT: P_CHILDMENUS[0].PARENT,
+                PID: "SYSTEM",
+                ROUTER: "",
+                WXMENU: "N",
+            }
+            //完成前端页面的效果
+            P_CHILDMENUS = P_CHILDMENUS.concat(obj);
+            //功能输入框置空
+            this.functionValue = '';
+        } else if (data === 'menuButtonId') {//拖拽菜单
+            // let obj = {
+            //     ENABLE: "Y",
+            //     HASCHILD: "Y",
+            //     MENUICON: "",
+            //     MENUID: "",
+            //     MENUNAME: this.menuValue,
+            //     MENUTYPE: "MENU",
+            //     PARENT: "SYSCOMP",
+            //     PID: "SYSTEM",
+            //     P_CHILDMENUS: [],
+            //     WXMENU: "N",
+            //     REMARK: '',
+            //     isOpened: true,
+            // }
+            // //完成前端页面的效果
+            // this.sysmenus = this.sysmenus.concat(obj);
+            //菜单输入框置空
+            this.menuValue = '';
+        }
+        //拖拽后抛出事件
+        this.messageService.message('拖拽成功');
     }
 }
