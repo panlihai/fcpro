@@ -24,7 +24,8 @@
             <fc-text fccontent1 fcLabel="接口名称" [(ngModel)]="mainObj.IMPLNAME" [fcAppid]="appId" fcFieldCode="IMPLNAME" name="IMPLNAME"></fc-text>
             <fc-text fccontent2 fcLabel="请求URL" [(ngModel)]="mainObj.REQURL" [fcAppid]="appId" fcFieldCode="REQURL" name="REQURL"></fc-text>
             <span fccontent2 class="instructions">如server/api/SYSTEM/SYSAPP(请求URL)/LISTINFO</span>
-            <fc-check fccontent1 fcLabel="请求方式" [(ngModel)]="mainObj.REQWAY" [fcAppid]="appId" fcFieldCode="REQWAY" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="REQWAY"></fc-check>
+            <fc-check fccontent1 fcLabel="请求方式" [(ngModel)]="mainObj.REQWAY" [fcAppid]="appId" fcFieldCode="REQWAY" fcLabelCode="DICDESC"
+                fcValueCode="DICVALUE" name="REQWAY"></fc-check>
             <span fccontent1 class="instructions">获取数据用GET,提交数据用POST</span>
             <fc-text fccontent2 fcLabel="方法名称" [(ngModel)]="mainObj.REQTYPE" [fcAppid]="appId" fcFieldCode="REQTYPE" name="REQTYPE"></fc-text>
             <span fccontent2 class="instructions">如server/api/SYSTEM/SYSAPP/LISTINFO(方法名称)</span>
@@ -40,14 +41,18 @@
         <fc-layoutcol fccontent fcSpans="1,0">
             <fc-title fcLabel="其它信息" class="sys-card-pannel-title" [fcHasLine]="false" fccontent1></fc-title>
             <fc-layoutcol fccontent1 fcSpans="1,2" class="noBottomLine">
-                <fc-radio fccontent1 fcLabel="需要token？" [(ngModel)]="mainObj.NEEDUSERTOKEN" [fcAppid]="appId" fcFieldCode="NEEDUSERTOKEN" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="NEEDUSERTOKEN"></fc-radio>
+                <fc-radio fccontent1 fcLabel="需要token？" [(ngModel)]="mainObj.NEEDUSERTOKEN" [fcAppid]="appId" fcFieldCode="NEEDUSERTOKEN"
+                    fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="NEEDUSERTOKEN"></fc-radio>
                 <span fccontent1 class="instructionsOther">登录后才能调用，设置为是</span>
-                <fc-text fccontent1 fcLabel="团队积分" [(ngModel)]="mainObj.CORPINTEGRALVALUE" [fcAppid]="appId" fcFieldCode="CORPINTEGRALVALUE" name="CORPINTEGRALVALUE"></fc-text>
+                <fc-text fccontent1 fcLabel="团队积分" [(ngModel)]="mainObj.CORPINTEGRALVALUE" [fcAppid]="appId" fcFieldCode="CORPINTEGRALVALUE"
+                    name="CORPINTEGRALVALUE"></fc-text>
                 <span fccontent1 class="instructionsOther">所在的组织机构获取积分</span>
                 <fc-layoutcol fccontent2 fcSpans="1,1" class="noBottomLine">
-                    <fc-radio fccontent1 fcLabel="需要时间戳？" [(ngModel)]="mainObj.NEEDTIMESTAMP" [fcAppid]="appId" fcFieldCode="NEEDTIMESTAMP" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="NEEDTIMESTAMP"></fc-radio>
+                    <fc-radio fccontent1 fcLabel="需要时间戳？" [(ngModel)]="mainObj.NEEDTIMESTAMP" [fcAppid]="appId" fcFieldCode="NEEDTIMESTAMP" fcLabelCode="DICDESC"
+                        fcValueCode="DICVALUE" name="NEEDTIMESTAMP"></fc-radio>
                     <span fccontent1 class="instructionsOther">需要配置时间戳才能调用，设置为是</span>
-                    <fc-text fccontent1 fcLabel="用户积分" [(ngModel)]="mainObj.USERINTEGRALVALUE" [fcAppid]="appId" fcFieldCode="USERINTEGRALVALUE" name="USERINTEGRALVALUE"></fc-text>
+                    <fc-text fccontent1 fcLabel="用户积分" [(ngModel)]="mainObj.USERINTEGRALVALUE" [fcAppid]="appId" fcFieldCode="USERINTEGRALVALUE"
+                        name="USERINTEGRALVALUE"></fc-text>
                     <span fccontent1 class="instructionsOther">操作用户获取积分</span>
                     <fc-text fccontent2 fcLabel="作者" [(ngModel)]="mainObj.AUTHOR" [fcAppid]="appId" fcFieldCode="AUTHOR" name="AUTHOR"></fc-text>
                     <span fccontent2 class="instructionsOther">开发者姓名</span>
@@ -113,17 +118,19 @@
                         </div>
                     </div>
                     <div class="sys-card-footer">
-                        <fc-tooltip class="sys-card-btn" fcTitle="点赞">
-                            <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="thumbUp()" fcTitle="点赞">
+                            <fc-icon fcIcon="fc-icon-dianzan2" fccontent></fc-icon>
+                            <span fccontent>2356</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="下载zip">
-                            <fc-icon fcIcon="fc-icon-get" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="download()" fcTitle="下载zip">
+                            <fc-icon fcIcon="fc-icon-daochu" fccontent></fc-icon>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="评价">
-                            <fc-icon fcIcon="fc-icon-chat" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="evaluate()" fcTitle="评价">
+                            <fc-icon fcIcon="fc-icon-pinglun1" fccontent></fc-icon>
+                            <span fccontent>559</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="统计图">
-                            <fc-icon fcIcon="fc-icon-bgdimensionality" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn" (click)="count()" fcTitle="统计图">
+                            <fc-icon fcIcon="fc-icon-shujufenxi" fccontent></fc-icon>
                         </fc-tooltip>
                     </div>
                 </ng-template>

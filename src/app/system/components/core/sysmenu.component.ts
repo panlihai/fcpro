@@ -21,7 +21,9 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
       <div class="sys-card-fast">
           <ul class="sys-fast-list">
               <li>
-                  <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>导入
+                <nz-upload [(nzFileList)]="fileList" (click)="import()" style="cursor: pointer;">
+                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>导入
+                </nz-upload>
               </li>
               <li>
                   <fc-icon fcIcon="fc-icon-definition" fcColor="#009DFF"></fc-icon>导出
@@ -87,18 +89,18 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
                             <fc-icon fcIcon="fc-icon-right" *ngIf="sysscondMenu.P_CHILDMENUS!==null&&sysscondMenu.P_CHILDMENUS!==undefined&&sysscondMenu.isOpened===false" class="secondopenIcon" (click)="open(sysscondMenu)" fcSize="small" fcToolTip="展开" fcPosition="bottom"></fc-icon>
                             <fc-icon fcIcon="fc-icon-left" *ngIf="sysscondMenu.P_CHILDMENUS!==null&&sysscondMenu.P_CHILDMENUS!==undefined&&sysscondMenu.isOpened===true" class="secondcloseIcon" (click)="close(sysscondMenu)" fcSize="small" fcToolTip="收起" fcPosition="bottom"></fc-icon> 
                         </div> 
-                        <span class="dragAreasecond"></span>                                  
+                        <span class="dragAreasecond" (drop)="drop($event)" (dragover)="dragover($event)"></span>                                  
                     </ul>
                 </li>
             </ul>
-            <span class="dragAreafirst" fccontent1 *ngIf="sysmenus.length!==0"></span>
+            <span class="dragAreafirst" (drop)="drop($event)" (dragover)="dragover($event)" fccontent1 *ngIf="sysmenus.length!==0"></span>
             <div fccontent2 *ngIf="sysmenus.length!==0" class="functionMenu">
                 <span>功能</span>
-                <fc-button [fcType]="'primary'" fcLabel="+" fcSize="large"></fc-button>
+                <fc-button [fcType]="'primary'" id="functionMenu" [draggable]="true" (dragstart)="dragstart($event)" fcLabel="+" fcSize="large"></fc-button>
             </div>
             <div fccontent2 class="menuButton" *ngIf="sysmenus.length!==0">
                 <span>菜单</span>
-                <fc-button [fcType]="'default'" fcLabel="+" fcSize="default"></fc-button>
+                <fc-button [fcType]="'default'" id="menuButton" [draggable]="true" (dragstart)="dragstart($event)" fcLabel="+" fcSize="default"></fc-button>
             </div>
         </fc-layoutcol>
     </fc-layoutcol>
@@ -224,6 +226,9 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     }
     .menuButton{
         margin-top:20px;
+        position: fixed;
+        top: 295px;
+        right: 44px;
     }
     .menuButton span{
         font-weight: bold;
@@ -234,6 +239,9 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     }
     .functionMenu{
         margin-top:30px;
+        position: fixed;
+        top: 245px;
+        right: 44px;
     }
     .functionMenu span{
         font-weight: bold;
@@ -245,6 +253,7 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
         top: 6px;
         right: -50px;
         width: 38px;
+        cursor:pointer;
     }
     .anticon{
         font-size:14px;
@@ -420,5 +429,45 @@ export class SysmenuComponent extends ParentlistComponent {
         }).subscribe(result => {
             // result为弹窗返回的值
         });
+    }
+    /**
+    * dragstart规定当元素被拖动时，会发生什么。drag规定了被拖动的数据
+    * @param ev 
+    * @param obj 拖拽的对象
+    */
+    dragstart(ev, obj: any) {
+        ev.dataTransfer.effectAllowed = "copy";
+        //存入数据
+        ev.dataTransfer.setData("Text", ev.target.id);
+    }
+    dragover(ev) {//拖拽目标身上的效果
+        ev.preventDefault();
+        // Set the dropEffect to move
+        ev.dataTransfer.dropEffect = "copy"
+    }
+    /**
+     * 当放置被拖数据时，会发生 drop 事件。
+     * @param ev 
+     */
+    drop(ev) {
+        ev.preventDefault();
+        //获取目标id并新增dom
+        let data = ev.dataTransfer.getData("Text");
+        let a = ev.dataTransfer.getData("Text");
+        this.logService.debug(a);
+        //复制目标
+        let item = document.getElementById(data).cloneNode();
+        ev.target.appendChild(item);
+        //移动目标
+        // ev.target.appendChild(document.getElementById(data));
+        //拖拽后抛出事件
+        this.messageService.message('拖拽成功');
+    }
+    /**
+     * 
+     * @param ev 
+     */
+    dragenter(ev) {
+
     }
 }

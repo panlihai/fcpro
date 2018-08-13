@@ -60,6 +60,10 @@ export class SysviewelementeditComponent extends ParentEditComponent {
             this.handleCustomParam(param);
         }
     }
+    // set param(mainObj: any) {
+    //     if (mainObj)
+    //         this.mainObj = mainObj
+    // }
     constructor(public mainService: SysviewelementService,
         public router: Router,
         public activeRoute: ActivatedRoute,

@@ -55,18 +55,19 @@ import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.c
   .sys-sqlaaid{
     display: inline-block;
     position: absolute;
-    top: 25%;
+    top: 15%;
     left: 25%;
     background: #fafafa;
     width: 15%;
     text-align: center;
-    height: 23px;
+    height: 29px;
     line-height: 23px;
-    border-radius:2px;
+    border-radius: 2px;
+    border:1px solid #ebedf0;
   }
   :host ::ng-deep .sys-buttonpid .ant-form-item-control nz-input {
-    width: 76%;
-    margin-left: 24%;
+    width: 100%;
+    padding-left: 22%;
   }
   .sys-deleticon{
     background: #108ee9;
@@ -102,9 +103,11 @@ import { SysservicemodaldialogComponent } from './dialog/sysservicemodaldialog.c
   `]
 })
 export class SysdatasourceeditComponent extends ParentEditComponent {
+  staticMainObj: any = {};
   addNew(mainObj: any): boolean {
     return true;
   }
+  passwordshow:boolean = true;
   topbutton: boolean;
   scomDataItemOptions: any;
   //any下拉
@@ -139,17 +142,27 @@ export class SysdatasourceeditComponent extends ParentEditComponent {
   */
  beforeSave(): boolean {
   //  数据源ID等于PID+DSID
-  // this.mainObj.DSID = this.mainObj.PID + this.mainObj.DSID 
   this.productdisableds()
   this.productIcon();
   return true;
 }
-afterSave() {
-   // 数据源ID等于PID+DSID
-  // this.mainObj.DSID = this.mainObj.PID + this.mainObj.DSID 
-  this.productdisableds();
-  this.productIcon();
-}
+// afterSave() {
+//    // 数据源ID等于PID+DSID
+//   this.productdisableds();
+//   this.productIcon();
+// }
+ /**
+     * 实现继承与父类的afterSave函数，对cardSave函数进行功能扩展;
+     */
+    afterSave() {
+      this.productdisableds();
+      this.productIcon();
+      this.mainService.findWithQuery({ WHERE: `DSNAME = '${this.mainObj.DSNAME}'` }).subscribe(res => {
+          if (res.CODE === '0') {
+              this.navRouter(this.getRouteUrl('Edit'), { ID: res.DATA[0].ID });
+          }
+      });
+    }
   /**
    * 主对象的事件
    * @param eventName 事件名 
@@ -157,10 +170,6 @@ afterSave() {
    */
   event(eventName: string, param: any): void {
     switch (eventName) {
-       //保存按钮
-       case 'emitDataOutside':
-       this.cardSave(param);
-       break;
        //跳转至模型路由
        case 'btnCardAddModel':
        this.navRouter('/system/sysappEdit', { refresh: 'Y', PID: this.mainObj.PID ,DSID:this.mainObj.DSID})  
@@ -185,13 +194,8 @@ afterSave() {
       case 'applistEvent':
       this.navRouter('/system/sysappList', { refresh: 'Y', PID: this.mainObj.PID,DSID:this.mainObj.DSID })      
       break;
-      //PID下拉框选中值
-      case 'ruleaddEvent':
-      this.mainObj.PID = param;
-      break;
-      //数据源信息下拉框
-      case 'ruletypeEvent':
-      this.mainObj.DSTYPE = param;
+      case 'passwordEvent':
+      this.passwordShow();
       break;
     }
   }
@@ -244,6 +248,7 @@ afterSave() {
       this.visible = true;
     } else {
       this.visible = false;
+      this.mainObj.ICON = this.mainObj.ICON;
     }
    }
         /**
@@ -253,12 +258,17 @@ afterSave() {
 */
 componentEvents(type: string, ev: any) {
   switch (type) {
+    //PID下拉框选中值
     case 'ruleaddEvent':
     this.mainObj.PID = ev;
-      break;
-      case 'ruletypeEvent':
-      this.mainObj.DSTYPE = ev;
-      break;
+    break;
+    //数据源信息下拉框
+    case 'ruletypeEvent':
+    this.mainObj.DSTYPE = ev.DICVALUE;
+    break;
+    case 'enableEvent':
+    this.mainObj.ENABLE = ev;
+    break;
   }
 }
  /**
@@ -266,5 +276,35 @@ componentEvents(type: string, ev: any) {
 */
   strfun(){
     [this.mainObj.PID,this.mainObj.DSID] = (this.mainObj.PID+this.mainObj.DSID).replace(/(.+)(.+)\1/, '$2\n').split('\n')
+  }
+          /**
+  * @param type 
+  * @param ev  保存按钮
+  */
+  emitDataOutside(){
+    this.cardSave(this.mainObj);
+  }   
+  passwordShow(){
+    this.passwordshow = !this.passwordshow;
+  }
+    /** YM
+     * 处理路由传参的情况
+     * @param pid 
+     */
+    handleRouterParam() {
+      if (this.routerParam.ID) {
+          this.mainService.findWithQuery({ WHERE: `ID = '${this.routerParam.ID}'` }).subscribe(res => {
+              if (res.CODE === '0' && res.DATA.length !== 0) {
+                  for (let attr in res.DATA[0]) {
+                      this.mainObj[attr] = res.DATA[0][attr];
+                  }
+                  for (let attr in this.mainObj) {
+                      this.staticMainObj[attr] = this.mainObj[attr];
+                  }
+              } else {
+                  this.messageService.error('基本信息获取失败');
+              }
+          })
+      }
   }
 }

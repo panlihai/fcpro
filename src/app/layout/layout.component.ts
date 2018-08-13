@@ -149,6 +149,8 @@ export class LayoutComponent implements OnInit {
   //显示模式
   displayMode: string;
   _displayMode: string;
+  //选项卡菜单模式默认索引
+  selectedIndexChildMenu: number = 0;
   constructor(private _router: Router,
     private _providers: ProvidersService,
     private mainService: LayoutService,
@@ -228,11 +230,11 @@ export class LayoutComponent implements OnInit {
       }
     }
     this.getMessage();
+    //把弹出确认框变量存入到服务里
+    MessageService.confirmModal = this.confirmmodal;
     if (this.fcnavtab) {
       this.fcnavtab.fcTabs = [];
       this.fcnavtab.fcSelectedIndex = 0;
-      //把弹出确认框变量存入到服务里
-      MessageService.confirmModal = this.confirmmodal;
       if (this.fcnavtab.fcTabs.length === 0) {
         this.fcnavtab.fcTabs.push({
           id: '0', index: 0, enabled: true, name: '首页', close: false, icon: 'fc-icon-home', refresh: 'Y', content:
@@ -327,12 +329,16 @@ export class LayoutComponent implements OnInit {
    * @param menu 
    */
   selectedtabmain(menu: any) {
-    this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/" + menu.ROUTER]);
     if (menu.P_CHILDMENUS && menu.P_CHILDMENUS.length !== 0) {
+      //如果是MENU,有子菜单
       this._childMenus = menu.P_CHILDMENUS;
+      //默认选择第一个子菜单
+      this.selectedIndexChildMenu = 0;
       this.selectedtabsub(this._childMenus[0]);
     } else {
+      //如果是APP,没有子菜单,直接跳转路由
       this._childMenus.length = 0;
+      this.mainService.navMenu(this._router, menu);
     }
   }
   /**
@@ -340,7 +346,7 @@ export class LayoutComponent implements OnInit {
    * @param menu 
    */
   selectedtabsub(menu: any) {
-    this._router.navigate(["/" + environment.pid.toLocaleLowerCase() + "/" + menu.ROUTER], { queryParams: { refresh: 'Y' } });
+    this.mainService.navMenu(this._router, menu);
   }
 
 

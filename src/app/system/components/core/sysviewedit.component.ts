@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { ParentEditComponent } from 'fccomponent';
 import { SysviewService } from '../../services/sysview.service';
@@ -128,6 +128,8 @@ export class SysvieweditComponent extends ParentEditComponent {
     listCondition: any;
     constructor(public mainService: SysviewService,
         public router: Router,
+        private renderer: Renderer2,
+        private el: ElementRef,
         public activeRoute: ActivatedRoute) {
         super(mainService, router, activeRoute);
     }
@@ -261,7 +263,9 @@ export class SysvieweditComponent extends ParentEditComponent {
     initSysApps() {
         this.mainService.getSysApps().subscribe(res => {
             if (res.CODE === '0') {
-                this.sysApps = res.DATA
+                this.sysApps = res.DATA;
+                //测试数据
+                this.selectedApps = res.DATA;
             }
         });
     }
@@ -281,5 +285,47 @@ export class SysvieweditComponent extends ParentEditComponent {
     }
     trackByIndex(index, item) {
         return index;
+    }
+    obj:any={}
+    /**
+     * dragstart规定当元素被拖动时，会发生什么。drag规定了被拖动的数据
+     * @param ev 
+     * @param obj 拖拽的对象
+     */
+    dragstart(ev, obj: any) {
+        ev.dataTransfer.effectAllowed = "copy";
+        //存入数据
+        ev.dataTransfer.setData("Text", ev.target.id);
+       this.obj=obj;
+    }
+    dragover(ev) {//拖拽目标身上的效果
+        ev.preventDefault();
+        // Set the dropEffect to move
+        ev.dataTransfer.dropEffect = "copy"
+    }
+    /**
+     * 当放置被拖数据时，会发生 drop 事件。
+     * @param ev 
+     */
+    drop(ev) {
+        ev.preventDefault();
+        //获取目标id并新增dom
+        let data = ev.dataTransfer.getData("Text");
+        let a=ev.dataTransfer.getData("Text");
+        this.logService.debug(a);
+        //复制目标
+        let item = document.getElementById(data).cloneNode();
+        ev.target.appendChild(item);
+        //移动目标
+        // ev.target.appendChild(document.getElementById(data));
+        //拖拽后抛出事件，打开弹窗
+        this.mainService.openViewElementDialog(this.obj);
+    }
+    /**
+     * 
+     * @param ev 
+     */
+    dragenter(ev) {
+
     }
 }

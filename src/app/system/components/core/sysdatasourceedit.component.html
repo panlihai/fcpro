@@ -18,44 +18,64 @@
         <img class="sys-card-bg" src="assets/img/system-bg.png" />
     </div>
     <div class="sys-card-pannel-edit" fccontent>
+         <!-- 基本信息标题 -->
+         <fc-layoutcol fcSpans="4,6" class="notitleLine">
+            <fc-title fccontent1 fcLabel="基本信息" [fcHasLine]="false"></fc-title>
+        </fc-layoutcol>
         <!-- 基本信息 -->
         <fc-layoutcol fcSpans="7,3">
-            <fc-title fccontent1 fcLabel="基本信息" [fcHasLine]="false"></fc-title>
-                <fc-combo fccontent1 fcLabel="产品名称"  [fcOption]="scomDataItemOptions"  [(ngModel)]="mainObj.PID"
-                name="PID"  (ngModelChange)="componentEvents('ruleaddEvent',$event)" ></fc-combo>
+            <fc-combo fccontent1 fcLabel="产品名称"  [fcOption]="scomDataItemOptions"  [(ngModel)]="mainObj.PID"
+            name="PID"  (ngModelChange)="componentEvents('ruleaddEvent',$event)" ></fc-combo>
             <div fccontent1 class="sys-buttonpid">
-                <div fccontent class="sys-sqlaaid">{{mainObj.PID}}</div>
-                <fc-text fccontent fcLabel="数据源id" [fcAppid]="appId" fcFieldCode="DSID" [fcValid]="mainValid.DSID"  [(ngModel)]="mainObj.DSID" name="SYSDATASOURCE.DSID"></fc-text>                    
+                <div  class="sys-sqlaaid">{{mainObj.PID}}</div>
+                <fc-text  fcLabel="数据源id" [fcAppid]="appId" fcFieldCode="DSID" [fcValid]="mainValid.DSID"  [(ngModel)]="mainObj.DSID" name="SYSDATASOURCE.DSID"></fc-text>                    
             </div>
             <fc-text fccontent1 fcLabel="数据源名称"  [fcAppid]="appId" fcFieldCode="DSNAME" [fcValid]="mainValid.DSNAME" [(ngModel)]="mainObj.DSNAME"  name="SYSDATASOURCE.DSNAME"></fc-text>
             <div fccontent1 class="sys-tab">中文，配合id识别不同数据源</div>
             <fc-layoutcol fccontent1 fcSpans="1,1"  class="noBottomLine">
                 <div fccontent1 class="sys-radio">
-                    <fc-radio fccontent1 [(ngModel)]="mainObj.ENABLE" fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC"
-                        fcValueCode="DICVALUE" name="ENABLE"></fc-radio>
+                    <fc-long  [fcAppid]="appId" fcFieldCode="SORT" [(ngModel)]="mainObj.SORT" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>
                 </div>
                 <div fccontent2 class="sys-num">
-                    <fc-long fccontent [(ngModel)]="mainObj.SORT" fcLabel="排序" fcPlaceHolder="请输入整数" name="SORT"></fc-long>
+                    <fc-radio [(ngModel)]="mainObj.ENABLE" fcLabel="是否启用" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC"
+                    fcValueCode="DICVALUE" name="ENABLE" (ngModelChange)="componentEvents('enableEvent',$event)"></fc-radio>
                 </div>
             </fc-layoutcol>
             <fc-textarea fccontent1 fcLabel="备注"  [(ngModel)]="mainObj.REMARK" name="SYSDATASOURCE.REMARK"></fc-textarea>
             <div fccontent1 class="sys-tab">请输入少于200字</div>
         </fc-layoutcol>
+         <!-- 数据源信息标题 -->
+         <fc-layoutcol fcSpans="1,1" class="notitleLine">
+             <div fccontent1 style="margin-left:-3%;">
+                <fc-title   fcWidth="96%"  fcLabel="数据源信息" [fcHasLine]="false"></fc-title>
+             </div>
+        </fc-layoutcol>
+        <!-- 数据源信息结束 -->
         <!-- 数据源信息 -->
         <fc-layoutcol fcSpans="7,3">
-            <fc-title fccontent1  fcLabel="数据源信息" [fcHasLine]="false"></fc-title>
-            <fc-any fccontent1 fcLabel="数据源类型"  (ngModelChange)="event('ruletypeEvent')" [fcAppid]="appId" fcFieldCode="DSTYPE" [(ngModel)]="mainObj.DSTYPE" fcLabelCode="DICDESC"
+            <fc-any fccontent1 fcLabel="数据源类型"  (ngModelChange)="componentEvents('ruletypeEvent',$event)" [fcAppid]="appId" fcFieldCode="DSTYPE" [(ngModel)]="mainObj.DSTYPE" fcLabelCode="DICDESC"
                 fcValueCode="DICVALUE" name="SYSPRODUCT.DSTYPE"></fc-any>
-            <div fccontent1 class="sys-tab">仅限关系型数据库</div>    
+            <div fccontent1 class="sys-tab">仅限关系型数据库</div>
             <fc-text fccontent1 fcLabel="请url" [fcAppid]="appId" fcFieldCode="URL" [(ngModel)]="mainObj.URL" name="SYSDATASOURCE.URL"></fc-text>
             <div fccontent1 class="sys-tab">如：jdbc:oracle:thin:@127.0.0.1:1521:orcl</div>  
             <fc-text fccontent1 fcLabel="数据源用户名" [fcAppid]="appId" fcFieldCode="USERNAME" [(ngModel)]="mainObj.USERNAME" name="SYSDATASOURCE.USERNAME"></fc-text>
-            <fc-text fccontent1 fcLabel="数据源密码" [fcAppid]="appId" fcFieldCode="PASSWORD" [(ngModel)]="mainObj.PASSWORD" name="SYSDATASOURCE.PASSWORD"></fc-text>
+            <fc-layoutcol fcSpans="8,2" fccontent1 class="noBottomLine">
+                <div fccontent1  *ngIf = "passwordshow" style="margin-left: 9%;">
+                    <fc-text  fcLabel="数据源密码"  [fcType]="'password'" [fcAppid]="appId" fcFieldCode="PASSWORD" [(ngModel)]="mainObj.PASSWORD" name="SYSDATASOURCE.PASSWORD"></fc-text>
+                </div>
+                <div fccontent1  *ngIf = "!passwordshow"  style="margin-left: 9%;">
+                    <fc-text  fcLabel="数据源密码" [fcAppid]="appId" fcFieldCode="PASSWORD" [(ngModel)]="mainObj.PASSWORD" name="SYSDATASOURCE.PASSWORD"></fc-text>
+                </div>
+                <div fccontent2 (click)="event('passwordEvent')" style="margin-top:5%;">查看密码</div>
+            </fc-layoutcol>
             <div fccontent1 class="sys-tab">点击查看密码将记录日志，填写查看人的用户名密码查看；</div> 
+        </fc-layoutcol>
+        <!-- 其他信息标题 -->
+        <fc-layoutcol fcSpans="4,6"  class="notitleLine">
+            <fc-title fccontent1 fcLabel="其它信息" [fcHasLine]="false"></fc-title>
         </fc-layoutcol>
         <!-- 其它信息 -->
         <fc-layoutcol fcSpans="7,3">
-            <fc-title fccontent1 fcLabel="其它信息" [fcHasLine]="false"></fc-title>
             <div class="sys-choose-icon" fccontent1>
                 <fc-label fcLabel="数据源图标"></fc-label>
                 <div class="sys-choose-icon-box"  (click)="event('iconEvent')">
@@ -67,18 +87,17 @@
         </fc-layoutcol>
         <fc-layoutcol fcSpans="1,0">
             <div fccontent1 style="padding-top:20px;padding-bottom:20px ; text-align:center;">
-                    <div fccontent class="sys-button">
-                            <span fccontent>
-                                    <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="event('emitDataOutside')">
-                                    </fc-button>
-                            </span>
-                            <span fccontent  *ngIf = "topbutton">
-                                <fc-button [fcType]="'default'" fcLabel="+模型"  (click)="event('btnCardAddModel')">
-                                </fc-button>
-                            </span>
-                    </div> 
-                
-                </div>
+                <div fccontent class="sys-button">
+                    <span fccontent>
+                        <fc-button  [fcType]="'primary'" fcLabel="保存" (click)="emitDataOutside()">
+                        </fc-button>
+                    </span>
+                    <span fccontent  *ngIf = "topbutton">
+                        <fc-button [fcType]="'default'" fcLabel="+模型"  (click)="event('btnCardAddModel')">
+                        </fc-button>
+                    </span>
+                </div> 
+            </div>
         </fc-layoutcol>
     </div>
 </fc-layoutpanel>

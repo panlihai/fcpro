@@ -158,7 +158,6 @@ import { MDragDropService } from '../directive/mdrag-drop.service';
     SysproducteditComponent,
     SysbizcoderuledialogComponent,
     DialogCardListComponent,
-    SysviewelementeditComponent,
     SysappmodaleventdialogComponent,
     SysviewelementeditComponent,
     SysappfieldgroupComponent,

@@ -14,7 +14,6 @@ import { SysappService } from '../../services/sysapp.service';
   .sys-fast-list {
     cursor: pointer;
   }
- 
   `]
 })
 export class SysappComponent extends ParentlistComponent {
@@ -35,47 +34,46 @@ export class SysappComponent extends ParentlistComponent {
   //没有任何内容
   noResult: boolean;
   //产品下拉
-  productOptions: any[] = [];
-  EventUtil: any = {
-    //添加事件处理程序
-    addHandler: (element, type, handler) => {
-      if (element.addEventListener) {
-        element.addEventListener(type, handler, false);
-      } else if (element.attachEvent) {
-        element.attachEvent("on" + type, handler);
-      } else {
-        element["on" + type] = handler;
-      }
-    },
-    //获取事件对象
-    getEvent: (event) => {
-      return event ? event : window.event;
-    },
-    //获取事件的目标
-    getTarget: (event) => {
-      return event.target || event.srcElement;
-    },
-    //取消默认事件
-    preventDefault: (event) => {
-      if (event.preventDefault) {
-        event.preventDefault();
-      } else {
-        event.returnValue = false;
-      }
-    }
-  }
+  productOptions: any[];
+  //分页总数
+  pageTotal: number;
+  //分页索引
+  pageNum: number;
+  //分页大小
+  pageSize: number;
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {
     super(mainService, router, activeRoute);
   }
   init(): void {
+    //初始化分页
+    this.pageNum = 1;
+    this.pageSize = 20;
+    this.pageTotal = 0;
+    //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
     this.btnlistOnes = this.mainService.appButtons.filter(btn => btn.BTNTYPE === 'LISTONE');
+    //更多的按钮
     this.btnlistMores = this.btnlistOnes.splice(3);
+    //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+    // 
     this.fastsearchWords = this.mainService.fastSearch();
+    //产品下拉
+    this.mainService.getproduct().subscribe(result => {
+      if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
+        this.productOptions = [];
+        result.P_LISTVALUE.forEach(item => {
+          //转换成下拉识别的对象
+          this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })
+        });
+      }
+    })
   }
   ngOnInit() {
+    if (this.routerParam && this.routerParam.PID) {
+      this.product = this.routerParam.PID;
+    }
     //初始化数据
     if (this.product !== undefined && this.product !== null && this.product !== ''
       && this.datasource !== undefined && this.datasource !== null && this.datasource !== '') {
@@ -94,16 +92,6 @@ export class SysappComponent extends ParentlistComponent {
     this.btnlistMores = this.btnlistOnes.splice(3);
     //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
-    //产品下拉
-    this.mainService.getproduct().subscribe(result => {
-      this.productOptions = result.P_LISTVALUE;
-      if (result.P_LISTVALUE && result.P_LISTVALUE.length !== 0) {
-        result.P_LISTVALUE.forEach(item => {
-          //转换成下拉识别的对象
-          this.productOptions.push({ icon: item.ICON, label: item.PNAME, value: item.PID })
-        });
-      }
-    })
   }
   getDefaultQuery() {
     return {
@@ -125,10 +113,11 @@ export class SysappComponent extends ParentlistComponent {
    * @param datasource 
    */
   initData(product: string, datasource: string) {
-    this.mainService.findWithQuery({ APPMODEL: product, DATASOURCE: datasource })
+    this.mainService.findWithQuery({ APPMODEL: product, DATASOURCE: datasource, PAGESIZE: this.pageSize, PAGENUM: this.pageNum })
       .subscribe(result => {
         if (result.CODE === '0') {
           this.pageList = result.DATA;
+          this.pageTotal = result.TOTALSIZE;
           //当没有数据时，显示文字提示
           if (this.pageList.length === 0) {
             this.noResult = true;
@@ -137,45 +126,6 @@ export class SysappComponent extends ParentlistComponent {
           }
         }
       });
-  }
-  /**
-   * 事件规定在何处放置被拖动的数据
-   * @param ev 
-   */
-  allowDrop(ev) {
-    ev.preventDefault();
-  }
-  /**
-   * dragstart规定当元素被拖动时，会发生什么。drag规定了被拖动的数据
-   * @param ev 
-   */
-  drag(ev) {
-    ev = this.EventUtil.getEvent(ev);
-    ev.dataTransfer.dropEffect = 'copy';
-    let target = this.EventUtil.getTarget(ev);
-    //方法设置被拖数据的数据类型和值,数据类型是 "Text"，值是可拖动元素的 id ("drag1")
-    ev.dataTransfer.setData("Text", ev.target.id);
-    ev.dataTransfer.effectAllowed = 'copy';
-  }
-  /**
-   * 当放置被拖数据时，会发生 drop 事件。
-   * @param ev 
-   */
-  drop(ev) {
-    ev = this.EventUtil.getEvent(ev);
-    var target = this.EventUtil.getTarget(ev);
-    ev.preventDefault();
-    let data = ev.dataTransfer.getData("Text");
-    ev.target.appendChild(document.getElementById(data));
-  }
-  dragenter(ev) {
-    ev = this.EventUtil.getEvent(ev);
-    var target = this.EventUtil.getTarget(ev);
-    //重要！重写dragenter事件的默认行为，使其可以触发drop事件
-    this.EventUtil.preventDefault(ev);
-    //dropEffect事件和effectAllowed事件搭配使用
-    ev.dataTransfer.dropEffect = 'copy';
-    target.className = 'hover';
   }
 
   /**
@@ -199,7 +149,6 @@ export class SysappComponent extends ParentlistComponent {
   * 初始化元数据
   */
   searchByWord(btn?: any) {
-
     //查询数据的对象
     let valueObj: any = {};
     //如果点击了首字母搜索的按钮,则根据APPID的首字母查询
@@ -235,27 +184,31 @@ export class SysappComponent extends ParentlistComponent {
   quickstart(event: FCEVENT) {
     this.navRouter(this.getRouteUrl('Modify'), event.param);
   }
+  /**
+ * 阻止冒泡
+ */
+  stopPropagation(event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
   /* * 按钮明细
   * @param event 
   */
-  btnCardEvent(event: any, item: any) {
-    switch (event.ACTCODE) {
+  btnCardEvent(event: any, btn: any, item: any) {
+    switch (btn.ACTCODE) {
       case 'listOneDelete'://明细删除
         this.listOneDelete();
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneEdit'://明细修改
         this.listEdit(item);
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneHelp'://明细帮助
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
     }
   }
@@ -264,7 +217,6 @@ export class SysappComponent extends ParentlistComponent {
    */
   listOneDelete() {
     this.messageService.confirm('请确认该元数据没有在其它地方使用后再删除!', () => {
-
     }, () => { })
   }
   /**
@@ -281,6 +233,32 @@ export class SysappComponent extends ParentlistComponent {
    */
   chooseDatasource(event: any) {
     this.initData(this.product, event);
+  }
+  /**
+   * 分页事件
+   * @param event 
+   */
+  fcpaginationEvent(event: FCEVENT) {
+    //查询数据的对象
+    let valueObj: any = {};
+    switch (event.eventName) {
+      case 'pageSizeChange'://每页显示多少条
+        valueObj.WHERE = "AND PAGESIZE='" + event.param + "' " + "AND PAGENUM='" + this.pageNum + "' " + "AND PID='" + this.product + "' " + "AND DATASOURCE='" + this.datasource + "'"
+        this.mainService.findWithQuery(valueObj).subscribe(result => {
+          if (result.CODE === '0') {
+            this.pageList = result.DATA;
+          }
+        });
+        break;
+      case 'jumpPage'://跳转到第几页
+        valueObj.WHERE = "AND PAGESIZE='" + event.param + "' " + "AND PAGENUM='" + this.pageNum + "' " + "AND PID='" + this.product + "'" + "AND DATASOURCE='" + this.datasource + "'"
+        this.mainService.findWithQuery(valueObj).subscribe(result => {
+          if (result.CODE === '0') {
+            this.pageList = result.DATA;
+          }
+        });
+        break;
+    }
   }
   /**
    * 导入
