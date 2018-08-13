@@ -35,7 +35,7 @@
     <fc-tlbform fccontent fcType="primary" [fcAppid]="appId" fcLayout="center" (fcEvent)="tlbformEvent($event)"></fc-tlbform>
 </fc-layoutpanel>
 <!-- 功能-按钮入口-功能-按钮卡片 -->
-<fc-layoutpanel class="sys-card-pannel">
+<fc-layoutpanel class="sys-card-pannel" *ngIf="routerParam.ID">
     <div class="sys-card-pannel-header" fcheader>
         <fc-title fcLabel="功能-按钮" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
@@ -113,7 +113,7 @@
     </div>
 </fc-layoutpanel>
 <!-- 视图入口-视图卡片 -->
-<fc-layoutpanel class="sys-card-pannel">
+<fc-layoutpanel class="sys-card-pannel" *ngIf="routerParam.ID">
     <div class="sys-card-pannel-header" fcheader>
         <fc-title fcLabel="视图" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">

@@ -9,6 +9,9 @@ export class SysintfreqparamService extends ParentService {
     public modalService: NzModalService) {
     super(providers, "SYSINTFREQPARAM");
   }
+  _findWithQuery(appId, condition) {
+    return this.appService.findWithQuery(appId, condition);
+  }
   /**  YM
    * 根据参数类型值获取对应参数类型名称
    */

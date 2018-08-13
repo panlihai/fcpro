@@ -46,7 +46,10 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
     requestParams: any;
     responseParams: any;
     staticMainObj: any = {};
-    fromName: any;
+    serviceName: any;
+    modelName: any;
+    serviceNameValue: any;
+    modelNameValue: any;
     btnlistOnes: any;
     btnlistMores: any;
     constructor(public mainService: SysinterfaceService,
@@ -66,7 +69,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
      * 组件初始化执行函数
      */
     init(): void {
-        // this.initDefaultMainObj();
+        this.initDefaultMainObj();
         //初始化产品名称的自定义下拉选项内容
         this.initPidOption();
         this.handleRouterParam();
@@ -107,30 +110,30 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
     initEditObj(param: any) {
         switch (param.from) {
             case 'SYSSERVICE':
-                this.mainService.getServiceById(param.ID).subscribe(res => {
-                    if (res.CODE === '0' && res.DATA.length !== 0) {
-                        for (let attr in res.DATA[0]) {
-                            if (attr === 'PID') {
-                                this.mainObj[attr] = res.DATA[0][attr];
+                this.serviceName = '服务名称';
+                if (param.serviceId) {
+                    this.mainService.getServiceById(param.serviceId).subscribe(res => {
+                        if (res.CODE === '0' && res.DATA.length !== 0) {
+                            for (let attr in res.DATA[0]) {
+                                if (attr === 'PID' || attr === 'SERVICENAME') {
+                                    this.mainObj[attr] = res.DATA[0][attr];
+                                }
+                                if (attr === 'SERVICEID') {
+                                    this.mainObj['APPID'] = res.DATA[0][attr];
+                                }
                             }
-                            if (attr === 'SERVICENAME') {
-                                this.mainObj['FROMNAME'] = res.DATA[0][attr];
-                                this.fromName = '服务名称'
+                            this.serviceNameValue = `${this.mainObj.APPID} - ${this.mainObj.SERVICENAME}`;
+                            delete this.mainObj.SERVICENAME;
+                            for (let attr in this.mainObj) {
+                                this.staticMainObj[attr] = this.mainObj[attr];
                             }
-                            if (attr === 'SERVICEID') {
-                                this.mainObj['APPID'] = res.DATA[0][attr];
-                            }
+                        } else {
+                            this.messageService.error('从服务获取基本信息失败');
                         }
-                        this.mainObj.FROMNAME = `${this.mainObj.APPID}-${this.mainObj.FROMNAME}`;
-                        for (let attr in this.mainObj) {
-                            this.staticMainObj[attr] = this.mainObj[attr];
-                        }
-                    } else {
-                        this.messageService.error('从服务获取基本信息失败');
-                    }
-                })
-                if (param.interfaceId) {
-                    this.mainService.findWithQuery({ ID: param.interfaceId }).subscribe(res => {
+                    })
+                }
+                if (param.ID) {
+                    this.mainService.findWithQuery({ ID: param.ID }).subscribe(res => {
                         if (res.CODE === '0' && res.DATA.length !== 0) {
                             for (let attr in res.DATA[0]) {
                                 this.mainObj[attr] = res.DATA[0][attr];
@@ -184,9 +187,9 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
         }
     }
     cardBack() {
-        switch (this.fromName) {
+        switch (this.serviceName) {
             case '服务名称':
-                this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSSERVICE', 'Edit'), { ID: this.routerParam.ID });
+                this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSSERVICE', 'Edit'), { ID: this.routerParam.serviceId, refresh: 'Y' });
                 break;
             case '模型编码':
 
@@ -212,7 +215,12 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
      * 初始化mainObj的默认值
      */
     initDefaultMainObj() {
-        this.mainObj = this.mainService.getDefaultObj();
+        this.mainObj = {};
+        this.mainObj = this.mainService.getDefaultObj(this.mainApp);
+        this.staticMainObj = {};
+        for (let attr in this.mainObj) {
+            this.staticMainObj[attr] = this.mainObj[attr];
+        }
     }
     /** YM
      * 初始化产品名称的自定义下拉选项内容
@@ -247,7 +255,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
      * 实现继承与父类的afterSave函数，对cardSave函数进行功能扩展;
      */
     afterSave() {
-        this.navRouter(this.getRouteUrl('Edit'), { PID: this.mainObj.PID });
+        this.navRouter(this.getRouteUrl('Edit'), { PID: this.mainObj.PID, refresh: 'Y' });
     }
     /**
     * 获取参数配置数据
@@ -264,27 +272,25 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
     /**
     * 返回模型页面
     */
-    backModel(){
+    backModel() {
         this.navRouter('/system/sysappEdit', { refresh: 'Y', ID: this.mainObj.ID })
     }
     /**
     * 新增参数配置
     */
     editRequestParam(context?: any) {
-        if (context) {
-            context.FROMNAME = this.mainObj.FROMNAME;
-            context.INTERFACENAME = `${this.mainObj.REQWAY}-${this.mainObj.IMPLNAME}`;
-        }
+        context.serviceId = this.routerParam.serviceId;
+        context.interfaceId = this.mainObj.ID;
+        context.ID = context.ID;
         this.mainService.openWindow('参数配置-编辑', SysservicemodaldialogComponent, context);
     }
     /**
    * 新增返回值
    */
     editResponseParam(context?) {
-        if (context) {
-            context.FROMNAME = this.mainObj.FROMNAME;
-            context.INTERFACENAME = `${this.mainObj.REQWAY}-${this.mainObj.IMPLNAME}`;
-        }
+        context.serviceId = this.routerParam.serviceId;
+        context.interfaceId = this.mainObj.ID;
+        context.ID = context.ID;
         this.mainService.openWindow('返回值配置-编辑', SysservicebackdialogComponent, context);
     }
 

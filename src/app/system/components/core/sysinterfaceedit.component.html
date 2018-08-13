@@ -18,8 +18,9 @@
     <div class="information" fccontent>
         <fc-title fcLabel="基本信息" class="sys-card-pannel-title" [fcHasLine]="false" fccontent></fc-title>
         <fc-layoutcol fccontent fcSpans="1,1" class="noBottomLine">
-            <fc-combo fccontent1 fcLabel="产品名称" [(ngModel)]="mainObj.PID" [fcOption]="pidOption" [fcDisabled]="true"></fc-combo>
-            <fc-text fccontent2 [fcLabel]="fromName" [(ngModel)]="mainObj.FROMNAME" name="FROMNAME" [fcDisabled]="true"></fc-text>
+            <fc-combo fccontent1 fcLabel="产品名称" [(ngModel)]="mainObj.PID" [fcOption]="pidOption" fcReadonly="true"></fc-combo>
+            <fc-text fccontent2 [fcLabel]="serviceName" [(ngModel)]="serviceNameValue" name="serviceName" fcReadonly="true" *ngIf="serviceName"></fc-text>
+            <fc-text fccontent2 [fcLabel]="modelName" [(ngModel)]="modelNameValue" name="modelName" fcReadonly="true" *ngIf="!serviceName"></fc-text>
             <fc-text fccontent1 fcLabel="接口名称" [(ngModel)]="mainObj.IMPLNAME" [fcAppid]="appId" fcFieldCode="IMPLNAME" name="IMPLNAME"></fc-text>
             <fc-text fccontent2 fcLabel="请求URL" [(ngModel)]="mainObj.REQURL" [fcAppid]="appId" fcFieldCode="REQURL" name="REQURL"></fc-text>
             <span fccontent2 class="instructions">如server/api/SYSTEM/SYSAPP(请求URL)/LISTINFO</span>
@@ -131,7 +132,7 @@
     </div>
 </fc-layoutpanel>
 <!-- 返回值定义 -->
-<fc-layoutpanel class="sys-card-pannel" *ngIf="routerParam.interfaceId">
+<fc-layoutpanel class="sys-card-pannel" *ngIf="routerParam.ID">
     <div class="sys-card-pannel-header" fcheader>
         <fc-title fcLabel="返回值定义" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P>
@@ -142,7 +143,7 @@
         <div nz-row [nzGutter]="8">
             <!-- 新增卡片操作 -->
             <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-                <nz-card (click)="event('editResponseParam')">
+                <nz-card (click)="event('editResponseParam',{})">
                     <ng-template #body>
                         <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
                         <p class="sys-card-addtext">新增返回值定义</p>

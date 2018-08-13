@@ -6,9 +6,20 @@ import { DialogListArgs, DialogListComponent } from '../components/core/dialog/d
 import { SysbizcoderuleService } from './sysbizcoderule.service';
 import { SysproductService } from './sysproduct.service';
 import { SysappService } from './sysapp.service';
+import { DialogCardListArgs } from '../components/core/dialog/dialogcardlist.component';
+import { SysviewService } from './sysview.service';
+import { SysappbuttonsService } from './sysappbuttons.service';
 @Injectable()
 export class SysfuncService extends ParentService {
-    constructor(public providers: ProvidersService, private nzModal: NzModalService, private sysbizcoderuleService: SysbizcoderuleService, private sysproductService: SysproductService, private sysappservice: SysappService) {
+    constructor(
+        public providers: ProvidersService,
+        private nzModal: NzModalService,
+        private sysbizcoderuleService: SysbizcoderuleService,
+        private sysproductService: SysproductService,
+        private sysappService: SysappService,
+        private sysviewService: SysviewService,
+        private sysappbuttonService: SysappbuttonsService
+    ) {
         super(providers, "SYSFUNC");
     }
     /**
@@ -21,7 +32,7 @@ export class SysfuncService extends ParentService {
      * 字母快速查询
      */
     fastSearch() {
-        return this.sysappservice.fastSearch()
+        return this.sysappService.fastSearch()
     }
     /**
      * 获取路由导航
@@ -33,8 +44,8 @@ export class SysfuncService extends ParentService {
     /** YM
       *  初始化DefaultObj
       */
-    getDefaultObj() {
-        return this.appService.initObjDefaultValue(this.app);
+    getDefaultObj(app) {
+        return this.appService.initObjDefaultValue(app);
     }
     /** YM
      * 根据
@@ -51,19 +62,20 @@ export class SysfuncService extends ParentService {
     }
     /** YM
   * 打开窗口的函数方法
-  * @param dialogArgs 
+  * @param dialogCardListArgs 
   */
-    openDialog(dialogArgs: DialogListArgs) {
+    openDialog(dialogCardListArgs: DialogCardListArgs) {
         return this.nzModal.open({
-            title: dialogArgs.configInterface.title ? dialogArgs.configInterface.title : '',
-            content: dialogArgs.configInterface.content ? dialogArgs.configInterface.content : DialogListComponent,
+            title: dialogCardListArgs.configInterface.title ? dialogCardListArgs.configInterface.title : '',
+            content: dialogCardListArgs.configInterface.content ? dialogCardListArgs.configInterface.content : DialogListComponent,
             onOk() { },
             onCancel() { },
             footer: false,
-            width: dialogArgs.configInterface.width,
-            style: dialogArgs.configInterface.style,
+            width: dialogCardListArgs.configInterface.width,
+            style: dialogCardListArgs.configInterface.style,
+            zIndex: 995,
             componentParams: {
-                options: dialogArgs
+                options: dialogCardListArgs
             }
         })
     }
@@ -72,14 +84,14 @@ export class SysfuncService extends ParentService {
      * @param serviceId 
      */
     getSysViews(id) {
-        return this.appService.findWithQuery('SYSVIEW', { WHERE: `SERVICEID ='${id}'` });
+        return this.sysviewService.findWithQuery({ WHERE: `FUNCID ='${id}'` });
     }
     /**
      * 根据服务ID获取接口数据
      * @param serviceId 
      */
     getsysBtns(id) {
-        return this.appService.findWithQuery('SYSAPPBUTTONS', { WHERE: `APPID ='${id}'` })
+        return this.sysappbuttonService.findWithQuery({ WHERE: `APPID ='${id}'` })
     }
 }
 export interface Sysfunc {

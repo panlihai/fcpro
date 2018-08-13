@@ -40,8 +40,8 @@ export class SysserviceService extends ParentService {
     /** YM
       *  初始化DefaultObj
       */
-    getDefaultObj() {
-        return this.appService.initObjDefaultValue(this.app);
+    getDefaultObj(app) {
+        return this.appService.initObjDefaultValue(app);
     }
     /** YM
      * 根据

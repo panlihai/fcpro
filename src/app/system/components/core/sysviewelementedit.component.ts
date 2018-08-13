@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParentEditComponent, FctextComponent, FccomboComponent } from 'fccomponent';
-import { SysviewelementService } from '../../services/sysviewelement.service';
+import { ParentEditComponent, FctextComponent, FccomboComponent, FcanyComponent } from 'fccomponent';
+import { SysviewelementService, Sysviewelement } from '../../services/sysviewelement.service';
 import { NzModalSubject } from 'ng-zorro-antd';
 import { DialogCardListArgs, DialogCardListComponent } from './dialog/dialogcardlist.component';
 import { SysappfieldgroupComponent } from './dialog/sysappfieldgroup.component';
@@ -21,7 +21,7 @@ import { SysappfieldgroupComponent } from './dialog/sysappfieldgroup.component';
       .last-btn{
           height:42px;
           position:relative;
-          right:95%;
+          right: 70%;
       }
       .sys-title-container{
         display:flex;
@@ -45,16 +45,20 @@ import { SysappfieldgroupComponent } from './dialog/sysappfieldgroup.component';
 `]
 })
 export class SysviewelementeditComponent extends ParentEditComponent {
-    productName: any;
-    pidOption: any;
     mainObj: any;
     fieldOption: any;
     inputClose: boolean = false;
     outputClose: boolean = false;
+    funcName: string;
+    viewName: string;
+    staticMainObj: {};
+    fieldCode: any;
+    defaultModelName: string;
     @Input()
-    set param(mainObj: any) {
-        if (mainObj)
-            this.mainObj = mainObj
+    set params(param: any) {
+        if (param) {
+            this.handleCustomParam(param);
+        }
     }
     constructor(public mainService: SysviewelementService,
         public router: Router,
@@ -62,7 +66,44 @@ export class SysviewelementeditComponent extends ParentEditComponent {
         private modal: NzModalSubject) {
         super(mainService, router, activeRoute);
     }
-
+    handleCustomParam(param) {
+        if (param.ID) {
+            this.getMainInfo(param.ID);
+        } else {
+            this.mainObj = this.mainService.getDefaultObj(this.mainApp);
+        }
+        if (param.funcId) {
+            this.getInfoAboutFunc(param.funcId);
+        }
+        if (param.viewId) {
+            this.getInfoAboutView(param.viewId);
+        }
+    }
+    getInfoAboutFunc(id) {
+        this.mainService._findWithQuery('SYSFUNC', { ID: id }).subscribe(res => {
+            if (res.CODE === '0') {
+                this.mainObj.FUNCID = res.DATA[0].FUNCID;
+                this.funcName = `${res.DATA[0].FUNCID} - ${res.DATA[0].FUNCNAME}`
+            }
+        })
+    }
+    getInfoAboutView(id) {
+        this.mainService._findWithQuery('SYSVIEW', { ID: id }).subscribe(res => {
+            if (res.CODE === '0') {
+                this.mainObj.VIEWID = res.DATA[0].VIEWID;
+                this.viewName = `${res.DATA[0].VIEWID} - ${res.DATA[0].VIEWNAME}`
+            }
+        })
+    }
+    getMainInfo(id) {
+        this.mainService.findWithQuery({ ID: id }).subscribe(res => {
+            if (res.CODE === '0') {
+                for (let attr in res.DATA[0]) {
+                    this.mainObj[attr] = res.DATA[0][attr];
+                }
+            }
+        })
+    }
     /**
      * 新增之前执行的函数
      * @param mainObj 
@@ -74,7 +115,7 @@ export class SysviewelementeditComponent extends ParentEditComponent {
      * 组件初始化执行函数
      */
     init(): void {
-
+        this.initDefaultMainObj();
     }
     /**
      * html事件收集及派发函数
@@ -92,9 +133,6 @@ export class SysviewelementeditComponent extends ParentEditComponent {
             case 'DEFAULTAPPID':
                 this.showModal(dialogCardListArgs, context);
                 break;
-            case 'updateFieldOption':
-                this.initFieldOption(this.mainObj.APPID);
-                break;
             case 'addGroupCode':
                 this.showModal(dialogCardListArgs);
                 break;
@@ -104,13 +142,76 @@ export class SysviewelementeditComponent extends ParentEditComponent {
             case 'outputCloseChange':
                 this.outputClose = !this.outputClose;
                 break;
+            case 'updateFieldCode':
+                this.handleUpdateFieldCode(context);
+                break;
         }
     }
+    handleUpdateFieldCode(param) {
+        let beforeChangeObj: any = {};
+        for (let attr in this.mainObj) {
+            beforeChangeObj[attr] = this.mainObj[attr];
+        }
+        if (param) {
+            this.mainObj.FIELDCODE = param.value.FIELDCODE
+            this.handleFieldCodeInfo(this.mainObj.APPID, this.mainObj.FIELDCODE);
+        } else {
+            this.mainObj = beforeChangeObj;
+            this.messageService.success('表单数据已还原');
+        }
+    }
+    handleFieldCodeInfo(appId, fieldCode) {
+        let keys = Object.keys(this.mainObj);
+        this.mainService.getDetailByFieldCode(appId, fieldCode).subscribe(res => {
+            if (res.CODE === '0') {
+                for (let attr in res.DATA[0]) {
+                    if (attr === 'DBTYPE') {
+                        this.mainObj['CATAGORY'] = res.DATA[0][attr];
+                    }
+                    if (keys.indexOf(attr) === -1) {
+                        delete res.DATA[0][attr];
+                    } else {
+                        if (attr !== 'ID') {
+                            this.mainObj[attr] = res.DATA[0][attr] + '';
+                        }
+                        if (this.mainObj[attr] === null || this.mainObj[attr] === 'null') {
+                            this.mainObj[attr] = '';
+                        }
+                        keys.splice(keys.indexOf(attr), 1);
+                    }
+                }
+                this.messageService.success('匹配默认模型成功');
+            } else {
+                this.messageService.error('匹配默认模型失败');
+            }
+        })
+    }
+    beforeSave() {
+        return true;
+    }
+    autoFormatObj() {
+        let keys = Object.keys(this.mainObj);
+        this.mainService._findWithQuery('SYSAPPFIELDS', { APPID: this.appId }).subscribe(res => {
+            if (res.CODE === '0') {
+                res.DATA.forEach(el => {
+                    if (keys.indexOf(el.FIELDCODE) > -1)
+                        switch (el.DBTYPE) {
+                            case 'STR':
+                                this.mainObj[el.FIELDCODE].toString();
+                                break;
+                            case 'NUM':
+                                this.mainObj[el.FIELDCODE] = Number.parseInt(this.mainObj[el.FIELDCODE]);
+                                break;
+                        }
+                })
+            }
+        });
+    }
     /**
-     * 初始化mainObj的默认值
-     */
+    * 初始化mainObj的默认值
+    */
     initDefaultMainObj() {
-        this.mainObj = this.mainService.getDefaultObj();
+        this.mainObj = this.mainService.getDefaultObj(this.mainApp);
     }
     /**
      * 初始化产品名称的自定义下拉选项内容
@@ -165,7 +266,7 @@ export class SysviewelementeditComponent extends ParentEditComponent {
             case 'addGroupCode':
                 dialogCardListArgs.configInterface.title = '新增分组';
                 dialogCardListArgs.configInterface.content = SysappfieldgroupComponent;
-                dialogCardListArgs.appId = this.mainObj.VIEWID
+                dialogCardListArgs.data = this.mainObj;
                 break;
         }
         return dialogCardListArgs;
@@ -179,8 +280,11 @@ export class SysviewelementeditComponent extends ParentEditComponent {
             case 'DEFAULTAPPID':
                 if (dialogCardListArgs.data) {
                     this.mainObj.APPID = dialogCardListArgs.data.APPID;
-                    if (context)
+                    this.defaultModelName = `${this.mainObj.APPID} - ${dialogCardListArgs.data.APPNAME}`
+                    if (context) {
                         this.resetComboAsText(context);
+                        this.initFieldOption(this.mainObj.APPID);
+                    }
                 }
                 break;
             case 'addGroupCode':
@@ -192,15 +296,29 @@ export class SysviewelementeditComponent extends ParentEditComponent {
      * @param appId 
      */
     initFieldOption(appId: string) {
-        this.fieldOption = this.mainService.getFieldOptionByAppId(appId);
+        this.mainService.getFieldOptionByAppId(appId).subscribe(res => {
+            if (res.CODE === '0') {
+                let fields = res.DATA;
+                let arr: Array<{ [key: string]: any }> = [];
+                fields.forEach(el => {
+                    arr.push({ label: `${el.FIELDCODE} - ${el.FIELDNAME}`, value: el });
+                })
+                this.fieldOption = arr;
+                if (this.fieldOption) {
+                    this.messageService.success('根据默认模型匹配模型字段成功');
+                } else {
+                    this.messageService.success('根据默认模型匹配模型字段失败');
+                }
+            }
+        })
     }
     /**
-     * 强转combo作为text组件跳过根据APPID赋值下拉选的步骤，达到自定义下拉。
-     * @param fcCombo 
+     * 强转combo假设为text组件跳过根据APPID赋值下拉选的步骤，达到自定义下拉。
+     * @param fcAny 
      */
-    resetComboAsText(fcCombo: FccomboComponent) {
-        fcCombo._id = 'fc-text'
-        fcCombo.innerValue = undefined;
-        fcCombo._selectOptions = null;
+    resetComboAsText(fcAny: FcanyComponent) {
+        fcAny._id = 'fc-text'
+        fcAny.innerValue = undefined;
+        fcAny._selectOptions = null;
     }
 }

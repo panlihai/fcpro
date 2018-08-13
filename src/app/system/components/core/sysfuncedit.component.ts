@@ -1,10 +1,9 @@
-import { Component, ComponentRef, ElementRef, Renderer2 } from '@angular/core';
-import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ParentEditComponent, FctextComponent } from 'fccomponent';
-import { SysserviceService } from '../../services/sysservice.service';
 import { DialogCardListComponent, DialogCardListArgs } from './dialog/dialogcardlist.component';
-import { Renderer3, ProceduralRenderer3 } from '@angular/core/src/render3/renderer';
 import { SysfuncService } from '../../services/sysfunc.service';
+import { SysappmodaleventdialogComponent } from './dialog/sysappmodaleventdialog.component';
 @Component({
     selector: 'sysfuncedit',
     templateUrl: 'sysfuncedit.component.html',
@@ -30,8 +29,10 @@ export class SysfunceditComponent extends ParentEditComponent {
     pidOption: any;
     sysViews: any;
     sysBtns: any;
-    staticMainObj: any = {};
-    mainObj: any = {};
+    staticMainObj: any;
+    mainObj: any;
+    btnlistOnes: any;
+    btnlistMores: any;
     constructor(public mainService: SysfuncService,
         public router: Router,
         public activeRoute: ActivatedRoute,
@@ -51,10 +52,17 @@ export class SysfunceditComponent extends ParentEditComponent {
      */
     init(): void {
         this.getPidOption();
+        this.getCardListBtn();
+        this.getDefaultObj();
         this.handleRouterParam();
     }
     getDefaultObj() {
-        this.mainObj = this.mainService.getDefaultObj();
+        this.mainObj = {};
+        this.mainObj = this.mainService.getDefaultObj(this.mainApp);
+        this.staticMainObj = {};
+        for (let attr in this.mainObj) {
+            this.staticMainObj[attr] = this.mainObj[attr];
+        }
     }
     /**
      * html事件收集及派发函数
@@ -74,9 +82,25 @@ export class SysfunceditComponent extends ParentEditComponent {
                 this.editView(param);
                 break;
             case 'editBtn':
-                this.editBtn(param);
+                dialogCardListArgs.data = {};
+                dialogCardListArgs.data.event = param ? param : null;
+                dialogCardListArgs.data.funcId = this.mainObj.ID;
+                this.showModal(dialogCardListArgs);
                 break;
         }
+    }
+    /**
+     * 初始化卡片按钮
+     */
+    getCardListBtn() {
+        //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
+        this.btnlistOnes = this.mainService.appButtons.filter(btn =>
+            btn.BTNTYPE === 'LISTONE'
+        );
+        //更多的按钮
+        this.btnlistMores = this.btnlistOnes.splice(3);
+        //截取前两个按钮
+        this.btnlistOnes = this.btnlistOnes.splice(0, 2);
     }
     /**
      * 初始化产品名称的自定义下拉选项内容
@@ -107,8 +131,8 @@ export class SysfunceditComponent extends ParentEditComponent {
                     for (let attr in this.mainObj) {
                         this.staticMainObj[attr] = this.mainObj[attr];
                     }
-                    this.getSysViews(this.mainObj.SERVICEID);
-                    this.getsysBtns(this.mainObj.SERVICEID);
+                    this.getSysViews(this.mainObj.FUNCID);
+                    this.getsysBtns(this.mainObj.FUNCID);
                 } else {
                     this.messageService.error('基本信息获取失败');
                 }
@@ -117,7 +141,7 @@ export class SysfunceditComponent extends ParentEditComponent {
     }
     /**
      * 获取服务-视图数据
-     * @param serviceId 
+     * @param Id 
      */
     getSysViews(id) {
         this.mainService.getSysViews(id).subscribe(res => {
@@ -130,10 +154,10 @@ export class SysfunceditComponent extends ParentEditComponent {
     }
     /**
      * 获取功能-按钮事件数据
-     * @param serviceId 
+     * @param id 
      */
-    getsysBtns(id) {
-        this.mainService.getsysBtns(id).subscribe(res => {
+    getsysBtns(id?) {
+        this.mainService.getsysBtns(id ? id : this.mainObj.FUNCID).subscribe(res => {
             if (res.CODE === '0') {
                 this.sysBtns = res.DATA;
             } else {
@@ -154,27 +178,41 @@ export class SysfunceditComponent extends ParentEditComponent {
     afterSave() {
         this.mainService.findWithQuery({ WHERE: `FUNCID = '${this.mainObj.FUNCID}'` }).subscribe(res => {
             if (res.CODE === '0') {
-                this.navRouter(this.getRouteUrl('Edit'), { ID: res.DATA[0].ID });
+                this.navRouter(this.getRouteUrl('Edit'), { ID: res.DATA[0].ID, refresh: 'Y' });
             }
         });
     }
     /** YM
-    * 新增产品,跳转到新增产品页面
+    * 新增视图,跳转到新增视图页面
     */
     editView(param?: any) {
-        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSVIEW', 'Edit'), { ID: param.ID });
+        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSVIEW', 'Edit'), { ID: param ? param.ID : undefined, funcId: this.mainObj.ID, refresh: 'Y' });
     }
     /** YM
-    * 新增接口,跳转到新增接口页面
+    * 新增按钮事件,跳转到新增按钮事件页面
     */
     editBtn(param?: any) {
-        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSAPPBUTTONS', 'Edit'), { ID: param.ID });
+        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSAPPBUTTONS', 'Edit'), { ID: param ? param.ID : undefined, funcId: this.mainObj.ID, refresh: 'Y' });
+    }
+    /**
+     * 显示弹窗前的判断
+     */
+    checkFormValue() {
+        for (let attr in this.mainObj)
+            if (this.mainObj[attr] !== this.staticMainObj[attr]) {
+                this.messageService.warm("系统检测到表单信息有变更，请先保存后再进行新增操作");
+                return false;
+            }
+        return true;
     }
     /** YM
       * 显示窗口前的判断
       * @param dialogCardListArgs  
       */
     showModal(dialogCardListArgs: DialogCardListArgs) {
+        if (!this.checkFormValue()) {
+            return
+        }
         if (dialogCardListArgs.textComponent ? dialogCardListArgs.textComponent.fcDisabled : true) {
             dialogCardListArgs = this.builddialogCardListArgs(dialogCardListArgs);
             dialogCardListArgs.configInterface.width = "80%";
@@ -196,6 +234,11 @@ export class SysfunceditComponent extends ParentEditComponent {
                 dialogCardListArgs.condition = {};
                 dialogCardListArgs.appId = 'SYSAPP';
                 break;
+            case 'editBtn':
+                dialogCardListArgs.configInterface.title = '功能按钮';
+                dialogCardListArgs.configInterface.content = SysappmodaleventdialogComponent;
+                dialogCardListArgs.data.fromFunc = true;
+                break;
         }
         return dialogCardListArgs;
     }
@@ -208,6 +251,9 @@ export class SysfunceditComponent extends ParentEditComponent {
             case 'DEFAULTAPPID':
                 if (dialogCardListArgs.data)
                     this.mainObj.DEFAULTAPPID = dialogCardListArgs.data.APPID;
+                break;
+            case 'editBtn':
+                this.getsysBtns();
                 break;
         }
     }

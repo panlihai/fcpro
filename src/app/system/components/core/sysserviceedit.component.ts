@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParentEditComponent, FctextComponent } from 'fccomponent';
 import { SysserviceService } from '../../services/sysservice.service';
 import { DialogCardListComponent, DialogCardListArgs } from './dialog/dialogcardlist.component';
-import { NzModalService } from '../../../../../node_modules/ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd';
 @Component({
     selector: 'sysserviceedit',
     templateUrl: 'sysserviceedit.component.html',
@@ -25,16 +25,12 @@ import { NzModalService } from '../../../../../node_modules/ng-zorro-antd';
             `],
 })
 export class SysserviceeditComponent extends ParentEditComponent {
-    productName: any;
     pidOption: any;
-    fastsearchWords: any[];
-    sysViews: any;
     sysInterfaces: any;
-    staticMainObj: any = {};
-    mainObj: any = {};
+    staticMainObj: any;
+    mainObj: any;
     btnlistOnes: any;
     btnlistMores: any;
-    searchWord: any;
     constructor(public mainService: SysserviceService,
         public router: Router,
         public activeRoute: ActivatedRoute,
@@ -53,10 +49,8 @@ export class SysserviceeditComponent extends ParentEditComponent {
      * 组件初始化执行函数
      */
     init(): void {
-        //根据首字母过滤
-        // this.searchByWord();
+        this.getDefaultObj();
         this.getCardListBtn();
-        this.initFastSeachWords();
         this.getPidOption();
         this.handleRouterParam();
     }
@@ -74,7 +68,12 @@ export class SysserviceeditComponent extends ParentEditComponent {
         this.btnlistOnes = this.btnlistOnes.splice(0, 2);
     }
     getDefaultObj() {
-        this.mainObj = this.mainService.getDefaultObj();
+        this.mainObj = {};
+        this.mainObj = this.mainService.getDefaultObj(this.mainApp);
+        this.staticMainObj = {};
+        for (let attr in this.mainObj) {
+            this.staticMainObj[attr] = this.mainObj[attr];
+        }
     }
     /**
      * html事件收集及派发函数
@@ -142,6 +141,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
                     for (let attr in res.DATA[0]) {
                         this.mainObj[attr] = res.DATA[0][attr];
                     }
+                    this.staticMainObj = {};
                     for (let attr in this.mainObj) {
                         this.staticMainObj[attr] = this.mainObj[attr];
                     }
@@ -164,12 +164,6 @@ export class SysserviceeditComponent extends ParentEditComponent {
                 this.messageService.error('接口数据获取失败');
             }
         });
-    }
-    /**
-     * 初始化获取字母快速查询按钮数据
-     */
-    initFastSeachWords() {
-        this.fastsearchWords = this.mainService.initFastSeachWords();
     }
     /** YM
      * 根据PID获取服务编码并赋值.
@@ -195,7 +189,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
     afterSave() {
         this.mainService.findWithQuery({ WHERE: `SERVICEID = '${this.mainObj.SERVICEID}'` }).subscribe(res => {
             if (res.CODE === '0') {
-                this.navRouter(this.getRouteUrl('Edit'), { ID: res.DATA[0].ID });
+                this.navRouter(this.getRouteUrl('Edit'), { ID: res.DATA[0].ID, refresh: 'Y' });
             }
         });
     }
@@ -203,7 +197,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
     * 新增接口,跳转到新增接口页面
     */
     editInterface(params?: any) {
-        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'), { ID: this.mainObj.ID, interfaceId: params ? params.ID : undefined, from: this.appId });
+        this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'), { ID: params ? params.ID : undefined, serviceId: this.mainObj.ID, from: this.appId, refresh: 'Y' });
     }
     /** YM
       * 显示窗口前的判断
@@ -211,7 +205,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
       */
     showModal(dialogCardListArgs: DialogCardListArgs) {
         if (dialogCardListArgs.textComponent ? dialogCardListArgs.textComponent.fcDisabled : true) {
-            dialogCardListArgs = this.builddialogCardListArgs(dialogCardListArgs);
+            dialogCardListArgs = this.buildDialogCardListArgs(dialogCardListArgs);
             dialogCardListArgs.configInterface.width = "80%";
             this.mainService.openDialog(dialogCardListArgs).subscribe(dialogCardListArgs => {
                 if (dialogCardListArgs.hasOwnProperty('methodIndex'))
@@ -223,7 +217,7 @@ export class SysserviceeditComponent extends ParentEditComponent {
     * 弹窗的必要参数构建函数派发
     * @param dialogCardListArgs 
     */
-    builddialogCardListArgs(dialogCardListArgs: DialogCardListArgs) {
+    buildDialogCardListArgs(dialogCardListArgs: DialogCardListArgs) {
         switch (dialogCardListArgs.methodIndex) {
             case 'DEFAULTAPPID':
                 dialogCardListArgs.configInterface.title = '选择默认模型';
@@ -250,41 +244,6 @@ export class SysserviceeditComponent extends ParentEditComponent {
      *  返回列表方法
      */
     backToList() {
-        this.navRouter(this.getRouteUrl('List'));
+        this.navRouter(this.getRouteUrl('List'), { refresh: 'Y' });
     }
-    //     /**
-    //  * 快速查询
-    //  * @param item 
-    //  */
-    // fastSearch(item: any) {
-    //     //当页面按钮的类型为fastsearch时
-    //     if (item.BUSTYPE === 'fastsearch') {
-    //         // 点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据
-    //         if (this.searchWord === item.ACTCODE) {
-    //             this.searchWord = '';
-    //             this.searchByWord();
-    //         } else {
-    //             this.searchWord = item.ACTCODE;
-    //             this.searchByWord(item);
-    //         }
-    //     }
-    // }
-    // /**
-    //   * 初始化元数据
-    //   */
-    // searchByWord(btn?: any) {
-    //     //查询数据的对象
-    //     let valueObj: any = {};
-    //     //如果点击了首字母搜索的按钮,则根据APPID的首字母查询
-    //     if (btn) {
-    //         //从0开始截取第一个字符
-    //         valueObj.WHERE = ` AND SUBSTR(APPID, 0, 1) = '${btn.ACTCODE}' AND PID = '${this.mainObj.PID}}'`
-    //     }
-    //     //根据首字母查询数据,如果没有点击按钮或者再次点击按钮,则查询所有的数据
-    //     this.mainService.getSysInterfaces(valueObj).subscribe(result => {
-    //         if (result.CODE === '0') {
-    //             this.sysInterfaces = result.DATA;
-    //         }
-    //     });
-    // }
 }
