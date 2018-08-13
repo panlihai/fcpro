@@ -18,12 +18,14 @@
                     <span class="sys-fast-list-text">帮助</span>
                 </li>
             </ul>
-            <div class="sys-fast-select">
-                <fc-combo [fcShowLabel]="false" [fcOption]="productOptions" [(ngModel)]="product" fcPlaceHolder="请选择产品" fcAppid="SYSPRODUCT"
-                    (ngModelChange)="chooseProduct($event)" name="SYSPRODUCT.PID"></fc-combo>
-            </div>
-            <div class="sys-fast-byword">
-                <span *ngFor="let item of fastsearchWords" [ngClass]="{'active':searchWord===item.ACTCODE}" (click)="fastSearch(item)">{{item.BTNNAME}}</span>
+            <div class="sys-fast-right">
+                <div class="sys-fast-select sys-fast-select-min">
+                    <fc-combo [fcShowLabel]="false" [fcOption]="productOptions" [(ngModel)]="product" fcPlaceHolder="请选择产品" fcAppid="SYSPRODUCT"
+                        (ngModelChange)="chooseProduct($event)" name="SYSPRODUCT.PID"></fc-combo>
+                </div>
+                <div class="sys-fast-byword">
+                    <span *ngFor="let item of fastsearchWords" [ngClass]="{'active':searchWord===item.ACTCODE}" (click)="fastSearch(item)">{{item.BTNNAME}}</span>
+                </div>
             </div>
         </div>
         <svg class="icon sys-card-bg" aria-hidden="true">

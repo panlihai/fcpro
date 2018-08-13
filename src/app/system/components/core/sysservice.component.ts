@@ -7,7 +7,9 @@ import { SysserviceService } from '../../services/sysservice.service';
   selector: 'sysservice',
   templateUrl: './sysservice.component.html',
   styles: [`
-   
+   .sys-fast-select{
+     width:160px;
+   }
             `]
 })
 export class SysserviceComponent extends ParentlistComponent {

@@ -18,12 +18,14 @@
                     <span class="sys-fast-list-text">帮助</span>
                 </li>
             </ul>
-            <div class="sys-fast-select">
-                <fc-combo [fcShowLabel]="false" [fcOption]="productOptions" [(ngModel)]="product" fcPlaceHolder="请选择产品" (ngModelChange)="chooseProduct($event)"
-                    name="SYSPRODUCT.PID"></fc-combo>
-            </div>
-            <div class="sys-fast-byword">
-                <span *ngFor="let item of fastsearchWords" [ngClass]="{'active':searchWord===item.ACTCODE}" (click)="fastSearch(item)">{{item.BTNNAME}}</span>
+            <div class="sys-fast-right">
+                <div class="sys-fast-select">
+                    <fc-combo [fcShowLabel]="false" style="display: block;" [fcOption]="productOptions" [(ngModel)]="product" fcPlaceHolder="请选择产品"
+                        (ngModelChange)="chooseProduct($event)" name="SYSPRODUCT.PID"></fc-combo>
+                </div>
+                <div class="sys-fast-byword">
+                    <span *ngFor="let item of fastsearchWords" [ngClass]="{'active':searchWord===item.ACTCODE}" (click)="fastSearch(item)">{{item.BTNNAME}}</span>
+                </div>
             </div>
         </div>
         <svg class="icon sys-card-bg" aria-hidden="true">
@@ -80,22 +82,22 @@
                             <div class="sys-card-title">
                                 {{sysservice.SERVICEID}}-{{sysservice.SERVICENAME}}
                             </div>
-                            <p class="sys-card-smarks">{{sysservice.REMARK}}</p>
+                            <p class="sys-card-smarks">{{sysservice.REMARK|slice:0:12}}</p>
                         </div>
                     </div>
                     <div class="sys-card-footer">
-                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="thumbUp()" fcTitle="点赞">
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after sys-card-btn-max" (click)="thumbUp()" fcTitle="点赞">
                             <fc-icon fcIcon="fc-icon-dianzan2" fccontent></fc-icon>
                             <span fccontent>2356</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="download()" fcTitle="下载zip">
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after sys-card-btn-min" (click)="download()" fcTitle="下载zip">
                             <fc-icon fcIcon="fc-icon-daochu" fccontent></fc-icon>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="evaluate()" fcTitle="评价">
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after sys-card-btn-max" (click)="evaluate()" fcTitle="评价">
                             <fc-icon fcIcon="fc-icon-pinglun1" fccontent></fc-icon>
                             <span fccontent>559</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" (click)="count()" fcTitle="统计图">
+                        <fc-tooltip class="sys-card-btn sys-card-btn-min" (click)="count()" fcTitle="统计图">
                             <fc-icon fcIcon="fc-icon-shujufenxi" fccontent></fc-icon>
                         </fc-tooltip>
                     </div>

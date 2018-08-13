@@ -22,17 +22,21 @@
                     <span class="sys-fast-list-text">帮助</span>
                 </li>
             </ul>
-            <div class="sys-fast-select" style="margin-right: 10px;">
-                <!-- 选择产品 -->
-                <fc-combo style="width: 45%;display: inline-block;" [fcShowLabel]="false" [fcOption]="productOptions" [(ngModel)]="product"
-                    fcPlaceHolder="请选择产品" (ngModelChange)="chooseProduct($event)" name="SYSPRODUCT.PID"></fc-combo>
-                <!-- 选择数据源，没有选择产品时，数据源下拉为空 -->
-                <fc-combo style="width: 45%;display:inline-block;" [fcShowLabel]="false" [(ngModel)]="datasource" fcPlaceHolder="请选择数据源"
-                    (ngModelChange)="chooseDatasource($event)" [fcDisabled]="product===undefined||product===null||product===''"
-                    fcAppid="SYSDATASOURCE" fcFieldCode="DSID" fcLabelCode="DSNAME" fcValueCode="DSID" name="SYSDATASOURCE.DSID"></fc-combo>
-            </div>
-            <div class="sys-fast-byword">
-                <span *ngFor="let item of fastsearchWords" [ngClass]="{'active':searchWord===item.ACTCODE}" (click)="fastSearch(item)">{{item.BTNNAME}}</span>
+            <div class="sys-fast-right">
+                <div class="sys-fast-select sys-fast-select-min">
+                    <!-- 选择产品 -->
+                    <fc-combo style="width: 100%;display: inline-block;" [fcShowLabel]="false" [fcOption]="productOptions" [(ngModel)]="product"
+                        fcPlaceHolder="请选择产品" (ngModelChange)="chooseProduct($event)" name="SYSPRODUCT.PID"></fc-combo>
+                </div>
+                <div class="sys-fast-select sys-fast-select-min">
+                    <!-- 选择数据源，没有选择产品时，数据源下拉为空 -->
+                    <fc-combo style="width: 100%;display: inline-block;" [fcShowLabel]="false" [(ngModel)]="datasource" fcPlaceHolder="请选择数据源"
+                        (ngModelChange)="chooseDatasource($event)" [fcDisabled]="product===undefined||product===null||product===''"
+                        fcAppid="SYSDATASOURCE" fcFieldCode="DSID" fcLabelCode="DSNAME" fcValueCode="DSID" name="SYSDATASOURCE.DSID"></fc-combo>
+                </div>
+                <div class="sys-fast-byword">
+                    <span *ngFor="let item of fastsearchWords" [ngClass]="{'active':searchWord===item.ACTCODE}" (click)="fastSearch(item)">{{item.BTNNAME}}</span>
+                </div>
             </div>
         </div>
         <svg class="icon sys-card-bg" aria-hidden="true">
@@ -89,7 +93,8 @@
                             <div class="sys-card-title">
                                 {{sysapp.APPID}}-{{sysapp.APPNAME}}
                             </div>
-                            <p class="sys-card-smarks">{{sysapp.REMARK}}</p>
+                            <p class="sys-card-smarks">
+                                {{sysapp.REMARK|slice:0:12}}</p>
                         </div>
                     </div>
                     <div class="sys-card-footer">
