@@ -9,6 +9,9 @@ export class SysintfresparamService extends ParentService {
     public modalService: NzModalService) {
     super(providers, "SYSINTFRESPARAM");
   }
+  _findWithQuery(appId, condition) {
+    return this.appService.findWithQuery(appId, condition);
+  }
   /**  YM
   * 根据参数类型值获取对应参数类型名称
   */
@@ -20,7 +23,7 @@ export class SysintfresparamService extends ParentService {
  * @param app 
  */
   initObjDefaultValue(app) {
-    return this.appService.initObjDefaultValue(app)
+    return this.appService.initObjDefaultValue(app);
   }
   /**
     *  获取APPLINKS所有数据

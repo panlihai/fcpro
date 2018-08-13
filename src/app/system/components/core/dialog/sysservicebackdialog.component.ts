@@ -88,6 +88,7 @@ import { SysintfresparamService } from '../../../services/sysintfresparam.servic
 export class SysservicebackdialogComponent extends ParentEditComponent {
   interfaceName: any;
   serviceName: any;
+  customParam: any;
   constructor(private modal: NzModalSubject,
     public mainService: SysintfresparamService,
     public router: Router,
@@ -96,14 +97,36 @@ export class SysservicebackdialogComponent extends ParentEditComponent {
   }
   @Input()
   set param(param: any) {
-    this.mainObj = this.mainService.initObjDefaultValue(this.mainApp);
-    for (let attr in param) {
-      this.mainObj[attr] = param[attr];
-    }
-    this.serviceName = param.FROMNAME;
-    this.interfaceName = param.INTERFACENAME;
+    if (param)
+      this.handleCustomParam(param);
   }
   init(): void {
+    this.mainObj = this.mainService.initObjDefaultValue(this.mainApp);
+  }
+  handleCustomParam(param) {
+    if (param.ID) {
+      this.mainService.findWithQuery({ ID: param.ID }).subscribe(res => {
+        if (res.CODE === '0') {
+          this.mainObj = res.DATA[0];
+        }
+      })
+    } else {
+      this.mainObj = this.mainService.initObjDefaultValue(this.mainApp);
+    }
+    if (param.serviceId) {
+      this.mainService._findWithQuery('SYSSERVICE', { ID: param.serviceId }).subscribe(res => {
+        if (res.CODE === '0') {
+          this.serviceName = `${res.DATA[0].SERVICEID} - ${res.DATA[0].SERVICENAME} `;
+        }
+      })
+    }
+    if (param.interfaceId) {
+      this.mainService._findWithQuery('SYSINTERFACE', { ID: param.interfaceId }).subscribe(res => {
+        if (res.CODE === '0') {
+          this.interfaceName = `${res.DATA[0].REQWAY} - ${res.DATA[0].IMPLNAME}`
+        }
+      })
+    }
   }
   addNew(mainObj: any): boolean {
     return true;

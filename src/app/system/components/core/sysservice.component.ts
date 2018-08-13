@@ -120,7 +120,7 @@ export class SysserviceComponent extends ParentlistComponent {
     });
   }
   listEdit(sysservice: any) {
-    this.navRouter(this.getRouteUrl('Edit'), { ID: sysservice.ID });
+    this.navRouter(this.getRouteUrl('Edit'), { ID: sysservice.ID, refresh: 'Y' });
   }
   /**
    * 阻止冒泡

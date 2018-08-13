@@ -131,8 +131,9 @@ import { SysservicebackdialogComponent } from './components/core/dialog/sysservi
 import { SysattributeEditdialogComponent } from './components/core/dialog/sysattributeEditdialog.component';
 import { SysattributeService } from './services/sysattribute.service';
 import { SysintfresparamService } from './services/sysintfresparam.service';
-import { SysaddGroupdialogComponent } from './components/core/dialog/sysaddGroupdialog.component';
-import { SysaddGroupService } from './services/sysaddGroup.service';
+import { MDragDirective } from '../directive/mdrag.directive';
+import { MDropDirective } from '../directive/mdrop.directive';
+import { MDragDropService } from '../directive/mdrag-drop.service';
 
 @NgModule({
   entryComponents: [
@@ -167,7 +168,6 @@ import { SysaddGroupService } from './services/sysaddGroup.service';
     SysservicemodaldialogComponent,
     SysservicebackdialogComponent,
     SysattributeEditdialogComponent,
-    SysaddGroupdialogComponent
   ],
   imports: [
     CommonModule,
@@ -264,7 +264,8 @@ import { SysaddGroupService } from './services/sysaddGroup.service';
     SysservicemodaldialogComponent,
     SysservicebackdialogComponent,
     SysattributeEditdialogComponent,
-    SysaddGroupdialogComponent
+    MDragDirective,
+    MDropDirective
   ],
   providers: [
     LayoutService,
@@ -325,8 +326,8 @@ import { SysaddGroupService } from './services/sysaddGroup.service';
     SysapplinksService,
     SysintfreqparamService,
     SysattributeService,
-    SysaddGroupService,
-    SysintfresparamService
+    SysintfresparamService,
+    MDragDropService
   ]
 })
 export class SystemModule {

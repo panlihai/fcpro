@@ -196,6 +196,6 @@ export class SysversionComponent extends ParentDetailComponent {
    * 回到首页
    */
   backHome() {
-    this.navRouter('/system/home');
+    this.navRouter('/system/home', );
   }
 }

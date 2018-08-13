@@ -124,7 +124,7 @@ export class SysfuncComponent extends ParentlistComponent {
     });
   }
   listEdit(sysfunc: any) {
-    this.navRouter(this.getRouteUrl('Edit'), { ID: sysfunc.ID });
+    this.navRouter(this.getRouteUrl('Edit'), { ID: sysfunc.ID, refresh: 'Y' });
   }
   /**
    * 初始化数据，根据产品、数据源过滤元数据
