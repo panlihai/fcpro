@@ -23,6 +23,8 @@ export class SysproductComponent extends ParentlistComponent {
   btnlistOnes: any[];
   //更多的按钮
   btnlistMores: any[];
+  //菜单图标
+  menuIcon: string;
   constructor(public mainService: SysproductService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -30,6 +32,8 @@ export class SysproductComponent extends ParentlistComponent {
     super(mainService, router, activeRoute);
   }
   init(): void {
+    //获取菜单的图标
+    this.menuIcon = this.routerParam.MENUICON;
     // 初始化产品
     this.initPproduct();
     //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里

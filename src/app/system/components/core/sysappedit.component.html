@@ -65,7 +65,8 @@
     <div fccontent class="clearFloat">
         <div class="attributeLeft" [ngClass]="{'displayMode':displayMode===true}">
             <div>请选择模型，拖拽至属性字段</div>
-            <fc-many [fcShowLabel]="false" PlaceHolder="请选择模型，支持多选" [fcOption]="modelOption" [(ngModel)]="modelValue" fcLabelCode="APPNAME" fcValueCode="TABLENAME" (ngModelChange)="modelEvents($event)">
+            <fc-many [fcShowLabel]="false" PlaceHolder="请选择模型，支持多选" [fcOption]="modelOption" [(ngModel)]="modelValue" fcLabelCode="APPNAME"
+                fcValueCode="TABLENAME" (ngModelChange)="modelEvents($event)">
             </fc-many>
             <div class="showSelectModel">
                 <div class="SelectModelTop">备选模型&字段</div>
@@ -84,7 +85,8 @@
         <div class="widthCovered" [ngClass]="{'attributeRight':displayMode===true}">
             <div class="addAttribute" (click)="addAttributeAdd(mainObj.APPID+'-模型')">+添加</div>
             <fc-list fcAppid="SYSAPPFIELDS" [fcFieldCode]="'FIELDCODE'" [fcCondition]="condition" fcIcon="fc-icon-picture" fcSubTitleCode="FIELDNAME"
-                fcStatusCode='FIELDNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}" (fcEvent)="attributeEditEvent($event,mainObj.APPID+'-模型')">
+                fcStatusCode='FIELDNAME' [fcCheckValue]="{'processing':'processing','warning':'warning','error':'error','default':'default'}"
+                (fcEvent)="attributeEditEvent($event,mainObj.APPID+'-模型')">
             </fc-list>
         </div>
     </div>
@@ -153,17 +155,19 @@
                         </div>
                     </div>
                     <div class="sys-card-footer">
-                        <fc-tooltip class="sys-card-btn" fcTitle="点赞">
-                            <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="thumbUp()" fcTitle="点赞">
+                            <fc-icon fcIcon="fc-icon-dianzan2" fccontent></fc-icon>
+                            <span fccontent>2356</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="下载zip">
-                            <fc-icon fcIcon="fc-icon-get" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="download()" fcTitle="下载zip">
+                            <fc-icon fcIcon="fc-icon-daochu" fccontent></fc-icon>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="评价">
-                            <fc-icon fcIcon="fc-icon-chat" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="evaluate()" fcTitle="评价">
+                            <fc-icon fcIcon="fc-icon-pinglun1" fccontent></fc-icon>
+                            <span fccontent>559</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="统计图">
-                            <fc-icon fcIcon="fc-icon-bgdimensionality" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn" (click)="count()" fcTitle="统计图">
+                            <fc-icon fcIcon="fc-icon-shujufenxi" fccontent></fc-icon>
                         </fc-tooltip>
                     </div>
                 </ng-template>
@@ -232,17 +236,19 @@
                         </div>
                     </div>
                     <div class="sys-card-footer">
-                        <fc-tooltip class="sys-card-btn" fcTitle="点赞">
-                            <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="thumbUp()" fcTitle="点赞">
+                            <fc-icon fcIcon="fc-icon-dianzan2" fccontent></fc-icon>
+                            <span fccontent>2356</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="下载zip">
-                            <fc-icon fcIcon="fc-icon-get" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="download()" fcTitle="下载zip">
+                            <fc-icon fcIcon="fc-icon-daochu" fccontent></fc-icon>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="评价">
-                            <fc-icon fcIcon="fc-icon-chat" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="evaluate()" fcTitle="评价">
+                            <fc-icon fcIcon="fc-icon-pinglun1" fccontent></fc-icon>
+                            <span fccontent>559</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="统计图">
-                            <fc-icon fcIcon="fc-icon-bgdimensionality" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn" (click)="count()" fcTitle="统计图">
+                            <fc-icon fcIcon="fc-icon-shujufenxi" fccontent></fc-icon>
                         </fc-tooltip>
                     </div>
                 </ng-template>
@@ -311,17 +317,19 @@
                         </div>
                     </div>
                     <div class="sys-card-footer">
-                        <fc-tooltip class="sys-card-btn" fcTitle="点赞">
-                            <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="thumbUp()" fcTitle="点赞">
+                            <fc-icon fcIcon="fc-icon-dianzan2" fccontent></fc-icon>
+                            <span fccontent>2356</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="下载zip">
-                            <fc-icon fcIcon="fc-icon-get" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="download()" fcTitle="下载zip">
+                            <fc-icon fcIcon="fc-icon-daochu" fccontent></fc-icon>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="评价">
-                            <fc-icon fcIcon="fc-icon-chat" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="evaluate()" fcTitle="评价">
+                            <fc-icon fcIcon="fc-icon-pinglun1" fccontent></fc-icon>
+                            <span fccontent>559</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="统计图">
-                            <fc-icon fcIcon="fc-icon-bgdimensionality" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn" (click)="count()" fcTitle="统计图">
+                            <fc-icon fcIcon="fc-icon-shujufenxi" fccontent></fc-icon>
                         </fc-tooltip>
                     </div>
                 </ng-template>

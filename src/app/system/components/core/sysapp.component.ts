@@ -71,6 +71,9 @@ export class SysappComponent extends ParentlistComponent {
     })
   }
   ngOnInit() {
+    if (this.routerParam && this.routerParam.PID) {
+      this.product = this.routerParam.PID;
+    }
     //初始化数据
     if (this.product !== undefined && this.product !== null && this.product !== ''
       && this.datasource !== undefined && this.datasource !== null && this.datasource !== '') {

@@ -56,7 +56,7 @@ export class LayoutService {
             this.providers.msgService.startAntLoading();
             let params = {
                 queryParams: {
-                    refresh: refresh, ID: menu.ID, MENUID: menu.MENUID, MENUNAME: menu.MENUNAME, MENUTYPE: menu.MENUTYPE,
+                    refresh: refresh, ID: menu.ID, MENUID: menu.MENUID, MENUNAME: menu.MENUNAME, MENUICON: menu.MENUICON, MENUTYPE: menu.MENUTYPE,
                     ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID, PARAM: menu.param
                 }
             };
@@ -73,7 +73,7 @@ export class LayoutService {
             this.providers.msgService.startAntLoading();
             router.navigate(["/" + menu.PID.toLowerCase() + "/" + menu.ROUTER], {
                 queryParams: {
-                    refresh: refresh, ID: menu.ID, MENUID: menu.MENUID, MENUNAME: menu.MENUNAME, MENUTYPE: menu.MENUTYPE,
+                    refresh: refresh, ID: menu.ID, MENUID: menu.MENUID, MENUNAME: menu.MENUNAME, MENUICON: menu.MENUICON, MENUTYPE: menu.MENUTYPE,
                     ROUTER: menu.ROUTER, PID: menu.PID, APPID: menu.APPID, PARAM: menu.param
                 }
             }).then(() => {

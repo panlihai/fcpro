@@ -1,24 +1,27 @@
 /* 卡片新增 */
 
 :global .sys-card-pannel .fc-layoutpanel {
-  background-color: #F0F2F5!important;
+  background-color: #F0F2F5 !important;
 }
 
 .sys-card {
-  height: 180px;
+  height: 170px;
   cursor: pointer;
   margin-bottom: 10px;
 }
 
 :global .sys-card .ant-card {
   height: 100%;
+  border-radius: 6px;
 }
 
 .sys-card-pannel-header {
   position: relative;
   background-color: #ffffff;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
 }
 
 :global .sys-card-pannel-header .sys-card-pannel-title .fc-title {
@@ -28,14 +31,21 @@
 
 .sys-card-pannel-header .sys-card-pannel-smarks {
   width: 80%;
+  color: #999999;
 }
 
 .sys-card-bg {
+  width: 120px;
+  height: 120px;
   position: absolute;
-  right: 10px;
-  top: 0;
-  width: auto;
-  height: 60px;
+  right: 30px;
+  top: 50%;
+  margin-top: -60px;
+}
+
+:global .sys-card-bg .iconfont {
+  color: #1890ff !important;
+  font-size: 90px !important;
 }
 
 .sys-card-add {
@@ -48,7 +58,13 @@
 }
 
 :global .sys-card-add .ant-card-bordered {
-  border: 1px dashed #d9d9d9;
+  border: 2px dashed#9FA0A0;
+}
+
+:global .sys-card .ant-card:not(.ant-card-no-hovering):hover {
+  box-shadow: 0px 4px 24px rgba(22, 24, 51, 0.4);
+  border-color: #e9e9e9;
+  border-radius: 6px;
 }
 
 .sys-card-add .sys-card-addicon {
@@ -56,11 +72,15 @@
   display: inline-block;
 }
 
+:global .sys-card-add .sys-card-addicon .iconfont {
+  font-size: 16px !important;
+  color: #333 !important;
+}
+
 .sys-card-add .sys-card-addtext {
-  margin-top: 50px;
   display: inline-block;
-  margin-left: 10px;
   font-size: 16px;
+  color: #333333;
 }
 
 .sys-card-add .sys-card-addtext:hover {
@@ -75,7 +95,7 @@
   overflow: hidden;
   white-space: nowrap;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding-top: 10px;
   align-items: center;
 }
@@ -93,29 +113,96 @@
 .sys-fast-byword span {
   padding: 4px 5px;
   font-size: 12px;
-  background-color: #ffffff;
   cursor: pointer;
+  border-top: 1px solid #ebedf0;
+  border-bottom: 1px solid #ebedf0;
   position: relative;
+}
+
+.sys-fast-byword span::after {
+  content: '';
+  width: 1px;
+  height: calc(100% + 2px);
+  background: #009dff;
+  position: absolute;
+  right: 0;
+  top: -1px;
+  visibility: hidden;
+}
+
+.sys-fast-byword span::before {
+  content: '';
+  width: 1px;
+  height: calc(100% + 2px);
+  background: #009dff;
+  position: absolute;
+  left: 0;
+  top: -1px;
+  visibility: hidden;
+}
+
+.sys-fast-byword span:last-child::after,
+.sys-fast-byword span:first-child::before {
+  width: 0;
 }
 
 .sys-fast-byword span:first-child {
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
+  border-left: 1px solid #ebedf0;
 }
 
 .sys-fast-byword span:last-child {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+  border-right: 1px solid #ebedf0;
 }
 
-.sys-fast-byword span.active, .sys-fast-byword span:hover {
+.sys-fast-byword span.active,
+.sys-fast-byword span:hover {
   color: #009dff;
+  border-top: 1px solid #009dff;
+  border-bottom: 1px solid #009dff;
+}
+
+.sys-fast-byword span:hover::after,
+.sys-fast-byword span:hover::before,
+.sys-fast-byword span.active::after,
+.sys-fast-byword span.active::before {
+  visibility: visible;
+}
+
+.sys-fast-byword span:first-child:hover,
+.sys-fast-byword span:first-child.active {
+  border-left: 1px solid #009dff;
+}
+
+.sys-fast-byword span:last-child:hover,
+.sys-fast-byword span:last-child.active {
+  border-right: 1px solid #009dff;
 }
 
 .sys-fast-list li {
   float: left;
   color: #009DFF;
   margin-right: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+:global .sys-fast-list li.sys-fast-list-icon .iconfont {
+  color: #1890ff;
+  font-size: 24px;
+}
+
+.sys-fast-list li .sys-fast-list-text {
+  margin-left: 5px;
+}
+
+.sys-fast-list li .sys-fast-list-import {
+  margin-top: 5px;
+  float: right;
 }
 
 .sys-fast-select {
@@ -124,8 +211,69 @@
 
 /* 卡片内容区 */
 
+.sys-card-big {
+  height: 350px;
+}
+
+.sys-card-add.sys-card-big .sys-card-addicon {
+  margin-top: 139px;
+}
+
 .sys-card-btn {
   text-align: center;
+  background: #F8F8F8;
+  border-top: 1px solid #e9e9e9;
+  white-space: nowrap;
+}
+
+.sys-card-big .sys-card-btn {
+  height: 90px;
+  line-height: 90px;
+}
+
+.sys-card-small .sys-card-btn {
+  height: 40px;
+  line-height: 40px;
+}
+
+:global .sys-card-btn .iconfont {
+  font-size: 18px !important;
+}
+
+.sys-card-btn:hover,
+:global .sys-card-btn:hover .iconfont {
+  color: #1890ff;
+}
+
+.sys-card-btn-after {
+  position: relative;
+}
+
+.sys-card-btn-after::after {
+  content: '';
+  width: 1px;
+  height: 20px;
+  background-color: #e9e9e9;
+  position: absolute;
+  right: 0;
+  top: 35px;
+}
+
+.sys-card-small .sys-card-text {
+  padding-left: 10px;
+}
+
+.sys-card-small .sys-card-btn-after::after {
+  height: 15px;
+  top: 11px;
+}
+
+:global .sys-card-small .sys-card-btn .iconfont {
+  font-size: 12px !important;
+}
+
+:global .sys-card-small .sys-card-btn span {
+  font-size: 12px;
 }
 
 .sys-card-content {
@@ -141,7 +289,8 @@
 
 .sys-card-text {
   flex: 1;
-  padding-left: 5px;
+  padding-left: 15px;
+  padding-top: 10px;
 }
 
 .sys-card-content .sys-card-title {
@@ -150,19 +299,44 @@
 }
 
 .sys-card-content .sys-card-smarks {
-  margin-top: 15px;
-  height: 70px;
+  margin-top: 5px;
   overflow: hidden;
+  font-size: 16px;
+  color: #999999;
 }
 
 .sys-card-mark {
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  color: #ffffff;
   text-align: center;
   border-radius: 50%;
-  background: #009DFF;
+  border: 2px solid #1890ff;
+}
+
+:global .sys-card-big .sys-card-mark .iconfont {
+  font-size: 30px !important;
+  color: #1890ff;
+}
+
+.sys-card-small .sys-card-mark {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #1890ff;
+  color: #ffffff;
+  font-size: 18px;
+  border: none;
+}
+
+:global .sys-card-small .ant-card-body {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.sys-card-big .sys-card-mark {
+  width: 60px;
+  height: 60px;
+  line-height: 55px;
+  color: #1890ff;
 }
 
 /* 卡片按钮 */
@@ -170,15 +344,29 @@
 .sys-card-tbl {
   position: absolute;
   position: absolute;
-  right: -10px;
-  top: -20px;
+  right: 0px;
+  top: -15px;
   display: flex;
   justify-content: flex-start;
 }
 
-.sys-card-tbl-every {
+:global .sys-card-tbl .iconfont {
+  color: #7a7a7a;
+}
+
+:global .sys-card-tbl .iconfont:hover {
+  color: #333333;
+}
+
+/* 两个按钮 */
+
+:global .sys-card-tbl .sys-card-tbl-every {
   margin-right: 10px;
 }
+
+/* 更多的按钮 */
+
+:global .sys-card-tbl .sys-card-tbl-more .ant-dropdown-menu {}
 
 /* 卡片底部 */
 
@@ -200,7 +388,7 @@
 }
 
 :global .sys-card-pannel .fc-content .sys-card-pannel-edit .fc-title {
-  width: 25%!important;
+  width: 25% !important;
   text-align: right;
   padding-right: 20px;
 }
@@ -214,12 +402,16 @@
   padding: 0px;
   border-bottom: none;
 }
-:global .sys-card-pannel .fc-content .sys-card-pannel-edit .notitleLine .fc-layoutcol{
+
+:global .sys-card-pannel .fc-content .sys-card-pannel-edit .notitleLine .fc-layoutcol {
   border-bottom: none;
   margin-bottom: -12px;
 }
-:global .sys-card-pannel .ant-input, :global .sys-card-pannel .ant-select-selection, :global .sys-card-pannel .ant-input-number {
-  border-color: #ebedf0!important;
+
+:global .sys-card-pannel .ant-input,
+:global .sys-card-pannel .ant-select-selection,
+:global .sys-card-pannel .ant-input-number {
+  border-color: #ebedf0 !important;
 }
 
 /* 没有查询数据 */
@@ -243,6 +435,7 @@
 }
 
 /* 弹窗整体向上移动*/
+
 :global .ant-modal-content {
   position: relative;
   background-color: #fff;
@@ -252,13 +445,16 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   top: -34px;
 }
+
 /* 卡片列表，分页，内容区父元数据100%-头部-分页部分的剩余高度超出部分滚动条 */
-:global .sys-pagelist>.fc-layoutpanel{
+
+:global .sys-pagelist>.fc-layoutpanel {
   height: 100%;
-  display: flex!important;
+  display: flex !important;
   flex-direction: column;
 }
-:global .sys-pagelist>.fc-layoutpanel>.fc-content{
+
+:global .sys-pagelist>.fc-layoutpanel>.fc-content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
