@@ -11,7 +11,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   <div>
     <div class="bg-dialog-content">
          <div class="topClose">
-            <div>事件：描述与模型的事件，呈现方式体现在按钮上，与属性及关系构成模型</div>
+            <div *ngIf="!fromFunc">事件：描述与模型的事件，呈现方式体现在按钮上，与属性及关系构成模型</div>
+            <div *ngIf="fromFunc">按钮事件：描述与功能的按钮事件，呈现方式体现在按钮上，与视图构成功能</div>
             <div class="sys-card-fast">
                 <ul class="sys-fast-list">
                     <li class="sys-icon-btn"  (click)="event('closetop')">
@@ -25,15 +26,15 @@ import { Router, ActivatedRoute } from '@angular/router';
              <fc-title fcLabel="基本信息" fcWidth="96%" fcheader [fcHasLine]="false"></fc-title>
              <fc-layoutcol fcSpans="1,0" fccontent>
                  <div fccontent1>
-                     <fc-text [fcLabel]="'模型名称'" fcReadonly="true" [(ngModel)]="content"
-                     name="APPPID"></fc-text>
-                    <fc-text [fcLabel]="'事件编码'" [fcAppid]="appId" fcFieldCode="BTNCODE" [fcValid]="mainValid.BTNCODE" fcPlaceHolder="按编码规则自动生成"   [(ngModel)]="mainObj.BTNCODE" 
+                     <fc-text fcLabel="模型名称" fcReadonly="true" [(ngModel)]="content" [fcAppid]="appId" fcFieldCode="APPID" name="APPID" *ngIf="!fromFunc" ></fc-text>
+                     <fc-text fcLabel="功能名称" fcReadonly="true" [(ngModel)]="funcName" [fcAppid]="appId" fcFieldCode="APPID" name="APPID" *ngIf="fromFunc" ></fc-text>
+                     <fc-text fcLabel="事件编码" [fcAppid]="appId" fcFieldCode="BTNCODE" [fcValid]="mainValid.BTNCODE" fcPlaceHolder="按编码规则自动生成"   [(ngModel)]="mainObj.BTNCODE" 
                      name="BTNCODE"></fc-text>
                      <div class="sys-tab">与其关系名称，中文，如，元数据的属性</div>
-                     <fc-text [fcLabel]="'事件名称'" [fcAppid]="appId" fcFieldCode="BTNNAME" [fcValid]="mainValid.BTNNAME"  fcPlaceHolder="请输入中文"  [(ngModel)]="mainObj.BTNNAME" 
+                     <fc-text fcLabel="事件名称" [fcAppid]="appId" fcFieldCode="BTNNAME" [fcValid]="mainValid.BTNNAME"  fcPlaceHolder="请输入中文"  [(ngModel)]="mainObj.BTNNAME" 
                      name="BTNNAME"></fc-text>
                      <div class="sys-tab">被关联的模型名称</div>
-                     <fc-text [fcLabel]="'操作代码'"  [fcAppid]="appId" fcFieldCode="ACTCODE" [fcValid]="mainValid.ACTCODE"   fcPlaceHolder="请输入编码如addCard" [(ngModel)]="mainObj.ACTCODE"
+                     <fc-text fcLabel="操作代码"  [fcAppid]="appId" fcFieldCode="ACTCODE" [fcValid]="mainValid.ACTCODE"   fcPlaceHolder="请输入编码如addCard" [(ngModel)]="mainObj.ACTCODE"
                      name="ACTCODE"></fc-text>
                      <div class="sys-tab">前端操作的事件编码</div>
                  </div>
@@ -69,7 +70,7 @@ import { Router, ActivatedRoute } from '@angular/router';
                     fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="ALLOWTYPE"  (ngModelChange)="componentEvents('allowtypeEvent',$event)"></fc-radio>  
                     <div class="sys-tab">开放的事件无需授权，许可按钮需要授权</div>
                 </div>
-                <fc-textarea fccontent1 [(ngModel)]="mainObj.HELP" fcLabel="帮助(可选)"  name="HELP" fcPlaceHolder="请输入备注" *ngIf="showDown===false"></fc-textarea>
+                <fc-textarea fccontent1 [fcAppid]="appId" fcFieldCode="HELP" [(ngModel)]="mainObj.HELP" fcLabel="帮助(可选)"  name="HELP" fcPlaceHolder="请输入备注" *ngIf="showDown===false"></fc-textarea>
                 <div fccontent1 class="sys-tab" *ngIf="showDown===false" class="helpBottom">请输入少于200字</div>
             </fc-layoutcol>
          </fc-layoutpanel>
@@ -162,13 +163,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 } 
   `]
 })
-export class SysappmodaleventdialogComponent  extends ParentEditComponent{
+export class SysappmodaleventdialogComponent extends ParentEditComponent {
   //图标属性显示字还是图标
   visible: boolean = true;
   //显示展开收起图标,初始收起
   showDown: boolean;
   //模型名称
   content: string;
+  funcName: string;
+  emitData: any;
   //声明对象
   mainObj = {
     APPID: '',
@@ -195,23 +198,21 @@ export class SysappmodaleventdialogComponent  extends ParentEditComponent{
     ALLOWTYPE: '',
     HELP: ''
   };
+  fromFunc: boolean = false;
   @Input()
   set options(option: any) {
-    this.obj = option;
-    //新增弹窗
-    if (this.obj.APPID === undefined) {
-      this.content = option;
+    this.emitData = option;
+    if (option.data ? option.data.funcId : false)
+      this.getInfoAboutFunc(option.data.funcId)
+    if (option.data ? option.data.fromFunc : false)
+      this.fromFunc = option.data.fromFunc;
+    if (option.data.ID) {
+      this.getInfoAboutMain(option.data.ID);
     }
-    this.productIcon();
-  }
-  @Input()
-  set strs(str: any) {
-    //编辑的弹窗
-    if (str != undefined && str != null && str != '') {
-      this.content = str;
-      this.mainObj = this.obj;
+    else {
+      this.mainObj = option.event ? option.event : this.mainService.initObjDefaultValue(this.mainApp);
+      this.content = option.str;
     }
-    this.productIcon();
   }
   constructor(private modal: NzModalSubject, public mainService: SysappbuttonsService,
     public router: Router,
@@ -224,11 +225,38 @@ export class SysappmodaleventdialogComponent  extends ParentEditComponent{
   addNew(mainObj: any): boolean {
     return true;
   }
+  afterSave() {
+    this.modal.next(this.emitData);
+    this.modal.destroy();
+  }
+  /**  YM
+   * 根据ID获取关于功能的部分信息
+   * @param id 
+   */
+  getInfoAboutFunc(id) {
+    this.mainService._findWithQuery('SYSFUNC', { ID: id }).subscribe(res => {
+      if (res.CODE === '0') {
+        this.mainObj.APPID = res.DATA[0].FUNCID;
+        this.funcName = `${res.DATA[0].FUNCID} - ${res.DATA[0].FUNCNAME}`;
+      }
+    })
+  }
+  /**YM
+   * 根据ID获取关于编辑信息
+   */
+  getInfoAboutMain(id) {
+    this.mainService.findWithQuery({ ID: id }).subscribe(res => {
+      if (res.CODE === '0') {
+        this.mainObj = res.DATA[0];
+      }
+    })
+  }
   /**
   * 保存前验证
   */
-  beforeSave():boolean{
-    this.mainObj.APPID=this.content.split('-')[0];
+  beforeSave(): boolean {
+    if (!this.fromFunc)
+      this.mainObj.APPID = this.content.split('-')[0];
     return true;
   }
   event(eventName: string, param: any): void {
@@ -249,7 +277,7 @@ export class SysappmodaleventdialogComponent  extends ParentEditComponent{
         event.stopPropagation()
         break;
       case 'closetop':
-      this.modal.destroy();
+        this.modal.destroy();
     }
   }
   /**
@@ -258,10 +286,10 @@ export class SysappmodaleventdialogComponent  extends ParentEditComponent{
   * @param event  
   */
   productIcon() {
-     //第一次判断是新增还是修改页面如果是新增页面提示显示如果
-     //是修改页面判断图标是否为空如果为空显示否则不显示提示
-     if (this.mainObj.BTNICON === "" || this.mainObj.BTNICON === null) {
-        this.visible = this.visible
+    //第一次判断是新增还是修改页面如果是新增页面提示显示如果
+    //是修改页面判断图标是否为空如果为空显示否则不显示提示
+    if (this.mainObj.BTNICON === "" || this.mainObj.BTNICON === null) {
+      this.visible = this.visible
     } else {
       this.visible = !this.visible
     }

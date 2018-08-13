@@ -18,25 +18,25 @@
         </div>
         <fc-layoutcol>
             <fc-layoutcol fccontent1 fcSpans="9,1">
-                <fc-text fccontent1 fcLabel="服务名称" [(ngModel)]="mainObj.SERVICEID" [fcAppid]="appId" fcFieldCode="SERVICEID" name="SERVICEID" [fcDisabled]="true"></fc-text>
+                <fc-text fccontent1 fcLabel="功能名称" [(ngModel)]="funcName" [fcAppid]="appId" fcFieldCode="FUNCID" name="FUNCID" fcReadonly="true"></fc-text>
                 <fc-text fccontent1 fcLabel="元素编码" [(ngModel)]="mainObj.ELEMENTID" [fcAppid]="appId" fcFieldCode="ELEMENTID" name="ELEMENTID"></fc-text>
-                <fc-text fccontent1 fcLabel="默认模型" [(ngModel)]="mainObj.APPID" [fcAppid]="appId" fcFieldCode="APPID" name="APPID" [fcDisabled]="true"></fc-text>
+                <fc-text fccontent1 fcLabel="默认模型" [(ngModel)]="defaultModelName" [fcAppid]="appId" fcFieldCode="APPID" name="APPID" fcReadonly="true"></fc-text>
                 <fc-combo fccontent1 fcLabel="数据类型" [(ngModel)]="mainObj.CATAGORY" [fcAppid]="appId" fcFieldCode="CATAGORY" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="CATAGORY" [fcDisabled]="true"></fc-combo>
                 <fc-radio fccontent1 fcLabel="主键" [(ngModel)]="mainObj.KEYSEQ" [fcAppid]="appId" fcFieldCode="KEYSEQ" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="KEYSEQ" [fcDisabled]="true"></fc-radio>
-                <fc-text fccontent1 fcLabel="长度" [(ngModel)]="mainObj.LENGTH" [fcAppid]="appId" fcFieldCode="LENGTH" name="LENGTH" [fcDisabled]="true"></fc-text>
+                <fc-text fccontent1 fcLabel="长度" [(ngModel)]="mainObj.LENGTH" [fcAppid]="appId" fcFieldCode="LENGTH" name="LENGTH" fcReadonly="true"></fc-text>
                 <div class="place-div" fccontent2></div>
                 <div class="place-div" fccontent2></div>
                 <div class="last-btn" fccontent2>
-                    <fc-button fccontent2 fcLabel="切换模型" (click)="event('DEFAULTAPPID',fieldCombo)"></fc-button>
+                    <fc-button fccontent2 fcLabel="切换模型" fcType="primary" (click)="event('DEFAULTAPPID',fieldany)"></fc-button>
                 </div>
             </fc-layoutcol>
             <fc-layoutcol fccontent2 fcSpans="9,1">
-                <fc-text fccontent1 fcLabel="视图名称" [(ngModel)]="mainObj.VIEWID" [fcAppid]="appId" fcFieldCode="VIEWID" name="VIEWID" [fcDisabled]="true"></fc-text>
+                <fc-text fccontent1 fcLabel="视图名称" [(ngModel)]="viewName" [fcAppid]="appId" fcFieldCode="VIEWID" name="VIEWID" fcReadonly="true"></fc-text>
                 <fc-text fccontent1 fcLabel="元素名称" [(ngModel)]="mainObj.ELEMENTNAME" [fcAppid]="appId" fcFieldCode="ELEMENTNAME" name="ELEMENTNAME"></fc-text>
-                <fc-combo #fieldCombo fccontent1 fcLabel="模型字段" [(ngModel)]="mainObj.FIELDCODE" (click)="event('updateFieldOption',fieldCombo)" [fcAppid]="appId" [fcOption]="fieldOption" fcFieldCode="FIELDCODE" name="FIELDCODE" [fcDisabled]="!mainObj.APPID"></fc-combo>
+                <fc-any #fieldany fccontent1 fcLabel="模型字段" [ngModel]="fieldCode" (ngModelChange)="event('updateFieldCode',$event)" [fcAppid]="appId" [fcOption]="fieldOption" fcFieldCode="FIELDCODE" name="FIELDCODE" [fcReadonly]="!mainObj.APPID"></fc-any>
                 <fc-radio fccontent1 fcLabel="是否启用" [(ngModel)]="mainObj.ENABLE" [fcAppid]="appId" fcFieldCode="ENABLE" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="CATAGORY" [fcDisabled]="true"></fc-radio>
                 <fc-radio fccontent1 fcLabel="可为空" [(ngModel)]="mainObj.ISNULL" [fcAppid]="appId" fcFieldCode="ISNULL" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="CATAGORY" [fcDisabled]="true"></fc-radio>
-                <fc-text fccontent1 fcLabel="小数点位数" [(ngModel)]="mainObj.SCALE" [fcAppid]="appId" fcFieldCode="SCALE" name="SCALE" [fcDisabled]="true"></fc-text>
+                <fc-text fccontent1 fcLabel="小数点位数" [(ngModel)]="mainObj.SCALE" [fcAppid]="appId" fcFieldCode="SCALE" name="SCALE" fcReadonly="true"></fc-text>
             </fc-layoutcol>
         </fc-layoutcol>
         <div class="sys-title-container">
@@ -80,7 +80,7 @@
                 <div class="place-div" fccontent2></div>
                 <div class="place-div" fccontent2></div>
                 <div class="last-btn" fccontent2>
-                    <fc-button fccontent2 fcLabel="+" (click)="event('addGroupCode')"></fc-button>
+                    <fc-button fccontent2 fcType="primary" fcLabel="+" (click)="event('addGroupCode')"></fc-button>
                 </div>
             </fc-layoutcol>
         </fc-layoutcol>

@@ -6,4 +6,7 @@ export class SysappfieldgroupService extends ParentService {
     constructor(public providers: ProvidersService) {
         super(providers, "SYSAPPFLDGROUP");
     }
+    _findWithQuery(appId, condition) {
+        return this.appService.findWithQuery(appId, condition);
+    }
 }

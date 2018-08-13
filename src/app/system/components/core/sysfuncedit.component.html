@@ -41,7 +41,7 @@
     <fc-tlbform fccontent fcType="primary" [fcAppid]="appId" fcLayout="center" (fcEvent)="tlbformEvent($event)"></fc-tlbform>
 </fc-layoutpanel>
 <!-- 功能-按钮入口-功能-按钮卡片 -->
-<fc-layoutpanel class="sys-card-pannel">
+<fc-layoutpanel class="sys-card-pannel" *ngIf="routerParam.ID">
     <div class="sys-card-pannel-header" fcheader>
         <fc-title fcLabel="功能-按钮" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
@@ -49,7 +49,7 @@
         </P>
         <div class="sys-card-fast">
             <ul class="sys-fast-list">
-                <li>
+                <li class="sys-icon-btn">
                     <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>生成标准事件</li>
             </ul>
         </div>
@@ -57,7 +57,7 @@
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="addBtnEvent();">
+            <nz-card (click)="event('editBtn');">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增按钮事件</p>
@@ -66,14 +66,14 @@
         </div>
         <!-- 功能-按钮列表循环 -->
         <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysBtn of sysBtns">
-            <nz-card (click)="listEdit(sysBtn);">
+            <nz-card (click)="event('editBtn',sysBtn);">
                 <ng-template #body>
                     <div class="sys-card-content">
                         <!-- 操作按钮 -->
                         <div class="sys-card-tbl">
                             <!-- 默认显示两个 -->
                             <fc-tooltip class="sys-card-tbl-every" fcTitle="{{btn.BTNNAME}}" *ngFor="let btn of btnlistOnes">
-                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE,sysBtn)" fcFontSize="18px" fccontent></fc-icon>
+                                <fc-icon [fcIcon]="btn.BTNICON" (click)="event(btn.BTNCODE,sysBtn)" fcFontSize="18px" fccontent></fc-icon>
                             </fc-tooltip>
                             <!-- 超出2个后显示 -->
                             <div class="sys-card-tbl-more" *ngIf="btnlistMores.length!==0">
@@ -82,7 +82,7 @@
                                     <ul nz-menu nzSelectable>
                                         <li nz-menu-item *ngFor="let btn of btnlistMores">
                                             <fc-tooltip fcTitle="{{btn.BTNNAME}}">
-                                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE)" fcFontSize="18px" fccontent></fc-icon>
+                                                <fc-icon [fcIcon]="btn.BTNICON" (click)="event(btn.BTNCODE,sysBtn)" fcFontSize="18px" fccontent></fc-icon>
                                             </fc-tooltip>
                                         </li>
                                     </ul>
@@ -121,7 +121,7 @@
     </div>
 </fc-layoutpanel>
 <!-- 视图入口-视图卡片 -->
-<fc-layoutpanel class="sys-card-pannel">
+<fc-layoutpanel class="sys-card-pannel" *ngIf="routerParam.ID">
     <div class="sys-card-pannel-header" fcheader>
         <fc-title fcLabel="视图" class="sys-card-pannel-title" [fcHasLine]="false"></fc-title>
         <P class="sys-card-pannel-smarks">
@@ -136,7 +136,7 @@
     <div nz-row [nzGutter]="10" fccontent>
         <!-- 新增卡片操作 -->
         <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="addView();">
+            <nz-card (click)="event('editView');">
                 <ng-template #body>
                     <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
                     <p class="sys-card-addtext">新增视图</p>
@@ -145,7 +145,7 @@
         </div>
         <!-- 视图列表循环 -->
         <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let sysView of sysViews">
-            <nz-card (click)="listEdit(sysView);">
+            <nz-card (click)="event('editView',sysView);">
                 <ng-template #body>
                     <div class="sys-card-content">
                         <!-- 操作按钮 -->
