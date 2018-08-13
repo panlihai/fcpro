@@ -17,7 +17,6 @@ export class SysfuncComponent extends ParentlistComponent {
   btnlistMores: any[];
   //字母查找
   fastsearchWords: any[];
-  productOptions: any;
   //服务
   pageList: any[];
   //点击的首字母查询,高亮当前的字母并根据点击字母过滤,再点击当前字母,取消高亮并查询所有的数据

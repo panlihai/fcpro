@@ -25,7 +25,7 @@ export class SysfuncService extends ParentService {
     /**
      * 获取产品
      */
-    getproduct() {
+    getProduct() {
         return this.sysproductService.findWithQuery({});
     }
     /**
