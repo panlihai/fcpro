@@ -53,6 +53,7 @@ export class SysinterfaceeditComponent extends ParentEditComponent {
     modelNameValue: any;
     btnlistOnes: any;
     btnlistMores: any;
+    fromName:string;
     constructor(public mainService: SysinterfaceService,
         public router: Router,
         public activeRoute: ActivatedRoute) {

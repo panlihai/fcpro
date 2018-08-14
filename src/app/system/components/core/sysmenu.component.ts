@@ -61,8 +61,8 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
                     <span class="levelnav levelnav-4"></span>拖拽类移动区
                 </li>
             </ul>
-            <ul fccontent1 *ngFor="let sysmenu of sysmenus; let i = index" class="firstMenu">
-                <li class="clearFloat">
+            <ul fccontent1  class="firstMenu">
+                <li class="clearFloat" *ngFor="let sysmenu of sysmenus; let i = index">
                     <div class="sysmenu-first" [ngClass]="{'menutype-app':sysmenu.MENUTYPE==='APP'}" (click)="menuEdit(sysmenu)">
                         <fc-icon [fcIcon]="sysmenu.MENUICON"></fc-icon>
                         <span class="sysmenu">{{sysmenu.MENUNAME}}</span>                       
@@ -107,16 +107,18 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
                 </li>
             </ul>
             <span class="dragAreafirst" (drop)="dropFirst($event)" (dragover)="dragoverFirst($event)" fccontent1 *ngIf="sysmenus.length!==0"></span>
-            <div fccontent2 *ngIf="sysmenus.length!==0" class="functionMenu" id="functionMenuId" [draggable]="true" (dragstart)="dragstart($event)" (click)="menuEdit(null)">
-                <fc-icon fcIcon="fc-icon-definition"></fc-icon>
-                <span>菜单类-拖拽添加</span>
-                <span class="functionMenuLine">|</span>
-            </div>
-            <div fccontent2 class="menuButton" *ngIf="sysmenus.length!==0" id="menuButtonId" [draggable]="true" (dragstart)="dragstart($event)" (click)="menuEdit(null)">
-                <fc-icon fcIcon="fc-icon-definition"></fc-icon>
-                <span>功能类-拖拽末级添加</span>
-                <span class="menuButtonLine">|</span>
-            </div>
+            <div fccontent2 *ngIf="sysmenus.length!==0" class="dragArea">
+                <div class="functionMenu" id="functionMenuId" [draggable]="true" (dragstart)="dragstart($event)" (click)="menuEdit(null)">
+                    <fc-icon fcIcon="fc-icon-definition"></fc-icon>
+                    <span class="spanFont">菜单类-拖拽添加</span>
+                    <span class="functionMenuLine spanFont">|</span>
+                </div>
+                <div class="menuButton"  id="menuButtonId" [draggable]="true" (dragstart)="dragstart($event)" (click)="menuEdit(null)">
+                    <fc-icon fcIcon="fc-icon-definition"></fc-icon>
+                    <span class="spanFont">功能类-拖拽末级添加</span>
+                    <span class="menuButtonLine spanFont">|</span>
+                </div>
+            </div>        
         </fc-layoutcol>
     </fc-layoutcol>
   </fc-layoutpanel>
@@ -265,39 +267,44 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     .showIcon{
         display: block;  
     }
-    .menuButton{
-        margin-top:20px;
+    .dragArea.ng-star-inserted {
         position: fixed;
-        top: 52%;
-        width: 172px;
-        height: 30px;
-        border: 1px solid #bbbbc3;
-        box-shadow: 0;
-        box-shadow: 0 0 4px #bbbbc3;
-        color: #009DFF;
-        padding: 0px 10px 0px 10px;
+    }
+    .menuButton{
+        margin-top: 10px;
+        width: 380px;
+        height: 53px;
+        line-height: 53px;
+        border: 1px solid #ccc;
+        color: #1890ff;
         border-radius: 3px;
+        font-size: 18px;
+        padding-left: 20px;
     }
     .menuButtonLine{
-        margin-left:4px;
-        color: #bbbbc3;
+        color: #eee;
+        display: inline-block;
+        float: right;
+        margin-right: 50px;
     }
     .functionMenu{
-        margin-top: 30px;
-        position: fixed;
-        top: 45%;
-        width: 172px;
-        height: 30px;
-        border: 1px solid #bbbbc3;
-        box-shadow: 0;
-        box-shadow: 0 0 4px #bbbbc3;
-        color: #009DFF;
+        width: 380px;
+        height: 53px;
+        line-height: 53px;
+        border: 1px solid #ccc;
+        color: #1890ff;
         border-radius: 3px;
-        text-align: center;
+        font-size: 18px;
+        padding-left: 20px;s
+    }
+    .spanFont{
+        font-size:18px;
     }
     .functionMenuLine{
-        margin-left:4px;
-        color: #bbbbc3;
+        color: #eee;
+        display: inline-block;
+        float: right;
+        margin-right: 50px;
     }
     .arrow{
         text-align: center;
@@ -339,20 +346,18 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
         margin-right: 20px;
     }
     :host ::ng-deep .fc-content1{
-        padding-left: 80px;
         background: #fff;
-        padding-top: 10px;
     }
     :host ::ng-deep .navMenu .fc-layoutcol {
         overflow: hidden;
     }
     :host ::ng-deep .showLine .fc-content1{
         border-right:1px solid  #CBCBCC;
-        padding:0px 20px 30px 80px;
+        padding:20px 20px 30px 20px;
         position: relative;
     }
     :host ::ng-deep .navMenu .fc-content2{
-        padding-left:20px;
+        padding:20px 20px 0px 20px;
     }
     ul.menuZone {
         position: absolute;
@@ -363,10 +368,13 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
         margin-right: 20px;
     }
     .levelnav{
-        width: 15px;
-        height: 8px;
+        width: 16px;
+        height: 9px;
         display: inline-block;
         margin-right: 10px;
+    }
+    .firstMenu{
+        margin-top:37px;
     }
     .levelnav-1 {
         background-color:#FFE566;
@@ -379,6 +387,9 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     }
     .levelnav-4 {
         background-color:#EEEEEE;
+    }
+    .selectProduct fc-combo {
+        width: 100%;
     }
   `]
 })

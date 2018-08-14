@@ -64,6 +64,13 @@ export class SysattributeService extends ParentService {
         }).subscribe(result => {
         });
     }
+    /**YM
+  * 初始化mainObj
+  * @param app 
+  */
+    initObjDefaultValue(app) {
+        return this.appService.initObjDefaultValue(app);
+    }
 }
 export interface Sysattribute {
 
