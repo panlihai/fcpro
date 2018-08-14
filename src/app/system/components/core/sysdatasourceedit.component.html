@@ -66,7 +66,7 @@
                 <div fccontent1  *ngIf = "!passwordshow"  style="margin-left: 9%;">
                     <fc-text  fcLabel="数据源密码" [fcAppid]="appId" fcFieldCode="PASSWORD" [(ngModel)]="mainObj.PASSWORD" name="SYSDATASOURCE.PASSWORD"></fc-text>
                 </div>
-                <div fccontent2 (click)="event('passwordEvent')" style="margin-top:5%;">查看密码</div>
+                <div fccontent2 (click)="event('passwordEvent')" style="margin-top:5%;cursor:pointer;">查看密码</div>
             </fc-layoutcol>
             <div fccontent1 class="sys-tab">点击查看密码将记录日志，填写查看人的用户名密码查看；</div> 
         </fc-layoutcol>
