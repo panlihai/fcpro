@@ -17,7 +17,7 @@
     </div>
     <div class="sys-card-pannel-edit sys-app" fccontent>
         <fc-title fcLabel="基本信息" class="sys-card-pannel-title" [fcHasLine]="false" fccontent></fc-title>
-        <fc-layoutcol fcSpans="1,1">
+        <fc-layoutcol fcSpans="1,1" class="noBorder">
             <fc-combo fccontent1 [fcLabel]="'产品'" [fcOption]="productOption" [(ngModel)]="mainObj.APPMODEL" [fcAppid]="appId" fcPlaceHolder="请选择产品">
             </fc-combo>
             <fc-combo fccontent2 [fcLabel]="'数据源'" [fcOption]="datasourceOption" [(ngModel)]="mainObj.DATASOURCE" [fcAppid]="appId" fcPlaceHolder="请选择数据源">
@@ -32,9 +32,9 @@
             <fc-layoutcol fccontent2 fcSpans="1,1" class="noBottomLine">
                 <fc-radio fccontent1 [fcLabel]="'模型类型'" [(ngModel)]="mainObj.TABLETYPE" [fcAppid]="appId" fcFieldCode="TABLETYPE" fcLabelCode="DICDESC"
                     fcValueCode="DICVALUE"></fc-radio>
-                <span fccontent1 class="instructions">默认为表</span>
-                <fc-text fccontent2 [fcLabel]="'查询偏移量'" [(ngModel)]="mainObj.PSIZE" fcPlaceHolder="请输入模型"></fc-text>
-                <span fccontent2 class="instructions">默认分页大小，每页返回数据</span>
+                <span fccontent1 class="instruction">默认为表</span>
+                <fc-long fccontent2 [fcLabel]="'查询偏移量'" [(ngModel)]="mainObj.PSIZE" fcPlaceHolder="请输入模型"></fc-long>
+                <span fccontent2 class="instructions instruction-psize">默认分页大小，每页返回数据</span>
             </fc-layoutcol>
             <fc-text fccontent1 [fcLabel]="'指定表或视图名称'" [(ngModel)]="mainObj.MAINTABLE" fcPlaceHolder="请输入物理表名"></fc-text>
             <span fccontent1 class="instructions">默认采用与模型编码相同，物理表名或视图名</span>

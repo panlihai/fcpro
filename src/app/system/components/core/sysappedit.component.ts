@@ -32,6 +32,18 @@ import { element } from 'protractor';
     display:block;
     color:#938e8e;
   }
+  .instruction{
+    width:100%;
+    margin-left:50%;
+    display:block;
+    color:#938e8e;
+  }
+  .instruction-psize{
+    margin-left:40%;
+  }
+  :host ::ng-deep .noBottomLine .ant-row.ng-star-inserted {
+    margin-left: 34%;
+  }
   :host ::ng-deep .basicTlb .fc-tlbform{
     margin-top:20px;
   }
@@ -42,24 +54,31 @@ import { element } from 'protractor';
     padding: 0px;
     border-bottom:none;
   }
+  .sys-card-pannel .fc-content .sys-card-pannel-edit .noBorder .fc-layoutcol {
+    border:none;
+  }
   .butType{
     font-size:16px;
     font-weigth:700;
   }
   .clearFloat{
     overflow:hidden;
+    padding: 20px;
+    background-color: #fff;
   }
   .attributeLeft{
     float:left;
-    width:30%;
-    padding: 0px 40px 0px 40px;
+    width:25%;
+    padding: 0px 10px 0px 0px;
   }
   .widthCovered{
     width:100%;
   }
   .attributeRight{
     float:left;
-    width:70%;
+    width:75%;
+    border-left:1px solid #ccc;
+    padding-left:10px;
   }
   .addAttribute {
     width: 100%;
@@ -96,7 +115,10 @@ import { element } from 'protractor';
     height:250px;
   }
   :host ::ng-deep .sys-app .fc-title-in {
-    margin-right: 33%;
+    margin-right: 40%;
+  }
+  :host ::ng-deep .fc-list-actions {
+    color: #009DFF;
   }
   `]
 })
