@@ -27,29 +27,32 @@ import { ColumnApi } from 'ag-grid';
   .sys-basic-info{
     display:flex;
     justify-content:space-between;
-    padding:15px;
+    padding:20px;
     box-sizing:border-box;
+    height:152px;
   }
   .sys-info-user{
     display:flex;
     justify-content:flex-start;
   }
   .sys-info-user img{
-    width:40px;
-    height:40px;
+    width:60px;
+    height:60px;
     border-radius:50%;
-    margin-rgiht:20px;
+    margin-right: 20px;
   }
   .sys-info-text .sys-info-title{
-    font-size:20px;
-    font-weight:700;
+    font-size:22px;
+    color:#333333;
   }
   .sys-info-text .sys-info-smarks{
-
+    color:#999999;
+    font-size:16px;
   }
   .sys-info-count{
     display:flex;
     justify-content:flex-end;
+    margin-right:40px;
   }
   .sys-info-count .sys-info-count-every{
     text-align:center;
@@ -57,11 +60,13 @@ import { ColumnApi } from 'ag-grid';
   }
   .sys-info-count .sys-info-count-every .sys-count-text{
     display:block;
+    font-size:16px;
+    color:#999999;
   }
   .sys-info-count .sys-info-count-every .sys-count-number{
     display:block;
-    font-size:20px;
-    font-weight:700;
+    font-size:30px;
+    color:#333333;
   }
   .sys-team{
     display:flex;

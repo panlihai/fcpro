@@ -88,7 +88,7 @@
 }
 
 .sys-card-fast {
-  width: calc(100% - 170px);
+  width: calc(100% - 150px);
   overflow: hidden;
   white-space: nowrap;
   overflow: hidden;
