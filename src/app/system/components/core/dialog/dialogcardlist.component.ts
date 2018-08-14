@@ -22,7 +22,7 @@ import { FCEVENT } from 'fccomponent/fc';
                             </span>
                             <div class="sys-card-text">
                                 <div class="sys-card-title">
-                                    {{data.APPdata}}-{{data.APPID}}
+                                   {{data.APPID}} - {{data.APPNAME}}
                                 </div>
                                 <p class="sys-card-smarks">{{data.DIRECTION}}</p>
                             </div>

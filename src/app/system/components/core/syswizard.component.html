@@ -11,7 +11,7 @@
                                 <div class="sys-info-user">
                                     <img src="assets/img/github.jpg" alt="我的头像">
                                     <div class="sys-info-text">
-                                        <p class="sys-info-title">早安，FCCORE，祝你开心每一天！</p>
+                                        <p class="sys-info-title">早安，{{userInfo.USERNAME}}，祝你开心每一天！</p>
                                         <p class="sys-info-smarks">前端设计师|FCCORE-平台技术-基础平台部</p>
                                     </div>
                                 </div>
@@ -53,7 +53,7 @@
                             <a class="sys-title-right">全部的服务</a>
                             <div nz-row [nzGutter]="0">
                                 <!-- 进行中的服务列表循环 -->
-                                <div nz-col [nzSpan]="8" class="sys-card" *ngFor="let item of sysServices">
+                                <div nz-col [nzSpan]="8" class="sys-card sys-card-small" *ngFor="let item of sysServices">
                                     <nz-card (click)="onSelect(item);" [nzBordered]="false">
                                         <ng-template #body>
                                             <div class="sys-card-content">

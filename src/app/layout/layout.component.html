@@ -20,7 +20,7 @@
                 </ng-template>
             </nz-tab>
         </nz-tabset>
-        <nz-tabset nzTabPosition="top" *ngIf="displayMode==='TAB'&&_childMenus.length!==0" class="sys-nav-tabsub" [nzType]="'line'" fccontent2>
+        <nz-tabset nzTabPosition="top" [(nzSelectedIndex)]="selectedIndexChildMenu" *ngIf="displayMode==='TAB'&&_childMenus.length!==0" class="sys-nav-tabsub" [nzType]="'line'" fccontent2>
             <nz-tab *ngFor="let menu of  _childMenus" (nzClick)="selectedtabsub(menu)">
                 <ng-template #nzTabHeading>
                     {{menu.MENUNAME}}
