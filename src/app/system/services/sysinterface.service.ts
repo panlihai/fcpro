@@ -26,8 +26,8 @@ export class SysinterfaceService extends ParentService {
     /** YM
       *  初始化DefaultObj
       */
-    getDefaultObj() {
-        return this.providers.appService.initObjDefaultValue(this.app);
+    getDefaultObj(app) {
+        return this.providers.appService.initObjDefaultValue(app);
     }
     getBizCodeByAid(resId: string) {
         return this.sysbizcoderuleService.getBizCodeByAid(this.moduleId, resId);

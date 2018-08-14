@@ -19,12 +19,14 @@
     <div class="information" fccontent>
         <fc-title fcLabel="基本信息" class="sys-card-pannel-title" [fcHasLine]="false" fccontent></fc-title>
         <fc-layoutcol fccontent fcSpans="1,1" class="noBottomLine">
-            <fc-combo fccontent1 fcLabel="产品名称" [(ngModel)]="mainObj.PID" [fcOption]="pidOption" name="SERVICENAME" [fcDisabled]="true"></fc-combo>
-            <fc-text fccontent2 [fcLabel]="fromName" [(ngModel)]="mainObj.FROMNAME" name="FROMNAME" [fcDisabled]="true"></fc-text>
+            <fc-combo fccontent1 fcLabel="产品名称" [(ngModel)]="mainObj.PID" [fcOption]="pidOption" fcReadonly="true"></fc-combo>
+            <fc-text fccontent2 [fcLabel]="serviceName" [(ngModel)]="serviceNameValue" name="serviceName" fcReadonly="true" *ngIf="serviceName"></fc-text>
+            <fc-text fccontent2 [fcLabel]="modelName" [(ngModel)]="modelNameValue" name="modelName" fcReadonly="true" *ngIf="!serviceName"></fc-text>
             <fc-text fccontent1 fcLabel="接口名称" [(ngModel)]="mainObj.IMPLNAME" [fcAppid]="appId" fcFieldCode="IMPLNAME" name="IMPLNAME"></fc-text>
             <fc-text fccontent2 fcLabel="请求URL" [(ngModel)]="mainObj.REQURL" [fcAppid]="appId" fcFieldCode="REQURL" name="REQURL"></fc-text>
             <span fccontent2 class="instructions">如server/api/SYSTEM/SYSAPP(请求URL)/LISTINFO</span>
-            <fc-check fccontent1 fcLabel="请求方式" [(ngModel)]="mainObj.REQWAY" [fcAppid]="appId" fcFieldCode="REQWAY" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="REQWAY"></fc-check>
+            <fc-check fccontent1 fcLabel="请求方式" [(ngModel)]="mainObj.REQWAY" [fcAppid]="appId" fcFieldCode="REQWAY" fcLabelCode="DICDESC"
+                fcValueCode="DICVALUE" name="REQWAY"></fc-check>
             <span fccontent1 class="instructions">获取数据用GET,提交数据用POST</span>
             <fc-text fccontent2 fcLabel="方法名称" [(ngModel)]="mainObj.REQTYPE" [fcAppid]="appId" fcFieldCode="REQTYPE" name="REQTYPE"></fc-text>
             <span fccontent2 class="instructions">如server/api/SYSTEM/SYSAPP/LISTINFO(方法名称)</span>
@@ -40,14 +42,18 @@
         <fc-layoutcol fccontent fcSpans="1,0">
             <fc-title fcLabel="其它信息" class="sys-card-pannel-title" [fcHasLine]="false" fccontent1></fc-title>
             <fc-layoutcol fccontent1 fcSpans="1,2" class="noBottomLine">
-                <fc-radio fccontent1 fcLabel="需要token？" [(ngModel)]="mainObj.NEEDUSERTOKEN" [fcAppid]="appId" fcFieldCode="NEEDUSERTOKEN" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="NEEDUSERTOKEN"></fc-radio>
+                <fc-radio fccontent1 fcLabel="需要token？" [(ngModel)]="mainObj.NEEDUSERTOKEN" [fcAppid]="appId" fcFieldCode="NEEDUSERTOKEN"
+                    fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="NEEDUSERTOKEN"></fc-radio>
                 <span fccontent1 class="instructionsOther">登录后才能调用，设置为是</span>
-                <fc-text fccontent1 fcLabel="团队积分" [(ngModel)]="mainObj.CORPINTEGRALVALUE" [fcAppid]="appId" fcFieldCode="CORPINTEGRALVALUE" name="CORPINTEGRALVALUE"></fc-text>
+                <fc-text fccontent1 fcLabel="团队积分" [(ngModel)]="mainObj.CORPINTEGRALVALUE" [fcAppid]="appId" fcFieldCode="CORPINTEGRALVALUE"
+                    name="CORPINTEGRALVALUE"></fc-text>
                 <span fccontent1 class="instructionsOther">所在的组织机构获取积分</span>
                 <fc-layoutcol fccontent2 fcSpans="1,1" class="noBottomLine">
-                    <fc-radio fccontent1 fcLabel="需要时间戳？" [(ngModel)]="mainObj.NEEDTIMESTAMP" [fcAppid]="appId" fcFieldCode="NEEDTIMESTAMP" fcLabelCode="DICDESC" fcValueCode="DICVALUE" name="NEEDTIMESTAMP"></fc-radio>
+                    <fc-radio fccontent1 fcLabel="需要时间戳？" [(ngModel)]="mainObj.NEEDTIMESTAMP" [fcAppid]="appId" fcFieldCode="NEEDTIMESTAMP" fcLabelCode="DICDESC"
+                        fcValueCode="DICVALUE" name="NEEDTIMESTAMP"></fc-radio>
                     <span fccontent1 class="instructionsOther">需要配置时间戳才能调用，设置为是</span>
-                    <fc-text fccontent1 fcLabel="用户积分" [(ngModel)]="mainObj.USERINTEGRALVALUE" [fcAppid]="appId" fcFieldCode="USERINTEGRALVALUE" name="USERINTEGRALVALUE"></fc-text>
+                    <fc-text fccontent1 fcLabel="用户积分" [(ngModel)]="mainObj.USERINTEGRALVALUE" [fcAppid]="appId" fcFieldCode="USERINTEGRALVALUE"
+                        name="USERINTEGRALVALUE"></fc-text>
                     <span fccontent1 class="instructionsOther">操作用户获取积分</span>
                     <fc-text fccontent2 fcLabel="作者" [(ngModel)]="mainObj.AUTHOR" [fcAppid]="appId" fcFieldCode="AUTHOR" name="AUTHOR"></fc-text>
                     <span fccontent2 class="instructionsOther">开发者姓名</span>
@@ -113,17 +119,19 @@
                         </div>
                     </div>
                     <div class="sys-card-footer">
-                        <fc-tooltip class="sys-card-btn" fcTitle="点赞">
-                            <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="thumbUp()" fcTitle="点赞">
+                            <fc-icon fcIcon="fc-icon-dianzan2" fccontent></fc-icon>
+                            <span fccontent>2356</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="下载zip">
-                            <fc-icon fcIcon="fc-icon-get" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="download()" fcTitle="下载zip">
+                            <fc-icon fcIcon="fc-icon-daochu" fccontent></fc-icon>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="评价">
-                            <fc-icon fcIcon="fc-icon-chat" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn sys-card-btn-after" (click)="evaluate()" fcTitle="评价">
+                            <fc-icon fcIcon="fc-icon-pinglun1" fccontent></fc-icon>
+                            <span fccontent>559</span>
                         </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="统计图">
-                            <fc-icon fcIcon="fc-icon-bgdimensionality" fcFontSize="30px" fccontent></fc-icon>
+                        <fc-tooltip class="sys-card-btn" (click)="count()" fcTitle="统计图">
+                            <fc-icon fcIcon="fc-icon-shujufenxi" fccontent></fc-icon>
                         </fc-tooltip>
                     </div>
                 </ng-template>
@@ -139,67 +147,67 @@
             返回值定义：FC基础服务平台的功能单位，提供给开发者提供调用接口后返回给调用者的值的配置；
         </P>
     </div>
-    <div nz-row [nzGutter]="10" fccontent>
-        <!-- 新增卡片操作 -->
-        <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
-            <nz-card (click)="event('editResponseParam',{});">
-                <ng-template #body>
-                    <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
-                    <p class="sys-card-addtext">新增返回值定义</p>
-                </ng-template>
-            </nz-card>
-        </div>
-        <!-- 参数列表循环 -->
-        <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let responseParam of responseParams">
-            <nz-card (click)="event('editResponseParam',responseParam);">
-                <ng-template #body>
-                    <div class="sys-card-content">
-                        <!-- 操作按钮 -->
-                        <div class="sys-card-tbl">
-                            <!-- 默认显示两个 -->
-                            <fc-tooltip class="sys-card-tbl-every" fcTitle="{{btn.BTNNAME}}" *ngFor="let btn of btnlistOnes">
-                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE,requestParam)" fcFontSize="18px" fccontent></fc-icon>
+    <div fccontent>
+        <div nz-row [nzGutter]="8">
+            <!-- 新增卡片操作 -->
+            <div nz-col [nzSpan]="6" class="sys-card sys-card-add">
+                <nz-card (click)="event('editResponseParam',{})">
+                    <ng-template #body>
+                        <fc-icon fcIcon="fc-icon-add" fcFontSize="30" class="sys-card-addicon"></fc-icon>
+                        <p class="sys-card-addtext">新增返回值定义</p>
+                    </ng-template>
+                </nz-card>
+            </div>
+            <!-- 接口列表循环 -->
+            <div nz-col [nzSpan]="6" class="sys-card" *ngFor="let responseParam of responseParams">
+                <nz-card (click)="event('editResponseParam',responseParam)">
+                    <ng-template #body>
+                        <div>
+                            <div class="sys-card-content">
+                                <fc-tooltip class="sys-card-help" fcTitle="{{responseParam.REMARK}}">
+                                    <fc-icon fcIcon="fc-icon-wiki" fcContent></fc-icon>
+                                </fc-tooltip>
+                                <!-- 超出2个后显示 -->
+                                <div class="sys-card-tbl-more" *ngIf="btnlistMores.length!==0">
+                                    <nz-dropdown>
+                                        <fc-icon fcIcon="fc-icon-bglist" nz-dropdown></fc-icon>
+                                        <ul nz-menu nzSelectable>
+                                            <li nz-menu-item *ngFor="let btn of btnlistMores">
+                                                <fc-tooltip fcTitle="{{btn.BTNNAME}}">
+                                                    <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE)" fcFontSize="18px" fccontent></fc-icon>
+                                                </fc-tooltip>
+                                            </li>
+                                        </ul>
+                                    </nz-dropdown>
+                                </div>
+                            </div>
+                            <span class="sys-card-mark">
+                                {{responseParam.PARAMTYP|slice:0:1}}
+                            </span>
+                            <div class="sys-card-text">
+                                <div class="sys-card-title">
+                                    {{responseParam.APPID}}-{{responseParam.PARAMNAME}}
+                                </div>
+                                <p class="sys-card-smarks">{{responseParam.REMARK}}</p>
+                            </div>
+                        </div>
+                        <div class="sys-card-footer">
+                            <fc-tooltip class="sys-card-btn" fcTitle="点赞">
+                                <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
                             </fc-tooltip>
-                            <!-- 超出2个后显示 -->
-                            <div class="sys-card-tbl-more" *ngIf="btnlistMores.length!==0">
-                                <nz-dropdown>
-                                    <fc-icon fcIcon="fc-icon-bglist" nz-dropdown></fc-icon>
-                                    <ul nz-menu nzSelectable>
-                                        <li nz-menu-item *ngFor="let btn of btnlistMores">
-                                            <fc-tooltip fcTitle="{{btn.BTNNAME}}">
-                                                <fc-icon [fcIcon]="btn.BTNICON" (click)="btnCardEvent(btn.BTNCODE)" fcFontSize="18px" fccontent></fc-icon>
-                                            </fc-tooltip>
-                                        </li>
-                                    </ul>
-                                </nz-dropdown>
-                            </div>
+                            <fc-tooltip class="sys-card-btn" fcTitle="下载zip">
+                                <fc-icon fcIcon="fc-icon-get" fcFontSize="30px" fccontent></fc-icon>
+                            </fc-tooltip>
+                            <fc-tooltip class="sys-card-btn" fcTitle="评价">
+                                <fc-icon fcIcon="fc-icon-chat" fcFontSize="30px" fccontent></fc-icon>
+                            </fc-tooltip>
+                            <fc-tooltip class="sys-card-btn" fcTitle="统计图">
+                                <fc-icon fcIcon="fc-icon-bgdimensionality" fcFontSize="30px" fccontent></fc-icon>
+                            </fc-tooltip>
                         </div>
-                        <span class="sys-card-mark">
-                            {{responseParam.PARAMTYP|slice:0:1}}
-                        </span>
-                        <div class="sys-card-text">
-                            <div class="sys-card-title">
-                                {{responseParam.APPID}}-{{responseParam.PARAMNAME}}
-                            </div>
-                            <p class="sys-card-smarks">{{responseParam.REMARK}}</p>
-                        </div>
-                    </div>
-                    <div class="sys-card-footer">
-                        <fc-tooltip class="sys-card-btn" fcTitle="点赞">
-                            <fc-icon fcIcon="fc-icon-everyday" fcFontSize="30px" fccontent></fc-icon>
-                        </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="下载zip">
-                            <fc-icon fcIcon="fc-icon-get" fcFontSize="30px" fccontent></fc-icon>
-                        </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="评价">
-                            <fc-icon fcIcon="fc-icon-chat" fcFontSize="30px" fccontent></fc-icon>
-                        </fc-tooltip>
-                        <fc-tooltip class="sys-card-btn" fcTitle="统计图">
-                            <fc-icon fcIcon="fc-icon-bgdimensionality" fcFontSize="30px" fccontent></fc-icon>
-                        </fc-tooltip>
-                    </div>
-                </ng-template>
-            </nz-card>
+                    </ng-template>
+                </nz-card>
+            </div>
         </div>
     </div>
 </fc-layoutpanel>

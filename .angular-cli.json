@@ -28,7 +28,6 @@
         "../node_modules/ag-grid/dist/styles/theme-material.css",
         "../node_modules/ag-grid/dist/styles/ag-theme-material.css",
         "../node_modules/@grapecity/spread-sheets/styles/gc.spread.sheets.css",
-        "../node_modules/dragula/dist/dragula.css",
         "assets/fonts/iconfont/iconfont.css",
         "assets/fonts/antdesign/iconfont.css",
         "assets/fonts/logo/iconfont.css",
@@ -37,7 +36,8 @@
       ],
       "scripts": [
         "../node_modules/chart.js/dist/Chart.js",
-        "../node_modules/numeral/src/numeral.js"
+        "../node_modules/numeral/src/numeral.js",
+        "assets/fonts/iconfont/iconfont.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

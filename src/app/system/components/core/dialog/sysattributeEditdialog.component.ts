@@ -1,12 +1,9 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { NzModalSubject, NzModalService } from 'ng-zorro-antd';
-import { forEach } from '@angular/router/src/utils/collection';
+import { Component, Input } from '@angular/core';
+import { NzModalSubject } from 'ng-zorro-antd';
 import { ParentEditComponent, FctextComponent, FccomboComponent } from 'fccomponent';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SysintfreqparamService } from '../../../services/sysintfreqparam.service';
 import { SysattributeService } from '../../../services/sysattribute.service';
-import { DialogCardListArgs, DialogCardListComponent } from './dialogcardlist.component';
-import { SysaddGroupdialogComponent } from './sysaddGroupdialog.component';
+import { DialogCardListArgs } from './dialogcardlist.component';
 @Component({
   selector: 'sysattributeEditdialogComponent',
   template: `
@@ -20,7 +17,7 @@ import { SysaddGroupdialogComponent } from './sysaddGroupdialog.component';
              <fc-title fcLabel="基本信息" fcWidth="96%" fcheader [fcHasLine]="false"></fc-title>
              <fc-layoutcol fcSpans="1,1" fccontent>
                  <div fccontent1>
-                      <fc-text fccontent1 fcLabel="模型名称" [(ngModel)]="content" [fcAppid]="appId" fcFieldCode="APPID" name="SERVICEID" [fcDisabled]="true"></fc-text>
+                      <fc-text fccontent1 fcLabel="模型名称" [(ngModel)]="content" [fcAppid]="appId" fcFieldCode="APPID" name="SERVICEID" fcReadonly="true"></fc-text>
                       <div class="sys-tab" >描述此模型属性的名称</div>
                       <fc-text fccontent1 fcLabel="属性名称" [(ngModel)]="mainObj.FIELDNAME" [fcAppid]="appId" fcFieldCode="FIELDNAME" name="ELEMENTID" fcPlaceHolder="请输入中文，元素的名称"></fc-text>                     
                  </div>

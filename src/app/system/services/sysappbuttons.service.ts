@@ -30,6 +30,9 @@ export class SysappbuttonsService extends ParentService {
       }
     })
   }
+  _findWithQuery(appId, condition) {
+    return this.appService.findWithQuery(appId, condition);
+  }
   /**
   * 保存
   * @param event  
@@ -37,7 +40,11 @@ export class SysappbuttonsService extends ParentService {
   saveEvent(mainObj) {
     return this.update(mainObj);
   }
-  initObjDefaultValue(app){
+  /**YM
+  * 初始化mainObj
+  * @param app 
+  */
+  initObjDefaultValue(app) {
     return this.appService.initObjDefaultValue(app);
   }
 }

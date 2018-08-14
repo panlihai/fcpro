@@ -3,7 +3,7 @@ import { AppPage } from './app.po';
 describe('fcexample App', () => {
   let page: AppPage;
 
-  beforeEach(() => {
+  Each(() => {
     page = new AppPage();
   });
 

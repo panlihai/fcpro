@@ -14,7 +14,8 @@ import { environment } from '../../../../environments/environment';
         width: 100%;
         height: 100%;
         position:absolute;
-        overflow:auto;
+        overflow-y:auto;
+        overflow-x:hidden;
         background-color: #373d41;
     }
 
@@ -53,7 +54,7 @@ import { environment } from '../../../../environments/environment';
         padding:3px 6px;
     }
     .sigin-body .sigin-body-box {
-        width: 990px;
+        width: 90%;
         margin: auto;
         position: relative;
         height: 388px;

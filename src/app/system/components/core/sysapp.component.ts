@@ -35,44 +35,29 @@ export class SysappComponent extends ParentlistComponent {
   noResult: boolean;
   //产品下拉
   productOptions: any[];
-  //拖拽的event
-  EventUtil: any = {
-    //添加事件处理程序
-    addHandler: (element, type, handler) => {
-      if (element.addEventListener) {
-        element.addEventListener(type, handler, false);
-      } else if (element.attachEvent) {
-        element.attachEvent("on" + type, handler);
-      } else {
-        element["on" + type] = handler;
-      }
-    },
-    //获取事件对象
-    getEvent: (event) => {
-      return event ? event : window.event;
-    },
-    //获取事件的目标
-    getTarget: (event) => {
-      return event.target || event.srcElement;
-    },
-    //取消默认事件
-    preventDefault: (event) => {
-      if (event.preventDefault) {
-        event.preventDefault();
-      } else {
-        event.returnValue = false;
-      }
-    }
-  }
+  //分页总数
+  pageTotal: number;
+  //分页索引
+  pageNum: number;
+  //分页大小
+  pageSize: number;
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute, private modal: NzModalService) {
     super(mainService, router, activeRoute);
   }
   init(): void {
+    //初始化分页
+    this.pageNum = 1;
+    this.pageSize = 20;
+    this.pageTotal = 0;
+    //每个卡片的操作按钮,取列表工具栏的明细按钮,默认显示前两个,超出的显示到更多操作里
     this.btnlistOnes = this.mainService.appButtons.filter(btn => btn.BTNTYPE === 'LISTONE');
+    //更多的按钮
     this.btnlistMores = this.btnlistOnes.splice(3);
+    //截取前两个按钮
     this.btnlistOnes = this.btnlistOnes.splice(0, 2);
+    // 
     this.fastsearchWords = this.mainService.fastSearch();
     //产品下拉
     this.mainService.getproduct().subscribe(result => {
@@ -86,6 +71,9 @@ export class SysappComponent extends ParentlistComponent {
     })
   }
   ngOnInit() {
+    if (this.routerParam && this.routerParam.PID) {
+      this.product = this.routerParam.PID;
+    }
     //初始化数据
     if (this.product !== undefined && this.product !== null && this.product !== ''
       && this.datasource !== undefined && this.datasource !== null && this.datasource !== '') {
@@ -125,10 +113,11 @@ export class SysappComponent extends ParentlistComponent {
    * @param datasource 
    */
   initData(product: string, datasource: string) {
-    this.mainService.findWithQuery({ APPMODEL: product, DATASOURCE: datasource })
+    this.mainService.findWithQuery({ APPMODEL: product, DATASOURCE: datasource, PAGESIZE: this.pageSize, PAGENUM: this.pageNum })
       .subscribe(result => {
         if (result.CODE === '0') {
           this.pageList = result.DATA;
+          this.pageTotal = result.TOTALSIZE;
           //当没有数据时，显示文字提示
           if (this.pageList.length === 0) {
             this.noResult = true;
@@ -194,27 +183,31 @@ export class SysappComponent extends ParentlistComponent {
   quickstart(event: FCEVENT) {
     this.navRouter(this.getRouteUrl('Modify'), event.param);
   }
+  /**
+ * 阻止冒泡
+ */
+  stopPropagation(event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
   /* * 按钮明细
   * @param event 
   */
-  btnCardEvent(event: any, item: any) {
-    switch (event.ACTCODE) {
+  btnCardEvent(event: any, btn: any, item: any) {
+    switch (btn.ACTCODE) {
       case 'listOneDelete'://明细删除
         this.listOneDelete();
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneEdit'://明细修改
         this.listEdit(item);
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneHelp'://明细帮助
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
     }
   }
@@ -239,6 +232,32 @@ export class SysappComponent extends ParentlistComponent {
    */
   chooseDatasource(event: any) {
     this.initData(this.product, event);
+  }
+  /**
+   * 分页事件
+   * @param event 
+   */
+  fcpaginationEvent(event: FCEVENT) {
+    //查询数据的对象
+    let valueObj: any = {};
+    switch (event.eventName) {
+      case 'pageSizeChange'://每页显示多少条
+        valueObj.WHERE = "AND PAGESIZE='" + event.param + "' " + "AND PAGENUM='" + this.pageNum + "' " + "AND PID='" + this.product + "' " + "AND DATASOURCE='" + this.datasource + "'"
+        this.mainService.findWithQuery(valueObj).subscribe(result => {
+          if (result.CODE === '0') {
+            this.pageList = result.DATA;
+          }
+        });
+        break;
+      case 'jumpPage'://跳转到第几页
+        valueObj.WHERE = "AND PAGESIZE='" + event.param + "' " + "AND PAGENUM='" + this.pageNum + "' " + "AND PID='" + this.product + "'" + "AND DATASOURCE='" + this.datasource + "'"
+        this.mainService.findWithQuery(valueObj).subscribe(result => {
+          if (result.CODE === '0') {
+            this.pageList = result.DATA;
+          }
+        });
+        break;
+    }
   }
   /**
    * 导入

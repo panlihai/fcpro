@@ -3,8 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ParentComponent, ParentlistComponent } from 'fccomponent';
 import { SysdatasourceService } from '../../services/sysdatasource.service';
 import { FCEVENT } from 'fccomponent/fc';
-import { Sysappbuttons } from 'fccore';
-// import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 (window as any).global = window;
 @Component({
@@ -101,27 +99,31 @@ export class SysdatasourceComponent extends ParentlistComponent {
     }
   }
   /**
+   * 阻止冒泡
+   */
+  stopPropagation(event: any) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  /**
    * 按钮明细
    * @param event 
    */
-  btnCardEvent(event: any, item: any) {
-    switch (event.ACTCODE) {
+  btnCardEvent(event: any, btn: any, item: any) {
+    switch (btn.ACTCODE) {
       case 'listOneDelete'://明细删除
         this.listOneDelete();
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneEdit'://明细修改
         this.listEdit(item);
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
       case 'listOneHelp'://明细帮助
         //阻止冒泡
-        event.stopPropagation();
-        event.preventDefault();
+        this.stopPropagation(event);
         break;
     }
   }

@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { ParentService, ProvidersService } from 'fccore';
 import { NzModalService } from 'ng-zorro-antd';
 import { DialogListArgs, DialogListComponent } from '../components/core/dialog/dialogList.component';
-import { AddaffiliationdialogComponent } from '../../feature/fcbudget/components/dialog/addaffiliationdialog.component';
-import { SysaddGroupdialogComponent } from '../components/core/dialog/sysaddGroupdialog.component';
+import { SysappfieldgroupComponent } from '../components/core/dialog/sysappfieldgroup.component';
 @Injectable()
 export class SysattributeService extends ParentService {
     constructor(public providers: ProvidersService,
@@ -52,7 +51,7 @@ export class SysattributeService extends ParentService {
     addGroup(content) {
         return this.modal.open({
             title: '添加分组',
-            content: SysaddGroupdialogComponent,
+            content: SysappfieldgroupComponent,
             width: '30%',
             onOk() { },
             onCancel() { },
@@ -64,9 +63,6 @@ export class SysattributeService extends ParentService {
             }
         }).subscribe(result => {
         });
-    }
-    initObjDefaultValue(app) {
-        return this.appService.initObjDefaultValue(app);
     }
 }
 export interface Sysattribute {
