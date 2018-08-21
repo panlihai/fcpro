@@ -22,14 +22,14 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
           <ul class="sys-fast-list">
               <li>
                 <nz-upload [(nzFileList)]="fileList" (click)="import()" style="cursor: pointer;">
-                    <fc-icon fcIcon="fc-icon-everyday" fcColor="#009DFF"></fc-icon>导入
+                    <fc-icon fcIcon="fc-icon-import" fcColor="#009DFF"></fc-icon>导入
                 </nz-upload>
               </li>
               <li>
-                  <fc-icon fcIcon="fc-icon-derive" fcColor="#009DFF"></fc-icon>导出
+                  <fc-icon fcIcon="fc-icon-export" fcColor="#009DFF"></fc-icon>导出
               </li>
               <li>
-                  <fc-icon fcIcon="fc-icon-wiki" fcColor="#009DFF"></fc-icon>帮助
+                  <fc-icon fcIcon="fc-icon-seehelp" fcColor="#009DFF"></fc-icon>帮助
               </li>
               <li class="selectProduct">
                   <fc-combo [fcLabel]="'产品'" [fcOption]="productOption" [(ngModel)]="pid" (ngModelChange)="selectProduct($event)">
@@ -37,6 +37,7 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
               </li>         
           </ul>
       </div>
+      <fc-icon class="sys-card-bg" [fcIcon]="menuIcon"></fc-icon>
     </div>
     <fc-layoutcol fcSpans="1,0" fccontent>
         <div *ngIf="noResult" class="sys-noresult" fccontent1>
@@ -68,8 +69,8 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
                         <span class="sysmenu">{{sysmenu.MENUNAME}}</span>                       
                         <span class="levelLine-1">|</span>
                         <div class="arrow">
-                            <i class="anticon anticon-arrow-up" (click)="changeSort(sysmenus[i],sysmenus[i-1],i,sysmenus)" *ngIf="i!==0"></i>
-                            <i class="anticon anticon-arrow-down" (click)="changeSort(sysmenus[i+1],sysmenus[i],i+1,sysmenus)" *ngIf="i!==sysmenus.length-1"></i>
+                            <i class="anticon anticon-arrow-up" (click)="changeSort(sysmenus[i],sysmenus[i-1],i,sysmenus)" *ngIf="i!==0" fcToolTip="向上排序" fcPosition="top"></i>
+                            <i class="anticon anticon-arrow-down" (click)="changeSort(sysmenus[i+1],sysmenus[i],i+1,sysmenus)" *ngIf="i!==sysmenus.length-1" fcToolTip="向下排序" fcPosition="bottom"></i>
                         </div>    
                     </div> 
                     <fc-icon fcIcon="fc-icon-right" *ngIf="sysmenu.P_CHILDMENUS!==null&&sysmenu.P_CHILDMENUS!==undefined&&sysmenu.P_CHILDMENUS.length!==0&&sysmenu.isOpened===false" class="openIcon" (click)="open(sysmenu)" fcSize="small" fcToolTip="展开" fcPosition="bottom"></fc-icon>
@@ -77,14 +78,14 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
                     <ul class="floatLeft" *ngIf="sysmenu.P_CHILDMENUS!==null&&sysmenu.P_CHILDMENUS!==undefined&&sysmenu.isOpened===true">
                         <div  class="syssecondMenu" *ngFor="let sysscondMenu of sysmenu.P_CHILDMENUS; let i = index" [ngClass]="{'menutype-app':sysscondMenu.MENUTYPE==='APP'}" (click)="menuEdit(sysscondMenu)">
                             <fc-icon [fcIcon]="sysscondMenu.MENUICON"></fc-icon>
-                            <span>
+                            <span class="sysmenu">
                                 {{sysscondMenu.MENUNAME}}
                             </span>                      
                             <span class="levelLine-2">|</span>
                             <span [ngClass]="{'dragsecondMenuNL':sysscondMenu.MENUTYPE==='MENU'}"></span> 
                             <div class="arrow">
-                                <i class="anticon anticon-arrow-up" *ngIf="i!==0" (click)="changeSort(sysmenu.P_CHILDMENUS[i],sysmenu.P_CHILDMENUS[i-1],i,sysmenu.P_CHILDMENUS)"></i>
-                                <i class="anticon anticon-arrow-down" *ngIf="i!==sysmenu.P_CHILDMENUS.length-1" (click)="changeSort(sysmenu.P_CHILDMENUS[i+1],sysmenu.P_CHILDMENUS[i],i+1,sysmenu.P_CHILDMENUS)"></i>
+                                <i class="anticon anticon-arrow-up" *ngIf="i!==0" (click)="changeSort(sysmenu.P_CHILDMENUS[i],sysmenu.P_CHILDMENUS[i-1],i,sysmenu.P_CHILDMENUS)" fcToolTip="向上排序" fcPosition="top" ></i>
+                                <i class="anticon anticon-arrow-down" *ngIf="i!==sysmenu.P_CHILDMENUS.length-1" (click)="changeSort(sysmenu.P_CHILDMENUS[i+1],sysmenu.P_CHILDMENUS[i],i+1,sysmenu.P_CHILDMENUS)" fcToolTip="向下排序" fcPosition="bottom"></i>
                             </div>  
                             <ul *ngIf="sysscondMenu.P_CHILDMENUS!==null&&sysscondMenu.P_CHILDMENUS!==undefined&&sysscondMenu.isOpened===true">
                                 <div class="thirdMenu" *ngFor="let systhridMenu of sysscondMenu.P_CHILDMENUS; let i = index">
@@ -93,8 +94,8 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
                                     </li>
                                     <span [ngClass]="{'dragsecondMenu':systhridMenu.MENUTYPE==='MENU'}"></span> 
                                     <div class="arrow">
-                                        <i class="anticon anticon-arrow-up" (click)="changeSort(sysscondMenu.P_CHILDMENUS[i],sysscondMenu.P_CHILDMENUS[i-1],i,sysscondMenu.P_CHILDMENUS)" *ngIf="i!==0"></i>
-                                        <i class="anticon anticon-arrow-down" (click)="changeSort(sysscondMenu.P_CHILDMENUS[i+1],sysscondMenu.P_CHILDMENUS[i],i+1,sysscondMenu.P_CHILDMENUS)" *ngIf="i!==sysscondMenu.P_CHILDMENUS.length-1"></i>
+                                        <i class="anticon anticon-arrow-up" (click)="changeSort(sysscondMenu.P_CHILDMENUS[i],sysscondMenu.P_CHILDMENUS[i-1],i,sysscondMenu.P_CHILDMENUS)" *ngIf="i!==0" fcToolTip="向上排序" fcPosition="top"></i>
+                                        <i class="anticon anticon-arrow-down" (click)="changeSort(sysscondMenu.P_CHILDMENUS[i+1],sysscondMenu.P_CHILDMENUS[i],i+1,sysscondMenu.P_CHILDMENUS)" *ngIf="i!==sysscondMenu.P_CHILDMENUS.length-1" fcToolTip="向下排序" fcPosition="bottom"></i>
                                     </div>    
                                 </div>  
                                 <span class="dragAreasecond"></span>               
@@ -128,53 +129,53 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
         overflow: hidden;
     }
     .sysmenu{
-        margin-left: 7px;
+        font-size: 20px;
+        color: #333;
     }
     .clearFloat{
         overflow:hidden;
         position: relative;
-        margin-bottom: 10px;
+        margin-bottom: 40px;
     }
     .floatLeft{
         float:left;
-        margin-left:68px;
-        padding-bottom: 30px;
+        margin-left:50px;
+        padding-bottom: 60px;
         margin-bottom: 10px;
-    }
-    .sysmenu-first{
-        float:left; 
-        position: relative;
     }
     .sysmenu-first{
         float: left;
         position: relative;
-        width: 150px;
-        height: 30px;
+        width: 350px;
+        height: 53px;
+        line-height: 53px;
+        border: 1px solid #ccc;
         border-radius: 3px;
-        border: 1px solid #bbbbc3;
-        padding-left: 10px;
+        font-size: 18px;
+        padding-left: 20px;
     }
     .levelLine-1{
         color: #FFE566;
         position: absolute;
-        right: 22px;
-        top: 4px;
+        right: 50px;
+        font-size: 22px;
     }
     .levelLine-2{
         color: #FFA573;
         position: absolute;
-        right: 22px;
+        right: 50px;
+        font-size: 22px;
     }
     .syssecondMenu{
-        width: 150px;
-        height: 30px;
-        background-color: #fff;
-        line-height: 30px;
-        border-radius: 3px;
-        margin-bottom: 10px;
         position: relative;
-        padding-left:10px;
-        border: 1px solid #bbbbc3;
+        width: 350px;
+        height: 53px;
+        line-height: 53px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding-left: 20px;
+        background-color: #fff;
+        margin-bottom: 10px;
     }
     .anticon {
         color:#ccc;
@@ -200,12 +201,10 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     .dragAreafirst{
         position: absolute;
         width: 100%;
-        height: 30px;
-        background-color: #c5c7cc;
-        border: 2px dashed #F0F2F5;
+        height: 53px;
+        border: 2px dashed #eee;
         border-radius: 3px;
-        width: 150px;
-        margin-bottom: 40px;
+        width: 350px;
     }
     .funcStyle{
         background-color: #49a9ee;
@@ -213,28 +212,25 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     }
     .dragAreasecondSL{
         position: absolute;
-        width: 150px;
-        height: 30px;
-        background-color: #c5c7cc;
-        border: 2px dashed #F0F2F5;
+        width: 350px;
+        height: 53px;
+        border: 2px dashed #eee;
         border-radius: 3px;
     }
     .dragsecondMenuNL{
         position: absolute;
-        width: 150px;
-        height: 30px;
-        background-color: #c5c7cc;
-        border: 2px dashed #F0F2F5;
+        width: 350px;
+        height: 53px;
+        border: 2px dashed #eee;
         border-radius: 3px;
         top: 0px;
-        left: 200px;
+        left: 400px;
     }
     .openIcon{
-        float:left;
-        margin-left:18px; 
+        float: left;
         position: absolute;
-        left:115px;
-        top:6px;
+        top: 18px;
+        left: 360px;
         cursor: pointer;
     }
     .secondopenIcon{
@@ -249,11 +245,10 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
         display: block;
     }
     .closeIcon{
-        float:left;
-        margin-left:18px;
+        float: left;
         position: absolute;
-        left:115px;
-        top:6px;
+        left: 360px;
+        top: 15px;
         cursor: pointer;
     }
     .secondcloseIcon{
@@ -298,22 +293,13 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
         padding-left: 20px;s
     }
     .spanFont{
-        font-size:18px;
+        font-size:18px; 
     }
     .functionMenuLine{
         color: #eee;
         display: inline-block;
         float: right;
         margin-right: 50px;
-    }
-    .arrow{
-        text-align: center;
-        height: 22px;
-        position: absolute;
-        top: 6px;
-        right: -50px;
-        width: 38px;
-        cursor:pointer;
     }
     .anticon{
         font-size:14px;
@@ -353,7 +339,7 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     }
     :host ::ng-deep .showLine .fc-content1{
         border-right:1px solid  #CBCBCC;
-        padding:20px 20px 30px 20px;
+        padding:20px 20px 80px 20px;
         position: relative;
     }
     :host ::ng-deep .navMenu .fc-content2{
@@ -391,6 +377,24 @@ import { MenueditdialogComponent } from './dialog/menueditdialog.component';
     .selectProduct fc-combo {
         width: 100%;
     }
+    .arrow .anticon-arrow-up {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        color: #ccc;
+        cursor:pointer;
+    }
+    .arrow .anticon:hover {
+        cursor: pointer;
+        color: #1890ff;
+    }
+    .arrow .anticon-arrow-down {
+        position: absolute;
+        right: 20px;
+        bottom: 10px;
+        color: #ccc;
+        cursor:pointer;
+    }
   `]
 })
 export class SysmenuComponent extends ParentlistComponent {
@@ -411,7 +415,9 @@ export class SysmenuComponent extends ParentlistComponent {
     //新增加的菜单
     menuValue: string;
     //线的显示
-    showLine:boolean;
+    showLine: boolean;
+    //菜单图标
+    menuIcon: string;
     constructor(public mainService: SysmenuService,
         public router: Router,
         private _providers: ProvidersService,
@@ -424,6 +430,8 @@ export class SysmenuComponent extends ParentlistComponent {
         this.sysmenus = [];
         //初始化产品
         this.getProduct();
+        //获取菜单的图标
+        this.menuIcon = this.routerParam.MENUICON;
     }
     getDefaultQuery() {
     }
@@ -471,7 +479,7 @@ export class SysmenuComponent extends ParentlistComponent {
         //暂无数据不显示
         this.noResult = false;
         //选中产品，开始出现线
-        this.showLine=true;
+        this.showLine = true;
     }
     /**
     * 展开菜单
@@ -518,9 +526,9 @@ export class SysmenuComponent extends ParentlistComponent {
     * @param sysmenu
     */
     menuEdit(sysmenu: any) {
-        let obj={};
-        if(sysmenu!==null){
-            obj=sysmenu;
+        let obj = {};
+        if (sysmenu !== null) {
+            obj = sysmenu;
         }
         this.modal.open({
             title: '编辑',
@@ -530,10 +538,10 @@ export class SysmenuComponent extends ParentlistComponent {
             onCancel() { },
             footer: false,
             componentParams: {
-                options:obj
+                options: obj
             }
         }).subscribe(result => {
-            if(result!=='onHide'&&result!=='onCancel'&&result!=='onHidden'&&result!=='onDestroy'){
+            if (result !== 'onHide' && result !== 'onCancel' && result !== 'onHidden' && result !== 'onDestroy') {
                 console.log(result);
             }
         });
