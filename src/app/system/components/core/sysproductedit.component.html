@@ -59,7 +59,7 @@
         <!-- 其它信息 -->
         <fc-layoutcol fcSpans="7,3">
             <div class="sys-choose-icon" fccontent1>
-                <fc-label fcLabel="数据源图标"></fc-label>
+                <fc-label fcLabel="产品图标"></fc-label>
                 <div class="sys-choose-icon-box" (click)="event('iconEvent')">
                     <fc-icon [fcIcon]="mainObj.ICON" [(ngModel)]="mainObj.ICON" fcFontSize="30px"></fc-icon>
                     <span *ngIf="visible">选择字体图标</span>
@@ -68,7 +68,7 @@
             </div>
             <div class="sys-choose-icon" fccontent1>
                 <fc-label fcLabel="产品文档"></fc-label>
-                <div class="sys-choose-icon-upload" (click)="event('iconEvent')">
+                <div class="sys-choose-icon-upload">
                     <fc-upload fccontent class="upload-content" (fcEvent)="event('fileEvent',$event)" [fcOption]="fcUploadOption">
                     </fc-upload>
                 </div>

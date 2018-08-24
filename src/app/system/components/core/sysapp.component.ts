@@ -127,7 +127,6 @@ export class SysappComponent extends ParentlistComponent {
         }
       });
   }
-
   /**
     * 快速查询
     * @param item 

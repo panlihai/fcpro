@@ -7,6 +7,7 @@ import { FCEVENT } from 'fccomponent/fc';
 import { SysappmodaleventdialogComponent } from './dialog/sysappmodaleventdialog.component';
 import { SysappmodalrelationdialogComponent } from './dialog/sysappmodalrelationdialog.component';
 import { SysattributeEditdialogComponent } from './dialog/sysattributeEditdialog.component';
+import { element } from 'protractor';
 @Component({
   selector: 'sysappedit',
   templateUrl: `sysappedit.component.html`,
@@ -31,6 +32,18 @@ import { SysattributeEditdialogComponent } from './dialog/sysattributeEditdialog
     display:block;
     color:#938e8e;
   }
+  .instruction{
+    width:100%;
+    margin-left:50%;
+    display:block;
+    color:#938e8e;
+  }
+  .instruction-psize{
+    margin-left:40%;
+  }
+  :host ::ng-deep .noBottomLine .ant-row.ng-star-inserted {
+    margin-left: 34%;
+  }
   :host ::ng-deep .basicTlb .fc-tlbform{
     margin-top:20px;
   }
@@ -41,28 +54,31 @@ import { SysattributeEditdialogComponent } from './dialog/sysattributeEditdialog
     padding: 0px;
     border-bottom:none;
   }
+  .sys-card-pannel .fc-content .sys-card-pannel-edit .noBorder .fc-layoutcol {
+    border:none;
+  }
   .butType{
     font-size:16px;
     font-weigth:700;
   }
   .clearFloat{
     overflow:hidden;
+    padding: 20px;
+    background-color: #fff;
   }
   .attributeLeft{
     float:left;
-    width:30%;
-    padding: 0px 40px 0px 40px;
-    display:none;
-  }
-  .displayMode{
-    display:block;
+    width:25%;
+    padding: 0px 10px 0px 0px;
   }
   .widthCovered{
     width:100%;
   }
   .attributeRight{
     float:left;
-    width:60%;
+    width:75%;
+    border-left:1px solid #ccc;
+    padding-left:10px;
   }
   .addAttribute {
     width: 100%;
@@ -99,7 +115,10 @@ import { SysattributeEditdialogComponent } from './dialog/sysattributeEditdialog
     height:250px;
   }
   :host ::ng-deep .sys-app .fc-title-in {
-    margin-right: 33%;
+    margin-right: 40%;
+  }
+  :host ::ng-deep .fc-list-actions {
+    color: #009DFF;
   }
   `]
 })
@@ -126,14 +145,22 @@ export class SysappeditComponent extends ParentEditComponent {
   condition: any;
   //模型配置
   modelOption: any = [];
+  //表配置
+  tableOption: any = [];
   //DSID
   DSID: string;
-  //从现有模型中选择属性
-  displayMode: boolean = false;
+  //从模型中导入
+  displayModel: boolean = false;
+  //从表中导入
+  displayTable: boolean = false;
   //物理表以及属性、事件、接口、关系显示
   isShow: boolean;
-  //当前选中的模型
+  //自定义下拉中选中的模型
   models: any = [];
+  //自定义下拉数据的字段
+  items: any = [];
+  //选中的下拉数据对应的模型
+  selects: any = [];
   constructor(public mainService: SysappService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -175,7 +202,6 @@ export class SysappeditComponent extends ParentEditComponent {
     switch (eventName) {
       case 'addList':
         break;
-
     }
   }
   /**
@@ -205,26 +231,23 @@ export class SysappeditComponent extends ParentEditComponent {
     })
   }
   /**
-  * 物理表以及属性、事件、接口、关系显示
-  */
-  show() {
-    this.isShow = true;
-  }
-  /**
   * 保存之后
   */
   afterSave() {
     //保存之后获取本信息ID,并且进入对应ID页面
-    this.mainService.getID(this.mainObj.APPID,this.mainObj.APPNAME).subscribe(res=>{
-      if(res.CODE==='0'){
-        this.mainObj.ID=res.DATA[0].ID;
-        if(this.mainObj.ID!==''){
-          this.navRouter(this.getRouteUrl('Edit'),{ ID: this.mainObj.ID, refresh: 'Y' });
-        }
+    this.mainService.getID(this.mainObj.APPID, this.mainObj.APPNAME).subscribe(res => {
+      if (res.CODE === '0') {
+        this.navRouter(this.getRouteUrl('Edit'), { ID: res.DATA[0].ID, refresh: 'Y' });
       }
     })
     //新增页面保存之后物理表以及属性、事件、接口、关系显示
     this.show();
+  }
+  /**
+  * 物理表以及属性、事件、接口、关系显示
+  */
+  show() {
+    this.isShow = true;
   }
   /**
   * 返回列表
@@ -249,21 +272,67 @@ export class SysappeditComponent extends ParentEditComponent {
     }
   }
   /**模型-属性
-   * 从现有模型中选择属性
+   * 从模型中导入
    * @param  DATASOURCE(数据源)
    */
-  selectAttribute(DATASOURCE:any) {
-    //显示左侧模型
-    this.displayMode = true;
-    //根据数据源获取模型配置
-    this.mainService.getModelOption(this.mainObj.DATASOURCE, this.mainObj.APPMODEL).subscribe(res => {
+  selectAttributeByModel(param) {
+    //显示左侧部分
+    this.displayModel = true;
+    this.displayTable = false;
+    //获取自定义下拉中的数据
+    this.mainService.findWithQuery(param).subscribe(res => {
       if (res.CODE === '0') {
         this.modelOption = res.DATA;
       }
     });
   }
+  /**
+   * 自定义下拉选择模型
+   * @param  modelObjs
+   */
+  tableEvents(modelObjs: any[]) {
+    let tables = '';
+    modelObjs.forEach(element => {
+      tables += element.APPID
+    });
+    // tables = tables.substr(tables.length - 1, 1);
+    /* this.mainService.getModelField(tables, this.mainObj.DATASOURCE, this.mainObj.APPMODEL).subscribe(res => {
+      if (res.CODE === '0') {
+        let tableFields = {};
+        modelObjs.forEach(table => {
+          let tableFields: any = Object.assign({}, table);
+          tableFields.fields = res.DATA[table.TABLENAME];
+          this.models.push(tableFields);
+        })
+      }
+    }); */
+    this.mainService.findAppFieldsByAppid(tables).subscribe(res => {
+      if (res.CODE === '0') {
+        modelObjs.forEach(table => {
+          let tableFields: any = Object.assign({}, table);
+          tableFields.items = res.DATA;
+          this.selects.push(tableFields);
+        })
+      }
+    });
+  }
   /**模型-属性
-   * 选择模型
+   * 从表中导入
+   * @param  DATASOURCE(数据源)
+   */
+  selectAttributeByTable(DATASOURCE: any) {
+    //显示左侧模型
+    this.displayTable = true;
+    this.displayModel = false;
+    //获取自定义下拉数据
+    this.mainService.getModelOption(this.mainObj.DATASOURCE, this.mainObj.APPMODEL).subscribe(res => {
+      if (res.CODE === '0') {
+        this.tableOption = res.DATA;
+      }
+    });
+  }
+  /**
+   * 选择自定义下拉模型
    * @param  tableObjs
    */
   modelEvents(tableObjs: any[]) {
@@ -284,23 +353,32 @@ export class SysappeditComponent extends ParentEditComponent {
     });
   }
   /** 
-  * 模型-属性
-  *列表里面新增属性
-  *@param  ev
-  */
-  addAttributeAdd(ev:string) {
-    this.mainService.WindowEvent(ev, '属性-编辑', SysattributeEditdialogComponent);
-  }
-  /** 
    * 模型-属性
-   *列表里面编辑属性
+   *列表里面新增属性-弹窗
    *@param  ev
    @param  str
    */
-  attributeEditEvent(ev: FCEVENT,str:string) {
+  attributeAddEvent(event?: Object, str?: string) {
+    let obj = {
+      event: event,
+      str: str
+    }
+    this.mainService.WindowEvent(obj, '属性-编辑', SysattributeEditdialogComponent);
+  }
+  /** 
+   * 模型-属性
+   *列表里面编辑属性-弹窗
+   *@param  ev
+   @param  str
+   */
+  attributeEditEvent(ev?: FCEVENT, str?: string) {
     switch (ev.eventName) {
       case "listEdit":
-      this.mainService.WindowEditEvent(ev.param,str, '属性-编辑', SysattributeEditdialogComponent);
+        let obj = {
+          event: ev.param,
+          str: str
+        }
+        this.mainService.WindowEvent(obj, '属性-编辑', SysattributeEditdialogComponent);
         break;
     }
   }
@@ -318,19 +396,15 @@ export class SysappeditComponent extends ParentEditComponent {
     });
   }
   /** 
-   *新增模型事件卡片
-   * 
-   */
-  addModelEvent(event:string) {
-    this.mainService.WindowEvent(event, '模型事件', SysappmodaleventdialogComponent);
-  }
-  
-  /** 
-   *编辑模型事件卡片
+   *新增或编辑模型事件卡片-弹窗
    *@param event 
    */
-  editModelEvent(event:Object,str:string) {
-    this.mainService.WindowEditEvent(event,str, '模型事件', SysappmodaleventdialogComponent);
+  editModelEvent(event?: Object, str?: string) {
+    let obj = {
+      event: event,
+      str: str
+    }
+    this.mainService.WindowEvent(obj, '模型事件', SysappmodaleventdialogComponent);
   }
   /**
    * 获取模型接口-数据
@@ -349,20 +423,20 @@ export class SysappeditComponent extends ParentEditComponent {
    *新增模型接口卡片
    */
   addModelInterface() {
-    this.navRouter('/system/sysinterfaceEdit', { refresh: 'Y', ID: this.mainObj.ID })
+    this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'),{ refresh: 'Y', ID: this.mainObj.ID, from: this.appId })
   }
   /** 
    *编辑模型接口卡片
    *@param interface 
    */
-  editModelInterface(event:any) {
+  editModelInterface(event: any) {
     //选中的对象
     let selectedObj: any = event;
     if (selectedObj && selectedObj !== null) {
       //把卡片的数据放入缓存中
       this.cacheService.setS('SYSINTERFACE' + "DATA", this.commonService.cloneArray(this.sysInterfaces));
       //把id带入到编辑页面
-      this.navRouter('/system/sysinterfaceEdit', { ID: selectedObj.ID, refresh: 'Y' });
+      this.navRouter(this.mainService.getRouteUrl(this.mainService.moduleId, 'SYSINTERFACE', 'Edit'), { ID: this.mainObj.ID, interfaceId: event.ID, from: this.appId, refresh: 'Y' });
     }
   }
   /**
@@ -379,17 +453,14 @@ export class SysappeditComponent extends ParentEditComponent {
     });
   }
   /** 
-   *新增模型关系卡片
+   *新增或编辑模型关系卡片
    *@param event 
    */
-  addModelRelation(event:string) {
-    this.mainService.WindowEvent(event, '模型关系', SysappmodalrelationdialogComponent);
-  }
-  /** 
-   *编辑模型关系卡片
-   *@param event 
-   */
-  editModelRelation(event:Object,str:string) {
-    this.mainService.WindowEditEvent(event, str,'模型关系', SysappmodalrelationdialogComponent);
+  editModelRelation(event?: Object, str?: string) {
+    let obj = {
+      event: event,
+      str: str
+    }
+    this.mainService.WindowEvent(obj, '模型关系', SysappmodalrelationdialogComponent);
   }
 }

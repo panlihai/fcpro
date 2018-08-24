@@ -8,6 +8,7 @@ import { SysproductService } from './sysproduct.service';
 import { SysserviceService } from './sysservice.service';
 import { SysintfreqparamService } from './sysintfreqparam.service';
 import { SysintfresparamService } from './sysintfresparam.service';
+import { SysappService } from './sysapp.service';
 @Injectable()
 export class SysinterfaceService extends ParentService {
     dialogArgsSubject = new Subject();
@@ -16,6 +17,7 @@ export class SysinterfaceService extends ParentService {
         private sysbizcoderuleService: SysbizcoderuleService,
         private sysproductService: SysproductService,
         private sysserviceService: SysserviceService,
+        private sysappService: SysappService,
         private sysintfreqparamService: SysintfreqparamService,
         private sysintfresparamService: SysintfresparamService,
         private modal: NzModalService, ) {
@@ -39,12 +41,40 @@ export class SysinterfaceService extends ParentService {
     getParameters() {
         return this.findWithQuery('SYSINTERFACEPARAM')
     }
+    /** 
+    *  通过ID获取服务数据
+    * @param id
+    */
     getServiceById(id) {
         return this.sysserviceService.findWithQuery({ ID: id });
     }
+    /** 
+    *  通过ID获取元数据接口数据
+    * @param id
+    */
+    getAppById(id) {
+        return this.sysappService.findWithQuery({ ID: id });
+    }
+    /** 
+   *  通过ID获取编辑页面元数据接口数据
+   * @param id
+   */
+    getById(id) {
+        return this.findWithQuery({ ID: id });
+    }
+    /** 
+    * 获取参数配置数据
+    * @param implid
+    * @param pid
+    */
     getInterfaceReqParams(implid, pid) {
         return this.sysintfreqparamService.findWithQuery({ IMPLID: implid, PID: pid })
     }
+    /** 
+    * 获取返回值数据
+    * @param implid
+    * @param pid
+    */
     getInterfaceResParams(implid, pid) {
         return this.sysintfresparamService.findWithQuery({ IMPLID: implid, PID: pid })
     }
