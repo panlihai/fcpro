@@ -5,7 +5,7 @@
             <div nz-row [nzGutter]="10" fccontent>
                 <!-- 个人信息 -->
                 <div nz-col [nzSpan]="24" class="sys-wizard-card">
-                    <nz-card (click)="navAdd({ refresh: 'Y' });" [nzNoHovering]="false">
+                    <nz-card  >
                         <ng-template #body>
                             <div class="sys-basic-info">
                                 <div class="sys-info-user">
@@ -47,7 +47,7 @@
                 </div>
                 <!-- 进行中的服务 -->
                 <div nz-col [nzSpan]="24" class="sys-wizard-card">
-                    <nz-card (click)="navAdd({ refresh: 'Y' });" [nzNoHovering]="false">
+                    <nz-card (click)="navAdd({ refresh: 'Y' });" >
                         <ng-template #body>
                             <fc-title fcLabel="进行中的项目" fcBorder="bottom"></fc-title>
                             <a class="sys-title-right">全部的服务</a>
@@ -80,7 +80,7 @@
                 </div>
                 <!-- 动态 -->
                 <div nz-col [nzSpan]="24" class="sys-wizard-card">
-                    <nz-card (click)="navAdd({ refresh: 'Y' });" [nzNoHovering]="false">
+                    <nz-card (click)="navAdd({ refresh: 'Y' });" >
                         <ng-template #body>
                             <fc-title fcLabel="动态" fcBorder="bottom"></fc-title>
                             <div nz-row [nzGutter]="8" fccontent>
@@ -97,22 +97,27 @@
         <div fccontent2 class="sys-wizard-content2">
             <div nz-row [nzGutter]="10" fccontent>
                 <!-- 快速开始 -->
-                <div nz-col [nzSpan]="24" class="sys-wizard-card">
-                    <nz-card (click)="navAdd({ refresh: 'Y' });" [nzNoHovering]="false">
+                <div nz-col [nzSpan]="24" class="sys-wizard-card sys-wizard-navlink">
+                    <nz-card  >
                         <ng-template #body>
                             <fc-title fcLabel="快速开始/便捷导航" fcBorder="bottom"></fc-title>
-                            <div class="fastcontent" style="display:flex;flex-wrap: wrap;padding-left:10px; ">
+                            <div class="fastcontent" style="display: flex;
+                            flex-wrap: wrap;
+                            padding-left: 10px;
+                            padding-top: 10px;
+                            height: 117px;
+                            overflow: auto;">
                                 <fc-tag fcClose="true" *ngFor="let navLink of navLinks" style="margin-right: 20px;margin-bottom: 10px;" [fcLabel]="navLink.LABEL"
                                     (fcEvent)="navLinkEvent($event,navLink)"></fc-tag>
                                 <fc-button fcLabel="+ 添加" [fcSize]="'small'" [fcType]="'dashed'" (click)="addNavLinkTag(contentTpl_navLink,footerTpl_navLink)"
-                                    class="add"></fc-button>
+                                    class="add fastnav-add"></fc-button>
                             </div>
                         </ng-template>
                     </nz-card>
                 </div>
                 <!-- 访问指数 -->
                 <div nz-col [nzSpan]="24" class="sys-wizard-card">
-                    <nz-card (click)="navAdd({ refresh: 'Y' });" [nzNoHovering]="false">
+                    <nz-card>
                         <ng-template #body>
                             <fc-title fcLabel="访问指数" fcBorder="bottom"></fc-title>
                             <div style="height:200px; display: block;">
@@ -124,7 +129,7 @@
                 </div>
                 <!-- 团队 -->
                 <div nz-col [nzSpan]="24" class="sys-wizard-card">
-                    <nz-card (click)="navAdd({ refresh: 'Y' });" [nzNoHovering]="false">
+                    <nz-card >
                         <ng-template #body>
                             <fc-title fcLabel="团队" fcBorder="bottom"></fc-title>
                             <ul class="sys-team">

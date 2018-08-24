@@ -2,11 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ParentlistComponent, FclistdataComponent } from 'fccomponent';
 import { ProvidersService } from 'fccore';
-import { SysproductService } from '../../services/sysproduct.service';
 import { SyswizardService } from '../../services/syswizard.service';
 import { FCEVENT } from 'fccomponent/fc';
-import { environment } from '../../../../environments/environment';
-import { Args_NavLink, NavLinkFunctionName } from '../../services/sysnavlink.service';
+import { Args_NavLink } from '../../services/sysnavlink.service';
 import { ColumnApi } from 'ag-grid';
 @Component({
   selector: 'syswizard',
@@ -48,11 +46,13 @@ import { ColumnApi } from 'ag-grid';
   .sys-info-text .sys-info-smarks{
     color:#999999;
     font-size:16px;
+    margin-top:15px;
   }
   .sys-info-count{
     display:flex;
     justify-content:flex-end;
     margin-right:40px;
+    align-items: center;
   }
   .sys-info-count .sys-info-count-every{
     text-align:center;
@@ -90,6 +90,10 @@ import { ColumnApi } from 'ag-grid';
     margin-top: 0;
     padding-top: 5px;
     padding-bottom: 5px;
+    margin-bottom:0;
+  }
+  :host ::ng-deep .sys-wizard .sys-wizard-navlink .fc-subtitle{
+   display:none;
   }
   :host ::ng-deep .fc-content2>.sys-wizard-content2 {
     padding-left:10px;
@@ -100,18 +104,38 @@ import { ColumnApi } from 'ag-grid';
   .ant-card-bordered{
 
   }
+  :host ::ng-deep .fastnav-add .ant-btn-dashed {
+    color: #1890ff;
+    background-color: #fff;
+    border-color: #1890ff;
+    border-style: dashed;
+  }
+  :host ::ng-deep .sys-wizard .ant-card:not(.ant-card-no-hovering) {
+    border-color: #e9e9e9;
+    border-radius: 6px;
+  }
+  
+  :host ::ng-deep .sys-wizard .ant-card:not(.ant-card-no-hovering):hover {
+    box-shadow: 0px 4px 24px rgba(22, 24, 51, 0.4);
+    border-color: #e9e9e9;
+    border-radius: 6px;
+  }
+  
   `]
 })
 export class SyswizardComponent extends ParentlistComponent {
-  //快速导航，过滤 
-  navLinkListCondition: any;
+  //链接
   links: any;
+  //快速导航列表
   @ViewChild("navLink_listdata") navLink_listdata: FclistdataComponent;
+  //模态框快速导航
   currentModal_navLink: any;
   //navLink 标签
   navLinks: any;
   //产品数据
   sysServices: any[];
+  //快速
+  navLinkListCondition: any;
   constructor(public mainService: SyswizardService,
     public router: Router,
     public activeRoute: ActivatedRoute,
@@ -120,8 +144,10 @@ export class SyswizardComponent extends ParentlistComponent {
     super(mainService, router, activeRoute);
   }
   init() {
+    //初始化服务
     this.initServices();
-    //快速导航
+  }
+  ngOnInit(): void {
     this.initNavLink();
   }
   getDefaultQuery() {
@@ -133,9 +159,9 @@ export class SyswizardComponent extends ParentlistComponent {
   /**
   * 初始化产品
   */
- initServices() {
+  initServices() {
     this.mainService.findService({}).subscribe(result => {
-      if(result.CODE==='0'){
+      if (result.CODE === '0') {
         this.sysServices = result.DATA;
       }
     });
@@ -151,21 +177,26 @@ export class SyswizardComponent extends ParentlistComponent {
   public radarChartType: string = 'radar';
   // 访问指数
   public chartClicked(e: any): void {
-    console.log(e);
   }
   public chartHovered(e: any): void {
-    console.log(e);
+  }
+
+  /**
+   * 访问指数
+   */
+  visitlistEvent() {
+
   }
   /**
- * YM
- *动态加载快速导航标签数据;
- */
+  * YM
+  *动态加载快速导航标签数据;
+  */
   initNavLink() {
-    this.mainService.NavLinkFunction(NavLinkFunctionName.getNavLinks).subscribe(res => {
+    this.mainService.getNavLinks().subscribe(res => {
       if (res.CODE === "0") this.navLinks = res.DATA;
       let args: Args_NavLink = { navlinks: this.navLinks }
-      this.navLinkListCondition = this.mainService.NavLinkFunction(NavLinkFunctionName.rebuildList_NavLink, args);
-      this.mainService.NavLinkFunction(NavLinkFunctionName.refreshNavLink, args);
+      this.navLinkListCondition = this.mainService.rebuildList_NavLink(args);
+      this.mainService.refreshNavLink(args);
     });
   }
   /** YM
@@ -173,18 +204,12 @@ export class SyswizardComponent extends ParentlistComponent {
    */
   addNavLinkTag(contentTpl, footerTpl) {
     let args: Args_NavLink = { navlinks: this.navLinks, contentTpl: contentTpl, footerTpl: footerTpl, listdata: this.navLink_listdata }
-    if (this.mainService.NavLinkFunction(NavLinkFunctionName.addNavLinkTag, args)) {
+    if (this.mainService.addNavLinkTag(args)) {
       setTimeout(() => {
         let column: ColumnApi = this.navLink_listdata._gridColumnApi;
         if (column) column.autoSizeAllColumns();
       });
     }
-  }
-  /**
-   * 访问指数
-   */
-  visitlistEvent() {
-
   }
   /** YM
    * 处理新增快速导航标签——确定
@@ -192,7 +217,7 @@ export class SyswizardComponent extends ParentlistComponent {
   handleAddNavLink_ok(ev: any) {
     let args: Args_NavLink = { navlinks: this.navLinks, listdata: this.navLink_listdata, condition: this.navLinkListCondition }
     if (
-      this.mainService.NavLinkFunction(NavLinkFunctionName.handleAddNavLink_ok, args)
+      this.mainService.handleAddNavLink_ok(args)
     ) {
       setTimeout(() => {
         this.initNavLink();
@@ -203,7 +228,7 @@ export class SyswizardComponent extends ParentlistComponent {
    * 处理新增快速导航标签——取消
    */
   handleAddNavLink_cancel(ev: any) {
-    this.mainService.NavLinkFunction(NavLinkFunctionName.handleAddNavLink_cancel)
+    this.mainService.handleAddNavLink_cancel()
   }
   /** YM
    * 快速导航标签事件
@@ -213,21 +238,14 @@ export class SyswizardComponent extends ParentlistComponent {
       case "close":
         break;
       case "beforeClose":
-        event.stopPropagation();
-        event.preventDefault();
-        this.mainService.NavLinkFunction(NavLinkFunctionName.deleteSubject).subscribe(res => {
+        let args: Args_NavLink = { link: link }
+        this.mainService.deleteSubject().subscribe(res => {
           if (res) this.initNavLink();
         });
-        this.mainService.NavLinkFunction(NavLinkFunctionName.navLinkBeforeClose, { link: link });
+        this.mainService.navLinkBeforeClose(args);
         break;
       case "click":
-        event.stopPropagation();
-        event.preventDefault();
-        this.logService.debug('路由' + ev.param);
-        this._providers.commonService.event('selectedMenu', {
-          ID: '', MENUID: 'SYSNAVLINK', ROUTER: 'sysassignmentList',
-          PID: environment.pid, MENUTYPE: 'INURL', MENUNAME: '待办任务', MENUICON: 'fc-icon-bgefficiency'
-        });
+        this.mainService.navToByMenuId(this.router, link.ROUTER);
         break;
       default:
         break;
